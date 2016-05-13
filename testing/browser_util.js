@@ -71,6 +71,13 @@ var BrowserDetection = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(BrowserDetection.prototype, "isChromeDesktop", {
+        get: function () {
+            return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 && this._ua.indexOf('Edge') == -1;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return BrowserDetection;
 }());
 exports.BrowserDetection = BrowserDetection;

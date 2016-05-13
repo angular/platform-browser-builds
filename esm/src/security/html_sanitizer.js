@@ -220,7 +220,7 @@ export function sanitizeHtml(unsafeHtml) {
             DOM.removeChild(parent, child);
         }
         if (assertionsEnabled() && safeHtml !== unsafeHtml) {
-            DOM.log('WARNING: some HTML contents were removed during sanitization.');
+            DOM.log('WARNING: sanitizing HTML stripped some content.');
         }
         return safeHtml;
     }

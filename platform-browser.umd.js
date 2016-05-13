@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v2.0.0-c2c6073
+ * @license AngularJS v2.0.0-bac1a6e
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -350,8 +350,12 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
     function sanitizeUrl(url) {
-        if (String(url).match(SAFE_URL_PATTERN))
+        url = String(url);
+        if (url.match(SAFE_URL_PATTERN))
             return url;
+        if (assertionsEnabled()) {
+            getDOM().log('WARNING: sanitizing unsafe URL value ' + url);
+        }
         return 'unsafe:' + url;
     }
     /** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
@@ -584,7 +588,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 DOM.removeChild(parent_1, child);
             }
             if (assertionsEnabled() && safeHtml !== unsafeHtml) {
-                DOM.log('WARNING: some HTML contents were removed during sanitization.');
+                DOM.log('WARNING: sanitizing HTML stripped some content.');
             }
             return safeHtml;
         }
@@ -640,6 +644,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         value = String(value); // Make sure it's actually a string.
         if (value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value))
             return value;
+        if (assertionsEnabled()) {
+            getDOM().log('WARNING: sanitizing unsafe style value ' + value);
+        }
         return 'unsafe';
     }
     /**

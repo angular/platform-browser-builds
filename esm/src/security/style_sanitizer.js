@@ -1,3 +1,5 @@
+import { getDOM } from '../dom/dom_adapter';
+import { assertionsEnabled } from '../../src/facade/lang';
 /**
  * Regular expression for safe style values.
  *
@@ -44,6 +46,9 @@ export function sanitizeStyle(value) {
     value = String(value); // Make sure it's actually a string.
     if (value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value))
         return value;
+    if (assertionsEnabled()) {
+        getDOM().log('WARNING: sanitizing unsafe style value ' + value);
+    }
     return 'unsafe';
 }
 //# sourceMappingURL=style_sanitizer.js.map

@@ -1,3 +1,5 @@
+import { getDOM } from '../dom/dom_adapter';
+import { assertionsEnabled } from '../../src/facade/lang';
 /**
  * A pattern that recognizes a commonly useful subset of URLs that are safe.
  *
@@ -26,8 +28,12 @@
  */
 const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
 export function sanitizeUrl(url) {
-    if (String(url).match(SAFE_URL_PATTERN))
+    url = String(url);
+    if (url.match(SAFE_URL_PATTERN))
         return url;
+    if (assertionsEnabled()) {
+        getDOM().log('WARNING: sanitizing unsafe URL value ' + url);
+    }
     return 'unsafe:' + url;
 }
 //# sourceMappingURL=url_sanitizer.js.map

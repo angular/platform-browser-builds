@@ -1,4 +1,6 @@
 "use strict";
+var dom_adapter_1 = require('../dom/dom_adapter');
+var lang_1 = require('../../src/facade/lang');
 /**
  * A pattern that recognizes a commonly useful subset of URLs that are safe.
  *
@@ -27,8 +29,12 @@
  */
 var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
 function sanitizeUrl(url) {
-    if (String(url).match(SAFE_URL_PATTERN))
+    url = String(url);
+    if (url.match(SAFE_URL_PATTERN))
         return url;
+    if (lang_1.assertionsEnabled()) {
+        dom_adapter_1.getDOM().log('WARNING: sanitizing unsafe URL value ' + url);
+    }
     return 'unsafe:' + url;
 }
 exports.sanitizeUrl = sanitizeUrl;

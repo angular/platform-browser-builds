@@ -1,4 +1,6 @@
 "use strict";
+var dom_adapter_1 = require('../dom/dom_adapter');
+var lang_1 = require('../../src/facade/lang');
 /**
  * Regular expression for safe style values.
  *
@@ -45,6 +47,9 @@ function sanitizeStyle(value) {
     value = String(value); // Make sure it's actually a string.
     if (value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value))
         return value;
+    if (lang_1.assertionsEnabled()) {
+        dom_adapter_1.getDOM().log('WARNING: sanitizing unsafe style value ' + value);
+    }
     return 'unsafe';
 }
 exports.sanitizeStyle = sanitizeStyle;
