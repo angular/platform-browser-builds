@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v2.0.0-ea628e3
+ * @license AngularJS v2.0.0-dd50124
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -349,13 +349,14 @@ var __extends = (this && this.__extends) || function (d, b) {
      * This regular expression was taken from the Closure sanitization library.
      */
     var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
+    /** A pattern that matches safe data URLs. Only matches image and video types. */
+    var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm));base64,[a-z0-9+\/]+=*$/i;
     function sanitizeUrl(url) {
         url = String(url);
-        if (url.match(SAFE_URL_PATTERN))
+        if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
             return url;
-        if (assertionsEnabled()) {
+        if (assertionsEnabled())
             getDOM().log('WARNING: sanitizing unsafe URL value ' + url);
-        }
         return 'unsafe:' + url;
     }
     /** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
