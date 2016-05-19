@@ -18,6 +18,8 @@ var hammer_gestures_1 = require('./dom/events/hammer_gestures');
 var shared_styles_host_2 = require('./dom/shared_styles_host');
 var animation_builder_1 = require('./animate/animation_builder');
 var browser_details_1 = require('./animate/browser_details');
+var common_2 = require('@angular/common');
+var browser_platform_location_1 = require('./browser/location/browser_platform_location');
 var title_1 = require('./browser/title');
 exports.Title = title_1.Title;
 var browser_adapter_2 = require('./browser/browser_adapter');
@@ -38,6 +40,7 @@ exports.BROWSER_PROVIDERS = [
     /*@ts2dart_Provider*/ { provide: exports.BROWSER_PLATFORM_MARKER, useValue: true },
     core_1.PLATFORM_COMMON_PROVIDERS,
     /*@ts2dart_Provider*/ { provide: core_1.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+    /*@ts2dart_Provider*/ { provide: common_2.PlatformLocation, useClass: browser_platform_location_1.BrowserPlatformLocation }
 ];
 function _exceptionHandler() {
     // !IS_DART is required because we must rethrow exceptions in JS,

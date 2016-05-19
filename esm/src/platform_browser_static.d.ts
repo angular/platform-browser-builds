@@ -5,11 +5,10 @@ export { BrowserPlatformLocation } from './browser/location/browser_platform_loc
 export { BROWSER_PROVIDERS, By, Title, enableDebugTools, disableDebugTools } from './browser_common';
 /**
  * An array of providers that should be passed into `application()` when bootstrapping a component
- * when all templates
- * have been precompiled offline.
+ * when all templates have been precompiled offline.
  */
 export declare const BROWSER_APP_STATIC_PROVIDERS: Array<any>;
-export declare function browserStaticPlatform(): PlatformRef;
+export declare function browserPlatform(): PlatformRef;
 /**
  * See {@link bootstrap} for more information.
  */

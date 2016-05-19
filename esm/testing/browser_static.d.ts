@@ -1,4 +1,3 @@
-export { TestComponentRenderer } from '@angular/compiler/testing';
 /**
  * Default platform providers for testing without a compiler.
  */

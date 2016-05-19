@@ -14,18 +14,17 @@ exports.enableDebugTools = browser_common_2.enableDebugTools;
 exports.disableDebugTools = browser_common_2.disableDebugTools;
 /**
  * An array of providers that should be passed into `application()` when bootstrapping a component
- * when all templates
- * have been precompiled offline.
+ * when all templates have been precompiled offline.
  */
 exports.BROWSER_APP_STATIC_PROVIDERS = 
 /*@ts2dart_const*/ browser_common_1.BROWSER_APP_COMMON_PROVIDERS;
-function browserStaticPlatform() {
+function browserPlatform() {
     if (lang_1.isBlank(core_1.getPlatform())) {
         core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(browser_common_1.BROWSER_PROVIDERS));
     }
     return core_1.assertPlatform(browser_common_1.BROWSER_PLATFORM_MARKER);
 }
-exports.browserStaticPlatform = browserStaticPlatform;
+exports.browserPlatform = browserPlatform;
 /**
  * See {@link bootstrap} for more information.
  */
@@ -35,7 +34,7 @@ function bootstrapStatic(appComponentType, customProviders, initReflector) {
     }
     var appProviders = lang_1.isPresent(customProviders) ? [exports.BROWSER_APP_STATIC_PROVIDERS, customProviders] :
         exports.BROWSER_APP_STATIC_PROVIDERS;
-    var appInjector = core_1.ReflectiveInjector.resolveAndCreate(appProviders, browserStaticPlatform().injector);
+    var appInjector = core_1.ReflectiveInjector.resolveAndCreate(appProviders, browserPlatform().injector);
     return core_1.coreLoadAndBootstrap(appInjector, appComponentType);
 }
 exports.bootstrapStatic = bootstrapStatic;

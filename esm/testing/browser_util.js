@@ -35,7 +35,8 @@ export class BrowserDetection {
         return this._ua.indexOf('Chrome/4') > -1 && this._ua.indexOf('Edge') == -1;
     }
     get isChromeDesktop() {
-        return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 && this._ua.indexOf('Edge') == -1;
+        return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 &&
+            this._ua.indexOf('Edge') == -1;
     }
 }
 export function dispatchEvent(element, eventType) {

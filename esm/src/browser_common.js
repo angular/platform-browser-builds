@@ -17,6 +17,8 @@ import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerGesturesPlugin } from
 import { DomSharedStylesHost } from './dom/shared_styles_host';
 import { AnimationBuilder } from './animate/animation_builder';
 import { BrowserDetails } from './animate/browser_details';
+import { PlatformLocation } from '@angular/common';
+import { BrowserPlatformLocation } from './browser/location/browser_platform_location';
 export { Title } from './browser/title';
 export { BrowserDomAdapter } from './browser/browser_adapter';
 export { enableDebugTools, disableDebugTools } from './browser/tools/tools';
@@ -32,6 +34,7 @@ export const BROWSER_PROVIDERS = [
     /*@ts2dart_Provider*/ { provide: BROWSER_PLATFORM_MARKER, useValue: true },
     PLATFORM_COMMON_PROVIDERS,
     /*@ts2dart_Provider*/ { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+    /*@ts2dart_Provider*/ { provide: PlatformLocation, useClass: BrowserPlatformLocation }
 ];
 function _exceptionHandler() {
     // !IS_DART is required because we must rethrow exceptions in JS,
