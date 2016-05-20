@@ -10,8 +10,6 @@ export declare class WebWorkerPlatformLocation extends PlatformLocation {
     private _location;
     private _channelSource;
     constructor(brokerFactory: ClientMessageBrokerFactory, bus: MessageBus, _serializer: Serializer);
-    /** @internal **/
-    init(): Promise<boolean>;
     getBaseHrefFromDOM(): string;
     onPopState(fn: UrlChangeListener): void;
     onHashChange(fn: UrlChangeListener): void;

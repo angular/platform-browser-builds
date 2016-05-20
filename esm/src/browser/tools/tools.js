@@ -14,6 +14,7 @@ var context = global;
  */
 export function enableDebugTools(ref) {
     context.ng = new AngularTools(ref);
+    return ref;
 }
 /**
  * Disables Angular 2 tools.

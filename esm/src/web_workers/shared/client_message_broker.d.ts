@@ -9,8 +9,6 @@ export declare abstract class ClientMessageBrokerFactory {
 }
 export declare class ClientMessageBrokerFactory_ extends ClientMessageBrokerFactory {
     private _messageBus;
-    /** @internal */
-    _serializer: Serializer;
     constructor(_messageBus: MessageBus, _serializer: Serializer);
     /**
      * Initializes the given channel and attaches a new {@link ClientMessageBroker} to it.
@@ -24,8 +22,6 @@ export declare class ClientMessageBroker_ extends ClientMessageBroker {
     channel: any;
     private _pending;
     private _sink;
-    /** @internal */
-    _serializer: Serializer;
     constructor(messageBus: MessageBus, _serializer: Serializer, channel: any);
     private _generateMessageId(name);
     runOnService(args: UiArguments, returnType: Type): Promise<any>;

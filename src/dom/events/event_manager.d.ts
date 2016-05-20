@@ -7,8 +7,6 @@ export declare class EventManager {
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     addGlobalEventListener(target: string, eventName: string, handler: Function): Function;
     getZone(): NgZone;
-    /** @internal */
-    _findPluginFor(eventName: string): EventManagerPlugin;
 }
 export declare class EventManagerPlugin {
     manager: EventManager;

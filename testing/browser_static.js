@@ -1,6 +1,6 @@
 "use strict";
 var core_1 = require('@angular/core');
-var browser_common_1 = require('../src/browser_common');
+var browser_1 = require('../src/platform/common/browser');
 var browser_adapter_1 = require('../src/browser/browser_adapter');
 var animation_builder_1 = require('../src/animate/animation_builder');
 var animation_builder_mock_1 = require('./animation_builder_mock');
@@ -26,7 +26,7 @@ exports.TEST_BROWSER_STATIC_PLATFORM_PROVIDERS =
     core_1.PLATFORM_COMMON_PROVIDERS,
     /*@ts2dart_Provider*/ { provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
 ];
-exports.ADDITIONAL_TEST_BROWSER_PROVIDERS = 
+exports.ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS = 
 /*@ts2dart_const*/ [
     /*@ts2dart_Provider*/ { provide: core_1.APP_ID, useValue: 'a' },
     ng_probe_1.ELEMENT_PROBE_PROVIDERS,
@@ -39,5 +39,5 @@ exports.ADDITIONAL_TEST_BROWSER_PROVIDERS =
  * Default application providers for testing without a compiler.
  */
 exports.TEST_BROWSER_STATIC_APPLICATION_PROVIDERS = 
-/*@ts2dart_const*/ [browser_common_1.BROWSER_APP_COMMON_PROVIDERS, exports.ADDITIONAL_TEST_BROWSER_PROVIDERS];
+/*@ts2dart_const*/ [browser_1.BROWSER_APP_COMMON_PROVIDERS, exports.ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS];
 //# sourceMappingURL=browser_static.js.map

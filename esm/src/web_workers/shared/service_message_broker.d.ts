@@ -9,8 +9,6 @@ export declare abstract class ServiceMessageBrokerFactory {
 }
 export declare class ServiceMessageBrokerFactory_ extends ServiceMessageBrokerFactory {
     private _messageBus;
-    /** @internal */
-    _serializer: Serializer;
     constructor(_messageBus: MessageBus, _serializer: Serializer);
     createMessageBroker(channel: string, runInZone?: boolean): ServiceMessageBroker;
 }

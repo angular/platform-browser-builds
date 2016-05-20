@@ -1,5 +1,5 @@
 import { APP_ID, NgZone, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER } from '@angular/core';
-import { BROWSER_APP_COMMON_PROVIDERS } from '../src/browser_common';
+import { BROWSER_APP_COMMON_PROVIDERS } from '../src/platform/common/browser';
 import { BrowserDomAdapter } from '../src/browser/browser_adapter';
 import { AnimationBuilder } from '../src/animate/animation_builder';
 import { MockAnimationBuilder } from './animation_builder_mock';
@@ -25,7 +25,7 @@ export const TEST_BROWSER_STATIC_PLATFORM_PROVIDERS =
     PLATFORM_COMMON_PROVIDERS,
     /*@ts2dart_Provider*/ { provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
 ];
-export const ADDITIONAL_TEST_BROWSER_PROVIDERS = 
+export const ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS = 
 /*@ts2dart_const*/ [
     /*@ts2dart_Provider*/ { provide: APP_ID, useValue: 'a' },
     ELEMENT_PROBE_PROVIDERS,
@@ -38,5 +38,5 @@ export const ADDITIONAL_TEST_BROWSER_PROVIDERS =
  * Default application providers for testing without a compiler.
  */
 export const TEST_BROWSER_STATIC_APPLICATION_PROVIDERS = 
-/*@ts2dart_const*/ [BROWSER_APP_COMMON_PROVIDERS, ADDITIONAL_TEST_BROWSER_PROVIDERS];
+/*@ts2dart_const*/ [BROWSER_APP_COMMON_PROVIDERS, ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS];
 //# sourceMappingURL=browser_static.js.map

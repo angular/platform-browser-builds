@@ -8,10 +8,6 @@ export declare class BrowserPlatformLocation extends PlatformLocation {
     private _location;
     private _history;
     constructor();
-    /** @internal */
-    _init(): void;
-    /** @internal */
-    readonly location: Location;
     getBaseHrefFromDOM(): string;
     onPopState(fn: UrlChangeListener): void;
     onHashChange(fn: UrlChangeListener): void;

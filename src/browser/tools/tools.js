@@ -15,6 +15,7 @@ var context = lang_1.global;
  */
 function enableDebugTools(ref) {
     context.ng = new common_tools_1.AngularTools(ref);
+    return ref;
 }
 exports.enableDebugTools = enableDebugTools;
 /**
