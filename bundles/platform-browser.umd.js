@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v2.0.0-c43636f
+ * @license AngularJS v2.0.0-0f0a8ad
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -402,29 +402,6 @@ var __extends = (this && this.__extends) || function (d, b) {
             return res;
         };
     })();
-    var MapWrapper = (function () {
-        function MapWrapper() {
-        }
-        MapWrapper.clone = function (m) { return createMapFromMap(m); };
-        MapWrapper.createFromStringMap = function (stringMap) {
-            var result = new Map$1();
-            for (var prop in stringMap) {
-                result.set(prop, stringMap[prop]);
-            }
-            return result;
-        };
-        MapWrapper.toStringMap = function (m) {
-            var r = {};
-            m.forEach(function (v, k) { return r[k] = v; });
-            return r;
-        };
-        MapWrapper.createFromPairs = function (pairs) { return createMapFromPairs(pairs); };
-        MapWrapper.clearValues = function (m) { _clearValues(m); };
-        MapWrapper.iterable = function (m) { return m; };
-        MapWrapper.keys = function (m) { return _arrayFromMap(m, false); };
-        MapWrapper.values = function (m) { return _arrayFromMap(m, true); };
-        return MapWrapper;
-    }());
     /**
      * Wraps Javascript Objects
      */
@@ -664,8 +641,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         BaseException.prototype.toString = function () { return this.message; };
         return BaseException;
     }(Error));
-    var EVENT_MANAGER_PLUGINS = 
-    /*@ts2dart_const*/ new _angular_core.OpaqueToken("EventManagerPlugins");
+    var EVENT_MANAGER_PLUGINS = new _angular_core.OpaqueToken("EventManagerPlugins");
     var EventManager = (function () {
         function EventManager(plugins, _zone) {
             var _this = this;
@@ -879,8 +855,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return HammerGesturesPluginCommon;
     }(EventManagerPlugin));
-    var HAMMER_GESTURE_CONFIG = 
-    /*@ts2dart_const*/ new _angular_core.OpaqueToken("HammerGestureConfig");
+    var HAMMER_GESTURE_CONFIG = new _angular_core.OpaqueToken("HammerGestureConfig");
     var HammerGestureConfig = (function () {
         function HammerGestureConfig() {
             this.events = [];
@@ -1360,9 +1335,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     DomSharedStylesHost.ctorParameters = [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
     ];
-    var NAMESPACE_URIS = 
-    /*@ts2dart_const*/
-    { 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://www.w3.org/2000/svg' };
+    var NAMESPACE_URIS = { 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://www.w3.org/2000/svg' };
     var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
     var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/g;
     var DomRootRenderer = (function () {
@@ -1683,7 +1656,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * Providers which support debugging Angular applications (e.g. via `ng.probe`).
      */
     var ELEMENT_PROBE_PROVIDERS = [
-        /*@ts2dart_Provider*/ {
+        {
             provide: _angular_core.RootRenderer,
             useFactory: _createConditionalRootRenderer,
             deps: [DomRootRenderer]
@@ -2904,86 +2877,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return BrowserGetTestability;
     }());
-    var BROWSER_PLATFORM_MARKER = 
-    /*@ts2dart_const*/ new _angular_core.OpaqueToken('BrowserPlatformMarker');
-    /**
-     * A set of providers to initialize the Angular platform in a web browser.
-     *
-     * Used automatically by `bootstrap`, or can be passed to {@link platform}.
-     */
-    var BROWSER_PLATFORM_PROVIDERS = [
-        /*@ts2dart_Provider*/ { provide: BROWSER_PLATFORM_MARKER, useValue: true },
-        _angular_core.PLATFORM_COMMON_PROVIDERS,
-        /*@ts2dart_Provider*/ { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-        /*@ts2dart_Provider*/ { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
-    ];
-    var BROWSER_SANITIZATION_PROVIDERS = [
-        /* @ts2dart_Provider */ { provide: SanitizationService, useExisting: DomSanitizationService },
-        /* @ts2dart_Provider */ { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
-    ];
-    /**
-     * A set of providers to initialize an Angular application in a web browser.
-     *
-     * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
-     */
-    var BROWSER_APP_COMMON_PROVIDERS = 
-    /*@ts2dart_const*/ [
-        _angular_core.APPLICATION_COMMON_PROVIDERS,
-        _angular_common.FORM_PROVIDERS,
-        BROWSER_SANITIZATION_PROVIDERS,
-        /* @ts2dart_Provider */ { provide: _angular_core.PLATFORM_PIPES, useValue: _angular_common.COMMON_PIPES, multi: true },
-        /* @ts2dart_Provider */ { provide: _angular_core.PLATFORM_DIRECTIVES, useValue: _angular_common.COMMON_DIRECTIVES, multi: true },
-        /* @ts2dart_Provider */ { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
-        /* @ts2dart_Provider */ { provide: DOCUMENT, useFactory: _document, deps: [] },
-        /* @ts2dart_Provider */ { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-        /* @ts2dart_Provider */ { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-        /* @ts2dart_Provider */ { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-        /* @ts2dart_Provider */ { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-        /* @ts2dart_Provider */ { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-        /* @ts2dart_Provider */ { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
-        /* @ts2dart_Provider */ { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-        DomSharedStylesHost,
-        _angular_core.Testability,
-        BrowserDetails,
-        AnimationBuilder,
-        EventManager,
-        ELEMENT_PROBE_PROVIDERS
-    ];
-    function browserPlatform() {
-        if (isBlank(_angular_core.getPlatform())) {
-            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(BROWSER_PLATFORM_PROVIDERS));
-        }
-        return _angular_core.assertPlatform(BROWSER_PLATFORM_MARKER);
-    }
-    function initDomAdapter() {
-        BrowserDomAdapter.makeCurrent();
-        wtfInit();
-        BrowserGetTestability.init();
-    }
-    function _exceptionHandler() {
-        return new _angular_core.ExceptionHandler(getDOM());
-    }
-    function _document() {
-        return getDOM().defaultDoc();
-    }
-    /**
-     * An array of providers that should be passed into `application()` when bootstrapping a component
-     * when all templates have been pre-compiled.
-     */
-    var BROWSER_APP_STATIC_PROVIDERS = 
-    /*@ts2dart_const*/ BROWSER_APP_COMMON_PROVIDERS;
-    /**
-     * See {@link bootstrap} for more information.
-     */
-    function bootstrapStatic(appComponentType, customProviders, initReflector) {
-        if (isPresent(initReflector)) {
-            initReflector();
-        }
-        var appProviders = isPresent(customProviders) ? [BROWSER_APP_STATIC_PROVIDERS, customProviders] :
-            BROWSER_APP_STATIC_PROVIDERS;
-        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate(appProviders, browserPlatform().injector);
-        return _angular_core.coreLoadAndBootstrap(appInjector, appComponentType);
-    }
     var PromiseCompleter = (function () {
         function PromiseCompleter() {
             var _this = this;
@@ -3090,17 +2983,60 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return XHRImpl;
     }(_angular_compiler.XHR));
-    var CACHED_TEMPLATE_PROVIDER = 
-    /*@ts2dart_const*/ [{ provide: _angular_compiler.XHR, useClass: CachedXHR }];
+    var CACHED_TEMPLATE_PROVIDER = [{ provide: _angular_compiler.XHR, useClass: CachedXHR }];
+    var BROWSER_PLATFORM_MARKER = new _angular_core.OpaqueToken('BrowserPlatformMarker');
     /**
-     * An array of providers that should be passed into `application()` when bootstrapping a component.
+     * A set of providers to initialize the Angular platform in a web browser.
+     *
+     * Used automatically by `bootstrap`, or can be passed to {@link platform}.
      */
-    var BROWSER_APP_PROVIDERS = 
-    /*@ts2dart_const*/ [
-        BROWSER_APP_COMMON_PROVIDERS,
+    var BROWSER_PLATFORM_PROVIDERS = [
+        { provide: BROWSER_PLATFORM_MARKER, useValue: true },
+        _angular_core.PLATFORM_COMMON_PROVIDERS,
+        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+        { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
+    ];
+    var BROWSER_SANITIZATION_PROVIDERS = [
+        { provide: SanitizationService, useExisting: DomSanitizationService },
+        { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
+    ];
+    /**
+     * A set of providers to initialize an Angular application in a web browser.
+     *
+     * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
+     */
+    var BROWSER_APP_PROVIDERS = [
+        _angular_core.APPLICATION_COMMON_PROVIDERS,
+        _angular_common.FORM_PROVIDERS,
+        BROWSER_SANITIZATION_PROVIDERS,
+        { provide: _angular_core.PLATFORM_PIPES, useValue: _angular_common.COMMON_PIPES, multi: true },
+        { provide: _angular_core.PLATFORM_DIRECTIVES, useValue: _angular_common.COMMON_DIRECTIVES, multi: true },
+        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+        { provide: DOCUMENT, useFactory: _document, deps: [] },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
+        { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
+        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+        DomSharedStylesHost,
+        _angular_core.Testability,
+        BrowserDetails,
+        AnimationBuilder,
+        EventManager,
+        ELEMENT_PROBE_PROVIDERS
+    ];
+    var BROWSER_APP_COMPILER_PROVIDERS = [
         _angular_compiler.COMPILER_PROVIDERS,
         { provide: _angular_compiler.XHR, useClass: XHRImpl },
     ];
+    function browserPlatform() {
+        if (isBlank(_angular_core.getPlatform())) {
+            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(BROWSER_PLATFORM_PROVIDERS));
+        }
+        return _angular_core.assertPlatform(BROWSER_PLATFORM_MARKER);
+    }
     /**
      * Bootstrapping for Angular applications.
      *
@@ -3171,8 +3107,24 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     function bootstrap(appComponentType, customProviders) {
         _angular_core.reflector.reflectionCapabilities = new ReflectionCapabilities();
-        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate([BROWSER_APP_PROVIDERS, isPresent(customProviders) ? customProviders : []], browserPlatform().injector);
-        return _angular_core.coreLoadAndBootstrap(appInjector, appComponentType);
+        var providers = [
+            BROWSER_APP_PROVIDERS,
+            BROWSER_APP_COMPILER_PROVIDERS,
+            isPresent(customProviders) ? customProviders : []
+        ];
+        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate(providers, browserPlatform().injector);
+        return _angular_core.coreLoadAndBootstrap(appComponentType, appInjector);
+    }
+    function initDomAdapter() {
+        BrowserDomAdapter.makeCurrent();
+        wtfInit();
+        BrowserGetTestability.init();
+    }
+    function _exceptionHandler() {
+        return new _angular_core.ExceptionHandler(getDOM());
+    }
+    function _document() {
+        return getDOM().defaultDoc();
     }
     /**
      * Message Bus is a low level API used to communicate between the UI and the background.
@@ -3248,7 +3200,13 @@ var __extends = (this && this.__extends) || function (d, b) {
      * }
      * ```
      *
-     * Use Rx.Observable but provides an adapter to make it work as specified here:
+     * The events payload can be accessed by the parameter `$event` on the components output event handler:
+     *
+     * ```
+     * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
+     * ```
+     *
+     * Uses Rx.Observable but provides an adapter to make it work as specified here:
      * https://github.com/jhusain/observable-spec
      *
      * Once a reference implementation of the spec is available, switch to it.
@@ -3415,36 +3373,6 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
             else {
                 throw new BaseException("No deserializer for " + type.toString());
-            }
-        };
-        Serializer.prototype.mapToObject = function (map, type) {
-            var _this = this;
-            var object = {};
-            var serialize = isPresent(type);
-            map.forEach(function (value, key) {
-                if (serialize) {
-                    object[key] = _this.serialize(value, type);
-                }
-                else {
-                    object[key] = value;
-                }
-            });
-            return object;
-        };
-        /*
-         * Transforms a Javascript object (StringMap) into a Map<string, V>
-         * If the values need to be deserialized pass in their type
-         * and they will be deserialized before being placed in the map
-         */
-        Serializer.prototype.objectToMap = function (obj, type, data) {
-            var _this = this;
-            if (isPresent(type)) {
-                var map = new Map$1();
-                StringMapWrapper.forEach(obj, function (val, key) { map.set(key, _this.deserialize(val, type, data)); });
-                return map;
-            }
-            else {
-                return MapWrapper.createFromStringMap(obj);
             }
         };
         Serializer.prototype._serializeLocation = function (loc) {
@@ -3856,7 +3784,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * {@link ROUTER_PROVIDERS} and after them.
      */
     var WORKER_APP_LOCATION_PROVIDERS = [
-        /* @ts2dart_Provider */ { provide: _angular_common.PlatformLocation, useClass: WebWorkerPlatformLocation },
+        { provide: _angular_common.PlatformLocation, useClass: WebWorkerPlatformLocation },
         {
             provide: _angular_core.APP_INITIALIZER,
             useFactory: function (platformLocation, zone) { return function () { return initWorkerLocation(platformLocation, zone); }; },
@@ -3912,7 +3840,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     var WORKER_RENDER_LOCATION_PROVIDERS = [
         MessageBasedPlatformLocation,
         BrowserPlatformLocation,
-        /* @ts2dart_Provider */ { provide: _angular_core.APP_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [_angular_core.Injector] }
+        { provide: _angular_core.APP_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [_angular_core.Injector] }
     ];
     function initUiLocation(injector) {
         return function () {
@@ -4206,8 +4134,155 @@ var __extends = (this && this.__extends) || function (d, b) {
         { type: _angular_core.RootRenderer, },
     ];
     var ON_WEB_WORKER = new _angular_core.OpaqueToken('WebWorker.onWebWorker');
-    var WORKER_RENDER_PLATFORM_MARKER = 
-    /*@ts2dart_const*/ new _angular_core.OpaqueToken('WorkerRenderPlatformMarker');
+    var PostMessageBusSink = (function () {
+        function PostMessageBusSink(_postMessageTarget) {
+            this._postMessageTarget = _postMessageTarget;
+            this._channels = StringMapWrapper.create();
+            this._messageBuffer = [];
+        }
+        PostMessageBusSink.prototype.attachToZone = function (zone) {
+            var _this = this;
+            this._zone = zone;
+            this._zone.runOutsideAngular(function () {
+                ObservableWrapper.subscribe(_this._zone.onStable, function (_) { _this._handleOnEventDone(); });
+            });
+        };
+        PostMessageBusSink.prototype.initChannel = function (channel, runInZone) {
+            var _this = this;
+            if (runInZone === void 0) { runInZone = true; }
+            if (StringMapWrapper.contains(this._channels, channel)) {
+                throw new BaseException(channel + " has already been initialized");
+            }
+            var emitter = new EventEmitter(false);
+            var channelInfo = new _Channel(emitter, runInZone);
+            this._channels[channel] = channelInfo;
+            emitter.subscribe(function (data) {
+                var message = { channel: channel, message: data };
+                if (runInZone) {
+                    _this._messageBuffer.push(message);
+                }
+                else {
+                    _this._sendMessages([message]);
+                }
+            });
+        };
+        PostMessageBusSink.prototype.to = function (channel) {
+            if (StringMapWrapper.contains(this._channels, channel)) {
+                return this._channels[channel].emitter;
+            }
+            else {
+                throw new BaseException(channel + " is not set up. Did you forget to call initChannel?");
+            }
+        };
+        PostMessageBusSink.prototype._handleOnEventDone = function () {
+            if (this._messageBuffer.length > 0) {
+                this._sendMessages(this._messageBuffer);
+                this._messageBuffer = [];
+            }
+        };
+        PostMessageBusSink.prototype._sendMessages = function (messages) { this._postMessageTarget.postMessage(messages); };
+        return PostMessageBusSink;
+    }());
+    var PostMessageBusSource = (function () {
+        function PostMessageBusSource(eventTarget) {
+            var _this = this;
+            this._channels = StringMapWrapper.create();
+            if (eventTarget) {
+                eventTarget.addEventListener("message", function (ev) { return _this._handleMessages(ev); });
+            }
+            else {
+                // if no eventTarget is given we assume we're in a WebWorker and listen on the global scope
+                addEventListener("message", function (ev) { return _this._handleMessages(ev); });
+            }
+        }
+        PostMessageBusSource.prototype.attachToZone = function (zone) { this._zone = zone; };
+        PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
+            if (runInZone === void 0) { runInZone = true; }
+            if (StringMapWrapper.contains(this._channels, channel)) {
+                throw new BaseException(channel + " has already been initialized");
+            }
+            var emitter = new EventEmitter(false);
+            var channelInfo = new _Channel(emitter, runInZone);
+            this._channels[channel] = channelInfo;
+        };
+        PostMessageBusSource.prototype.from = function (channel) {
+            if (StringMapWrapper.contains(this._channels, channel)) {
+                return this._channels[channel].emitter;
+            }
+            else {
+                throw new BaseException(channel + " is not set up. Did you forget to call initChannel?");
+            }
+        };
+        PostMessageBusSource.prototype._handleMessages = function (ev) {
+            var messages = ev.data;
+            for (var i = 0; i < messages.length; i++) {
+                this._handleMessage(messages[i]);
+            }
+        };
+        PostMessageBusSource.prototype._handleMessage = function (data) {
+            var channel = data.channel;
+            if (StringMapWrapper.contains(this._channels, channel)) {
+                var channelInfo = this._channels[channel];
+                if (channelInfo.runInZone) {
+                    this._zone.run(function () { channelInfo.emitter.emit(data.message); });
+                }
+                else {
+                    channelInfo.emitter.emit(data.message);
+                }
+            }
+        };
+        return PostMessageBusSource;
+    }());
+    var PostMessageBus = (function () {
+        function PostMessageBus(sink, source) {
+            this.sink = sink;
+            this.source = source;
+        }
+        PostMessageBus.prototype.attachToZone = function (zone) {
+            this.source.attachToZone(zone);
+            this.sink.attachToZone(zone);
+        };
+        PostMessageBus.prototype.initChannel = function (channel, runInZone) {
+            if (runInZone === void 0) { runInZone = true; }
+            this.source.initChannel(channel, runInZone);
+            this.sink.initChannel(channel, runInZone);
+        };
+        PostMessageBus.prototype.from = function (channel) { return this.source.from(channel); };
+        PostMessageBus.prototype.to = function (channel) { return this.sink.to(channel); };
+        return PostMessageBus;
+    }());
+    PostMessageBus.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    PostMessageBus.ctorParameters = [
+        { type: PostMessageBusSink, },
+        { type: PostMessageBusSource, },
+    ];
+    /**
+     * Helper class that wraps a channel's {@link EventEmitter} and
+     * keeps track of if it should run in the zone.
+     */
+    var _Channel = (function () {
+        function _Channel(emitter, runInZone) {
+            this.emitter = emitter;
+            this.runInZone = runInZone;
+        }
+        return _Channel;
+    }());
+    var WORKER_RENDER_PLATFORM_MARKER = new _angular_core.OpaqueToken('WorkerRenderPlatformMarker');
+    var WebWorkerInstance = (function () {
+        function WebWorkerInstance() {
+        }
+        /** @internal */
+        WebWorkerInstance.prototype.init = function (worker, bus) {
+            this.worker = worker;
+            this.bus = bus;
+        };
+        return WebWorkerInstance;
+    }());
+    WebWorkerInstance.decorators = [
+        { type: _angular_core.Injectable },
+    ];
     var WORKER_SCRIPT = new _angular_core.OpaqueToken("WebWorkerScript");
     /**
      * A multiple providers used to automatically call the `start()` method after the service is
@@ -4215,40 +4290,50 @@ var __extends = (this && this.__extends) || function (d, b) {
      *
      * TODO(vicb): create an interface for startable services to implement
      */
-    var WORKER_RENDER_STARTABLE_MESSAGING_SERVICE = 
-    /*@ts2dart_const*/ new _angular_core.OpaqueToken('WorkerRenderStartableMsgService');
+    var WORKER_RENDER_STARTABLE_MESSAGING_SERVICE = new _angular_core.OpaqueToken('WorkerRenderStartableMsgService');
     var WORKER_RENDER_PLATFORM_PROVIDERS = [
         _angular_core.PLATFORM_COMMON_PROVIDERS,
-        /*@ts2dart_const*/ ({ provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true }),
-        /* @ts2dart_Provider */ { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
+        { provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true },
+        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
     ];
-    var WORKER_RENDER_APPLICATION_COMMON_PROVIDERS = 
-    /*@ts2dart_const*/ [
+    var WORKER_RENDER_APPLICATION_PROVIDERS = [
         _angular_core.APPLICATION_COMMON_PROVIDERS,
         MessageBasedRenderer,
-        /* @ts2dart_Provider */ { provide: WORKER_RENDER_STARTABLE_MESSAGING_SERVICE, useExisting: MessageBasedRenderer, multi: true },
+        { provide: WORKER_RENDER_STARTABLE_MESSAGING_SERVICE, useExisting: MessageBasedRenderer, multi: true },
         BROWSER_SANITIZATION_PROVIDERS,
-        /* @ts2dart_Provider */ { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler$1, deps: [] },
-        /* @ts2dart_Provider */ { provide: DOCUMENT, useFactory: _document$1, deps: [] },
+        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler$1, deps: [] },
+        { provide: DOCUMENT, useFactory: _document$1, deps: [] },
         // TODO(jteplitz602): Investigate if we definitely need EVENT_MANAGER on the render thread
         // #5298
-        /* @ts2dart_Provider */ { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-        /* @ts2dart_Provider */ { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-        /* @ts2dart_Provider */ { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-        /* @ts2dart_Provider */ { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-        /* @ts2dart_Provider */ { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-        /* @ts2dart_Provider */ { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
-        /* @ts2dart_Provider */ { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-        /* @ts2dart_Provider */ { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
-        /* @ts2dart_Provider */ { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
+        { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
+        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+        { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
+        { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
         Serializer,
-        /* @ts2dart_Provider */ { provide: ON_WEB_WORKER, useValue: false },
+        { provide: ON_WEB_WORKER, useValue: false },
         RenderStore,
         DomSharedStylesHost,
         _angular_core.Testability,
         BrowserDetails,
         AnimationBuilder,
-        EventManager
+        EventManager,
+        WebWorkerInstance,
+        {
+            provide: _angular_core.APP_INITIALIZER,
+            useFactory: (function (injector) { return function () { return initWebWorkerApplication(injector); }; }),
+            multi: true,
+            deps: [_angular_core.Injector]
+        },
+        {
+            provide: MessageBus,
+            useFactory: function (instance) { return instance.bus; },
+            deps: [WebWorkerInstance]
+        }
     ];
     function initializeGenericWorkerRenderer(injector) {
         var bus = injector.get(MessageBus);
@@ -4257,6 +4342,18 @@ var __extends = (this && this.__extends) || function (d, b) {
         // initialize message services after the bus has been created
         var services = injector.get(WORKER_RENDER_STARTABLE_MESSAGING_SERVICE);
         zone.runGuarded(function () { services.forEach(function (svc) { svc.start(); }); });
+    }
+    function bootstrapRender(workerScriptUri, customProviders) {
+        var app = _angular_core.ReflectiveInjector.resolveAndCreate([
+            WORKER_RENDER_APPLICATION_PROVIDERS,
+            BROWSER_APP_COMPILER_PROVIDERS,
+            { provide: WORKER_SCRIPT, useValue: workerScriptUri },
+            isPresent(customProviders) ? customProviders : []
+        ], workerRenderPlatform().injector);
+        // Return a promise so that we keep the same semantics as Dart,
+        // and we might want to wait for the app side to come up
+        // in the future...
+        return PromiseWrapper.resolve(app.get(_angular_core.ApplicationRef));
     }
     function initWebWorkerRenderPlatform() {
         BrowserDomAdapter.makeCurrent();
@@ -4274,6 +4371,28 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     function _document$1() {
         return getDOM().defaultDoc();
+    }
+    function initWebWorkerApplication(injector) {
+        var scriptUri;
+        try {
+            scriptUri = injector.get(WORKER_SCRIPT);
+        }
+        catch (e) {
+            throw new BaseException("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
+        }
+        var instance = injector.get(WebWorkerInstance);
+        spawnWebWorker(scriptUri, instance);
+        initializeGenericWorkerRenderer(injector);
+    }
+    /**
+     * Spawns a new class and initializes the WebWorkerInstance
+     */
+    function spawnWebWorker(uri, instance) {
+        var webWorker = new Worker(uri);
+        var sink = new PostMessageBusSink(webWorker);
+        var source = new PostMessageBusSource(webWorker);
+        var bus = new PostMessageBus(sink, source);
+        instance.init(webWorker, bus);
     }
     var WebWorkerRootRenderer = (function () {
         function WebWorkerRootRenderer(messageBrokerFactory, bus, _serializer, _renderStore) {
@@ -4503,260 +4622,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return WebWorkerRenderNode;
     }());
-    var PrintLogger = (function () {
-        function PrintLogger() {
-            this.log = print;
-            this.logError = print;
-            this.logGroup = print;
-        }
-        PrintLogger.prototype.logGroupEnd = function () { };
-        return PrintLogger;
-    }());
-    var WORKER_APP_PLATFORM_MARKER = 
-    /*@ts2dart_const*/ new _angular_core.OpaqueToken('WorkerAppPlatformMarker');
-    var WORKER_APP_PLATFORM_PROVIDERS = 
-    /*@ts2dart_const*/ [
-        _angular_core.PLATFORM_COMMON_PROVIDERS,
-        /*@ts2dart_const*/ (
-        /* @ts2dart_Provider */ { provide: WORKER_APP_PLATFORM_MARKER, useValue: true })
-    ];
-    var WORKER_APP_APPLICATION_COMMON_PROVIDERS = 
-    /*@ts2dart_const*/ [
-        _angular_core.APPLICATION_COMMON_PROVIDERS,
-        _angular_common.FORM_PROVIDERS,
-        BROWSER_SANITIZATION_PROVIDERS,
-        Serializer,
-        /* @ts2dart_Provider */ { provide: _angular_core.PLATFORM_PIPES, useValue: _angular_common.COMMON_PIPES, multi: true },
-        /* @ts2dart_Provider */ { provide: _angular_core.PLATFORM_DIRECTIVES, useValue: _angular_common.COMMON_DIRECTIVES, multi: true },
-        /* @ts2dart_Provider */ { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
-        /* @ts2dart_Provider */ { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
-        WebWorkerRootRenderer,
-        /* @ts2dart_Provider */ { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
-        /* @ts2dart_Provider */ { provide: ON_WEB_WORKER, useValue: true },
-        RenderStore,
-        /* @ts2dart_Provider */ { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler$2, deps: [] }
-    ];
-    function workerAppPlatform() {
-        if (isBlank(_angular_core.getPlatform())) {
-            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(WORKER_APP_PLATFORM_PROVIDERS));
-        }
-        return _angular_core.assertPlatform(WORKER_APP_PLATFORM_MARKER);
-    }
-    function _exceptionHandler$2() {
-        return new _angular_core.ExceptionHandler(new PrintLogger());
-    }
-    var PostMessageBusSink = (function () {
-        function PostMessageBusSink(_postMessageTarget) {
-            this._postMessageTarget = _postMessageTarget;
-            this._channels = StringMapWrapper.create();
-            this._messageBuffer = [];
-        }
-        PostMessageBusSink.prototype.attachToZone = function (zone) {
-            var _this = this;
-            this._zone = zone;
-            this._zone.runOutsideAngular(function () {
-                ObservableWrapper.subscribe(_this._zone.onStable, function (_) { _this._handleOnEventDone(); });
-            });
-        };
-        PostMessageBusSink.prototype.initChannel = function (channel, runInZone) {
-            var _this = this;
-            if (runInZone === void 0) { runInZone = true; }
-            if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new BaseException(channel + " has already been initialized");
-            }
-            var emitter = new EventEmitter(false);
-            var channelInfo = new _Channel(emitter, runInZone);
-            this._channels[channel] = channelInfo;
-            emitter.subscribe(function (data) {
-                var message = { channel: channel, message: data };
-                if (runInZone) {
-                    _this._messageBuffer.push(message);
-                }
-                else {
-                    _this._sendMessages([message]);
-                }
-            });
-        };
-        PostMessageBusSink.prototype.to = function (channel) {
-            if (StringMapWrapper.contains(this._channels, channel)) {
-                return this._channels[channel].emitter;
-            }
-            else {
-                throw new BaseException(channel + " is not set up. Did you forget to call initChannel?");
-            }
-        };
-        PostMessageBusSink.prototype._handleOnEventDone = function () {
-            if (this._messageBuffer.length > 0) {
-                this._sendMessages(this._messageBuffer);
-                this._messageBuffer = [];
-            }
-        };
-        PostMessageBusSink.prototype._sendMessages = function (messages) { this._postMessageTarget.postMessage(messages); };
-        return PostMessageBusSink;
-    }());
-    var PostMessageBusSource = (function () {
-        function PostMessageBusSource(eventTarget) {
-            var _this = this;
-            this._channels = StringMapWrapper.create();
-            if (eventTarget) {
-                eventTarget.addEventListener("message", function (ev) { return _this._handleMessages(ev); });
-            }
-            else {
-                // if no eventTarget is given we assume we're in a WebWorker and listen on the global scope
-                addEventListener("message", function (ev) { return _this._handleMessages(ev); });
-            }
-        }
-        PostMessageBusSource.prototype.attachToZone = function (zone) { this._zone = zone; };
-        PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
-            if (runInZone === void 0) { runInZone = true; }
-            if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new BaseException(channel + " has already been initialized");
-            }
-            var emitter = new EventEmitter(false);
-            var channelInfo = new _Channel(emitter, runInZone);
-            this._channels[channel] = channelInfo;
-        };
-        PostMessageBusSource.prototype.from = function (channel) {
-            if (StringMapWrapper.contains(this._channels, channel)) {
-                return this._channels[channel].emitter;
-            }
-            else {
-                throw new BaseException(channel + " is not set up. Did you forget to call initChannel?");
-            }
-        };
-        PostMessageBusSource.prototype._handleMessages = function (ev) {
-            var messages = ev.data;
-            for (var i = 0; i < messages.length; i++) {
-                this._handleMessage(messages[i]);
-            }
-        };
-        PostMessageBusSource.prototype._handleMessage = function (data) {
-            var channel = data.channel;
-            if (StringMapWrapper.contains(this._channels, channel)) {
-                var channelInfo = this._channels[channel];
-                if (channelInfo.runInZone) {
-                    this._zone.run(function () { channelInfo.emitter.emit(data.message); });
-                }
-                else {
-                    channelInfo.emitter.emit(data.message);
-                }
-            }
-        };
-        return PostMessageBusSource;
-    }());
-    var PostMessageBus = (function () {
-        function PostMessageBus(sink, source) {
-            this.sink = sink;
-            this.source = source;
-        }
-        PostMessageBus.prototype.attachToZone = function (zone) {
-            this.source.attachToZone(zone);
-            this.sink.attachToZone(zone);
-        };
-        PostMessageBus.prototype.initChannel = function (channel, runInZone) {
-            if (runInZone === void 0) { runInZone = true; }
-            this.source.initChannel(channel, runInZone);
-            this.sink.initChannel(channel, runInZone);
-        };
-        PostMessageBus.prototype.from = function (channel) { return this.source.from(channel); };
-        PostMessageBus.prototype.to = function (channel) { return this.sink.to(channel); };
-        return PostMessageBus;
-    }());
-    PostMessageBus.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    PostMessageBus.ctorParameters = [
-        { type: PostMessageBusSink, },
-        { type: PostMessageBusSource, },
-    ];
-    /**
-     * Helper class that wraps a channel's {@link EventEmitter} and
-     * keeps track of if it should run in the zone.
-     */
-    var _Channel = (function () {
-        function _Channel(emitter, runInZone) {
-            this.emitter = emitter;
-            this.runInZone = runInZone;
-        }
-        return _Channel;
-    }());
-    var WebWorkerInstance = (function () {
-        function WebWorkerInstance() {
-        }
-        /** @internal */
-        WebWorkerInstance.prototype.init = function (worker, bus) {
-            this.worker = worker;
-            this.bus = bus;
-        };
-        return WebWorkerInstance;
-    }());
-    WebWorkerInstance.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /**
-     * An array of providers that should be passed into `application()` when initializing a new Worker.
-     */
-    var WORKER_RENDER_STATIC_APPLICATION_PROVIDERS = [
-        WORKER_RENDER_APPLICATION_COMMON_PROVIDERS, WebWorkerInstance,
-        /*@ts2dart_Provider*/ {
-            provide: _angular_core.APP_INITIALIZER,
-            useFactory: (function (injector) { return function () { return initWebWorkerApplication(injector); }; }),
-            multi: true,
-            deps: [_angular_core.Injector]
-        },
-        /*@ts2dart_Provider*/ {
-            provide: MessageBus,
-            useFactory: function (instance) { return instance.bus; },
-            deps: [WebWorkerInstance]
-        }
-    ];
-    function bootstrapStaticRender(workerScriptUri, customProviders) {
-        var app = _angular_core.ReflectiveInjector.resolveAndCreate([
-            WORKER_RENDER_STATIC_APPLICATION_PROVIDERS,
-            /* @ts2dart_Provider */ { provide: WORKER_SCRIPT, useValue: workerScriptUri },
-            isPresent(customProviders) ? customProviders : []
-        ], workerRenderPlatform().injector);
-        // Return a promise so that we keep the same semantics as Dart,
-        // and we might want to wait for the app side to come up
-        // in the future...
-        return PromiseWrapper.resolve(app.get(_angular_core.ApplicationRef));
-    }
-    function initWebWorkerApplication(injector) {
-        var scriptUri;
-        try {
-            scriptUri = injector.get(WORKER_SCRIPT);
-        }
-        catch (e) {
-            throw new BaseException("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
-        }
-        var instance = injector.get(WebWorkerInstance);
-        spawnWebWorker(scriptUri, instance);
-        initializeGenericWorkerRenderer(injector);
-    }
-    /**
-     * Spawns a new class and initializes the WebWorkerInstance
-     */
-    function spawnWebWorker(uri, instance) {
-        var webWorker = new Worker(uri);
-        var sink = new PostMessageBusSink(webWorker);
-        var source = new PostMessageBusSource(webWorker);
-        var bus = new PostMessageBus(sink, source);
-        instance.init(webWorker, bus);
-    }
-    var WORKER_RENDER_APPLICATION_PROVIDERS = [
-        WORKER_RENDER_STATIC_APPLICATION_PROVIDERS
-    ];
-    function bootstrapRender(workerScriptUri, customProviders) {
-        var app = _angular_core.ReflectiveInjector.resolveAndCreate([
-            WORKER_RENDER_APPLICATION_PROVIDERS,
-            /* @ts2dart_Provider */ { provide: WORKER_SCRIPT, useValue: workerScriptUri },
-            isPresent(customProviders) ? customProviders : []
-        ], workerRenderPlatform().injector);
-        // Return a promise so that we keep the same semantics as Dart,
-        // and we might want to wait for the app side to come up
-        // in the future...
-        return PromiseWrapper.resolve(app.get(_angular_core.ApplicationRef));
-    }
     /**
      * This adapter is required to log error messages.
      *
@@ -4912,21 +4777,60 @@ var __extends = (this && this.__extends) || function (d, b) {
         WorkerDomAdapter.prototype.supportsAnimation = function () { throw "not implemented"; };
         return WorkerDomAdapter;
     }(DomAdapter));
+    var PrintLogger = (function () {
+        function PrintLogger() {
+            this.log = print;
+            this.logError = print;
+            this.logGroup = print;
+        }
+        PrintLogger.prototype.logGroupEnd = function () { };
+        return PrintLogger;
+    }());
+    var WORKER_APP_PLATFORM_MARKER = new _angular_core.OpaqueToken('WorkerAppPlatformMarker');
+    var WORKER_APP_PLATFORM_PROVIDERS = [
+        _angular_core.PLATFORM_COMMON_PROVIDERS,
+        { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }
+    ];
+    var WORKER_APP_APPLICATION_PROVIDERS = [
+        _angular_core.APPLICATION_COMMON_PROVIDERS,
+        _angular_common.FORM_PROVIDERS,
+        BROWSER_SANITIZATION_PROVIDERS,
+        Serializer,
+        { provide: _angular_core.PLATFORM_PIPES, useValue: _angular_common.COMMON_PIPES, multi: true },
+        { provide: _angular_core.PLATFORM_DIRECTIVES, useValue: _angular_common.COMMON_DIRECTIVES, multi: true },
+        { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
+        { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
+        WebWorkerRootRenderer,
+        { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
+        { provide: ON_WEB_WORKER, useValue: true },
+        RenderStore,
+        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler$2, deps: [] },
+        { provide: MessageBus, useFactory: createMessageBus, deps: [_angular_core.NgZone] },
+        { provide: _angular_core.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
+    ];
+    function workerAppPlatform() {
+        if (isBlank(_angular_core.getPlatform())) {
+            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(WORKER_APP_PLATFORM_PROVIDERS));
+        }
+        return _angular_core.assertPlatform(WORKER_APP_PLATFORM_MARKER);
+    }
+    function bootstrapApp(appComponentType, customProviders) {
+        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate([
+            WORKER_APP_APPLICATION_PROVIDERS,
+            _angular_compiler.COMPILER_PROVIDERS,
+            { provide: _angular_compiler.XHR, useClass: XHRImpl },
+            isPresent(customProviders) ? customProviders : []], workerAppPlatform().injector);
+        return _angular_core.coreLoadAndBootstrap(appComponentType, appInjector);
+    }
+    function _exceptionHandler$2() {
+        return new _angular_core.ExceptionHandler(new PrintLogger());
+    }
     // TODO(jteplitz602) remove this and compile with lib.webworker.d.ts (#3492)
     var _postMessage = {
         postMessage: function (message, transferrables) {
             postMessage(message, transferrables);
         }
     };
-    var WORKER_APP_STATIC_APPLICATION_PROVIDERS = [
-        WORKER_APP_APPLICATION_COMMON_PROVIDERS,
-        /* @ts2dart_Provider */ { provide: MessageBus, useFactory: createMessageBus, deps: [_angular_core.NgZone] },
-        /* @ts2dart_Provider */ { provide: _angular_core.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
-    ];
-    function bootstrapStaticApp(appComponentType, customProviders) {
-        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate([WORKER_APP_STATIC_APPLICATION_PROVIDERS, isPresent(customProviders) ? customProviders : []], workerAppPlatform().injector);
-        return _angular_core.coreLoadAndBootstrap(appInjector, appComponentType);
-    }
     function createMessageBus(zone) {
         var sink = new PostMessageBusSink(_postMessage);
         var source = new PostMessageBusSource();
@@ -4936,15 +4840,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     function setupWebWorker() {
         WorkerDomAdapter.makeCurrent();
-    }
-    var WORKER_APP_APPLICATION_PROVIDERS = [
-        WORKER_APP_STATIC_APPLICATION_PROVIDERS,
-        _angular_compiler.COMPILER_PROVIDERS,
-        /* @ts2dart_Provider */ { provide: _angular_compiler.XHR, useClass: XHRImpl },
-    ];
-    function bootstrapApp(appComponentType, customProviders) {
-        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate([WORKER_APP_APPLICATION_PROVIDERS, isPresent(customProviders) ? customProviders : []], workerAppPlatform().injector);
-        return _angular_core.coreLoadAndBootstrap(appInjector, appComponentType);
     }
     exports.__platform_browser_private__;
     (function (__platform_browser_private__) {
@@ -4978,32 +4873,24 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.PRIMITIVE = PRIMITIVE;
     exports.WORKER_APP_LOCATION_PROVIDERS = WORKER_APP_LOCATION_PROVIDERS;
     exports.WORKER_RENDER_LOCATION_PROVIDERS = WORKER_RENDER_LOCATION_PROVIDERS;
+    exports.CACHED_TEMPLATE_PROVIDER = CACHED_TEMPLATE_PROVIDER;
     exports.BROWSER_PLATFORM_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
     exports.BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
-    exports.BROWSER_APP_COMMON_PROVIDERS = BROWSER_APP_COMMON_PROVIDERS;
-    exports.browserPlatform = browserPlatform;
-    exports.BROWSER_APP_STATIC_PROVIDERS = BROWSER_APP_STATIC_PROVIDERS;
-    exports.bootstrapStatic = bootstrapStatic;
-    exports.CACHED_TEMPLATE_PROVIDER = CACHED_TEMPLATE_PROVIDER;
     exports.BROWSER_APP_PROVIDERS = BROWSER_APP_PROVIDERS;
+    exports.BROWSER_APP_COMPILER_PROVIDERS = BROWSER_APP_COMPILER_PROVIDERS;
+    exports.browserPlatform = browserPlatform;
     exports.bootstrap = bootstrap;
     exports.MessageBus = MessageBus;
+    exports.WebWorkerInstance = WebWorkerInstance;
     exports.WORKER_SCRIPT = WORKER_SCRIPT;
     exports.WORKER_RENDER_STARTABLE_MESSAGING_SERVICE = WORKER_RENDER_STARTABLE_MESSAGING_SERVICE;
     exports.WORKER_RENDER_PLATFORM_PROVIDERS = WORKER_RENDER_PLATFORM_PROVIDERS;
-    exports.WORKER_RENDER_APPLICATION_COMMON_PROVIDERS = WORKER_RENDER_APPLICATION_COMMON_PROVIDERS;
+    exports.WORKER_RENDER_APPLICATION_PROVIDERS = WORKER_RENDER_APPLICATION_PROVIDERS;
     exports.initializeGenericWorkerRenderer = initializeGenericWorkerRenderer;
+    exports.bootstrapRender = bootstrapRender;
     exports.workerRenderPlatform = workerRenderPlatform;
     exports.WORKER_APP_PLATFORM_PROVIDERS = WORKER_APP_PLATFORM_PROVIDERS;
-    exports.WORKER_APP_APPLICATION_COMMON_PROVIDERS = WORKER_APP_APPLICATION_COMMON_PROVIDERS;
-    exports.workerAppPlatform = workerAppPlatform;
-    exports.WORKER_RENDER_APPLICATION_PROVIDERS = WORKER_RENDER_APPLICATION_PROVIDERS;
-    exports.bootstrapRender = bootstrapRender;
     exports.WORKER_APP_APPLICATION_PROVIDERS = WORKER_APP_APPLICATION_PROVIDERS;
+    exports.workerAppPlatform = workerAppPlatform;
     exports.bootstrapApp = bootstrapApp;
-    exports.WebWorkerInstance = WebWorkerInstance;
-    exports.WORKER_RENDER_STATIC_APPLICATION_PROVIDERS = WORKER_RENDER_STATIC_APPLICATION_PROVIDERS;
-    exports.bootstrapStaticRender = bootstrapStaticRender;
-    exports.WORKER_APP_STATIC_APPLICATION_PROVIDERS = WORKER_APP_STATIC_APPLICATION_PROVIDERS;
-    exports.bootstrapStaticApp = bootstrapStaticApp;
 }));

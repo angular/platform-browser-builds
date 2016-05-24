@@ -82,6 +82,7 @@ var BrowserDetection = (function () {
     return BrowserDetection;
 }());
 exports.BrowserDetection = BrowserDetection;
+BrowserDetection.setup();
 function dispatchEvent(element, eventType) {
     dom_adapter_1.getDOM().dispatchEvent(element, dom_adapter_1.getDOM().createEvent(eventType));
 }

@@ -29,14 +29,14 @@ function _createRootRenderer(rootRenderer) {
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
 export const ELEMENT_PROBE_PROVIDERS = [
-    /*@ts2dart_Provider*/ {
+    {
         provide: RootRenderer,
         useFactory: _createConditionalRootRenderer,
         deps: [DomRootRenderer]
     }
 ];
 export const ELEMENT_PROBE_PROVIDERS_PROD_MODE = [
-    /*@ts2dart_Provider*/ {
+    {
         provide: RootRenderer,
         useFactory: _createRootRenderer,
         deps: [DomRootRenderer]

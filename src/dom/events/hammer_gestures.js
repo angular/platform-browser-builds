@@ -8,8 +8,7 @@ var core_1 = require('@angular/core');
 var lang_1 = require('../../../src/facade/lang');
 var exceptions_1 = require('../../../src/facade/exceptions');
 var hammer_common_1 = require('./hammer_common');
-exports.HAMMER_GESTURE_CONFIG = 
-/*@ts2dart_const*/ new core_1.OpaqueToken("HammerGestureConfig");
+exports.HAMMER_GESTURE_CONFIG = new core_1.OpaqueToken("HammerGestureConfig");
 var HammerGestureConfig = (function () {
     function HammerGestureConfig() {
         this.events = [];

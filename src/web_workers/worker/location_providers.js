@@ -7,7 +7,7 @@ var platform_location_1 = require('./platform_location');
  * {@link ROUTER_PROVIDERS} and after them.
  */
 exports.WORKER_APP_LOCATION_PROVIDERS = [
-    /* @ts2dart_Provider */ { provide: common_1.PlatformLocation, useClass: platform_location_1.WebWorkerPlatformLocation },
+    { provide: common_1.PlatformLocation, useClass: platform_location_1.WebWorkerPlatformLocation },
     {
         provide: core_1.APP_INITIALIZER,
         useFactory: function (platformLocation, zone) { return function () {

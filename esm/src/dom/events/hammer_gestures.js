@@ -2,8 +2,7 @@ import { Injectable, Inject, OpaqueToken } from '@angular/core';
 import { isPresent } from '../../../src/facade/lang';
 import { BaseException } from '../../../src/facade/exceptions';
 import { HammerGesturesPluginCommon } from './hammer_common';
-export const HAMMER_GESTURE_CONFIG = 
-/*@ts2dart_const*/ new OpaqueToken("HammerGestureConfig");
+export const HAMMER_GESTURE_CONFIG = new OpaqueToken("HammerGestureConfig");
 export class HammerGestureConfig {
     constructor() {
         this.events = [];

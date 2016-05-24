@@ -39,6 +39,7 @@ export class BrowserDetection {
             this._ua.indexOf('Edge') == -1;
     }
 }
+BrowserDetection.setup();
 export function dispatchEvent(element, eventType) {
     getDOM().dispatchEvent(element, getDOM().createEvent(eventType));
 }

@@ -13,9 +13,7 @@ var event_manager_1 = require('./events/event_manager');
 var dom_tokens_1 = require('./dom_tokens');
 var dom_adapter_1 = require('./dom_adapter');
 var util_1 = require('./util');
-var NAMESPACE_URIS = 
-/*@ts2dart_const*/
-{ 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://www.w3.org/2000/svg' };
+var NAMESPACE_URIS = { 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://www.w3.org/2000/svg' };
 var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
 var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/g;
 var DomRootRenderer = (function () {

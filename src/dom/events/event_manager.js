@@ -2,8 +2,7 @@
 var core_1 = require('@angular/core');
 var exceptions_1 = require('../../../src/facade/exceptions');
 var collection_1 = require('../../../src/facade/collection');
-exports.EVENT_MANAGER_PLUGINS = 
-/*@ts2dart_const*/ new core_1.OpaqueToken("EventManagerPlugins");
+exports.EVENT_MANAGER_PLUGINS = new core_1.OpaqueToken("EventManagerPlugins");
 var EventManager = (function () {
     function EventManager(plugins, _zone) {
         var _this = this;

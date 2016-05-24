@@ -8,7 +8,7 @@ import { APP_INITIALIZER, Injector, NgZone } from '@angular/core';
 export const WORKER_RENDER_LOCATION_PROVIDERS = [
     MessageBasedPlatformLocation,
     BrowserPlatformLocation,
-    /* @ts2dart_Provider */ { provide: APP_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [Injector] }
+    { provide: APP_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [Injector] }
 ];
 function initUiLocation(injector) {
     return () => {

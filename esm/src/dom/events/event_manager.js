@@ -1,8 +1,7 @@
 import { Injectable, Inject, OpaqueToken, NgZone } from '@angular/core';
 import { BaseException } from '../../../src/facade/exceptions';
 import { ListWrapper } from '../../../src/facade/collection';
-export const EVENT_MANAGER_PLUGINS = 
-/*@ts2dart_const*/ new OpaqueToken("EventManagerPlugins");
+export const EVENT_MANAGER_PLUGINS = new OpaqueToken("EventManagerPlugins");
 export class EventManager {
     constructor(plugins, _zone) {
         this._zone = _zone;

@@ -6,7 +6,7 @@ import { WebWorkerPlatformLocation } from './platform_location';
  * {@link ROUTER_PROVIDERS} and after them.
  */
 export const WORKER_APP_LOCATION_PROVIDERS = [
-    /* @ts2dart_Provider */ { provide: PlatformLocation, useClass: WebWorkerPlatformLocation },
+    { provide: PlatformLocation, useClass: WebWorkerPlatformLocation },
     {
         provide: APP_INITIALIZER,
         useFactory: (platformLocation, zone) => () => initWorkerLocation(platformLocation, zone),

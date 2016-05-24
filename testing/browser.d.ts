@@ -1,6 +1,6 @@
-import { DirectiveResolver, ViewResolver } from '@angular/compiler';
-import { MockDirectiveResolver, MockViewResolver, TestComponentRenderer, TestComponentBuilder } from '@angular/compiler/testing';
-import { DOMTestComponentRenderer } from './dom_test_component_renderer';
+import { DirectiveResolver, ViewResolver } from "@angular/compiler";
+import { MockDirectiveResolver, MockViewResolver, TestComponentRenderer, TestComponentBuilder } from "@angular/compiler/testing";
+import { DOMTestComponentRenderer } from "./dom_test_component_renderer";
 /**
  * Default platform providers for testing.
  */

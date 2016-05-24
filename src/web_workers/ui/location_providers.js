@@ -9,7 +9,7 @@ var core_1 = require('@angular/core');
 exports.WORKER_RENDER_LOCATION_PROVIDERS = [
     platform_location_1.MessageBasedPlatformLocation,
     browser_platform_location_1.BrowserPlatformLocation,
-    /* @ts2dart_Provider */ { provide: core_1.APP_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [core_1.Injector] }
+    { provide: core_1.APP_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [core_1.Injector] }
 ];
 function initUiLocation(injector) {
     return function () {

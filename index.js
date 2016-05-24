@@ -28,9 +28,7 @@ exports.disableDebugTools = tools_1.disableDebugTools;
 var dom_sanitization_service_1 = require('./src/security/dom_sanitization_service');
 exports.DomSanitizationService = dom_sanitization_service_1.DomSanitizationService;
 exports.SecurityContext = dom_sanitization_service_1.SecurityContext;
-__export(require('./src/platform/common/browser'));
-__export(require('./src/platform/static/browser'));
-__export(require('./src/platform/dynamic/browser'));
+__export(require('./src/browser'));
 // Web Workers
 var client_message_broker_1 = require('./src/web_workers/shared/client_message_broker');
 exports.ClientMessageBroker = client_message_broker_1.ClientMessageBroker;
@@ -48,11 +46,7 @@ var location_providers_1 = require('./src/web_workers/worker/location_providers'
 exports.WORKER_APP_LOCATION_PROVIDERS = location_providers_1.WORKER_APP_LOCATION_PROVIDERS;
 var location_providers_2 = require('./src/web_workers/ui/location_providers');
 exports.WORKER_RENDER_LOCATION_PROVIDERS = location_providers_2.WORKER_RENDER_LOCATION_PROVIDERS;
-__export(require('./src/platform/common/worker_render'));
-__export(require('./src/platform/common/worker_app'));
-__export(require('./src/platform/dynamic/worker_render'));
-__export(require('./src/platform/dynamic/worker_app'));
-__export(require('./src/platform/static/worker_render'));
-__export(require('./src/platform/static/worker_app'));
+__export(require('./src/worker_render'));
+__export(require('./src/worker_app'));
 __export(require('./private_export'));
 //# sourceMappingURL=index.js.map

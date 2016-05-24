@@ -1,6 +1,5 @@
 import { isArray, isPresent, serializeEnum } from '../../../src/facade/lang';
 import { BaseException } from '../../../src/facade/exceptions';
-import { Map, StringMapWrapper, MapWrapper } from '../../../src/facade/collection';
 import { RenderComponentType, Injectable, ViewEncapsulation } from '@angular/core';
 import { VIEW_ENCAPSULATION_VALUES } from '../../../core_private';
 import { RenderStore } from './render_store';
@@ -64,34 +63,6 @@ export class Serializer {
         }
         else {
             throw new BaseException("No deserializer for " + type.toString());
-        }
-    }
-    mapToObject(map, type) {
-        var object = {};
-        var serialize = isPresent(type);
-        map.forEach((value, key) => {
-            if (serialize) {
-                object[key] = this.serialize(value, type);
-            }
-            else {
-                object[key] = value;
-            }
-        });
-        return object;
-    }
-    /*
-     * Transforms a Javascript object (StringMap) into a Map<string, V>
-     * If the values need to be deserialized pass in their type
-     * and they will be deserialized before being placed in the map
-     */
-    objectToMap(obj, type, data) {
-        if (isPresent(type)) {
-            var map = new Map();
-            StringMapWrapper.forEach(obj, (val, key) => { map.set(key, this.deserialize(val, type, data)); });
-            return map;
-        }
-        else {
-            return MapWrapper.createFromStringMap(obj);
         }
     }
     _serializeLocation(loc) {

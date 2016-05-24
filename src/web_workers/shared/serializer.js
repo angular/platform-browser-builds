@@ -1,7 +1,6 @@
 "use strict";
 var lang_1 = require('../../../src/facade/lang');
 var exceptions_1 = require('../../../src/facade/exceptions');
-var collection_1 = require('../../../src/facade/collection');
 var core_1 = require('@angular/core');
 var core_private_1 = require('../../../core_private');
 var render_store_1 = require('./render_store');
@@ -67,36 +66,6 @@ var Serializer = (function () {
         }
         else {
             throw new exceptions_1.BaseException("No deserializer for " + type.toString());
-        }
-    };
-    Serializer.prototype.mapToObject = function (map, type) {
-        var _this = this;
-        var object = {};
-        var serialize = lang_1.isPresent(type);
-        map.forEach(function (value, key) {
-            if (serialize) {
-                object[key] = _this.serialize(value, type);
-            }
-            else {
-                object[key] = value;
-            }
-        });
-        return object;
-    };
-    /*
-     * Transforms a Javascript object (StringMap) into a Map<string, V>
-     * If the values need to be deserialized pass in their type
-     * and they will be deserialized before being placed in the map
-     */
-    Serializer.prototype.objectToMap = function (obj, type, data) {
-        var _this = this;
-        if (lang_1.isPresent(type)) {
-            var map = new collection_1.Map();
-            collection_1.StringMapWrapper.forEach(obj, function (val, key) { map.set(key, _this.deserialize(val, type, data)); });
-            return map;
-        }
-        else {
-            return collection_1.MapWrapper.createFromStringMap(obj);
         }
     };
     Serializer.prototype._serializeLocation = function (loc) {
