@@ -8,7 +8,7 @@ export declare abstract class DomRootRenderer implements RootRenderer {
     eventManager: EventManager;
     sharedStylesHost: DomSharedStylesHost;
     animate: AnimationBuilder;
-    private _registeredComponents;
+    protected registeredComponents: Map<string, DomRenderer>;
     constructor(document: any, eventManager: EventManager, sharedStylesHost: DomSharedStylesHost, animate: AnimationBuilder);
     renderComponent(componentProto: RenderComponentType): Renderer;
 }

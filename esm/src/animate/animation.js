@@ -154,6 +154,7 @@ export class Animation {
                 maxValue = value;
         }
         else if (duration.substring(duration.length - 1) == 's') {
+            duration = StringWrapper.replace(duration, ',', '.');
             let ms = NumberWrapper.parseFloat(this.stripLetters(duration)) * 1000;
             let value = Math.floor(ms);
             if (value > maxValue)

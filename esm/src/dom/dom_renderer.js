@@ -17,13 +17,13 @@ export class DomRootRenderer {
         this.eventManager = eventManager;
         this.sharedStylesHost = sharedStylesHost;
         this.animate = animate;
-        this._registeredComponents = new Map();
+        this.registeredComponents = new Map();
     }
     renderComponent(componentProto) {
-        var renderer = this._registeredComponents.get(componentProto.id);
+        var renderer = this.registeredComponents.get(componentProto.id);
         if (isBlank(renderer)) {
             renderer = new DomRenderer(this, componentProto);
-            this._registeredComponents.set(componentProto.id, renderer);
+            this.registeredComponents.set(componentProto.id, renderer);
         }
         return renderer;
     }

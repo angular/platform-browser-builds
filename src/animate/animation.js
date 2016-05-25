@@ -162,6 +162,7 @@ var Animation = (function () {
                 maxValue = value;
         }
         else if (duration.substring(duration.length - 1) == 's') {
+            duration = lang_1.StringWrapper.replace(duration, ',', '.');
             var ms = lang_1.NumberWrapper.parseFloat(this.stripLetters(duration)) * 1000;
             var value = math_1.Math.floor(ms);
             if (value > maxValue)

@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v2.0.0-60a2ba8
+ * @license AngularJS v2.0.0-32b3743
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1090,6 +1090,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     maxValue = value;
             }
             else if (duration.substring(duration.length - 1) == 's') {
+                duration = StringWrapper.replace(duration, ',', '.');
                 var ms = NumberWrapper.parseFloat(this.stripLetters(duration)) * 1000;
                 var value = Math$1.floor(ms);
                 if (value > maxValue)
@@ -1344,13 +1345,13 @@ var __extends = (this && this.__extends) || function (d, b) {
             this.eventManager = eventManager;
             this.sharedStylesHost = sharedStylesHost;
             this.animate = animate;
-            this._registeredComponents = new Map();
+            this.registeredComponents = new Map();
         }
         DomRootRenderer.prototype.renderComponent = function (componentProto) {
-            var renderer = this._registeredComponents.get(componentProto.id);
+            var renderer = this.registeredComponents.get(componentProto.id);
             if (isBlank(renderer)) {
                 renderer = new DomRenderer(this, componentProto);
-                this._registeredComponents.set(componentProto.id, renderer);
+                this.registeredComponents.set(componentProto.id, renderer);
             }
             return renderer;
         };
