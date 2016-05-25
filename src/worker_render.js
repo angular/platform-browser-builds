@@ -2,7 +2,7 @@
 var lang_1 = require("./facade/lang");
 var message_bus_1 = require("./web_workers/shared/message_bus");
 var core_1 = require("@angular/core");
-var core_private_1 = require("../core_private");
+var core_private_1 = require('../core_private');
 var dom_adapter_1 = require("./dom/dom_adapter");
 var dom_events_1 = require("./dom/events/dom_events");
 var key_events_1 = require("./dom/events/key_events");
@@ -10,8 +10,6 @@ var hammer_gestures_1 = require("./dom/events/hammer_gestures");
 var dom_tokens_1 = require("./dom/dom_tokens");
 var dom_renderer_1 = require("./dom/dom_renderer");
 var shared_styles_host_1 = require("./dom/shared_styles_host");
-var browser_details_1 = require("./animate/browser_details");
-var animation_builder_1 = require("./animate/animation_builder");
 var testability_1 = require("./browser/testability");
 var browser_adapter_1 = require("./browser/browser_adapter");
 var renderer_1 = require("./web_workers/ui/renderer");
@@ -71,13 +69,12 @@ exports.WORKER_RENDER_APPLICATION_PROVIDERS = [
     { provide: shared_styles_host_1.SharedStylesHost, useExisting: shared_styles_host_1.DomSharedStylesHost },
     { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
     { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
+    { provide: core_private_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
     serializer_1.Serializer,
     { provide: api_1.ON_WEB_WORKER, useValue: false },
     render_store_1.RenderStore,
     shared_styles_host_1.DomSharedStylesHost,
     core_1.Testability,
-    browser_details_1.BrowserDetails,
-    animation_builder_1.AnimationBuilder,
     event_manager_1.EventManager,
     WebWorkerInstance,
     {
@@ -153,5 +150,10 @@ function spawnWebWorker(uri, instance) {
     var source = new post_message_bus_1.PostMessageBusSource(webWorker);
     var bus = new post_message_bus_1.PostMessageBus(sink, source);
     instance.init(webWorker, bus);
+}
+function _resolveDefaultAnimationDriver() {
+    // web workers have not been tested or configured to
+    // work with animations just yet...
+    return new core_private_1.NoOpAnimationDriver();
 }
 //# sourceMappingURL=worker_render.js.map

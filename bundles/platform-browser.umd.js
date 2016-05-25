@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v2.0.0-6c6b316
+ * @license AngularJS v2.0.0-cb980d3
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -46,6 +46,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     function isBlank(obj) {
         return obj === undefined || obj === null;
+    }
+    function isNumber(obj) {
+        return typeof obj === "number";
     }
     function isString(obj) {
         return typeof obj === "string";
@@ -630,16 +633,19 @@ var __extends = (this && this.__extends) || function (d, b) {
         SetWrapper.delete = function (m, k) { m.delete(k); };
         return SetWrapper;
     }());
-    var BaseException = (function (_super) {
-        __extends(BaseException, _super);
-        function BaseException(message) {
+    /**
+     * @stable
+     */
+    var BaseException$1 = (function (_super) {
+        __extends(BaseException$1, _super);
+        function BaseException$1(message) {
             if (message === void 0) { message = "--"; }
             _super.call(this, message);
             this.message = message;
             this.stack = (new Error(message)).stack;
         }
-        BaseException.prototype.toString = function () { return this.message; };
-        return BaseException;
+        BaseException$1.prototype.toString = function () { return this.message; };
+        return BaseException$1;
     }(Error));
     var EVENT_MANAGER_PLUGINS = new _angular_core.OpaqueToken("EventManagerPlugins");
     var EventManager = (function () {
@@ -667,7 +673,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     return plugin;
                 }
             }
-            throw new BaseException("No event manager plugin found for event " + eventName);
+            throw new BaseException$1("No event manager plugin found for event " + eventName);
         };
         return EventManager;
     }());
@@ -885,7 +891,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
                 return false;
             if (!isPresent(window['Hammer'])) {
-                throw new BaseException("Hammer.js is not loaded, can not bind " + eventName + " event");
+                throw new BaseException$1("Hammer.js is not loaded, can not bind " + eventName + " event");
             }
             return true;
         };
@@ -916,361 +922,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     var DebugDomRootRenderer = _angular_core.__core_private__.DebugDomRootRenderer;
     var SecurityContext = _angular_core.__core_private__.SecurityContext;
     var SanitizationService = _angular_core.__core_private__.SanitizationService;
-    var CssAnimationOptions = (function () {
-        function CssAnimationOptions() {
-            /** classes to be added to the element */
-            this.classesToAdd = [];
-            /** classes to be removed from the element */
-            this.classesToRemove = [];
-            /** classes to be added for the duration of the animation */
-            this.animationClasses = [];
-        }
-        return CssAnimationOptions;
-    }());
-    var Math$1 = global$1.Math;
-    var CAMEL_CASE_REGEXP = /([A-Z])/g;
-    function camelCaseToDashCase(input) {
-        return StringWrapper.replaceAllMapped(input, CAMEL_CASE_REGEXP, function (m) { return '-' + m[1].toLowerCase(); });
-    }
-    var Animation = (function () {
-        /**
-         * Stores the start time and starts the animation
-         * @param element
-         * @param data
-         * @param browserDetails
-         */
-        function Animation(element, data, browserDetails) {
-            var _this = this;
-            this.element = element;
-            this.data = data;
-            this.browserDetails = browserDetails;
-            /** functions to be called upon completion */
-            this.callbacks = [];
-            /** functions for removing event listeners */
-            this.eventClearFunctions = [];
-            /** flag used to track whether or not the animation has finished */
-            this.completed = false;
-            this._stringPrefix = '';
-            this.startTime = DateWrapper.toMillis(DateWrapper.now());
-            this._stringPrefix = getDOM().getAnimationPrefix();
-            this.setup();
-            this.wait(function (timestamp) { return _this.start(); });
-        }
-        Object.defineProperty(Animation.prototype, "totalTime", {
-            /** total amount of time that the animation should take including delay */
-            get: function () {
-                var delay = this.computedDelay != null ? this.computedDelay : 0;
-                var duration = this.computedDuration != null ? this.computedDuration : 0;
-                return delay + duration;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Animation.prototype.wait = function (callback) {
-            // Firefox requires 2 frames for some reason
-            this.browserDetails.raf(callback, 2);
-        };
-        /**
-         * Sets up the initial styles before the animation is started
-         */
-        Animation.prototype.setup = function () {
-            if (this.data.fromStyles != null)
-                this.applyStyles(this.data.fromStyles);
-            if (this.data.duration != null)
-                this.applyStyles({ 'transitionDuration': this.data.duration.toString() + 'ms' });
-            if (this.data.delay != null)
-                this.applyStyles({ 'transitionDelay': this.data.delay.toString() + 'ms' });
-        };
-        /**
-         * After the initial setup has occurred, this method adds the animation styles
-         */
-        Animation.prototype.start = function () {
-            this.addClasses(this.data.classesToAdd);
-            this.addClasses(this.data.animationClasses);
-            this.removeClasses(this.data.classesToRemove);
-            if (this.data.toStyles != null)
-                this.applyStyles(this.data.toStyles);
-            var computedStyles = getDOM().getComputedStyle(this.element);
-            this.computedDelay =
-                Math$1.max(this.parseDurationString(computedStyles.getPropertyValue(this._stringPrefix + 'transition-delay')), this.parseDurationString(this.element.style.getPropertyValue(this._stringPrefix + 'transition-delay')));
-            this.computedDuration = Math$1.max(this.parseDurationString(computedStyles.getPropertyValue(this._stringPrefix + 'transition-duration')), this.parseDurationString(this.element.style.getPropertyValue(this._stringPrefix + 'transition-duration')));
-            this.addEvents();
-        };
-        /**
-         * Applies the provided styles to the element
-         * @param styles
-         */
-        Animation.prototype.applyStyles = function (styles) {
-            var _this = this;
-            StringMapWrapper.forEach(styles, function (value, key) {
-                var dashCaseKey = camelCaseToDashCase(key);
-                if (isPresent(getDOM().getStyle(_this.element, dashCaseKey))) {
-                    getDOM().setStyle(_this.element, dashCaseKey, value.toString());
-                }
-                else {
-                    getDOM().setStyle(_this.element, _this._stringPrefix + dashCaseKey, value.toString());
-                }
-            });
-        };
-        /**
-         * Adds the provided classes to the element
-         * @param classes
-         */
-        Animation.prototype.addClasses = function (classes) {
-            for (var i = 0, len = classes.length; i < len; i++)
-                getDOM().addClass(this.element, classes[i]);
-        };
-        /**
-         * Removes the provided classes from the element
-         * @param classes
-         */
-        Animation.prototype.removeClasses = function (classes) {
-            for (var i = 0, len = classes.length; i < len; i++)
-                getDOM().removeClass(this.element, classes[i]);
-        };
-        /**
-         * Adds events to track when animations have finished
-         */
-        Animation.prototype.addEvents = function () {
-            var _this = this;
-            if (this.totalTime > 0) {
-                this.eventClearFunctions.push(getDOM().onAndCancel(this.element, getDOM().getTransitionEnd(), function (event) { return _this.handleAnimationEvent(event); }));
-            }
-            else {
-                this.handleAnimationCompleted();
-            }
-        };
-        Animation.prototype.handleAnimationEvent = function (event) {
-            var elapsedTime = Math$1.round(event.elapsedTime * 1000);
-            if (!this.browserDetails.elapsedTimeIncludesDelay)
-                elapsedTime += this.computedDelay;
-            event.stopPropagation();
-            if (elapsedTime >= this.totalTime)
-                this.handleAnimationCompleted();
-        };
-        /**
-         * Runs all animation callbacks and removes temporary classes
-         */
-        Animation.prototype.handleAnimationCompleted = function () {
-            this.removeClasses(this.data.animationClasses);
-            this.callbacks.forEach(function (callback) { return callback(); });
-            this.callbacks = [];
-            this.eventClearFunctions.forEach(function (fn) { return fn(); });
-            this.eventClearFunctions = [];
-            this.completed = true;
-        };
-        /**
-         * Adds animation callbacks to be called upon completion
-         * @param callback
-         * @returns {Animation}
-         */
-        Animation.prototype.onComplete = function (callback) {
-            if (this.completed) {
-                callback();
-            }
-            else {
-                this.callbacks.push(callback);
-            }
-            return this;
-        };
-        /**
-         * Converts the duration string to the number of milliseconds
-         * @param duration
-         * @returns {number}
-         */
-        Animation.prototype.parseDurationString = function (duration) {
-            var maxValue = 0;
-            // duration must have at least 2 characters to be valid. (number + type)
-            if (duration == null || duration.length < 2) {
-                return maxValue;
-            }
-            else if (duration.substring(duration.length - 2) == 'ms') {
-                var value = NumberWrapper.parseInt(this.stripLetters(duration), 10);
-                if (value > maxValue)
-                    maxValue = value;
-            }
-            else if (duration.substring(duration.length - 1) == 's') {
-                duration = StringWrapper.replace(duration, ',', '.');
-                var ms = NumberWrapper.parseFloat(this.stripLetters(duration)) * 1000;
-                var value = Math$1.floor(ms);
-                if (value > maxValue)
-                    maxValue = value;
-            }
-            return maxValue;
-        };
-        /**
-         * Strips the letters from the duration string
-         * @param str
-         * @returns {string}
-         */
-        Animation.prototype.stripLetters = function (str) {
-            return StringWrapper.replaceAll(str, RegExpWrapper.create('[^0-9]+$', ''), '');
-        };
-        return Animation;
-    }());
-    var CssAnimationBuilder = (function () {
-        /**
-         * Accepts public properties for CssAnimationBuilder
-         */
-        function CssAnimationBuilder(browserDetails) {
-            this.browserDetails = browserDetails;
-            /** @type {CssAnimationOptions} */
-            this.data = new CssAnimationOptions();
-        }
-        /**
-         * Adds a temporary class that will be removed at the end of the animation
-         * @param className
-         */
-        CssAnimationBuilder.prototype.addAnimationClass = function (className) {
-            this.data.animationClasses.push(className);
-            return this;
-        };
-        /**
-         * Adds a class that will remain on the element after the animation has finished
-         * @param className
-         */
-        CssAnimationBuilder.prototype.addClass = function (className) {
-            this.data.classesToAdd.push(className);
-            return this;
-        };
-        /**
-         * Removes a class from the element
-         * @param className
-         */
-        CssAnimationBuilder.prototype.removeClass = function (className) {
-            this.data.classesToRemove.push(className);
-            return this;
-        };
-        /**
-         * Sets the animation duration (and overrides any defined through CSS)
-         * @param duration
-         */
-        CssAnimationBuilder.prototype.setDuration = function (duration) {
-            this.data.duration = duration;
-            return this;
-        };
-        /**
-         * Sets the animation delay (and overrides any defined through CSS)
-         * @param delay
-         */
-        CssAnimationBuilder.prototype.setDelay = function (delay) {
-            this.data.delay = delay;
-            return this;
-        };
-        /**
-         * Sets styles for both the initial state and the destination state
-         * @param from
-         * @param to
-         */
-        CssAnimationBuilder.prototype.setStyles = function (from, to) {
-            return this.setFromStyles(from).setToStyles(to);
-        };
-        /**
-         * Sets the initial styles for the animation
-         * @param from
-         */
-        CssAnimationBuilder.prototype.setFromStyles = function (from) {
-            this.data.fromStyles = from;
-            return this;
-        };
-        /**
-         * Sets the destination styles for the animation
-         * @param to
-         */
-        CssAnimationBuilder.prototype.setToStyles = function (to) {
-            this.data.toStyles = to;
-            return this;
-        };
-        /**
-         * Starts the animation and returns a promise
-         * @param element
-         */
-        CssAnimationBuilder.prototype.start = function (element) {
-            return new Animation(element, this.data, this.browserDetails);
-        };
-        return CssAnimationBuilder;
-    }());
-    var BrowserDetails = (function () {
-        function BrowserDetails() {
-            this.elapsedTimeIncludesDelay = false;
-            this.doesElapsedTimeIncludesDelay();
-        }
-        /**
-         * Determines if `event.elapsedTime` includes transition delay in the current browser.  At this
-         * time, Chrome and Opera seem to be the only browsers that include this.
-         */
-        BrowserDetails.prototype.doesElapsedTimeIncludesDelay = function () {
-            var _this = this;
-            var div = getDOM().createElement('div');
-            getDOM().setAttribute(div, 'style', "position: absolute; top: -9999px; left: -9999px; width: 1px;\n      height: 1px; transition: all 1ms linear 1ms;");
-            // Firefox requires that we wait for 2 frames for some reason
-            this.raf(function (timestamp) {
-                getDOM().on(div, 'transitionend', function (event) {
-                    var elapsed = Math$1.round(event.elapsedTime * 1000);
-                    _this.elapsedTimeIncludesDelay = elapsed == 2;
-                    getDOM().remove(div);
-                });
-                getDOM().setStyle(div, 'width', '2px');
-            }, 2);
-        };
-        BrowserDetails.prototype.raf = function (callback, frames) {
-            if (frames === void 0) { frames = 1; }
-            var queue = new RafQueue(callback, frames);
-            return function () { return queue.cancel(); };
-        };
-        return BrowserDetails;
-    }());
-    BrowserDetails.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    BrowserDetails.ctorParameters = [];
-    var RafQueue = (function () {
-        function RafQueue(callback, frames) {
-            this.callback = callback;
-            this.frames = frames;
-            this._raf();
-        }
-        RafQueue.prototype._raf = function () {
-            var _this = this;
-            this.currentFrameId =
-                getDOM().requestAnimationFrame(function (timestamp) { return _this._nextFrame(timestamp); });
-        };
-        RafQueue.prototype._nextFrame = function (timestamp) {
-            this.frames--;
-            if (this.frames > 0) {
-                this._raf();
-            }
-            else {
-                this.callback(timestamp);
-            }
-        };
-        RafQueue.prototype.cancel = function () {
-            getDOM().cancelAnimationFrame(this.currentFrameId);
-            this.currentFrameId = null;
-        };
-        return RafQueue;
-    }());
-    var AnimationBuilder = (function () {
-        /**
-         * Used for DI
-         * @param browserDetails
-         */
-        function AnimationBuilder(browserDetails) {
-            this.browserDetails = browserDetails;
-        }
-        /**
-         * Creates a new CSS Animation
-         * @returns {CssAnimationBuilder}
-         */
-        AnimationBuilder.prototype.css = function () { return new CssAnimationBuilder(this.browserDetails); };
-        return AnimationBuilder;
-    }());
-    AnimationBuilder.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    AnimationBuilder.ctorParameters = [
-        { type: BrowserDetails, },
-    ];
+    var reflector = _angular_core.__core_private__.reflector;
+    var NoOpAnimationDriver = _angular_core.__core_private__.NoOpAnimationDriver;
+    var AnimationDriver = _angular_core.__core_private__.AnimationDriver;
     /**
      * A DI Token representing the main rendering context. In a browser this is the DOM Document.
      *
@@ -1336,21 +990,25 @@ var __extends = (this && this.__extends) || function (d, b) {
     DomSharedStylesHost.ctorParameters = [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
     ];
+    var CAMEL_CASE_REGEXP = /([A-Z])/g;
+    function camelCaseToDashCase(input) {
+        return StringWrapper.replaceAllMapped(input, CAMEL_CASE_REGEXP, function (m) { return '-' + m[1].toLowerCase(); });
+    }
     var NAMESPACE_URIS = { 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://www.w3.org/2000/svg' };
     var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
     var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/g;
     var DomRootRenderer = (function () {
-        function DomRootRenderer(document, eventManager, sharedStylesHost, animate) {
+        function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver) {
             this.document = document;
             this.eventManager = eventManager;
             this.sharedStylesHost = sharedStylesHost;
-            this.animate = animate;
+            this.animationDriver = animationDriver;
             this.registeredComponents = new Map();
         }
         DomRootRenderer.prototype.renderComponent = function (componentProto) {
             var renderer = this.registeredComponents.get(componentProto.id);
             if (isBlank(renderer)) {
-                renderer = new DomRenderer(this, componentProto);
+                renderer = new DomRenderer(this, componentProto, this.animationDriver);
                 this.registeredComponents.set(componentProto.id, renderer);
             }
             return renderer;
@@ -1359,8 +1017,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     var DomRootRenderer_ = (function (_super) {
         __extends(DomRootRenderer_, _super);
-        function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animate) {
-            _super.call(this, _document, _eventManager, sharedStylesHost, animate);
+        function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver) {
+            _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver);
         }
         return DomRootRenderer_;
     }(DomRootRenderer));
@@ -1371,12 +1029,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
         { type: EventManager, },
         { type: DomSharedStylesHost, },
-        { type: AnimationBuilder, },
+        { type: AnimationDriver, },
     ];
     var DomRenderer = (function () {
-        function DomRenderer(_rootRenderer, componentProto) {
+        function DomRenderer(_rootRenderer, componentProto, _animationDriver) {
             this._rootRenderer = _rootRenderer;
             this.componentProto = componentProto;
+            this._animationDriver = _animationDriver;
             this._styles = _flattenStyles(componentProto.id, componentProto.styles, []);
             if (componentProto.encapsulation !== _angular_core.ViewEncapsulation.Native) {
                 this._rootRenderer.sharedStylesHost.addStyles(this._styles);
@@ -1395,7 +1054,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (isString(selectorOrNode)) {
                 el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
                 if (isBlank(el)) {
-                    throw new BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
+                    throw new BaseException$1("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
             }
             else {
@@ -1455,14 +1114,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         DomRenderer.prototype.attachViewAfter = function (node, viewRootNodes) {
             moveNodesAfterSibling(node, viewRootNodes);
-            for (var i = 0; i < viewRootNodes.length; i++)
-                this.animateNodeEnter(viewRootNodes[i]);
         };
         DomRenderer.prototype.detachView = function (viewRootNodes) {
             for (var i = 0; i < viewRootNodes.length; i++) {
-                var node = viewRootNodes[i];
-                getDOM().remove(node);
-                this.animateNodeLeave(node);
+                getDOM().remove(viewRootNodes[i]);
             }
         };
         DomRenderer.prototype.destroyView = function (hostElement, viewAllNodes) {
@@ -1539,38 +1194,8 @@ var __extends = (this && this.__extends) || function (d, b) {
             getDOM().invoke(renderElement, methodName, args);
         };
         DomRenderer.prototype.setText = function (renderNode, text) { getDOM().setText(renderNode, text); };
-        /**
-         * Performs animations if necessary
-         * @param node
-         */
-        DomRenderer.prototype.animateNodeEnter = function (node) {
-            if (getDOM().isElementNode(node) && getDOM().hasClass(node, 'ng-animate')) {
-                getDOM().addClass(node, 'ng-enter');
-                this._rootRenderer.animate.css()
-                    .addAnimationClass('ng-enter-active')
-                    .start(node)
-                    .onComplete(function () { getDOM().removeClass(node, 'ng-enter'); });
-            }
-        };
-        /**
-         * If animations are necessary, performs animations then removes the element; otherwise, it just
-         * removes the element.
-         * @param node
-         */
-        DomRenderer.prototype.animateNodeLeave = function (node) {
-            if (getDOM().isElementNode(node) && getDOM().hasClass(node, 'ng-animate')) {
-                getDOM().addClass(node, 'ng-leave');
-                this._rootRenderer.animate.css()
-                    .addAnimationClass('ng-leave-active')
-                    .start(node)
-                    .onComplete(function () {
-                    getDOM().removeClass(node, 'ng-leave');
-                    getDOM().remove(node);
-                });
-            }
-            else {
-                getDOM().remove(node);
-            }
+        DomRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
+            return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing);
         };
         return DomRenderer;
     }());
@@ -2369,6 +1994,161 @@ var __extends = (this && this.__extends) || function (d, b) {
         SafeResourceUrlImpl.prototype.getTypeName = function () { return 'ResourceURL'; };
         return SafeResourceUrlImpl;
     }(SafeValueImpl));
+    var WebAnimationsPlayer = (function () {
+        function WebAnimationsPlayer(_player, totalTime) {
+            var _this = this;
+            this._player = _player;
+            this.totalTime = totalTime;
+            this._subscriptions = [];
+            this._finished = false;
+            this.parentPlayer = null;
+            // this is required to make the player startable at a later time
+            this.reset();
+            this._player.onfinish = function () { return _this._onFinish(); };
+        }
+        WebAnimationsPlayer.prototype._onFinish = function () {
+            if (!this._finished) {
+                this._finished = true;
+                if (!isPresent(this.parentPlayer)) {
+                    this.destroy();
+                }
+                this._subscriptions.forEach(function (fn) { return fn(); });
+                this._subscriptions = [];
+            }
+        };
+        WebAnimationsPlayer.prototype.onDone = function (fn) { this._subscriptions.push(fn); };
+        WebAnimationsPlayer.prototype.play = function () { this._player.play(); };
+        WebAnimationsPlayer.prototype.pause = function () { this._player.pause(); };
+        WebAnimationsPlayer.prototype.finish = function () {
+            this._onFinish();
+            this._player.finish();
+        };
+        WebAnimationsPlayer.prototype.reset = function () { this._player.cancel(); };
+        WebAnimationsPlayer.prototype.restart = function () {
+            this.reset();
+            this.play();
+        };
+        WebAnimationsPlayer.prototype.destroy = function () {
+            this.reset();
+            this._onFinish();
+        };
+        WebAnimationsPlayer.prototype.setPosition = function (p) {
+            this._player.currentTime = p * this.totalTime;
+        };
+        WebAnimationsPlayer.prototype.getPosition = function () {
+            return this._player.currentTime / this.totalTime;
+        };
+        return WebAnimationsPlayer;
+    }());
+    var WebAnimationsDriver = (function () {
+        function WebAnimationsDriver() {
+        }
+        WebAnimationsDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
+            var anyElm = element;
+            var formattedSteps = [];
+            var startingStyleLookup = {};
+            if (isPresent(startingStyles) && startingStyles.styles.length > 0) {
+                startingStyleLookup = _populateStyles(anyElm, startingStyles, {});
+                startingStyleLookup['offset'] = 0;
+                formattedSteps.push(startingStyleLookup);
+            }
+            keyframes.forEach(function (keyframe) {
+                var data = _populateStyles(anyElm, keyframe.styles, startingStyleLookup);
+                data['offset'] = keyframe.offset;
+                formattedSteps.push(data);
+            });
+            // this is a special case when only styles are applied as an
+            // animation. When this occurs we want to animate from start to
+            // end with the same values. Removing the offset and having only
+            // start/end values is suitable enough for the web-animations API
+            if (formattedSteps.length == 1) {
+                var start = formattedSteps[0];
+                start.offset = null;
+                formattedSteps = [start, start];
+            }
+            var player = anyElm.animate(formattedSteps, { 'duration': duration, 'delay': delay, 'easing': easing, 'fill': 'forwards' });
+            return new WebAnimationsPlayer(player, duration);
+        };
+        return WebAnimationsDriver;
+    }());
+    function _populateStyles(element, styles, defaultStyles) {
+        var data = {};
+        styles.styles.forEach(function (entry) {
+            StringMapWrapper.forEach(entry, function (val, prop) {
+                data[prop] = val == _angular_core.AUTO_STYLE
+                    ? _computeStyle(element, prop)
+                    : val.toString() + _resolveStyleUnit(val, prop);
+            });
+        });
+        StringMapWrapper.forEach(defaultStyles, function (value, prop) {
+            if (!isPresent(data[prop])) {
+                data[prop] = value;
+            }
+        });
+        return data;
+    }
+    function _resolveStyleUnit(val, prop) {
+        var unit = '';
+        if (_isPixelDimensionStyle(prop) && val != 0 && val != '0') {
+            if (isNumber(val)) {
+                unit = 'px';
+            }
+            else if (_findDimensionalSuffix(val.toString()).length == 0) {
+                throw new _angular_core.BaseException('Please provide a CSS unit value for ' + prop + ':' + val);
+            }
+        }
+        return unit;
+    }
+    var _$0 = 48;
+    var _$9 = 57;
+    var _$PERIOD = 46;
+    function _findDimensionalSuffix(value) {
+        for (var i = 0; i < value.length; i++) {
+            var c = StringWrapper.charCodeAt(value, i);
+            if ((c >= _$0 && c <= _$9) || c == _$PERIOD)
+                continue;
+            return value.substring(i, value.length);
+        }
+        return '';
+    }
+    function _isPixelDimensionStyle(prop) {
+        switch (prop) {
+            case 'width':
+            case 'height':
+            case 'min-width':
+            case 'min-height':
+            case 'max-width':
+            case 'max-height':
+            case 'left':
+            case 'top':
+            case 'bottom':
+            case 'right':
+            case 'font-size':
+            case 'outline-width':
+            case 'outline-offset':
+            case 'padding-top':
+            case 'padding-left':
+            case 'padding-bottom':
+            case 'padding-right':
+            case 'margin-top':
+            case 'margin-left':
+            case 'margin-bottom':
+            case 'margin-right':
+            case 'border-radius':
+            case 'border-width':
+            case 'border-top-width':
+            case 'border-left-width':
+            case 'border-right-width':
+            case 'border-bottom-width':
+            case 'text-indent':
+                return true;
+            default:
+                return false;
+        }
+    }
+    function _computeStyle(element, prop) {
+        return getDOM().getComputedStyle(element)[prop];
+    }
     /**
      * Provides DOM operations in any browser environment.
      */
@@ -2782,6 +2562,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         BrowserDomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(global$1, path, value); };
         BrowserDomAdapter.prototype.requestAnimationFrame = function (callback) { return window.requestAnimationFrame(callback); };
         BrowserDomAdapter.prototype.cancelAnimationFrame = function (id) { window.cancelAnimationFrame(id); };
+        BrowserDomAdapter.prototype.supportsWebAnimation = function () { return isFunction(document.body['animate']); };
         BrowserDomAdapter.prototype.performanceNow = function () {
             // performance.now() is not available in all browsers, see
             // http://caniuse.com/#search=performance.now
@@ -2940,7 +2721,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             _super.call(this);
             this._cache = global$1.$templateCache;
             if (this._cache == null) {
-                throw new BaseException('CachedXHR: Template cache was not found in $templateCache.');
+                throw new BaseException$1('CachedXHR: Template cache was not found in $templateCache.');
             }
         }
         CachedXHR.prototype.get = function (url) {
@@ -3025,10 +2806,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: DomRootRenderer, useClass: DomRootRenderer_ },
         { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
         DomSharedStylesHost,
         _angular_core.Testability,
-        BrowserDetails,
-        AnimationBuilder,
         EventManager,
         ELEMENT_PROBE_PROVIDERS
     ];
@@ -3111,7 +2891,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * Returns a `Promise` of {@link ComponentRef}.
      */
     function bootstrap(appComponentType, customProviders) {
-        _angular_core.reflector.reflectionCapabilities = new ReflectionCapabilities();
+        reflector.reflectionCapabilities = new ReflectionCapabilities();
         var providers = [
             BROWSER_APP_PROVIDERS,
             BROWSER_APP_COMPILER_PROVIDERS,
@@ -3130,6 +2910,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     function _document() {
         return getDOM().defaultDoc();
+    }
+    function _resolveDefaultAnimationDriver() {
+        if (getDOM().supportsWebAnimation()) {
+            return new WebAnimationsDriver();
+        }
+        return new NoOpAnimationDriver();
     }
     /**
      * Message Bus is a low level API used to communicate between the UI and the background.
@@ -3215,6 +3001,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * https://github.com/jhusain/observable-spec
      *
      * Once a reference implementation of the spec is available, switch to it.
+     * @stable
      */
     var EventEmitter = (function (_super) {
         __extends(EventEmitter, _super);
@@ -3348,7 +3135,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._serializeLocation(obj);
             }
             else {
-                throw new BaseException("No serializer for " + type.toString());
+                throw new BaseException$1("No serializer for " + type.toString());
             }
         };
         Serializer.prototype.deserialize = function (map, type, data) {
@@ -3377,7 +3164,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._deserializeLocation(map);
             }
             else {
-                throw new BaseException("No deserializer for " + type.toString());
+                throw new BaseException$1("No deserializer for " + type.toString());
             }
         };
         Serializer.prototype._serializeLocation = function (loc) {
@@ -3710,10 +3497,10 @@ var __extends = (this && this.__extends) || function (d, b) {
             return PromiseWrapper.then(locationPromise, function (val) {
                 _this._location = val;
                 return true;
-            }, function (err) { throw new BaseException(err); });
+            }, function (err) { throw new BaseException$1(err); });
         };
         WebWorkerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
-            throw new BaseException("Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.");
+            throw new BaseException$1("Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.");
         };
         WebWorkerPlatformLocation.prototype.onPopState = function (fn) { this._popStateListeners.push(fn); };
         WebWorkerPlatformLocation.prototype.onHashChange = function (fn) { this._hashChangeListeners.push(fn); };
@@ -3726,7 +3513,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             },
             set: function (newPath) {
                 if (this._location === null) {
-                    throw new BaseException("Attempt to set pathname before value is obtained from UI");
+                    throw new BaseException$1("Attempt to set pathname before value is obtained from UI");
                 }
                 this._location.pathname = newPath;
                 var fnArgs = [new FnArg(newPath, PRIMITIVE)];
@@ -4010,7 +3797,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     serializedEvent = serializeTransitionEvent(event);
                     break;
                 default:
-                    throw new BaseException(eventName + " not supported on WebWorkers");
+                    throw new BaseException$1(eventName + " not supported on WebWorkers");
             }
             ObservableWrapper.callEmit(this._sink, {
                 "element": this._serializer.serialize(element, RenderStoreObject),
@@ -4160,7 +3947,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new BaseException(channel + " has already been initialized");
+                throw new BaseException$1(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -4180,7 +3967,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new BaseException(channel + " is not set up. Did you forget to call initChannel?");
+                throw new BaseException$1(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSink.prototype._handleOnEventDone = function () {
@@ -4208,7 +3995,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new BaseException(channel + " has already been initialized");
+                throw new BaseException$1(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -4219,7 +4006,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new BaseException(channel + " is not set up. Did you forget to call initChannel?");
+                throw new BaseException$1(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSource.prototype._handleMessages = function (ev) {
@@ -4323,13 +4110,12 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
         { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
         { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
+        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver$1 },
         Serializer,
         { provide: ON_WEB_WORKER, useValue: false },
         RenderStore,
         DomSharedStylesHost,
         _angular_core.Testability,
-        BrowserDetails,
-        AnimationBuilder,
         EventManager,
         WebWorkerInstance,
         {
@@ -4387,7 +4173,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             scriptUri = injector.get(WORKER_SCRIPT);
         }
         catch (e) {
-            throw new BaseException("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
+            throw new BaseException$1("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
         }
         var instance = injector.get(WebWorkerInstance);
         spawnWebWorker(scriptUri, instance);
@@ -4402,6 +4188,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         var source = new PostMessageBusSource(webWorker);
         var bus = new PostMessageBus(sink, source);
         instance.init(webWorker, bus);
+    }
+    function _resolveDefaultAnimationDriver$1() {
+        // web workers have not been tested or configured to
+        // work with animations just yet...
+        return new NoOpAnimationDriver();
     }
     var WebWorkerRootRenderer = (function () {
         function WebWorkerRootRenderer(messageBrokerFactory, bus, _serializer, _renderStore) {
@@ -4597,6 +4388,10 @@ var __extends = (this && this.__extends) || function (d, b) {
                 _this._runOnService('listenDone', [new FnArg(unlistenCallbackId, null)]);
             };
         };
+        WebWorkerRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
+            // TODO
+            return null;
+        };
         return WebWorkerRenderer;
     }());
     var NamedEventEmitter = (function () {
@@ -4787,6 +4582,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         WorkerDomAdapter.prototype.getAnimationPrefix = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.getTransitionEnd = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.supportsAnimation = function () { throw "not implemented"; };
+        WorkerDomAdapter.prototype.supportsWebAnimation = function () { throw "not implemented"; };
         return WorkerDomAdapter;
     }(DomAdapter));
     var PrintLogger = (function () {

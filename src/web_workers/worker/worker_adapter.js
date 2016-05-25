@@ -158,6 +158,7 @@ var WorkerDomAdapter = (function (_super) {
     WorkerDomAdapter.prototype.getAnimationPrefix = function () { throw "not implemented"; };
     WorkerDomAdapter.prototype.getTransitionEnd = function () { throw "not implemented"; };
     WorkerDomAdapter.prototype.supportsAnimation = function () { throw "not implemented"; };
+    WorkerDomAdapter.prototype.supportsWebAnimation = function () { throw "not implemented"; };
     return WorkerDomAdapter;
 }(dom_adapter_1.DomAdapter));
 exports.WorkerDomAdapter = WorkerDomAdapter;

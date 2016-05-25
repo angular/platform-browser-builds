@@ -127,6 +127,7 @@ export declare abstract class DomAdapter {
     abstract setGlobalVar(name: string, value: any): any;
     abstract requestAnimationFrame(callback: any): number;
     abstract cancelAnimationFrame(id: any): any;
+    abstract supportsWebAnimation(): boolean;
     abstract performanceNow(): number;
     abstract getAnimationPrefix(): string;
     abstract getTransitionEnd(): string;

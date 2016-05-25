@@ -198,6 +198,10 @@ export class WebWorkerRenderer {
             this._runOnService('listenDone', [new FnArg(unlistenCallbackId, null)]);
         };
     }
+    animate(element, startingStyles, keyframes, duration, delay, easing) {
+        // TODO
+        return null;
+    }
 }
 export class NamedEventEmitter {
     _getListeners(eventName) {

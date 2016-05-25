@@ -1,5 +1,5 @@
 import { ListWrapper } from '../../src/facade/collection';
-import { isBlank, isPresent, global, setValueOnPath, DateWrapper } from '../../src/facade/lang';
+import { isBlank, isPresent, isFunction, global, setValueOnPath, DateWrapper } from '../../src/facade/lang';
 import { GenericBrowserDomAdapter } from './generic_browser_adapter';
 import { setRootDomAdapter } from '../dom/dom_adapter';
 var _attrToPropMap = {
@@ -337,6 +337,7 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
     setGlobalVar(path, value) { setValueOnPath(global, path, value); }
     requestAnimationFrame(callback) { return window.requestAnimationFrame(callback); }
     cancelAnimationFrame(id) { window.cancelAnimationFrame(id); }
+    supportsWebAnimation() { return isFunction(document.body['animate']); }
     performanceNow() {
         // performance.now() is not available in all browsers, see
         // http://caniuse.com/#search=performance.now

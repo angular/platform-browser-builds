@@ -204,6 +204,10 @@ var WebWorkerRenderer = (function () {
             _this._runOnService('listenDone', [new client_message_broker_1.FnArg(unlistenCallbackId, null)]);
         };
     };
+    WebWorkerRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
+        // TODO
+        return null;
+    };
     return WebWorkerRenderer;
 }());
 exports.WebWorkerRenderer = WebWorkerRenderer;

@@ -1,7 +1,8 @@
 "use strict";
 var core_1 = require("@angular/core");
 var lang_1 = require("./facade/lang");
-var core_private_1 = require("../core_private");
+var core_private_1 = require('../core_private');
+var web_animations_driver_1 = require('../src/dom/web_animations_driver');
 var common_1 = require("@angular/common");
 var dom_sanitization_service_1 = require("./security/dom_sanitization_service");
 var browser_adapter_1 = require("./browser/browser_adapter");
@@ -15,12 +16,11 @@ var key_events_1 = require("./dom/events/key_events");
 var ng_probe_1 = require("./dom/debug/ng_probe");
 var dom_events_1 = require("./dom/events/dom_events");
 var hammer_gestures_1 = require("./dom/events/hammer_gestures");
-var animation_builder_1 = require("./animate/animation_builder");
-var browser_details_1 = require("./animate/browser_details");
 var browser_platform_location_1 = require("./browser/location/browser_platform_location");
 var compiler_1 = require("@angular/compiler");
 var xhr_cache_1 = require("./xhr/xhr_cache");
 var xhr_impl_1 = require("./xhr/xhr_impl");
+var core_private_2 = require('../core_private');
 exports.CACHED_TEMPLATE_PROVIDER = [{ provide: compiler_1.XHR, useClass: xhr_cache_1.CachedXHR }];
 var BROWSER_PLATFORM_MARKER = new core_1.OpaqueToken('BrowserPlatformMarker');
 /**
@@ -58,10 +58,9 @@ exports.BROWSER_APP_PROVIDERS = [
     { provide: dom_renderer_1.DomRootRenderer, useClass: dom_renderer_1.DomRootRenderer_ },
     { provide: core_1.RootRenderer, useExisting: dom_renderer_1.DomRootRenderer },
     { provide: shared_styles_host_1.SharedStylesHost, useExisting: shared_styles_host_1.DomSharedStylesHost },
+    { provide: core_private_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
     shared_styles_host_1.DomSharedStylesHost,
     core_1.Testability,
-    browser_details_1.BrowserDetails,
-    animation_builder_1.AnimationBuilder,
     event_manager_1.EventManager,
     ng_probe_1.ELEMENT_PROBE_PROVIDERS
 ];
@@ -145,7 +144,7 @@ exports.browserPlatform = browserPlatform;
  * Returns a `Promise` of {@link ComponentRef}.
  */
 function bootstrap(appComponentType, customProviders) {
-    core_1.reflector.reflectionCapabilities = new core_private_1.ReflectionCapabilities();
+    core_private_2.reflector.reflectionCapabilities = new core_private_1.ReflectionCapabilities();
     var providers = [
         exports.BROWSER_APP_PROVIDERS,
         exports.BROWSER_APP_COMPILER_PROVIDERS,
@@ -165,5 +164,11 @@ function _exceptionHandler() {
 }
 function _document() {
     return dom_adapter_1.getDOM().defaultDoc();
+}
+function _resolveDefaultAnimationDriver() {
+    if (dom_adapter_1.getDOM().supportsWebAnimation()) {
+        return new web_animations_driver_1.WebAnimationsDriver();
+    }
+    return new core_private_1.NoOpAnimationDriver();
 }
 //# sourceMappingURL=browser.js.map

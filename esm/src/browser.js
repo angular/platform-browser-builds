@@ -1,6 +1,7 @@
-import { PLATFORM_INITIALIZER, PLATFORM_DIRECTIVES, PLATFORM_PIPES, ExceptionHandler, RootRenderer, APPLICATION_COMMON_PROVIDERS, PLATFORM_COMMON_PROVIDERS, OpaqueToken, Testability, getPlatform, createPlatform, assertPlatform, ReflectiveInjector, reflector, coreLoadAndBootstrap } from "@angular/core";
+import { PLATFORM_INITIALIZER, PLATFORM_DIRECTIVES, PLATFORM_PIPES, ExceptionHandler, RootRenderer, APPLICATION_COMMON_PROVIDERS, PLATFORM_COMMON_PROVIDERS, OpaqueToken, Testability, getPlatform, createPlatform, assertPlatform, ReflectiveInjector, coreLoadAndBootstrap } from "@angular/core";
 import { isBlank, isPresent } from "./facade/lang";
-import { wtfInit, SanitizationService, ReflectionCapabilities } from "../core_private";
+import { wtfInit, SanitizationService, ReflectionCapabilities, AnimationDriver, NoOpAnimationDriver } from '../core_private';
+import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
 import { COMMON_DIRECTIVES, COMMON_PIPES, FORM_PROVIDERS, PlatformLocation } from "@angular/common";
 import { DomSanitizationService, DomSanitizationServiceImpl } from "./security/dom_sanitization_service";
 import { BrowserDomAdapter } from "./browser/browser_adapter";
@@ -14,12 +15,11 @@ import { KeyEventsPlugin } from "./dom/events/key_events";
 import { ELEMENT_PROBE_PROVIDERS } from "./dom/debug/ng_probe";
 import { DomEventsPlugin } from "./dom/events/dom_events";
 import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerGesturesPlugin } from "./dom/events/hammer_gestures";
-import { AnimationBuilder } from "./animate/animation_builder";
-import { BrowserDetails } from "./animate/browser_details";
 import { BrowserPlatformLocation } from "./browser/location/browser_platform_location";
 import { COMPILER_PROVIDERS, XHR } from "@angular/compiler";
 import { CachedXHR } from "./xhr/xhr_cache";
 import { XHRImpl } from "./xhr/xhr_impl";
+import { reflector } from '../core_private';
 export const CACHED_TEMPLATE_PROVIDER = [{ provide: XHR, useClass: CachedXHR }];
 const BROWSER_PLATFORM_MARKER = new OpaqueToken('BrowserPlatformMarker');
 /**
@@ -57,10 +57,9 @@ export const BROWSER_APP_PROVIDERS = [
     { provide: DomRootRenderer, useClass: DomRootRenderer_ },
     { provide: RootRenderer, useExisting: DomRootRenderer },
     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
     DomSharedStylesHost,
     Testability,
-    BrowserDetails,
-    AnimationBuilder,
     EventManager,
     ELEMENT_PROBE_PROVIDERS
 ];
@@ -162,5 +161,11 @@ function _exceptionHandler() {
 }
 function _document() {
     return getDOM().defaultDoc();
+}
+function _resolveDefaultAnimationDriver() {
+    if (getDOM().supportsWebAnimation()) {
+        return new WebAnimationsDriver();
+    }
+    return new NoOpAnimationDriver();
 }
 //# sourceMappingURL=browser.js.map

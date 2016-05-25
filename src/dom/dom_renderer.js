@@ -5,11 +5,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var animation_builder_1 = require('../animate/animation_builder');
 var lang_1 = require('../../src/facade/lang');
 var collection_1 = require('../../src/facade/collection');
 var exceptions_1 = require('../../src/facade/exceptions');
 var shared_styles_host_1 = require('./shared_styles_host');
+var core_private_1 = require('../../core_private');
 var event_manager_1 = require('./events/event_manager');
 var dom_tokens_1 = require('./dom_tokens');
 var dom_adapter_1 = require('./dom_adapter');
@@ -18,17 +18,17 @@ var NAMESPACE_URIS = { 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://w
 var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
 var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/g;
 var DomRootRenderer = (function () {
-    function DomRootRenderer(document, eventManager, sharedStylesHost, animate) {
+    function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver) {
         this.document = document;
         this.eventManager = eventManager;
         this.sharedStylesHost = sharedStylesHost;
-        this.animate = animate;
+        this.animationDriver = animationDriver;
         this.registeredComponents = new Map();
     }
     DomRootRenderer.prototype.renderComponent = function (componentProto) {
         var renderer = this.registeredComponents.get(componentProto.id);
         if (lang_1.isBlank(renderer)) {
-            renderer = new DomRenderer(this, componentProto);
+            renderer = new DomRenderer(this, componentProto, this.animationDriver);
             this.registeredComponents.set(componentProto.id, renderer);
         }
         return renderer;
@@ -38,8 +38,8 @@ var DomRootRenderer = (function () {
 exports.DomRootRenderer = DomRootRenderer;
 var DomRootRenderer_ = (function (_super) {
     __extends(DomRootRenderer_, _super);
-    function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animate) {
-        _super.call(this, _document, _eventManager, sharedStylesHost, animate);
+    function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver) {
+        _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver);
     }
     DomRootRenderer_.decorators = [
         { type: core_1.Injectable },
@@ -48,15 +48,16 @@ var DomRootRenderer_ = (function (_super) {
         { type: undefined, decorators: [{ type: core_1.Inject, args: [dom_tokens_1.DOCUMENT,] },] },
         { type: event_manager_1.EventManager, },
         { type: shared_styles_host_1.DomSharedStylesHost, },
-        { type: animation_builder_1.AnimationBuilder, },
+        { type: core_private_1.AnimationDriver, },
     ];
     return DomRootRenderer_;
 }(DomRootRenderer));
 exports.DomRootRenderer_ = DomRootRenderer_;
 var DomRenderer = (function () {
-    function DomRenderer(_rootRenderer, componentProto) {
+    function DomRenderer(_rootRenderer, componentProto, _animationDriver) {
         this._rootRenderer = _rootRenderer;
         this.componentProto = componentProto;
+        this._animationDriver = _animationDriver;
         this._styles = _flattenStyles(componentProto.id, componentProto.styles, []);
         if (componentProto.encapsulation !== core_1.ViewEncapsulation.Native) {
             this._rootRenderer.sharedStylesHost.addStyles(this._styles);
@@ -135,14 +136,10 @@ var DomRenderer = (function () {
     };
     DomRenderer.prototype.attachViewAfter = function (node, viewRootNodes) {
         moveNodesAfterSibling(node, viewRootNodes);
-        for (var i = 0; i < viewRootNodes.length; i++)
-            this.animateNodeEnter(viewRootNodes[i]);
     };
     DomRenderer.prototype.detachView = function (viewRootNodes) {
         for (var i = 0; i < viewRootNodes.length; i++) {
-            var node = viewRootNodes[i];
-            dom_adapter_1.getDOM().remove(node);
-            this.animateNodeLeave(node);
+            dom_adapter_1.getDOM().remove(viewRootNodes[i]);
         }
     };
     DomRenderer.prototype.destroyView = function (hostElement, viewAllNodes) {
@@ -219,38 +216,8 @@ var DomRenderer = (function () {
         dom_adapter_1.getDOM().invoke(renderElement, methodName, args);
     };
     DomRenderer.prototype.setText = function (renderNode, text) { dom_adapter_1.getDOM().setText(renderNode, text); };
-    /**
-     * Performs animations if necessary
-     * @param node
-     */
-    DomRenderer.prototype.animateNodeEnter = function (node) {
-        if (dom_adapter_1.getDOM().isElementNode(node) && dom_adapter_1.getDOM().hasClass(node, 'ng-animate')) {
-            dom_adapter_1.getDOM().addClass(node, 'ng-enter');
-            this._rootRenderer.animate.css()
-                .addAnimationClass('ng-enter-active')
-                .start(node)
-                .onComplete(function () { dom_adapter_1.getDOM().removeClass(node, 'ng-enter'); });
-        }
-    };
-    /**
-     * If animations are necessary, performs animations then removes the element; otherwise, it just
-     * removes the element.
-     * @param node
-     */
-    DomRenderer.prototype.animateNodeLeave = function (node) {
-        if (dom_adapter_1.getDOM().isElementNode(node) && dom_adapter_1.getDOM().hasClass(node, 'ng-animate')) {
-            dom_adapter_1.getDOM().addClass(node, 'ng-leave');
-            this._rootRenderer.animate.css()
-                .addAnimationClass('ng-leave-active')
-                .start(node)
-                .onComplete(function () {
-                dom_adapter_1.getDOM().removeClass(node, 'ng-leave');
-                dom_adapter_1.getDOM().remove(node);
-            });
-        }
-        else {
-            dom_adapter_1.getDOM().remove(node);
-        }
+    DomRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
+        return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing);
     };
     return DomRenderer;
 }());

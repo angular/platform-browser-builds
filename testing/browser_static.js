@@ -2,13 +2,12 @@
 var core_1 = require('@angular/core');
 var browser_1 = require('../src/browser');
 var browser_adapter_1 = require('../src/browser/browser_adapter');
-var animation_builder_1 = require('../src/animate/animation_builder');
-var animation_builder_mock_1 = require('./animation_builder_mock');
 var testing_1 = require('@angular/common/testing');
 var common_1 = require('@angular/common');
 var browser_util_1 = require('./browser_util');
 var testing_2 = require('@angular/core/testing');
 var ng_probe_1 = require('../src/dom/debug/ng_probe');
+var core_private_1 = require('../core_private');
 /**
  * Default platform providers for testing without a compiler.
  */
@@ -22,7 +21,7 @@ exports.ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS = [
     testing_2.Log,
     { provide: core_1.NgZone, useFactory: createNgZone },
     { provide: common_1.LocationStrategy, useClass: testing_1.MockLocationStrategy },
-    { provide: animation_builder_1.AnimationBuilder, useClass: animation_builder_mock_1.MockAnimationBuilder }
+    { provide: core_private_1.AnimationDriver, useClass: core_private_1.NoOpAnimationDriver }
 ];
 /**
  * Default application providers for testing without a compiler.

@@ -1,7 +1,7 @@
 import { isBlank, isPresent } from "./facade/lang";
 import { MessageBus } from "./web_workers/shared/message_bus";
 import { NgZone, Injector, OpaqueToken, Testability, ExceptionHandler, APPLICATION_COMMON_PROVIDERS, PLATFORM_COMMON_PROVIDERS, RootRenderer, PLATFORM_INITIALIZER, getPlatform, createPlatform, assertPlatform, ReflectiveInjector, Injectable, APP_INITIALIZER, ApplicationRef } from "@angular/core";
-import { wtfInit } from "../core_private";
+import { wtfInit, AnimationDriver, NoOpAnimationDriver } from '../core_private';
 import { getDOM } from "./dom/dom_adapter";
 import { DomEventsPlugin } from "./dom/events/dom_events";
 import { KeyEventsPlugin } from "./dom/events/key_events";
@@ -9,8 +9,6 @@ import { HammerGesturesPlugin, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from
 import { DOCUMENT } from "./dom/dom_tokens";
 import { DomRootRenderer, DomRootRenderer_ } from "./dom/dom_renderer";
 import { DomSharedStylesHost, SharedStylesHost } from "./dom/shared_styles_host";
-import { BrowserDetails } from "./animate/browser_details";
-import { AnimationBuilder } from "./animate/animation_builder";
 import { BrowserGetTestability } from "./browser/testability";
 import { BrowserDomAdapter } from "./browser/browser_adapter";
 import { MessageBasedRenderer } from "./web_workers/ui/renderer";
@@ -66,13 +64,12 @@ export const WORKER_RENDER_APPLICATION_PROVIDERS = [
     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
     { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
     { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
+    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
     Serializer,
     { provide: ON_WEB_WORKER, useValue: false },
     RenderStore,
     DomSharedStylesHost,
     Testability,
-    BrowserDetails,
-    AnimationBuilder,
     EventManager,
     WebWorkerInstance,
     {
@@ -145,5 +142,10 @@ function spawnWebWorker(uri, instance) {
     var source = new PostMessageBusSource(webWorker);
     var bus = new PostMessageBus(sink, source);
     instance.init(webWorker, bus);
+}
+function _resolveDefaultAnimationDriver() {
+    // web workers have not been tested or configured to
+    // work with animations just yet...
+    return new NoOpAnimationDriver();
 }
 //# sourceMappingURL=worker_render.js.map
