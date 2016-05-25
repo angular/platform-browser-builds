@@ -160,6 +160,9 @@ var WebWorkerRenderer = (function () {
             new client_message_broker_1.FnArg(isAdd, null)
         ]);
     };
+    WebWorkerRenderer.prototype.setElementStyles = function (renderElement, styles) {
+        this._runOnService('setElementStyles', [new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(styles, null)]);
+    };
     WebWorkerRenderer.prototype.setElementStyle = function (renderElement, styleName, styleValue) {
         this._runOnService('setElementStyle', [
             new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject),

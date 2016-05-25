@@ -37,6 +37,9 @@ export declare class DomRenderer implements Renderer {
     setElementAttribute(renderElement: any, attributeName: string, attributeValue: string): void;
     setBindingDebugInfo(renderElement: any, propertyName: string, propertyValue: string): void;
     setElementClass(renderElement: any, className: string, isAdd: boolean): void;
+    setElementStyles(renderElement: any, styles: {
+        [key: string]: string;
+    }): void;
     setElementStyle(renderElement: any, styleName: string, styleValue: string): void;
     invokeElementMethod(renderElement: any, methodName: string, args: any[]): void;
     setText(renderNode: any, text: string): void;

@@ -156,6 +156,9 @@ export class WebWorkerRenderer {
             new FnArg(isAdd, null)
         ]);
     }
+    setElementStyles(renderElement, styles) {
+        this._runOnService('setElementStyles', [new FnArg(renderElement, RenderStoreObject), new FnArg(styles, null)]);
+    }
     setElementStyle(renderElement, styleName, styleValue) {
         this._runOnService('setElementStyle', [
             new FnArg(renderElement, RenderStoreObject),

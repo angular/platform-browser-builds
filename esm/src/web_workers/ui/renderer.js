@@ -33,6 +33,7 @@ export class MessageBasedRenderer {
         broker.registerMethod("setBindingDebugInfo", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setBindingDebugInfo, this));
         broker.registerMethod("setElementClass", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setElementClass, this));
         broker.registerMethod("setElementStyle", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setElementStyle, this));
+        broker.registerMethod("setElementStyles", [RenderStoreObject, RenderStoreObject, PRIMITIVE], FunctionWrapper.bind(this._setElementStyles, this));
         broker.registerMethod("invokeElementMethod", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._invokeElementMethod, this));
         broker.registerMethod("setText", [RenderStoreObject, RenderStoreObject, PRIMITIVE], FunctionWrapper.bind(this._setText, this));
         broker.registerMethod("listen", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._listen, this));
@@ -90,6 +91,9 @@ export class MessageBasedRenderer {
     }
     _setElementStyle(renderer, renderElement, styleName, styleValue) {
         renderer.setElementStyle(renderElement, styleName, styleValue);
+    }
+    _setElementStyles(renderer, renderElement, styles) {
+        renderer.setElementStyles(renderElement, styles);
     }
     _invokeElementMethod(renderer, renderElement, methodName, args) {
         renderer.invokeElementMethod(renderElement, methodName, args);

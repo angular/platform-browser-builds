@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var core_1 = require('@angular/core');
 var animation_builder_1 = require('../animate/animation_builder');
 var lang_1 = require('../../src/facade/lang');
+var collection_1 = require('../../src/facade/collection');
 var exceptions_1 = require('../../src/facade/exceptions');
 var shared_styles_host_1 = require('./shared_styles_host');
 var event_manager_1 = require('./events/event_manager');
@@ -201,6 +202,10 @@ var DomRenderer = (function () {
         else {
             dom_adapter_1.getDOM().removeClass(renderElement, className);
         }
+    };
+    DomRenderer.prototype.setElementStyles = function (renderElement, styles) {
+        var _this = this;
+        collection_1.StringMapWrapper.forEach(styles, function (value, prop) { return _this.setElementStyle(renderElement, prop, value); });
     };
     DomRenderer.prototype.setElementStyle = function (renderElement, styleName, styleValue) {
         if (lang_1.isPresent(styleValue)) {

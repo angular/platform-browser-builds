@@ -27,6 +27,7 @@ export declare class MessageBasedRenderer {
     private _setBindingDebugInfo(renderer, renderElement, propertyName, propertyValue);
     private _setElementClass(renderer, renderElement, className, isAdd);
     private _setElementStyle(renderer, renderElement, styleName, styleValue);
+    private _setElementStyles(renderer, renderElement, styles);
     private _invokeElementMethod(renderer, renderElement, methodName, args);
     private _setText(renderer, renderNode, text);
     private _listen(renderer, renderElement, eventName, unlistenId);
