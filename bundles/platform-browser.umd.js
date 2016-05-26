@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v2.0.0-5e12a95
+ * @license AngularJS v2.0.0-bab6023
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1332,6 +1332,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return By;
     }());
+    function supportsState() {
+        return !!window.history.pushState;
+    }
     var BrowserPlatformLocation = (function (_super) {
         __extends(BrowserPlatformLocation, _super);
         function BrowserPlatformLocation() {
@@ -1374,10 +1377,20 @@ var __extends = (this && this.__extends) || function (d, b) {
             configurable: true
         });
         BrowserPlatformLocation.prototype.pushState = function (state, title, url) {
-            this._history.pushState(state, title, url);
+            if (supportsState()) {
+                this._history.pushState(state, title, url);
+            }
+            else {
+                this._location.hash = url;
+            }
         };
         BrowserPlatformLocation.prototype.replaceState = function (state, title, url) {
-            this._history.replaceState(state, title, url);
+            if (supportsState()) {
+                this._history.replaceState(state, title, url);
+            }
+            else {
+                this._location.hash = url;
+            }
         };
         BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
         BrowserPlatformLocation.prototype.back = function () { this._history.back(); };

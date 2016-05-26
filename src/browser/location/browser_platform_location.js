@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var dom_adapter_1 = require('../../dom/dom_adapter');
+var history_1 = require('./history');
 var BrowserPlatformLocation = (function (_super) {
     __extends(BrowserPlatformLocation, _super);
     function BrowserPlatformLocation() {
@@ -49,10 +50,20 @@ var BrowserPlatformLocation = (function (_super) {
         configurable: true
     });
     BrowserPlatformLocation.prototype.pushState = function (state, title, url) {
-        this._history.pushState(state, title, url);
+        if (history_1.supportsState()) {
+            this._history.pushState(state, title, url);
+        }
+        else {
+            this._location.hash = url;
+        }
     };
     BrowserPlatformLocation.prototype.replaceState = function (state, title, url) {
-        this._history.replaceState(state, title, url);
+        if (history_1.supportsState()) {
+            this._history.replaceState(state, title, url);
+        }
+        else {
+            this._location.hash = url;
+        }
     };
     BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
     BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
