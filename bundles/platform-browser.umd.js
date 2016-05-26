@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v2.0.0-b2e804c
+ * @license AngularJS v2.0.0-172a566
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/compiler'), require('rxjs/Subject'), require('rxjs/observable/PromiseObservable'), require('rxjs/operator/toPromise'), require('rxjs/Observable')) :
         typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/compiler', 'rxjs/Subject', 'rxjs/observable/PromiseObservable', 'rxjs/operator/toPromise', 'rxjs/Observable'], factory) :
-            (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.core, global.ng.common, global._angular_compiler, global.Rx, global.Rx, global.Rx.Observable.prototype, global.Rx));
+            (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.core, global.ng.common, global.ng.compiler, global.Rx, global.Rx, global.Rx.Observable.prototype, global.Rx));
 }(this, function (exports, _angular_core, _angular_common, _angular_compiler, rxjs_Subject, rxjs_observable_PromiseObservable, rxjs_operator_toPromise, rxjs_Observable) {
     'use strict';
     var globalScope;
@@ -4669,6 +4669,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         __platform_browser_private__.getDOM = getDOM$$;
         __platform_browser_private__.setRootDomAdapter = setRootDomAdapter;
     })(exports.__platform_browser_private__ || (exports.__platform_browser_private__ = {}));
+    /* @deprecated use BROWSER_PLATFORM_PROVIDERS */
+    var BROWSER_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
+    exports.BROWSER_PROVIDERS = BROWSER_PROVIDERS;
     exports.DomEventsPlugin = DomEventsPlugin;
     exports.KeyEventsPlugin = KeyEventsPlugin;
     exports.EventManager = EventManager;

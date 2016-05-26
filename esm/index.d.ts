@@ -19,3 +19,4 @@ export { WORKER_RENDER_LOCATION_PROVIDERS } from './src/web_workers/ui/location_
 export * from './src/worker_render';
 export * from './src/worker_app';
 export * from './private_export';
+export declare const BROWSER_PROVIDERS: any[];

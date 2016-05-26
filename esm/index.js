@@ -20,4 +20,7 @@ export { WORKER_RENDER_LOCATION_PROVIDERS } from './src/web_workers/ui/location_
 export * from './src/worker_render';
 export * from './src/worker_app';
 export * from './private_export';
+import { BROWSER_PLATFORM_PROVIDERS } from './src/browser';
+/* @deprecated use BROWSER_PLATFORM_PROVIDERS */
+export const BROWSER_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
 //# sourceMappingURL=index.js.map

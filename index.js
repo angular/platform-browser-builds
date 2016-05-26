@@ -49,4 +49,7 @@ exports.WORKER_RENDER_LOCATION_PROVIDERS = location_providers_2.WORKER_RENDER_LO
 __export(require('./src/worker_render'));
 __export(require('./src/worker_app'));
 __export(require('./private_export'));
+var browser_2 = require('./src/browser');
+/* @deprecated use BROWSER_PLATFORM_PROVIDERS */
+exports.BROWSER_PROVIDERS = browser_2.BROWSER_PLATFORM_PROVIDERS;
 //# sourceMappingURL=index.js.map
