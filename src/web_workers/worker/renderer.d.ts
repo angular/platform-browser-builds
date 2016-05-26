@@ -24,11 +24,11 @@ export declare class WebWorkerRenderer implements Renderer, RenderStoreObject {
     private _componentType;
     constructor(_rootRenderer: WebWorkerRootRenderer, _componentType: RenderComponentType);
     private _runOnService(fnName, fnArgs);
-    selectRootElement(selectorOrNode: string, debugInfo: RenderDebugInfo): any;
-    createElement(parentElement: any, name: string, debugInfo: RenderDebugInfo): any;
+    selectRootElement(selectorOrNode: string, debugInfo?: RenderDebugInfo): any;
+    createElement(parentElement: any, name: string, debugInfo?: RenderDebugInfo): any;
     createViewRoot(hostElement: any): any;
-    createTemplateAnchor(parentElement: any, debugInfo: RenderDebugInfo): any;
-    createText(parentElement: any, value: string, debugInfo: RenderDebugInfo): any;
+    createTemplateAnchor(parentElement: any, debugInfo?: RenderDebugInfo): any;
+    createText(parentElement: any, value: string, debugInfo?: RenderDebugInfo): any;
     projectNodes(parentElement: any, nodes: any[]): void;
     attachViewAfter(node: any, viewRootNodes: any[]): void;
     detachView(viewRootNodes: any[]): void;
@@ -41,7 +41,7 @@ export declare class WebWorkerRenderer implements Renderer, RenderStoreObject {
         [key: string]: string;
     }): void;
     setElementStyle(renderElement: any, styleName: string, styleValue: string): void;
-    invokeElementMethod(renderElement: any, methodName: string, args: any[]): void;
+    invokeElementMethod(renderElement: any, methodName: string, args?: any[]): void;
     setText(renderNode: any, text: string): void;
     listen(renderElement: WebWorkerRenderNode, name: string, callback: Function): Function;
     listenGlobal(target: string, name: string, callback: Function): Function;
