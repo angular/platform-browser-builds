@@ -20,7 +20,6 @@ var browser_platform_location_1 = require("./browser/location/browser_platform_l
 var compiler_1 = require("@angular/compiler");
 var xhr_cache_1 = require("./xhr/xhr_cache");
 var xhr_impl_1 = require("./xhr/xhr_impl");
-var core_private_2 = require('../core_private');
 exports.CACHED_TEMPLATE_PROVIDER = [{ provide: compiler_1.XHR, useClass: xhr_cache_1.CachedXHR }];
 var BROWSER_PLATFORM_MARKER = new core_1.OpaqueToken('BrowserPlatformMarker');
 /**
@@ -144,7 +143,7 @@ exports.browserPlatform = browserPlatform;
  * Returns a `Promise` of {@link ComponentRef}.
  */
 function bootstrap(appComponentType, customProviders) {
-    core_private_2.reflector.reflectionCapabilities = new core_private_1.ReflectionCapabilities();
+    core_private_1.reflector.reflectionCapabilities = new core_private_1.ReflectionCapabilities();
     var providers = [
         exports.BROWSER_APP_PROVIDERS,
         exports.BROWSER_APP_COMPILER_PROVIDERS,

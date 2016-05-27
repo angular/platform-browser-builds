@@ -1,6 +1,6 @@
 import { PLATFORM_INITIALIZER, PLATFORM_DIRECTIVES, PLATFORM_PIPES, ExceptionHandler, RootRenderer, APPLICATION_COMMON_PROVIDERS, PLATFORM_COMMON_PROVIDERS, OpaqueToken, Testability, getPlatform, createPlatform, assertPlatform, ReflectiveInjector, coreLoadAndBootstrap } from "@angular/core";
 import { isBlank, isPresent } from "./facade/lang";
-import { wtfInit, SanitizationService, ReflectionCapabilities, AnimationDriver, NoOpAnimationDriver } from '../core_private';
+import { reflector, wtfInit, SanitizationService, ReflectionCapabilities, AnimationDriver, NoOpAnimationDriver } from '../core_private';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
 import { COMMON_DIRECTIVES, COMMON_PIPES, FORM_PROVIDERS, PlatformLocation } from "@angular/common";
 import { DomSanitizationService, DomSanitizationServiceImpl } from "./security/dom_sanitization_service";
@@ -19,7 +19,6 @@ import { BrowserPlatformLocation } from "./browser/location/browser_platform_loc
 import { COMPILER_PROVIDERS, XHR } from "@angular/compiler";
 import { CachedXHR } from "./xhr/xhr_cache";
 import { XHRImpl } from "./xhr/xhr_impl";
-import { reflector } from '../core_private';
 export const CACHED_TEMPLATE_PROVIDER = [{ provide: XHR, useClass: CachedXHR }];
 const BROWSER_PLATFORM_MARKER = new OpaqueToken('BrowserPlatformMarker');
 /**

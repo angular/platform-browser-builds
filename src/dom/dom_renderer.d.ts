@@ -1,7 +1,6 @@
 import { Renderer, RootRenderer, RenderComponentType } from '@angular/core';
-import { RenderDebugInfo } from '../../core_private';
 import { DomSharedStylesHost } from './shared_styles_host';
-import { AnimationKeyframe, AnimationStyles, AnimationPlayer, AnimationDriver } from '../../core_private';
+import { AnimationKeyframe, AnimationStyles, AnimationPlayer, AnimationDriver, RenderDebugInfo } from '../../core_private';
 import { EventManager } from './events/event_manager';
 export declare abstract class DomRootRenderer implements RootRenderer {
     document: any;
