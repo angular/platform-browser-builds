@@ -4693,6 +4693,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         function getDOM$$() { return getDOM(); }
         __platform_browser_private__.getDOM = getDOM$$;
         __platform_browser_private__.setRootDomAdapter = setRootDomAdapter;
+        __platform_browser_private__.DomRootRenderer = DomRootRenderer;
+        __platform_browser_private__.DomRootRenderer_ = DomRootRenderer_;
+        __platform_browser_private__.DomSharedStylesHost = DomSharedStylesHost;
+        __platform_browser_private__.SharedStylesHost = SharedStylesHost;
     })(exports.__platform_browser_private__ || (exports.__platform_browser_private__ = {}));
     /* @deprecated use BROWSER_PLATFORM_PROVIDERS */
     var BROWSER_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
