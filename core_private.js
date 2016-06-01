@@ -17,6 +17,4 @@ exports.AnimationGroupPlayer = core_1.__core_private__.AnimationGroupPlayer;
 exports.AnimationKeyframe = core_1.__core_private__.AnimationKeyframe;
 exports.AnimationStyleUtil = core_1.__core_private__.AnimationStyleUtil;
 exports.AnimationStyles = core_1.__core_private__.AnimationStyles;
-exports.MockAnimationPlayer = core_1.__core_private__.MockAnimationPlayer;
-exports.MockAnimationDriver = core_1.__core_private__.MockAnimationDriver;
 //# sourceMappingURL=core_private.js.map

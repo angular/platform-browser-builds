@@ -16,6 +16,4 @@ export var AnimationGroupPlayer = r.AnimationGroupPlayer;
 export var AnimationKeyframe = r.AnimationKeyframe;
 export var AnimationStyleUtil = r.AnimationStyleUtil;
 export var AnimationStyles = r.AnimationStyles;
-export var MockAnimationPlayer = r.MockAnimationPlayer;
-export var MockAnimationDriver = r.MockAnimationDriver;
 //# sourceMappingURL=core_private.js.map

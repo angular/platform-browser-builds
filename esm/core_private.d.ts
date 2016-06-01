@@ -29,7 +29,3 @@ export declare type AnimationStyleUtil = t.AnimationStyleUtil;
 export declare var AnimationStyleUtil: typeof t.AnimationStyleUtil;
 export declare type AnimationStyles = t.AnimationStyles;
 export declare var AnimationStyles: typeof t.AnimationStyles;
-export declare type MockAnimationPlayer = t.MockAnimationPlayer;
-export declare var MockAnimationPlayer: typeof t.MockAnimationPlayer;
-export declare type MockAnimationDriver = t.MockAnimationDriver;
-export declare var MockAnimationDriver: typeof t.MockAnimationDriver;
