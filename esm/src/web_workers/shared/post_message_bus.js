@@ -55,7 +55,8 @@ export class PostMessageBusSource {
         }
         else {
             // if no eventTarget is given we assume we're in a WebWorker and listen on the global scope
-            addEventListener("message", (ev) => this._handleMessages(ev));
+            const workerScope = self;
+            workerScope.addEventListener("message", (ev) => this._handleMessages(ev));
         }
     }
     attachToZone(zone) { this._zone = zone; }

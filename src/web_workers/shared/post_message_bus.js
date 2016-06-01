@@ -62,7 +62,8 @@ var PostMessageBusSource = (function () {
         }
         else {
             // if no eventTarget is given we assume we're in a WebWorker and listen on the global scope
-            addEventListener("message", function (ev) { return _this._handleMessages(ev); });
+            var workerScope = self;
+            workerScope.addEventListener("message", function (ev) { return _this._handleMessages(ev); });
         }
     }
     PostMessageBusSource.prototype.attachToZone = function (zone) { this._zone = zone; };
