@@ -113,4 +113,8 @@ export declare class BrowserDomAdapter extends GenericBrowserDomAdapter {
     cancelAnimationFrame(id: number): void;
     supportsWebAnimation(): boolean;
     performanceNow(): number;
+    supportsCookies(): boolean;
+    getCookie(name: string): string;
+    setCookie(name: string, value: string): void;
 }
+export declare function parseCookieValue(cookie: string, name: string): string;

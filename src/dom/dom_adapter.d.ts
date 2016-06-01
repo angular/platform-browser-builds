@@ -132,4 +132,7 @@ export declare abstract class DomAdapter {
     abstract getAnimationPrefix(): string;
     abstract getTransitionEnd(): string;
     abstract supportsAnimation(): boolean;
+    abstract supportsCookies(): boolean;
+    abstract getCookie(name: string): string;
+    abstract setCookie(name: string, value: string): any;
 }

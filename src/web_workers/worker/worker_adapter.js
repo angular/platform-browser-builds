@@ -159,6 +159,9 @@ var WorkerDomAdapter = (function (_super) {
     WorkerDomAdapter.prototype.getTransitionEnd = function () { throw "not implemented"; };
     WorkerDomAdapter.prototype.supportsAnimation = function () { throw "not implemented"; };
     WorkerDomAdapter.prototype.supportsWebAnimation = function () { throw "not implemented"; };
+    WorkerDomAdapter.prototype.supportsCookies = function () { return false; };
+    WorkerDomAdapter.prototype.getCookie = function (name) { throw "not implemented"; };
+    WorkerDomAdapter.prototype.setCookie = function (name, value) { throw "not implemented"; };
     return WorkerDomAdapter;
 }(dom_adapter_1.DomAdapter));
 exports.WorkerDomAdapter = WorkerDomAdapter;

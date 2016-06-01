@@ -126,4 +126,7 @@ export declare class WorkerDomAdapter extends DomAdapter {
     getTransitionEnd(): string;
     supportsAnimation(): boolean;
     supportsWebAnimation(): boolean;
+    supportsCookies(): boolean;
+    getCookie(name: string): string;
+    setCookie(name: string, value: string): void;
 }

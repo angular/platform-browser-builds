@@ -374,6 +374,15 @@ var BrowserDomAdapter = (function (_super) {
             return lang_1.DateWrapper.toMillis(lang_1.DateWrapper.now());
         }
     };
+    BrowserDomAdapter.prototype.supportsCookies = function () { return true; };
+    BrowserDomAdapter.prototype.getCookie = function (name) {
+        return parseCookieValue(document.cookie, name);
+    };
+    BrowserDomAdapter.prototype.setCookie = function (name, value) {
+        // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
+        // not clear other cookies.
+        document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+    };
     return BrowserDomAdapter;
 }(generic_browser_adapter_1.GenericBrowserDomAdapter));
 exports.BrowserDomAdapter = BrowserDomAdapter;
@@ -397,4 +406,17 @@ function relativePath(url) {
     return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
         '/' + urlParsingNode.pathname;
 }
+function parseCookieValue(cookie, name) {
+    name = encodeURIComponent(name);
+    var cookies = cookie.split(';');
+    for (var _i = 0, cookies_1 = cookies; _i < cookies_1.length; _i++) {
+        var cookie_1 = cookies_1[_i];
+        var _a = cookie_1.split('=', 2), key = _a[0], value = _a[1];
+        if (key.trim() === name) {
+            return decodeURIComponent(value);
+        }
+    }
+    return null;
+}
+exports.parseCookieValue = parseCookieValue;
 //# sourceMappingURL=browser_adapter.js.map

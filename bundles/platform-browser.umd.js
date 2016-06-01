@@ -2586,6 +2586,15 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return DateWrapper.toMillis(DateWrapper.now());
             }
         };
+        BrowserDomAdapter.prototype.supportsCookies = function () { return true; };
+        BrowserDomAdapter.prototype.getCookie = function (name) {
+            return parseCookieValue(document.cookie, name);
+        };
+        BrowserDomAdapter.prototype.setCookie = function (name, value) {
+            // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
+            // not clear other cookies.
+            document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+        };
         return BrowserDomAdapter;
     }(GenericBrowserDomAdapter));
     var baseElement = null;
@@ -2607,6 +2616,18 @@ var __extends = (this && this.__extends) || function (d, b) {
         urlParsingNode.setAttribute('href', url);
         return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
             '/' + urlParsingNode.pathname;
+    }
+    function parseCookieValue(cookie, name) {
+        name = encodeURIComponent(name);
+        var cookies = cookie.split(';');
+        for (var _i = 0, cookies_1 = cookies; _i < cookies_1.length; _i++) {
+            var cookie_1 = cookies_1[_i];
+            var _a = cookie_1.split('=', 2), key = _a[0], value = _a[1];
+            if (key.trim() === name) {
+                return decodeURIComponent(value);
+            }
+        }
+        return null;
     }
     var PublicTestability = (function () {
         function PublicTestability(testability) {
@@ -4596,6 +4617,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         WorkerDomAdapter.prototype.getTransitionEnd = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.supportsAnimation = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.supportsWebAnimation = function () { throw "not implemented"; };
+        WorkerDomAdapter.prototype.supportsCookies = function () { return false; };
+        WorkerDomAdapter.prototype.getCookie = function (name) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.setCookie = function (name, value) { throw "not implemented"; };
         return WorkerDomAdapter;
     }(DomAdapter));
     var PrintLogger = (function () {

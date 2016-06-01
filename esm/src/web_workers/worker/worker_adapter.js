@@ -145,5 +145,8 @@ export class WorkerDomAdapter extends DomAdapter {
     getTransitionEnd() { throw "not implemented"; }
     supportsAnimation() { throw "not implemented"; }
     supportsWebAnimation() { throw "not implemented"; }
+    supportsCookies() { return false; }
+    getCookie(name) { throw "not implemented"; }
+    setCookie(name, value) { throw "not implemented"; }
 }
 //# sourceMappingURL=worker_adapter.js.map
