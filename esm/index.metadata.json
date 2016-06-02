@@ -1,1 +1,1 @@
-{"__symbolic":"module","metadata":{"BROWSER_PROVIDERS":{"__symbolic":"reference","name":"BROWSER_PLATFORM_PROVIDERS","module":"./src/browser"}}}
+{"__symbolic":"module","metadata":{"BROWSER_PROVIDERS":{"__symbolic":"reference","module":"./src/browser","name":"BROWSER_PLATFORM_PROVIDERS"}}}
