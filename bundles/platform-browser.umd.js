@@ -1178,10 +1178,6 @@ var __extends = (this && this.__extends) || function (d, b) {
                 getDOM().removeClass(renderElement, className);
             }
         };
-        DomRenderer.prototype.setElementStyles = function (renderElement, styles) {
-            var _this = this;
-            StringMapWrapper.forEach(styles, function (value, prop) { return _this.setElementStyle(renderElement, prop, value); });
-        };
         DomRenderer.prototype.setElementStyle = function (renderElement, styleName, styleValue) {
             if (isPresent(styleValue)) {
                 getDOM().setStyle(renderElement, styleName, stringify(styleValue));
@@ -3869,7 +3865,6 @@ var __extends = (this && this.__extends) || function (d, b) {
             broker.registerMethod("setBindingDebugInfo", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setBindingDebugInfo, this));
             broker.registerMethod("setElementClass", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setElementClass, this));
             broker.registerMethod("setElementStyle", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setElementStyle, this));
-            broker.registerMethod("setElementStyles", [RenderStoreObject, RenderStoreObject, PRIMITIVE], FunctionWrapper.bind(this._setElementStyles, this));
             broker.registerMethod("invokeElementMethod", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._invokeElementMethod, this));
             broker.registerMethod("setText", [RenderStoreObject, RenderStoreObject, PRIMITIVE], FunctionWrapper.bind(this._setText, this));
             broker.registerMethod("listen", [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._listen, this));
@@ -3927,9 +3922,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         MessageBasedRenderer.prototype._setElementStyle = function (renderer, renderElement, styleName, styleValue) {
             renderer.setElementStyle(renderElement, styleName, styleValue);
-        };
-        MessageBasedRenderer.prototype._setElementStyles = function (renderer, renderElement, styles) {
-            renderer.setElementStyles(renderElement, styles);
         };
         MessageBasedRenderer.prototype._invokeElementMethod = function (renderer, renderElement, methodName, args) {
             renderer.invokeElementMethod(renderElement, methodName, args);
@@ -4371,9 +4363,6 @@ var __extends = (this && this.__extends) || function (d, b) {
                 new FnArg(className, null),
                 new FnArg(isAdd, null)
             ]);
-        };
-        WebWorkerRenderer.prototype.setElementStyles = function (renderElement, styles) {
-            this._runOnService('setElementStyles', [new FnArg(renderElement, RenderStoreObject), new FnArg(styles, null)]);
         };
         WebWorkerRenderer.prototype.setElementStyle = function (renderElement, styleName, styleValue) {
             this._runOnService('setElementStyle', [

@@ -6,7 +6,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var core_1 = require('@angular/core');
 var lang_1 = require('../facade/lang');
-var collection_1 = require('../facade/collection');
 var exceptions_1 = require('../facade/exceptions');
 var shared_styles_host_1 = require('./shared_styles_host');
 var core_private_1 = require('../../core_private');
@@ -199,10 +198,6 @@ var DomRenderer = (function () {
         else {
             dom_adapter_1.getDOM().removeClass(renderElement, className);
         }
-    };
-    DomRenderer.prototype.setElementStyles = function (renderElement, styles) {
-        var _this = this;
-        collection_1.StringMapWrapper.forEach(styles, function (value, prop) { return _this.setElementStyle(renderElement, prop, value); });
     };
     DomRenderer.prototype.setElementStyle = function (renderElement, styleName, styleValue) {
         if (lang_1.isPresent(styleValue)) {

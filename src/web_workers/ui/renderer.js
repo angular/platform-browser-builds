@@ -34,7 +34,6 @@ var MessageBasedRenderer = (function () {
         broker.registerMethod("setBindingDebugInfo", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setBindingDebugInfo, this));
         broker.registerMethod("setElementClass", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementClass, this));
         broker.registerMethod("setElementStyle", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementStyle, this));
-        broker.registerMethod("setElementStyles", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementStyles, this));
         broker.registerMethod("invokeElementMethod", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._invokeElementMethod, this));
         broker.registerMethod("setText", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setText, this));
         broker.registerMethod("listen", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._listen, this));
@@ -92,9 +91,6 @@ var MessageBasedRenderer = (function () {
     };
     MessageBasedRenderer.prototype._setElementStyle = function (renderer, renderElement, styleName, styleValue) {
         renderer.setElementStyle(renderElement, styleName, styleValue);
-    };
-    MessageBasedRenderer.prototype._setElementStyles = function (renderer, renderElement, styles) {
-        renderer.setElementStyles(renderElement, styles);
     };
     MessageBasedRenderer.prototype._invokeElementMethod = function (renderer, renderElement, methodName, args) {
         renderer.invokeElementMethod(renderElement, methodName, args);

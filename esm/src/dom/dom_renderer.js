@@ -1,6 +1,5 @@
 import { Inject, Injectable, ViewEncapsulation } from '@angular/core';
 import { isPresent, isBlank, Json, RegExpWrapper, stringify, StringWrapper, isArray, isString } from '../facade/lang';
-import { StringMapWrapper } from '../facade/collection';
 import { BaseException } from '../facade/exceptions';
 import { DomSharedStylesHost } from './shared_styles_host';
 import { AnimationDriver } from '../../core_private';
@@ -188,9 +187,6 @@ export class DomRenderer {
         else {
             getDOM().removeClass(renderElement, className);
         }
-    }
-    setElementStyles(renderElement, styles) {
-        StringMapWrapper.forEach(styles, (value, prop) => this.setElementStyle(renderElement, prop, value));
     }
     setElementStyle(renderElement, styleName, styleValue) {
         if (isPresent(styleValue)) {
