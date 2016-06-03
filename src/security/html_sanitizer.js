@@ -1,6 +1,6 @@
 "use strict";
 var dom_adapter_1 = require('../dom/dom_adapter');
-var lang_1 = require('../../src/facade/lang');
+var lang_1 = require('../facade/lang');
 var url_sanitizer_1 = require('./url_sanitizer');
 /** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
 var inertElement = null;

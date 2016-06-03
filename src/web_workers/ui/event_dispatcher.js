@@ -1,8 +1,8 @@
 "use strict";
 var serializer_1 = require('../shared/serializer');
 var event_serializer_1 = require('./event_serializer');
-var exceptions_1 = require('../../../src/facade/exceptions');
-var async_1 = require('../../../src/facade/async');
+var exceptions_1 = require('../../facade/exceptions');
+var async_1 = require('../../facade/async');
 var EventDispatcher = (function () {
     function EventDispatcher(_sink, _serializer) {
         this._sink = _sink;

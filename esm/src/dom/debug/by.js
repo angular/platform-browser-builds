@@ -1,4 +1,4 @@
-import { isPresent } from '../../../src/facade/lang';
+import { isPresent } from '../../facade/lang';
 import { getDOM } from '../../dom/dom_adapter';
 /**
  * Predicates for use with {@link DebugElement}'s query functions.

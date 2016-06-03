@@ -1,13 +1,13 @@
 "use strict";
 var core_1 = require('@angular/core');
 var client_message_broker_1 = require('../shared/client_message_broker');
-var lang_1 = require('../../../src/facade/lang');
-var collection_1 = require('../../../src/facade/collection');
+var lang_1 = require('../../facade/lang');
+var collection_1 = require('../../facade/collection');
 var render_store_1 = require('../shared/render_store');
 var messaging_api_1 = require('../shared/messaging_api');
 var serializer_1 = require('../shared/serializer');
 var message_bus_1 = require('../shared/message_bus');
-var async_1 = require('../../../src/facade/async');
+var async_1 = require('../../facade/async');
 var event_deserializer_1 = require('./event_deserializer');
 var WebWorkerRootRenderer = (function () {
     function WebWorkerRootRenderer(messageBrokerFactory, bus, _serializer, _renderStore) {

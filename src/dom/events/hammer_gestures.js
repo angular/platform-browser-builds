@@ -5,8 +5,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var lang_1 = require('../../../src/facade/lang');
-var exceptions_1 = require('../../../src/facade/exceptions');
+var lang_1 = require('../../facade/lang');
+var exceptions_1 = require('../../facade/exceptions');
 var hammer_common_1 = require('./hammer_common');
 exports.HAMMER_GESTURE_CONFIG = new core_1.OpaqueToken("HammerGestureConfig");
 var HammerGestureConfig = (function () {

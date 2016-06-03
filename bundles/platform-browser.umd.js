@@ -3611,15 +3611,12 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     var WORKER_APP_LOCATION_PROVIDERS = [
         { provide: _angular_common.PlatformLocation, useClass: WebWorkerPlatformLocation },
-        {
-            provide: _angular_core.APP_INITIALIZER,
-            useFactory: function (platformLocation, zone) { return function () { return initWorkerLocation(platformLocation, zone); }; },
-            multi: true,
-            deps: [_angular_common.PlatformLocation, _angular_core.NgZone]
-        }
+        { provide: _angular_core.APP_INITIALIZER, useFactory: appInitFnFactory, multi: true, deps: [_angular_common.PlatformLocation, _angular_core.NgZone] }
     ];
-    function initWorkerLocation(platformLocation, zone) {
-        return zone.runGuarded(function () { return platformLocation.init(); });
+    function appInitFnFactory(platformLocation, zone) {
+        return function () {
+            return zone.runGuarded(function () { return platformLocation.init(); });
+        };
     }
     var MessageBasedPlatformLocation = (function () {
         function MessageBasedPlatformLocation(_brokerFactory, _platformLocation, bus, _serializer) {
@@ -4153,17 +4150,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         _angular_core.Testability,
         EventManager,
         WebWorkerInstance,
-        {
-            provide: _angular_core.APP_INITIALIZER,
-            useFactory: (function (injector) { return function () { return initWebWorkerApplication(injector); }; }),
-            multi: true,
-            deps: [_angular_core.Injector]
-        },
-        {
-            provide: MessageBus,
-            useFactory: function (instance) { return instance.bus; },
-            deps: [WebWorkerInstance]
-        }
+        { provide: _angular_core.APP_INITIALIZER, useFactory: initWebWorkerAppFn, multi: true, deps: [_angular_core.Injector] },
+        { provide: MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
     ];
     function initializeGenericWorkerRenderer(injector) {
         var bus = injector.get(MessageBus);
@@ -4185,6 +4173,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         // in the future...
         return PromiseWrapper.resolve(app.get(_angular_core.ApplicationRef));
     }
+    function messageBusFactory(instance) {
+        return instance.bus;
+    }
     function initWebWorkerRenderPlatform() {
         BrowserDomAdapter.makeCurrent();
         wtfInit();
@@ -4202,17 +4193,19 @@ var __extends = (this && this.__extends) || function (d, b) {
     function _document$1() {
         return getDOM().defaultDoc();
     }
-    function initWebWorkerApplication(injector) {
-        var scriptUri;
-        try {
-            scriptUri = injector.get(WORKER_SCRIPT);
-        }
-        catch (e) {
-            throw new BaseException$1("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
-        }
-        var instance = injector.get(WebWorkerInstance);
-        spawnWebWorker(scriptUri, instance);
-        initializeGenericWorkerRenderer(injector);
+    function initWebWorkerAppFn(injector) {
+        return function () {
+            var scriptUri;
+            try {
+                scriptUri = injector.get(WORKER_SCRIPT);
+            }
+            catch (e) {
+                throw new BaseException$1("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
+            }
+            var instance = injector.get(WebWorkerInstance);
+            spawnWebWorker(scriptUri, instance);
+            initializeGenericWorkerRenderer(injector);
+        };
     }
     /**
      * Spawns a new class and initializes the WebWorkerInstance

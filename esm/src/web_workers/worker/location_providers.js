@@ -7,14 +7,11 @@ import { WebWorkerPlatformLocation } from './platform_location';
  */
 export const WORKER_APP_LOCATION_PROVIDERS = [
     { provide: PlatformLocation, useClass: WebWorkerPlatformLocation },
-    {
-        provide: APP_INITIALIZER,
-        useFactory: (platformLocation, zone) => () => initWorkerLocation(platformLocation, zone),
-        multi: true,
-        deps: [PlatformLocation, NgZone]
-    }
+    { provide: APP_INITIALIZER, useFactory: appInitFnFactory, multi: true, deps: [PlatformLocation, NgZone] }
 ];
-function initWorkerLocation(platformLocation, zone) {
-    return zone.runGuarded(() => platformLocation.init());
+function appInitFnFactory(platformLocation, zone) {
+    return () => {
+        return zone.runGuarded(() => platformLocation.init());
+    };
 }
 //# sourceMappingURL=location_providers.js.map

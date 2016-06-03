@@ -1,7 +1,7 @@
 import { MessageBus } from './message_bus';
-import { print, isPresent, DateWrapper, stringify, StringWrapper } from '../../../src/facade/lang';
-import { PromiseWrapper, ObservableWrapper } from '../../../src/facade/async';
-import { StringMapWrapper } from '../../../src/facade/collection';
+import { print, isPresent, DateWrapper, stringify, StringWrapper } from '../../facade/lang';
+import { PromiseWrapper, ObservableWrapper } from '../../facade/async';
+import { StringMapWrapper } from '../../facade/collection';
 import { Serializer } from './serializer';
 import { Injectable } from '@angular/core';
 export class ClientMessageBrokerFactory {

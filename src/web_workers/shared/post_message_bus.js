@@ -1,7 +1,7 @@
 "use strict";
-var exceptions_1 = require('../../../src/facade/exceptions');
-var async_1 = require('../../../src/facade/async');
-var collection_1 = require('../../../src/facade/collection');
+var exceptions_1 = require('../../facade/exceptions');
+var async_1 = require('../../facade/async');
+var collection_1 = require('../../facade/collection');
 var core_1 = require('@angular/core');
 var PostMessageBusSink = (function () {
     function PostMessageBusSink(_postMessageTarget) {

@@ -1,6 +1,6 @@
-import { BaseException } from '../../../src/facade/exceptions';
-import { EventEmitter, ObservableWrapper } from '../../../src/facade/async';
-import { StringMapWrapper } from '../../../src/facade/collection';
+import { BaseException } from '../../facade/exceptions';
+import { EventEmitter, ObservableWrapper } from '../../facade/async';
+import { StringMapWrapper } from '../../facade/collection';
 import { Injectable } from '@angular/core';
 export class PostMessageBusSink {
     constructor(_postMessageTarget) {

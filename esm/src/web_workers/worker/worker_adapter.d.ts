@@ -1,4 +1,4 @@
-import { Type } from '../../../src/facade/lang';
+import { Type } from '../../facade/lang';
 import { DomAdapter } from '../../dom/dom_adapter';
 /**
  * This adapter is required to log error messages.

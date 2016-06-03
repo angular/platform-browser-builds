@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var collection_1 = require('../../src/facade/collection');
+var collection_1 = require('../facade/collection');
 var dom_adapter_1 = require('./dom_adapter');
 var dom_tokens_1 = require('./dom_tokens');
 var SharedStylesHost = (function () {

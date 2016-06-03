@@ -9,12 +9,12 @@ var client_message_broker_1 = require('../shared/client_message_broker');
 var common_1 = require('@angular/common');
 var messaging_api_1 = require('../shared/messaging_api');
 var serialized_types_1 = require('../shared/serialized_types');
-var async_1 = require('../../../src/facade/async');
-var exceptions_1 = require('../../../src/facade/exceptions');
+var async_1 = require('../../facade/async');
+var exceptions_1 = require('../../facade/exceptions');
 var serializer_1 = require('../shared/serializer');
 var message_bus_1 = require('../shared/message_bus');
-var collection_1 = require('../../../src/facade/collection');
-var lang_1 = require('../../../src/facade/lang');
+var collection_1 = require('../../facade/collection');
+var lang_1 = require('../../facade/lang');
 var event_deserializer_1 = require('./event_deserializer');
 var WebWorkerPlatformLocation = (function (_super) {
     __extends(WebWorkerPlatformLocation, _super);

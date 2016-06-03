@@ -72,17 +72,8 @@ export const WORKER_RENDER_APPLICATION_PROVIDERS = [
     Testability,
     EventManager,
     WebWorkerInstance,
-    {
-        provide: APP_INITIALIZER,
-        useFactory: (injector => () => initWebWorkerApplication(injector)),
-        multi: true,
-        deps: [Injector]
-    },
-    {
-        provide: MessageBus,
-        useFactory: (instance) => instance.bus,
-        deps: [WebWorkerInstance]
-    }
+    { provide: APP_INITIALIZER, useFactory: initWebWorkerAppFn, multi: true, deps: [Injector] },
+    { provide: MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
 ];
 export function initializeGenericWorkerRenderer(injector) {
     var bus = injector.get(MessageBus);
@@ -104,6 +95,9 @@ export function bootstrapRender(workerScriptUri, customProviders) {
     // in the future...
     return PromiseWrapper.resolve(app.get(ApplicationRef));
 }
+function messageBusFactory(instance) {
+    return instance.bus;
+}
 function initWebWorkerRenderPlatform() {
     BrowserDomAdapter.makeCurrent();
     wtfInit();
@@ -121,17 +115,19 @@ function _exceptionHandler() {
 function _document() {
     return getDOM().defaultDoc();
 }
-function initWebWorkerApplication(injector) {
-    var scriptUri;
-    try {
-        scriptUri = injector.get(WORKER_SCRIPT);
-    }
-    catch (e) {
-        throw new BaseException("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
-    }
-    let instance = injector.get(WebWorkerInstance);
-    spawnWebWorker(scriptUri, instance);
-    initializeGenericWorkerRenderer(injector);
+function initWebWorkerAppFn(injector) {
+    return () => {
+        var scriptUri;
+        try {
+            scriptUri = injector.get(WORKER_SCRIPT);
+        }
+        catch (e) {
+            throw new BaseException("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
+        }
+        let instance = injector.get(WebWorkerInstance);
+        spawnWebWorker(scriptUri, instance);
+        initializeGenericWorkerRenderer(injector);
+    };
 }
 /**
  * Spawns a new class and initializes the WebWorkerInstance

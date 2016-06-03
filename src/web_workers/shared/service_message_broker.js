@@ -5,11 +5,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var collection_1 = require('../../../src/facade/collection');
+var collection_1 = require('../../facade/collection');
 var serializer_1 = require('../shared/serializer');
-var lang_1 = require('../../../src/facade/lang');
+var lang_1 = require('../../facade/lang');
 var message_bus_1 = require('../shared/message_bus');
-var async_1 = require('../../../src/facade/async');
+var async_1 = require('../../facade/async');
 var ServiceMessageBrokerFactory = (function () {
     function ServiceMessageBrokerFactory() {
     }

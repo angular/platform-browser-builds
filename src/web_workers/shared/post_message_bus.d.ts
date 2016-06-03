@@ -1,5 +1,5 @@
 import { MessageBus, MessageBusSource, MessageBusSink } from './message_bus';
-import { EventEmitter } from '../../../src/facade/async';
+import { EventEmitter } from '../../facade/async';
 import { NgZone } from '@angular/core';
 export interface PostMessageTarget {
     postMessage: (message: any, transfer?: [ArrayBuffer]) => void;

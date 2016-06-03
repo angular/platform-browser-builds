@@ -1,5 +1,5 @@
-import { isArray, isPresent, serializeEnum } from '../../../src/facade/lang';
-import { BaseException } from '../../../src/facade/exceptions';
+import { isArray, isPresent, serializeEnum } from '../../facade/lang';
+import { BaseException } from '../../facade/exceptions';
 import { RenderComponentType, Injectable, ViewEncapsulation } from '@angular/core';
 import { VIEW_ENCAPSULATION_VALUES } from '../../../core_private';
 import { RenderStore } from './render_store';

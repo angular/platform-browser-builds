@@ -1,5 +1,5 @@
 import { Serializer } from '../shared/serializer';
-import { EventEmitter } from '../../../src/facade/async';
+import { EventEmitter } from '../../facade/async';
 export declare class EventDispatcher {
     private _sink;
     private _serializer;

@@ -1,6 +1,6 @@
 "use strict";
-var lang_1 = require('../../../src/facade/lang');
-var exceptions_1 = require('../../../src/facade/exceptions');
+var lang_1 = require('../../facade/lang');
+var exceptions_1 = require('../../facade/exceptions');
 var core_1 = require('@angular/core');
 var core_private_1 = require('../../../core_private');
 var render_store_1 = require('./render_store');

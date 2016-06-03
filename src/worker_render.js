@@ -77,17 +77,8 @@ exports.WORKER_RENDER_APPLICATION_PROVIDERS = [
     core_1.Testability,
     event_manager_1.EventManager,
     WebWorkerInstance,
-    {
-        provide: core_1.APP_INITIALIZER,
-        useFactory: (function (injector) { return function () { return initWebWorkerApplication(injector); }; }),
-        multi: true,
-        deps: [core_1.Injector]
-    },
-    {
-        provide: message_bus_1.MessageBus,
-        useFactory: function (instance) { return instance.bus; },
-        deps: [WebWorkerInstance]
-    }
+    { provide: core_1.APP_INITIALIZER, useFactory: initWebWorkerAppFn, multi: true, deps: [core_1.Injector] },
+    { provide: message_bus_1.MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
 ];
 function initializeGenericWorkerRenderer(injector) {
     var bus = injector.get(message_bus_1.MessageBus);
@@ -111,6 +102,9 @@ function bootstrapRender(workerScriptUri, customProviders) {
     return async_1.PromiseWrapper.resolve(app.get(core_1.ApplicationRef));
 }
 exports.bootstrapRender = bootstrapRender;
+function messageBusFactory(instance) {
+    return instance.bus;
+}
 function initWebWorkerRenderPlatform() {
     browser_adapter_1.BrowserDomAdapter.makeCurrent();
     core_private_1.wtfInit();
@@ -129,17 +123,19 @@ function _exceptionHandler() {
 function _document() {
     return dom_adapter_1.getDOM().defaultDoc();
 }
-function initWebWorkerApplication(injector) {
-    var scriptUri;
-    try {
-        scriptUri = injector.get(exports.WORKER_SCRIPT);
-    }
-    catch (e) {
-        throw new exceptions_1.BaseException("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
-    }
-    var instance = injector.get(WebWorkerInstance);
-    spawnWebWorker(scriptUri, instance);
-    initializeGenericWorkerRenderer(injector);
+function initWebWorkerAppFn(injector) {
+    return function () {
+        var scriptUri;
+        try {
+            scriptUri = injector.get(exports.WORKER_SCRIPT);
+        }
+        catch (e) {
+            throw new exceptions_1.BaseException("You must provide your WebWorker's initialization script with the WORKER_SCRIPT token");
+        }
+        var instance = injector.get(WebWorkerInstance);
+        spawnWebWorker(scriptUri, instance);
+        initializeGenericWorkerRenderer(injector);
+    };
 }
 /**
  * Spawns a new class and initializes the WebWorkerInstance

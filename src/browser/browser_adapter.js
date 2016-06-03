@@ -4,8 +4,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var collection_1 = require('../../src/facade/collection');
-var lang_1 = require('../../src/facade/lang');
+var collection_1 = require('../facade/collection');
+var lang_1 = require('../facade/lang');
 var generic_browser_adapter_1 = require('./generic_browser_adapter');
 var dom_adapter_1 = require('../dom/dom_adapter');
 var _attrToPropMap = {

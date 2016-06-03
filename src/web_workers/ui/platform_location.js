@@ -6,8 +6,8 @@ var service_message_broker_1 = require('../shared/service_message_broker');
 var serializer_1 = require('../shared/serializer');
 var serialized_types_1 = require('../shared/serialized_types');
 var message_bus_1 = require('../shared/message_bus');
-var async_1 = require('../../../src/facade/async');
-var lang_1 = require('../../../src/facade/lang');
+var async_1 = require('../../facade/async');
+var lang_1 = require('../../facade/lang');
 var MessageBasedPlatformLocation = (function () {
     function MessageBasedPlatformLocation(_brokerFactory, _platformLocation, bus, _serializer) {
         this._brokerFactory = _brokerFactory;

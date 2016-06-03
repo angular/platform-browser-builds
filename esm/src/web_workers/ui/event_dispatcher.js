@@ -1,7 +1,7 @@
 import { RenderStoreObject } from '../shared/serializer';
 import { serializeMouseEvent, serializeKeyboardEvent, serializeGenericEvent, serializeEventWithTarget, serializeTransitionEvent } from './event_serializer';
-import { BaseException } from '../../../src/facade/exceptions';
-import { ObservableWrapper } from '../../../src/facade/async';
+import { BaseException } from '../../facade/exceptions';
+import { ObservableWrapper } from '../../facade/async';
 export class EventDispatcher {
     constructor(_sink, _serializer) {
         this._sink = _sink;

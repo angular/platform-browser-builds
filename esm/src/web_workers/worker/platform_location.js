@@ -3,12 +3,12 @@ import { FnArg, UiArguments, ClientMessageBrokerFactory } from '../shared/client
 import { PlatformLocation } from '@angular/common';
 import { ROUTER_CHANNEL } from '../shared/messaging_api';
 import { LocationType } from '../shared/serialized_types';
-import { PromiseWrapper, ObservableWrapper } from '../../../src/facade/async';
-import { BaseException } from '../../../src/facade/exceptions';
+import { PromiseWrapper, ObservableWrapper } from '../../facade/async';
+import { BaseException } from '../../facade/exceptions';
 import { PRIMITIVE, Serializer } from '../shared/serializer';
 import { MessageBus } from '../shared/message_bus';
-import { StringMapWrapper } from '../../../src/facade/collection';
-import { StringWrapper } from '../../../src/facade/lang';
+import { StringMapWrapper } from '../../facade/collection';
+import { StringWrapper } from '../../facade/lang';
 import { deserializeGenericEvent } from './event_deserializer';
 export class WebWorkerPlatformLocation extends PlatformLocation {
     constructor(brokerFactory, bus, _serializer) {

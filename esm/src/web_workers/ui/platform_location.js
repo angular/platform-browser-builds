@@ -5,8 +5,8 @@ import { ServiceMessageBrokerFactory } from '../shared/service_message_broker';
 import { PRIMITIVE, Serializer } from '../shared/serializer';
 import { LocationType } from '../shared/serialized_types';
 import { MessageBus } from '../shared/message_bus';
-import { ObservableWrapper, PromiseWrapper } from '../../../src/facade/async';
-import { FunctionWrapper } from '../../../src/facade/lang';
+import { ObservableWrapper, PromiseWrapper } from '../../facade/async';
+import { FunctionWrapper } from '../../facade/lang';
 export class MessageBasedPlatformLocation {
     constructor(_brokerFactory, _platformLocation, bus, _serializer) {
         this._brokerFactory = _brokerFactory;

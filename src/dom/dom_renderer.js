@@ -5,9 +5,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var lang_1 = require('../../src/facade/lang');
-var collection_1 = require('../../src/facade/collection');
-var exceptions_1 = require('../../src/facade/exceptions');
+var lang_1 = require('../facade/lang');
+var collection_1 = require('../facade/collection');
+var exceptions_1 = require('../facade/exceptions');
 var shared_styles_host_1 = require('./shared_styles_host');
 var core_private_1 = require('../../core_private');
 var event_manager_1 = require('./events/event_manager');

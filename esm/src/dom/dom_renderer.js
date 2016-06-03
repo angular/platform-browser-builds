@@ -1,7 +1,7 @@
 import { Inject, Injectable, ViewEncapsulation } from '@angular/core';
-import { isPresent, isBlank, Json, RegExpWrapper, stringify, StringWrapper, isArray, isString } from '../../src/facade/lang';
-import { StringMapWrapper } from '../../src/facade/collection';
-import { BaseException } from '../../src/facade/exceptions';
+import { isPresent, isBlank, Json, RegExpWrapper, stringify, StringWrapper, isArray, isString } from '../facade/lang';
+import { StringMapWrapper } from '../facade/collection';
+import { BaseException } from '../facade/exceptions';
 import { DomSharedStylesHost } from './shared_styles_host';
 import { AnimationDriver } from '../../core_private';
 import { EventManager } from './events/event_manager';

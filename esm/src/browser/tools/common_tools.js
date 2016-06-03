@@ -1,6 +1,6 @@
 import { ApplicationRef } from '@angular/core';
-import { isPresent, NumberWrapper } from '../../../src/facade/lang';
-import { window } from '../../../src/facade/browser';
+import { isPresent, NumberWrapper } from '../../facade/lang';
+import { window } from '../../facade/browser';
 import { getDOM } from '../../dom/dom_adapter';
 export class ChangeDetectionPerfRecord {
     constructor(msPerTick, numTicks) {

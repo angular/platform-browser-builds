@@ -1,5 +1,5 @@
-import { StringMapWrapper } from '../../src/facade/collection';
-import { isPresent, isFunction } from '../../src/facade/lang';
+import { StringMapWrapper } from '../facade/collection';
+import { isPresent, isFunction } from '../facade/lang';
 import { DomAdapter } from '../dom/dom_adapter';
 /**
  * Provides DOM operations in any browser environment.

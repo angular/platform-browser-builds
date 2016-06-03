@@ -1,4 +1,4 @@
-import { Type } from '../../src/facade/lang';
+import { Type } from '../facade/lang';
 export declare function getDOM(): DomAdapter;
 export declare function setDOM(adapter: DomAdapter): void;
 export declare function setRootDomAdapter(adapter: DomAdapter): void;

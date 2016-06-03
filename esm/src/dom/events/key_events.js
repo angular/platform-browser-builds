@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { isPresent, StringWrapper } from '../../../src/facade/lang';
-import { StringMapWrapper, ListWrapper } from '../../../src/facade/collection';
+import { isPresent, StringWrapper } from '../../facade/lang';
+import { StringMapWrapper, ListWrapper } from '../../facade/collection';
 import { getDOM } from '../dom_adapter';
 import { EventManagerPlugin } from './event_manager';
 var modifierKeys = ['alt', 'control', 'meta', 'shift'];

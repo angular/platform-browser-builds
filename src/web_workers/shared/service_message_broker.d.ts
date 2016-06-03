@@ -1,5 +1,5 @@
 import { Serializer } from '../shared/serializer';
-import { Type } from '../../../src/facade/lang';
+import { Type } from '../../facade/lang';
 import { MessageBus } from '../shared/message_bus';
 export declare abstract class ServiceMessageBrokerFactory {
     /**

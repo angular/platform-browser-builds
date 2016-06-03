@@ -1,7 +1,7 @@
 "use strict";
 var core_1 = require('@angular/core');
-var exceptions_1 = require('../../../src/facade/exceptions');
-var collection_1 = require('../../../src/facade/collection');
+var exceptions_1 = require('../../facade/exceptions');
+var collection_1 = require('../../facade/collection');
 exports.EVENT_MANAGER_PLUGINS = new core_1.OpaqueToken("EventManagerPlugins");
 var EventManager = (function () {
     function EventManager(plugins, _zone) {

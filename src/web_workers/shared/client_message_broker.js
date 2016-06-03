@@ -5,9 +5,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var message_bus_1 = require('./message_bus');
-var lang_1 = require('../../../src/facade/lang');
-var async_1 = require('../../../src/facade/async');
-var collection_1 = require('../../../src/facade/collection');
+var lang_1 = require('../../facade/lang');
+var async_1 = require('../../facade/async');
+var collection_1 = require('../../facade/collection');
 var serializer_1 = require('./serializer');
 var core_1 = require('@angular/core');
 var ClientMessageBrokerFactory = (function () {

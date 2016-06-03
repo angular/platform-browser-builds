@@ -1,5 +1,5 @@
 "use strict";
-var lang_1 = require('../../../src/facade/lang');
+var lang_1 = require('../../facade/lang');
 var dom_adapter_1 = require('../../dom/dom_adapter');
 /**
  * Predicates for use with {@link DebugElement}'s query functions.
