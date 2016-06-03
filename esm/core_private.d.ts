@@ -1,4 +1,4 @@
-import { __core_private_types__ as t } from '@angular/core';
+import { __core_private__ as r, __core_private_types__ as t } from '@angular/core';
 export declare type RenderDebugInfo = t.RenderDebugInfo;
 export declare var RenderDebugInfo: typeof t.RenderDebugInfo;
 export declare var wtfInit: typeof t.wtfInit;
@@ -25,7 +25,10 @@ export declare type AnimationGroupPlayer = t.AnimationGroupPlayer;
 export declare var AnimationGroupPlayer: typeof t.AnimationGroupPlayer;
 export declare type AnimationKeyframe = t.AnimationKeyframe;
 export declare var AnimationKeyframe: typeof t.AnimationKeyframe;
-export declare type AnimationStyleUtil = t.AnimationStyleUtil;
-export declare var AnimationStyleUtil: typeof t.AnimationStyleUtil;
 export declare type AnimationStyles = t.AnimationStyles;
 export declare var AnimationStyles: typeof t.AnimationStyles;
+export declare var balanceAnimationStyles: typeof t.balanceAnimationStyles;
+export declare var balanceAnimationKeyframes: typeof t.balanceAnimationKeyframes;
+export declare var flattenStyles: typeof t.flattenStyles;
+export declare var clearStyles: typeof t.clearStyles;
+export declare var collectAndResolveStyles: typeof r.collectAndResolveStyles;
