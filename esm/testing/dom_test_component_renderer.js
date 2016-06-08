@@ -4,7 +4,7 @@ import { getDOM } from '../src/dom/dom_adapter';
 import { TestComponentRenderer } from '@angular/compiler/testing';
 import { el } from './browser_util';
 export class DOMTestComponentRenderer extends TestComponentRenderer {
-    constructor(_doc) {
+    constructor(_doc /** TODO #9100 */) {
         super();
         this._doc = _doc;
     }

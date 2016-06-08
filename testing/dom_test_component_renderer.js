@@ -11,7 +11,7 @@ var testing_1 = require('@angular/compiler/testing');
 var browser_util_1 = require('./browser_util');
 var DOMTestComponentRenderer = (function (_super) {
     __extends(DOMTestComponentRenderer, _super);
-    function DOMTestComponentRenderer(_doc) {
+    function DOMTestComponentRenderer(_doc /** TODO #9100 */) {
         _super.call(this);
         this._doc = _doc;
     }

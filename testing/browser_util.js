@@ -83,7 +83,7 @@ var BrowserDetection = (function () {
 }());
 exports.BrowserDetection = BrowserDetection;
 BrowserDetection.setup();
-function dispatchEvent(element, eventType) {
+function dispatchEvent(element /** TODO #9100 */, eventType /** TODO #9100 */) {
     dom_adapter_1.getDOM().dispatchEvent(element, dom_adapter_1.getDOM().createEvent(eventType));
 }
 exports.dispatchEvent = dispatchEvent;
@@ -96,13 +96,13 @@ function normalizeCSS(css) {
     css = lang_1.StringWrapper.replaceAll(css, /:\s/g, ':');
     css = lang_1.StringWrapper.replaceAll(css, /'/g, '"');
     css = lang_1.StringWrapper.replaceAll(css, / }/g, '}');
-    css = lang_1.StringWrapper.replaceAllMapped(css, /url\((\"|\s)(.+)(\"|\s)\)(\s*)/g, function (match) { return ("url(\"" + match[2] + "\")"); });
-    css = lang_1.StringWrapper.replaceAllMapped(css, /\[(.+)=([^"\]]+)\]/g, function (match) { return ("[" + match[1] + "=\"" + match[2] + "\"]"); });
+    css = lang_1.StringWrapper.replaceAllMapped(css, /url\((\"|\s)(.+)(\"|\s)\)(\s*)/g, function (match /** TODO #9100 */) { return ("url(\"" + match[2] + "\")"); });
+    css = lang_1.StringWrapper.replaceAllMapped(css, /\[(.+)=([^"\]]+)\]/g, function (match /** TODO #9100 */) { return ("[" + match[1] + "=\"" + match[2] + "\"]"); });
     return css;
 }
 exports.normalizeCSS = normalizeCSS;
 var _singleTagWhitelist = ['br', 'hr', 'input'];
-function stringifyElement(el) {
+function stringifyElement(el /** TODO #9100 */) {
     var result = '';
     if (dom_adapter_1.getDOM().isElementNode(el)) {
         var tagName = dom_adapter_1.getDOM().tagName(el).toLowerCase();

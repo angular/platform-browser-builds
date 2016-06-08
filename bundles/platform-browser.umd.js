@@ -60,7 +60,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return Array.isArray(obj);
     }
     function noop() { }
-    function stringify(token) {
+    function stringify(token /** TODO #9100 */) {
         if (typeof token === 'string') {
             return token;
         }
@@ -79,7 +79,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     // serialize / deserialize enum exist only for consistency with dart API
     // enums in typescript don't need to be serialized
-    function serializeEnum(val) {
+    function serializeEnum(val /** TODO #9100 */) {
         return val;
     }
     var StringWrapper = (function () {
@@ -126,7 +126,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         StringWrapper.replaceAllMapped = function (s, from, cb) {
             return s.replace(from, function () {
-                var matches = [];
+                var matches = []; /** TODO #9100 */
                 for (var _i = 0; _i < arguments.length; _i++) {
                     matches[_i - 0] = arguments[_i];
                 }
@@ -707,13 +707,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         DomEventsPlugin.prototype.supports = function (eventName) { return true; };
         DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
             var zone = this.manager.getZone();
-            var outsideHandler = function (event) { return zone.runGuarded(function () { return handler(event); }); };
+            var outsideHandler = function (event /** TODO #9100 */) { return zone.runGuarded(function () { return handler(event); }); };
             return this.manager.getZone().runOutsideAngular(function () { return getDOM().onAndCancel(element, eventName, outsideHandler); });
         };
         DomEventsPlugin.prototype.addGlobalEventListener = function (target, eventName, handler) {
             var element = getDOM().getGlobalEventTarget(target);
             var zone = this.manager.getZone();
-            var outsideHandler = function (event) { return zone.runGuarded(function () { return handler(event); }); };
+            var outsideHandler = function (event /** TODO #9100 */) { return zone.runGuarded(function () { return handler(event); }); };
             return this.manager.getZone().runOutsideAngular(function () { return getDOM().onAndCancel(element, eventName, outsideHandler); });
         };
         return DomEventsPlugin;
@@ -791,7 +791,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             return fullKey;
         };
         KeyEventsPlugin.eventCallback = function (element, fullKey, handler, zone) {
-            return function (event) {
+            return function (event /** TODO #9100 */) {
                 if (StringWrapper.equals(KeyEventsPlugin.getEventFullKey(event), fullKey)) {
                     zone.runGuarded(function () { return handler(event); });
                 }
@@ -902,7 +902,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             return zone.runOutsideAngular(function () {
                 // Creating the manager bind events, must be done outside of angular
                 var mc = _this._config.buildHammer(element);
-                var callback = function (eventObj) { zone.runGuarded(function () { handler(eventObj); }); };
+                var callback = function (eventObj /** TODO #???? */) { zone.runGuarded(function () { handler(eventObj); }); };
                 mc.on(eventName, callback);
                 return function () { mc.off(eventName, callback); };
             });
@@ -992,7 +992,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     ];
     var CAMEL_CASE_REGEXP = /([A-Z])/g;
     function camelCaseToDashCase(input) {
-        return StringWrapper.replaceAllMapped(input, CAMEL_CASE_REGEXP, function (m) { return '-' + m[1].toLowerCase(); });
+        return StringWrapper.replaceAllMapped(input, CAMEL_CASE_REGEXP, function (m /** TODO #9100 */) { return '-' + m[1].toLowerCase(); });
     }
     var NAMESPACE_URIS = { 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://www.w3.org/2000/svg' };
     var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
@@ -1195,7 +1195,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return DomRenderer;
     }());
-    function moveNodesAfterSibling(sibling, nodes) {
+    function moveNodesAfterSibling(sibling /** TODO #9100 */, nodes /** TODO #9100 */) {
         var parent = getDOM().parentElement(sibling);
         if (nodes.length > 0 && isPresent(parent)) {
             var nextSibling = getDOM().nextSibling(sibling);
@@ -1211,13 +1211,13 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
         }
     }
-    function appendNodes(parent, nodes) {
+    function appendNodes(parent /** TODO #9100 */, nodes /** TODO #9100 */) {
         for (var i = 0; i < nodes.length; i++) {
             getDOM().appendChild(parent, nodes[i]);
         }
     }
     function decoratePreventDefault(eventHandler) {
-        return function (event) {
+        return function (event /** TODO #9100 */) {
             var allowDefaultBehavior = eventHandler(event);
             if (allowDefaultBehavior === false) {
                 // TODO(tbosch): move preventDefault into event plugins...
@@ -1264,16 +1264,16 @@ var __extends = (this && this.__extends) || function (d, b) {
      * null if the given native element does not have an Angular view associated
      * with it.
      */
-    function inspectNativeElement(element) {
+    function inspectNativeElement(element /** TODO #9100 */) {
         return _angular_core.getDebugNode(element);
     }
-    function _createConditionalRootRenderer(rootRenderer) {
+    function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */) {
         if (assertionsEnabled()) {
             return _createRootRenderer(rootRenderer);
         }
         return rootRenderer;
     }
-    function _createRootRenderer(rootRenderer) {
+    function _createRootRenderer(rootRenderer /** TODO #9100 */) {
         getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
         getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, CORE_TOKENS);
         return new DebugDomRootRenderer(rootRenderer);
@@ -1703,7 +1703,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 this.buf.push('>');
             }
         };
-        SanitizingHtmlSerializer.prototype.chars = function (chars) { this.buf.push(encodeEntities(chars)); };
+        SanitizingHtmlSerializer.prototype.chars = function (chars /** TODO #9100 */) { this.buf.push(encodeEntities(chars)); };
         return SanitizingHtmlSerializer;
     }());
     // Regular Expressions for parsing tags and attributes
@@ -1717,14 +1717,14 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @param value
      * @returns {string} escaped text
      */
-    function encodeEntities(value) {
+    function encodeEntities(value /** TODO #9100 */) {
         return value.replace(/&/g, '&amp;')
-            .replace(SURROGATE_PAIR_REGEXP, function (match) {
+            .replace(SURROGATE_PAIR_REGEXP, function (match /** TODO #9100 */) {
             var hi = match.charCodeAt(0);
             var low = match.charCodeAt(1);
             return '&#' + (((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000) + ';';
         })
-            .replace(NON_ALPHANUMERIC_REGEXP, function (match) { return '&#' + match.charCodeAt(0) + ';'; })
+            .replace(NON_ALPHANUMERIC_REGEXP, function (match /** TODO #9100 */) { return '&#' + match.charCodeAt(0) + ';'; })
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
     }
@@ -2041,7 +2041,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this.reset();
             this._onFinish();
         };
-        WebAnimationsPlayer.prototype.setPosition = function (p) {
+        WebAnimationsPlayer.prototype.setPosition = function (p /** TODO #9100 */) {
             this._player.currentTime = p * this.totalTime;
         };
         WebAnimationsPlayer.prototype.getPosition = function () {
@@ -2083,13 +2083,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     function _populateStyles(element, styles, defaultStyles) {
         var data = {};
         styles.styles.forEach(function (entry) {
-            StringMapWrapper.forEach(entry, function (val, prop) {
+            StringMapWrapper.forEach(entry, function (val /** TODO #9100 */, prop /** TODO #9100 */) {
                 data[prop] = val == _angular_core.AUTO_STYLE
                     ? _computeStyle(element, prop)
                     : val.toString() + _resolveStyleUnit(val, prop);
             });
         });
-        StringMapWrapper.forEach(defaultStyles, function (value, prop) {
+        StringMapWrapper.forEach(defaultStyles, function (value /** TODO #9100 */, prop /** TODO #9100 */) {
             if (!isPresent(data[prop])) {
                 data[prop] = value;
             }
@@ -2273,14 +2273,14 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         BrowserDomAdapter.prototype.parse = function (templateHtml) { throw new Error("parse not implemented"); };
         BrowserDomAdapter.makeCurrent = function () { setRootDomAdapter(new BrowserDomAdapter()); };
-        BrowserDomAdapter.prototype.hasProperty = function (element, name) { return name in element; };
+        BrowserDomAdapter.prototype.hasProperty = function (element /** TODO #9100 */, name) { return name in element; };
         BrowserDomAdapter.prototype.setProperty = function (el, name, value) { el[name] = value; };
         BrowserDomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
         BrowserDomAdapter.prototype.invoke = function (el, methodName, args) {
             el[methodName].apply(el, args);
         };
         // TODO(tbosch): move this into a separate environment class once we have it
-        BrowserDomAdapter.prototype.logError = function (error) {
+        BrowserDomAdapter.prototype.logError = function (error /** TODO #9100 */) {
             if (window.console.error) {
                 window.console.error(error);
             }
@@ -2288,8 +2288,8 @@ var __extends = (this && this.__extends) || function (d, b) {
                 window.console.log(error);
             }
         };
-        BrowserDomAdapter.prototype.log = function (error) { window.console.log(error); };
-        BrowserDomAdapter.prototype.logGroup = function (error) {
+        BrowserDomAdapter.prototype.log = function (error /** TODO #9100 */) { window.console.log(error); };
+        BrowserDomAdapter.prototype.logGroup = function (error /** TODO #9100 */) {
             if (window.console.group) {
                 window.console.group(error);
                 this.logError(error);
@@ -2309,22 +2309,22 @@ var __extends = (this && this.__extends) || function (d, b) {
             configurable: true
         });
         BrowserDomAdapter.prototype.query = function (selector) { return document.querySelector(selector); };
-        BrowserDomAdapter.prototype.querySelector = function (el, selector) { return el.querySelector(selector); };
-        BrowserDomAdapter.prototype.querySelectorAll = function (el, selector) { return el.querySelectorAll(selector); };
-        BrowserDomAdapter.prototype.on = function (el, evt, listener) { el.addEventListener(evt, listener, false); };
-        BrowserDomAdapter.prototype.onAndCancel = function (el, evt, listener) {
+        BrowserDomAdapter.prototype.querySelector = function (el /** TODO #9100 */, selector) { return el.querySelector(selector); };
+        BrowserDomAdapter.prototype.querySelectorAll = function (el /** TODO #9100 */, selector) { return el.querySelectorAll(selector); };
+        BrowserDomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) { el.addEventListener(evt, listener, false); };
+        BrowserDomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
             el.addEventListener(evt, listener, false);
             // Needed to follow Dart's subscription semantic, until fix of
             // https://code.google.com/p/dart/issues/detail?id=17406
             return function () { el.removeEventListener(evt, listener, false); };
         };
-        BrowserDomAdapter.prototype.dispatchEvent = function (el, evt) { el.dispatchEvent(evt); };
+        BrowserDomAdapter.prototype.dispatchEvent = function (el /** TODO #9100 */, evt /** TODO #9100 */) { el.dispatchEvent(evt); };
         BrowserDomAdapter.prototype.createMouseEvent = function (eventType) {
             var evt = document.createEvent('MouseEvent');
             evt.initEvent(eventType, true, true);
             return evt;
         };
-        BrowserDomAdapter.prototype.createEvent = function (eventType) {
+        BrowserDomAdapter.prototype.createEvent = function (eventType /** TODO #9100 */) {
             var evt = document.createEvent('Event');
             evt.initEvent(eventType, true, true);
             return evt;
@@ -2336,11 +2336,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         BrowserDomAdapter.prototype.isPrevented = function (evt) {
             return evt.defaultPrevented || isPresent(evt.returnValue) && !evt.returnValue;
         };
-        BrowserDomAdapter.prototype.getInnerHTML = function (el) { return el.innerHTML; };
-        BrowserDomAdapter.prototype.getTemplateContent = function (el) {
+        BrowserDomAdapter.prototype.getInnerHTML = function (el /** TODO #9100 */) { return el.innerHTML; };
+        BrowserDomAdapter.prototype.getTemplateContent = function (el /** TODO #9100 */) {
             return 'content' in el && el instanceof HTMLTemplateElement ? el.content : null;
         };
-        BrowserDomAdapter.prototype.getOuterHTML = function (el) { return el.outerHTML; };
+        BrowserDomAdapter.prototype.getOuterHTML = function (el /** TODO #9100 */) { return el.outerHTML; };
         BrowserDomAdapter.prototype.nodeName = function (node) { return node.nodeName; };
         BrowserDomAdapter.prototype.nodeValue = function (node) { return node.nodeValue; };
         BrowserDomAdapter.prototype.type = function (node) { return node.type; };
@@ -2352,11 +2352,11 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return node;
             }
         };
-        BrowserDomAdapter.prototype.firstChild = function (el) { return el.firstChild; };
-        BrowserDomAdapter.prototype.nextSibling = function (el) { return el.nextSibling; };
-        BrowserDomAdapter.prototype.parentElement = function (el) { return el.parentNode; };
-        BrowserDomAdapter.prototype.childNodes = function (el) { return el.childNodes; };
-        BrowserDomAdapter.prototype.childNodesAsList = function (el) {
+        BrowserDomAdapter.prototype.firstChild = function (el /** TODO #9100 */) { return el.firstChild; };
+        BrowserDomAdapter.prototype.nextSibling = function (el /** TODO #9100 */) { return el.nextSibling; };
+        BrowserDomAdapter.prototype.parentElement = function (el /** TODO #9100 */) { return el.parentNode; };
+        BrowserDomAdapter.prototype.childNodes = function (el /** TODO #9100 */) { return el.childNodes; };
+        BrowserDomAdapter.prototype.childNodesAsList = function (el /** TODO #9100 */) {
             var childNodes = el.childNodes;
             var res = ListWrapper.createFixedSize(childNodes.length);
             for (var i = 0; i < childNodes.length; i++) {
@@ -2364,42 +2364,42 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
             return res;
         };
-        BrowserDomAdapter.prototype.clearNodes = function (el) {
+        BrowserDomAdapter.prototype.clearNodes = function (el /** TODO #9100 */) {
             while (el.firstChild) {
                 el.removeChild(el.firstChild);
             }
         };
-        BrowserDomAdapter.prototype.appendChild = function (el, node) { el.appendChild(node); };
-        BrowserDomAdapter.prototype.removeChild = function (el, node) { el.removeChild(node); };
-        BrowserDomAdapter.prototype.replaceChild = function (el, newChild, oldChild) { el.replaceChild(newChild, oldChild); };
-        BrowserDomAdapter.prototype.remove = function (node) {
+        BrowserDomAdapter.prototype.appendChild = function (el /** TODO #9100 */, node /** TODO #9100 */) { el.appendChild(node); };
+        BrowserDomAdapter.prototype.removeChild = function (el /** TODO #9100 */, node /** TODO #9100 */) { el.removeChild(node); };
+        BrowserDomAdapter.prototype.replaceChild = function (el, newChild /** TODO #9100 */, oldChild /** TODO #9100 */) { el.replaceChild(newChild, oldChild); };
+        BrowserDomAdapter.prototype.remove = function (node /** TODO #9100 */) {
             if (node.parentNode) {
                 node.parentNode.removeChild(node);
             }
             return node;
         };
-        BrowserDomAdapter.prototype.insertBefore = function (el, node) { el.parentNode.insertBefore(node, el); };
-        BrowserDomAdapter.prototype.insertAllBefore = function (el, nodes) { nodes.forEach(function (n) { return el.parentNode.insertBefore(n, el); }); };
-        BrowserDomAdapter.prototype.insertAfter = function (el, node) { el.parentNode.insertBefore(node, el.nextSibling); };
-        BrowserDomAdapter.prototype.setInnerHTML = function (el, value) { el.innerHTML = value; };
-        BrowserDomAdapter.prototype.getText = function (el) { return el.textContent; };
+        BrowserDomAdapter.prototype.insertBefore = function (el /** TODO #9100 */, node /** TODO #9100 */) { el.parentNode.insertBefore(node, el); };
+        BrowserDomAdapter.prototype.insertAllBefore = function (el /** TODO #9100 */, nodes /** TODO #9100 */) { nodes.forEach(function (n /** TODO #9100 */) { return el.parentNode.insertBefore(n, el); }); };
+        BrowserDomAdapter.prototype.insertAfter = function (el /** TODO #9100 */, node /** TODO #9100 */) { el.parentNode.insertBefore(node, el.nextSibling); };
+        BrowserDomAdapter.prototype.setInnerHTML = function (el /** TODO #9100 */, value /** TODO #9100 */) { el.innerHTML = value; };
+        BrowserDomAdapter.prototype.getText = function (el /** TODO #9100 */) { return el.textContent; };
         // TODO(vicb): removed Element type because it does not support StyleElement
-        BrowserDomAdapter.prototype.setText = function (el, value) { el.textContent = value; };
-        BrowserDomAdapter.prototype.getValue = function (el) { return el.value; };
-        BrowserDomAdapter.prototype.setValue = function (el, value) { el.value = value; };
-        BrowserDomAdapter.prototype.getChecked = function (el) { return el.checked; };
-        BrowserDomAdapter.prototype.setChecked = function (el, value) { el.checked = value; };
+        BrowserDomAdapter.prototype.setText = function (el /** TODO #9100 */, value) { el.textContent = value; };
+        BrowserDomAdapter.prototype.getValue = function (el /** TODO #9100 */) { return el.value; };
+        BrowserDomAdapter.prototype.setValue = function (el /** TODO #9100 */, value) { el.value = value; };
+        BrowserDomAdapter.prototype.getChecked = function (el /** TODO #9100 */) { return el.checked; };
+        BrowserDomAdapter.prototype.setChecked = function (el /** TODO #9100 */, value) { el.checked = value; };
         BrowserDomAdapter.prototype.createComment = function (text) { return document.createComment(text); };
-        BrowserDomAdapter.prototype.createTemplate = function (html) {
+        BrowserDomAdapter.prototype.createTemplate = function (html /** TODO #9100 */) {
             var t = document.createElement('template');
             t.innerHTML = html;
             return t;
         };
-        BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
+        BrowserDomAdapter.prototype.createElement = function (tagName /** TODO #9100 */, doc) {
             if (doc === void 0) { doc = document; }
             return doc.createElement(tagName);
         };
-        BrowserDomAdapter.prototype.createElementNS = function (ns, tagName, doc) {
+        BrowserDomAdapter.prototype.createElementNS = function (ns /** TODO #9100 */, tagName /** TODO #9100 */, doc) {
             if (doc === void 0) { doc = document; }
             return doc.createElementNS(ns, tagName);
         };
@@ -2423,28 +2423,28 @@ var __extends = (this && this.__extends) || function (d, b) {
         BrowserDomAdapter.prototype.getShadowRoot = function (el) { return el.shadowRoot; };
         BrowserDomAdapter.prototype.getHost = function (el) { return el.host; };
         BrowserDomAdapter.prototype.clone = function (node) { return node.cloneNode(true); };
-        BrowserDomAdapter.prototype.getElementsByClassName = function (element, name) {
+        BrowserDomAdapter.prototype.getElementsByClassName = function (element /** TODO #9100 */, name) {
             return element.getElementsByClassName(name);
         };
-        BrowserDomAdapter.prototype.getElementsByTagName = function (element, name) {
+        BrowserDomAdapter.prototype.getElementsByTagName = function (element /** TODO #9100 */, name) {
             return element.getElementsByTagName(name);
         };
-        BrowserDomAdapter.prototype.classList = function (element) { return Array.prototype.slice.call(element.classList, 0); };
-        BrowserDomAdapter.prototype.addClass = function (element, className) { element.classList.add(className); };
-        BrowserDomAdapter.prototype.removeClass = function (element, className) { element.classList.remove(className); };
-        BrowserDomAdapter.prototype.hasClass = function (element, className) { return element.classList.contains(className); };
-        BrowserDomAdapter.prototype.setStyle = function (element, styleName, styleValue) {
+        BrowserDomAdapter.prototype.classList = function (element /** TODO #9100 */) { return Array.prototype.slice.call(element.classList, 0); };
+        BrowserDomAdapter.prototype.addClass = function (element /** TODO #9100 */, className) { element.classList.add(className); };
+        BrowserDomAdapter.prototype.removeClass = function (element /** TODO #9100 */, className) { element.classList.remove(className); };
+        BrowserDomAdapter.prototype.hasClass = function (element /** TODO #9100 */, className) { return element.classList.contains(className); };
+        BrowserDomAdapter.prototype.setStyle = function (element /** TODO #9100 */, styleName, styleValue) {
             element.style[styleName] = styleValue;
         };
-        BrowserDomAdapter.prototype.removeStyle = function (element, stylename) { element.style[stylename] = null; };
-        BrowserDomAdapter.prototype.getStyle = function (element, stylename) { return element.style[stylename]; };
-        BrowserDomAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
+        BrowserDomAdapter.prototype.removeStyle = function (element /** TODO #9100 */, stylename) { element.style[stylename] = null; };
+        BrowserDomAdapter.prototype.getStyle = function (element /** TODO #9100 */, stylename) { return element.style[stylename]; };
+        BrowserDomAdapter.prototype.hasStyle = function (element /** TODO #9100 */, styleName, styleValue) {
             if (styleValue === void 0) { styleValue = null; }
             var value = this.getStyle(element, styleName) || '';
             return styleValue ? value == styleValue : value.length > 0;
         };
-        BrowserDomAdapter.prototype.tagName = function (element) { return element.tagName; };
-        BrowserDomAdapter.prototype.attributeMap = function (element) {
+        BrowserDomAdapter.prototype.tagName = function (element /** TODO #9100 */) { return element.tagName; };
+        BrowserDomAdapter.prototype.attributeMap = function (element /** TODO #9100 */) {
             var res = new Map();
             var elAttrs = element.attributes;
             for (var i = 0; i < elAttrs.length; i++) {
@@ -2453,26 +2453,26 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
             return res;
         };
-        BrowserDomAdapter.prototype.hasAttribute = function (element, attribute) { return element.hasAttribute(attribute); };
-        BrowserDomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) {
+        BrowserDomAdapter.prototype.hasAttribute = function (element /** TODO #9100 */, attribute) { return element.hasAttribute(attribute); };
+        BrowserDomAdapter.prototype.hasAttributeNS = function (element /** TODO #9100 */, ns, attribute) {
             return element.hasAttributeNS(ns, attribute);
         };
-        BrowserDomAdapter.prototype.getAttribute = function (element, attribute) { return element.getAttribute(attribute); };
-        BrowserDomAdapter.prototype.getAttributeNS = function (element, ns, name) {
+        BrowserDomAdapter.prototype.getAttribute = function (element /** TODO #9100 */, attribute) { return element.getAttribute(attribute); };
+        BrowserDomAdapter.prototype.getAttributeNS = function (element /** TODO #9100 */, ns, name) {
             return element.getAttributeNS(ns, name);
         };
-        BrowserDomAdapter.prototype.setAttribute = function (element, name, value) { element.setAttribute(name, value); };
-        BrowserDomAdapter.prototype.setAttributeNS = function (element, ns, name, value) {
+        BrowserDomAdapter.prototype.setAttribute = function (element /** TODO #9100 */, name, value) { element.setAttribute(name, value); };
+        BrowserDomAdapter.prototype.setAttributeNS = function (element /** TODO #9100 */, ns, name, value) {
             element.setAttributeNS(ns, name, value);
         };
-        BrowserDomAdapter.prototype.removeAttribute = function (element, attribute) { element.removeAttribute(attribute); };
-        BrowserDomAdapter.prototype.removeAttributeNS = function (element, ns, name) { element.removeAttributeNS(ns, name); };
-        BrowserDomAdapter.prototype.templateAwareRoot = function (el) { return this.isTemplateElement(el) ? this.content(el) : el; };
+        BrowserDomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) { element.removeAttribute(attribute); };
+        BrowserDomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, name) { element.removeAttributeNS(ns, name); };
+        BrowserDomAdapter.prototype.templateAwareRoot = function (el /** TODO #9100 */) { return this.isTemplateElement(el) ? this.content(el) : el; };
         BrowserDomAdapter.prototype.createHtmlDocument = function () {
             return document.implementation.createHTMLDocument('fakeTitle');
         };
         BrowserDomAdapter.prototype.defaultDoc = function () { return document; };
-        BrowserDomAdapter.prototype.getBoundingClientRect = function (el) {
+        BrowserDomAdapter.prototype.getBoundingClientRect = function (el /** TODO #9100 */) {
             try {
                 return el.getBoundingClientRect();
             }
@@ -2482,7 +2482,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         BrowserDomAdapter.prototype.getTitle = function () { return document.title; };
         BrowserDomAdapter.prototype.setTitle = function (newTitle) { document.title = newTitle || ''; };
-        BrowserDomAdapter.prototype.elementMatches = function (n, selector) {
+        BrowserDomAdapter.prototype.elementMatches = function (n /** TODO #9100 */, selector) {
             var matches = false;
             if (n instanceof HTMLElement) {
                 if (n.matches) {
@@ -2503,8 +2503,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         BrowserDomAdapter.prototype.isTextNode = function (node) { return node.nodeType === Node.TEXT_NODE; };
         BrowserDomAdapter.prototype.isCommentNode = function (node) { return node.nodeType === Node.COMMENT_NODE; };
         BrowserDomAdapter.prototype.isElementNode = function (node) { return node.nodeType === Node.ELEMENT_NODE; };
-        BrowserDomAdapter.prototype.hasShadowRoot = function (node) { return node instanceof HTMLElement && isPresent(node.shadowRoot); };
-        BrowserDomAdapter.prototype.isShadowRoot = function (node) { return node instanceof DocumentFragment; };
+        BrowserDomAdapter.prototype.hasShadowRoot = function (node /** TODO #9100 */) { return node instanceof HTMLElement && isPresent(node.shadowRoot); };
+        BrowserDomAdapter.prototype.isShadowRoot = function (node /** TODO #9100 */) { return node instanceof DocumentFragment; };
         BrowserDomAdapter.prototype.importIntoDoc = function (node) {
             var toImport = node;
             if (this.isTemplateElement(node)) {
@@ -2514,7 +2514,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         BrowserDomAdapter.prototype.adoptNode = function (node) { return document.adoptNode(node); };
         BrowserDomAdapter.prototype.getHref = function (el) { return el.href; };
-        BrowserDomAdapter.prototype.getEventKey = function (event) {
+        BrowserDomAdapter.prototype.getEventKey = function (event /** TODO #9100 */) {
             var key = event.key;
             if (isBlank(key)) {
                 key = event.keyIdentifier;
@@ -2562,14 +2562,14 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         BrowserDomAdapter.prototype.resetBaseElement = function () { baseElement = null; };
         BrowserDomAdapter.prototype.getUserAgent = function () { return window.navigator.userAgent; };
-        BrowserDomAdapter.prototype.setData = function (element, name, value) {
+        BrowserDomAdapter.prototype.setData = function (element /** TODO #9100 */, name, value) {
             this.setAttribute(element, 'data-' + name, value);
         };
-        BrowserDomAdapter.prototype.getData = function (element, name) { return this.getAttribute(element, 'data-' + name); };
-        BrowserDomAdapter.prototype.getComputedStyle = function (element) { return getComputedStyle(element); };
+        BrowserDomAdapter.prototype.getData = function (element /** TODO #9100 */, name) { return this.getAttribute(element, 'data-' + name); };
+        BrowserDomAdapter.prototype.getComputedStyle = function (element /** TODO #9100 */) { return getComputedStyle(element); };
         // TODO(tbosch): move this into a separate environment class once we have it
         BrowserDomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(global$1, path, value); };
-        BrowserDomAdapter.prototype.requestAnimationFrame = function (callback) { return window.requestAnimationFrame(callback); };
+        BrowserDomAdapter.prototype.requestAnimationFrame = function (callback /** TODO #9100 */) { return window.requestAnimationFrame(callback); };
         BrowserDomAdapter.prototype.cancelAnimationFrame = function (id) { window.cancelAnimationFrame(id); };
         BrowserDomAdapter.prototype.supportsWebAnimation = function () { return isFunction(document.body['animate']); };
         BrowserDomAdapter.prototype.performanceNow = function () {
@@ -2605,7 +2605,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     // based on urlUtils.js in AngularJS 1
     var urlParsingNode = null;
-    function relativePath(url) {
+    function relativePath(url /** TODO #9100 */) {
         if (isBlank(urlParsingNode)) {
             urlParsingNode = document.createElement("a");
         }
@@ -2657,18 +2657,18 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return testabilities.map(function (testability) { return new PublicTestability(testability); });
             };
             global$1.getAllAngularRootElements = function () { return registry.getAllRootElements(); };
-            var whenAllStable = function (callback) {
+            var whenAllStable = function (callback /** TODO #9100 */) {
                 var testabilities = global$1.getAllAngularTestabilities();
                 var count = testabilities.length;
                 var didWork = false;
-                var decrement = function (didWork_) {
+                var decrement = function (didWork_ /** TODO #9100 */) {
                     didWork = didWork || didWork_;
                     count--;
                     if (count == 0) {
                         callback(didWork);
                     }
                 };
-                testabilities.forEach(function (testability) { testability.whenStable(decrement); });
+                testabilities.forEach(function (testability /** TODO #9100 */) { testability.whenStable(decrement); });
             };
             if (!global$1.frameworkStabilizers) {
                 global$1.frameworkStabilizers = ListWrapper.createGrowableSize(0);
@@ -2707,7 +2707,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         function PromiseWrapper() {
         }
         PromiseWrapper.resolve = function (obj) { return Promise.resolve(obj); };
-        PromiseWrapper.reject = function (obj, _) { return Promise.reject(obj); };
+        PromiseWrapper.reject = function (obj, _ /** TODO #9100 */) { return Promise.reject(obj); };
         // Note: We can't rename this method into `catch`, as this is not a valid
         // method name in Dart.
         PromiseWrapper.catchError = function (promise, onError) {
@@ -3054,8 +3054,8 @@ var __extends = (this && this.__extends) || function (d, b) {
             var errorFn = function (err) { return null; };
             var completeFn = function () { return null; };
             if (generatorOrNext && typeof generatorOrNext === 'object') {
-                schedulerFn = this.__isAsync ? function (value) { setTimeout(function () { return generatorOrNext.next(value); }); } :
-                    function (value) { generatorOrNext.next(value); };
+                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) { setTimeout(function () { return generatorOrNext.next(value); }); } :
+                    function (value /** TODO #9100 */) { generatorOrNext.next(value); };
                 if (generatorOrNext.error) {
                     errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
                         function (err) { generatorOrNext.error(err); };
@@ -3066,8 +3066,8 @@ var __extends = (this && this.__extends) || function (d, b) {
                 }
             }
             else {
-                schedulerFn = this.__isAsync ? function (value) { setTimeout(function () { return generatorOrNext(value); }); } :
-                    function (value) { generatorOrNext(value); };
+                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) { setTimeout(function () { return generatorOrNext(value); }); } :
+                    function (value /** TODO #9100 */) { generatorOrNext(value); };
                 if (error) {
                     errorFn =
                         this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
@@ -3274,7 +3274,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     var ClientMessageBroker_ = (function (_super) {
         __extends(ClientMessageBroker_, _super);
-        function ClientMessageBroker_(messageBus, _serializer, channel) {
+        function ClientMessageBroker_(messageBus, _serializer, channel /** TODO #9100 */) {
             var _this = this;
             _super.call(this);
             this.channel = channel;
@@ -3376,7 +3376,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return MessageData;
     }());
     var FnArg = (function () {
-        function FnArg(value, type) {
+        function FnArg(value /** TODO #9100 */, type) {
             this.value = value;
             this.type = type;
         }
@@ -3428,7 +3428,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     var ServiceMessageBroker_ = (function (_super) {
         __extends(ServiceMessageBroker_, _super);
-        function ServiceMessageBroker_(messageBus, _serializer, channel) {
+        function ServiceMessageBroker_(messageBus, _serializer, channel /** TODO #9100 */) {
             var _this = this;
             _super.call(this);
             this._serializer = _serializer;
@@ -3931,12 +3931,12 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         MessageBasedRenderer.prototype._listen = function (renderer, renderElement, eventName, unlistenId) {
             var _this = this;
-            var unregisterCallback = renderer.listen(renderElement, eventName, function (event) { return _this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event); });
+            var unregisterCallback = renderer.listen(renderElement, eventName, function (event /** TODO #9100 */) { return _this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event); });
             this._renderStore.store(unregisterCallback, unlistenId);
         };
         MessageBasedRenderer.prototype._listenGlobal = function (renderer, eventTarget, eventName, unlistenId) {
             var _this = this;
-            var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, function (event) { return _this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event); });
+            var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, function (event /** TODO #9100 */) { return _this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event); });
             this._renderStore.store(unregisterCallback, unlistenId);
         };
         MessageBasedRenderer.prototype._listenDone = function (renderer, unlistenCallback) { unlistenCallback(); };
@@ -4151,7 +4151,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         bus.attachToZone(zone);
         // initialize message services after the bus has been created
         var services = injector.get(WORKER_RENDER_STARTABLE_MESSAGING_SERVICE);
-        zone.runGuarded(function () { services.forEach(function (svc) { svc.start(); }); });
+        zone.runGuarded(function () { services.forEach(function (svc /** TODO #9100 */) { svc.start(); }); });
     }
     function bootstrapRender(workerScriptUri, customProviders) {
         var app = _angular_core.ReflectiveInjector.resolveAndCreate([
@@ -4457,7 +4457,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             _super.apply(this, arguments);
         }
         WorkerDomAdapter.makeCurrent = function () { setRootDomAdapter(new WorkerDomAdapter()); };
-        WorkerDomAdapter.prototype.logError = function (error) {
+        WorkerDomAdapter.prototype.logError = function (error /** TODO #9100 */) {
             if (console.error) {
                 console.error(error);
             }
@@ -4465,8 +4465,8 @@ var __extends = (this && this.__extends) || function (d, b) {
                 console.log(error);
             }
         };
-        WorkerDomAdapter.prototype.log = function (error) { console.log(error); };
-        WorkerDomAdapter.prototype.logGroup = function (error) {
+        WorkerDomAdapter.prototype.log = function (error /** TODO #9100 */) { console.log(error); };
+        WorkerDomAdapter.prototype.logGroup = function (error /** TODO #9100 */) {
             if (console.group) {
                 console.group(error);
                 this.logError(error);
@@ -4480,7 +4480,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 console.groupEnd();
             }
         };
-        WorkerDomAdapter.prototype.hasProperty = function (element, name) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.hasProperty = function (element /** TODO #9100 */, name) { throw "not implemented"; };
         WorkerDomAdapter.prototype.setProperty = function (el, name, value) { throw "not implemented"; };
         WorkerDomAdapter.prototype.getProperty = function (el, name) { throw "not implemented"; };
         WorkerDomAdapter.prototype.invoke = function (el, methodName, args) { throw "not implemented"; };
@@ -4493,94 +4493,94 @@ var __extends = (this && this.__extends) || function (d, b) {
         });
         WorkerDomAdapter.prototype.parse = function (templateHtml) { throw "not implemented"; };
         WorkerDomAdapter.prototype.query = function (selector) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.querySelector = function (el, selector) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.querySelectorAll = function (el, selector) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.on = function (el, evt, listener) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.onAndCancel = function (el, evt, listener) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.dispatchEvent = function (el, evt) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.createMouseEvent = function (eventType) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.querySelector = function (el /** TODO #9100 */, selector) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.querySelectorAll = function (el /** TODO #9100 */, selector) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.dispatchEvent = function (el /** TODO #9100 */, evt /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.createMouseEvent = function (eventType /** TODO #9100 */) { throw "not implemented"; };
         WorkerDomAdapter.prototype.createEvent = function (eventType) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.preventDefault = function (evt) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.isPrevented = function (evt) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getInnerHTML = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getTemplateContent = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getOuterHTML = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.nodeName = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.nodeValue = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.type = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.content = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.firstChild = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.nextSibling = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.parentElement = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.childNodes = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.childNodesAsList = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.clearNodes = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.appendChild = function (el, node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.removeChild = function (el, node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.replaceChild = function (el, newNode, oldNode) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.remove = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.insertBefore = function (el, node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.insertAllBefore = function (el, nodes) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.insertAfter = function (el, node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.setInnerHTML = function (el, value) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getText = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.setText = function (el, value) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getValue = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.setValue = function (el, value) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getChecked = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.setChecked = function (el, value) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.preventDefault = function (evt /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.isPrevented = function (evt /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getInnerHTML = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getTemplateContent = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getOuterHTML = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.nodeName = function (node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.nodeValue = function (node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.type = function (node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.content = function (node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.firstChild = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.nextSibling = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.parentElement = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.childNodes = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.childNodesAsList = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.clearNodes = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.appendChild = function (el /** TODO #9100 */, node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.removeChild = function (el /** TODO #9100 */, node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.replaceChild = function (el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.remove = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.insertBefore = function (el /** TODO #9100 */, node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.insertAllBefore = function (el /** TODO #9100 */, nodes /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.insertAfter = function (el /** TODO #9100 */, node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.setInnerHTML = function (el /** TODO #9100 */, value /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getText = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.setText = function (el /** TODO #9100 */, value) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getValue = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.setValue = function (el /** TODO #9100 */, value) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getChecked = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.setChecked = function (el /** TODO #9100 */, value) { throw "not implemented"; };
         WorkerDomAdapter.prototype.createComment = function (text) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.createTemplate = function (html) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.createElement = function (tagName, doc) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.createElementNS = function (ns, tagName, doc) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.createTextNode = function (text, doc) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) {
+        WorkerDomAdapter.prototype.createTemplate = function (html /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.createElement = function (tagName /** TODO #9100 */, doc /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.createElementNS = function (ns, tagName, doc /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.createTextNode = function (text, doc /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc /** TODO #9100 */) {
             throw "not implemented";
         };
-        WorkerDomAdapter.prototype.createStyleElement = function (css, doc) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.createShadowRoot = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getShadowRoot = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getHost = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getDistributedNodes = function (el) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.createStyleElement = function (css, doc /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.createShadowRoot = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getShadowRoot = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getHost = function (el /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getDistributedNodes = function (el /** TODO #9100 */) { throw "not implemented"; };
         WorkerDomAdapter.prototype.clone = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getElementsByClassName = function (element, name) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getElementsByTagName = function (element, name) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.classList = function (element) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.addClass = function (element, className) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.removeClass = function (element, className) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.hasClass = function (element, className) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.setStyle = function (element, styleName, styleValue) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.removeStyle = function (element, styleName) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getStyle = function (element, styleName) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.hasStyle = function (element, styleName, styleValue) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.tagName = function (element) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.attributeMap = function (element) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.hasAttribute = function (element, attribute) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getAttribute = function (element, attribute) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.setAttribute = function (element, name, value) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.setAttributeNS = function (element, ns, name, value) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.removeAttribute = function (element, attribute) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.removeAttributeNS = function (element, ns, attribute) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.templateAwareRoot = function (el) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getElementsByClassName = function (element /** TODO #9100 */, name) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getElementsByTagName = function (element /** TODO #9100 */, name) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.classList = function (element /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.addClass = function (element /** TODO #9100 */, className) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.removeClass = function (element /** TODO #9100 */, className) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.hasClass = function (element /** TODO #9100 */, className) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.setStyle = function (element /** TODO #9100 */, styleName, styleValue) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.removeStyle = function (element /** TODO #9100 */, styleName) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getStyle = function (element /** TODO #9100 */, styleName) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.hasStyle = function (element /** TODO #9100 */, styleName, styleValue) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.tagName = function (element /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.attributeMap = function (element /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.hasAttribute = function (element /** TODO #9100 */, attribute) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.hasAttributeNS = function (element /** TODO #9100 */, ns, attribute) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getAttribute = function (element /** TODO #9100 */, attribute) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getAttributeNS = function (element /** TODO #9100 */, ns, attribute) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.setAttribute = function (element /** TODO #9100 */, name, value) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.setAttributeNS = function (element /** TODO #9100 */, ns, name, value) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, attribute) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.templateAwareRoot = function (el /** TODO #9100 */) { throw "not implemented"; };
         WorkerDomAdapter.prototype.createHtmlDocument = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.defaultDoc = function () { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getBoundingClientRect = function (el) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getBoundingClientRect = function (el /** TODO #9100 */) { throw "not implemented"; };
         WorkerDomAdapter.prototype.getTitle = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.setTitle = function (newTitle) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.elementMatches = function (n, selector) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.elementMatches = function (n /** TODO #9100 */, selector) { throw "not implemented"; };
         WorkerDomAdapter.prototype.isTemplateElement = function (el) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.isTextNode = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.isCommentNode = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.isElementNode = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.hasShadowRoot = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.isShadowRoot = function (node) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.isTextNode = function (node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.isCommentNode = function (node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.isElementNode = function (node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.hasShadowRoot = function (node /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.isShadowRoot = function (node /** TODO #9100 */) { throw "not implemented"; };
         WorkerDomAdapter.prototype.importIntoDoc = function (node) { throw "not implemented"; };
         WorkerDomAdapter.prototype.adoptNode = function (node) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getHref = function (element) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getEventKey = function (event) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.resolveAndSetHref = function (element, baseUrl, href) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getHref = function (element /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getEventKey = function (event /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.resolveAndSetHref = function (element /** TODO #9100 */, baseUrl, href) { throw "not implemented"; };
         WorkerDomAdapter.prototype.supportsDOMEvents = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.supportsNativeShadowDOM = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.getGlobalEventTarget = function (target) { throw "not implemented"; };
@@ -4589,12 +4589,12 @@ var __extends = (this && this.__extends) || function (d, b) {
         WorkerDomAdapter.prototype.getBaseHref = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.resetBaseElement = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.getUserAgent = function () { throw "not implemented"; };
-        WorkerDomAdapter.prototype.setData = function (element, name, value) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getComputedStyle = function (element) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.getData = function (element, name) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.setData = function (element /** TODO #9100 */, name, value) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getComputedStyle = function (element /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.getData = function (element /** TODO #9100 */, name) { throw "not implemented"; };
         WorkerDomAdapter.prototype.setGlobalVar = function (name, value) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.requestAnimationFrame = function (callback) { throw "not implemented"; };
-        WorkerDomAdapter.prototype.cancelAnimationFrame = function (id) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.requestAnimationFrame = function (callback /** TODO #9100 */) { throw "not implemented"; };
+        WorkerDomAdapter.prototype.cancelAnimationFrame = function (id /** TODO #9100 */) { throw "not implemented"; };
         WorkerDomAdapter.prototype.performanceNow = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.getAnimationPrefix = function () { throw "not implemented"; };
         WorkerDomAdapter.prototype.getTransitionEnd = function () { throw "not implemented"; };

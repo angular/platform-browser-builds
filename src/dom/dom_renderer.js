@@ -217,7 +217,7 @@ var DomRenderer = (function () {
     return DomRenderer;
 }());
 exports.DomRenderer = DomRenderer;
-function moveNodesAfterSibling(sibling, nodes) {
+function moveNodesAfterSibling(sibling /** TODO #9100 */, nodes /** TODO #9100 */) {
     var parent = dom_adapter_1.getDOM().parentElement(sibling);
     if (nodes.length > 0 && lang_1.isPresent(parent)) {
         var nextSibling = dom_adapter_1.getDOM().nextSibling(sibling);
@@ -233,13 +233,13 @@ function moveNodesAfterSibling(sibling, nodes) {
         }
     }
 }
-function appendNodes(parent, nodes) {
+function appendNodes(parent /** TODO #9100 */, nodes /** TODO #9100 */) {
     for (var i = 0; i < nodes.length; i++) {
         dom_adapter_1.getDOM().appendChild(parent, nodes[i]);
     }
 }
 function decoratePreventDefault(eventHandler) {
-    return function (event) {
+    return function (event /** TODO #9100 */) {
         var allowDefaultBehavior = eventHandler(event);
         if (allowDefaultBehavior === false) {
             // TODO(tbosch): move preventDefault into event plugins...

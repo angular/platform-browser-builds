@@ -35,18 +35,18 @@ var BrowserGetTestability = (function () {
             return testabilities.map(function (testability) { return new PublicTestability(testability); });
         };
         lang_1.global.getAllAngularRootElements = function () { return registry.getAllRootElements(); };
-        var whenAllStable = function (callback) {
+        var whenAllStable = function (callback /** TODO #9100 */) {
             var testabilities = lang_1.global.getAllAngularTestabilities();
             var count = testabilities.length;
             var didWork = false;
-            var decrement = function (didWork_) {
+            var decrement = function (didWork_ /** TODO #9100 */) {
                 didWork = didWork || didWork_;
                 count--;
                 if (count == 0) {
                     callback(didWork);
                 }
             };
-            testabilities.forEach(function (testability) { testability.whenStable(decrement); });
+            testabilities.forEach(function (testability /** TODO #9100 */) { testability.whenStable(decrement); });
         };
         if (!lang_1.global.frameworkStabilizers) {
             lang_1.global.frameworkStabilizers = collection_1.ListWrapper.createGrowableSize(0);

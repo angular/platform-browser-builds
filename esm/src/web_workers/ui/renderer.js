@@ -98,11 +98,11 @@ export class MessageBasedRenderer {
         renderer.setText(renderNode, text);
     }
     _listen(renderer, renderElement, eventName, unlistenId) {
-        var unregisterCallback = renderer.listen(renderElement, eventName, (event) => this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event));
+        var unregisterCallback = renderer.listen(renderElement, eventName, (event /** TODO #9100 */) => this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event));
         this._renderStore.store(unregisterCallback, unlistenId);
     }
     _listenGlobal(renderer, eventTarget, eventName, unlistenId) {
-        var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, (event) => this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event));
+        var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, (event /** TODO #9100 */) => this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event));
         this._renderStore.store(unregisterCallback, unlistenId);
     }
     _listenDone(renderer, unlistenCallback) { unlistenCallback(); }

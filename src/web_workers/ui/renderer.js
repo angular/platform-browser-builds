@@ -100,12 +100,12 @@ var MessageBasedRenderer = (function () {
     };
     MessageBasedRenderer.prototype._listen = function (renderer, renderElement, eventName, unlistenId) {
         var _this = this;
-        var unregisterCallback = renderer.listen(renderElement, eventName, function (event) { return _this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event); });
+        var unregisterCallback = renderer.listen(renderElement, eventName, function (event /** TODO #9100 */) { return _this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event); });
         this._renderStore.store(unregisterCallback, unlistenId);
     };
     MessageBasedRenderer.prototype._listenGlobal = function (renderer, eventTarget, eventName, unlistenId) {
         var _this = this;
-        var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, function (event) { return _this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event); });
+        var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, function (event /** TODO #9100 */) { return _this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event); });
         this._renderStore.store(unregisterCallback, unlistenId);
     };
     MessageBasedRenderer.prototype._listenDone = function (renderer, unlistenCallback) { unlistenCallback(); };

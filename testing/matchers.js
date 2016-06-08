@@ -21,7 +21,7 @@ Map.prototype['jasmineToString'] = function () {
         return '' + m;
     }
     var res = [];
-    m.forEach(function (v, k) { res.push(k + ":" + v); });
+    m.forEach(function (v /** TODO #???? */, k /** TODO #???? */) { res.push(k + ":" + v); });
     return "{ " + res.join(',') + " }";
 };
 _global.beforeEach(function () {
@@ -29,15 +29,15 @@ _global.beforeEach(function () {
         // Custom handler for Map as Jasmine does not support it yet
         toEqual: function (util, customEqualityTesters) {
             return {
-                compare: function (actual, expected) {
+                compare: function (actual /** TODO #???? */, expected /** TODO #???? */) {
                     return { pass: util.equals(actual, expected, [compareMap]) };
                 }
             };
-            function compareMap(actual, expected) {
+            function compareMap(actual /** TODO #???? */, expected /** TODO #???? */) {
                 if (actual instanceof Map) {
                     var pass = actual.size === expected.size;
                     if (pass) {
-                        actual.forEach(function (v, k) { pass = pass && util.equals(v, expected.get(k)); });
+                        actual.forEach(function (v /** TODO #???? */, k /** TODO #???? */) { pass = pass && util.equals(v, expected.get(k)); });
                     }
                     return pass;
                 }
@@ -48,7 +48,7 @@ _global.beforeEach(function () {
         },
         toBePromise: function () {
             return {
-                compare: function (actual, expectedClass) {
+                compare: function (actual /** TODO #???? */, expectedClass /** TODO #???? */) {
                     var pass = typeof actual === 'object' && typeof actual.then === 'function';
                     return { pass: pass, get message() { return 'Expected ' + actual + ' to be a promise'; } };
                 }
@@ -56,7 +56,7 @@ _global.beforeEach(function () {
         },
         toBeAnInstanceOf: function () {
             return {
-                compare: function (actual, expectedClass) {
+                compare: function (actual /** TODO #???? */, expectedClass /** TODO #???? */) {
                     var pass = typeof actual === 'object' && actual instanceof expectedClass;
                     return {
                         pass: pass,
@@ -69,7 +69,7 @@ _global.beforeEach(function () {
         },
         toHaveText: function () {
             return {
-                compare: function (actual, expectedText) {
+                compare: function (actual /** TODO #???? */, expectedText /** TODO #???? */) {
                     var actualText = elementText(actual);
                     return {
                         pass: actualText == expectedText,
@@ -80,8 +80,8 @@ _global.beforeEach(function () {
         },
         toHaveCssClass: function () {
             return { compare: buildError(false), negativeCompare: buildError(true) };
-            function buildError(isNot) {
-                return function (actual, className) {
+            function buildError(isNot /** TODO #???? */) {
+                return function (actual /** TODO #???? */, className /** TODO #???? */) {
                     return {
                         pass: dom_adapter_1.getDOM().hasClass(actual, className) == !isNot,
                         get message() {
@@ -93,14 +93,14 @@ _global.beforeEach(function () {
         },
         toHaveCssStyle: function () {
             return {
-                compare: function (actual, styles) {
+                compare: function (actual /** TODO #???? */, styles /** TODO #???? */) {
                     var allPassed;
                     if (lang_1.isString(styles)) {
                         allPassed = dom_adapter_1.getDOM().hasStyle(actual, styles);
                     }
                     else {
                         allPassed = !collection_1.StringMapWrapper.isEmpty(styles);
-                        collection_1.StringMapWrapper.forEach(styles, function (style, prop) {
+                        collection_1.StringMapWrapper.forEach(styles, function (style /** TODO #???? */, prop /** TODO #???? */) {
                             allPassed = allPassed && dom_adapter_1.getDOM().hasStyle(actual, prop, style);
                         });
                     }
@@ -116,7 +116,7 @@ _global.beforeEach(function () {
         },
         toContainError: function () {
             return {
-                compare: function (actual, expectedText) {
+                compare: function (actual /** TODO #???? */, expectedText /** TODO #???? */) {
                     var errorMessage = actual.toString();
                     return {
                         pass: errorMessage.indexOf(expectedText) > -1,
@@ -127,7 +127,7 @@ _global.beforeEach(function () {
         },
         toThrowErrorWith: function () {
             return {
-                compare: function (actual, expectedText) {
+                compare: function (actual /** TODO #???? */, expectedText /** TODO #???? */) {
                     try {
                         actual();
                         return {
@@ -147,8 +147,8 @@ _global.beforeEach(function () {
         },
         toMatchPattern: function () {
             return { compare: buildError(false), negativeCompare: buildError(true) };
-            function buildError(isNot) {
-                return function (actual, regex) {
+            function buildError(isNot /** TODO #???? */) {
+                return function (actual /** TODO #???? */, regex /** TODO #???? */) {
                     return {
                         pass: regex.test(actual) == !isNot,
                         get message() {
@@ -160,7 +160,7 @@ _global.beforeEach(function () {
         },
         toImplement: function () {
             return {
-                compare: function (actualObject, expectedInterface) {
+                compare: function (actualObject /** TODO #???? */, expectedInterface /** TODO #???? */) {
                     var objProps = Object.keys(actualObject.constructor.prototype);
                     var intProps = Object.keys(expectedInterface.prototype);
                     var missedMethods = [];
@@ -180,8 +180,8 @@ _global.beforeEach(function () {
         }
     });
 });
-function elementText(n) {
-    var hasNodes = function (n) {
+function elementText(n /** TODO #???? */) {
+    var hasNodes = function (n /** TODO #???? */) {
         var children = dom_adapter_1.getDOM().childNodes(n);
         return children && children.length > 0;
     };

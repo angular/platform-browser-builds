@@ -30,7 +30,7 @@ ClientMessageBrokerFactory_.ctorParameters = [
 export class ClientMessageBroker {
 }
 export class ClientMessageBroker_ extends ClientMessageBroker {
-    constructor(messageBus, _serializer, channel) {
+    constructor(messageBus, _serializer, channel /** TODO #9100 */) {
         super();
         this.channel = channel;
         this._pending = new Map();
@@ -128,7 +128,7 @@ class MessageData {
     }
 }
 export class FnArg {
-    constructor(value, type) {
+    constructor(value /** TODO #9100 */, type) {
         this.value = value;
         this.type = type;
     }

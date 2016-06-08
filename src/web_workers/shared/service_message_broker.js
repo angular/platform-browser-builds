@@ -52,7 +52,7 @@ exports.ServiceMessageBroker = ServiceMessageBroker;
  */
 var ServiceMessageBroker_ = (function (_super) {
     __extends(ServiceMessageBroker_, _super);
-    function ServiceMessageBroker_(messageBus, _serializer, channel) {
+    function ServiceMessageBroker_(messageBus, _serializer, channel /** TODO #9100 */) {
         var _this = this;
         _super.call(this);
         this._serializer = _serializer;

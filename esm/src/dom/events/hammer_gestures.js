@@ -40,7 +40,7 @@ export class HammerGesturesPlugin extends HammerGesturesPluginCommon {
         return zone.runOutsideAngular(() => {
             // Creating the manager bind events, must be done outside of angular
             var mc = this._config.buildHammer(element);
-            var callback = function (eventObj) { zone.runGuarded(function () { handler(eventObj); }); };
+            var callback = function (eventObj /** TODO #???? */) { zone.runGuarded(function () { handler(eventObj); }); };
             mc.on(eventName, callback);
             return () => { mc.off(eventName, callback); };
         });

@@ -38,7 +38,7 @@ var WebAnimationsPlayer = (function () {
         this.reset();
         this._onFinish();
     };
-    WebAnimationsPlayer.prototype.setPosition = function (p) {
+    WebAnimationsPlayer.prototype.setPosition = function (p /** TODO #9100 */) {
         this._player.currentTime = p * this.totalTime;
     };
     WebAnimationsPlayer.prototype.getPosition = function () {

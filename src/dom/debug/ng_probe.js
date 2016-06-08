@@ -12,17 +12,17 @@ var CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
  * null if the given native element does not have an Angular view associated
  * with it.
  */
-function inspectNativeElement(element) {
+function inspectNativeElement(element /** TODO #9100 */) {
     return core_1.getDebugNode(element);
 }
 exports.inspectNativeElement = inspectNativeElement;
-function _createConditionalRootRenderer(rootRenderer) {
+function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */) {
     if (lang_1.assertionsEnabled()) {
         return _createRootRenderer(rootRenderer);
     }
     return rootRenderer;
 }
-function _createRootRenderer(rootRenderer) {
+function _createRootRenderer(rootRenderer /** TODO #9100 */) {
     dom_adapter_1.getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
     dom_adapter_1.getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, CORE_TOKENS);
     return new core_private_1.DebugDomRootRenderer(rootRenderer);

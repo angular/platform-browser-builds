@@ -79,7 +79,7 @@ var KeyEventsPlugin = (function (_super) {
         return fullKey;
     };
     KeyEventsPlugin.eventCallback = function (element, fullKey, handler, zone) {
-        return function (event) {
+        return function (event /** TODO #9100 */) {
             if (lang_1.StringWrapper.equals(KeyEventsPlugin.getEventFullKey(event), fullKey)) {
                 zone.runGuarded(function () { return handler(event); });
             }

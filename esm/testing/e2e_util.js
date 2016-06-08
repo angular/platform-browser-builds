@@ -1,8 +1,8 @@
 import * as webdriver from 'selenium-webdriver';
 export var browser = global['browser'];
 export var $ = global['$'];
-export function clickAll(buttonSelectors) {
-    buttonSelectors.forEach(function (selector) { $(selector).click(); });
+export function clickAll(buttonSelectors /** TODO #9100 */) {
+    buttonSelectors.forEach(function (selector /** TODO #9100 */) { $(selector).click(); });
 }
 export function verifyNoBrowserErrors() {
     // TODO(tbosch): Bug in ChromeDriver: Need to execute at least one command

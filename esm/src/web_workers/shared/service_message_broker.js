@@ -33,7 +33,7 @@ export class ServiceMessageBroker {
  * If that method returns a promise, the UIMessageBroker returns the result to the worker.
  */
 export class ServiceMessageBroker_ extends ServiceMessageBroker {
-    constructor(messageBus, _serializer, channel) {
+    constructor(messageBus, _serializer, channel /** TODO #9100 */) {
         super();
         this._serializer = _serializer;
         this.channel = channel;

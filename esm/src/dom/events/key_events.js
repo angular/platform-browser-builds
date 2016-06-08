@@ -72,7 +72,7 @@ export class KeyEventsPlugin extends EventManagerPlugin {
         return fullKey;
     }
     static eventCallback(element, fullKey, handler, zone) {
-        return (event) => {
+        return (event /** TODO #9100 */) => {
             if (StringWrapper.equals(KeyEventsPlugin.getEventFullKey(event), fullKey)) {
                 zone.runGuarded(() => handler(event));
             }

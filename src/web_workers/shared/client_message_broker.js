@@ -49,7 +49,7 @@ var ClientMessageBroker = (function () {
 exports.ClientMessageBroker = ClientMessageBroker;
 var ClientMessageBroker_ = (function (_super) {
     __extends(ClientMessageBroker_, _super);
-    function ClientMessageBroker_(messageBus, _serializer, channel) {
+    function ClientMessageBroker_(messageBus, _serializer, channel /** TODO #9100 */) {
         var _this = this;
         _super.call(this);
         this.channel = channel;
@@ -152,7 +152,7 @@ var MessageData = (function () {
     return MessageData;
 }());
 var FnArg = (function () {
-    function FnArg(value, type) {
+    function FnArg(value /** TODO #9100 */, type) {
         this.value = value;
         this.type = type;
     }

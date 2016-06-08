@@ -36,7 +36,7 @@ export class WebAnimationsPlayer {
         this.reset();
         this._onFinish();
     }
-    setPosition(p) {
+    setPosition(p /** TODO #9100 */) {
         this._player.currentTime = p * this.totalTime;
     }
     getPosition() {

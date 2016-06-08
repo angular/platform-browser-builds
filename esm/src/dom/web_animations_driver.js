@@ -34,13 +34,13 @@ export class WebAnimationsDriver {
 function _populateStyles(element, styles, defaultStyles) {
     var data = {};
     styles.styles.forEach((entry) => {
-        StringMapWrapper.forEach(entry, (val, prop) => {
+        StringMapWrapper.forEach(entry, (val /** TODO #9100 */, prop /** TODO #9100 */) => {
             data[prop] = val == AUTO_STYLE
                 ? _computeStyle(element, prop)
                 : val.toString() + _resolveStyleUnit(val, prop);
         });
     });
-    StringMapWrapper.forEach(defaultStyles, (value, prop) => {
+    StringMapWrapper.forEach(defaultStyles, (value /** TODO #9100 */, prop /** TODO #9100 */) => {
         if (!isPresent(data[prop])) {
             data[prop] = value;
         }

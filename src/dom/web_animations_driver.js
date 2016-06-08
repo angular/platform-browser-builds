@@ -39,13 +39,13 @@ exports.WebAnimationsDriver = WebAnimationsDriver;
 function _populateStyles(element, styles, defaultStyles) {
     var data = {};
     styles.styles.forEach(function (entry) {
-        collection_1.StringMapWrapper.forEach(entry, function (val, prop) {
+        collection_1.StringMapWrapper.forEach(entry, function (val /** TODO #9100 */, prop /** TODO #9100 */) {
             data[prop] = val == core_1.AUTO_STYLE
                 ? _computeStyle(element, prop)
                 : val.toString() + _resolveStyleUnit(val, prop);
         });
     });
-    collection_1.StringMapWrapper.forEach(defaultStyles, function (value, prop) {
+    collection_1.StringMapWrapper.forEach(defaultStyles, function (value /** TODO #9100 */, prop /** TODO #9100 */) {
         if (!lang_1.isPresent(data[prop])) {
             data[prop] = value;
         }

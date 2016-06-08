@@ -40,7 +40,7 @@ export class BrowserDetection {
     }
 }
 BrowserDetection.setup();
-export function dispatchEvent(element, eventType) {
+export function dispatchEvent(element /** TODO #9100 */, eventType /** TODO #9100 */) {
     getDOM().dispatchEvent(element, getDOM().createEvent(eventType));
 }
 export function el(html) {
@@ -51,12 +51,12 @@ export function normalizeCSS(css) {
     css = StringWrapper.replaceAll(css, /:\s/g, ':');
     css = StringWrapper.replaceAll(css, /'/g, '"');
     css = StringWrapper.replaceAll(css, / }/g, '}');
-    css = StringWrapper.replaceAllMapped(css, /url\((\"|\s)(.+)(\"|\s)\)(\s*)/g, (match) => `url("${match[2]}")`);
-    css = StringWrapper.replaceAllMapped(css, /\[(.+)=([^"\]]+)\]/g, (match) => `[${match[1]}="${match[2]}"]`);
+    css = StringWrapper.replaceAllMapped(css, /url\((\"|\s)(.+)(\"|\s)\)(\s*)/g, (match /** TODO #9100 */) => `url("${match[2]}")`);
+    css = StringWrapper.replaceAllMapped(css, /\[(.+)=([^"\]]+)\]/g, (match /** TODO #9100 */) => `[${match[1]}="${match[2]}"]`);
     return css;
 }
 var _singleTagWhitelist = ['br', 'hr', 'input'];
-export function stringifyElement(el) {
+export function stringifyElement(el /** TODO #9100 */) {
     var result = '';
     if (getDOM().isElementNode(el)) {
         var tagName = getDOM().tagName(el).toLowerCase();
