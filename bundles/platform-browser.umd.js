@@ -1941,7 +1941,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         DomSanitizationServiceImpl.prototype.checkNotSafeValue = function (value, expectedType) {
             if (value instanceof SafeValueImpl) {
-                throw new Error('Required a safe ' + expectedType + ', got a ' + value.getTypeName());
+                throw new Error("Required a safe " + expectedType + ", got a " + value.getTypeName());
             }
         };
         DomSanitizationServiceImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };

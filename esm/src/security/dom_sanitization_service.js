@@ -69,7 +69,7 @@ export class DomSanitizationServiceImpl extends DomSanitizationService {
     }
     checkNotSafeValue(value, expectedType) {
         if (value instanceof SafeValueImpl) {
-            throw new Error('Required a safe ' + expectedType + ', got a ' + value.getTypeName());
+            throw new Error(`Required a safe ${expectedType}, got a ${value.getTypeName()}`);
         }
     }
     bypassSecurityTrustHtml(value) { return new SafeHtmlImpl(value); }

@@ -74,18 +74,18 @@ export declare abstract class DomSanitizationService implements SanitizationServ
     abstract bypassSecurityTrustScript(value: string): SafeScript;
     /**
      * Bypass security and trust the given value to be a safe style URL, i.e. a value that can be used
-     * in hyperlinks or `<iframe src>`.
+     * in hyperlinks or `<img src>`.
      *
      * WARNING: calling this method with untrusted user data will cause severe security bugs!
      */
     abstract bypassSecurityTrustUrl(value: string): SafeUrl;
     /**
      * Bypass security and trust the given value to be a safe resource URL, i.e. a location that may
-     * be used to load executable code from, like `<script src>`.
+     * be used to load executable code from, like `<script src>`, or `<iframe src>`.
      *
      * WARNING: calling this method with untrusted user data will cause severe security bugs!
      */
-    abstract bypassSecurityTrustResourceUrl(value: string): any;
+    abstract bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
 }
 export declare class DomSanitizationServiceImpl extends DomSanitizationService {
     sanitize(ctx: SecurityContext, value: any): string;
