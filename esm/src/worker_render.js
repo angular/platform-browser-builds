@@ -30,6 +30,7 @@ export class WebWorkerInstance {
         this.bus = bus;
     }
 }
+/** @nocollapse */
 WebWorkerInstance.decorators = [
     { type: Injectable },
 ];

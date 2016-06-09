@@ -94,9 +94,11 @@ export class Serializer {
         return new RenderComponentType(map['id'], map['templateUrl'], map['slotCount'], this.deserialize(map['encapsulation'], ViewEncapsulation), this.deserialize(map['styles'], PRIMITIVE));
     }
 }
+/** @nocollapse */
 Serializer.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 Serializer.ctorParameters = [
     { type: RenderStore, },
 ];

@@ -32,6 +32,7 @@ var WebWorkerInstance = (function () {
         this.worker = worker;
         this.bus = bus;
     };
+    /** @nocollapse */
     WebWorkerInstance.decorators = [
         { type: core_1.Injectable },
     ];

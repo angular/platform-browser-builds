@@ -18,6 +18,7 @@ export class HammerGestureConfig {
         return mc;
     }
 }
+/** @nocollapse */
 HammerGestureConfig.decorators = [
     { type: Injectable },
 ];
@@ -47,9 +48,11 @@ export class HammerGesturesPlugin extends HammerGesturesPluginCommon {
     }
     isCustomEvent(eventName) { return this._config.events.indexOf(eventName) > -1; }
 }
+/** @nocollapse */
 HammerGesturesPlugin.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 HammerGesturesPlugin.ctorParameters = [
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
 ];

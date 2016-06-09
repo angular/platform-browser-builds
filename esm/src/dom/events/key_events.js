@@ -89,8 +89,10 @@ export class KeyEventsPlugin extends EventManagerPlugin {
         }
     }
 }
+/** @nocollapse */
 KeyEventsPlugin.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 KeyEventsPlugin.ctorParameters = [];
 //# sourceMappingURL=key_events.js.map

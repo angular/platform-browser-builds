@@ -677,11 +677,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return EventManager;
     }());
+    /** @nocollapse */
     EventManager.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     EventManager.ctorParameters = [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+        { type: Array, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
         { type: _angular_core.NgZone, },
     ];
     var EventManagerPlugin = (function () {
@@ -718,6 +720,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return DomEventsPlugin;
     }(EventManagerPlugin));
+    /** @nocollapse */
     DomEventsPlugin.decorators = [
         { type: _angular_core.Injectable },
     ];
@@ -809,9 +812,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return KeyEventsPlugin;
     }(EventManagerPlugin));
+    /** @nocollapse */
     KeyEventsPlugin.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     KeyEventsPlugin.ctorParameters = [];
     var _eventNames = {
         // pan
@@ -878,6 +883,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return HammerGestureConfig;
     }());
+    /** @nocollapse */
     HammerGestureConfig.decorators = [
         { type: _angular_core.Injectable },
     ];
@@ -910,9 +916,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
         return HammerGesturesPlugin;
     }(HammerGesturesPluginCommon));
+    /** @nocollapse */
     HammerGesturesPlugin.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     HammerGesturesPlugin.ctorParameters = [
         { type: HammerGestureConfig, decorators: [{ type: _angular_core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
     ];
@@ -955,9 +963,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         SharedStylesHost.prototype.getAllStyles = function () { return this._styles; };
         return SharedStylesHost;
     }());
+    /** @nocollapse */
     SharedStylesHost.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     SharedStylesHost.ctorParameters = [];
     var DomSharedStylesHost = (function (_super) {
         __extends(DomSharedStylesHost, _super);
@@ -984,9 +994,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return DomSharedStylesHost;
     }(SharedStylesHost));
+    /** @nocollapse */
     DomSharedStylesHost.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     DomSharedStylesHost.ctorParameters = [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
     ];
@@ -1022,9 +1034,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return DomRootRenderer_;
     }(DomRootRenderer));
+    /** @nocollapse */
     DomRootRenderer_.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     DomRootRenderer_.ctorParameters = [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
         { type: EventManager, },
@@ -1392,9 +1406,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
         return BrowserPlatformLocation;
     }(_angular_common.PlatformLocation));
+    /** @nocollapse */
     BrowserPlatformLocation.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     BrowserPlatformLocation.ctorParameters = [];
     /**
      * A service that can be used to get and set the title of a current HTML document.
@@ -1953,6 +1969,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return DomSanitizationServiceImpl;
     }(DomSanitizationService));
+    /** @nocollapse */
     DomSanitizationServiceImpl.decorators = [
         { type: _angular_core.Injectable },
     ];
@@ -3114,9 +3131,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return RenderStore;
     }());
+    /** @nocollapse */
     RenderStore.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     RenderStore.ctorParameters = [];
     // This file contains interface versions of browser types that can be serialized to Plain Old
     // JavaScript Objects
@@ -3227,9 +3246,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return Serializer;
     }());
+    /** @nocollapse */
     Serializer.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     Serializer.ctorParameters = [
         { type: RenderStore, },
     ];
@@ -3260,9 +3281,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return ClientMessageBrokerFactory_;
     }(ClientMessageBrokerFactory));
+    /** @nocollapse */
     ClientMessageBrokerFactory_.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     ClientMessageBrokerFactory_.ctorParameters = [
         { type: MessageBus, },
         { type: Serializer, },
@@ -3408,9 +3431,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return ServiceMessageBrokerFactory_;
     }(ServiceMessageBrokerFactory));
+    /** @nocollapse */
     ServiceMessageBrokerFactory_.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     ServiceMessageBrokerFactory_.ctorParameters = [
         { type: MessageBus, },
         { type: Serializer, },
@@ -3593,9 +3618,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return WebWorkerPlatformLocation;
     }(_angular_common.PlatformLocation));
+    /** @nocollapse */
     WebWorkerPlatformLocation.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     WebWorkerPlatformLocation.ctorParameters = [
         { type: ClientMessageBrokerFactory, },
         { type: MessageBus, },
@@ -3643,9 +3670,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         MessageBasedPlatformLocation.prototype._setPathname = function (pathname) { this._platformLocation.pathname = pathname; };
         return MessageBasedPlatformLocation;
     }());
+    /** @nocollapse */
     MessageBasedPlatformLocation.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     MessageBasedPlatformLocation.ctorParameters = [
         { type: ServiceMessageBrokerFactory, },
         { type: BrowserPlatformLocation, },
@@ -3942,9 +3971,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         MessageBasedRenderer.prototype._listenDone = function (renderer, unlistenCallback) { unlistenCallback(); };
         return MessageBasedRenderer;
     }());
+    /** @nocollapse */
     MessageBasedRenderer.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     MessageBasedRenderer.ctorParameters = [
         { type: ServiceMessageBrokerFactory, },
         { type: MessageBus, },
@@ -4071,9 +4102,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         PostMessageBus.prototype.to = function (channel) { return this.sink.to(channel); };
         return PostMessageBus;
     }());
+    /** @nocollapse */
     PostMessageBus.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     PostMessageBus.ctorParameters = [
         { type: PostMessageBusSink, },
         { type: PostMessageBusSource, },
@@ -4100,6 +4133,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return WebWorkerInstance;
     }());
+    /** @nocollapse */
     WebWorkerInstance.decorators = [
         { type: _angular_core.Injectable },
     ];
@@ -4270,9 +4304,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return WebWorkerRootRenderer;
     }());
+    /** @nocollapse */
     WebWorkerRootRenderer.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /** @nocollapse */
     WebWorkerRootRenderer.ctorParameters = [
         { type: ClientMessageBrokerFactory, },
         { type: MessageBus, },

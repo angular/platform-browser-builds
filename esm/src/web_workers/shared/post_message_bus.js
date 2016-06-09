@@ -111,9 +111,11 @@ export class PostMessageBus {
     from(channel) { return this.source.from(channel); }
     to(channel) { return this.sink.to(channel); }
 }
+/** @nocollapse */
 PostMessageBus.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 PostMessageBus.ctorParameters = [
     { type: PostMessageBusSink, },
     { type: PostMessageBusSource, },

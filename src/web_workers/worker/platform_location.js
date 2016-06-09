@@ -118,9 +118,11 @@ var WebWorkerPlatformLocation = (function (_super) {
         var args = new client_message_broker_1.UiArguments("back");
         this._broker.runOnService(args, null);
     };
+    /** @nocollapse */
     WebWorkerPlatformLocation.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     WebWorkerPlatformLocation.ctorParameters = [
         { type: client_message_broker_1.ClientMessageBrokerFactory, },
         { type: message_bus_1.MessageBus, },

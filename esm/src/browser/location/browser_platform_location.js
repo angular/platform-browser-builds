@@ -45,8 +45,10 @@ export class BrowserPlatformLocation extends PlatformLocation {
     forward() { this._history.forward(); }
     back() { this._history.back(); }
 }
+/** @nocollapse */
 BrowserPlatformLocation.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 BrowserPlatformLocation.ctorParameters = [];
 //# sourceMappingURL=browser_platform_location.js.map

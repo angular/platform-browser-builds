@@ -17,6 +17,7 @@ export class DomEventsPlugin extends EventManagerPlugin {
         return this.manager.getZone().runOutsideAngular(() => getDOM().onAndCancel(element, eventName, outsideHandler));
     }
 }
+/** @nocollapse */
 DomEventsPlugin.decorators = [
     { type: Injectable },
 ];

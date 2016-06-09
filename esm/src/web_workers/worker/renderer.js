@@ -62,9 +62,11 @@ export class WebWorkerRootRenderer {
         }
     }
 }
+/** @nocollapse */
 WebWorkerRootRenderer.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 WebWorkerRootRenderer.ctorParameters = [
     { type: ClientMessageBrokerFactory, },
     { type: MessageBus, },

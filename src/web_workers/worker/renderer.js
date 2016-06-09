@@ -63,9 +63,11 @@ var WebWorkerRootRenderer = (function () {
             this._renderStore.remove(nodes[i]);
         }
     };
+    /** @nocollapse */
     WebWorkerRootRenderer.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     WebWorkerRootRenderer.ctorParameters = [
         { type: client_message_broker_1.ClientMessageBrokerFactory, },
         { type: message_bus_1.MessageBus, },

@@ -98,9 +98,11 @@ export class WebWorkerPlatformLocation extends PlatformLocation {
         this._broker.runOnService(args, null);
     }
 }
+/** @nocollapse */
 WebWorkerPlatformLocation.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 WebWorkerPlatformLocation.ctorParameters = [
     { type: ClientMessageBrokerFactory, },
     { type: MessageBus, },

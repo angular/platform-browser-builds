@@ -107,9 +107,11 @@ export class MessageBasedRenderer {
     }
     _listenDone(renderer, unlistenCallback) { unlistenCallback(); }
 }
+/** @nocollapse */
 MessageBasedRenderer.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 MessageBasedRenderer.ctorParameters = [
     { type: ServiceMessageBrokerFactory, },
     { type: MessageBus, },

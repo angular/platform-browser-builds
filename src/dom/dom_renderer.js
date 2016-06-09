@@ -40,9 +40,11 @@ var DomRootRenderer_ = (function (_super) {
     function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver) {
         _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver);
     }
+    /** @nocollapse */
     DomRootRenderer_.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     DomRootRenderer_.ctorParameters = [
         { type: undefined, decorators: [{ type: core_1.Inject, args: [dom_tokens_1.DOCUMENT,] },] },
         { type: event_manager_1.EventManager, },

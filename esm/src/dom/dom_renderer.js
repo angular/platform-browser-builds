@@ -32,9 +32,11 @@ export class DomRootRenderer_ extends DomRootRenderer {
         super(_document, _eventManager, sharedStylesHost, animationDriver);
     }
 }
+/** @nocollapse */
 DomRootRenderer_.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 DomRootRenderer_.ctorParameters = [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: EventManager, },

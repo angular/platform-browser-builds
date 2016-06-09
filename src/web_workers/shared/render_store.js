@@ -31,9 +31,11 @@ var RenderStore = (function () {
         }
         return this._lookupByObject.get(obj);
     };
+    /** @nocollapse */
     RenderStore.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     RenderStore.ctorParameters = [];
     return RenderStore;
 }());

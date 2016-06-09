@@ -31,9 +31,11 @@ var ClientMessageBrokerFactory_ = (function (_super) {
         this._messageBus.initChannel(channel, runInZone);
         return new ClientMessageBroker_(this._messageBus, this._serializer, channel);
     };
+    /** @nocollapse */
     ClientMessageBrokerFactory_.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     ClientMessageBrokerFactory_.ctorParameters = [
         { type: message_bus_1.MessageBus, },
         { type: serializer_1.Serializer, },

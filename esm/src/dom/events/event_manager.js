@@ -29,11 +29,13 @@ export class EventManager {
         throw new BaseException(`No event manager plugin found for event ${eventName}`);
     }
 }
+/** @nocollapse */
 EventManager.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 EventManager.ctorParameters = [
-    { type: undefined, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+    { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
     { type: NgZone, },
 ];
 export class EventManagerPlugin {

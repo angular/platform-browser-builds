@@ -35,9 +35,11 @@ export class MessageBasedPlatformLocation {
     }
     _setPathname(pathname) { this._platformLocation.pathname = pathname; }
 }
+/** @nocollapse */
 MessageBasedPlatformLocation.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 MessageBasedPlatformLocation.ctorParameters = [
     { type: ServiceMessageBrokerFactory, },
     { type: BrowserPlatformLocation, },

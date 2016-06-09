@@ -35,9 +35,11 @@ var MessageBasedPlatformLocation = (function () {
         async_1.ObservableWrapper.callEmit(this._channelSink, { 'event': serializedEvent, 'location': loc });
     };
     MessageBasedPlatformLocation.prototype._setPathname = function (pathname) { this._platformLocation.pathname = pathname; };
+    /** @nocollapse */
     MessageBasedPlatformLocation.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     MessageBasedPlatformLocation.ctorParameters = [
         { type: service_message_broker_1.ServiceMessageBrokerFactory, },
         { type: browser_platform_location_1.BrowserPlatformLocation, },

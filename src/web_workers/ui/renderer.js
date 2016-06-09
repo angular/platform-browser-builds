@@ -109,9 +109,11 @@ var MessageBasedRenderer = (function () {
         this._renderStore.store(unregisterCallback, unlistenId);
     };
     MessageBasedRenderer.prototype._listenDone = function (renderer, unlistenCallback) { unlistenCallback(); };
+    /** @nocollapse */
     MessageBasedRenderer.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     MessageBasedRenderer.ctorParameters = [
         { type: service_message_broker_1.ServiceMessageBrokerFactory, },
         { type: message_bus_1.MessageBus, },

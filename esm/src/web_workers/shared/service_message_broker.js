@@ -17,9 +17,11 @@ export class ServiceMessageBrokerFactory_ extends ServiceMessageBrokerFactory {
         return new ServiceMessageBroker_(this._messageBus, this._serializer, channel);
     }
 }
+/** @nocollapse */
 ServiceMessageBrokerFactory_.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 ServiceMessageBrokerFactory_.ctorParameters = [
     { type: MessageBus, },
     { type: Serializer, },

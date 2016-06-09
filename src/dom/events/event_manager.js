@@ -30,11 +30,13 @@ var EventManager = (function () {
         }
         throw new exceptions_1.BaseException("No event manager plugin found for event " + eventName);
     };
+    /** @nocollapse */
     EventManager.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     EventManager.ctorParameters = [
-        { type: undefined, decorators: [{ type: core_1.Inject, args: [exports.EVENT_MANAGER_PLUGINS,] },] },
+        { type: Array, decorators: [{ type: core_1.Inject, args: [exports.EVENT_MANAGER_PLUGINS,] },] },
         { type: core_1.NgZone, },
     ];
     return EventManager;

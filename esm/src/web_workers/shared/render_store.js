@@ -31,8 +31,10 @@ export class RenderStore {
         return this._lookupByObject.get(obj);
     }
 }
+/** @nocollapse */
 RenderStore.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 RenderStore.ctorParameters = [];
 //# sourceMappingURL=render_store.js.map

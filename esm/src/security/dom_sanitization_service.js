@@ -80,6 +80,7 @@ export class DomSanitizationServiceImpl extends DomSanitizationService {
         return new SafeResourceUrlImpl(value);
     }
 }
+/** @nocollapse */
 DomSanitizationServiceImpl.decorators = [
     { type: Injectable },
 ];

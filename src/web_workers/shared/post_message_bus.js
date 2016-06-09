@@ -121,9 +121,11 @@ var PostMessageBus = (function () {
     };
     PostMessageBus.prototype.from = function (channel) { return this.source.from(channel); };
     PostMessageBus.prototype.to = function (channel) { return this.sink.to(channel); };
+    /** @nocollapse */
     PostMessageBus.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     PostMessageBus.ctorParameters = [
         { type: PostMessageBusSink, },
         { type: PostMessageBusSource, },

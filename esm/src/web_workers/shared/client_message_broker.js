@@ -20,9 +20,11 @@ export class ClientMessageBrokerFactory_ extends ClientMessageBrokerFactory {
         return new ClientMessageBroker_(this._messageBus, this._serializer, channel);
     }
 }
+/** @nocollapse */
 ClientMessageBrokerFactory_.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 ClientMessageBrokerFactory_.ctorParameters = [
     { type: MessageBus, },
     { type: Serializer, },

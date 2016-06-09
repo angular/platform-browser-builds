@@ -29,9 +29,11 @@ var SharedStylesHost = (function () {
     };
     SharedStylesHost.prototype.onStylesAdded = function (additions) { };
     SharedStylesHost.prototype.getAllStyles = function () { return this._styles; };
+    /** @nocollapse */
     SharedStylesHost.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     SharedStylesHost.ctorParameters = [];
     return SharedStylesHost;
 }());
@@ -59,9 +61,11 @@ var DomSharedStylesHost = (function (_super) {
         var _this = this;
         this._hostNodes.forEach(function (hostNode) { _this._addStylesToHost(additions, hostNode); });
     };
+    /** @nocollapse */
     DomSharedStylesHost.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     DomSharedStylesHost.ctorParameters = [
         { type: undefined, decorators: [{ type: core_1.Inject, args: [dom_tokens_1.DOCUMENT,] },] },
     ];

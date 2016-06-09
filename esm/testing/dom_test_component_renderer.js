@@ -18,9 +18,11 @@ export class DOMTestComponentRenderer extends TestComponentRenderer {
         getDOM().appendChild(this._doc.body, rootEl);
     }
 }
+/** @nocollapse */
 DOMTestComponentRenderer.decorators = [
     { type: Injectable },
 ];
+/** @nocollapse */
 DOMTestComponentRenderer.ctorParameters = [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];

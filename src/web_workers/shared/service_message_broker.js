@@ -28,9 +28,11 @@ var ServiceMessageBrokerFactory_ = (function (_super) {
         this._messageBus.initChannel(channel, runInZone);
         return new ServiceMessageBroker_(this._messageBus, this._serializer, channel);
     };
+    /** @nocollapse */
     ServiceMessageBrokerFactory_.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     ServiceMessageBrokerFactory_.ctorParameters = [
         { type: message_bus_1.MessageBus, },
         { type: serializer_1.Serializer, },

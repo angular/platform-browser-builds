@@ -24,9 +24,11 @@ var DOMTestComponentRenderer = (function (_super) {
         }
         dom_adapter_1.getDOM().appendChild(this._doc.body, rootEl);
     };
+    /** @nocollapse */
     DOMTestComponentRenderer.decorators = [
         { type: core_1.Injectable },
     ];
+    /** @nocollapse */
     DOMTestComponentRenderer.ctorParameters = [
         { type: undefined, decorators: [{ type: core_1.Inject, args: [dom_tokens_1.DOCUMENT,] },] },
     ];
