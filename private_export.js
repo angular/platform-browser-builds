@@ -5,7 +5,9 @@ var shared_styles_host = require('./src/dom/shared_styles_host');
 var __platform_browser_private__;
 (function (__platform_browser_private__) {
     __platform_browser_private__.DomAdapter = dom_adapter.DomAdapter;
-    function getDOM() { return dom_adapter.getDOM(); }
+    function getDOM() {
+        return dom_adapter.getDOM();
+    }
     __platform_browser_private__.getDOM = getDOM;
     __platform_browser_private__.setRootDomAdapter = dom_adapter.setRootDomAdapter;
     __platform_browser_private__.DomRootRenderer = dom_renderer.DomRootRenderer;

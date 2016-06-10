@@ -1,7 +1,7 @@
 import { RootRenderer } from '@angular/core';
 import { MessageBus } from '../shared/message_bus';
-import { Serializer } from '../shared/serializer';
 import { RenderStore } from '../shared/render_store';
+import { Serializer } from '../shared/serializer';
 import { ServiceMessageBrokerFactory } from '../shared/service_message_broker';
 export declare class MessageBasedRenderer {
     private _brokerFactory;

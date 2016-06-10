@@ -4,12 +4,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var message_bus_1 = require('./message_bus');
-var lang_1 = require('../../facade/lang');
+var core_1 = require('@angular/core');
 var async_1 = require('../../facade/async');
 var collection_1 = require('../../facade/collection');
+var lang_1 = require('../../facade/lang');
+var message_bus_1 = require('./message_bus');
 var serializer_1 = require('./serializer');
-var core_1 = require('@angular/core');
 var ClientMessageBrokerFactory = (function () {
     function ClientMessageBrokerFactory() {
     }
@@ -117,10 +117,10 @@ var ClientMessageBroker_ = (function (_super) {
     ClientMessageBroker_.prototype._handleMessage = function (message) {
         var data = new MessageData(message);
         // TODO(jteplitz602): replace these strings with messaging constants #3685
-        if (lang_1.StringWrapper.equals(data.type, "result") || lang_1.StringWrapper.equals(data.type, "error")) {
+        if (lang_1.StringWrapper.equals(data.type, 'result') || lang_1.StringWrapper.equals(data.type, 'error')) {
             var id = data.id;
             if (this._pending.has(id)) {
-                if (lang_1.StringWrapper.equals(data.type, "result")) {
+                if (lang_1.StringWrapper.equals(data.type, 'result')) {
                     this._pending.get(id).resolve(data.value);
                 }
                 else {
@@ -135,9 +135,9 @@ var ClientMessageBroker_ = (function (_super) {
 exports.ClientMessageBroker_ = ClientMessageBroker_;
 var MessageData = (function () {
     function MessageData(data) {
-        this.type = collection_1.StringMapWrapper.get(data, "type");
-        this.id = this._getValueIfPresent(data, "id");
-        this.value = this._getValueIfPresent(data, "value");
+        this.type = collection_1.StringMapWrapper.get(data, 'type');
+        this.id = this._getValueIfPresent(data, 'id');
+        this.value = this._getValueIfPresent(data, 'value');
     }
     /**
      * Returns the value from the StringMap if present. Otherwise returns null

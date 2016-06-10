@@ -4,10 +4,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var dom_tokens_1 = require('../src/dom/dom_tokens');
-var dom_adapter_1 = require('../src/dom/dom_adapter');
 var testing_1 = require('@angular/compiler/testing');
+var core_1 = require('@angular/core');
+var dom_adapter_1 = require('../src/dom/dom_adapter');
+var dom_tokens_1 = require('../src/dom/dom_tokens');
 var browser_util_1 = require('./browser_util');
 var DOMTestComponentRenderer = (function (_super) {
     __extends(DOMTestComponentRenderer, _super);

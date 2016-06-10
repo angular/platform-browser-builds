@@ -1,8 +1,8 @@
 "use strict";
 var core_1 = require('@angular/core');
-var exceptions_1 = require('../../facade/exceptions');
 var collection_1 = require('../../facade/collection');
-exports.EVENT_MANAGER_PLUGINS = new core_1.OpaqueToken("EventManagerPlugins");
+var exceptions_1 = require('../../facade/exceptions');
+exports.EVENT_MANAGER_PLUGINS = new core_1.OpaqueToken('EventManagerPlugins');
 var EventManager = (function () {
     function EventManager(plugins, _zone) {
         var _this = this;
@@ -48,10 +48,10 @@ var EventManagerPlugin = (function () {
     // That is equivalent to having supporting $event.target
     EventManagerPlugin.prototype.supports = function (eventName) { return false; };
     EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        throw "not implemented";
+        throw 'not implemented';
     };
     EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-        throw "not implemented";
+        throw 'not implemented';
     };
     return EventManagerPlugin;
 }());

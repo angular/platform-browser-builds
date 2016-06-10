@@ -1,13 +1,13 @@
 "use strict";
-var browser_platform_location_1 = require('../../browser/location/browser_platform_location');
 var core_1 = require('@angular/core');
-var messaging_api_1 = require('../shared/messaging_api');
-var service_message_broker_1 = require('../shared/service_message_broker');
-var serializer_1 = require('../shared/serializer');
-var serialized_types_1 = require('../shared/serialized_types');
-var message_bus_1 = require('../shared/message_bus');
+var browser_platform_location_1 = require('../../browser/location/browser_platform_location');
 var async_1 = require('../../facade/async');
 var lang_1 = require('../../facade/lang');
+var message_bus_1 = require('../shared/message_bus');
+var messaging_api_1 = require('../shared/messaging_api');
+var serialized_types_1 = require('../shared/serialized_types');
+var serializer_1 = require('../shared/serializer');
+var service_message_broker_1 = require('../shared/service_message_broker');
 var MessageBasedPlatformLocation = (function () {
     function MessageBasedPlatformLocation(_brokerFactory, _platformLocation, bus, _serializer) {
         this._brokerFactory = _brokerFactory;
@@ -19,12 +19,12 @@ var MessageBasedPlatformLocation = (function () {
         this._channelSink = bus.to(messaging_api_1.ROUTER_CHANNEL);
     }
     MessageBasedPlatformLocation.prototype.start = function () {
-        this._broker.registerMethod("getLocation", null, lang_1.FunctionWrapper.bind(this._getLocation, this), serialized_types_1.LocationType);
-        this._broker.registerMethod("setPathname", [serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setPathname, this));
-        this._broker.registerMethod("pushState", [serializer_1.PRIMITIVE, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._platformLocation.pushState, this._platformLocation));
-        this._broker.registerMethod("replaceState", [serializer_1.PRIMITIVE, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._platformLocation.replaceState, this._platformLocation));
-        this._broker.registerMethod("forward", null, lang_1.FunctionWrapper.bind(this._platformLocation.forward, this._platformLocation));
-        this._broker.registerMethod("back", null, lang_1.FunctionWrapper.bind(this._platformLocation.back, this._platformLocation));
+        this._broker.registerMethod('getLocation', null, lang_1.FunctionWrapper.bind(this._getLocation, this), serialized_types_1.LocationType);
+        this._broker.registerMethod('setPathname', [serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setPathname, this));
+        this._broker.registerMethod('pushState', [serializer_1.PRIMITIVE, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._platformLocation.pushState, this._platformLocation));
+        this._broker.registerMethod('replaceState', [serializer_1.PRIMITIVE, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._platformLocation.replaceState, this._platformLocation));
+        this._broker.registerMethod('forward', null, lang_1.FunctionWrapper.bind(this._platformLocation.forward, this._platformLocation));
+        this._broker.registerMethod('back', null, lang_1.FunctionWrapper.bind(this._platformLocation.back, this._platformLocation));
     };
     MessageBasedPlatformLocation.prototype._getLocation = function () {
         return async_1.PromiseWrapper.resolve(this._platformLocation.location);

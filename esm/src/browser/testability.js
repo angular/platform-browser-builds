@@ -1,7 +1,7 @@
 import { setTestabilityGetter } from '@angular/core';
+import { getDOM } from '../dom/dom_adapter';
 import { ListWrapper } from '../facade/collection';
 import { global, isPresent } from '../facade/lang';
-import { getDOM } from '../dom/dom_adapter';
 class PublicTestability {
     constructor(testability) {
         this._testability = testability;
@@ -41,7 +41,9 @@ export class BrowserGetTestability {
                     callback(didWork);
                 }
             };
-            testabilities.forEach(function (testability /** TODO #9100 */) { testability.whenStable(decrement); });
+            testabilities.forEach(function (testability /** TODO #9100 */) {
+                testability.whenStable(decrement);
+            });
         };
         if (!global.frameworkStabilizers) {
             global.frameworkStabilizers = ListWrapper.createGrowableSize(0);

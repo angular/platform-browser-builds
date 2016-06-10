@@ -1,8 +1,8 @@
 "use strict";
-var exceptions_1 = require('../../facade/exceptions');
+var core_1 = require('@angular/core');
 var async_1 = require('../../facade/async');
 var collection_1 = require('../../facade/collection');
-var core_1 = require('@angular/core');
+var exceptions_1 = require('../../facade/exceptions');
 var PostMessageBusSink = (function () {
     function PostMessageBusSink(_postMessageTarget) {
         this._postMessageTarget = _postMessageTarget;
@@ -58,12 +58,12 @@ var PostMessageBusSource = (function () {
         var _this = this;
         this._channels = collection_1.StringMapWrapper.create();
         if (eventTarget) {
-            eventTarget.addEventListener("message", function (ev) { return _this._handleMessages(ev); });
+            eventTarget.addEventListener('message', function (ev) { return _this._handleMessages(ev); });
         }
         else {
             // if no eventTarget is given we assume we're in a WebWorker and listen on the global scope
             var workerScope = self;
-            workerScope.addEventListener("message", function (ev) { return _this._handleMessages(ev); });
+            workerScope.addEventListener('message', function (ev) { return _this._handleMessages(ev); });
         }
     }
     PostMessageBusSource.prototype.attachToZone = function (zone) { this._zone = zone; };

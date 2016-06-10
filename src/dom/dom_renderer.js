@@ -5,15 +5,18 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var lang_1 = require('../facade/lang');
 var exceptions_1 = require('../facade/exceptions');
+var lang_1 = require('../facade/lang');
 var shared_styles_host_1 = require('./shared_styles_host');
 var core_private_1 = require('../../core_private');
 var event_manager_1 = require('./events/event_manager');
 var dom_tokens_1 = require('./dom_tokens');
 var dom_adapter_1 = require('./dom_adapter');
 var util_1 = require('./util');
-var NAMESPACE_URIS = { 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://www.w3.org/2000/svg' };
+var NAMESPACE_URIS = {
+    'xlink': 'http://www.w3.org/1999/xlink',
+    'svg': 'http://www.w3.org/2000/svg'
+};
 var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
 var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/g;
 var DomRootRenderer = (function () {
@@ -135,9 +138,7 @@ var DomRenderer = (function () {
             return;
         appendNodes(parentElement, nodes);
     };
-    DomRenderer.prototype.attachViewAfter = function (node, viewRootNodes) {
-        moveNodesAfterSibling(node, viewRootNodes);
-    };
+    DomRenderer.prototype.attachViewAfter = function (node, viewRootNodes) { moveNodesAfterSibling(node, viewRootNodes); };
     DomRenderer.prototype.detachView = function (viewRootNodes) {
         for (var i = 0; i < viewRootNodes.length; i++) {
             dom_adapter_1.getDOM().remove(viewRootNodes[i]);

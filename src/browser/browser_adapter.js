@@ -4,10 +4,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var dom_adapter_1 = require('../dom/dom_adapter');
 var collection_1 = require('../facade/collection');
 var lang_1 = require('../facade/lang');
 var generic_browser_adapter_1 = require('./generic_browser_adapter');
-var dom_adapter_1 = require('../dom/dom_adapter');
 var _attrToPropMap = {
     'class': 'className',
     'innerHtml': 'innerHTML',
@@ -63,7 +63,7 @@ var BrowserDomAdapter = (function (_super) {
     function BrowserDomAdapter() {
         _super.apply(this, arguments);
     }
-    BrowserDomAdapter.prototype.parse = function (templateHtml) { throw new Error("parse not implemented"); };
+    BrowserDomAdapter.prototype.parse = function (templateHtml) { throw new Error('parse not implemented'); };
     BrowserDomAdapter.makeCurrent = function () { dom_adapter_1.setRootDomAdapter(new BrowserDomAdapter()); };
     BrowserDomAdapter.prototype.hasProperty = function (element /** TODO #9100 */, name) { return name in element; };
     BrowserDomAdapter.prototype.setProperty = function (el, name, value) { el[name] = value; };
@@ -101,9 +101,15 @@ var BrowserDomAdapter = (function (_super) {
         configurable: true
     });
     BrowserDomAdapter.prototype.query = function (selector) { return document.querySelector(selector); };
-    BrowserDomAdapter.prototype.querySelector = function (el /** TODO #9100 */, selector) { return el.querySelector(selector); };
-    BrowserDomAdapter.prototype.querySelectorAll = function (el /** TODO #9100 */, selector) { return el.querySelectorAll(selector); };
-    BrowserDomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) { el.addEventListener(evt, listener, false); };
+    BrowserDomAdapter.prototype.querySelector = function (el /** TODO #9100 */, selector) {
+        return el.querySelector(selector);
+    };
+    BrowserDomAdapter.prototype.querySelectorAll = function (el /** TODO #9100 */, selector) {
+        return el.querySelectorAll(selector);
+    };
+    BrowserDomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
+        el.addEventListener(evt, listener, false);
+    };
     BrowserDomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         el.addEventListener(evt, listener, false);
         // Needed to follow Dart's subscription semantic, until fix of
@@ -137,7 +143,7 @@ var BrowserDomAdapter = (function (_super) {
     BrowserDomAdapter.prototype.nodeValue = function (node) { return node.nodeValue; };
     BrowserDomAdapter.prototype.type = function (node) { return node.type; };
     BrowserDomAdapter.prototype.content = function (node) {
-        if (this.hasProperty(node, "content")) {
+        if (this.hasProperty(node, 'content')) {
             return node.content;
         }
         else {
@@ -163,16 +169,24 @@ var BrowserDomAdapter = (function (_super) {
     };
     BrowserDomAdapter.prototype.appendChild = function (el /** TODO #9100 */, node /** TODO #9100 */) { el.appendChild(node); };
     BrowserDomAdapter.prototype.removeChild = function (el /** TODO #9100 */, node /** TODO #9100 */) { el.removeChild(node); };
-    BrowserDomAdapter.prototype.replaceChild = function (el, newChild /** TODO #9100 */, oldChild /** TODO #9100 */) { el.replaceChild(newChild, oldChild); };
+    BrowserDomAdapter.prototype.replaceChild = function (el, newChild /** TODO #9100 */, oldChild /** TODO #9100 */) {
+        el.replaceChild(newChild, oldChild);
+    };
     BrowserDomAdapter.prototype.remove = function (node /** TODO #9100 */) {
         if (node.parentNode) {
             node.parentNode.removeChild(node);
         }
         return node;
     };
-    BrowserDomAdapter.prototype.insertBefore = function (el /** TODO #9100 */, node /** TODO #9100 */) { el.parentNode.insertBefore(node, el); };
-    BrowserDomAdapter.prototype.insertAllBefore = function (el /** TODO #9100 */, nodes /** TODO #9100 */) { nodes.forEach(function (n /** TODO #9100 */) { return el.parentNode.insertBefore(n, el); }); };
-    BrowserDomAdapter.prototype.insertAfter = function (el /** TODO #9100 */, node /** TODO #9100 */) { el.parentNode.insertBefore(node, el.nextSibling); };
+    BrowserDomAdapter.prototype.insertBefore = function (el /** TODO #9100 */, node /** TODO #9100 */) {
+        el.parentNode.insertBefore(node, el);
+    };
+    BrowserDomAdapter.prototype.insertAllBefore = function (el /** TODO #9100 */, nodes /** TODO #9100 */) {
+        nodes.forEach(function (n /** TODO #9100 */) { return el.parentNode.insertBefore(n, el); });
+    };
+    BrowserDomAdapter.prototype.insertAfter = function (el /** TODO #9100 */, node /** TODO #9100 */) {
+        el.parentNode.insertBefore(node, el.nextSibling);
+    };
     BrowserDomAdapter.prototype.setInnerHTML = function (el /** TODO #9100 */, value /** TODO #9100 */) { el.innerHTML = value; };
     BrowserDomAdapter.prototype.getText = function (el /** TODO #9100 */) { return el.textContent; };
     // TODO(vicb): removed Element type because it does not support StyleElement
@@ -221,15 +235,25 @@ var BrowserDomAdapter = (function (_super) {
     BrowserDomAdapter.prototype.getElementsByTagName = function (element /** TODO #9100 */, name) {
         return element.getElementsByTagName(name);
     };
-    BrowserDomAdapter.prototype.classList = function (element /** TODO #9100 */) { return Array.prototype.slice.call(element.classList, 0); };
+    BrowserDomAdapter.prototype.classList = function (element /** TODO #9100 */) {
+        return Array.prototype.slice.call(element.classList, 0);
+    };
     BrowserDomAdapter.prototype.addClass = function (element /** TODO #9100 */, className) { element.classList.add(className); };
-    BrowserDomAdapter.prototype.removeClass = function (element /** TODO #9100 */, className) { element.classList.remove(className); };
-    BrowserDomAdapter.prototype.hasClass = function (element /** TODO #9100 */, className) { return element.classList.contains(className); };
+    BrowserDomAdapter.prototype.removeClass = function (element /** TODO #9100 */, className) {
+        element.classList.remove(className);
+    };
+    BrowserDomAdapter.prototype.hasClass = function (element /** TODO #9100 */, className) {
+        return element.classList.contains(className);
+    };
     BrowserDomAdapter.prototype.setStyle = function (element /** TODO #9100 */, styleName, styleValue) {
         element.style[styleName] = styleValue;
     };
-    BrowserDomAdapter.prototype.removeStyle = function (element /** TODO #9100 */, stylename) { element.style[stylename] = null; };
-    BrowserDomAdapter.prototype.getStyle = function (element /** TODO #9100 */, stylename) { return element.style[stylename]; };
+    BrowserDomAdapter.prototype.removeStyle = function (element /** TODO #9100 */, stylename) {
+        element.style[stylename] = null;
+    };
+    BrowserDomAdapter.prototype.getStyle = function (element /** TODO #9100 */, stylename) {
+        return element.style[stylename];
+    };
     BrowserDomAdapter.prototype.hasStyle = function (element /** TODO #9100 */, styleName, styleValue) {
         if (styleValue === void 0) { styleValue = null; }
         var value = this.getStyle(element, styleName) || '';
@@ -245,21 +269,33 @@ var BrowserDomAdapter = (function (_super) {
         }
         return res;
     };
-    BrowserDomAdapter.prototype.hasAttribute = function (element /** TODO #9100 */, attribute) { return element.hasAttribute(attribute); };
+    BrowserDomAdapter.prototype.hasAttribute = function (element /** TODO #9100 */, attribute) {
+        return element.hasAttribute(attribute);
+    };
     BrowserDomAdapter.prototype.hasAttributeNS = function (element /** TODO #9100 */, ns, attribute) {
         return element.hasAttributeNS(ns, attribute);
     };
-    BrowserDomAdapter.prototype.getAttribute = function (element /** TODO #9100 */, attribute) { return element.getAttribute(attribute); };
+    BrowserDomAdapter.prototype.getAttribute = function (element /** TODO #9100 */, attribute) {
+        return element.getAttribute(attribute);
+    };
     BrowserDomAdapter.prototype.getAttributeNS = function (element /** TODO #9100 */, ns, name) {
         return element.getAttributeNS(ns, name);
     };
-    BrowserDomAdapter.prototype.setAttribute = function (element /** TODO #9100 */, name, value) { element.setAttribute(name, value); };
+    BrowserDomAdapter.prototype.setAttribute = function (element /** TODO #9100 */, name, value) {
+        element.setAttribute(name, value);
+    };
     BrowserDomAdapter.prototype.setAttributeNS = function (element /** TODO #9100 */, ns, name, value) {
         element.setAttributeNS(ns, name, value);
     };
-    BrowserDomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) { element.removeAttribute(attribute); };
-    BrowserDomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, name) { element.removeAttributeNS(ns, name); };
-    BrowserDomAdapter.prototype.templateAwareRoot = function (el /** TODO #9100 */) { return this.isTemplateElement(el) ? this.content(el) : el; };
+    BrowserDomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) {
+        element.removeAttribute(attribute);
+    };
+    BrowserDomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, name) {
+        element.removeAttributeNS(ns, name);
+    };
+    BrowserDomAdapter.prototype.templateAwareRoot = function (el /** TODO #9100 */) {
+        return this.isTemplateElement(el) ? this.content(el) : el;
+    };
     BrowserDomAdapter.prototype.createHtmlDocument = function () {
         return document.implementation.createHTMLDocument('fakeTitle');
     };
@@ -290,12 +326,14 @@ var BrowserDomAdapter = (function (_super) {
         return matches;
     };
     BrowserDomAdapter.prototype.isTemplateElement = function (el) {
-        return el instanceof HTMLElement && el.nodeName == "TEMPLATE";
+        return el instanceof HTMLElement && el.nodeName == 'TEMPLATE';
     };
     BrowserDomAdapter.prototype.isTextNode = function (node) { return node.nodeType === Node.TEXT_NODE; };
     BrowserDomAdapter.prototype.isCommentNode = function (node) { return node.nodeType === Node.COMMENT_NODE; };
     BrowserDomAdapter.prototype.isElementNode = function (node) { return node.nodeType === Node.ELEMENT_NODE; };
-    BrowserDomAdapter.prototype.hasShadowRoot = function (node /** TODO #9100 */) { return node instanceof HTMLElement && lang_1.isPresent(node.shadowRoot); };
+    BrowserDomAdapter.prototype.hasShadowRoot = function (node /** TODO #9100 */) {
+        return node instanceof HTMLElement && lang_1.isPresent(node.shadowRoot);
+    };
     BrowserDomAdapter.prototype.isShadowRoot = function (node /** TODO #9100 */) { return node instanceof DocumentFragment; };
     BrowserDomAdapter.prototype.importIntoDoc = function (node) {
         var toImport = node;
@@ -333,13 +371,13 @@ var BrowserDomAdapter = (function (_super) {
         return key;
     };
     BrowserDomAdapter.prototype.getGlobalEventTarget = function (target) {
-        if (target == "window") {
+        if (target == 'window') {
             return window;
         }
-        else if (target == "document") {
+        else if (target == 'document') {
             return document;
         }
-        else if (target == "body") {
+        else if (target == 'body') {
             return document.body;
         }
     };
@@ -357,13 +395,19 @@ var BrowserDomAdapter = (function (_super) {
     BrowserDomAdapter.prototype.setData = function (element /** TODO #9100 */, name, value) {
         this.setAttribute(element, 'data-' + name, value);
     };
-    BrowserDomAdapter.prototype.getData = function (element /** TODO #9100 */, name) { return this.getAttribute(element, 'data-' + name); };
+    BrowserDomAdapter.prototype.getData = function (element /** TODO #9100 */, name) {
+        return this.getAttribute(element, 'data-' + name);
+    };
     BrowserDomAdapter.prototype.getComputedStyle = function (element /** TODO #9100 */) { return getComputedStyle(element); };
     // TODO(tbosch): move this into a separate environment class once we have it
     BrowserDomAdapter.prototype.setGlobalVar = function (path, value) { lang_1.setValueOnPath(lang_1.global, path, value); };
-    BrowserDomAdapter.prototype.requestAnimationFrame = function (callback /** TODO #9100 */) { return window.requestAnimationFrame(callback); };
+    BrowserDomAdapter.prototype.requestAnimationFrame = function (callback /** TODO #9100 */) {
+        return window.requestAnimationFrame(callback);
+    };
     BrowserDomAdapter.prototype.cancelAnimationFrame = function (id) { window.cancelAnimationFrame(id); };
-    BrowserDomAdapter.prototype.supportsWebAnimation = function () { return lang_1.isFunction(document.body['animate']); };
+    BrowserDomAdapter.prototype.supportsWebAnimation = function () {
+        return lang_1.isFunction(document.body['animate']);
+    };
     BrowserDomAdapter.prototype.performanceNow = function () {
         // performance.now() is not available in all browsers, see
         // http://caniuse.com/#search=performance.now
@@ -375,9 +419,7 @@ var BrowserDomAdapter = (function (_super) {
         }
     };
     BrowserDomAdapter.prototype.supportsCookies = function () { return true; };
-    BrowserDomAdapter.prototype.getCookie = function (name) {
-        return parseCookieValue(document.cookie, name);
-    };
+    BrowserDomAdapter.prototype.getCookie = function (name) { return parseCookieValue(document.cookie, name); };
     BrowserDomAdapter.prototype.setCookie = function (name, value) {
         // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
         // not clear other cookies.
@@ -400,7 +442,7 @@ function getBaseElementHref() {
 var urlParsingNode = null;
 function relativePath(url /** TODO #9100 */) {
     if (lang_1.isBlank(urlParsingNode)) {
-        urlParsingNode = document.createElement("a");
+        urlParsingNode = document.createElement('a');
     }
     urlParsingNode.setAttribute('href', url);
     return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :

@@ -1,5 +1,5 @@
-import { NgZone } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
+import { NgZone } from '@angular/core';
 import { WebWorkerPlatformLocation } from './platform_location';
 /**
  * Those providers should be added when the router is used in a worker context in addition to the

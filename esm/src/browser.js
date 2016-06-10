@@ -1,24 +1,24 @@
-import { PLATFORM_INITIALIZER, PLATFORM_DIRECTIVES, PLATFORM_PIPES, ExceptionHandler, RootRenderer, APPLICATION_COMMON_PROVIDERS, PLATFORM_COMMON_PROVIDERS, OpaqueToken, Testability, getPlatform, createPlatform, assertPlatform, ReflectiveInjector, coreLoadAndBootstrap } from "@angular/core";
-import { isBlank, isPresent } from "./facade/lang";
-import { reflector, wtfInit, SanitizationService, ReflectionCapabilities, AnimationDriver, NoOpAnimationDriver } from '../core_private';
+import { COMMON_DIRECTIVES, COMMON_PIPES, FORM_PROVIDERS, PlatformLocation } from '@angular/common';
+import { COMPILER_PROVIDERS, XHR } from '@angular/compiler';
+import { APPLICATION_COMMON_PROVIDERS, ExceptionHandler, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_DIRECTIVES, PLATFORM_INITIALIZER, PLATFORM_PIPES, ReflectiveInjector, RootRenderer, Testability, assertPlatform, coreLoadAndBootstrap, createPlatform, getPlatform } from '@angular/core';
+import { AnimationDriver, NoOpAnimationDriver, ReflectionCapabilities, SanitizationService, reflector, wtfInit } from '../core_private';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
-import { COMMON_DIRECTIVES, COMMON_PIPES, FORM_PROVIDERS, PlatformLocation } from "@angular/common";
-import { DomSanitizationService, DomSanitizationServiceImpl } from "./security/dom_sanitization_service";
-import { BrowserDomAdapter } from "./browser/browser_adapter";
-import { BrowserGetTestability } from "./browser/testability";
-import { getDOM } from "./dom/dom_adapter";
-import { DOCUMENT } from "./dom/dom_tokens";
-import { EVENT_MANAGER_PLUGINS, EventManager } from "./dom/events/event_manager";
-import { DomRootRenderer, DomRootRenderer_ } from "./dom/dom_renderer";
-import { SharedStylesHost, DomSharedStylesHost } from "./dom/shared_styles_host";
-import { KeyEventsPlugin } from "./dom/events/key_events";
-import { ELEMENT_PROBE_PROVIDERS } from "./dom/debug/ng_probe";
-import { DomEventsPlugin } from "./dom/events/dom_events";
-import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerGesturesPlugin } from "./dom/events/hammer_gestures";
-import { BrowserPlatformLocation } from "./browser/location/browser_platform_location";
-import { COMPILER_PROVIDERS, XHR } from "@angular/compiler";
-import { CachedXHR } from "./xhr/xhr_cache";
-import { XHRImpl } from "./xhr/xhr_impl";
+import { BrowserDomAdapter } from './browser/browser_adapter';
+import { BrowserPlatformLocation } from './browser/location/browser_platform_location';
+import { BrowserGetTestability } from './browser/testability';
+import { ELEMENT_PROBE_PROVIDERS } from './dom/debug/ng_probe';
+import { getDOM } from './dom/dom_adapter';
+import { DomRootRenderer, DomRootRenderer_ } from './dom/dom_renderer';
+import { DOCUMENT } from './dom/dom_tokens';
+import { DomEventsPlugin } from './dom/events/dom_events';
+import { EVENT_MANAGER_PLUGINS, EventManager } from './dom/events/event_manager';
+import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerGesturesPlugin } from './dom/events/hammer_gestures';
+import { KeyEventsPlugin } from './dom/events/key_events';
+import { DomSharedStylesHost, SharedStylesHost } from './dom/shared_styles_host';
+import { isBlank, isPresent } from './facade/lang';
+import { DomSanitizationService, DomSanitizationServiceImpl } from './security/dom_sanitization_service';
+import { CachedXHR } from './xhr/xhr_cache';
+import { XHRImpl } from './xhr/xhr_impl';
 export const CACHED_TEMPLATE_PROVIDER = [{ provide: XHR, useClass: CachedXHR }];
 const BROWSER_PLATFORM_MARKER = new OpaqueToken('BrowserPlatformMarker');
 /**
@@ -27,8 +27,7 @@ const BROWSER_PLATFORM_MARKER = new OpaqueToken('BrowserPlatformMarker');
  * Used automatically by `bootstrap`, or can be passed to {@link platform}.
  */
 export const BROWSER_PLATFORM_PROVIDERS = [
-    { provide: BROWSER_PLATFORM_MARKER, useValue: true },
-    PLATFORM_COMMON_PROVIDERS,
+    { provide: BROWSER_PLATFORM_MARKER, useValue: true }, PLATFORM_COMMON_PROVIDERS,
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation }
 ];
@@ -42,9 +41,7 @@ export const BROWSER_SANITIZATION_PROVIDERS = [
  * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
  */
 export const BROWSER_APP_PROVIDERS = [
-    APPLICATION_COMMON_PROVIDERS,
-    FORM_PROVIDERS,
-    BROWSER_SANITIZATION_PROVIDERS,
+    APPLICATION_COMMON_PROVIDERS, FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
     { provide: PLATFORM_PIPES, useValue: COMMON_PIPES, multi: true },
     { provide: PLATFORM_DIRECTIVES, useValue: COMMON_DIRECTIVES, multi: true },
     { provide: ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
@@ -56,11 +53,8 @@ export const BROWSER_APP_PROVIDERS = [
     { provide: DomRootRenderer, useClass: DomRootRenderer_ },
     { provide: RootRenderer, useExisting: DomRootRenderer },
     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
-    DomSharedStylesHost,
-    Testability,
-    EventManager,
-    ELEMENT_PROBE_PROVIDERS
+    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
+    Testability, EventManager, ELEMENT_PROBE_PROVIDERS
 ];
 export const BROWSER_APP_COMPILER_PROVIDERS = [
     COMPILER_PROVIDERS,
@@ -143,8 +137,7 @@ export function browserPlatform() {
 export function bootstrap(appComponentType, customProviders) {
     reflector.reflectionCapabilities = new ReflectionCapabilities();
     let providers = [
-        BROWSER_APP_PROVIDERS,
-        BROWSER_APP_COMPILER_PROVIDERS,
+        BROWSER_APP_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS,
         isPresent(customProviders) ? customProviders : []
     ];
     var appInjector = ReflectiveInjector.resolveAndCreate(providers, browserPlatform().injector);

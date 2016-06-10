@@ -1,7 +1,7 @@
-import { isArray, isPresent, serializeEnum } from '../../facade/lang';
-import { BaseException } from '../../facade/exceptions';
-import { RenderComponentType, Injectable, ViewEncapsulation } from '@angular/core';
+import { Injectable, RenderComponentType, ViewEncapsulation } from '@angular/core';
 import { VIEW_ENCAPSULATION_VALUES } from '../../../core_private';
+import { BaseException } from '../../facade/exceptions';
+import { isArray, isPresent, serializeEnum } from '../../facade/lang';
 import { RenderStore } from './render_store';
 import { LocationType } from './serialized_types';
 // PRIMITIVE is any type that does not need to be serialized (string, number, boolean)
@@ -34,7 +34,7 @@ export class Serializer {
             return this._serializeLocation(obj);
         }
         else {
-            throw new BaseException("No serializer for " + type.toString());
+            throw new BaseException('No serializer for ' + type.toString());
         }
     }
     deserialize(map, type, data) {
@@ -62,7 +62,7 @@ export class Serializer {
             return this._deserializeLocation(map);
         }
         else {
-            throw new BaseException("No deserializer for " + type.toString());
+            throw new BaseException('No deserializer for ' + type.toString());
         }
     }
     _serializeLocation(loc) {

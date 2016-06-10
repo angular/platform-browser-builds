@@ -1,4 +1,4 @@
-import { PlatformRef, Type, ComponentRef } from "@angular/core";
+import { ComponentRef, PlatformRef, Type } from '@angular/core';
 export declare const CACHED_TEMPLATE_PROVIDER: Array<any>;
 /**
  * A set of providers to initialize the Angular platform in a web browser.

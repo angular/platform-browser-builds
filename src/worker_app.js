@@ -1,19 +1,19 @@
 "use strict";
-var renderer_1 = require("./web_workers/worker/renderer");
-var lang_1 = require("./facade/lang");
-var core_1 = require("@angular/core");
-var common_1 = require("@angular/common");
-var client_message_broker_1 = require("./web_workers/shared/client_message_broker");
-var service_message_broker_1 = require("./web_workers/shared/service_message_broker");
-var serializer_1 = require("./web_workers/shared/serializer");
-var api_1 = require("./web_workers/shared/api");
-var render_store_1 = require("./web_workers/shared/render_store");
-var browser_1 = require("./browser");
-var worker_adapter_1 = require("./web_workers/worker/worker_adapter");
-var post_message_bus_1 = require("./web_workers/shared/post_message_bus");
-var message_bus_1 = require("./web_workers/shared/message_bus");
-var compiler_1 = require("@angular/compiler");
-var xhr_impl_1 = require("./xhr/xhr_impl");
+var common_1 = require('@angular/common');
+var compiler_1 = require('@angular/compiler');
+var core_1 = require('@angular/core');
+var browser_1 = require('./browser');
+var lang_1 = require('./facade/lang');
+var api_1 = require('./web_workers/shared/api');
+var client_message_broker_1 = require('./web_workers/shared/client_message_broker');
+var message_bus_1 = require('./web_workers/shared/message_bus');
+var post_message_bus_1 = require('./web_workers/shared/post_message_bus');
+var render_store_1 = require('./web_workers/shared/render_store');
+var serializer_1 = require('./web_workers/shared/serializer');
+var service_message_broker_1 = require('./web_workers/shared/service_message_broker');
+var renderer_1 = require('./web_workers/worker/renderer');
+var worker_adapter_1 = require('./web_workers/worker/worker_adapter');
+var xhr_impl_1 = require('./xhr/xhr_impl');
 var PrintLogger = (function () {
     function PrintLogger() {
         this.log = lang_1.print;
@@ -24,23 +24,15 @@ var PrintLogger = (function () {
     return PrintLogger;
 }());
 var WORKER_APP_PLATFORM_MARKER = new core_1.OpaqueToken('WorkerAppPlatformMarker');
-exports.WORKER_APP_PLATFORM_PROVIDERS = [
-    core_1.PLATFORM_COMMON_PROVIDERS,
-    { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }
-];
+exports.WORKER_APP_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
 exports.WORKER_APP_APPLICATION_PROVIDERS = [
-    core_1.APPLICATION_COMMON_PROVIDERS,
-    common_1.FORM_PROVIDERS,
-    browser_1.BROWSER_SANITIZATION_PROVIDERS,
-    serializer_1.Serializer,
+    core_1.APPLICATION_COMMON_PROVIDERS, common_1.FORM_PROVIDERS, browser_1.BROWSER_SANITIZATION_PROVIDERS, serializer_1.Serializer,
     { provide: core_1.PLATFORM_PIPES, useValue: common_1.COMMON_PIPES, multi: true },
     { provide: core_1.PLATFORM_DIRECTIVES, useValue: common_1.COMMON_DIRECTIVES, multi: true },
     { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
     { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
-    renderer_1.WebWorkerRootRenderer,
-    { provide: core_1.RootRenderer, useExisting: renderer_1.WebWorkerRootRenderer },
-    { provide: api_1.ON_WEB_WORKER, useValue: true },
-    render_store_1.RenderStore,
+    renderer_1.WebWorkerRootRenderer, { provide: core_1.RootRenderer, useExisting: renderer_1.WebWorkerRootRenderer },
+    { provide: api_1.ON_WEB_WORKER, useValue: true }, render_store_1.RenderStore,
     { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
     { provide: message_bus_1.MessageBus, useFactory: createMessageBus, deps: [core_1.NgZone] },
     { provide: core_1.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
@@ -54,10 +46,9 @@ function workerAppPlatform() {
 exports.workerAppPlatform = workerAppPlatform;
 function bootstrapApp(appComponentType, customProviders) {
     var appInjector = core_1.ReflectiveInjector.resolveAndCreate([
-        exports.WORKER_APP_APPLICATION_PROVIDERS,
-        compiler_1.COMPILER_PROVIDERS,
-        { provide: compiler_1.XHR, useClass: xhr_impl_1.XHRImpl },
-        lang_1.isPresent(customProviders) ? customProviders : []], workerAppPlatform().injector);
+        exports.WORKER_APP_APPLICATION_PROVIDERS, compiler_1.COMPILER_PROVIDERS, { provide: compiler_1.XHR, useClass: xhr_impl_1.XHRImpl },
+        lang_1.isPresent(customProviders) ? customProviders : []
+    ], workerAppPlatform().injector);
     return core_1.coreLoadAndBootstrap(appComponentType, appInjector);
 }
 exports.bootstrapApp = bootstrapApp;

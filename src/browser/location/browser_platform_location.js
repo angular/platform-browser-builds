@@ -4,8 +4,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
+var core_1 = require('@angular/core');
 var dom_adapter_1 = require('../../dom/dom_adapter');
 var history_1 = require('./history');
 var BrowserPlatformLocation = (function (_super) {

@@ -1,13 +1,16 @@
 import { Inject, Injectable, ViewEncapsulation } from '@angular/core';
-import { isPresent, isBlank, Json, RegExpWrapper, stringify, StringWrapper, isArray, isString } from '../facade/lang';
 import { BaseException } from '../facade/exceptions';
+import { Json, RegExpWrapper, StringWrapper, isArray, isBlank, isPresent, isString, stringify } from '../facade/lang';
 import { DomSharedStylesHost } from './shared_styles_host';
 import { AnimationDriver } from '../../core_private';
 import { EventManager } from './events/event_manager';
 import { DOCUMENT } from './dom_tokens';
 import { getDOM } from './dom_adapter';
 import { camelCaseToDashCase } from './util';
-const NAMESPACE_URIS = { 'xlink': 'http://www.w3.org/1999/xlink', 'svg': 'http://www.w3.org/2000/svg' };
+const NAMESPACE_URIS = {
+    'xlink': 'http://www.w3.org/1999/xlink',
+    'svg': 'http://www.w3.org/2000/svg'
+};
 const TEMPLATE_COMMENT_TEXT = 'template bindings={}';
 var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/g;
 export class DomRootRenderer {
@@ -124,9 +127,7 @@ export class DomRenderer {
             return;
         appendNodes(parentElement, nodes);
     }
-    attachViewAfter(node, viewRootNodes) {
-        moveNodesAfterSibling(node, viewRootNodes);
-    }
+    attachViewAfter(node, viewRootNodes) { moveNodesAfterSibling(node, viewRootNodes); }
     detachView(viewRootNodes) {
         for (var i = 0; i < viewRootNodes.length; i++) {
             getDOM().remove(viewRootNodes[i]);

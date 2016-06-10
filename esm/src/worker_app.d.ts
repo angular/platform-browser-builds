@@ -1,4 +1,4 @@
-import { PlatformRef, Type, ComponentRef } from "@angular/core";
+import { ComponentRef, PlatformRef, Type } from '@angular/core';
 export declare const WORKER_APP_PLATFORM_PROVIDERS: Array<any>;
 export declare const WORKER_APP_APPLICATION_PROVIDERS: Array<any>;
 export declare function workerAppPlatform(): PlatformRef;

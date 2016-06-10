@@ -1,7 +1,7 @@
 "use strict";
 var dom_adapter_1 = require('../src/dom/dom_adapter');
-var lang_1 = require('../src/facade/lang');
 var collection_1 = require('../src/facade/collection');
+var lang_1 = require('../src/facade/lang');
 var _global = (typeof window === 'undefined' ? lang_1.global : window);
 /**
  * Jasmine matching function with Angular matchers mixed in.
@@ -37,7 +37,9 @@ _global.beforeEach(function () {
                 if (actual instanceof Map) {
                     var pass = actual.size === expected.size;
                     if (pass) {
-                        actual.forEach(function (v /** TODO #???? */, k /** TODO #???? */) { pass = pass && util.equals(v, expected.get(k)); });
+                        actual.forEach(function (v /** TODO #???? */, k /** TODO #???? */) {
+                            pass = pass && util.equals(v, expected.get(k));
+                        });
                     }
                     return pass;
                 }
@@ -132,7 +134,7 @@ _global.beforeEach(function () {
                         actual();
                         return {
                             pass: false,
-                            get message() { return "Was expected to throw, but did not throw"; }
+                            get message() { return 'Was expected to throw, but did not throw'; }
                         };
                     }
                     catch (e) {
@@ -172,7 +174,7 @@ _global.beforeEach(function () {
                         pass: missedMethods.length == 0,
                         get message() {
                             return 'Expected ' + actualObject + ' to have the following methods: ' +
-                                missedMethods.join(", ");
+                                missedMethods.join(', ');
                         }
                     };
                 }
@@ -186,7 +188,7 @@ function elementText(n /** TODO #???? */) {
         return children && children.length > 0;
     };
     if (n instanceof Array) {
-        return n.map(elementText).join("");
+        return n.map(elementText).join('');
     }
     if (dom_adapter_1.getDOM().isCommentNode(n)) {
         return '';

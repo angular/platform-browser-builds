@@ -36,11 +36,7 @@ export class WebAnimationsPlayer {
         this.reset();
         this._onFinish();
     }
-    setPosition(p /** TODO #9100 */) {
-        this._player.currentTime = p * this.totalTime;
-    }
-    getPosition() {
-        return this._player.currentTime / this.totalTime;
-    }
+    setPosition(p /** TODO #9100 */) { this._player.currentTime = p * this.totalTime; }
+    getPosition() { return this._player.currentTime / this.totalTime; }
 }
 //# sourceMappingURL=web_animations_player.js.map

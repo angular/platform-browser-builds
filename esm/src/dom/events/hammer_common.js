@@ -1,5 +1,5 @@
-import { EventManagerPlugin } from './event_manager';
 import { StringMapWrapper } from '../../facade/collection';
+import { EventManagerPlugin } from './event_manager';
 var _eventNames = {
     // pan
     'pan': true,

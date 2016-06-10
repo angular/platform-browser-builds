@@ -1,6 +1,6 @@
 "use strict";
-var collection_1 = require('../src/facade/collection');
 var dom_adapter_1 = require('../src/dom/dom_adapter');
+var collection_1 = require('../src/facade/collection');
 var lang_1 = require('../src/facade/lang');
 var BrowserDetection = (function () {
     function BrowserDetection(ua) {

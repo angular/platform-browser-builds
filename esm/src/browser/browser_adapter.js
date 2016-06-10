@@ -1,7 +1,7 @@
-import { ListWrapper } from '../facade/collection';
-import { isBlank, isPresent, isFunction, global, setValueOnPath, DateWrapper } from '../facade/lang';
-import { GenericBrowserDomAdapter } from './generic_browser_adapter';
 import { setRootDomAdapter } from '../dom/dom_adapter';
+import { ListWrapper } from '../facade/collection';
+import { DateWrapper, global, isBlank, isFunction, isPresent, setValueOnPath } from '../facade/lang';
+import { GenericBrowserDomAdapter } from './generic_browser_adapter';
 var _attrToPropMap = {
     'class': 'className',
     'innerHtml': 'innerHTML',
@@ -53,7 +53,7 @@ var _chromeNumKeyPadMap = {
  */
 /* tslint:disable:requireParameterType */
 export class BrowserDomAdapter extends GenericBrowserDomAdapter {
-    parse(templateHtml) { throw new Error("parse not implemented"); }
+    parse(templateHtml) { throw new Error('parse not implemented'); }
     static makeCurrent() { setRootDomAdapter(new BrowserDomAdapter()); }
     hasProperty(element /** TODO #9100 */, name) { return name in element; }
     setProperty(el, name, value) { el[name] = value; }
@@ -87,9 +87,15 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
     }
     get attrToPropMap() { return _attrToPropMap; }
     query(selector) { return document.querySelector(selector); }
-    querySelector(el /** TODO #9100 */, selector) { return el.querySelector(selector); }
-    querySelectorAll(el /** TODO #9100 */, selector) { return el.querySelectorAll(selector); }
-    on(el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) { el.addEventListener(evt, listener, false); }
+    querySelector(el /** TODO #9100 */, selector) {
+        return el.querySelector(selector);
+    }
+    querySelectorAll(el /** TODO #9100 */, selector) {
+        return el.querySelectorAll(selector);
+    }
+    on(el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
+        el.addEventListener(evt, listener, false);
+    }
     onAndCancel(el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         el.addEventListener(evt, listener, false);
         // Needed to follow Dart's subscription semantic, until fix of
@@ -123,7 +129,7 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
     nodeValue(node) { return node.nodeValue; }
     type(node) { return node.type; }
     content(node) {
-        if (this.hasProperty(node, "content")) {
+        if (this.hasProperty(node, 'content')) {
             return node.content;
         }
         else {
@@ -149,16 +155,24 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
     }
     appendChild(el /** TODO #9100 */, node /** TODO #9100 */) { el.appendChild(node); }
     removeChild(el /** TODO #9100 */, node /** TODO #9100 */) { el.removeChild(node); }
-    replaceChild(el, newChild /** TODO #9100 */, oldChild /** TODO #9100 */) { el.replaceChild(newChild, oldChild); }
+    replaceChild(el, newChild /** TODO #9100 */, oldChild /** TODO #9100 */) {
+        el.replaceChild(newChild, oldChild);
+    }
     remove(node /** TODO #9100 */) {
         if (node.parentNode) {
             node.parentNode.removeChild(node);
         }
         return node;
     }
-    insertBefore(el /** TODO #9100 */, node /** TODO #9100 */) { el.parentNode.insertBefore(node, el); }
-    insertAllBefore(el /** TODO #9100 */, nodes /** TODO #9100 */) { nodes.forEach((n /** TODO #9100 */) => el.parentNode.insertBefore(n, el)); }
-    insertAfter(el /** TODO #9100 */, node /** TODO #9100 */) { el.parentNode.insertBefore(node, el.nextSibling); }
+    insertBefore(el /** TODO #9100 */, node /** TODO #9100 */) {
+        el.parentNode.insertBefore(node, el);
+    }
+    insertAllBefore(el /** TODO #9100 */, nodes /** TODO #9100 */) {
+        nodes.forEach((n /** TODO #9100 */) => el.parentNode.insertBefore(n, el));
+    }
+    insertAfter(el /** TODO #9100 */, node /** TODO #9100 */) {
+        el.parentNode.insertBefore(node, el.nextSibling);
+    }
     setInnerHTML(el /** TODO #9100 */, value /** TODO #9100 */) { el.innerHTML = value; }
     getText(el /** TODO #9100 */) { return el.textContent; }
     // TODO(vicb): removed Element type because it does not support StyleElement
@@ -173,8 +187,12 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         t.innerHTML = html;
         return t;
     }
-    createElement(tagName /** TODO #9100 */, doc = document) { return doc.createElement(tagName); }
-    createElementNS(ns /** TODO #9100 */, tagName /** TODO #9100 */, doc = document) { return doc.createElementNS(ns, tagName); }
+    createElement(tagName /** TODO #9100 */, doc = document) {
+        return doc.createElement(tagName);
+    }
+    createElementNS(ns /** TODO #9100 */, tagName /** TODO #9100 */, doc = document) {
+        return doc.createElementNS(ns, tagName);
+    }
     createTextNode(text, doc = document) { return doc.createTextNode(text); }
     createScriptTag(attrName, attrValue, doc = document) {
         var el = doc.createElement('SCRIPT');
@@ -196,15 +214,25 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
     getElementsByTagName(element /** TODO #9100 */, name) {
         return element.getElementsByTagName(name);
     }
-    classList(element /** TODO #9100 */) { return Array.prototype.slice.call(element.classList, 0); }
+    classList(element /** TODO #9100 */) {
+        return Array.prototype.slice.call(element.classList, 0);
+    }
     addClass(element /** TODO #9100 */, className) { element.classList.add(className); }
-    removeClass(element /** TODO #9100 */, className) { element.classList.remove(className); }
-    hasClass(element /** TODO #9100 */, className) { return element.classList.contains(className); }
+    removeClass(element /** TODO #9100 */, className) {
+        element.classList.remove(className);
+    }
+    hasClass(element /** TODO #9100 */, className) {
+        return element.classList.contains(className);
+    }
     setStyle(element /** TODO #9100 */, styleName, styleValue) {
         element.style[styleName] = styleValue;
     }
-    removeStyle(element /** TODO #9100 */, stylename) { element.style[stylename] = null; }
-    getStyle(element /** TODO #9100 */, stylename) { return element.style[stylename]; }
+    removeStyle(element /** TODO #9100 */, stylename) {
+        element.style[stylename] = null;
+    }
+    getStyle(element /** TODO #9100 */, stylename) {
+        return element.style[stylename];
+    }
     hasStyle(element /** TODO #9100 */, styleName, styleValue = null) {
         var value = this.getStyle(element, styleName) || '';
         return styleValue ? value == styleValue : value.length > 0;
@@ -219,21 +247,33 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         }
         return res;
     }
-    hasAttribute(element /** TODO #9100 */, attribute) { return element.hasAttribute(attribute); }
+    hasAttribute(element /** TODO #9100 */, attribute) {
+        return element.hasAttribute(attribute);
+    }
     hasAttributeNS(element /** TODO #9100 */, ns, attribute) {
         return element.hasAttributeNS(ns, attribute);
     }
-    getAttribute(element /** TODO #9100 */, attribute) { return element.getAttribute(attribute); }
+    getAttribute(element /** TODO #9100 */, attribute) {
+        return element.getAttribute(attribute);
+    }
     getAttributeNS(element /** TODO #9100 */, ns, name) {
         return element.getAttributeNS(ns, name);
     }
-    setAttribute(element /** TODO #9100 */, name, value) { element.setAttribute(name, value); }
+    setAttribute(element /** TODO #9100 */, name, value) {
+        element.setAttribute(name, value);
+    }
     setAttributeNS(element /** TODO #9100 */, ns, name, value) {
         element.setAttributeNS(ns, name, value);
     }
-    removeAttribute(element /** TODO #9100 */, attribute) { element.removeAttribute(attribute); }
-    removeAttributeNS(element /** TODO #9100 */, ns, name) { element.removeAttributeNS(ns, name); }
-    templateAwareRoot(el /** TODO #9100 */) { return this.isTemplateElement(el) ? this.content(el) : el; }
+    removeAttribute(element /** TODO #9100 */, attribute) {
+        element.removeAttribute(attribute);
+    }
+    removeAttributeNS(element /** TODO #9100 */, ns, name) {
+        element.removeAttributeNS(ns, name);
+    }
+    templateAwareRoot(el /** TODO #9100 */) {
+        return this.isTemplateElement(el) ? this.content(el) : el;
+    }
     createHtmlDocument() {
         return document.implementation.createHTMLDocument('fakeTitle');
     }
@@ -264,12 +304,14 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return matches;
     }
     isTemplateElement(el) {
-        return el instanceof HTMLElement && el.nodeName == "TEMPLATE";
+        return el instanceof HTMLElement && el.nodeName == 'TEMPLATE';
     }
     isTextNode(node) { return node.nodeType === Node.TEXT_NODE; }
     isCommentNode(node) { return node.nodeType === Node.COMMENT_NODE; }
     isElementNode(node) { return node.nodeType === Node.ELEMENT_NODE; }
-    hasShadowRoot(node /** TODO #9100 */) { return node instanceof HTMLElement && isPresent(node.shadowRoot); }
+    hasShadowRoot(node /** TODO #9100 */) {
+        return node instanceof HTMLElement && isPresent(node.shadowRoot);
+    }
     isShadowRoot(node /** TODO #9100 */) { return node instanceof DocumentFragment; }
     importIntoDoc(node) {
         var toImport = node;
@@ -307,13 +349,13 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return key;
     }
     getGlobalEventTarget(target) {
-        if (target == "window") {
+        if (target == 'window') {
             return window;
         }
-        else if (target == "document") {
+        else if (target == 'document') {
             return document;
         }
-        else if (target == "body") {
+        else if (target == 'body') {
             return document.body;
         }
     }
@@ -331,13 +373,19 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
     setData(element /** TODO #9100 */, name, value) {
         this.setAttribute(element, 'data-' + name, value);
     }
-    getData(element /** TODO #9100 */, name) { return this.getAttribute(element, 'data-' + name); }
+    getData(element /** TODO #9100 */, name) {
+        return this.getAttribute(element, 'data-' + name);
+    }
     getComputedStyle(element /** TODO #9100 */) { return getComputedStyle(element); }
     // TODO(tbosch): move this into a separate environment class once we have it
     setGlobalVar(path, value) { setValueOnPath(global, path, value); }
-    requestAnimationFrame(callback /** TODO #9100 */) { return window.requestAnimationFrame(callback); }
+    requestAnimationFrame(callback /** TODO #9100 */) {
+        return window.requestAnimationFrame(callback);
+    }
     cancelAnimationFrame(id) { window.cancelAnimationFrame(id); }
-    supportsWebAnimation() { return isFunction(document.body['animate']); }
+    supportsWebAnimation() {
+        return isFunction(document.body['animate']);
+    }
     performanceNow() {
         // performance.now() is not available in all browsers, see
         // http://caniuse.com/#search=performance.now
@@ -349,9 +397,7 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         }
     }
     supportsCookies() { return true; }
-    getCookie(name) {
-        return parseCookieValue(document.cookie, name);
-    }
+    getCookie(name) { return parseCookieValue(document.cookie, name); }
     setCookie(name, value) {
         // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
         // not clear other cookies.
@@ -372,7 +418,7 @@ function getBaseElementHref() {
 var urlParsingNode = null;
 function relativePath(url /** TODO #9100 */) {
     if (isBlank(urlParsingNode)) {
-        urlParsingNode = document.createElement("a");
+        urlParsingNode = document.createElement('a');
     }
     urlParsingNode.setAttribute('href', url);
     return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :

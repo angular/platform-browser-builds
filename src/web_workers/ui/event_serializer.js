@@ -2,37 +2,16 @@
 var collection_1 = require('../../facade/collection');
 var lang_1 = require('../../facade/lang');
 var MOUSE_EVENT_PROPERTIES = [
-    "altKey",
-    "button",
-    "clientX",
-    "clientY",
-    "metaKey",
-    "movementX",
-    "movementY",
-    "offsetX",
-    "offsetY",
-    "region",
-    "screenX",
-    "screenY",
-    "shiftKey"
+    'altKey', 'button', 'clientX', 'clientY', 'metaKey', 'movementX', 'movementY', 'offsetX',
+    'offsetY', 'region', 'screenX', 'screenY', 'shiftKey'
 ];
 var KEYBOARD_EVENT_PROPERTIES = [
-    'altkey',
-    'charCode',
-    'code',
-    'ctrlKey',
-    'isComposing',
-    'key',
-    'keyCode',
-    'location',
-    'metaKey',
-    'repeat',
-    'shiftKey',
-    'which'
+    'altkey', 'charCode', 'code', 'ctrlKey', 'isComposing', 'key', 'keyCode', 'location', 'metaKey',
+    'repeat', 'shiftKey', 'which'
 ];
 var TRANSITION_EVENT_PROPERTIES = ['propertyName', 'elapsedTime', 'pseudoElement'];
 var EVENT_PROPERTIES = ['type', 'bubbles', 'cancelable'];
-var NODES_WITH_VALUE = new collection_1.Set(["input", "select", "option", "button", "li", "meter", "progress", "param", "textarea"]);
+var NODES_WITH_VALUE = new collection_1.Set(['input', 'select', 'option', 'button', 'li', 'meter', 'progress', 'param', 'textarea']);
 function serializeGenericEvent(e) {
     return serializeEvent(e, EVENT_PROPERTIES);
 }

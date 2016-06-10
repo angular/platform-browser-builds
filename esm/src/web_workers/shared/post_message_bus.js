@@ -1,7 +1,7 @@
-import { BaseException } from '../../facade/exceptions';
+import { Injectable } from '@angular/core';
 import { EventEmitter, ObservableWrapper } from '../../facade/async';
 import { StringMapWrapper } from '../../facade/collection';
-import { Injectable } from '@angular/core';
+import { BaseException } from '../../facade/exceptions';
 export class PostMessageBusSink {
     constructor(_postMessageTarget) {
         this._postMessageTarget = _postMessageTarget;
@@ -51,12 +51,12 @@ export class PostMessageBusSource {
     constructor(eventTarget) {
         this._channels = StringMapWrapper.create();
         if (eventTarget) {
-            eventTarget.addEventListener("message", (ev) => this._handleMessages(ev));
+            eventTarget.addEventListener('message', (ev) => this._handleMessages(ev));
         }
         else {
             // if no eventTarget is given we assume we're in a WebWorker and listen on the global scope
             const workerScope = self;
-            workerScope.addEventListener("message", (ev) => this._handleMessages(ev));
+            workerScope.addEventListener('message', (ev) => this._handleMessages(ev));
         }
     }
     attachToZone(zone) { this._zone = zone; }

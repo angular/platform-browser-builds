@@ -8,8 +8,8 @@ var core_1 = require('@angular/core');
 var core_private_1 = require('../../core_private');
 exports.SecurityContext = core_private_1.SecurityContext;
 var html_sanitizer_1 = require('./html_sanitizer');
-var url_sanitizer_1 = require('./url_sanitizer');
 var style_sanitizer_1 = require('./style_sanitizer');
+var url_sanitizer_1 = require('./url_sanitizer');
 /**
  * DomSanitizationService helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.

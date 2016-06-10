@@ -1,4 +1,4 @@
-import { SecurityContext, SanitizationService } from '../../core_private';
+import { SanitizationService, SecurityContext } from '../../core_private';
 export { SecurityContext };
 /** Marker interface for a value that's safe to use in a particular context. */
 export interface SafeValue {

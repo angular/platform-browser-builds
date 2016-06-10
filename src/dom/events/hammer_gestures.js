@@ -5,10 +5,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var lang_1 = require('../../facade/lang');
 var exceptions_1 = require('../../facade/exceptions');
+var lang_1 = require('../../facade/lang');
 var hammer_common_1 = require('./hammer_common');
-exports.HAMMER_GESTURE_CONFIG = new core_1.OpaqueToken("HammerGestureConfig");
+exports.HAMMER_GESTURE_CONFIG = new core_1.OpaqueToken('HammerGestureConfig');
 var HammerGestureConfig = (function () {
     function HammerGestureConfig() {
         this.events = [];
@@ -51,7 +51,9 @@ var HammerGesturesPlugin = (function (_super) {
         return zone.runOutsideAngular(function () {
             // Creating the manager bind events, must be done outside of angular
             var mc = _this._config.buildHammer(element);
-            var callback = function (eventObj /** TODO #???? */) { zone.runGuarded(function () { handler(eventObj); }); };
+            var callback = function (eventObj /** TODO #???? */) {
+                zone.runGuarded(function () { handler(eventObj); });
+            };
             mc.on(eventName, callback);
             return function () { mc.off(eventName, callback); };
         });

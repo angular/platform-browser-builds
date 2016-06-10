@@ -1,25 +1,25 @@
 "use strict";
-var core_1 = require("@angular/core");
-var lang_1 = require("./facade/lang");
+var common_1 = require('@angular/common');
+var compiler_1 = require('@angular/compiler');
+var core_1 = require('@angular/core');
 var core_private_1 = require('../core_private');
 var web_animations_driver_1 = require('../src/dom/web_animations_driver');
-var common_1 = require("@angular/common");
-var dom_sanitization_service_1 = require("./security/dom_sanitization_service");
-var browser_adapter_1 = require("./browser/browser_adapter");
-var testability_1 = require("./browser/testability");
-var dom_adapter_1 = require("./dom/dom_adapter");
-var dom_tokens_1 = require("./dom/dom_tokens");
-var event_manager_1 = require("./dom/events/event_manager");
-var dom_renderer_1 = require("./dom/dom_renderer");
-var shared_styles_host_1 = require("./dom/shared_styles_host");
-var key_events_1 = require("./dom/events/key_events");
-var ng_probe_1 = require("./dom/debug/ng_probe");
-var dom_events_1 = require("./dom/events/dom_events");
-var hammer_gestures_1 = require("./dom/events/hammer_gestures");
-var browser_platform_location_1 = require("./browser/location/browser_platform_location");
-var compiler_1 = require("@angular/compiler");
-var xhr_cache_1 = require("./xhr/xhr_cache");
-var xhr_impl_1 = require("./xhr/xhr_impl");
+var browser_adapter_1 = require('./browser/browser_adapter');
+var browser_platform_location_1 = require('./browser/location/browser_platform_location');
+var testability_1 = require('./browser/testability');
+var ng_probe_1 = require('./dom/debug/ng_probe');
+var dom_adapter_1 = require('./dom/dom_adapter');
+var dom_renderer_1 = require('./dom/dom_renderer');
+var dom_tokens_1 = require('./dom/dom_tokens');
+var dom_events_1 = require('./dom/events/dom_events');
+var event_manager_1 = require('./dom/events/event_manager');
+var hammer_gestures_1 = require('./dom/events/hammer_gestures');
+var key_events_1 = require('./dom/events/key_events');
+var shared_styles_host_1 = require('./dom/shared_styles_host');
+var lang_1 = require('./facade/lang');
+var dom_sanitization_service_1 = require('./security/dom_sanitization_service');
+var xhr_cache_1 = require('./xhr/xhr_cache');
+var xhr_impl_1 = require('./xhr/xhr_impl');
 exports.CACHED_TEMPLATE_PROVIDER = [{ provide: compiler_1.XHR, useClass: xhr_cache_1.CachedXHR }];
 var BROWSER_PLATFORM_MARKER = new core_1.OpaqueToken('BrowserPlatformMarker');
 /**
@@ -28,8 +28,7 @@ var BROWSER_PLATFORM_MARKER = new core_1.OpaqueToken('BrowserPlatformMarker');
  * Used automatically by `bootstrap`, or can be passed to {@link platform}.
  */
 exports.BROWSER_PLATFORM_PROVIDERS = [
-    { provide: BROWSER_PLATFORM_MARKER, useValue: true },
-    core_1.PLATFORM_COMMON_PROVIDERS,
+    { provide: BROWSER_PLATFORM_MARKER, useValue: true }, core_1.PLATFORM_COMMON_PROVIDERS,
     { provide: core_1.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: common_1.PlatformLocation, useClass: browser_platform_location_1.BrowserPlatformLocation }
 ];
@@ -43,9 +42,7 @@ exports.BROWSER_SANITIZATION_PROVIDERS = [
  * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
  */
 exports.BROWSER_APP_PROVIDERS = [
-    core_1.APPLICATION_COMMON_PROVIDERS,
-    common_1.FORM_PROVIDERS,
-    exports.BROWSER_SANITIZATION_PROVIDERS,
+    core_1.APPLICATION_COMMON_PROVIDERS, common_1.FORM_PROVIDERS, exports.BROWSER_SANITIZATION_PROVIDERS,
     { provide: core_1.PLATFORM_PIPES, useValue: common_1.COMMON_PIPES, multi: true },
     { provide: core_1.PLATFORM_DIRECTIVES, useValue: common_1.COMMON_DIRECTIVES, multi: true },
     { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
@@ -57,11 +54,8 @@ exports.BROWSER_APP_PROVIDERS = [
     { provide: dom_renderer_1.DomRootRenderer, useClass: dom_renderer_1.DomRootRenderer_ },
     { provide: core_1.RootRenderer, useExisting: dom_renderer_1.DomRootRenderer },
     { provide: shared_styles_host_1.SharedStylesHost, useExisting: shared_styles_host_1.DomSharedStylesHost },
-    { provide: core_private_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
-    shared_styles_host_1.DomSharedStylesHost,
-    core_1.Testability,
-    event_manager_1.EventManager,
-    ng_probe_1.ELEMENT_PROBE_PROVIDERS
+    { provide: core_private_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, shared_styles_host_1.DomSharedStylesHost,
+    core_1.Testability, event_manager_1.EventManager, ng_probe_1.ELEMENT_PROBE_PROVIDERS
 ];
 exports.BROWSER_APP_COMPILER_PROVIDERS = [
     compiler_1.COMPILER_PROVIDERS,
@@ -145,8 +139,7 @@ exports.browserPlatform = browserPlatform;
 function bootstrap(appComponentType, customProviders) {
     core_private_1.reflector.reflectionCapabilities = new core_private_1.ReflectionCapabilities();
     var providers = [
-        exports.BROWSER_APP_PROVIDERS,
-        exports.BROWSER_APP_COMPILER_PROVIDERS,
+        exports.BROWSER_APP_PROVIDERS, exports.BROWSER_APP_COMPILER_PROVIDERS,
         lang_1.isPresent(customProviders) ? customProviders : []
     ];
     var appInjector = core_1.ReflectiveInjector.resolveAndCreate(providers, browserPlatform().injector);

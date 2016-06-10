@@ -1,5 +1,5 @@
-import { Type } from '../../facade/lang';
 import { DomAdapter } from '../../dom/dom_adapter';
+import { Type } from '../../facade/lang';
 /**
  * This adapter is required to log error messages.
  *

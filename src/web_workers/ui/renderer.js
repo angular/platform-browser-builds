@@ -1,12 +1,12 @@
 "use strict";
 var core_1 = require('@angular/core');
-var message_bus_1 = require('../shared/message_bus');
-var serializer_1 = require('../shared/serializer');
-var messaging_api_1 = require('../shared/messaging_api');
-var event_dispatcher_1 = require('../ui/event_dispatcher');
-var render_store_1 = require('../shared/render_store');
-var service_message_broker_1 = require('../shared/service_message_broker');
 var lang_1 = require('../../facade/lang');
+var message_bus_1 = require('../shared/message_bus');
+var messaging_api_1 = require('../shared/messaging_api');
+var render_store_1 = require('../shared/render_store');
+var serializer_1 = require('../shared/serializer');
+var service_message_broker_1 = require('../shared/service_message_broker');
+var event_dispatcher_1 = require('../ui/event_dispatcher');
 var MessageBasedRenderer = (function () {
     function MessageBasedRenderer(_brokerFactory, _bus, _serializer, _renderStore, _rootRenderer) {
         this._brokerFactory = _brokerFactory;
@@ -19,26 +19,26 @@ var MessageBasedRenderer = (function () {
         var broker = this._brokerFactory.createMessageBroker(messaging_api_1.RENDERER_CHANNEL);
         this._bus.initChannel(messaging_api_1.EVENT_CHANNEL);
         this._eventDispatcher = new event_dispatcher_1.EventDispatcher(this._bus.to(messaging_api_1.EVENT_CHANNEL), this._serializer);
-        broker.registerMethod("renderComponent", [core_1.RenderComponentType, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._renderComponent, this));
-        broker.registerMethod("selectRootElement", [serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._selectRootElement, this));
-        broker.registerMethod("createElement", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createElement, this));
-        broker.registerMethod("createViewRoot", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createViewRoot, this));
-        broker.registerMethod("createTemplateAnchor", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createTemplateAnchor, this));
-        broker.registerMethod("createText", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createText, this));
-        broker.registerMethod("projectNodes", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._projectNodes, this));
-        broker.registerMethod("attachViewAfter", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._attachViewAfter, this));
-        broker.registerMethod("detachView", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._detachView, this));
-        broker.registerMethod("destroyView", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._destroyView, this));
-        broker.registerMethod("setElementProperty", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementProperty, this));
-        broker.registerMethod("setElementAttribute", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementAttribute, this));
-        broker.registerMethod("setBindingDebugInfo", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setBindingDebugInfo, this));
-        broker.registerMethod("setElementClass", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementClass, this));
-        broker.registerMethod("setElementStyle", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementStyle, this));
-        broker.registerMethod("invokeElementMethod", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._invokeElementMethod, this));
-        broker.registerMethod("setText", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setText, this));
-        broker.registerMethod("listen", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._listen, this));
-        broker.registerMethod("listenGlobal", [serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._listenGlobal, this));
-        broker.registerMethod("listenDone", [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._listenDone, this));
+        broker.registerMethod('renderComponent', [core_1.RenderComponentType, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._renderComponent, this));
+        broker.registerMethod('selectRootElement', [serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._selectRootElement, this));
+        broker.registerMethod('createElement', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createElement, this));
+        broker.registerMethod('createViewRoot', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createViewRoot, this));
+        broker.registerMethod('createTemplateAnchor', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createTemplateAnchor, this));
+        broker.registerMethod('createText', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createText, this));
+        broker.registerMethod('projectNodes', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._projectNodes, this));
+        broker.registerMethod('attachViewAfter', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._attachViewAfter, this));
+        broker.registerMethod('detachView', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._detachView, this));
+        broker.registerMethod('destroyView', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._destroyView, this));
+        broker.registerMethod('setElementProperty', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementProperty, this));
+        broker.registerMethod('setElementAttribute', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementAttribute, this));
+        broker.registerMethod('setBindingDebugInfo', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setBindingDebugInfo, this));
+        broker.registerMethod('setElementClass', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementClass, this));
+        broker.registerMethod('setElementStyle', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementStyle, this));
+        broker.registerMethod('invokeElementMethod', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._invokeElementMethod, this));
+        broker.registerMethod('setText', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setText, this));
+        broker.registerMethod('listen', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._listen, this));
+        broker.registerMethod('listenGlobal', [serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._listenGlobal, this));
+        broker.registerMethod('listenDone', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._listenDone, this));
     };
     MessageBasedRenderer.prototype._renderComponent = function (renderComponentType, rendererId) {
         var renderer = this._rootRenderer.renderComponent(renderComponentType);
@@ -100,12 +100,16 @@ var MessageBasedRenderer = (function () {
     };
     MessageBasedRenderer.prototype._listen = function (renderer, renderElement, eventName, unlistenId) {
         var _this = this;
-        var unregisterCallback = renderer.listen(renderElement, eventName, function (event /** TODO #9100 */) { return _this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event); });
+        var unregisterCallback = renderer.listen(renderElement, eventName, function (event /** TODO #9100 */) {
+            return _this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event);
+        });
         this._renderStore.store(unregisterCallback, unlistenId);
     };
     MessageBasedRenderer.prototype._listenGlobal = function (renderer, eventTarget, eventName, unlistenId) {
         var _this = this;
-        var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, function (event /** TODO #9100 */) { return _this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event); });
+        var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, function (event /** TODO #9100 */) {
+            return _this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event);
+        });
         this._renderStore.store(unregisterCallback, unlistenId);
     };
     MessageBasedRenderer.prototype._listenDone = function (renderer, unlistenCallback) { unlistenCallback(); };

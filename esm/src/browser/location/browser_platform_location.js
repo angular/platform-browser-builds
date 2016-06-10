@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { getDOM } from '../../dom/dom_adapter';
 import { supportsState } from './history';
 export class BrowserPlatformLocation extends PlatformLocation {

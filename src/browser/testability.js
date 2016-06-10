@@ -1,8 +1,8 @@
 "use strict";
 var core_1 = require('@angular/core');
+var dom_adapter_1 = require('../dom/dom_adapter');
 var collection_1 = require('../facade/collection');
 var lang_1 = require('../facade/lang');
-var dom_adapter_1 = require('../dom/dom_adapter');
 var PublicTestability = (function () {
     function PublicTestability(testability) {
         this._testability = testability;
@@ -46,7 +46,9 @@ var BrowserGetTestability = (function () {
                     callback(didWork);
                 }
             };
-            testabilities.forEach(function (testability /** TODO #9100 */) { testability.whenStable(decrement); });
+            testabilities.forEach(function (testability /** TODO #9100 */) {
+                testability.whenStable(decrement);
+            });
         };
         if (!lang_1.global.frameworkStabilizers) {
             lang_1.global.frameworkStabilizers = collection_1.ListWrapper.createGrowableSize(0);

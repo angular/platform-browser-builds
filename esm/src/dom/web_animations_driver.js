@@ -1,8 +1,8 @@
+import { AUTO_STYLE, BaseException } from '@angular/core';
 import { StringMapWrapper } from '../facade/collection';
-import { isPresent, isNumber, StringWrapper } from '../facade/lang';
-import { BaseException, AUTO_STYLE } from '@angular/core';
-import { WebAnimationsPlayer } from './web_animations_player';
+import { StringWrapper, isNumber, isPresent } from '../facade/lang';
 import { getDOM } from './dom_adapter';
+import { WebAnimationsPlayer } from './web_animations_player';
 export class WebAnimationsDriver {
     animate(element, startingStyles, keyframes, duration, delay, easing) {
         var anyElm = element;
@@ -35,9 +35,9 @@ function _populateStyles(element, styles, defaultStyles) {
     var data = {};
     styles.styles.forEach((entry) => {
         StringMapWrapper.forEach(entry, (val /** TODO #9100 */, prop /** TODO #9100 */) => {
-            data[prop] = val == AUTO_STYLE
-                ? _computeStyle(element, prop)
-                : val.toString() + _resolveStyleUnit(val, prop);
+            data[prop] = val == AUTO_STYLE ?
+                _computeStyle(element, prop) :
+                val.toString() + _resolveStyleUnit(val, prop);
         });
     });
     StringMapWrapper.forEach(defaultStyles, (value /** TODO #9100 */, prop /** TODO #9100 */) => {

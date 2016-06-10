@@ -1,6 +1,6 @@
+import { Type } from '@angular/core';
 import { MessageBus } from './message_bus';
 import { Serializer } from './serializer';
-import { Type } from '@angular/core';
 export declare abstract class ClientMessageBrokerFactory {
     /**
      * Initializes the given channel and attaches a new {@link ClientMessageBroker} to it.

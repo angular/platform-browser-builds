@@ -1,9 +1,9 @@
-import { MessageBus } from './message_bus';
-import { print, isPresent, DateWrapper, stringify, StringWrapper } from '../../facade/lang';
-import { PromiseWrapper, ObservableWrapper } from '../../facade/async';
-import { StringMapWrapper } from '../../facade/collection';
-import { Serializer } from './serializer';
 import { Injectable } from '@angular/core';
+import { ObservableWrapper, PromiseWrapper } from '../../facade/async';
+import { StringMapWrapper } from '../../facade/collection';
+import { DateWrapper, StringWrapper, isPresent, print, stringify } from '../../facade/lang';
+import { MessageBus } from './message_bus';
+import { Serializer } from './serializer';
 export class ClientMessageBrokerFactory {
 }
 export class ClientMessageBrokerFactory_ extends ClientMessageBrokerFactory {
@@ -96,10 +96,10 @@ export class ClientMessageBroker_ extends ClientMessageBroker {
     _handleMessage(message) {
         var data = new MessageData(message);
         // TODO(jteplitz602): replace these strings with messaging constants #3685
-        if (StringWrapper.equals(data.type, "result") || StringWrapper.equals(data.type, "error")) {
+        if (StringWrapper.equals(data.type, 'result') || StringWrapper.equals(data.type, 'error')) {
             var id = data.id;
             if (this._pending.has(id)) {
-                if (StringWrapper.equals(data.type, "result")) {
+                if (StringWrapper.equals(data.type, 'result')) {
                     this._pending.get(id).resolve(data.value);
                 }
                 else {
@@ -112,9 +112,9 @@ export class ClientMessageBroker_ extends ClientMessageBroker {
 }
 class MessageData {
     constructor(data) {
-        this.type = StringMapWrapper.get(data, "type");
-        this.id = this._getValueIfPresent(data, "id");
-        this.value = this._getValueIfPresent(data, "value");
+        this.type = StringMapWrapper.get(data, 'type');
+        this.id = this._getValueIfPresent(data, 'id');
+        this.value = this._getValueIfPresent(data, 'value');
     }
     /**
      * Returns the value from the StringMap if present. Otherwise returns null

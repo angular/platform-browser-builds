@@ -1,6 +1,6 @@
-import { ListWrapper } from '../src/facade/collection';
 import { getDOM } from '../src/dom/dom_adapter';
-import { isPresent, isString, StringWrapper } from '../src/facade/lang';
+import { ListWrapper } from '../src/facade/collection';
+import { StringWrapper, isPresent, isString } from '../src/facade/lang';
 export class BrowserDetection {
     constructor(ua) {
         this._overrideUa = ua;

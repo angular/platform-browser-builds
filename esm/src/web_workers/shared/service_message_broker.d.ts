@@ -1,6 +1,6 @@
-import { Serializer } from '../shared/serializer';
 import { Type } from '../../facade/lang';
 import { MessageBus } from '../shared/message_bus';
+import { Serializer } from '../shared/serializer';
 export declare abstract class ServiceMessageBrokerFactory {
     /**
      * Initializes the given channel and attaches a new {@link ServiceMessageBroker} to it.

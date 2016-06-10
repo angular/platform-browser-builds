@@ -1,7 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
-import { DOCUMENT } from '../src/dom/dom_tokens';
-import { getDOM } from '../src/dom/dom_adapter';
 import { TestComponentRenderer } from '@angular/compiler/testing';
+import { Inject, Injectable } from '@angular/core';
+import { getDOM } from '../src/dom/dom_adapter';
+import { DOCUMENT } from '../src/dom/dom_tokens';
 import { el } from './browser_util';
 export class DOMTestComponentRenderer extends TestComponentRenderer {
     constructor(_doc /** TODO #9100 */) {

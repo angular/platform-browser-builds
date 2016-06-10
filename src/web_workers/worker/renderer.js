@@ -1,13 +1,13 @@
 "use strict";
 var core_1 = require('@angular/core');
-var client_message_broker_1 = require('../shared/client_message_broker');
-var lang_1 = require('../../facade/lang');
-var collection_1 = require('../../facade/collection');
-var render_store_1 = require('../shared/render_store');
-var messaging_api_1 = require('../shared/messaging_api');
-var serializer_1 = require('../shared/serializer');
-var message_bus_1 = require('../shared/message_bus');
 var async_1 = require('../../facade/async');
+var collection_1 = require('../../facade/collection');
+var lang_1 = require('../../facade/lang');
+var client_message_broker_1 = require('../shared/client_message_broker');
+var message_bus_1 = require('../shared/message_bus');
+var messaging_api_1 = require('../shared/messaging_api');
+var render_store_1 = require('../shared/render_store');
+var serializer_1 = require('../shared/serializer');
 var event_deserializer_1 = require('./event_deserializer');
 var WebWorkerRootRenderer = (function () {
     function WebWorkerRootRenderer(messageBrokerFactory, bus, _serializer, _renderStore) {
@@ -94,8 +94,7 @@ var WebWorkerRenderer = (function () {
     WebWorkerRenderer.prototype.createElement = function (parentElement, name, debugInfo) {
         var node = this._rootRenderer.allocateNode();
         this._runOnService('createElement', [
-            new client_message_broker_1.FnArg(parentElement, serializer_1.RenderStoreObject),
-            new client_message_broker_1.FnArg(name, null),
+            new client_message_broker_1.FnArg(parentElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(name, null),
             new client_message_broker_1.FnArg(node, serializer_1.RenderStoreObject)
         ]);
         return node;
@@ -115,8 +114,7 @@ var WebWorkerRenderer = (function () {
     WebWorkerRenderer.prototype.createText = function (parentElement, value, debugInfo) {
         var node = this._rootRenderer.allocateNode();
         this._runOnService('createText', [
-            new client_message_broker_1.FnArg(parentElement, serializer_1.RenderStoreObject),
-            new client_message_broker_1.FnArg(value, null),
+            new client_message_broker_1.FnArg(parentElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(value, null),
             new client_message_broker_1.FnArg(node, serializer_1.RenderStoreObject)
         ]);
         return node;
@@ -136,43 +134,37 @@ var WebWorkerRenderer = (function () {
     };
     WebWorkerRenderer.prototype.setElementProperty = function (renderElement, propertyName, propertyValue) {
         this._runOnService('setElementProperty', [
-            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject),
-            new client_message_broker_1.FnArg(propertyName, null),
+            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(propertyName, null),
             new client_message_broker_1.FnArg(propertyValue, null)
         ]);
     };
     WebWorkerRenderer.prototype.setElementAttribute = function (renderElement, attributeName, attributeValue) {
         this._runOnService('setElementAttribute', [
-            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject),
-            new client_message_broker_1.FnArg(attributeName, null),
+            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(attributeName, null),
             new client_message_broker_1.FnArg(attributeValue, null)
         ]);
     };
     WebWorkerRenderer.prototype.setBindingDebugInfo = function (renderElement, propertyName, propertyValue) {
         this._runOnService('setBindingDebugInfo', [
-            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject),
-            new client_message_broker_1.FnArg(propertyName, null),
+            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(propertyName, null),
             new client_message_broker_1.FnArg(propertyValue, null)
         ]);
     };
     WebWorkerRenderer.prototype.setElementClass = function (renderElement, className, isAdd) {
         this._runOnService('setElementClass', [
-            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject),
-            new client_message_broker_1.FnArg(className, null),
+            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(className, null),
             new client_message_broker_1.FnArg(isAdd, null)
         ]);
     };
     WebWorkerRenderer.prototype.setElementStyle = function (renderElement, styleName, styleValue) {
         this._runOnService('setElementStyle', [
-            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject),
-            new client_message_broker_1.FnArg(styleName, null),
+            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(styleName, null),
             new client_message_broker_1.FnArg(styleValue, null)
         ]);
     };
     WebWorkerRenderer.prototype.invokeElementMethod = function (renderElement, methodName, args) {
         this._runOnService('invokeElementMethod', [
-            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject),
-            new client_message_broker_1.FnArg(methodName, null),
+            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(methodName, null),
             new client_message_broker_1.FnArg(args, null)
         ]);
     };
@@ -184,8 +176,7 @@ var WebWorkerRenderer = (function () {
         renderElement.events.listen(name, callback);
         var unlistenCallbackId = this._rootRenderer.allocateId();
         this._runOnService('listen', [
-            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject),
-            new client_message_broker_1.FnArg(name, null),
+            new client_message_broker_1.FnArg(renderElement, serializer_1.RenderStoreObject), new client_message_broker_1.FnArg(name, null),
             new client_message_broker_1.FnArg(unlistenCallbackId, null)
         ]);
         return function () {

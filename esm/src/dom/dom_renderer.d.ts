@@ -1,4 +1,4 @@
-import { Renderer, RootRenderer, RenderComponentType } from '@angular/core';
+import { RenderComponentType, Renderer, RootRenderer } from '@angular/core';
 import { DomSharedStylesHost } from './shared_styles_host';
 import { AnimationKeyframe, AnimationStyles, AnimationPlayer, AnimationDriver, RenderDebugInfo } from '../../core_private';
 import { EventManager } from './events/event_manager';

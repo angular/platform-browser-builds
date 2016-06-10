@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SecurityContext } from '../../core_private';
 import { sanitizeHtml } from './html_sanitizer';
-import { sanitizeUrl } from './url_sanitizer';
 import { sanitizeStyle } from './style_sanitizer';
+import { sanitizeUrl } from './url_sanitizer';
 export { SecurityContext };
 /**
  * DomSanitizationService helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing

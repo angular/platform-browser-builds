@@ -1,7 +1,7 @@
-import { ClientMessageBrokerFactory } from '../shared/client_message_broker';
 import { PlatformLocation, UrlChangeListener } from '@angular/common';
-import { Serializer } from '../shared/serializer';
+import { ClientMessageBrokerFactory } from '../shared/client_message_broker';
 import { MessageBus } from '../shared/message_bus';
+import { Serializer } from '../shared/serializer';
 export declare class WebWorkerPlatformLocation extends PlatformLocation {
     private _serializer;
     private _broker;

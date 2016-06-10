@@ -4,17 +4,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var client_message_broker_1 = require('../shared/client_message_broker');
 var common_1 = require('@angular/common');
+var core_1 = require('@angular/core');
+var async_1 = require('../../facade/async');
+var collection_1 = require('../../facade/collection');
+var exceptions_1 = require('../../facade/exceptions');
+var lang_1 = require('../../facade/lang');
+var client_message_broker_1 = require('../shared/client_message_broker');
+var message_bus_1 = require('../shared/message_bus');
 var messaging_api_1 = require('../shared/messaging_api');
 var serialized_types_1 = require('../shared/serialized_types');
-var async_1 = require('../../facade/async');
-var exceptions_1 = require('../../facade/exceptions');
 var serializer_1 = require('../shared/serializer');
-var message_bus_1 = require('../shared/message_bus');
-var collection_1 = require('../../facade/collection');
-var lang_1 = require('../../facade/lang');
 var event_deserializer_1 = require('./event_deserializer');
 var WebWorkerPlatformLocation = (function (_super) {
     __extends(WebWorkerPlatformLocation, _super);
@@ -31,10 +31,10 @@ var WebWorkerPlatformLocation = (function (_super) {
             var listeners = null;
             if (collection_1.StringMapWrapper.contains(msg, 'event')) {
                 var type = msg['event']['type'];
-                if (lang_1.StringWrapper.equals(type, "popstate")) {
+                if (lang_1.StringWrapper.equals(type, 'popstate')) {
                     listeners = _this._popStateListeners;
                 }
-                else if (lang_1.StringWrapper.equals(type, "hashchange")) {
+                else if (lang_1.StringWrapper.equals(type, 'hashchange')) {
                     listeners = _this._hashChangeListeners;
                 }
                 if (listeners !== null) {
@@ -49,7 +49,7 @@ var WebWorkerPlatformLocation = (function (_super) {
     /** @internal **/
     WebWorkerPlatformLocation.prototype.init = function () {
         var _this = this;
-        var args = new client_message_broker_1.UiArguments("getLocation");
+        var args = new client_message_broker_1.UiArguments('getLocation');
         var locationPromise = this._broker.runOnService(args, serialized_types_1.LocationType);
         return async_1.PromiseWrapper.then(locationPromise, function (val) {
             _this._location = val;
@@ -57,7 +57,7 @@ var WebWorkerPlatformLocation = (function (_super) {
         }, function (err) { throw new exceptions_1.BaseException(err); });
     };
     WebWorkerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
-        throw new exceptions_1.BaseException("Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.");
+        throw new exceptions_1.BaseException('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
     };
     WebWorkerPlatformLocation.prototype.onPopState = function (fn) { this._popStateListeners.push(fn); };
     WebWorkerPlatformLocation.prototype.onHashChange = function (fn) { this._hashChangeListeners.push(fn); };
@@ -70,11 +70,11 @@ var WebWorkerPlatformLocation = (function (_super) {
         },
         set: function (newPath) {
             if (this._location === null) {
-                throw new exceptions_1.BaseException("Attempt to set pathname before value is obtained from UI");
+                throw new exceptions_1.BaseException('Attempt to set pathname before value is obtained from UI');
             }
             this._location.pathname = newPath;
             var fnArgs = [new client_message_broker_1.FnArg(newPath, serializer_1.PRIMITIVE)];
-            var args = new client_message_broker_1.UiArguments("setPathname", fnArgs);
+            var args = new client_message_broker_1.UiArguments('setPathname', fnArgs);
             this._broker.runOnService(args, null);
         },
         enumerable: true,
@@ -102,20 +102,20 @@ var WebWorkerPlatformLocation = (function (_super) {
     });
     WebWorkerPlatformLocation.prototype.pushState = function (state, title, url) {
         var fnArgs = [new client_message_broker_1.FnArg(state, serializer_1.PRIMITIVE), new client_message_broker_1.FnArg(title, serializer_1.PRIMITIVE), new client_message_broker_1.FnArg(url, serializer_1.PRIMITIVE)];
-        var args = new client_message_broker_1.UiArguments("pushState", fnArgs);
+        var args = new client_message_broker_1.UiArguments('pushState', fnArgs);
         this._broker.runOnService(args, null);
     };
     WebWorkerPlatformLocation.prototype.replaceState = function (state, title, url) {
         var fnArgs = [new client_message_broker_1.FnArg(state, serializer_1.PRIMITIVE), new client_message_broker_1.FnArg(title, serializer_1.PRIMITIVE), new client_message_broker_1.FnArg(url, serializer_1.PRIMITIVE)];
-        var args = new client_message_broker_1.UiArguments("replaceState", fnArgs);
+        var args = new client_message_broker_1.UiArguments('replaceState', fnArgs);
         this._broker.runOnService(args, null);
     };
     WebWorkerPlatformLocation.prototype.forward = function () {
-        var args = new client_message_broker_1.UiArguments("forward");
+        var args = new client_message_broker_1.UiArguments('forward');
         this._broker.runOnService(args, null);
     };
     WebWorkerPlatformLocation.prototype.back = function () {
-        var args = new client_message_broker_1.UiArguments("back");
+        var args = new client_message_broker_1.UiArguments('back');
         this._broker.runOnService(args, null);
     };
     /** @nocollapse */

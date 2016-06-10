@@ -1,7 +1,7 @@
 import { BrowserPlatformLocation } from '../../browser/location/browser_platform_location';
-import { ServiceMessageBrokerFactory } from '../shared/service_message_broker';
-import { Serializer } from '../shared/serializer';
 import { MessageBus } from '../shared/message_bus';
+import { Serializer } from '../shared/serializer';
+import { ServiceMessageBrokerFactory } from '../shared/service_message_broker';
 export declare class MessageBasedPlatformLocation {
     private _brokerFactory;
     private _platformLocation;

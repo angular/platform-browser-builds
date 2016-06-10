@@ -1,4 +1,4 @@
-import { UrlChangeListener, PlatformLocation } from '@angular/common';
+import { PlatformLocation, UrlChangeListener } from '@angular/common';
 /**
  * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
  * This class should not be used directly by an application developer. Instead, use

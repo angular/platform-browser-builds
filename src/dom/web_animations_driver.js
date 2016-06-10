@@ -1,9 +1,9 @@
 "use strict";
+var core_1 = require('@angular/core');
 var collection_1 = require('../facade/collection');
 var lang_1 = require('../facade/lang');
-var core_1 = require('@angular/core');
-var web_animations_player_1 = require('./web_animations_player');
 var dom_adapter_1 = require('./dom_adapter');
+var web_animations_player_1 = require('./web_animations_player');
 var WebAnimationsDriver = (function () {
     function WebAnimationsDriver() {
     }
@@ -40,9 +40,9 @@ function _populateStyles(element, styles, defaultStyles) {
     var data = {};
     styles.styles.forEach(function (entry) {
         collection_1.StringMapWrapper.forEach(entry, function (val /** TODO #9100 */, prop /** TODO #9100 */) {
-            data[prop] = val == core_1.AUTO_STYLE
-                ? _computeStyle(element, prop)
-                : val.toString() + _resolveStyleUnit(val, prop);
+            data[prop] = val == core_1.AUTO_STYLE ?
+                _computeStyle(element, prop) :
+                val.toString() + _resolveStyleUnit(val, prop);
         });
     });
     collection_1.StringMapWrapper.forEach(defaultStyles, function (value /** TODO #9100 */, prop /** TODO #9100 */) {

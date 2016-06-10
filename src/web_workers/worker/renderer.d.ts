@@ -1,9 +1,9 @@
-import { Renderer, RootRenderer, RenderComponentType } from '@angular/core';
-import { ClientMessageBrokerFactory, FnArg } from '../shared/client_message_broker';
-import { RenderStore } from '../shared/render_store';
-import { Serializer, RenderStoreObject } from '../shared/serializer';
-import { MessageBus } from '../shared/message_bus';
+import { RenderComponentType, Renderer, RootRenderer } from '@angular/core';
 import { AnimationKeyframe, AnimationPlayer, AnimationStyles, RenderDebugInfo } from '../../../core_private';
+import { ClientMessageBrokerFactory, FnArg } from '../shared/client_message_broker';
+import { MessageBus } from '../shared/message_bus';
+import { RenderStore } from '../shared/render_store';
+import { RenderStoreObject, Serializer } from '../shared/serializer';
 export declare class WebWorkerRootRenderer implements RootRenderer {
     private _serializer;
     private _renderStore;
