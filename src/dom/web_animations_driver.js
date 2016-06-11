@@ -3,6 +3,7 @@ var core_1 = require('@angular/core');
 var collection_1 = require('../facade/collection');
 var lang_1 = require('../facade/lang');
 var dom_adapter_1 = require('./dom_adapter');
+var util_1 = require('./util');
 var web_animations_player_1 = require('./web_animations_player');
 var WebAnimationsDriver = (function () {
     function WebAnimationsDriver() {
@@ -27,11 +28,15 @@ var WebAnimationsDriver = (function () {
         // start/end values is suitable enough for the web-animations API
         if (formattedSteps.length == 1) {
             var start = formattedSteps[0];
-            start.offset = null;
+            start['offset'] = null;
             formattedSteps = [start, start];
         }
-        var player = anyElm.animate(formattedSteps, { 'duration': duration, 'delay': delay, 'easing': easing, 'fill': 'forwards' });
+        var player = this._triggerWebAnimation(anyElm, formattedSteps, { 'duration': duration, 'delay': delay, 'easing': easing, 'fill': 'forwards' });
         return new web_animations_player_1.WebAnimationsPlayer(player, duration);
+    };
+    /** @internal */
+    WebAnimationsDriver.prototype._triggerWebAnimation = function (elm, keyframes, options) {
+        return elm.animate(keyframes, options);
     };
     return WebAnimationsDriver;
 }());
@@ -39,27 +44,28 @@ exports.WebAnimationsDriver = WebAnimationsDriver;
 function _populateStyles(element, styles, defaultStyles) {
     var data = {};
     styles.styles.forEach(function (entry) {
-        collection_1.StringMapWrapper.forEach(entry, function (val /** TODO #9100 */, prop /** TODO #9100 */) {
-            data[prop] = val == core_1.AUTO_STYLE ?
-                _computeStyle(element, prop) :
-                val.toString() + _resolveStyleUnit(val, prop);
+        collection_1.StringMapWrapper.forEach(entry, function (val, prop) {
+            var formattedProp = util_1.dashCaseToCamelCase(prop);
+            data[formattedProp] = val == core_1.AUTO_STYLE ?
+                _computeStyle(element, formattedProp) :
+                val.toString() + _resolveStyleUnit(val, prop, formattedProp);
         });
     });
-    collection_1.StringMapWrapper.forEach(defaultStyles, function (value /** TODO #9100 */, prop /** TODO #9100 */) {
+    collection_1.StringMapWrapper.forEach(defaultStyles, function (value, prop) {
         if (!lang_1.isPresent(data[prop])) {
             data[prop] = value;
         }
     });
     return data;
 }
-function _resolveStyleUnit(val, prop) {
+function _resolveStyleUnit(val, userProvidedProp, formattedProp) {
     var unit = '';
-    if (_isPixelDimensionStyle(prop) && val != 0 && val != '0') {
+    if (_isPixelDimensionStyle(formattedProp) && val != 0 && val != '0') {
         if (lang_1.isNumber(val)) {
             unit = 'px';
         }
         else if (_findDimensionalSuffix(val.toString()).length == 0) {
-            throw new core_1.BaseException('Please provide a CSS unit value for ' + prop + ':' + val);
+            throw new core_1.BaseException('Please provide a CSS unit value for ' + userProvidedProp + ':' + val);
         }
     }
     return unit;
@@ -80,32 +86,32 @@ function _isPixelDimensionStyle(prop) {
     switch (prop) {
         case 'width':
         case 'height':
-        case 'min-width':
-        case 'min-height':
-        case 'max-width':
-        case 'max-height':
+        case 'minWidth':
+        case 'minHeight':
+        case 'maxWidth':
+        case 'maxHeight':
         case 'left':
         case 'top':
         case 'bottom':
         case 'right':
-        case 'font-size':
-        case 'outline-width':
-        case 'outline-offset':
-        case 'padding-top':
-        case 'padding-left':
-        case 'padding-bottom':
-        case 'padding-right':
-        case 'margin-top':
-        case 'margin-left':
-        case 'margin-bottom':
-        case 'margin-right':
-        case 'border-radius':
-        case 'border-width':
-        case 'border-top-width':
-        case 'border-left-width':
-        case 'border-right-width':
-        case 'border-bottom-width':
-        case 'text-indent':
+        case 'fontSize':
+        case 'outlineWidth':
+        case 'outlineOffset':
+        case 'paddingTop':
+        case 'paddingLeft':
+        case 'paddingBottom':
+        case 'paddingRight':
+        case 'marginTop':
+        case 'marginLeft':
+        case 'marginBottom':
+        case 'marginRight':
+        case 'borderRadius':
+        case 'borderWidth':
+        case 'borderTopWidth':
+        case 'borderLeftWidth':
+        case 'borderRightWidth':
+        case 'borderBottomWidth':
+        case 'textIndent':
             return true;
         default:
             return false;
