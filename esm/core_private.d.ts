@@ -27,7 +27,7 @@ export declare type AnimationKeyframe = t.AnimationKeyframe;
 export declare var AnimationKeyframe: typeof t.AnimationKeyframe;
 export declare type AnimationStyles = t.AnimationStyles;
 export declare var AnimationStyles: typeof t.AnimationStyles;
-export declare var balanceAnimationStyles: typeof t.balanceAnimationStyles;
+export declare var prepareFinalAnimationStyles: typeof t.prepareFinalAnimationStyles;
 export declare var balanceAnimationKeyframes: typeof t.balanceAnimationKeyframes;
 export declare var flattenStyles: typeof t.flattenStyles;
 export declare var clearStyles: typeof t.clearStyles;
