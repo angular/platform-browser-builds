@@ -201,11 +201,11 @@ var BrowserDomAdapter = (function (_super) {
         t.innerHTML = html;
         return t;
     };
-    BrowserDomAdapter.prototype.createElement = function (tagName /** TODO #9100 */, doc) {
+    BrowserDomAdapter.prototype.createElement = function (tagName /* TODO #9100 */, doc) {
         if (doc === void 0) { doc = document; }
         return doc.createElement(tagName);
     };
-    BrowserDomAdapter.prototype.createElementNS = function (ns /** TODO #9100 */, tagName /** TODO #9100 */, doc) {
+    BrowserDomAdapter.prototype.createElementNS = function (ns /* TODO #9100 */, tagName /* TODO #9100 */, doc) {
         if (doc === void 0) { doc = document; }
         return doc.createElementNS(ns, tagName);
     };

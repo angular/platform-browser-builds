@@ -187,10 +187,10 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         t.innerHTML = html;
         return t;
     }
-    createElement(tagName /** TODO #9100 */, doc = document) {
+    createElement(tagName /* TODO #9100 */, doc = document) {
         return doc.createElement(tagName);
     }
-    createElementNS(ns /** TODO #9100 */, tagName /** TODO #9100 */, doc = document) {
+    createElementNS(ns /* TODO #9100 */, tagName /* TODO #9100 */, doc = document) {
         return doc.createElementNS(ns, tagName);
     }
     createTextNode(text, doc = document) { return doc.createTextNode(text); }
