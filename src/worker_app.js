@@ -27,8 +27,6 @@ var WORKER_APP_PLATFORM_MARKER = new core_1.OpaqueToken('WorkerAppPlatformMarker
 exports.WORKER_APP_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
 exports.WORKER_APP_APPLICATION_PROVIDERS = [
     core_1.APPLICATION_COMMON_PROVIDERS, common_1.FORM_PROVIDERS, browser_1.BROWSER_SANITIZATION_PROVIDERS, serializer_1.Serializer,
-    { provide: core_1.PLATFORM_PIPES, useValue: common_1.COMMON_PIPES, multi: true },
-    { provide: core_1.PLATFORM_DIRECTIVES, useValue: common_1.COMMON_DIRECTIVES, multi: true },
     { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
     { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
     renderer_1.WebWorkerRootRenderer, { provide: core_1.RootRenderer, useExisting: renderer_1.WebWorkerRootRenderer },
@@ -44,9 +42,17 @@ function workerAppPlatform() {
     return core_1.assertPlatform(WORKER_APP_PLATFORM_MARKER);
 }
 exports.workerAppPlatform = workerAppPlatform;
+var WORKER_APP_COMPILER_PROVIDERS = [
+    compiler_1.COMPILER_PROVIDERS,
+    {
+        provide: compiler_1.CompilerConfig,
+        useValue: new compiler_1.CompilerConfig({ platformDirectives: common_1.COMMON_DIRECTIVES, platformPipes: common_1.COMMON_PIPES })
+    },
+    { provide: compiler_1.XHR, useClass: xhr_impl_1.XHRImpl },
+];
 function bootstrapApp(appComponentType, customProviders) {
     var appInjector = core_1.ReflectiveInjector.resolveAndCreate([
-        exports.WORKER_APP_APPLICATION_PROVIDERS, compiler_1.COMPILER_PROVIDERS, { provide: compiler_1.XHR, useClass: xhr_impl_1.XHRImpl },
+        exports.WORKER_APP_APPLICATION_PROVIDERS, WORKER_APP_COMPILER_PROVIDERS,
         lang_1.isPresent(customProviders) ? customProviders : []
     ], workerAppPlatform().injector);
     return core_1.coreLoadAndBootstrap(appComponentType, appInjector);

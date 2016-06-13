@@ -1,6 +1,6 @@
 import { COMMON_DIRECTIVES, COMMON_PIPES, FORM_PROVIDERS } from '@angular/common';
-import { COMPILER_PROVIDERS, XHR } from '@angular/compiler';
-import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, ExceptionHandler, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_DIRECTIVES, PLATFORM_PIPES, ReflectiveInjector, RootRenderer, assertPlatform, coreLoadAndBootstrap, createPlatform, getPlatform } from '@angular/core';
+import { COMPILER_PROVIDERS, CompilerConfig, XHR } from '@angular/compiler';
+import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, ExceptionHandler, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, ReflectiveInjector, RootRenderer, assertPlatform, coreLoadAndBootstrap, createPlatform, getPlatform } from '@angular/core';
 import { BROWSER_SANITIZATION_PROVIDERS } from './browser';
 import { isBlank, isPresent, print } from './facade/lang';
 import { ON_WEB_WORKER } from './web_workers/shared/api';
@@ -25,8 +25,6 @@ const WORKER_APP_PLATFORM_MARKER = new OpaqueToken('WorkerAppPlatformMarker');
 export const WORKER_APP_PLATFORM_PROVIDERS = [PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
 export const WORKER_APP_APPLICATION_PROVIDERS = [
     APPLICATION_COMMON_PROVIDERS, FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS, Serializer,
-    { provide: PLATFORM_PIPES, useValue: COMMON_PIPES, multi: true },
-    { provide: PLATFORM_DIRECTIVES, useValue: COMMON_DIRECTIVES, multi: true },
     { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
     { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
     WebWorkerRootRenderer, { provide: RootRenderer, useExisting: WebWorkerRootRenderer },
@@ -41,9 +39,17 @@ export function workerAppPlatform() {
     }
     return assertPlatform(WORKER_APP_PLATFORM_MARKER);
 }
+const WORKER_APP_COMPILER_PROVIDERS = [
+    COMPILER_PROVIDERS,
+    {
+        provide: CompilerConfig,
+        useValue: new CompilerConfig({ platformDirectives: COMMON_DIRECTIVES, platformPipes: COMMON_PIPES })
+    },
+    { provide: XHR, useClass: XHRImpl },
+];
 export function bootstrapApp(appComponentType, customProviders) {
     var appInjector = ReflectiveInjector.resolveAndCreate([
-        WORKER_APP_APPLICATION_PROVIDERS, COMPILER_PROVIDERS, { provide: XHR, useClass: XHRImpl },
+        WORKER_APP_APPLICATION_PROVIDERS, WORKER_APP_COMPILER_PROVIDERS,
         isPresent(customProviders) ? customProviders : []
     ], workerAppPlatform().injector);
     return coreLoadAndBootstrap(appComponentType, appInjector);

@@ -43,8 +43,6 @@ exports.BROWSER_SANITIZATION_PROVIDERS = [
  */
 exports.BROWSER_APP_PROVIDERS = [
     core_1.APPLICATION_COMMON_PROVIDERS, common_1.FORM_PROVIDERS, exports.BROWSER_SANITIZATION_PROVIDERS,
-    { provide: core_1.PLATFORM_PIPES, useValue: common_1.COMMON_PIPES, multi: true },
-    { provide: core_1.PLATFORM_DIRECTIVES, useValue: common_1.COMMON_DIRECTIVES, multi: true },
     { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
     { provide: dom_tokens_1.DOCUMENT, useFactory: _document, deps: [] },
     { provide: event_manager_1.EVENT_MANAGER_PLUGINS, useClass: dom_events_1.DomEventsPlugin, multi: true },
@@ -59,6 +57,10 @@ exports.BROWSER_APP_PROVIDERS = [
 ];
 exports.BROWSER_APP_COMPILER_PROVIDERS = [
     compiler_1.COMPILER_PROVIDERS,
+    {
+        provide: compiler_1.CompilerConfig,
+        useValue: new compiler_1.CompilerConfig({ platformDirectives: common_1.COMMON_DIRECTIVES, platformPipes: common_1.COMMON_PIPES })
+    },
     { provide: compiler_1.XHR, useClass: xhr_impl_1.XHRImpl },
 ];
 function browserPlatform() {

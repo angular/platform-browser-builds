@@ -2887,8 +2887,6 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     var BROWSER_APP_PROVIDERS = [
         _angular_core.APPLICATION_COMMON_PROVIDERS, _angular_common.FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
-        { provide: _angular_core.PLATFORM_PIPES, useValue: _angular_common.COMMON_PIPES, multi: true },
-        { provide: _angular_core.PLATFORM_DIRECTIVES, useValue: _angular_common.COMMON_DIRECTIVES, multi: true },
         { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
         { provide: DOCUMENT, useFactory: _document, deps: [] },
         { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
@@ -2903,6 +2901,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     ];
     var BROWSER_APP_COMPILER_PROVIDERS = [
         _angular_compiler.COMPILER_PROVIDERS,
+        {
+            provide: _angular_compiler.CompilerConfig,
+            useValue: new _angular_compiler.CompilerConfig({ platformDirectives: _angular_common.COMMON_DIRECTIVES, platformPipes: _angular_common.COMMON_PIPES })
+        },
         { provide: _angular_compiler.XHR, useClass: XHRImpl },
     ];
     function browserPlatform() {
@@ -4711,8 +4713,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     var WORKER_APP_PLATFORM_PROVIDERS = [_angular_core.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
     var WORKER_APP_APPLICATION_PROVIDERS = [
         _angular_core.APPLICATION_COMMON_PROVIDERS, _angular_common.FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS, Serializer,
-        { provide: _angular_core.PLATFORM_PIPES, useValue: _angular_common.COMMON_PIPES, multi: true },
-        { provide: _angular_core.PLATFORM_DIRECTIVES, useValue: _angular_common.COMMON_DIRECTIVES, multi: true },
         { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
         { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
         WebWorkerRootRenderer, { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
@@ -4727,9 +4727,17 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return _angular_core.assertPlatform(WORKER_APP_PLATFORM_MARKER);
     }
+    var WORKER_APP_COMPILER_PROVIDERS = [
+        _angular_compiler.COMPILER_PROVIDERS,
+        {
+            provide: _angular_compiler.CompilerConfig,
+            useValue: new _angular_compiler.CompilerConfig({ platformDirectives: _angular_common.COMMON_DIRECTIVES, platformPipes: _angular_common.COMMON_PIPES })
+        },
+        { provide: _angular_compiler.XHR, useClass: XHRImpl },
+    ];
     function bootstrapApp(appComponentType, customProviders) {
         var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate([
-            WORKER_APP_APPLICATION_PROVIDERS, _angular_compiler.COMPILER_PROVIDERS, { provide: _angular_compiler.XHR, useClass: XHRImpl },
+            WORKER_APP_APPLICATION_PROVIDERS, WORKER_APP_COMPILER_PROVIDERS,
             isPresent(customProviders) ? customProviders : []
         ], workerAppPlatform().injector);
         return _angular_core.coreLoadAndBootstrap(appComponentType, appInjector);

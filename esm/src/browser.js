@@ -1,6 +1,6 @@
 import { COMMON_DIRECTIVES, COMMON_PIPES, FORM_PROVIDERS, PlatformLocation } from '@angular/common';
-import { COMPILER_PROVIDERS, XHR } from '@angular/compiler';
-import { APPLICATION_COMMON_PROVIDERS, ExceptionHandler, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_DIRECTIVES, PLATFORM_INITIALIZER, PLATFORM_PIPES, ReflectiveInjector, RootRenderer, Testability, assertPlatform, coreLoadAndBootstrap, createPlatform, getPlatform } from '@angular/core';
+import { COMPILER_PROVIDERS, CompilerConfig, XHR } from '@angular/compiler';
+import { APPLICATION_COMMON_PROVIDERS, ExceptionHandler, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, ReflectiveInjector, RootRenderer, Testability, assertPlatform, coreLoadAndBootstrap, createPlatform, getPlatform } from '@angular/core';
 import { AnimationDriver, NoOpAnimationDriver, ReflectionCapabilities, SanitizationService, reflector, wtfInit } from '../core_private';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
 import { BrowserDomAdapter } from './browser/browser_adapter';
@@ -42,8 +42,6 @@ export const BROWSER_SANITIZATION_PROVIDERS = [
  */
 export const BROWSER_APP_PROVIDERS = [
     APPLICATION_COMMON_PROVIDERS, FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
-    { provide: PLATFORM_PIPES, useValue: COMMON_PIPES, multi: true },
-    { provide: PLATFORM_DIRECTIVES, useValue: COMMON_DIRECTIVES, multi: true },
     { provide: ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
     { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
@@ -58,6 +56,10 @@ export const BROWSER_APP_PROVIDERS = [
 ];
 export const BROWSER_APP_COMPILER_PROVIDERS = [
     COMPILER_PROVIDERS,
+    {
+        provide: CompilerConfig,
+        useValue: new CompilerConfig({ platformDirectives: COMMON_DIRECTIVES, platformPipes: COMMON_PIPES })
+    },
     { provide: XHR, useClass: XHRImpl },
 ];
 export function browserPlatform() {
