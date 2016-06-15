@@ -12,6 +12,9 @@ export declare class ServiceMessageBrokerFactory_ extends ServiceMessageBrokerFa
     constructor(_messageBus: MessageBus, _serializer: Serializer);
     createMessageBroker(channel: string, runInZone?: boolean): ServiceMessageBroker;
 }
+/**
+ * @experimental
+ */
 export declare abstract class ServiceMessageBroker {
     abstract registerMethod(methodName: string, signature: Type[], method: Function, returnType?: Type): void;
 }
@@ -31,6 +34,9 @@ export declare class ServiceMessageBroker_ extends ServiceMessageBroker {
     private _handleMessage(map);
     private _wrapWebWorkerPromise(id, promise, type);
 }
+/**
+ * @experimental
+ */
 export declare class ReceivedMessage {
     method: string;
     args: any[];

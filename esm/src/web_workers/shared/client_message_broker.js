@@ -4,6 +4,9 @@ import { StringMapWrapper } from '../../facade/collection';
 import { DateWrapper, StringWrapper, isPresent, print, stringify } from '../../facade/lang';
 import { MessageBus } from './message_bus';
 import { Serializer } from './serializer';
+/**
+ * @experimental
+ */
 export class ClientMessageBrokerFactory {
 }
 export class ClientMessageBrokerFactory_ extends ClientMessageBrokerFactory {
@@ -29,6 +32,9 @@ ClientMessageBrokerFactory_.ctorParameters = [
     { type: MessageBus, },
     { type: Serializer, },
 ];
+/**
+ * @experimental
+ */
 export class ClientMessageBroker {
 }
 export class ClientMessageBroker_ extends ClientMessageBroker {
@@ -129,12 +135,18 @@ class MessageData {
         }
     }
 }
+/**
+ * @experimental
+ */
 export class FnArg {
     constructor(value /** TODO #9100 */, type) {
         this.value = value;
         this.type = type;
     }
 }
+/**
+ * @experimental
+ */
 export class UiArguments {
     constructor(method, args) {
         this.method = method;

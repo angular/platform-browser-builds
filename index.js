@@ -45,7 +45,7 @@ __export(require('./src/web_workers/shared/message_bus'));
 var location_providers_1 = require('./src/web_workers/worker/location_providers');
 exports.WORKER_APP_LOCATION_PROVIDERS = location_providers_1.WORKER_APP_LOCATION_PROVIDERS;
 var location_providers_2 = require('./src/web_workers/ui/location_providers');
-exports.WORKER_RENDER_LOCATION_PROVIDERS = location_providers_2.WORKER_RENDER_LOCATION_PROVIDERS;
+exports.WORKER_UI_LOCATION_PROVIDERS = location_providers_2.WORKER_UI_LOCATION_PROVIDERS;
 __export(require('./src/worker_render'));
 __export(require('./src/worker_app'));
 __export(require('./private_export'));

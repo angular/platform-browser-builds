@@ -1,6 +1,9 @@
 import { Type } from '@angular/core';
 import { MessageBus } from './message_bus';
 import { Serializer } from './serializer';
+/**
+ * @experimental
+ */
 export declare abstract class ClientMessageBrokerFactory {
     /**
      * Initializes the given channel and attaches a new {@link ClientMessageBroker} to it.
@@ -15,6 +18,9 @@ export declare class ClientMessageBrokerFactory_ extends ClientMessageBrokerFact
      */
     createMessageBroker(channel: string, runInZone?: boolean): ClientMessageBroker;
 }
+/**
+ * @experimental
+ */
 export declare abstract class ClientMessageBroker {
     abstract runOnService(args: UiArguments, returnType: Type): Promise<any>;
 }
@@ -27,11 +33,17 @@ export declare class ClientMessageBroker_ extends ClientMessageBroker {
     runOnService(args: UiArguments, returnType: Type): Promise<any>;
     private _handleMessage(message);
 }
+/**
+ * @experimental
+ */
 export declare class FnArg {
     value: any;
     type: Type;
     constructor(value: any, type: Type);
 }
+/**
+ * @experimental
+ */
 export declare class UiArguments {
     method: string;
     args: FnArg[];

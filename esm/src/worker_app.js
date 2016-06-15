@@ -20,7 +20,13 @@ class PrintLogger {
     logGroupEnd() { }
 }
 const WORKER_APP_PLATFORM_MARKER = new OpaqueToken('WorkerAppPlatformMarker');
+/**
+ * @experimental
+ */
 export const WORKER_APP_PLATFORM_PROVIDERS = [PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
+/**
+ * @experimental
+ */
 export const WORKER_APP_APPLICATION_PROVIDERS = [
     APPLICATION_COMMON_PROVIDERS, FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS, Serializer,
     { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
@@ -31,6 +37,9 @@ export const WORKER_APP_APPLICATION_PROVIDERS = [
     { provide: MessageBus, useFactory: createMessageBus, deps: [NgZone] },
     { provide: APP_INITIALIZER, useValue: setupWebWorker, multi: true }
 ];
+/**
+ * @experimental
+ */
 export function workerAppPlatform() {
     if (isBlank(getPlatform())) {
         createPlatform(ReflectiveInjector.resolveAndCreate(WORKER_APP_PLATFORM_PROVIDERS));

@@ -4,8 +4,9 @@ import { MessageBasedPlatformLocation } from './platform_location';
 /**
  * A list of {@link Provider}s. To use the router in a Worker enabled application you must
  * include these providers when setting up the render thread.
+ * @experimental
  */
-export const WORKER_RENDER_LOCATION_PROVIDERS = [
+export const WORKER_UI_LOCATION_PROVIDERS = [
     MessageBasedPlatformLocation, BrowserPlatformLocation,
     { provide: APP_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [Injector] }
 ];

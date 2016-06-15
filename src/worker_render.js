@@ -38,26 +38,32 @@ var WebWorkerInstance = (function () {
     return WebWorkerInstance;
 }());
 exports.WebWorkerInstance = WebWorkerInstance;
+/**
+ * @experimental
+ */
 exports.WORKER_SCRIPT = new core_1.OpaqueToken('WebWorkerScript');
 /**
  * A multiple providers used to automatically call the `start()` method after the service is
  * created.
  *
  * TODO(vicb): create an interface for startable services to implement
+ * @experimental
  */
-exports.WORKER_RENDER_STARTABLE_MESSAGING_SERVICE = new core_1.OpaqueToken('WorkerRenderStartableMsgService');
-exports.WORKER_RENDER_PLATFORM_PROVIDERS = [
+exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE = new core_1.OpaqueToken('WorkerRenderStartableMsgService');
+/**
+ * * @experimental
+ */
+exports.WORKER_UI_PLATFORM_PROVIDERS = [
     core_1.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true },
     { provide: core_1.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
 ];
-exports.WORKER_RENDER_APPLICATION_PROVIDERS = [
+/**
+ * * @experimental
+ */
+exports.WORKER_UI_APPLICATION_PROVIDERS = [
     core_1.APPLICATION_COMMON_PROVIDERS,
     renderer_1.MessageBasedRenderer,
-    {
-        provide: exports.WORKER_RENDER_STARTABLE_MESSAGING_SERVICE,
-        useExisting: renderer_1.MessageBasedRenderer,
-        multi: true
-    },
+    { provide: exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: renderer_1.MessageBasedRenderer, multi: true },
     browser_1.BROWSER_SANITIZATION_PROVIDERS,
     { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
     { provide: dom_tokens_1.DOCUMENT, useFactory: _document, deps: [] },
@@ -88,10 +94,9 @@ function initializeGenericWorkerRenderer(injector) {
     var zone = injector.get(core_1.NgZone);
     bus.attachToZone(zone);
     // initialize message services after the bus has been created
-    var services = injector.get(exports.WORKER_RENDER_STARTABLE_MESSAGING_SERVICE);
+    var services = injector.get(exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE);
     zone.runGuarded(function () { services.forEach(function (svc /** TODO #9100 */) { svc.start(); }); });
 }
-exports.initializeGenericWorkerRenderer = initializeGenericWorkerRenderer;
 function messageBusFactory(instance) {
     return instance.bus;
 }
@@ -100,13 +105,16 @@ function initWebWorkerRenderPlatform() {
     core_private_1.wtfInit();
     testability_1.BrowserGetTestability.init();
 }
-function workerRenderPlatform() {
+/**
+ * * @experimental
+ */
+function workerUiPlatform() {
     if (lang_1.isBlank(core_1.getPlatform())) {
-        core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(exports.WORKER_RENDER_PLATFORM_PROVIDERS));
+        core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(exports.WORKER_UI_PLATFORM_PROVIDERS));
     }
     return core_1.assertPlatform(WORKER_RENDER_PLATFORM_MARKER);
 }
-exports.workerRenderPlatform = workerRenderPlatform;
+exports.workerUiPlatform = workerUiPlatform;
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(dom_adapter_1.getDOM());
 }

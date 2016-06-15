@@ -33,26 +33,32 @@ export class WebWorkerInstance {
 WebWorkerInstance.decorators = [
     { type: Injectable },
 ];
+/**
+ * @experimental
+ */
 export const WORKER_SCRIPT = new OpaqueToken('WebWorkerScript');
 /**
  * A multiple providers used to automatically call the `start()` method after the service is
  * created.
  *
  * TODO(vicb): create an interface for startable services to implement
+ * @experimental
  */
-export const WORKER_RENDER_STARTABLE_MESSAGING_SERVICE = new OpaqueToken('WorkerRenderStartableMsgService');
-export const WORKER_RENDER_PLATFORM_PROVIDERS = [
+export const WORKER_UI_STARTABLE_MESSAGING_SERVICE = new OpaqueToken('WorkerRenderStartableMsgService');
+/**
+ * * @experimental
+ */
+export const WORKER_UI_PLATFORM_PROVIDERS = [
     PLATFORM_COMMON_PROVIDERS, { provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true },
     { provide: PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
 ];
-export const WORKER_RENDER_APPLICATION_PROVIDERS = [
+/**
+ * * @experimental
+ */
+export const WORKER_UI_APPLICATION_PROVIDERS = [
     APPLICATION_COMMON_PROVIDERS,
     MessageBasedRenderer,
-    {
-        provide: WORKER_RENDER_STARTABLE_MESSAGING_SERVICE,
-        useExisting: MessageBasedRenderer,
-        multi: true
-    },
+    { provide: WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: MessageBasedRenderer, multi: true },
     BROWSER_SANITIZATION_PROVIDERS,
     { provide: ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
@@ -78,12 +84,12 @@ export const WORKER_RENDER_APPLICATION_PROVIDERS = [
     { provide: APP_INITIALIZER, useFactory: initWebWorkerAppFn, multi: true, deps: [Injector] },
     { provide: MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
 ];
-export function initializeGenericWorkerRenderer(injector) {
+function initializeGenericWorkerRenderer(injector) {
     var bus = injector.get(MessageBus);
     let zone = injector.get(NgZone);
     bus.attachToZone(zone);
     // initialize message services after the bus has been created
-    let services = injector.get(WORKER_RENDER_STARTABLE_MESSAGING_SERVICE);
+    let services = injector.get(WORKER_UI_STARTABLE_MESSAGING_SERVICE);
     zone.runGuarded(() => { services.forEach((svc /** TODO #9100 */) => { svc.start(); }); });
 }
 function messageBusFactory(instance) {
@@ -94,9 +100,12 @@ function initWebWorkerRenderPlatform() {
     wtfInit();
     BrowserGetTestability.init();
 }
-export function workerRenderPlatform() {
+/**
+ * * @experimental
+ */
+export function workerUiPlatform() {
     if (isBlank(getPlatform())) {
-        createPlatform(ReflectiveInjector.resolveAndCreate(WORKER_RENDER_PLATFORM_PROVIDERS));
+        createPlatform(ReflectiveInjector.resolveAndCreate(WORKER_UI_PLATFORM_PROVIDERS));
     }
     return assertPlatform(WORKER_RENDER_PLATFORM_MARKER);
 }

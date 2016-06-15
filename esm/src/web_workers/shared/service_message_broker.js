@@ -26,6 +26,9 @@ ServiceMessageBrokerFactory_.ctorParameters = [
     { type: MessageBus, },
     { type: Serializer, },
 ];
+/**
+ * @experimental
+ */
 export class ServiceMessageBroker {
 }
 /**
@@ -71,6 +74,9 @@ export class ServiceMessageBroker_ extends ServiceMessageBroker {
         });
     }
 }
+/**
+ * @experimental
+ */
 export class ReceivedMessage {
     constructor(data) {
         this.method = data['method'];

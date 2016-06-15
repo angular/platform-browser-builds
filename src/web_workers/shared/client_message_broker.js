@@ -10,6 +10,9 @@ var collection_1 = require('../../facade/collection');
 var lang_1 = require('../../facade/lang');
 var message_bus_1 = require('./message_bus');
 var serializer_1 = require('./serializer');
+/**
+ * @experimental
+ */
 var ClientMessageBrokerFactory = (function () {
     function ClientMessageBrokerFactory() {
     }
@@ -43,6 +46,9 @@ var ClientMessageBrokerFactory_ = (function (_super) {
     return ClientMessageBrokerFactory_;
 }(ClientMessageBrokerFactory));
 exports.ClientMessageBrokerFactory_ = ClientMessageBrokerFactory_;
+/**
+ * @experimental
+ */
 var ClientMessageBroker = (function () {
     function ClientMessageBroker() {
     }
@@ -153,6 +159,9 @@ var MessageData = (function () {
     };
     return MessageData;
 }());
+/**
+ * @experimental
+ */
 var FnArg = (function () {
     function FnArg(value /** TODO #9100 */, type) {
         this.value = value;
@@ -161,6 +170,9 @@ var FnArg = (function () {
     return FnArg;
 }());
 exports.FnArg = FnArg;
+/**
+ * @experimental
+ */
 var UiArguments = (function () {
     function UiArguments(method, args) {
         this.method = method;

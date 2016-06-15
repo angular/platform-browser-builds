@@ -40,6 +40,9 @@ var ServiceMessageBrokerFactory_ = (function (_super) {
     return ServiceMessageBrokerFactory_;
 }(ServiceMessageBrokerFactory));
 exports.ServiceMessageBrokerFactory_ = ServiceMessageBrokerFactory_;
+/**
+ * @experimental
+ */
 var ServiceMessageBroker = (function () {
     function ServiceMessageBroker() {
     }
@@ -95,6 +98,9 @@ var ServiceMessageBroker_ = (function (_super) {
     return ServiceMessageBroker_;
 }(ServiceMessageBroker));
 exports.ServiceMessageBroker_ = ServiceMessageBroker_;
+/**
+ * @experimental
+ */
 var ReceivedMessage = (function () {
     function ReceivedMessage(data) {
         this.method = data['method'];

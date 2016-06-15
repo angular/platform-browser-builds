@@ -4,6 +4,7 @@
  * Communication is based on a channel abstraction. Messages published in a
  * given channel to one MessageBusSink are received on the same channel
  * by the corresponding MessageBusSource.
+ * @experimental
  */
 var MessageBus = (function () {
     function MessageBus() {

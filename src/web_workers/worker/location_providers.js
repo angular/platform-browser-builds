@@ -5,6 +5,7 @@ var platform_location_1 = require('./platform_location');
 /**
  * Those providers should be added when the router is used in a worker context in addition to the
  * {@link ROUTER_PROVIDERS} and after them.
+ * @experimental
  */
 exports.WORKER_APP_LOCATION_PROVIDERS = [
     { provide: common_1.PlatformLocation, useClass: platform_location_1.WebWorkerPlatformLocation }, {

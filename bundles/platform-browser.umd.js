@@ -409,6 +409,8 @@ var __extends = (this && this.__extends) || function (d, b) {
      * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
      * (representing the `<title>` tag). Instead, this service can be used to set and get the current
      * title value.
+     *
+     * @experimental
      */
     var Title = (function () {
         function Title() {
@@ -2989,6 +2991,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * Communication is based on a channel abstraction. Messages published in a
      * given channel to one MessageBusSink are received on the same channel
      * by the corresponding MessageBusSource.
+     * @experimental
      */
     var MessageBus = (function () {
         function MessageBus() {
@@ -3052,6 +3055,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     // PRIMITIVE is any type that does not need to be serialized (string, number, boolean)
     // We set it to String so that it is considered a Type.
+    /**
+     * @experimental
+     */
     var PRIMITIVE = String;
     var Serializer = (function () {
         function Serializer(_renderStore) {
@@ -3156,6 +3162,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return RenderStoreObject;
     }());
+    /**
+     * @experimental
+     */
     var ClientMessageBrokerFactory = (function () {
         function ClientMessageBrokerFactory() {
         }
@@ -3187,6 +3196,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         { type: MessageBus, },
         { type: Serializer, },
     ];
+    /**
+     * @experimental
+     */
     var ClientMessageBroker = (function () {
         function ClientMessageBroker() {
         }
@@ -3295,6 +3307,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return MessageData;
     }());
+    /**
+     * @experimental
+     */
     var FnArg = (function () {
         function FnArg(value /** TODO #9100 */, type) {
             this.value = value;
@@ -3302,6 +3317,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return FnArg;
     }());
+    /**
+     * @experimental
+     */
     var UiArguments = (function () {
         function UiArguments(method, args) {
             this.method = method;
@@ -3337,6 +3355,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         { type: MessageBus, },
         { type: Serializer, },
     ];
+    /**
+     * @experimental
+     */
     var ServiceMessageBroker = (function () {
         function ServiceMessageBroker() {
         }
@@ -3390,6 +3411,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return ServiceMessageBroker_;
     }(ServiceMessageBroker));
+    /**
+     * @experimental
+     */
     var ReceivedMessage = (function () {
         function ReceivedMessage(data) {
             this.method = data['method'];
@@ -3528,6 +3552,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * Those providers should be added when the router is used in a worker context in addition to the
      * {@link ROUTER_PROVIDERS} and after them.
+     * @experimental
      */
     var WORKER_APP_LOCATION_PROVIDERS = [
         { provide: _angular_common.PlatformLocation, useClass: WebWorkerPlatformLocation }, {
@@ -3583,8 +3608,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * A list of {@link Provider}s. To use the router in a Worker enabled application you must
      * include these providers when setting up the render thread.
+     * @experimental
      */
-    var WORKER_RENDER_LOCATION_PROVIDERS = [
+    var WORKER_UI_LOCATION_PROVIDERS = [
         MessageBasedPlatformLocation, BrowserPlatformLocation,
         { provide: _angular_core.APP_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [_angular_core.Injector] }
     ];
@@ -4014,26 +4040,32 @@ var __extends = (this && this.__extends) || function (d, b) {
     WebWorkerInstance.decorators = [
         { type: _angular_core.Injectable },
     ];
+    /**
+     * @experimental
+     */
     var WORKER_SCRIPT = new _angular_core.OpaqueToken('WebWorkerScript');
     /**
      * A multiple providers used to automatically call the `start()` method after the service is
      * created.
      *
      * TODO(vicb): create an interface for startable services to implement
+     * @experimental
      */
-    var WORKER_RENDER_STARTABLE_MESSAGING_SERVICE = new _angular_core.OpaqueToken('WorkerRenderStartableMsgService');
-    var WORKER_RENDER_PLATFORM_PROVIDERS = [
+    var WORKER_UI_STARTABLE_MESSAGING_SERVICE = new _angular_core.OpaqueToken('WorkerRenderStartableMsgService');
+    /**
+     * * @experimental
+     */
+    var WORKER_UI_PLATFORM_PROVIDERS = [
         _angular_core.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true },
         { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
     ];
-    var WORKER_RENDER_APPLICATION_PROVIDERS = [
+    /**
+     * * @experimental
+     */
+    var WORKER_UI_APPLICATION_PROVIDERS = [
         _angular_core.APPLICATION_COMMON_PROVIDERS,
         MessageBasedRenderer,
-        {
-            provide: WORKER_RENDER_STARTABLE_MESSAGING_SERVICE,
-            useExisting: MessageBasedRenderer,
-            multi: true
-        },
+        { provide: WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: MessageBasedRenderer, multi: true },
         BROWSER_SANITIZATION_PROVIDERS,
         { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler$1, deps: [] },
         { provide: DOCUMENT, useFactory: _document$1, deps: [] },
@@ -4064,7 +4096,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         var zone = injector.get(_angular_core.NgZone);
         bus.attachToZone(zone);
         // initialize message services after the bus has been created
-        var services = injector.get(WORKER_RENDER_STARTABLE_MESSAGING_SERVICE);
+        var services = injector.get(WORKER_UI_STARTABLE_MESSAGING_SERVICE);
         zone.runGuarded(function () { services.forEach(function (svc /** TODO #9100 */) { svc.start(); }); });
     }
     function messageBusFactory(instance) {
@@ -4075,9 +4107,12 @@ var __extends = (this && this.__extends) || function (d, b) {
         wtfInit();
         BrowserGetTestability.init();
     }
-    function workerRenderPlatform() {
+    /**
+     * * @experimental
+     */
+    function workerUiPlatform() {
         if (isBlank(_angular_core.getPlatform())) {
-            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(WORKER_RENDER_PLATFORM_PROVIDERS));
+            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(WORKER_UI_PLATFORM_PROVIDERS));
         }
         return _angular_core.assertPlatform(WORKER_RENDER_PLATFORM_MARKER);
     }
@@ -4550,7 +4585,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         return PrintLogger;
     }());
     var WORKER_APP_PLATFORM_MARKER = new _angular_core.OpaqueToken('WorkerAppPlatformMarker');
+    /**
+     * @experimental
+     */
     var WORKER_APP_PLATFORM_PROVIDERS = [_angular_core.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
+    /**
+     * @experimental
+     */
     var WORKER_APP_APPLICATION_PROVIDERS = [
         _angular_core.APPLICATION_COMMON_PROVIDERS, _angular_common.FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS, Serializer,
         { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
@@ -4561,6 +4602,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: MessageBus, useFactory: createMessageBus, deps: [_angular_core.NgZone] },
         { provide: _angular_core.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
     ];
+    /**
+     * @experimental
+     */
     function workerAppPlatform() {
         if (isBlank(_angular_core.getPlatform())) {
             _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(WORKER_APP_PLATFORM_PROVIDERS));
@@ -4622,7 +4666,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.ServiceMessageBrokerFactory = ServiceMessageBrokerFactory;
     exports.PRIMITIVE = PRIMITIVE;
     exports.WORKER_APP_LOCATION_PROVIDERS = WORKER_APP_LOCATION_PROVIDERS;
-    exports.WORKER_RENDER_LOCATION_PROVIDERS = WORKER_RENDER_LOCATION_PROVIDERS;
+    exports.WORKER_UI_LOCATION_PROVIDERS = WORKER_UI_LOCATION_PROVIDERS;
     exports.BROWSER_PLATFORM_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
     exports.BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
     exports.BROWSER_APP_PROVIDERS = BROWSER_APP_PROVIDERS;
@@ -4630,11 +4674,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.MessageBus = MessageBus;
     exports.WebWorkerInstance = WebWorkerInstance;
     exports.WORKER_SCRIPT = WORKER_SCRIPT;
-    exports.WORKER_RENDER_STARTABLE_MESSAGING_SERVICE = WORKER_RENDER_STARTABLE_MESSAGING_SERVICE;
-    exports.WORKER_RENDER_PLATFORM_PROVIDERS = WORKER_RENDER_PLATFORM_PROVIDERS;
-    exports.WORKER_RENDER_APPLICATION_PROVIDERS = WORKER_RENDER_APPLICATION_PROVIDERS;
-    exports.initializeGenericWorkerRenderer = initializeGenericWorkerRenderer;
-    exports.workerRenderPlatform = workerRenderPlatform;
+    exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE = WORKER_UI_STARTABLE_MESSAGING_SERVICE;
+    exports.WORKER_UI_PLATFORM_PROVIDERS = WORKER_UI_PLATFORM_PROVIDERS;
+    exports.WORKER_UI_APPLICATION_PROVIDERS = WORKER_UI_APPLICATION_PROVIDERS;
+    exports.workerUiPlatform = workerUiPlatform;
     exports.WORKER_APP_PLATFORM_PROVIDERS = WORKER_APP_PLATFORM_PROVIDERS;
     exports.WORKER_APP_APPLICATION_PROVIDERS = WORKER_APP_APPLICATION_PROVIDERS;
     exports.workerAppPlatform = workerAppPlatform;

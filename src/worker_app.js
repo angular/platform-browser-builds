@@ -22,7 +22,13 @@ var PrintLogger = (function () {
     return PrintLogger;
 }());
 var WORKER_APP_PLATFORM_MARKER = new core_1.OpaqueToken('WorkerAppPlatformMarker');
+/**
+ * @experimental
+ */
 exports.WORKER_APP_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
+/**
+ * @experimental
+ */
 exports.WORKER_APP_APPLICATION_PROVIDERS = [
     core_1.APPLICATION_COMMON_PROVIDERS, common_1.FORM_PROVIDERS, browser_1.BROWSER_SANITIZATION_PROVIDERS, serializer_1.Serializer,
     { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
@@ -33,6 +39,9 @@ exports.WORKER_APP_APPLICATION_PROVIDERS = [
     { provide: message_bus_1.MessageBus, useFactory: createMessageBus, deps: [core_1.NgZone] },
     { provide: core_1.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
 ];
+/**
+ * @experimental
+ */
 function workerAppPlatform() {
     if (lang_1.isBlank(core_1.getPlatform())) {
         core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(exports.WORKER_APP_PLATFORM_PROVIDERS));

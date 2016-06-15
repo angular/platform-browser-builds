@@ -1,5 +1,8 @@
 import { Type } from '../../facade/lang';
 import { RenderStore } from './render_store';
+/**
+ * @experimental
+ */
 export declare const PRIMITIVE: Type;
 export declare class Serializer {
     private _renderStore;
