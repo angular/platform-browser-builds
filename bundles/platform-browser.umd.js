@@ -9,10 +9,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/compiler'), require('rxjs/Subject'), require('rxjs/observable/PromiseObservable'), require('rxjs/operator/toPromise'), require('rxjs/Observable')) :
-        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/compiler', 'rxjs/Subject', 'rxjs/observable/PromiseObservable', 'rxjs/operator/toPromise', 'rxjs/Observable'], factory) :
-            (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.common, global.ng.core, global.ng.compiler, global.Rx, global.Rx, global.Rx.Observable.prototype, global.Rx));
-}(this, function (exports, _angular_common, _angular_core, _angular_compiler, rxjs_Subject, rxjs_observable_PromiseObservable, rxjs_operator_toPromise, rxjs_Observable) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs/Subject'), require('rxjs/observable/PromiseObservable'), require('rxjs/operator/toPromise'), require('rxjs/Observable')) :
+        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', 'rxjs/Subject', 'rxjs/observable/PromiseObservable', 'rxjs/operator/toPromise', 'rxjs/Observable'], factory) :
+            (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.common, global.ng.core, global.Rx, global.Rx, global.Rx.Observable.prototype, global.Rx));
+}(this, function (exports, _angular_common, _angular_core, rxjs_Subject, rxjs_observable_PromiseObservable, rxjs_operator_toPromise, rxjs_Observable) {
     'use strict';
     var globalScope;
     if (typeof window === 'undefined') {
@@ -562,12 +562,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         return By;
     }());
     var wtfInit = _angular_core.__core_private__.wtfInit;
-    var ReflectionCapabilities = _angular_core.__core_private__.ReflectionCapabilities;
     var VIEW_ENCAPSULATION_VALUES = _angular_core.__core_private__.VIEW_ENCAPSULATION_VALUES;
     var DebugDomRootRenderer = _angular_core.__core_private__.DebugDomRootRenderer;
     var SecurityContext = _angular_core.__core_private__.SecurityContext;
     var SanitizationService = _angular_core.__core_private__.SanitizationService;
-    var reflector = _angular_core.__core_private__.reflector;
     var NoOpAnimationDriver = _angular_core.__core_private__.NoOpAnimationDriver;
     var AnimationDriver = _angular_core.__core_private__.AnimationDriver;
     var Map$1 = global$1.Map;
@@ -2758,6 +2756,63 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return BrowserGetTestability;
     }());
+    var BROWSER_PLATFORM_MARKER = new _angular_core.OpaqueToken('BrowserPlatformMarker');
+    /**
+     * A set of providers to initialize the Angular platform in a web browser.
+     *
+     * Used automatically by `bootstrap`, or can be passed to {@link platform}.
+     */
+    var BROWSER_PLATFORM_PROVIDERS = [
+        { provide: BROWSER_PLATFORM_MARKER, useValue: true }, _angular_core.PLATFORM_COMMON_PROVIDERS,
+        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+        { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
+    ];
+    var BROWSER_SANITIZATION_PROVIDERS = [
+        { provide: SanitizationService, useExisting: DomSanitizationService },
+        { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
+    ];
+    /**
+     * A set of providers to initialize an Angular application in a web browser.
+     *
+     * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
+     */
+    var BROWSER_APP_PROVIDERS = [
+        _angular_core.APPLICATION_COMMON_PROVIDERS, _angular_common.FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
+        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+        { provide: DOCUMENT, useFactory: _document, deps: [] },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
+        { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
+        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
+        _angular_core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS
+    ];
+    function browserPlatform() {
+        if (isBlank(_angular_core.getPlatform())) {
+            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(BROWSER_PLATFORM_PROVIDERS));
+        }
+        return _angular_core.assertPlatform(BROWSER_PLATFORM_MARKER);
+    }
+    function initDomAdapter() {
+        BrowserDomAdapter.makeCurrent();
+        wtfInit();
+        BrowserGetTestability.init();
+    }
+    function _exceptionHandler() {
+        return new _angular_core.ExceptionHandler(getDOM());
+    }
+    function _document() {
+        return getDOM().defaultDoc();
+    }
+    function _resolveDefaultAnimationDriver() {
+        if (getDOM().supportsWebAnimation()) {
+            return new WebAnimationsDriver();
+        }
+        return new NoOpAnimationDriver();
+    }
     var PromiseCompleter = (function () {
         function PromiseCompleter() {
             var _this = this;
@@ -2803,210 +2858,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         PromiseWrapper.completer = function () { return new PromiseCompleter(); };
         return PromiseWrapper;
     }());
-    /**
-     * An implementation of XHR that uses a template cache to avoid doing an actual
-     * XHR.
-     *
-     * The template cache needs to be built and loaded into window.$templateCache
-     * via a separate mechanism.
-     */
-    var CachedXHR = (function (_super) {
-        __extends(CachedXHR, _super);
-        function CachedXHR() {
-            _super.call(this);
-            this._cache = global$1.$templateCache;
-            if (this._cache == null) {
-                throw new BaseException$1('CachedXHR: Template cache was not found in $templateCache.');
-            }
-        }
-        CachedXHR.prototype.get = function (url) {
-            if (this._cache.hasOwnProperty(url)) {
-                return PromiseWrapper.resolve(this._cache[url]);
-            }
-            else {
-                return PromiseWrapper.reject('CachedXHR: Did not find cached template for ' + url, null);
-            }
-        };
-        return CachedXHR;
-    }(_angular_compiler.XHR));
-    var XHRImpl = (function (_super) {
-        __extends(XHRImpl, _super);
-        function XHRImpl() {
-            _super.apply(this, arguments);
-        }
-        XHRImpl.prototype.get = function (url) {
-            var completer = PromiseWrapper.completer();
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.responseType = 'text';
-            xhr.onload = function () {
-                // responseText is the old-school way of retrieving response (supported by IE8 & 9)
-                // response/responseType properties were introduced in XHR Level2 spec (supported by IE10)
-                var response = isPresent(xhr.response) ? xhr.response : xhr.responseText;
-                // normalize IE9 bug (http://bugs.jquery.com/ticket/1450)
-                var status = xhr.status === 1223 ? 204 : xhr.status;
-                // fix status code when it is 0 (0 status is undocumented).
-                // Occurs when accessing file resources or on Android 4.1 stock browser
-                // while retrieving files from application cache.
-                if (status === 0) {
-                    status = response ? 200 : 0;
-                }
-                if (200 <= status && status <= 300) {
-                    completer.resolve(response);
-                }
-                else {
-                    completer.reject("Failed to load " + url, null);
-                }
-            };
-            xhr.onerror = function () { completer.reject("Failed to load " + url, null); };
-            xhr.send();
-            return completer.promise;
-        };
-        return XHRImpl;
-    }(_angular_compiler.XHR));
-    var CACHED_TEMPLATE_PROVIDER = [{ provide: _angular_compiler.XHR, useClass: CachedXHR }];
-    var BROWSER_PLATFORM_MARKER = new _angular_core.OpaqueToken('BrowserPlatformMarker');
-    /**
-     * A set of providers to initialize the Angular platform in a web browser.
-     *
-     * Used automatically by `bootstrap`, or can be passed to {@link platform}.
-     */
-    var BROWSER_PLATFORM_PROVIDERS = [
-        { provide: BROWSER_PLATFORM_MARKER, useValue: true }, _angular_core.PLATFORM_COMMON_PROVIDERS,
-        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-        { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
-    ];
-    var BROWSER_SANITIZATION_PROVIDERS = [
-        { provide: SanitizationService, useExisting: DomSanitizationService },
-        { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
-    ];
-    /**
-     * A set of providers to initialize an Angular application in a web browser.
-     *
-     * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
-     */
-    var BROWSER_APP_PROVIDERS = [
-        _angular_core.APPLICATION_COMMON_PROVIDERS, _angular_common.FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
-        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
-        { provide: DOCUMENT, useFactory: _document, deps: [] },
-        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-        { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
-        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
-        _angular_core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS
-    ];
-    var BROWSER_APP_COMPILER_PROVIDERS = [
-        _angular_compiler.COMPILER_PROVIDERS,
-        {
-            provide: _angular_compiler.CompilerConfig,
-            useValue: new _angular_compiler.CompilerConfig({ platformDirectives: _angular_common.COMMON_DIRECTIVES, platformPipes: _angular_common.COMMON_PIPES })
-        },
-        { provide: _angular_compiler.XHR, useClass: XHRImpl },
-    ];
-    function browserPlatform() {
-        if (isBlank(_angular_core.getPlatform())) {
-            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(BROWSER_PLATFORM_PROVIDERS));
-        }
-        return _angular_core.assertPlatform(BROWSER_PLATFORM_MARKER);
-    }
-    /**
-     * Bootstrapping for Angular applications.
-     *
-     * You instantiate an Angular application by explicitly specifying a component to use
-     * as the root component for your application via the `bootstrap()` method.
-     *
-     * ## Simple Example
-     *
-     * Assuming this `index.html`:
-     *
-     * ```html
-     * <html>
-     *   <!-- load Angular script tags here. -->
-     *   <body>
-     *     <my-app>loading...</my-app>
-     *   </body>
-     * </html>
-     * ```
-     *
-     * An application is bootstrapped inside an existing browser DOM, typically `index.html`.
-     * Unlike Angular 1, Angular 2 does not compile/process providers in `index.html`. This is
-     * mainly for security reasons, as well as architectural changes in Angular 2. This means
-     * that `index.html` can safely be processed using server-side technologies such as
-     * providers. Bindings can thus use double-curly `{{ syntax }}` without collision from
-     * Angular 2 component double-curly `{{ syntax }}`.
-     *
-     * We can use this script code:
-     *
-     * {@example core/ts/bootstrap/bootstrap.ts region='bootstrap'}
-     *
-     * When the app developer invokes `bootstrap()` with the root component `MyApp` as its
-     * argument, Angular performs the following tasks:
-     *
-     *  1. It uses the component's `selector` property to locate the DOM element which needs
-     *     to be upgraded into the angular component.
-     *  2. It creates a new child injector (from the platform injector). Optionally, you can
-     *     also override the injector configuration for an app by invoking `bootstrap` with the
-     *     `componentInjectableBindings` argument.
-     *  3. It creates a new `Zone` and connects it to the angular application's change detection
-     *     domain instance.
-     *  4. It creates an emulated or shadow DOM on the selected component's host element and loads the
-     *     template into it.
-     *  5. It instantiates the specified component.
-     *  6. Finally, Angular performs change detection to apply the initial data providers for the
-     *     application.
-     *
-     *
-     * ## Bootstrapping Multiple Applications
-     *
-     * When working within a browser window, there are many singleton resources: cookies, title,
-     * location, and others. Angular services that represent these resources must likewise be
-     * shared across all Angular applications that occupy the same browser window. For this
-     * reason, Angular creates exactly one global platform object which stores all shared
-     * services, and each angular application injector has the platform injector as its parent.
-     *
-     * Each application has its own private injector as well. When there are multiple
-     * applications on a page, Angular treats each application injector's services as private
-     * to that application.
-     *
-     * ## API
-     *
-     * - `appComponentType`: The root component which should act as the application. This is
-     *   a reference to a `Type` which is annotated with `@Component(...)`.
-     * - `customProviders`: An additional set of providers that can be added to the
-     *   app injector to override default injection behavior.
-     *
-     * Returns a `Promise` of {@link ComponentRef}.
-     */
-    function bootstrap(appComponentType, customProviders) {
-        reflector.reflectionCapabilities = new ReflectionCapabilities();
-        var providers = [
-            BROWSER_APP_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS,
-            isPresent(customProviders) ? customProviders : []
-        ];
-        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate(providers, browserPlatform().injector);
-        return _angular_core.coreLoadAndBootstrap(appComponentType, appInjector);
-    }
-    function initDomAdapter() {
-        BrowserDomAdapter.makeCurrent();
-        wtfInit();
-        BrowserGetTestability.init();
-    }
-    function _exceptionHandler() {
-        return new _angular_core.ExceptionHandler(getDOM());
-    }
-    function _document() {
-        return getDOM().defaultDoc();
-    }
-    function _resolveDefaultAnimationDriver() {
-        if (getDOM().supportsWebAnimation()) {
-            return new WebAnimationsDriver();
-        }
-        return new NoOpAnimationDriver();
-    }
     var ObservableWrapper = (function () {
         function ObservableWrapper() {
         }
@@ -4216,17 +4067,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         var services = injector.get(WORKER_RENDER_STARTABLE_MESSAGING_SERVICE);
         zone.runGuarded(function () { services.forEach(function (svc /** TODO #9100 */) { svc.start(); }); });
     }
-    function bootstrapRender(workerScriptUri, customProviders) {
-        var app = _angular_core.ReflectiveInjector.resolveAndCreate([
-            WORKER_RENDER_APPLICATION_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS,
-            { provide: WORKER_SCRIPT, useValue: workerScriptUri },
-            isPresent(customProviders) ? customProviders : []
-        ], workerRenderPlatform().injector);
-        // Return a promise so that we keep the same semantics as Dart,
-        // and we might want to wait for the app side to come up
-        // in the future...
-        return PromiseWrapper.resolve(app.get(_angular_core.ApplicationRef));
-    }
     function messageBusFactory(instance) {
         return instance.bus;
     }
@@ -4727,21 +4567,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return _angular_core.assertPlatform(WORKER_APP_PLATFORM_MARKER);
     }
-    var WORKER_APP_COMPILER_PROVIDERS = [
-        _angular_compiler.COMPILER_PROVIDERS,
-        {
-            provide: _angular_compiler.CompilerConfig,
-            useValue: new _angular_compiler.CompilerConfig({ platformDirectives: _angular_common.COMMON_DIRECTIVES, platformPipes: _angular_common.COMMON_PIPES })
-        },
-        { provide: _angular_compiler.XHR, useClass: XHRImpl },
-    ];
-    function bootstrapApp(appComponentType, customProviders) {
-        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate([
-            WORKER_APP_APPLICATION_PROVIDERS, WORKER_APP_COMPILER_PROVIDERS,
-            isPresent(customProviders) ? customProviders : []
-        ], workerAppPlatform().injector);
-        return _angular_core.coreLoadAndBootstrap(appComponentType, appInjector);
-    }
     function _exceptionHandler$2() {
         return new _angular_core.ExceptionHandler(new PrintLogger());
     }
@@ -4761,19 +4586,15 @@ var __extends = (this && this.__extends) || function (d, b) {
     function setupWebWorker() {
         WorkerDomAdapter.makeCurrent();
     }
-    exports.__platform_browser_private__;
-    (function (__platform_browser_private__) {
-        __platform_browser_private__.DomAdapter = DomAdapter;
-        function getDOM$$() {
-            return getDOM();
-        }
-        __platform_browser_private__.getDOM = getDOM$$;
-        __platform_browser_private__.setRootDomAdapter = setRootDomAdapter;
-        __platform_browser_private__.DomRootRenderer = DomRootRenderer;
-        __platform_browser_private__.DomRootRenderer_ = DomRootRenderer_;
-        __platform_browser_private__.DomSharedStylesHost = DomSharedStylesHost;
-        __platform_browser_private__.SharedStylesHost = SharedStylesHost;
-    })(exports.__platform_browser_private__ || (exports.__platform_browser_private__ = {}));
+    var __platform_browser_private__ = {
+        DomAdapter: DomAdapter,
+        getDOM: getDOM,
+        setRootDomAdapter: setRootDomAdapter,
+        DomRootRenderer: DomRootRenderer,
+        DomRootRenderer_: DomRootRenderer_,
+        DomSharedStylesHost: DomSharedStylesHost,
+        SharedStylesHost: SharedStylesHost
+    };
     /* @deprecated use BROWSER_PLATFORM_PROVIDERS */
     var BROWSER_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
     exports.BROWSER_PROVIDERS = BROWSER_PROVIDERS;
@@ -4802,13 +4623,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.PRIMITIVE = PRIMITIVE;
     exports.WORKER_APP_LOCATION_PROVIDERS = WORKER_APP_LOCATION_PROVIDERS;
     exports.WORKER_RENDER_LOCATION_PROVIDERS = WORKER_RENDER_LOCATION_PROVIDERS;
-    exports.CACHED_TEMPLATE_PROVIDER = CACHED_TEMPLATE_PROVIDER;
     exports.BROWSER_PLATFORM_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
     exports.BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
     exports.BROWSER_APP_PROVIDERS = BROWSER_APP_PROVIDERS;
-    exports.BROWSER_APP_COMPILER_PROVIDERS = BROWSER_APP_COMPILER_PROVIDERS;
     exports.browserPlatform = browserPlatform;
-    exports.bootstrap = bootstrap;
     exports.MessageBus = MessageBus;
     exports.WebWorkerInstance = WebWorkerInstance;
     exports.WORKER_SCRIPT = WORKER_SCRIPT;
@@ -4816,10 +4634,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.WORKER_RENDER_PLATFORM_PROVIDERS = WORKER_RENDER_PLATFORM_PROVIDERS;
     exports.WORKER_RENDER_APPLICATION_PROVIDERS = WORKER_RENDER_APPLICATION_PROVIDERS;
     exports.initializeGenericWorkerRenderer = initializeGenericWorkerRenderer;
-    exports.bootstrapRender = bootstrapRender;
     exports.workerRenderPlatform = workerRenderPlatform;
     exports.WORKER_APP_PLATFORM_PROVIDERS = WORKER_APP_PLATFORM_PROVIDERS;
     exports.WORKER_APP_APPLICATION_PROVIDERS = WORKER_APP_APPLICATION_PROVIDERS;
     exports.workerAppPlatform = workerAppPlatform;
-    exports.bootstrapApp = bootstrapApp;
+    exports.__platform_browser_private__ = __platform_browser_private__;
 }));

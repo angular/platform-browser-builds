@@ -1,8 +1,7 @@
-import { COMMON_DIRECTIVES, COMMON_PIPES, FORM_PROVIDERS } from '@angular/common';
-import { COMPILER_PROVIDERS, CompilerConfig, XHR } from '@angular/compiler';
-import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, ExceptionHandler, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, ReflectiveInjector, RootRenderer, assertPlatform, coreLoadAndBootstrap, createPlatform, getPlatform } from '@angular/core';
+import { FORM_PROVIDERS } from '@angular/common';
+import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, ExceptionHandler, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, ReflectiveInjector, RootRenderer, assertPlatform, createPlatform, getPlatform } from '@angular/core';
 import { BROWSER_SANITIZATION_PROVIDERS } from './browser';
-import { isBlank, isPresent, print } from './facade/lang';
+import { isBlank, print } from './facade/lang';
 import { ON_WEB_WORKER } from './web_workers/shared/api';
 import { ClientMessageBrokerFactory, ClientMessageBrokerFactory_ } from './web_workers/shared/client_message_broker';
 import { MessageBus } from './web_workers/shared/message_bus';
@@ -12,7 +11,6 @@ import { Serializer } from './web_workers/shared/serializer';
 import { ServiceMessageBrokerFactory, ServiceMessageBrokerFactory_ } from './web_workers/shared/service_message_broker';
 import { WebWorkerRootRenderer } from './web_workers/worker/renderer';
 import { WorkerDomAdapter } from './web_workers/worker/worker_adapter';
-import { XHRImpl } from './xhr/xhr_impl';
 class PrintLogger {
     constructor() {
         this.log = print;
@@ -38,21 +36,6 @@ export function workerAppPlatform() {
         createPlatform(ReflectiveInjector.resolveAndCreate(WORKER_APP_PLATFORM_PROVIDERS));
     }
     return assertPlatform(WORKER_APP_PLATFORM_MARKER);
-}
-const WORKER_APP_COMPILER_PROVIDERS = [
-    COMPILER_PROVIDERS,
-    {
-        provide: CompilerConfig,
-        useValue: new CompilerConfig({ platformDirectives: COMMON_DIRECTIVES, platformPipes: COMMON_PIPES })
-    },
-    { provide: XHR, useClass: XHRImpl },
-];
-export function bootstrapApp(appComponentType, customProviders) {
-    var appInjector = ReflectiveInjector.resolveAndCreate([
-        WORKER_APP_APPLICATION_PROVIDERS, WORKER_APP_COMPILER_PROVIDERS,
-        isPresent(customProviders) ? customProviders : []
-    ], workerAppPlatform().injector);
-    return coreLoadAndBootstrap(appComponentType, appInjector);
 }
 function _exceptionHandler() {
     return new ExceptionHandler(new PrintLogger());

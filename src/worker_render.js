@@ -12,7 +12,6 @@ var event_manager_1 = require('./dom/events/event_manager');
 var hammer_gestures_1 = require('./dom/events/hammer_gestures');
 var key_events_1 = require('./dom/events/key_events');
 var shared_styles_host_1 = require('./dom/shared_styles_host');
-var async_1 = require('./facade/async');
 var exceptions_1 = require('./facade/exceptions');
 var lang_1 = require('./facade/lang');
 var api_1 = require('./web_workers/shared/api');
@@ -93,18 +92,6 @@ function initializeGenericWorkerRenderer(injector) {
     zone.runGuarded(function () { services.forEach(function (svc /** TODO #9100 */) { svc.start(); }); });
 }
 exports.initializeGenericWorkerRenderer = initializeGenericWorkerRenderer;
-function bootstrapRender(workerScriptUri, customProviders) {
-    var app = core_1.ReflectiveInjector.resolveAndCreate([
-        exports.WORKER_RENDER_APPLICATION_PROVIDERS, browser_1.BROWSER_APP_COMPILER_PROVIDERS,
-        { provide: exports.WORKER_SCRIPT, useValue: workerScriptUri },
-        lang_1.isPresent(customProviders) ? customProviders : []
-    ], workerRenderPlatform().injector);
-    // Return a promise so that we keep the same semantics as Dart,
-    // and we might want to wait for the app side to come up
-    // in the future...
-    return async_1.PromiseWrapper.resolve(app.get(core_1.ApplicationRef));
-}
-exports.bootstrapRender = bootstrapRender;
 function messageBusFactory(instance) {
     return instance.bus;
 }

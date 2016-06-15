@@ -1,4 +1,4 @@
-import { ApplicationRef, Injector, OpaqueToken, PlatformRef } from '@angular/core';
+import { Injector, OpaqueToken, PlatformRef } from '@angular/core';
 import { MessageBus } from './web_workers/shared/message_bus';
 /**
  * Wrapper class that exposes the Worker
@@ -19,5 +19,4 @@ export declare const WORKER_RENDER_STARTABLE_MESSAGING_SERVICE: OpaqueToken;
 export declare const WORKER_RENDER_PLATFORM_PROVIDERS: Array<any>;
 export declare const WORKER_RENDER_APPLICATION_PROVIDERS: Array<any>;
 export declare function initializeGenericWorkerRenderer(injector: Injector): void;
-export declare function bootstrapRender(workerScriptUri: string, customProviders?: Array<any>): Promise<ApplicationRef>;
 export declare function workerRenderPlatform(): PlatformRef;

@@ -1,6 +1,5 @@
 "use strict";
 var common_1 = require('@angular/common');
-var compiler_1 = require('@angular/compiler');
 var core_1 = require('@angular/core');
 var browser_1 = require('./browser');
 var lang_1 = require('./facade/lang');
@@ -13,7 +12,6 @@ var serializer_1 = require('./web_workers/shared/serializer');
 var service_message_broker_1 = require('./web_workers/shared/service_message_broker');
 var renderer_1 = require('./web_workers/worker/renderer');
 var worker_adapter_1 = require('./web_workers/worker/worker_adapter');
-var xhr_impl_1 = require('./xhr/xhr_impl');
 var PrintLogger = (function () {
     function PrintLogger() {
         this.log = lang_1.print;
@@ -42,22 +40,6 @@ function workerAppPlatform() {
     return core_1.assertPlatform(WORKER_APP_PLATFORM_MARKER);
 }
 exports.workerAppPlatform = workerAppPlatform;
-var WORKER_APP_COMPILER_PROVIDERS = [
-    compiler_1.COMPILER_PROVIDERS,
-    {
-        provide: compiler_1.CompilerConfig,
-        useValue: new compiler_1.CompilerConfig({ platformDirectives: common_1.COMMON_DIRECTIVES, platformPipes: common_1.COMMON_PIPES })
-    },
-    { provide: compiler_1.XHR, useClass: xhr_impl_1.XHRImpl },
-];
-function bootstrapApp(appComponentType, customProviders) {
-    var appInjector = core_1.ReflectiveInjector.resolveAndCreate([
-        exports.WORKER_APP_APPLICATION_PROVIDERS, WORKER_APP_COMPILER_PROVIDERS,
-        lang_1.isPresent(customProviders) ? customProviders : []
-    ], workerAppPlatform().injector);
-    return core_1.coreLoadAndBootstrap(appComponentType, appInjector);
-}
-exports.bootstrapApp = bootstrapApp;
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(new PrintLogger());
 }
