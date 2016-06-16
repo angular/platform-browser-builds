@@ -4053,14 +4053,14 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     var WORKER_UI_STARTABLE_MESSAGING_SERVICE = new _angular_core.OpaqueToken('WorkerRenderStartableMsgService');
     /**
-     * * @experimental
+     * @experimental
      */
     var WORKER_UI_PLATFORM_PROVIDERS = [
         _angular_core.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true },
         { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
     ];
     /**
-     * * @experimental
+     * @experimental
      */
     var WORKER_UI_APPLICATION_PROVIDERS = [
         _angular_core.APPLICATION_COMMON_PROVIDERS,
@@ -4108,7 +4108,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         BrowserGetTestability.init();
     }
     /**
-     * * @experimental
+     * @experimental
      */
     function workerUiPlatform() {
         if (isBlank(_angular_core.getPlatform())) {
