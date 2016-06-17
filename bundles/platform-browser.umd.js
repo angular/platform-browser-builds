@@ -31,10 +31,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     // exports the original value of the symbol.
     var global$1 = globalScope;
     var Date = global$1.Date;
-    var _devMode = true;
-    function assertionsEnabled() {
-        return _devMode;
-    }
     // TODO: remove calls to assert in production environment
     // Note: Can't just export this and import in in other files
     // as `assert` is a reserved keyword in Dart
@@ -1294,7 +1290,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return _angular_core.getDebugNode(element);
     }
     function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */) {
-        if (assertionsEnabled()) {
+        if (_angular_core.isDevMode()) {
             return _createRootRenderer(rootRenderer);
         }
         return rootRenderer;
@@ -1568,7 +1564,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         url = String(url);
         if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
             return url;
-        if (assertionsEnabled())
+        if (_angular_core.isDevMode())
             getDOM().log('WARNING: sanitizing unsafe URL value ' + url);
         return 'unsafe:' + url;
     }
@@ -1801,7 +1797,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 var child = _a[_i];
                 DOM.removeChild(parent_1, child);
             }
-            if (assertionsEnabled() && safeHtml !== unsafeHtml) {
+            if (_angular_core.isDevMode() && safeHtml !== unsafeHtml) {
                 DOM.log('WARNING: sanitizing HTML stripped some content.');
             }
             return safeHtml;
@@ -1885,7 +1881,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
             return value; // Safe style values.
         }
-        if (assertionsEnabled())
+        if (_angular_core.isDevMode())
             getDOM().log('WARNING: sanitizing unsafe style value ' + value);
         return 'unsafe';
     }
