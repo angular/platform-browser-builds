@@ -1981,6 +1981,9 @@ var __extends = (this && this.__extends) || function (d, b) {
             this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
             // empty
         }
+        SafeValueImpl.prototype.toString = function () {
+            return "SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity;
+        };
         return SafeValueImpl;
     }());
     var SafeHtmlImpl = (function (_super) {
