@@ -197,11 +197,11 @@ function stripCustomNsAttrs(el) {
  * Sanitizes the given unsafe, untrusted HTML fragment, and returns HTML text that is safe to add to
  * the DOM in a browser environment.
  */
-export function sanitizeHtml(unsafeHtml) {
+export function sanitizeHtml(unsafeHtmlInput) {
     try {
-        let containerEl = getInertElement();
+        const containerEl = getInertElement();
         // Make sure unsafeHtml is actually a string (TypeScript types are not enforced at runtime).
-        unsafeHtml = unsafeHtml ? String(unsafeHtml) : '';
+        let unsafeHtml = unsafeHtmlInput ? String(unsafeHtmlInput) : '';
         // mXSS protection. Repeatedly parse the document to make sure it stabilizes, so that a browser
         // trying to auto-correct incorrect HTML cannot cause formerly inert HTML to become dangerous.
         let mXSSAttempts = 5;
@@ -226,7 +226,7 @@ export function sanitizeHtml(unsafeHtml) {
         for (let child of DOM.childNodesAsList(parent)) {
             DOM.removeChild(parent, child);
         }
-        if (isDevMode() && safeHtml !== unsafeHtml) {
+        if (isDevMode() && safeHtml !== unsafeHtmlInput) {
             DOM.log('WARNING: sanitizing HTML stripped some content.');
         }
         return safeHtml;

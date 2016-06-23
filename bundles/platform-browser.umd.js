@@ -1788,11 +1788,11 @@ var __extends = (this && this.__extends) || function (d, b) {
      * Sanitizes the given unsafe, untrusted HTML fragment, and returns HTML text that is safe to add to
      * the DOM in a browser environment.
      */
-    function sanitizeHtml(unsafeHtml) {
+    function sanitizeHtml(unsafeHtmlInput) {
         try {
             var containerEl = getInertElement();
             // Make sure unsafeHtml is actually a string (TypeScript types are not enforced at runtime).
-            unsafeHtml = unsafeHtml ? String(unsafeHtml) : '';
+            var unsafeHtml = unsafeHtmlInput ? String(unsafeHtmlInput) : '';
             // mXSS protection. Repeatedly parse the document to make sure it stabilizes, so that a browser
             // trying to auto-correct incorrect HTML cannot cause formerly inert HTML to become dangerous.
             var mXSSAttempts = 5;
@@ -1818,7 +1818,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 var child = _a[_i];
                 DOM.removeChild(parent_1, child);
             }
-            if (_angular_core.isDevMode() && safeHtml !== unsafeHtml) {
+            if (_angular_core.isDevMode() && safeHtml !== unsafeHtmlInput) {
                 DOM.log('WARNING: sanitizing HTML stripped some content.');
             }
             return safeHtml;
