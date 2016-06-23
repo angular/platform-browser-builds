@@ -2115,6 +2115,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var playerOptions = {
                 'duration': duration,
                 'delay': delay,
+                'easing': easing,
                 'fill': 'both' // we use `both` because it allows for styling at 0% to work with `delay`
             };
             var player = this._triggerWebAnimation(anyElm, formattedSteps, playerOptions);
