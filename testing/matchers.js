@@ -127,39 +127,6 @@ _global.beforeEach(function () {
                 }
             };
         },
-        toThrowErrorWith: function () {
-            return {
-                compare: function (actual /** TODO #???? */, expectedText /** TODO #???? */) {
-                    try {
-                        actual();
-                        return {
-                            pass: false,
-                            get message() { return 'Was expected to throw, but did not throw'; }
-                        };
-                    }
-                    catch (e) {
-                        var errorMessage = e.toString();
-                        return {
-                            pass: errorMessage.indexOf(expectedText) > -1,
-                            get message() { return 'Expected ' + errorMessage + ' to contain ' + expectedText; }
-                        };
-                    }
-                }
-            };
-        },
-        toMatchPattern: function () {
-            return { compare: buildError(false), negativeCompare: buildError(true) };
-            function buildError(isNot /** TODO #???? */) {
-                return function (actual /** TODO #???? */, regex /** TODO #???? */) {
-                    return {
-                        pass: regex.test(actual) == !isNot,
-                        get message() {
-                            return "Expected " + actual + " " + (isNot ? 'not ' : '') + "to match " + regex.toString();
-                        }
-                    };
-                };
-            }
-        },
         toImplement: function () {
             return {
                 compare: function (actualObject /** TODO #???? */, expectedInterface /** TODO #???? */) {
