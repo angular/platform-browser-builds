@@ -14,6 +14,13 @@ var __extends = (this && this.__extends) || function (d, b) {
             (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.common, global.ng.core, global.Rx, global.Rx, global.Rx.Observable.prototype, global.Rx));
 }(this, function (exports, _angular_common, _angular_core, rxjs_Subject, rxjs_observable_PromiseObservable, rxjs_operator_toPromise, rxjs_Observable) {
     'use strict';
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     var globalScope;
     if (typeof window === 'undefined') {
         if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -329,6 +336,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         ;
         return DomAdapter;
     }());
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     function supportsState() {
         return !!window.history.pushState;
     }
@@ -424,6 +438,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(newTitle); };
         return Title;
     }());
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     /**
      * JS version of browser APIs. This library can only run in the browser.
      */
@@ -2820,6 +2841,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return new NoOpAnimationDriver();
     }
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     var PromiseCompleter = (function () {
         function PromiseCompleter() {
             var _this = this;
@@ -2991,6 +3019,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         return EventEmitter;
     }(rxjs_Subject.Subject));
     /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
      * Message Bus is a low level API used to communicate between the UI and the background.
      * Communication is based on a channel abstraction. Messages published in a
      * given channel to one MessageBusSink are received on the same channel
@@ -3041,6 +3076,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     ];
     /** @nocollapse */
     RenderStore.ctorParameters = [];
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     // This file contains interface versions of browser types that can be serialized to Plain Old
     // JavaScript Objects
     var LocationType = (function () {
@@ -3428,12 +3470,26 @@ var __extends = (this && this.__extends) || function (d, b) {
         return ReceivedMessage;
     }());
     /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
      * All channels used by angular's WebWorker components are listed here.
      * You should not use these channels in your application code.
      */
     var RENDERER_CHANNEL = 'ng-Renderer';
     var EVENT_CHANNEL = 'ng-Events';
     var ROUTER_CHANNEL = 'ng-Router';
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     // no deserialization is necessary in TS.
     // This is only here to match dart interface
     function deserializeGenericEvent(serializedEvent) {
