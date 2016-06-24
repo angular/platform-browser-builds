@@ -6,8 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var common_1 = require('@angular/common');
-var testing_1 = require('@angular/common/testing');
 var core_1 = require('@angular/core');
 var core_private_1 = require('../core_private');
 var browser_1 = require('../src/browser');
@@ -24,7 +22,6 @@ var TEST_BROWSER_STATIC_PLATFORM_PROVIDERS = [
 var ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS = [
     { provide: core_1.APP_ID, useValue: 'a' }, ng_probe_1.ELEMENT_PROBE_PROVIDERS,
     { provide: core_1.NgZone, useFactory: createNgZone },
-    { provide: common_1.LocationStrategy, useClass: testing_1.MockLocationStrategy },
     { provide: core_private_1.AnimationDriver, useClass: core_private_1.NoOpAnimationDriver }
 ];
 function initBrowserTests() {
