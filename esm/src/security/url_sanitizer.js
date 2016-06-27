@@ -34,8 +34,10 @@ import { getDOM } from '../dom/dom_adapter';
  * This regular expression was taken from the Closure sanitization library.
  */
 const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
-/** A pattern that matches safe data URLs. Only matches image and video types. */
-const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm));base64,[a-z0-9+\/]+=*$/i;
+/* A pattern that matches safe srcset values */
+const SAFE_SRCSET_PATTERN = /^(?:(?:https?|file):|[^&:/?#]*(?:[/?#]|$))/gi;
+/** A pattern that matches safe data URLs. Only matches image, video and audio types. */
+const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
 export function sanitizeUrl(url) {
     url = String(url);
     if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
@@ -43,5 +45,9 @@ export function sanitizeUrl(url) {
     if (isDevMode())
         getDOM().log('WARNING: sanitizing unsafe URL value ' + url);
     return 'unsafe:' + url;
+}
+export function sanitizeSrcset(srcset) {
+    srcset = String(srcset);
+    return srcset.split(',').map((srcset) => sanitizeUrl(srcset.trim())).join(', ');
 }
 //# sourceMappingURL=url_sanitizer.js.map
