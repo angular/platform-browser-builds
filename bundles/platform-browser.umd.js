@@ -1441,6 +1441,8 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     function sanitizeStyle(value) {
         value = String(value).trim(); // Make sure it's actually a string.
+        if (!value)
+            return '';
         // Single url(...) values are supported, but only for URLs that sanitize cleanly. See above for
         // reasoning behind this.
         var urlMatch = URL_RE.exec(value);
@@ -4203,7 +4205,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         bus.attachToZone(zone);
         // initialize message services after the bus has been created
         var services = injector.get(WORKER_UI_STARTABLE_MESSAGING_SERVICE);
-        zone.runGuarded(function () { services.forEach(function (svc /** TODO #9100 */) { svc.start(); }); });
+        zone.runGuarded(function () { services.forEach(function (svc) { svc.start(); }); });
     }
     function messageBusFactory(instance) {
         return instance.bus;

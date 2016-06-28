@@ -102,7 +102,7 @@ function initializeGenericWorkerRenderer(injector) {
     bus.attachToZone(zone);
     // initialize message services after the bus has been created
     var services = injector.get(exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE);
-    zone.runGuarded(function () { services.forEach(function (svc /** TODO #9100 */) { svc.start(); }); });
+    zone.runGuarded(function () { services.forEach(function (svc) { svc.start(); }); });
 }
 function messageBusFactory(instance) {
     return instance.bus;

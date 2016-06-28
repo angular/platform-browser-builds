@@ -74,6 +74,8 @@ function hasBalancedQuotes(value) {
  */
 export function sanitizeStyle(value) {
     value = String(value).trim(); // Make sure it's actually a string.
+    if (!value)
+        return '';
     // Single url(...) values are supported, but only for URLs that sanitize cleanly. See above for
     // reasoning behind this.
     let urlMatch = URL_RE.exec(value);
