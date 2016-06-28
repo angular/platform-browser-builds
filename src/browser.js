@@ -38,6 +38,9 @@ exports.BROWSER_PLATFORM_PROVIDERS = [
     { provide: common_1.PlatformLocation, useClass: browser_platform_location_1.BrowserPlatformLocation }
 ];
 /**
+ * @security Replacing built-in sanitization providers exposes the application to XSS risks.
+ * Attacker-controlled data introduced by an unsanitized provider could expose your
+ * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
  * @experimental
  */
 exports.BROWSER_SANITIZATION_PROVIDERS = [

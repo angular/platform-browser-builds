@@ -1478,6 +1478,11 @@ var __extends = (this && this.__extends) || function (d, b) {
      * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
      * code. The sanitizer leaves safe values intact.
      *
+     * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
+     * sanitization for the value passed in. Carefully check and audit all values and code paths going
+     * into this call. Make sure any user data is appropriately escaped for this security context.
+     * For more detail, see the [Security Guide](http://g.co/ng/security).
+     *
      * @stable
      */
     var DomSanitizationService = (function () {
@@ -2833,6 +2838,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
     ];
     /**
+     * @security Replacing built-in sanitization providers exposes the application to XSS risks.
+     * Attacker-controlled data introduced by an unsanitized provider could expose your
+     * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
      * @experimental
      */
     var BROWSER_SANITIZATION_PROVIDERS = [

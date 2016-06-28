@@ -8,6 +8,9 @@ import { PlatformRef } from '@angular/core';
  */
 export declare const BROWSER_PLATFORM_PROVIDERS: Array<any>;
 /**
+ * @security Replacing built-in sanitization providers exposes the application to XSS risks.
+ * Attacker-controlled data introduced by an unsanitized provider could expose your
+ * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
  * @experimental
  */
 export declare const BROWSER_SANITIZATION_PROVIDERS: Array<any>;

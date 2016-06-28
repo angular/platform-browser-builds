@@ -41,6 +41,11 @@ var url_sanitizer_1 = require('./url_sanitizer');
  * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
  * code. The sanitizer leaves safe values intact.
  *
+ * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
+ * sanitization for the value passed in. Carefully check and audit all values and code paths going
+ * into this call. Make sure any user data is appropriately escaped for this security context.
+ * For more detail, see the [Security Guide](http://g.co/ng/security).
+ *
  * @stable
  */
 var DomSanitizationService = (function () {
