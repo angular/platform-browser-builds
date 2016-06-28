@@ -9,12 +9,6 @@ import { Inject, Injectable, OpaqueToken } from '@angular/core';
 import { BaseException } from '../../facade/exceptions';
 import { isPresent } from '../../facade/lang';
 import { HammerGesturesPluginCommon } from './hammer_common';
-/**
- * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
- * Hammer gestures.
- *
- * @experimental
- */
 export const HAMMER_GESTURE_CONFIG = new OpaqueToken('HammerGestureConfig');
 export class HammerGestureConfig {
     constructor() {

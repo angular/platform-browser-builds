@@ -32,14 +32,10 @@ function createNgZone() {
 }
 /**
  * Default platform providers for testing.
- *
- * @stable
  */
 export const TEST_BROWSER_PLATFORM_PROVIDERS = TEST_BROWSER_STATIC_PLATFORM_PROVIDERS;
 /**
  * Default application providers for testing without a compiler.
- *
- * @stable
  */
 export const TEST_BROWSER_APPLICATION_PROVIDERS = [BROWSER_APP_PROVIDERS, ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS];
 //# sourceMappingURL=browser.js.map

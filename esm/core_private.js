@@ -11,10 +11,6 @@ export var wtfInit = r.wtfInit;
 export var ReflectionCapabilities = r.ReflectionCapabilities;
 export var VIEW_ENCAPSULATION_VALUES = r.VIEW_ENCAPSULATION_VALUES;
 export var DebugDomRootRenderer = r.DebugDomRootRenderer;
-/**
- * @experimental bogus marker to pass the ts-api-guardian's check - this api should be public so
- * this line will go away when that happens
- */
 export var SecurityContext = r.SecurityContext;
 export var SanitizationService = r.SanitizationService;
 export var reflector = r.reflector;

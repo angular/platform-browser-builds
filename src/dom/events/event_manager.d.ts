@@ -6,13 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { NgZone, OpaqueToken } from '@angular/core';
-/**
- * @stable
- */
 export declare const EVENT_MANAGER_PLUGINS: OpaqueToken;
-/**
- * @stable
- */
 export declare class EventManager {
     private _zone;
     private _plugins;

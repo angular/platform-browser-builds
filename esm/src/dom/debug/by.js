@@ -9,8 +9,6 @@ import { getDOM } from '../../dom/dom_adapter';
 import { isPresent } from '../../facade/lang';
 /**
  * Predicates for use with {@link DebugElement}'s query functions.
- *
- * @experimental All debugging apis are currently experimental.
  */
 export class By {
     /**

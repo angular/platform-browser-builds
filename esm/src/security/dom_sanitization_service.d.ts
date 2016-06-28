@@ -2,44 +2,22 @@ import { SanitizationService, SecurityContext } from '../../core_private';
 export { SecurityContext };
 /**
  * Marker interface for a value that's safe to use in a particular context.
- *
- * @stable
  */
 export interface SafeValue {
 }
-/**
- * Marker interface for a value that's safe to use as HTML.
- *
- * @stable
- */
+/** Marker interface for a value that's safe to use as HTML. */
 export interface SafeHtml extends SafeValue {
 }
-/**
- * Marker interface for a value that's safe to use as style (CSS).
- *
- * @stable
- */
+/** Marker interface for a value that's safe to use as style (CSS). */
 export interface SafeStyle extends SafeValue {
 }
-/**
- * Marker interface for a value that's safe to use as JavaScript.
- *
- * @stable
- */
+/** Marker interface for a value that's safe to use as JavaScript. */
 export interface SafeScript extends SafeValue {
 }
-/**
- * Marker interface for a value that's safe to use as a URL linking to a document.
- *
- * @stable
- */
+/** Marker interface for a value that's safe to use as a URL linking to a document. */
 export interface SafeUrl extends SafeValue {
 }
-/**
- * Marker interface for a value that's safe to use as a URL to load executable code from.
- *
- * @stable
- */
+/** Marker interface for a value that's safe to use as a URL to load executable code from. */
 export interface SafeResourceUrl extends SafeValue {
 }
 /**
@@ -65,8 +43,6 @@ export interface SafeResourceUrl extends SafeValue {
  * It is not required (and not recommended) to bypass security if the value is safe, e.g. a URL that
  * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
  * code. The sanitizer leaves safe values intact.
- *
- * @stable
  */
 export declare abstract class DomSanitizationService implements SanitizationService {
     /**

@@ -7,9 +7,6 @@
  */
 import { NgZone } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
-/**
- * @experimental
- */
 export declare class KeyEventsPlugin extends EventManagerPlugin {
     constructor();
     supports(eventName: string): boolean;

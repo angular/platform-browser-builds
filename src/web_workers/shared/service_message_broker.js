@@ -17,9 +17,6 @@ var collection_1 = require('../../facade/collection');
 var lang_1 = require('../../facade/lang');
 var message_bus_1 = require('../shared/message_bus');
 var serializer_1 = require('../shared/serializer');
-/**
- * @experimental WebWorker support in Angular is currently experimental.
- */
 var ServiceMessageBrokerFactory = (function () {
     function ServiceMessageBrokerFactory() {
     }
@@ -51,12 +48,7 @@ var ServiceMessageBrokerFactory_ = (function (_super) {
 }(ServiceMessageBrokerFactory));
 exports.ServiceMessageBrokerFactory_ = ServiceMessageBrokerFactory_;
 /**
- * Helper class for UIComponents that allows components to register methods.
- * If a registered method message is received from the broker on the worker,
- * the UIMessageBroker deserializes its arguments and calls the registered method.
- * If that method returns a promise, the UIMessageBroker returns the result to the worker.
- *
- * @experimental WebWorker support in Angular is currently experimental.
+ * @experimental
  */
 var ServiceMessageBroker = (function () {
     function ServiceMessageBroker() {
@@ -64,6 +56,12 @@ var ServiceMessageBroker = (function () {
     return ServiceMessageBroker;
 }());
 exports.ServiceMessageBroker = ServiceMessageBroker;
+/**
+ * Helper class for UIComponents that allows components to register methods.
+ * If a registered method message is received from the broker on the worker,
+ * the UIMessageBroker deserializes its arguments and calls the registered method.
+ * If that method returns a promise, the UIMessageBroker returns the result to the worker.
+ */
 var ServiceMessageBroker_ = (function (_super) {
     __extends(ServiceMessageBroker_, _super);
     function ServiceMessageBroker_(messageBus, _serializer, channel /** TODO #9100 */) {
@@ -108,7 +106,7 @@ var ServiceMessageBroker_ = (function (_super) {
 }(ServiceMessageBroker));
 exports.ServiceMessageBroker_ = ServiceMessageBroker_;
 /**
- * @experimental WebWorker support in Angular is currently experimental.
+ * @experimental
  */
 var ReceivedMessage = (function () {
     function ReceivedMessage(data) {

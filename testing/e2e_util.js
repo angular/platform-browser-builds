@@ -7,9 +7,6 @@
  */
 "use strict";
 var webdriver = require('selenium-webdriver');
-/**
- * @experimental This API will be moved to Protractor.
- */
 function verifyNoBrowserErrors() {
     // TODO(tbosch): Bug in ChromeDriver: Need to execute at least one command
     // so that the browser logs can be read out!

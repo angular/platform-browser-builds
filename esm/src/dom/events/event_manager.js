@@ -8,9 +8,6 @@
 import { Inject, Injectable, NgZone, OpaqueToken } from '@angular/core';
 import { ListWrapper } from '../../facade/collection';
 import { BaseException } from '../../facade/exceptions';
-/**
- * @stable
- */
 export const EVENT_MANAGER_PLUGINS = new OpaqueToken('EventManagerPlugins');
 export class EventManager {
     constructor(plugins, _zone) {

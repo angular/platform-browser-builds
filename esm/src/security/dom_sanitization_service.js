@@ -34,8 +34,6 @@ export { SecurityContext };
  * It is not required (and not recommended) to bypass security if the value is safe, e.g. a URL that
  * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
  * code. The sanitizer leaves safe values intact.
- *
- * @stable
  */
 export class DomSanitizationService {
 }

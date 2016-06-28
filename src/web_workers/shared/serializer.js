@@ -15,7 +15,7 @@ var serialized_types_1 = require('./serialized_types');
 // PRIMITIVE is any type that does not need to be serialized (string, number, boolean)
 // We set it to String so that it is considered a Type.
 /**
- * @experimental WebWorker support in Angular is currently experimental.
+ * @experimental
  */
 exports.PRIMITIVE = String;
 var Serializer = (function () {

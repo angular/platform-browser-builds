@@ -41,7 +41,7 @@ WebWorkerInstance.decorators = [
     { type: Injectable },
 ];
 /**
- * @experimental WebWorker support is currently experimental.
+ * @experimental
  */
 export const WORKER_SCRIPT = new OpaqueToken('WebWorkerScript');
 /**
@@ -49,18 +49,18 @@ export const WORKER_SCRIPT = new OpaqueToken('WebWorkerScript');
  * created.
  *
  * TODO(vicb): create an interface for startable services to implement
- * @experimental WebWorker support is currently experimental.
+ * @experimental
  */
 export const WORKER_UI_STARTABLE_MESSAGING_SERVICE = new OpaqueToken('WorkerRenderStartableMsgService');
 /**
- * @experimental WebWorker support is currently experimental.
+ * @experimental
  */
 export const WORKER_UI_PLATFORM_PROVIDERS = [
     PLATFORM_COMMON_PROVIDERS, { provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true },
     { provide: PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
 ];
 /**
- * @experimental WebWorker support is currently experimental.
+ * @experimental
  */
 export const WORKER_UI_APPLICATION_PROVIDERS = [
     APPLICATION_COMMON_PROVIDERS,
@@ -108,7 +108,7 @@ function initWebWorkerRenderPlatform() {
     BrowserGetTestability.init();
 }
 /**
- * @experimental WebWorker support is currently experimental.
+ * @experimental
  */
 export function workerUiPlatform() {
     if (isBlank(getPlatform())) {

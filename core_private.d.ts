@@ -13,10 +13,6 @@ export declare var ReflectionCapabilities: typeof t.ReflectionCapabilities;
 export declare var VIEW_ENCAPSULATION_VALUES: typeof t.VIEW_ENCAPSULATION_VALUES;
 export declare type DebugDomRootRenderer = t.DebugDomRootRenderer;
 export declare var DebugDomRootRenderer: typeof t.DebugDomRootRenderer;
-/**
- * @experimental bogus marker to pass the ts-api-guardian's check - this api should be public so
- * this line will go away when that happens
- */
 export declare var SecurityContext: typeof t.SecurityContext;
 export declare type SecurityContext = t.SecurityContext;
 export declare var SanitizationService: typeof t.SanitizationService;
