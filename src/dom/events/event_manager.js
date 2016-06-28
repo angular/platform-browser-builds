@@ -9,6 +9,9 @@
 var core_1 = require('@angular/core');
 var collection_1 = require('../../facade/collection');
 var exceptions_1 = require('../../facade/exceptions');
+/**
+ * @stable
+ */
 exports.EVENT_MANAGER_PLUGINS = new core_1.OpaqueToken('EventManagerPlugins');
 var EventManager = (function () {
     function EventManager(plugins, _zone) {

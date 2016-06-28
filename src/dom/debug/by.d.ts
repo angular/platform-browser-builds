@@ -10,6 +10,8 @@ import { Predicate } from '../../facade/collection';
 import { Type } from '../../facade/lang';
 /**
  * Predicates for use with {@link DebugElement}'s query functions.
+ *
+ * @experimental All debugging apis are currently experimental.
  */
 export declare class By {
     /**

@@ -11,6 +11,8 @@ import { OpaqueToken } from '@angular/core';
  *
  * Note: Document might not be available in the Application Context when Application and Rendering
  * Contexts are not the same (e.g. when running the application into a Web Worker).
+ *
+ * @stable
  */
 export const DOCUMENT = new OpaqueToken('DocumentToken');
 //# sourceMappingURL=dom_tokens.js.map

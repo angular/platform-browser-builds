@@ -29,12 +29,17 @@ var BROWSER_PLATFORM_MARKER = new core_1.OpaqueToken('BrowserPlatformMarker');
  * A set of providers to initialize the Angular platform in a web browser.
  *
  * Used automatically by `bootstrap`, or can be passed to {@link platform}.
+ *
+ * @experimental API related to bootstrapping are still under review.
  */
 exports.BROWSER_PLATFORM_PROVIDERS = [
     { provide: BROWSER_PLATFORM_MARKER, useValue: true }, core_1.PLATFORM_COMMON_PROVIDERS,
     { provide: core_1.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: common_1.PlatformLocation, useClass: browser_platform_location_1.BrowserPlatformLocation }
 ];
+/**
+ * @experimental
+ */
 exports.BROWSER_SANITIZATION_PROVIDERS = [
     { provide: core_private_1.SanitizationService, useExisting: dom_sanitization_service_1.DomSanitizationService },
     { provide: dom_sanitization_service_1.DomSanitizationService, useClass: dom_sanitization_service_1.DomSanitizationServiceImpl },
@@ -43,6 +48,8 @@ exports.BROWSER_SANITIZATION_PROVIDERS = [
  * A set of providers to initialize an Angular application in a web browser.
  *
  * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
+ *
+ * @experimental API related to bootstrapping are still under review.
  */
 exports.BROWSER_APP_PROVIDERS = [
     core_1.APPLICATION_COMMON_PROVIDERS, common_1.FORM_PROVIDERS, exports.BROWSER_SANITIZATION_PROVIDERS,
@@ -58,6 +65,9 @@ exports.BROWSER_APP_PROVIDERS = [
     { provide: core_private_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, shared_styles_host_1.DomSharedStylesHost,
     core_1.Testability, event_manager_1.EventManager, ng_probe_1.ELEMENT_PROBE_PROVIDERS
 ];
+/**
+ * @experimental API related to bootstrapping are still under review.
+ */
 function browserPlatform() {
     if (lang_1.isBlank(core_1.getPlatform())) {
         core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(exports.BROWSER_PLATFORM_PROVIDERS));

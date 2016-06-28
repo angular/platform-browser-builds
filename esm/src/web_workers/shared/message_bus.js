@@ -10,7 +10,8 @@
  * Communication is based on a channel abstraction. Messages published in a
  * given channel to one MessageBusSink are received on the same channel
  * by the corresponding MessageBusSource.
- * @experimental
+ *
+ * @experimental WebWorker support in Angular is currenlty experimental.
  */
 export class MessageBus {
 }
