@@ -28,12 +28,17 @@ const BROWSER_PLATFORM_MARKER = new OpaqueToken('BrowserPlatformMarker');
  * A set of providers to initialize the Angular platform in a web browser.
  *
  * Used automatically by `bootstrap`, or can be passed to {@link platform}.
+ *
+ * @experimental API related to bootstrapping are still under review.
  */
 export const BROWSER_PLATFORM_PROVIDERS = [
     { provide: BROWSER_PLATFORM_MARKER, useValue: true }, PLATFORM_COMMON_PROVIDERS,
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation }
 ];
+/**
+ * @experimental
+ */
 export const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: SanitizationService, useExisting: DomSanitizationService },
     { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
@@ -42,6 +47,8 @@ export const BROWSER_SANITIZATION_PROVIDERS = [
  * A set of providers to initialize an Angular application in a web browser.
  *
  * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
+ *
+ * @experimental API related to bootstrapping are still under review.
  */
 export const BROWSER_APP_PROVIDERS = [
     APPLICATION_COMMON_PROVIDERS, FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
@@ -57,6 +64,9 @@ export const BROWSER_APP_PROVIDERS = [
     { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
     Testability, EventManager, ELEMENT_PROBE_PROVIDERS
 ];
+/**
+ * @experimental API related to bootstrapping are still under review.
+ */
 export function browserPlatform() {
     if (isBlank(getPlatform())) {
         createPlatform(ReflectiveInjector.resolveAndCreate(BROWSER_PLATFORM_PROVIDERS));
