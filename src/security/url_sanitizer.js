@@ -43,8 +43,9 @@ function sanitizeUrl(url) {
     url = String(url);
     if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
         return url;
-    if (core_1.isDevMode())
-        dom_adapter_1.getDOM().log('WARNING: sanitizing unsafe URL value ' + url);
+    if (core_1.isDevMode()) {
+        dom_adapter_1.getDOM().log("WARNING: sanitizing unsafe URL value " + url + " (see http://g.co/ng/security#xss)");
+    }
     return 'unsafe:' + url;
 }
 exports.sanitizeUrl = sanitizeUrl;

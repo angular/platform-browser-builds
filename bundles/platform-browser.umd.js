@@ -1123,8 +1123,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         url = String(url);
         if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
             return url;
-        if (_angular_core.isDevMode())
-            getDOM().log('WARNING: sanitizing unsafe URL value ' + url);
+        if (_angular_core.isDevMode()) {
+            getDOM().log("WARNING: sanitizing unsafe URL value " + url + " (see http://g.co/ng/security#xss)");
+        }
         return 'unsafe:' + url;
     }
     function sanitizeSrcset(srcset) {
@@ -1365,7 +1366,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 DOM.removeChild(parent_1, child);
             }
             if (_angular_core.isDevMode() && safeHtml !== unsafeHtmlInput) {
-                DOM.log('WARNING: sanitizing HTML stripped some content.');
+                DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
             }
             return safeHtml;
         }
@@ -1450,8 +1451,9 @@ var __extends = (this && this.__extends) || function (d, b) {
             value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
             return value; // Safe style values.
         }
-        if (_angular_core.isDevMode())
-            getDOM().log('WARNING: sanitizing unsafe style value ' + value);
+        if (_angular_core.isDevMode()) {
+            getDOM().log("WARNING: sanitizing unsafe style value " + value + " (see http://g.co/ng/security#xss).");
+        }
         return 'unsafe';
     }
     /**
@@ -1526,14 +1528,15 @@ var __extends = (this && this.__extends) || function (d, b) {
                         return value.changingThisBreaksApplicationSecurity;
                     }
                     this.checkNotSafeValue(value, 'ResourceURL');
-                    throw new Error('unsafe value used in a resource URL context');
+                    throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
                 default:
-                    throw new Error("Unexpected SecurityContext " + ctx);
+                    throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
             }
         };
         DomSanitizationServiceImpl.prototype.checkNotSafeValue = function (value, expectedType) {
             if (value instanceof SafeValueImpl) {
-                throw new Error("Required a safe " + expectedType + ", got a " + value.getTypeName());
+                throw new Error(("Required a safe " + expectedType + ", got a " + value.getTypeName() + " ") +
+                    "(see http://g.co/ng/security#xss)");
             }
         };
         DomSanitizationServiceImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
@@ -1555,7 +1558,8 @@ var __extends = (this && this.__extends) || function (d, b) {
             // empty
         }
         SafeValueImpl.prototype.toString = function () {
-            return "SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity;
+            return ("SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity) +
+                " (see http://g.co/ng/security#xss)";
         };
         return SafeValueImpl;
     }());

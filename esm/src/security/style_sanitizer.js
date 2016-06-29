@@ -83,8 +83,9 @@ export function sanitizeStyle(value) {
         value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
         return value; // Safe style values.
     }
-    if (isDevMode())
-        getDOM().log('WARNING: sanitizing unsafe style value ' + value);
+    if (isDevMode()) {
+        getDOM().log(`WARNING: sanitizing unsafe style value ${value} (see http://g.co/ng/security#xss).`);
+    }
     return 'unsafe';
 }
 //# sourceMappingURL=style_sanitizer.js.map

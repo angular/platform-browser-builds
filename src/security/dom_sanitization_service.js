@@ -90,14 +90,15 @@ var DomSanitizationServiceImpl = (function (_super) {
                     return value.changingThisBreaksApplicationSecurity;
                 }
                 this.checkNotSafeValue(value, 'ResourceURL');
-                throw new Error('unsafe value used in a resource URL context');
+                throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
             default:
-                throw new Error("Unexpected SecurityContext " + ctx);
+                throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
         }
     };
     DomSanitizationServiceImpl.prototype.checkNotSafeValue = function (value, expectedType) {
         if (value instanceof SafeValueImpl) {
-            throw new Error("Required a safe " + expectedType + ", got a " + value.getTypeName());
+            throw new Error(("Required a safe " + expectedType + ", got a " + value.getTypeName() + " ") +
+                "(see http://g.co/ng/security#xss)");
         }
     };
     DomSanitizationServiceImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
@@ -120,7 +121,8 @@ var SafeValueImpl = (function () {
         // empty
     }
     SafeValueImpl.prototype.toString = function () {
-        return "SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity;
+        return ("SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity) +
+            " (see http://g.co/ng/security#xss)";
     };
     return SafeValueImpl;
 }());

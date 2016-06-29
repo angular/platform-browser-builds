@@ -231,7 +231,7 @@ export function sanitizeHtml(unsafeHtmlInput) {
             DOM.removeChild(parent, child);
         }
         if (isDevMode() && safeHtml !== unsafeHtmlInput) {
-            DOM.log('WARNING: sanitizing HTML stripped some content.');
+            DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
         }
         return safeHtml;
     }
