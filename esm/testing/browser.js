@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { APP_ID, NgZone, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER } from '@angular/core';
-import { AnimationDriver, NoOpAnimationDriver } from '../core_private';
 import { BROWSER_APP_PROVIDERS } from '../src/browser';
 import { BrowserDomAdapter } from '../src/browser/browser_adapter';
+import { AnimationDriver } from '../src/dom/animation_driver';
 import { ELEMENT_PROBE_PROVIDERS } from '../src/dom/debug/ng_probe';
 import { BrowserDetection } from './browser_util';
 /**
@@ -21,7 +21,7 @@ const TEST_BROWSER_STATIC_PLATFORM_PROVIDERS = [
 const ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS = [
     { provide: APP_ID, useValue: 'a' }, ELEMENT_PROBE_PROVIDERS,
     { provide: NgZone, useFactory: createNgZone },
-    { provide: AnimationDriver, useClass: NoOpAnimationDriver }
+    { provide: AnimationDriver, useValue: AnimationDriver.NOOP }
 ];
 function initBrowserTests() {
     BrowserDomAdapter.makeCurrent();

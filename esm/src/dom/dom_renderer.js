@@ -9,10 +9,10 @@ import { Inject, Injectable, ViewEncapsulation } from '@angular/core';
 import { BaseException } from '../facade/exceptions';
 import { Json, RegExpWrapper, StringWrapper, isArray, isBlank, isPresent, isString, stringify } from '../facade/lang';
 import { DomSharedStylesHost } from './shared_styles_host';
-import { AnimationDriver } from '../../core_private';
 import { EventManager } from './events/event_manager';
 import { DOCUMENT } from './dom_tokens';
 import { getDOM } from './dom_adapter';
+import { AnimationDriver } from './animation_driver';
 import { camelCaseToDashCase } from './util';
 const NAMESPACE_URIS = {
     'xlink': 'http://www.w3.org/1999/xlink',

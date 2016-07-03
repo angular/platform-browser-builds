@@ -11,6 +11,7 @@ var core_private_1 = require('../core_private');
 var browser_1 = require('./browser');
 var browser_adapter_1 = require('./browser/browser_adapter');
 var testability_1 = require('./browser/testability');
+var animation_driver_1 = require('./dom/animation_driver');
 var dom_adapter_1 = require('./dom/dom_adapter');
 var dom_renderer_1 = require('./dom/dom_renderer');
 var dom_tokens_1 = require('./dom/dom_tokens');
@@ -85,7 +86,7 @@ exports.WORKER_UI_APPLICATION_PROVIDERS = [
     { provide: shared_styles_host_1.SharedStylesHost, useExisting: shared_styles_host_1.DomSharedStylesHost },
     { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
     { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
-    { provide: core_private_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
+    { provide: animation_driver_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
     serializer_1.Serializer,
     { provide: api_1.ON_WEB_WORKER, useValue: false },
     render_store_1.RenderStore,
@@ -155,6 +156,6 @@ function spawnWebWorker(uri, instance) {
 function _resolveDefaultAnimationDriver() {
     // web workers have not been tested or configured to
     // work with animations just yet...
-    return new core_private_1.NoOpAnimationDriver();
+    return animation_driver_1.AnimationDriver.NOOP;
 }
 //# sourceMappingURL=worker_render.js.map

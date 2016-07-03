@@ -5,8 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable } from '@angular/core';
-import { SecurityContext } from '../../core_private';
+import { Injectable, SecurityContext } from '@angular/core';
 import { sanitizeHtml } from './html_sanitizer';
 import { sanitizeStyle } from './style_sanitizer';
 import { sanitizeUrl } from './url_sanitizer';

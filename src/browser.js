@@ -9,6 +9,7 @@
 var common_1 = require('@angular/common');
 var core_1 = require('@angular/core');
 var core_private_1 = require('../core_private');
+var animation_driver_1 = require('../src/dom/animation_driver');
 var web_animations_driver_1 = require('../src/dom/web_animations_driver');
 var browser_adapter_1 = require('./browser/browser_adapter');
 var browser_platform_location_1 = require('./browser/location/browser_platform_location');
@@ -44,7 +45,7 @@ exports.BROWSER_PLATFORM_PROVIDERS = [
  * @experimental
  */
 exports.BROWSER_SANITIZATION_PROVIDERS = [
-    { provide: core_private_1.SanitizationService, useExisting: dom_sanitization_service_1.DomSanitizationService },
+    { provide: core_1.SanitizationService, useExisting: dom_sanitization_service_1.DomSanitizationService },
     { provide: dom_sanitization_service_1.DomSanitizationService, useClass: dom_sanitization_service_1.DomSanitizationServiceImpl },
 ];
 /**
@@ -65,7 +66,7 @@ exports.BROWSER_APP_PROVIDERS = [
     { provide: dom_renderer_1.DomRootRenderer, useClass: dom_renderer_1.DomRootRenderer_ },
     { provide: core_1.RootRenderer, useExisting: dom_renderer_1.DomRootRenderer },
     { provide: shared_styles_host_1.SharedStylesHost, useExisting: shared_styles_host_1.DomSharedStylesHost },
-    { provide: core_private_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, shared_styles_host_1.DomSharedStylesHost,
+    { provide: animation_driver_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, shared_styles_host_1.DomSharedStylesHost,
     core_1.Testability, event_manager_1.EventManager, ng_probe_1.ELEMENT_PROBE_PROVIDERS
 ];
 /**
@@ -83,16 +84,69 @@ function initDomAdapter() {
     core_private_1.wtfInit();
     testability_1.BrowserGetTestability.init();
 }
+exports.initDomAdapter = initDomAdapter;
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(dom_adapter_1.getDOM());
 }
+exports._exceptionHandler = _exceptionHandler;
 function _document() {
     return dom_adapter_1.getDOM().defaultDoc();
 }
+exports._document = _document;
 function _resolveDefaultAnimationDriver() {
     if (dom_adapter_1.getDOM().supportsWebAnimation()) {
         return new web_animations_driver_1.WebAnimationsDriver();
     }
-    return new core_private_1.NoOpAnimationDriver();
+    return animation_driver_1.AnimationDriver.NOOP;
 }
+exports._resolveDefaultAnimationDriver = _resolveDefaultAnimationDriver;
+var BrowserModule = (function () {
+    function BrowserModule() {
+    }
+    /** @nocollapse */
+    BrowserModule.decorators = [
+        { type: core_1.AppModule, args: [{
+                    providers: [
+                        exports.BROWSER_APP_PROVIDERS,
+                    ],
+                    directives: common_1.COMMON_DIRECTIVES,
+                    pipes: common_1.COMMON_PIPES
+                },] },
+    ];
+    return BrowserModule;
+}());
+exports.BrowserModule = BrowserModule;
+/**
+ * Creates an instance of an `@AppModule` for the browser platform
+ * for offline compilation.
+ *
+ * ## Simple Example
+ *
+ * ```typescript
+ * my_module.ts:
+ *
+ * @AppModule({
+ *   modules: [BrowserModule]
+ * })
+ * class MyModule {}
+ *
+ * main.ts:
+ * import {MyModuleNgFactory} from './my_module.ngfactory';
+ * import {bootstrapModuleFactory} from '@angular/platform-browser';
+ *
+ * let moduleRef = bootstrapModuleFactory(MyModuleNgFactory);
+ * ```
+ * @stable
+ */
+function bootstrapModuleFactory(moduleFactory) {
+    var platformInjector = browserPlatform().injector;
+    // Note: We need to create the NgZone _before_ we instantiate the module,
+    // as instantiating the module creates some providers eagerly.
+    // So we create a mini parent injector that just contains the new NgZone and
+    // pass that as parent to the AppModuleFactory.
+    var ngZone = new core_1.NgZone({ enableLongStackTrace: core_1.isDevMode() });
+    var ngZoneInjector = core_1.ReflectiveInjector.resolveAndCreate([{ provide: core_1.NgZone, useValue: ngZone }], platformInjector);
+    return ngZone.run(function () { return moduleFactory.create(ngZoneInjector); });
+}
+exports.bootstrapModuleFactory = bootstrapModuleFactory;
 //# sourceMappingURL=browser.js.map

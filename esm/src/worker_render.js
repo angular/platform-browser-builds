@@ -6,10 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, ExceptionHandler, Injectable, Injector, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, ReflectiveInjector, RootRenderer, Testability, assertPlatform, createPlatform, getPlatform } from '@angular/core';
-import { AnimationDriver, NoOpAnimationDriver, wtfInit } from '../core_private';
+import { wtfInit } from '../core_private';
 import { BROWSER_SANITIZATION_PROVIDERS } from './browser';
 import { BrowserDomAdapter } from './browser/browser_adapter';
 import { BrowserGetTestability } from './browser/testability';
+import { AnimationDriver } from './dom/animation_driver';
 import { getDOM } from './dom/dom_adapter';
 import { DomRootRenderer, DomRootRenderer_ } from './dom/dom_renderer';
 import { DOCUMENT } from './dom/dom_tokens';
@@ -149,6 +150,6 @@ function spawnWebWorker(uri, instance) {
 function _resolveDefaultAnimationDriver() {
     // web workers have not been tested or configured to
     // work with animations just yet...
-    return new NoOpAnimationDriver();
+    return AnimationDriver.NOOP;
 }
 //# sourceMappingURL=worker_render.js.map

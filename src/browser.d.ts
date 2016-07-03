@@ -1,4 +1,5 @@
-import { PlatformRef } from '@angular/core';
+import { AppModuleFactory, AppModuleRef, ExceptionHandler, PlatformRef } from '@angular/core';
+import { AnimationDriver } from '../src/dom/animation_driver';
 /**
  * A set of providers to initialize the Angular platform in a web browser.
  *
@@ -26,3 +27,36 @@ export declare const BROWSER_APP_PROVIDERS: Array<any>;
  * @experimental API related to bootstrapping are still under review.
  */
 export declare function browserPlatform(): PlatformRef;
+export declare function initDomAdapter(): void;
+export declare function _exceptionHandler(): ExceptionHandler;
+export declare function _document(): any;
+export declare function _resolveDefaultAnimationDriver(): AnimationDriver;
+/**
+ * The app module for the browser.
+ * @stable
+ */
+export declare class BrowserModule {
+}
+/**
+ * Creates an instance of an `@AppModule` for the browser platform
+ * for offline compilation.
+ *
+ * ## Simple Example
+ *
+ * ```typescript
+ * my_module.ts:
+ *
+ * @AppModule({
+ *   modules: [BrowserModule]
+ * })
+ * class MyModule {}
+ *
+ * main.ts:
+ * import {MyModuleNgFactory} from './my_module.ngfactory';
+ * import {bootstrapModuleFactory} from '@angular/platform-browser';
+ *
+ * let moduleRef = bootstrapModuleFactory(MyModuleNgFactory);
+ * ```
+ * @stable
+ */
+export declare function bootstrapModuleFactory<M>(moduleFactory: AppModuleFactory<M>): AppModuleRef<M>;

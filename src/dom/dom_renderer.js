@@ -15,10 +15,10 @@ var core_1 = require('@angular/core');
 var exceptions_1 = require('../facade/exceptions');
 var lang_1 = require('../facade/lang');
 var shared_styles_host_1 = require('./shared_styles_host');
-var core_private_1 = require('../../core_private');
 var event_manager_1 = require('./events/event_manager');
 var dom_tokens_1 = require('./dom_tokens');
 var dom_adapter_1 = require('./dom_adapter');
+var animation_driver_1 = require('./animation_driver');
 var util_1 = require('./util');
 var NAMESPACE_URIS = {
     'xlink': 'http://www.w3.org/1999/xlink',
@@ -60,7 +60,7 @@ var DomRootRenderer_ = (function (_super) {
         { type: undefined, decorators: [{ type: core_1.Inject, args: [dom_tokens_1.DOCUMENT,] },] },
         { type: event_manager_1.EventManager, },
         { type: shared_styles_host_1.DomSharedStylesHost, },
-        { type: core_private_1.AnimationDriver, },
+        { type: animation_driver_1.AnimationDriver, },
     ];
     return DomRootRenderer_;
 }(DomRootRenderer));
