@@ -41,9 +41,13 @@ var WebAnimationsDriver = (function () {
         var playerOptions = {
             'duration': duration,
             'delay': delay,
-            'easing': easing,
             'fill': 'both' // we use `both` because it allows for styling at 0% to work with `delay`
         };
+        // we check for this to avoid having a null|undefined value be present
+        // for the easing (which results in an error for certain browsers #9752)
+        if (easing) {
+            playerOptions['easing'] = easing;
+        }
         var player = this._triggerWebAnimation(anyElm, formattedSteps, playerOptions);
         return new web_animations_player_1.WebAnimationsPlayer(player, duration);
     };
