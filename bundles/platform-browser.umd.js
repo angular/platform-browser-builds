@@ -2930,7 +2930,7 @@ var __extends = (this && this.__extends) || function (d, b) {
          *
          * ## Example
          *
-         * {@example platform/dom/debug/ts/by/by.ts region='by_all'}
+         * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
          */
         By.all = function () { return function (debugElement) { return true; }; };
         /**
@@ -2938,7 +2938,7 @@ var __extends = (this && this.__extends) || function (d, b) {
          *
          * ## Example
          *
-         * {@example platform/dom/debug/ts/by/by.ts region='by_css'}
+         * {@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
          */
         By.css = function (selector) {
             return function (debugElement) {
@@ -2952,7 +2952,7 @@ var __extends = (this && this.__extends) || function (d, b) {
          *
          * ## Example
          *
-         * {@example platform/dom/debug/ts/by/by.ts region='by_directive'}
+         * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
          */
         By.directive = function (type) {
             return function (debugElement) { return debugElement.providerTokens.indexOf(type) !== -1; };
