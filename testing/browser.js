@@ -12,18 +12,7 @@ var browser_adapter_1 = require('../src/browser/browser_adapter');
 var animation_driver_1 = require('../src/dom/animation_driver');
 var ng_probe_1 = require('../src/dom/debug/ng_probe');
 var browser_util_1 = require('./browser_util');
-/**
- * Default platform providers for testing without a compiler.
- */
-var TEST_BROWSER_STATIC_PLATFORM_PROVIDERS = [
-    core_1.PLATFORM_COMMON_PROVIDERS,
-    { provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
-];
-var ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS = [
-    { provide: core_1.APP_ID, useValue: 'a' }, ng_probe_1.ELEMENT_PROBE_PROVIDERS,
-    { provide: core_1.NgZone, useFactory: createNgZone },
-    { provide: animation_driver_1.AnimationDriver, useValue: animation_driver_1.AnimationDriver.NOOP }
-];
+var BROWSER_TEST_PLATFORM_MARKER = new core_1.OpaqueToken('BrowserTestPlatformMarker');
 function initBrowserTests() {
     browser_adapter_1.BrowserDomAdapter.makeCurrent();
     browser_util_1.BrowserDetection.setup();
@@ -31,16 +20,37 @@ function initBrowserTests() {
 function createNgZone() {
     return new core_1.NgZone({ enableLongStackTrace: true });
 }
+var TEST_BROWSER_PLATFORM_PROVIDERS = [
+    core_1.PLATFORM_COMMON_PROVIDERS, { provide: BROWSER_TEST_PLATFORM_MARKER, useValue: true },
+    { provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
+];
 /**
- * Default platform providers for testing.
+ * Platform for testing
  *
- * @stable
+ * @experimental API related to bootstrapping are still under review.
  */
-exports.TEST_BROWSER_PLATFORM_PROVIDERS = TEST_BROWSER_STATIC_PLATFORM_PROVIDERS;
-/**
- * Default application providers for testing without a compiler.
- *
- * @stable
- */
-exports.TEST_BROWSER_APPLICATION_PROVIDERS = [browser_1.BROWSER_APP_PROVIDERS, ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS];
+function browserTestPlatform() {
+    if (!core_1.getPlatform()) {
+        core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(TEST_BROWSER_PLATFORM_PROVIDERS));
+    }
+    return core_1.assertPlatform(BROWSER_TEST_PLATFORM_MARKER);
+}
+exports.browserTestPlatform = browserTestPlatform;
+var BrowserTestModule = (function () {
+    function BrowserTestModule() {
+    }
+    /** @nocollapse */
+    BrowserTestModule.decorators = [
+        { type: core_1.AppModule, args: [{
+                    modules: [browser_1.BrowserModule],
+                    providers: [
+                        { provide: core_1.APP_ID, useValue: 'a' }, ng_probe_1.ELEMENT_PROBE_PROVIDERS,
+                        { provide: core_1.NgZone, useFactory: createNgZone },
+                        { provide: animation_driver_1.AnimationDriver, useValue: animation_driver_1.AnimationDriver.NOOP }
+                    ]
+                },] },
+    ];
+    return BrowserTestModule;
+}());
+exports.BrowserTestModule = BrowserTestModule;
 //# sourceMappingURL=browser.js.map

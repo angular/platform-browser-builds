@@ -5,24 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { APP_ID, NgZone, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER } from '@angular/core';
-import { BROWSER_APP_PROVIDERS } from '../src/browser';
+import { APP_ID, AppModule, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, ReflectiveInjector, assertPlatform, createPlatform, getPlatform } from '@angular/core';
+import { BrowserModule } from '../src/browser';
 import { BrowserDomAdapter } from '../src/browser/browser_adapter';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { ELEMENT_PROBE_PROVIDERS } from '../src/dom/debug/ng_probe';
 import { BrowserDetection } from './browser_util';
-/**
- * Default platform providers for testing without a compiler.
- */
-const TEST_BROWSER_STATIC_PLATFORM_PROVIDERS = [
-    PLATFORM_COMMON_PROVIDERS,
-    { provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
-];
-const ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS = [
-    { provide: APP_ID, useValue: 'a' }, ELEMENT_PROBE_PROVIDERS,
-    { provide: NgZone, useFactory: createNgZone },
-    { provide: AnimationDriver, useValue: AnimationDriver.NOOP }
-];
+const BROWSER_TEST_PLATFORM_MARKER = new OpaqueToken('BrowserTestPlatformMarker');
 function initBrowserTests() {
     BrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -30,16 +19,32 @@ function initBrowserTests() {
 function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
 }
+const TEST_BROWSER_PLATFORM_PROVIDERS = [
+    PLATFORM_COMMON_PROVIDERS, { provide: BROWSER_TEST_PLATFORM_MARKER, useValue: true },
+    { provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
+];
 /**
- * Default platform providers for testing.
+ * Platform for testing
  *
- * @stable
+ * @experimental API related to bootstrapping are still under review.
  */
-export const TEST_BROWSER_PLATFORM_PROVIDERS = TEST_BROWSER_STATIC_PLATFORM_PROVIDERS;
-/**
- * Default application providers for testing without a compiler.
- *
- * @stable
- */
-export const TEST_BROWSER_APPLICATION_PROVIDERS = [BROWSER_APP_PROVIDERS, ADDITIONAL_TEST_BROWSER_STATIC_PROVIDERS];
+export function browserTestPlatform() {
+    if (!getPlatform()) {
+        createPlatform(ReflectiveInjector.resolveAndCreate(TEST_BROWSER_PLATFORM_PROVIDERS));
+    }
+    return assertPlatform(BROWSER_TEST_PLATFORM_MARKER);
+}
+export class BrowserTestModule {
+}
+/** @nocollapse */
+BrowserTestModule.decorators = [
+    { type: AppModule, args: [{
+                modules: [BrowserModule],
+                providers: [
+                    { provide: APP_ID, useValue: 'a' }, ELEMENT_PROBE_PROVIDERS,
+                    { provide: NgZone, useFactory: createNgZone },
+                    { provide: AnimationDriver, useValue: AnimationDriver.NOOP }
+                ]
+            },] },
+];
 //# sourceMappingURL=browser.js.map

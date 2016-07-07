@@ -1,12 +1,14 @@
+import { PlatformRef } from '@angular/core';
 /**
- * Default platform providers for testing.
+ * Platform for testing
+ *
+ * @experimental API related to bootstrapping are still under review.
+ */
+export declare function browserTestPlatform(): PlatformRef;
+/**
+ * AppModule for testing.
  *
  * @stable
  */
-export declare const TEST_BROWSER_PLATFORM_PROVIDERS: Array<any>;
-/**
- * Default application providers for testing without a compiler.
- *
- * @stable
- */
-export declare const TEST_BROWSER_APPLICATION_PROVIDERS: Array<any>;
+export declare class BrowserTestModule {
+}
