@@ -56,7 +56,7 @@ exports.BROWSER_SANITIZATION_PROVIDERS = [
  * @experimental API related to bootstrapping are still under review.
  */
 exports.BROWSER_APP_PROVIDERS = [
-    core_1.APPLICATION_COMMON_PROVIDERS, common_1.FORM_PROVIDERS, exports.BROWSER_SANITIZATION_PROVIDERS,
+    core_1.APPLICATION_COMMON_PROVIDERS, exports.BROWSER_SANITIZATION_PROVIDERS,
     { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
     { provide: dom_tokens_1.DOCUMENT, useFactory: _document, deps: [] },
     { provide: event_manager_1.EVENT_MANAGER_PLUGINS, useClass: dom_events_1.DomEventsPlugin, multi: true },

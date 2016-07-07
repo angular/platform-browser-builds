@@ -2699,7 +2699,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @experimental API related to bootstrapping are still under review.
      */
     var BROWSER_APP_PROVIDERS = [
-        _angular_core.APPLICATION_COMMON_PROVIDERS, _angular_common.FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
+        _angular_core.APPLICATION_COMMON_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
         { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
         { provide: DOCUMENT, useFactory: _document, deps: [] },
         { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },

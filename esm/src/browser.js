@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { COMMON_DIRECTIVES, COMMON_PIPES, FORM_PROVIDERS, PlatformLocation } from '@angular/common';
+import { COMMON_DIRECTIVES, COMMON_PIPES, PlatformLocation } from '@angular/common';
 import { APPLICATION_COMMON_PROVIDERS, AppModule, ExceptionHandler, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, ReflectiveInjector, RootRenderer, SanitizationService, Testability, assertPlatform, createPlatform, getPlatform, isDevMode } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { AnimationDriver } from '../src/dom/animation_driver';
@@ -55,7 +55,7 @@ export const BROWSER_SANITIZATION_PROVIDERS = [
  * @experimental API related to bootstrapping are still under review.
  */
 export const BROWSER_APP_PROVIDERS = [
-    APPLICATION_COMMON_PROVIDERS, FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
+    APPLICATION_COMMON_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
     { provide: ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
     { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
