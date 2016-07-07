@@ -624,14 +624,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         SetWrapper.delete = function (m, k) { m.delete(k); };
         return SetWrapper;
     }());
-    var CAMEL_CASE_REGEXP = /([A-Z])/g;
-    var DASH_CASE_REGEXP = /-([a-z])/g;
-    function camelCaseToDashCase(input) {
-        return StringWrapper.replaceAllMapped(input, CAMEL_CASE_REGEXP, function (m /** TODO #9100 */) { return '-' + m[1].toLowerCase(); });
-    }
-    function dashCaseToCamelCase(input) {
-        return StringWrapper.replaceAllMapped(input, DASH_CASE_REGEXP, function (m /** TODO #9100 */) { return m[1].toUpperCase(); });
-    }
     var _DOM = null;
     function getDOM() {
         return _DOM;
@@ -665,17 +657,25 @@ var __extends = (this && this.__extends) || function (d, b) {
         ;
         return DomAdapter;
     }());
+    var CAMEL_CASE_REGEXP = /([A-Z])/g;
+    var DASH_CASE_REGEXP = /-([a-z])/g;
+    function camelCaseToDashCase(input) {
+        return StringWrapper.replaceAllMapped(input, CAMEL_CASE_REGEXP, function (m /** TODO #9100 */) { return '-' + m[1].toLowerCase(); });
+    }
+    function dashCaseToCamelCase(input) {
+        return StringWrapper.replaceAllMapped(input, DASH_CASE_REGEXP, function (m /** TODO #9100 */) { return m[1].toUpperCase(); });
+    }
     var WebAnimationsPlayer = (function () {
-        function WebAnimationsPlayer(element, keyframes, options) {
-            this.element = element;
-            this.keyframes = keyframes;
-            this.options = options;
+        function WebAnimationsPlayer(_player, totalTime) {
+            var _this = this;
+            this._player = _player;
+            this.totalTime = totalTime;
             this._subscriptions = [];
             this._finished = false;
-            this._initialized = false;
-            this._started = false;
             this.parentPlayer = null;
-            this._duration = options['duration'];
+            // this is required to make the player startable at a later time
+            this.reset();
+            this._player.onfinish = function () { return _this._onFinish(); };
         }
         WebAnimationsPlayer.prototype._onFinish = function () {
             if (!this._finished) {
@@ -687,39 +687,10 @@ var __extends = (this && this.__extends) || function (d, b) {
                 this._subscriptions = [];
             }
         };
-        WebAnimationsPlayer.prototype.init = function () {
-            var _this = this;
-            if (this._initialized)
-                return;
-            this._initialized = true;
-            var anyElm = this.element;
-            var keyframes = this.keyframes.map(function (styles) {
-                var formattedKeyframe = {};
-                StringMapWrapper.forEach(styles, function (value, prop) {
-                    formattedKeyframe[prop] = value == _angular_core.AUTO_STYLE ? _computeStyle(anyElm, prop) : value;
-                });
-                return formattedKeyframe;
-            });
-            this._player = this._triggerWebAnimation(anyElm, keyframes, this.options);
-            // this is required so that the player doesn't start to animate right away
-            this.reset();
-            this._player.onfinish = function () { return _this._onFinish(); };
-        };
-        /** @internal */
-        WebAnimationsPlayer.prototype._triggerWebAnimation = function (elm, keyframes, options) {
-            return elm.animate(keyframes, options);
-        };
         WebAnimationsPlayer.prototype.onDone = function (fn) { this._subscriptions.push(fn); };
-        WebAnimationsPlayer.prototype.play = function () {
-            this.init();
-            this._player.play();
-        };
-        WebAnimationsPlayer.prototype.pause = function () {
-            this.init();
-            this._player.pause();
-        };
+        WebAnimationsPlayer.prototype.play = function () { this._player.play(); };
+        WebAnimationsPlayer.prototype.pause = function () { this._player.pause(); };
         WebAnimationsPlayer.prototype.finish = function () {
-            this.init();
             this._onFinish();
             this._player.finish();
         };
@@ -728,36 +699,28 @@ var __extends = (this && this.__extends) || function (d, b) {
             this.reset();
             this.play();
         };
-        WebAnimationsPlayer.prototype.hasStarted = function () { return this._started; };
         WebAnimationsPlayer.prototype.destroy = function () {
             this.reset();
             this._onFinish();
         };
-        Object.defineProperty(WebAnimationsPlayer.prototype, "totalTime", {
-            get: function () { return this._duration; },
-            enumerable: true,
-            configurable: true
-        });
-        WebAnimationsPlayer.prototype.setPosition = function (p) { this._player.currentTime = p * this.totalTime; };
+        WebAnimationsPlayer.prototype.setPosition = function (p /** TODO #9100 */) { this._player.currentTime = p * this.totalTime; };
         WebAnimationsPlayer.prototype.getPosition = function () { return this._player.currentTime / this.totalTime; };
         return WebAnimationsPlayer;
     }());
-    function _computeStyle(element, prop) {
-        return getDOM().getComputedStyle(element)[prop];
-    }
     var WebAnimationsDriver = (function () {
         function WebAnimationsDriver() {
         }
         WebAnimationsDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
+            var anyElm = element;
             var formattedSteps = [];
             var startingStyleLookup = {};
             if (isPresent(startingStyles) && startingStyles.styles.length > 0) {
-                startingStyleLookup = _populateStyles(element, startingStyles, {});
+                startingStyleLookup = _populateStyles(anyElm, startingStyles, {});
                 startingStyleLookup['offset'] = 0;
                 formattedSteps.push(startingStyleLookup);
             }
             keyframes.forEach(function (keyframe) {
-                var data = _populateStyles(element, keyframe.styles, startingStyleLookup);
+                var data = _populateStyles(anyElm, keyframe.styles, startingStyleLookup);
                 data['offset'] = keyframe.offset;
                 formattedSteps.push(data);
             });
@@ -780,7 +743,12 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (easing) {
                 playerOptions['easing'] = easing;
             }
-            return new WebAnimationsPlayer(element, formattedSteps, playerOptions);
+            var player = this._triggerWebAnimation(anyElm, formattedSteps, playerOptions);
+            return new WebAnimationsPlayer(player, duration);
+        };
+        /** @internal */
+        WebAnimationsDriver.prototype._triggerWebAnimation = function (elm, keyframes, options) {
+            return elm.animate(keyframes, options);
         };
         return WebAnimationsDriver;
     }());
@@ -789,8 +757,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         styles.styles.forEach(function (entry) {
             StringMapWrapper.forEach(entry, function (val, prop) {
                 var formattedProp = dashCaseToCamelCase(prop);
-                data[formattedProp] =
-                    val == _angular_core.AUTO_STYLE ? val : val.toString() + _resolveStyleUnit(val, prop, formattedProp);
+                data[formattedProp] = val == _angular_core.AUTO_STYLE ?
+                    _computeStyle(element, formattedProp) :
+                    val.toString() + _resolveStyleUnit(val, prop, formattedProp);
             });
         });
         StringMapWrapper.forEach(defaultStyles, function (value, prop) {
@@ -858,6 +827,9 @@ var __extends = (this && this.__extends) || function (d, b) {
             default:
                 return false;
         }
+    }
+    function _computeStyle(element, prop) {
+        return getDOM().getComputedStyle(element)[prop];
     }
     /**
      * Provides DOM operations in any browser environment.

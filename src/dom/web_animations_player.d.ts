@@ -1,35 +1,27 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { AnimationPlayer } from '../../core_private';
+import { DomAnimatePlayer } from './dom_animate_player';
 export declare class WebAnimationsPlayer implements AnimationPlayer {
-    element: HTMLElement;
-    keyframes: {
-        [key: string]: string | number;
-    }[];
-    options: {
-        [key: string]: string | number;
-    };
+    private _player;
+    totalTime: number;
     private _subscriptions;
     private _finished;
-    private _initialized;
-    private _player;
-    private _started;
-    private _duration;
     parentPlayer: AnimationPlayer;
-    constructor(element: HTMLElement, keyframes: {
-        [key: string]: string | number;
-    }[], options: {
-        [key: string]: string | number;
-    });
+    constructor(_player: DomAnimatePlayer, totalTime: number);
     private _onFinish();
-    init(): void;
     onDone(fn: Function): void;
     play(): void;
     pause(): void;
     finish(): void;
     reset(): void;
     restart(): void;
-    hasStarted(): boolean;
     destroy(): void;
-    totalTime: number;
-    setPosition(p: number): void;
+    setPosition(p: any): void;
     getPosition(): number;
 }

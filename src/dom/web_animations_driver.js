@@ -9,21 +9,23 @@
 var core_1 = require('@angular/core');
 var collection_1 = require('../facade/collection');
 var lang_1 = require('../facade/lang');
+var dom_adapter_1 = require('./dom_adapter');
 var util_1 = require('./util');
 var web_animations_player_1 = require('./web_animations_player');
 var WebAnimationsDriver = (function () {
     function WebAnimationsDriver() {
     }
     WebAnimationsDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
+        var anyElm = element;
         var formattedSteps = [];
         var startingStyleLookup = {};
         if (lang_1.isPresent(startingStyles) && startingStyles.styles.length > 0) {
-            startingStyleLookup = _populateStyles(element, startingStyles, {});
+            startingStyleLookup = _populateStyles(anyElm, startingStyles, {});
             startingStyleLookup['offset'] = 0;
             formattedSteps.push(startingStyleLookup);
         }
         keyframes.forEach(function (keyframe) {
-            var data = _populateStyles(element, keyframe.styles, startingStyleLookup);
+            var data = _populateStyles(anyElm, keyframe.styles, startingStyleLookup);
             data['offset'] = keyframe.offset;
             formattedSteps.push(data);
         });
@@ -46,7 +48,12 @@ var WebAnimationsDriver = (function () {
         if (easing) {
             playerOptions['easing'] = easing;
         }
-        return new web_animations_player_1.WebAnimationsPlayer(element, formattedSteps, playerOptions);
+        var player = this._triggerWebAnimation(anyElm, formattedSteps, playerOptions);
+        return new web_animations_player_1.WebAnimationsPlayer(player, duration);
+    };
+    /** @internal */
+    WebAnimationsDriver.prototype._triggerWebAnimation = function (elm, keyframes, options) {
+        return elm.animate(keyframes, options);
     };
     return WebAnimationsDriver;
 }());
@@ -56,8 +63,9 @@ function _populateStyles(element, styles, defaultStyles) {
     styles.styles.forEach(function (entry) {
         collection_1.StringMapWrapper.forEach(entry, function (val, prop) {
             var formattedProp = util_1.dashCaseToCamelCase(prop);
-            data[formattedProp] =
-                val == core_1.AUTO_STYLE ? val : val.toString() + _resolveStyleUnit(val, prop, formattedProp);
+            data[formattedProp] = val == core_1.AUTO_STYLE ?
+                _computeStyle(element, formattedProp) :
+                val.toString() + _resolveStyleUnit(val, prop, formattedProp);
         });
     });
     collection_1.StringMapWrapper.forEach(defaultStyles, function (value, prop) {
@@ -125,5 +133,8 @@ function _isPixelDimensionStyle(prop) {
         default:
             return false;
     }
+}
+function _computeStyle(element, prop) {
+    return dom_adapter_1.getDOM().getComputedStyle(element)[prop];
 }
 //# sourceMappingURL=web_animations_driver.js.map
