@@ -3,7 +3,7 @@ import { AnimationDriver } from '../src/dom/animation_driver';
 /**
  * A set of providers to initialize the Angular platform in a web browser.
  *
- * Used automatically by `bootstrap`, or can be passed to {@link platform}.
+ * Used automatically by `bootstrap`, or can be passed to `platform`.
  *
  * @experimental API related to bootstrapping are still under review.
  */
@@ -18,7 +18,8 @@ export declare const BROWSER_SANITIZATION_PROVIDERS: Array<any>;
 /**
  * A set of providers to initialize an Angular application in a web browser.
  *
- * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
+ * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef
+ * PlatformRef.application}.
  *
  * @experimental API related to bootstrapping are still under review.
  */

@@ -2672,7 +2672,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * A set of providers to initialize the Angular platform in a web browser.
      *
-     * Used automatically by `bootstrap`, or can be passed to {@link platform}.
+     * Used automatically by `bootstrap`, or can be passed to `platform`.
      *
      * @experimental API related to bootstrapping are still under review.
      */
@@ -2694,7 +2694,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * A set of providers to initialize an Angular application in a web browser.
      *
-     * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef.application}.
+     * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef
+     * PlatformRef.application}.
      *
      * @experimental API related to bootstrapping are still under review.
      */
