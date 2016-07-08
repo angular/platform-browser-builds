@@ -5,13 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { APP_ID, AppModule, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, ReflectiveInjector, assertPlatform, createPlatform, getPlatform } from '@angular/core';
+import { APP_ID, AppModule, NgZone, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, createPlatformFactory } from '@angular/core';
 import { BrowserModule } from '../src/browser';
 import { BrowserDomAdapter } from '../src/browser/browser_adapter';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { ELEMENT_PROBE_PROVIDERS } from '../src/dom/debug/ng_probe';
 import { BrowserDetection } from './browser_util';
-const BROWSER_TEST_PLATFORM_MARKER = new OpaqueToken('BrowserTestPlatformMarker');
 function initBrowserTests() {
     BrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -19,8 +18,13 @@ function initBrowserTests() {
 function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
 }
-const TEST_BROWSER_PLATFORM_PROVIDERS = [
-    PLATFORM_COMMON_PROVIDERS, { provide: BROWSER_TEST_PLATFORM_MARKER, useValue: true },
+/**
+ * Providers for the browser test platform
+ *
+ * @experimental
+ */
+export const TEST_BROWSER_PLATFORM_PROVIDERS = [
+    PLATFORM_COMMON_PROVIDERS,
     { provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
 ];
 /**
@@ -28,12 +32,7 @@ const TEST_BROWSER_PLATFORM_PROVIDERS = [
  *
  * @experimental API related to bootstrapping are still under review.
  */
-export function browserTestPlatform() {
-    if (!getPlatform()) {
-        createPlatform(ReflectiveInjector.resolveAndCreate(TEST_BROWSER_PLATFORM_PROVIDERS));
-    }
-    return assertPlatform(BROWSER_TEST_PLATFORM_MARKER);
-}
+export const browserTestPlatform = createPlatformFactory('browserTest', TEST_BROWSER_PLATFORM_PROVIDERS);
 export class BrowserTestModule {
 }
 /** @nocollapse */

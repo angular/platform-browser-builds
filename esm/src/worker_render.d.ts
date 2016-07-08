@@ -40,4 +40,13 @@ export declare const WORKER_UI_APPLICATION_PROVIDERS: Array<any>;
 /**
  * @experimental WebWorker support is currently experimental.
  */
-export declare function workerUiPlatform(): PlatformRef;
+export declare const workerUiPlatform: () => PlatformRef;
+/**
+ * The app module for the worker ui side.
+ * To use this, you need to create an own module that includes this module
+ * and provides the `WORKER_SCRIPT` token.
+ *
+ * @experimental
+ */
+export declare class WorkerUiModule {
+}

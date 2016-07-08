@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { COMMON_DIRECTIVES, COMMON_PIPES, PlatformLocation } from '@angular/common';
-import { APPLICATION_COMMON_PROVIDERS, AppModule, ExceptionHandler, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, ReflectiveInjector, RootRenderer, SanitizationService, Testability, assertPlatform, createPlatform, getPlatform, isDevMode } from '@angular/core';
+import { APPLICATION_COMMON_PROVIDERS, AppModule, ExceptionHandler, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, RootRenderer, SanitizationService, Testability, createPlatformFactory } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
@@ -22,9 +22,7 @@ import { EVENT_MANAGER_PLUGINS, EventManager } from './dom/events/event_manager'
 import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerGesturesPlugin } from './dom/events/hammer_gestures';
 import { KeyEventsPlugin } from './dom/events/key_events';
 import { DomSharedStylesHost, SharedStylesHost } from './dom/shared_styles_host';
-import { isBlank } from './facade/lang';
 import { DomSanitizationService, DomSanitizationServiceImpl } from './security/dom_sanitization_service';
-const BROWSER_PLATFORM_MARKER = new OpaqueToken('BrowserPlatformMarker');
 /**
  * A set of providers to initialize the Angular platform in a web browser.
  *
@@ -33,8 +31,7 @@ const BROWSER_PLATFORM_MARKER = new OpaqueToken('BrowserPlatformMarker');
  * @experimental API related to bootstrapping are still under review.
  */
 export const BROWSER_PLATFORM_PROVIDERS = [
-    { provide: BROWSER_PLATFORM_MARKER, useValue: true }, PLATFORM_COMMON_PROVIDERS,
-    { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+    PLATFORM_COMMON_PROVIDERS, { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation }
 ];
 /**
@@ -72,12 +69,7 @@ export const BROWSER_APP_PROVIDERS = [
 /**
  * @experimental API related to bootstrapping are still under review.
  */
-export function browserPlatform() {
-    if (isBlank(getPlatform())) {
-        createPlatform(ReflectiveInjector.resolveAndCreate(BROWSER_PLATFORM_PROVIDERS));
-    }
-    return assertPlatform(BROWSER_PLATFORM_MARKER);
-}
+export const browserPlatform = createPlatformFactory('browser', BROWSER_PLATFORM_PROVIDERS);
 export function initDomAdapter() {
     BrowserDomAdapter.makeCurrent();
     wtfInit();
@@ -107,36 +99,4 @@ BrowserModule.decorators = [
                 pipes: COMMON_PIPES
             },] },
 ];
-/**
- * Creates an instance of an `@AppModule` for the browser platform
- * for offline compilation.
- *
- * ## Simple Example
- *
- * ```typescript
- * my_module.ts:
- *
- * @AppModule({
- *   modules: [BrowserModule]
- * })
- * class MyModule {}
- *
- * main.ts:
- * import {MyModuleNgFactory} from './my_module.ngfactory';
- * import {bootstrapModuleFactory} from '@angular/platform-browser';
- *
- * let moduleRef = bootstrapModuleFactory(MyModuleNgFactory);
- * ```
- * @stable
- */
-export function bootstrapModuleFactory(moduleFactory) {
-    let platformInjector = browserPlatform().injector;
-    // Note: We need to create the NgZone _before_ we instantiate the module,
-    // as instantiating the module creates some providers eagerly.
-    // So we create a mini parent injector that just contains the new NgZone and
-    // pass that as parent to the AppModuleFactory.
-    let ngZone = new NgZone({ enableLongStackTrace: isDevMode() });
-    let ngZoneInjector = ReflectiveInjector.resolveAndCreate([{ provide: NgZone, useValue: ngZone }], platformInjector);
-    return ngZone.run(() => { return moduleFactory.create(ngZoneInjector); });
-}
 //# sourceMappingURL=browser.js.map

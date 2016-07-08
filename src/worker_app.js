@@ -28,11 +28,10 @@ var PrintLogger = (function () {
     PrintLogger.prototype.logGroupEnd = function () { };
     return PrintLogger;
 }());
-var WORKER_APP_PLATFORM_MARKER = new core_1.OpaqueToken('WorkerAppPlatformMarker');
 /**
  * @experimental
  */
-exports.WORKER_APP_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
+exports.WORKER_APP_PLATFORM_PROVIDERS = core_1.PLATFORM_COMMON_PROVIDERS;
 /**
  * @experimental
  */
@@ -49,13 +48,7 @@ exports.WORKER_APP_APPLICATION_PROVIDERS = [
 /**
  * @experimental
  */
-function workerAppPlatform() {
-    if (lang_1.isBlank(core_1.getPlatform())) {
-        core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(exports.WORKER_APP_PLATFORM_PROVIDERS));
-    }
-    return core_1.assertPlatform(WORKER_APP_PLATFORM_MARKER);
-}
-exports.workerAppPlatform = workerAppPlatform;
+exports.workerAppPlatform = core_1.createPlatformFactory('workerApp', exports.WORKER_APP_PLATFORM_PROVIDERS);
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(new PrintLogger());
 }
@@ -75,4 +68,18 @@ function createMessageBus(zone) {
 function setupWebWorker() {
     worker_adapter_1.WorkerDomAdapter.makeCurrent();
 }
+var WorkerAppModule = (function () {
+    function WorkerAppModule() {
+    }
+    /** @nocollapse */
+    WorkerAppModule.decorators = [
+        { type: core_1.AppModule, args: [{
+                    providers: exports.WORKER_APP_APPLICATION_PROVIDERS,
+                    directives: common_1.COMMON_DIRECTIVES,
+                    pipes: common_1.COMMON_PIPES
+                },] },
+    ];
+    return WorkerAppModule;
+}());
+exports.WorkerAppModule = WorkerAppModule;
 //# sourceMappingURL=worker_app.js.map

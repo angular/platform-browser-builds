@@ -23,9 +23,7 @@ var event_manager_1 = require('./dom/events/event_manager');
 var hammer_gestures_1 = require('./dom/events/hammer_gestures');
 var key_events_1 = require('./dom/events/key_events');
 var shared_styles_host_1 = require('./dom/shared_styles_host');
-var lang_1 = require('./facade/lang');
 var dom_sanitization_service_1 = require('./security/dom_sanitization_service');
-var BROWSER_PLATFORM_MARKER = new core_1.OpaqueToken('BrowserPlatformMarker');
 /**
  * A set of providers to initialize the Angular platform in a web browser.
  *
@@ -34,8 +32,7 @@ var BROWSER_PLATFORM_MARKER = new core_1.OpaqueToken('BrowserPlatformMarker');
  * @experimental API related to bootstrapping are still under review.
  */
 exports.BROWSER_PLATFORM_PROVIDERS = [
-    { provide: BROWSER_PLATFORM_MARKER, useValue: true }, core_1.PLATFORM_COMMON_PROVIDERS,
-    { provide: core_1.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+    core_1.PLATFORM_COMMON_PROVIDERS, { provide: core_1.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: common_1.PlatformLocation, useClass: browser_platform_location_1.BrowserPlatformLocation }
 ];
 /**
@@ -73,13 +70,7 @@ exports.BROWSER_APP_PROVIDERS = [
 /**
  * @experimental API related to bootstrapping are still under review.
  */
-function browserPlatform() {
-    if (lang_1.isBlank(core_1.getPlatform())) {
-        core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(exports.BROWSER_PLATFORM_PROVIDERS));
-    }
-    return core_1.assertPlatform(BROWSER_PLATFORM_MARKER);
-}
-exports.browserPlatform = browserPlatform;
+exports.browserPlatform = core_1.createPlatformFactory('browser', exports.BROWSER_PLATFORM_PROVIDERS);
 function initDomAdapter() {
     browser_adapter_1.BrowserDomAdapter.makeCurrent();
     core_private_1.wtfInit();
@@ -117,37 +108,4 @@ var BrowserModule = (function () {
     return BrowserModule;
 }());
 exports.BrowserModule = BrowserModule;
-/**
- * Creates an instance of an `@AppModule` for the browser platform
- * for offline compilation.
- *
- * ## Simple Example
- *
- * ```typescript
- * my_module.ts:
- *
- * @AppModule({
- *   modules: [BrowserModule]
- * })
- * class MyModule {}
- *
- * main.ts:
- * import {MyModuleNgFactory} from './my_module.ngfactory';
- * import {bootstrapModuleFactory} from '@angular/platform-browser';
- *
- * let moduleRef = bootstrapModuleFactory(MyModuleNgFactory);
- * ```
- * @stable
- */
-function bootstrapModuleFactory(moduleFactory) {
-    var platformInjector = browserPlatform().injector;
-    // Note: We need to create the NgZone _before_ we instantiate the module,
-    // as instantiating the module creates some providers eagerly.
-    // So we create a mini parent injector that just contains the new NgZone and
-    // pass that as parent to the AppModuleFactory.
-    var ngZone = new core_1.NgZone({ enableLongStackTrace: core_1.isDevMode() });
-    var ngZoneInjector = core_1.ReflectiveInjector.resolveAndCreate([{ provide: core_1.NgZone, useValue: ngZone }], platformInjector);
-    return ngZone.run(function () { return moduleFactory.create(ngZoneInjector); });
-}
-exports.bootstrapModuleFactory = bootstrapModuleFactory;
 //# sourceMappingURL=browser.js.map

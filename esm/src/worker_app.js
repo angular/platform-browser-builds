@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FORM_PROVIDERS } from '@angular/common';
-import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, ExceptionHandler, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, ReflectiveInjector, RootRenderer, assertPlatform, createPlatform, getPlatform } from '@angular/core';
+import { COMMON_DIRECTIVES, COMMON_PIPES, FORM_PROVIDERS } from '@angular/common';
+import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, AppModule, ExceptionHandler, NgZone, PLATFORM_COMMON_PROVIDERS, RootRenderer, createPlatformFactory } from '@angular/core';
 import { BROWSER_SANITIZATION_PROVIDERS } from './browser';
-import { isBlank, print } from './facade/lang';
+import { print } from './facade/lang';
 import { ON_WEB_WORKER } from './web_workers/shared/api';
 import { ClientMessageBrokerFactory, ClientMessageBrokerFactory_ } from './web_workers/shared/client_message_broker';
 import { MessageBus } from './web_workers/shared/message_bus';
@@ -26,11 +26,10 @@ class PrintLogger {
     }
     logGroupEnd() { }
 }
-const WORKER_APP_PLATFORM_MARKER = new OpaqueToken('WorkerAppPlatformMarker');
 /**
  * @experimental
  */
-export const WORKER_APP_PLATFORM_PROVIDERS = [PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
+export const WORKER_APP_PLATFORM_PROVIDERS = PLATFORM_COMMON_PROVIDERS;
 /**
  * @experimental
  */
@@ -47,12 +46,7 @@ export const WORKER_APP_APPLICATION_PROVIDERS = [
 /**
  * @experimental
  */
-export function workerAppPlatform() {
-    if (isBlank(getPlatform())) {
-        createPlatform(ReflectiveInjector.resolveAndCreate(WORKER_APP_PLATFORM_PROVIDERS));
-    }
-    return assertPlatform(WORKER_APP_PLATFORM_MARKER);
-}
+export const workerAppPlatform = createPlatformFactory('workerApp', WORKER_APP_PLATFORM_PROVIDERS);
 function _exceptionHandler() {
     return new ExceptionHandler(new PrintLogger());
 }
@@ -72,4 +66,14 @@ function createMessageBus(zone) {
 function setupWebWorker() {
     WorkerDomAdapter.makeCurrent();
 }
+export class WorkerAppModule {
+}
+/** @nocollapse */
+WorkerAppModule.decorators = [
+    { type: AppModule, args: [{
+                providers: WORKER_APP_APPLICATION_PROVIDERS,
+                directives: COMMON_DIRECTIVES,
+                pipes: COMMON_PIPES
+            },] },
+];
 //# sourceMappingURL=worker_app.js.map

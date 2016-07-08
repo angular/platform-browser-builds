@@ -21,7 +21,6 @@ var hammer_gestures_1 = require('./dom/events/hammer_gestures');
 var key_events_1 = require('./dom/events/key_events');
 var shared_styles_host_1 = require('./dom/shared_styles_host');
 var exceptions_1 = require('./facade/exceptions');
-var lang_1 = require('./facade/lang');
 var api_1 = require('./web_workers/shared/api');
 var client_message_broker_1 = require('./web_workers/shared/client_message_broker');
 var message_bus_1 = require('./web_workers/shared/message_bus');
@@ -30,7 +29,6 @@ var render_store_1 = require('./web_workers/shared/render_store');
 var serializer_1 = require('./web_workers/shared/serializer');
 var service_message_broker_1 = require('./web_workers/shared/service_message_broker');
 var renderer_1 = require('./web_workers/ui/renderer');
-var WORKER_RENDER_PLATFORM_MARKER = new core_1.OpaqueToken('WorkerRenderPlatformMarker');
 var WebWorkerInstance = (function () {
     function WebWorkerInstance() {
     }
@@ -62,7 +60,7 @@ exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE = new core_1.OpaqueToken('WorkerRe
  * @experimental WebWorker support is currently experimental.
  */
 exports.WORKER_UI_PLATFORM_PROVIDERS = [
-    core_1.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true },
+    core_1.PLATFORM_COMMON_PROVIDERS,
     { provide: core_1.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
 ];
 /**
@@ -116,13 +114,7 @@ function initWebWorkerRenderPlatform() {
 /**
  * @experimental WebWorker support is currently experimental.
  */
-function workerUiPlatform() {
-    if (lang_1.isBlank(core_1.getPlatform())) {
-        core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(exports.WORKER_UI_PLATFORM_PROVIDERS));
-    }
-    return core_1.assertPlatform(WORKER_RENDER_PLATFORM_MARKER);
-}
-exports.workerUiPlatform = workerUiPlatform;
+exports.workerUiPlatform = core_1.createPlatformFactory('workerUi', exports.WORKER_UI_PLATFORM_PROVIDERS);
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(dom_adapter_1.getDOM());
 }
@@ -158,4 +150,14 @@ function _resolveDefaultAnimationDriver() {
     // work with animations just yet...
     return animation_driver_1.AnimationDriver.NOOP;
 }
+var WorkerUiModule = (function () {
+    function WorkerUiModule() {
+    }
+    /** @nocollapse */
+    WorkerUiModule.decorators = [
+        { type: core_1.AppModule, args: [{ providers: exports.WORKER_UI_APPLICATION_PROVIDERS },] },
+    ];
+    return WorkerUiModule;
+}());
+exports.WorkerUiModule = WorkerUiModule;
 //# sourceMappingURL=worker_render.js.map

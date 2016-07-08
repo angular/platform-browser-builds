@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, ExceptionHandler, Injectable, Injector, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, ReflectiveInjector, RootRenderer, Testability, assertPlatform, createPlatform, getPlatform } from '@angular/core';
+import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, AppModule, ExceptionHandler, Injectable, Injector, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, RootRenderer, Testability, createPlatformFactory } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { BROWSER_SANITIZATION_PROVIDERS } from './browser';
 import { BrowserDomAdapter } from './browser/browser_adapter';
@@ -20,7 +20,6 @@ import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerGesturesPlugin } from
 import { KeyEventsPlugin } from './dom/events/key_events';
 import { DomSharedStylesHost, SharedStylesHost } from './dom/shared_styles_host';
 import { BaseException } from './facade/exceptions';
-import { isBlank } from './facade/lang';
 import { ON_WEB_WORKER } from './web_workers/shared/api';
 import { ClientMessageBrokerFactory, ClientMessageBrokerFactory_ } from './web_workers/shared/client_message_broker';
 import { MessageBus } from './web_workers/shared/message_bus';
@@ -29,7 +28,6 @@ import { RenderStore } from './web_workers/shared/render_store';
 import { Serializer } from './web_workers/shared/serializer';
 import { ServiceMessageBrokerFactory, ServiceMessageBrokerFactory_ } from './web_workers/shared/service_message_broker';
 import { MessageBasedRenderer } from './web_workers/ui/renderer';
-const WORKER_RENDER_PLATFORM_MARKER = new OpaqueToken('WorkerRenderPlatformMarker');
 export class WebWorkerInstance {
     /** @internal */
     init(worker, bus) {
@@ -57,7 +55,7 @@ export const WORKER_UI_STARTABLE_MESSAGING_SERVICE = new OpaqueToken('WorkerRend
  * @experimental WebWorker support is currently experimental.
  */
 export const WORKER_UI_PLATFORM_PROVIDERS = [
-    PLATFORM_COMMON_PROVIDERS, { provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true },
+    PLATFORM_COMMON_PROVIDERS,
     { provide: PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
 ];
 /**
@@ -111,12 +109,7 @@ function initWebWorkerRenderPlatform() {
 /**
  * @experimental WebWorker support is currently experimental.
  */
-export function workerUiPlatform() {
-    if (isBlank(getPlatform())) {
-        createPlatform(ReflectiveInjector.resolveAndCreate(WORKER_UI_PLATFORM_PROVIDERS));
-    }
-    return assertPlatform(WORKER_RENDER_PLATFORM_MARKER);
-}
+export const workerUiPlatform = createPlatformFactory('workerUi', WORKER_UI_PLATFORM_PROVIDERS);
 function _exceptionHandler() {
     return new ExceptionHandler(getDOM());
 }
@@ -152,4 +145,10 @@ function _resolveDefaultAnimationDriver() {
     // work with animations just yet...
     return AnimationDriver.NOOP;
 }
+export class WorkerUiModule {
+}
+/** @nocollapse */
+WorkerUiModule.decorators = [
+    { type: AppModule, args: [{ providers: WORKER_UI_APPLICATION_PROVIDERS },] },
+];
 //# sourceMappingURL=worker_render.js.map

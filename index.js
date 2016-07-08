@@ -14,7 +14,6 @@ exports.BROWSER_APP_PROVIDERS = browser_1.BROWSER_APP_PROVIDERS;
 exports.BROWSER_PLATFORM_PROVIDERS = browser_1.BROWSER_PLATFORM_PROVIDERS;
 exports.BROWSER_SANITIZATION_PROVIDERS = browser_1.BROWSER_SANITIZATION_PROVIDERS;
 exports.BrowserModule = browser_1.BrowserModule;
-exports.bootstrapModuleFactory = browser_1.bootstrapModuleFactory;
 exports.browserPlatform = browser_1.browserPlatform;
 var browser_platform_location_1 = require('./src/browser/location/browser_platform_location');
 exports.BrowserPlatformLocation = browser_platform_location_1.BrowserPlatformLocation;

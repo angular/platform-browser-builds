@@ -2668,7 +2668,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         SafeResourceUrlImpl.prototype.getTypeName = function () { return 'ResourceURL'; };
         return SafeResourceUrlImpl;
     }(SafeValueImpl));
-    var BROWSER_PLATFORM_MARKER = new _angular_core.OpaqueToken('BrowserPlatformMarker');
     /**
      * A set of providers to initialize the Angular platform in a web browser.
      *
@@ -2677,8 +2676,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @experimental API related to bootstrapping are still under review.
      */
     var BROWSER_PLATFORM_PROVIDERS = [
-        { provide: BROWSER_PLATFORM_MARKER, useValue: true }, _angular_core.PLATFORM_COMMON_PROVIDERS,
-        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+        _angular_core.PLATFORM_COMMON_PROVIDERS, { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
         { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
     ];
     /**
@@ -2716,12 +2714,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * @experimental API related to bootstrapping are still under review.
      */
-    function browserPlatform() {
-        if (isBlank(_angular_core.getPlatform())) {
-            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(BROWSER_PLATFORM_PROVIDERS));
-        }
-        return _angular_core.assertPlatform(BROWSER_PLATFORM_MARKER);
-    }
+    var browserPlatform = _angular_core.createPlatformFactory('browser', BROWSER_PLATFORM_PROVIDERS);
     function initDomAdapter() {
         BrowserDomAdapter.makeCurrent();
         wtfInit();
@@ -2754,38 +2747,6 @@ var __extends = (this && this.__extends) || function (d, b) {
                     pipes: _angular_common.COMMON_PIPES
                 },] },
     ];
-    /**
-     * Creates an instance of an `@AppModule` for the browser platform
-     * for offline compilation.
-     *
-     * ## Simple Example
-     *
-     * ```typescript
-     * my_module.ts:
-     *
-     * @AppModule({
-     *   modules: [BrowserModule]
-     * })
-     * class MyModule {}
-     *
-     * main.ts:
-     * import {MyModuleNgFactory} from './my_module.ngfactory';
-     * import {bootstrapModuleFactory} from '@angular/platform-browser';
-     *
-     * let moduleRef = bootstrapModuleFactory(MyModuleNgFactory);
-     * ```
-     * @stable
-     */
-    function bootstrapModuleFactory(moduleFactory) {
-        var platformInjector = browserPlatform().injector;
-        // Note: We need to create the NgZone _before_ we instantiate the module,
-        // as instantiating the module creates some providers eagerly.
-        // So we create a mini parent injector that just contains the new NgZone and
-        // pass that as parent to the AppModuleFactory.
-        var ngZone = new _angular_core.NgZone({ enableLongStackTrace: _angular_core.isDevMode() });
-        var ngZoneInjector = _angular_core.ReflectiveInjector.resolveAndCreate([{ provide: _angular_core.NgZone, useValue: ngZone }], platformInjector);
-        return ngZone.run(function () { return moduleFactory.create(ngZoneInjector); });
-    }
     /**
      * A service that can be used to get and set the title of a current HTML document.
      *
@@ -4207,7 +4168,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         { type: RenderStore, },
         { type: _angular_core.RootRenderer, },
     ];
-    var WORKER_RENDER_PLATFORM_MARKER = new _angular_core.OpaqueToken('WorkerRenderPlatformMarker');
     var WebWorkerInstance = (function () {
         function WebWorkerInstance() {
         }
@@ -4238,7 +4198,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @experimental WebWorker support is currently experimental.
      */
     var WORKER_UI_PLATFORM_PROVIDERS = [
-        _angular_core.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_RENDER_PLATFORM_MARKER, useValue: true },
+        _angular_core.PLATFORM_COMMON_PROVIDERS,
         { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
     ];
     /**
@@ -4292,12 +4252,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * @experimental WebWorker support is currently experimental.
      */
-    function workerUiPlatform() {
-        if (isBlank(_angular_core.getPlatform())) {
-            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(WORKER_UI_PLATFORM_PROVIDERS));
-        }
-        return _angular_core.assertPlatform(WORKER_RENDER_PLATFORM_MARKER);
-    }
+    var workerUiPlatform = _angular_core.createPlatformFactory('workerUi', WORKER_UI_PLATFORM_PROVIDERS);
     function _exceptionHandler$1() {
         return new _angular_core.ExceptionHandler(getDOM());
     }
@@ -4333,6 +4288,15 @@ var __extends = (this && this.__extends) || function (d, b) {
         // work with animations just yet...
         return AnimationDriver.NOOP;
     }
+    var WorkerUiModule = (function () {
+        function WorkerUiModule() {
+        }
+        return WorkerUiModule;
+    }());
+    /** @nocollapse */
+    WorkerUiModule.decorators = [
+        { type: _angular_core.AppModule, args: [{ providers: WORKER_UI_APPLICATION_PROVIDERS },] },
+    ];
     var WebWorkerRootRenderer = (function () {
         function WebWorkerRootRenderer(messageBrokerFactory, bus, _serializer, _renderStore) {
             var _this = this;
@@ -4766,11 +4730,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         PrintLogger.prototype.logGroupEnd = function () { };
         return PrintLogger;
     }());
-    var WORKER_APP_PLATFORM_MARKER = new _angular_core.OpaqueToken('WorkerAppPlatformMarker');
     /**
      * @experimental
      */
-    var WORKER_APP_PLATFORM_PROVIDERS = [_angular_core.PLATFORM_COMMON_PROVIDERS, { provide: WORKER_APP_PLATFORM_MARKER, useValue: true }];
+    var WORKER_APP_PLATFORM_PROVIDERS = _angular_core.PLATFORM_COMMON_PROVIDERS;
     /**
      * @experimental
      */
@@ -4787,12 +4750,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * @experimental
      */
-    function workerAppPlatform() {
-        if (isBlank(_angular_core.getPlatform())) {
-            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(WORKER_APP_PLATFORM_PROVIDERS));
-        }
-        return _angular_core.assertPlatform(WORKER_APP_PLATFORM_MARKER);
-    }
+    var workerAppPlatform = _angular_core.createPlatformFactory('workerApp', WORKER_APP_PLATFORM_PROVIDERS);
     function _exceptionHandler$2() {
         return new _angular_core.ExceptionHandler(new PrintLogger());
     }
@@ -4812,6 +4770,19 @@ var __extends = (this && this.__extends) || function (d, b) {
     function setupWebWorker() {
         WorkerDomAdapter.makeCurrent();
     }
+    var WorkerAppModule = (function () {
+        function WorkerAppModule() {
+        }
+        return WorkerAppModule;
+    }());
+    /** @nocollapse */
+    WorkerAppModule.decorators = [
+        { type: _angular_core.AppModule, args: [{
+                    providers: WORKER_APP_APPLICATION_PROVIDERS,
+                    directives: _angular_common.COMMON_DIRECTIVES,
+                    pipes: _angular_common.COMMON_PIPES
+                },] },
+    ];
     var __platform_browser_private__ = {
         DomAdapter: DomAdapter,
         getDOM: getDOM,
@@ -4828,7 +4799,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.BROWSER_PLATFORM_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
     exports.BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
     exports.BrowserModule = BrowserModule;
-    exports.bootstrapModuleFactory = bootstrapModuleFactory;
     exports.browserPlatform = browserPlatform;
     exports.BrowserPlatformLocation = BrowserPlatformLocation;
     exports.Title = Title;
@@ -4859,8 +4829,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.WORKER_UI_PLATFORM_PROVIDERS = WORKER_UI_PLATFORM_PROVIDERS;
     exports.WORKER_UI_APPLICATION_PROVIDERS = WORKER_UI_APPLICATION_PROVIDERS;
     exports.workerUiPlatform = workerUiPlatform;
+    exports.WorkerUiModule = WorkerUiModule;
     exports.WORKER_APP_PLATFORM_PROVIDERS = WORKER_APP_PLATFORM_PROVIDERS;
     exports.WORKER_APP_APPLICATION_PROVIDERS = WORKER_APP_APPLICATION_PROVIDERS;
     exports.workerAppPlatform = workerAppPlatform;
+    exports.WorkerAppModule = WorkerAppModule;
     exports.__platform_browser_private__ = __platform_browser_private__;
 }));

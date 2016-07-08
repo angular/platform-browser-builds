@@ -12,7 +12,6 @@ var browser_adapter_1 = require('../src/browser/browser_adapter');
 var animation_driver_1 = require('../src/dom/animation_driver');
 var ng_probe_1 = require('../src/dom/debug/ng_probe');
 var browser_util_1 = require('./browser_util');
-var BROWSER_TEST_PLATFORM_MARKER = new core_1.OpaqueToken('BrowserTestPlatformMarker');
 function initBrowserTests() {
     browser_adapter_1.BrowserDomAdapter.makeCurrent();
     browser_util_1.BrowserDetection.setup();
@@ -20,8 +19,13 @@ function initBrowserTests() {
 function createNgZone() {
     return new core_1.NgZone({ enableLongStackTrace: true });
 }
-var TEST_BROWSER_PLATFORM_PROVIDERS = [
-    core_1.PLATFORM_COMMON_PROVIDERS, { provide: BROWSER_TEST_PLATFORM_MARKER, useValue: true },
+/**
+ * Providers for the browser test platform
+ *
+ * @experimental
+ */
+exports.TEST_BROWSER_PLATFORM_PROVIDERS = [
+    core_1.PLATFORM_COMMON_PROVIDERS,
     { provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
 ];
 /**
@@ -29,13 +33,7 @@ var TEST_BROWSER_PLATFORM_PROVIDERS = [
  *
  * @experimental API related to bootstrapping are still under review.
  */
-function browserTestPlatform() {
-    if (!core_1.getPlatform()) {
-        core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(TEST_BROWSER_PLATFORM_PROVIDERS));
-    }
-    return core_1.assertPlatform(BROWSER_TEST_PLATFORM_MARKER);
-}
-exports.browserTestPlatform = browserTestPlatform;
+exports.browserTestPlatform = core_1.createPlatformFactory('browserTest', exports.TEST_BROWSER_PLATFORM_PROVIDERS);
 var BrowserTestModule = (function () {
     function BrowserTestModule() {
     }
