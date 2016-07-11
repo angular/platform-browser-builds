@@ -6,6 +6,10 @@ import { PlatformRef } from '@angular/core';
  */
 export declare const TEST_BROWSER_PLATFORM_PROVIDERS: Array<any>;
 /**
+ * @deprecated Use initTestEnvironment with BrowserTestModule instead.
+ */
+export declare const TEST_BROWSER_APPLICATION_PROVIDERS: Array<any>;
+/**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.

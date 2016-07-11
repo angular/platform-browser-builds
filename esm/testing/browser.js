@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { APP_ID, AppModule, NgZone, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, createPlatformFactory } from '@angular/core';
-import { BrowserModule } from '../src/browser';
+import { BROWSER_APP_PROVIDERS, BrowserModule } from '../src/browser';
 import { BrowserDomAdapter } from '../src/browser/browser_adapter';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { ELEMENT_PROBE_PROVIDERS } from '../src/dom/debug/ng_probe';
@@ -26,6 +26,14 @@ function createNgZone() {
 export const TEST_BROWSER_PLATFORM_PROVIDERS = [
     PLATFORM_COMMON_PROVIDERS,
     { provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
+];
+/**
+ * @deprecated Use initTestEnvironment with BrowserTestModule instead.
+ */
+export const TEST_BROWSER_APPLICATION_PROVIDERS = [
+    BROWSER_APP_PROVIDERS, { provide: APP_ID, useValue: 'a' }, ELEMENT_PROBE_PROVIDERS,
+    { provide: NgZone, useFactory: createNgZone },
+    { provide: AnimationDriver, useValue: AnimationDriver.NOOP }
 ];
 /**
  * Platform for testing

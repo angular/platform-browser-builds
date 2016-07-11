@@ -29,6 +29,14 @@ exports.TEST_BROWSER_PLATFORM_PROVIDERS = [
     { provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
 ];
 /**
+ * @deprecated Use initTestEnvironment with BrowserTestModule instead.
+ */
+exports.TEST_BROWSER_APPLICATION_PROVIDERS = [
+    browser_1.BROWSER_APP_PROVIDERS, { provide: core_1.APP_ID, useValue: 'a' }, ng_probe_1.ELEMENT_PROBE_PROVIDERS,
+    { provide: core_1.NgZone, useFactory: createNgZone },
+    { provide: animation_driver_1.AnimationDriver, useValue: animation_driver_1.AnimationDriver.NOOP }
+];
+/**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
