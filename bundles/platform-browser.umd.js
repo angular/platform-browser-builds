@@ -3299,7 +3299,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             };
         };
         Serializer.prototype._deserializeRenderComponentType = function (map) {
-            return new _angular_core.RenderComponentType(map['id'], map['templateUrl'], map['slotCount'], this.deserialize(map['encapsulation'], _angular_core.ViewEncapsulation), this.deserialize(map['styles'], PRIMITIVE));
+            return new _angular_core.RenderComponentType(map['id'], map['templateUrl'], map['slotCount'], this.deserialize(map['encapsulation'], _angular_core.ViewEncapsulation), this.deserialize(map['styles'], PRIMITIVE), {});
         };
         return Serializer;
     }());
