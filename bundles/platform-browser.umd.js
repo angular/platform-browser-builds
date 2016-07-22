@@ -2605,8 +2605,10 @@ var __extends = (this && this.__extends) || function (d, b) {
                     this.checkNotSafeValue(value, 'Script');
                     throw new Error('unsafe value used in a script context');
                 case _angular_core.SecurityContext.URL:
-                    if (value instanceof SafeUrlImpl)
+                    if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
+                        // Allow resource URLs in URL contexts, they are strictly more trusted.
                         return value.changingThisBreaksApplicationSecurity;
+                    }
                     this.checkNotSafeValue(value, 'URL');
                     return sanitizeUrl(String(value));
                 case _angular_core.SecurityContext.RESOURCE_URL:
