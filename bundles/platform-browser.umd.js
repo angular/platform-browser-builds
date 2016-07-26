@@ -2245,7 +2245,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         var res = {};
         for (var _i = 0, _a = tags.split(','); _i < _a.length; _i++) {
             var t = _a[_i];
-            res[t.toLowerCase()] = true;
+            res[t] = true;
         }
         return res;
     }
@@ -2306,6 +2306,9 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     var SanitizingHtmlSerializer = (function () {
         function SanitizingHtmlSerializer() {
+            // Explicitly track if something was stripped, to avoid accidentally warning of sanitization just
+            // because characters were re-encoded.
+            this.sanitizedSomething = false;
             this.buf = [];
         }
         SanitizingHtmlSerializer.prototype.sanitizeChildren = function (el) {
@@ -2320,6 +2323,10 @@ var __extends = (this && this.__extends) || function (d, b) {
                 else if (DOM.isTextNode(current)) {
                     this.chars(DOM.nodeValue(current));
                 }
+                else {
+                    // Strip non-element, non-text nodes.
+                    this.sanitizedSomething = true;
+                }
                 if (DOM.firstChild(current)) {
                     current = DOM.firstChild(current);
                     continue;
@@ -2327,7 +2334,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 while (current) {
                     // Leaving the element. Walk up and to the right, closing tags as we go.
                     if (DOM.isElementNode(current)) {
-                        this.endElement(DOM.nodeName(current).toLowerCase());
+                        this.endElement(current);
                     }
                     if (DOM.nextSibling(current)) {
                         current = DOM.nextSibling(current);
@@ -2341,30 +2348,33 @@ var __extends = (this && this.__extends) || function (d, b) {
         SanitizingHtmlSerializer.prototype.startElement = function (element) {
             var _this = this;
             var tagName = DOM.nodeName(element).toLowerCase();
-            tagName = tagName.toLowerCase();
-            if (VALID_ELEMENTS.hasOwnProperty(tagName)) {
-                this.buf.push('<');
-                this.buf.push(tagName);
-                DOM.attributeMap(element).forEach(function (value, attrName) {
-                    var lower = attrName.toLowerCase();
-                    if (!VALID_ATTRS.hasOwnProperty(lower))
-                        return;
-                    // TODO(martinprobst): Special case image URIs for data:image/...
-                    if (URI_ATTRS[lower])
-                        value = sanitizeUrl(value);
-                    if (SRCSET_ATTRS[lower])
-                        value = sanitizeSrcset(value);
-                    _this.buf.push(' ');
-                    _this.buf.push(attrName);
-                    _this.buf.push('="');
-                    _this.buf.push(encodeEntities(value));
-                    _this.buf.push('"');
-                });
-                this.buf.push('>');
+            if (!VALID_ELEMENTS.hasOwnProperty(tagName)) {
+                this.sanitizedSomething = true;
+                return;
             }
+            this.buf.push('<');
+            this.buf.push(tagName);
+            DOM.attributeMap(element).forEach(function (value, attrName) {
+                var lower = attrName.toLowerCase();
+                if (!VALID_ATTRS.hasOwnProperty(lower)) {
+                    _this.sanitizedSomething = true;
+                    return;
+                }
+                // TODO(martinprobst): Special case image URIs for data:image/...
+                if (URI_ATTRS[lower])
+                    value = sanitizeUrl(value);
+                if (SRCSET_ATTRS[lower])
+                    value = sanitizeSrcset(value);
+                _this.buf.push(' ');
+                _this.buf.push(attrName);
+                _this.buf.push('="');
+                _this.buf.push(encodeEntities(value));
+                _this.buf.push('"');
+            });
+            this.buf.push('>');
         };
-        SanitizingHtmlSerializer.prototype.endElement = function (tagName) {
-            tagName = tagName.toLowerCase();
+        SanitizingHtmlSerializer.prototype.endElement = function (current) {
+            var tagName = DOM.nodeName(current).toLowerCase();
             if (VALID_ELEMENTS.hasOwnProperty(tagName) && !VOID_ELEMENTS.hasOwnProperty(tagName)) {
                 this.buf.push('</');
                 this.buf.push(tagName);
@@ -2385,14 +2395,14 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @param value
      * @returns {string} escaped text
      */
-    function encodeEntities(value /** TODO #9100 */) {
+    function encodeEntities(value) {
         return value.replace(/&/g, '&amp;')
-            .replace(SURROGATE_PAIR_REGEXP, function (match /** TODO #9100 */) {
+            .replace(SURROGATE_PAIR_REGEXP, function (match) {
             var hi = match.charCodeAt(0);
             var low = match.charCodeAt(1);
             return '&#' + (((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000) + ';';
         })
-            .replace(NON_ALPHANUMERIC_REGEXP, function (match /** TODO #9100 */) { return '&#' + match.charCodeAt(0) + ';'; })
+            .replace(NON_ALPHANUMERIC_REGEXP, function (match) { return '&#' + match.charCodeAt(0) + ';'; })
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
     }
@@ -2449,7 +2459,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 var child = _a[_i];
                 DOM.removeChild(parent_1, child);
             }
-            if (_angular_core.isDevMode() && safeHtml !== unsafeHtmlInput) {
+            if (_angular_core.isDevMode() && sanitizer.sanitizedSomething) {
                 DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
             }
             return safeHtml;
