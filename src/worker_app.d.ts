@@ -1,7 +1,7 @@
 import { PlatformRef } from '@angular/core';
 /**
- * @deprecated Use `workerAppPlatform()` or create a custom platform factory via
- * `createPlatformFactory(workerAppPlatform, ...)`
+ * @deprecated Use `platformWorkerApp()` or create a custom platform factory via
+ * `createPlatformFactory(platformWorkerApp, ...)`
  */
 export declare const WORKER_APP_PLATFORM_PROVIDERS: Array<any>;
 /**
@@ -13,6 +13,10 @@ export declare const WORKER_APP_PLATFORM_PROVIDERS: Array<any>;
 export declare const WORKER_APP_APPLICATION_PROVIDERS: Array<any>;
 /**
  * @experimental
+ */
+export declare const platformWorkerApp: (extraProviders?: any[]) => PlatformRef;
+/**
+ * @deprecated Use {@link platformWorkerApp} instead
  */
 export declare const workerAppPlatform: (extraProviders?: any[]) => PlatformRef;
 /**

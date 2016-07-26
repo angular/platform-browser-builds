@@ -34,8 +34,8 @@ export declare const WORKER_UI_STARTABLE_MESSAGING_SERVICE: OpaqueToken;
  */
 export declare const _WORKER_UI_PLATFORM_PROVIDERS: Array<any>;
 /**
- * * @deprecated Use `workerUiPlatform()` or create a custom platform factory via
- * `createPlatformFactory(workerUiPlatform, ...)`
+ * * @deprecated Use `platformWorkerUi()` or create a custom platform factory via
+ * `createPlatformFactory(platformWorkerUi, ...)`
  */
 export declare const WORKER_UI_PLATFORM_PROVIDERS: Array<any>;
 /**
@@ -44,5 +44,9 @@ export declare const WORKER_UI_PLATFORM_PROVIDERS: Array<any>;
 export declare const WORKER_UI_APPLICATION_PROVIDERS: Array<any>;
 /**
  * @experimental WebWorker support is currently experimental.
+ */
+export declare const platformWorkerUi: (extraProviders?: any[]) => PlatformRef;
+/**
+ * @deprecated Use {@link platformWorkerUi} instead
  */
 export declare const workerUiPlatform: (extraProviders?: any[]) => PlatformRef;

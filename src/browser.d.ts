@@ -6,8 +6,8 @@ export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Array<any>;
  *
  * Used automatically by `bootstrap`, or can be passed to `platform`.
  *
- * @deprecated Use `browserPlatform()` or create a custom platform factory via
- * `createPlatformFactory(browserPlatform, ...)`
+ * @deprecated Use `platformBrowser()` or create a custom platform factory via
+ * `createPlatformFactory(platformBrowser, ...)`
  */
 export declare const BROWSER_PLATFORM_PROVIDERS: Array<any>;
 /**
@@ -31,6 +31,10 @@ export declare const BROWSER_SANITIZATION_PROVIDERS: Array<any>;
 export declare const BROWSER_APP_PROVIDERS: Array<any>;
 /**
  * @experimental API related to bootstrapping are still under review.
+ */
+export declare const platformBrowser: (extraProviders?: any[]) => PlatformRef;
+/**
+ * @deprecated Use {@link platformBrowser} instead
  */
 export declare const browserPlatform: (extraProviders?: any[]) => PlatformRef;
 export declare function initDomAdapter(): void;

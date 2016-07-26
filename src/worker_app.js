@@ -29,8 +29,8 @@ var PrintLogger = (function () {
     return PrintLogger;
 }());
 /**
- * @deprecated Use `workerAppPlatform()` or create a custom platform factory via
- * `createPlatformFactory(workerAppPlatform, ...)`
+ * @deprecated Use `platformWorkerApp()` or create a custom platform factory via
+ * `createPlatformFactory(platformWorkerApp, ...)`
  */
 exports.WORKER_APP_PLATFORM_PROVIDERS = core_1.PLATFORM_COMMON_PROVIDERS;
 /**
@@ -43,7 +43,11 @@ exports.WORKER_APP_APPLICATION_PROVIDERS = [];
 /**
  * @experimental
  */
-exports.workerAppPlatform = core_1.createPlatformFactory(core_1.corePlatform, 'workerApp');
+exports.platformWorkerApp = core_1.createPlatformFactory(core_1.platformCore, 'workerApp');
+/**
+ * @deprecated Use {@link platformWorkerApp} instead
+ */
+exports.workerAppPlatform = exports.platformWorkerApp;
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(new PrintLogger());
 }

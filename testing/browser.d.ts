@@ -2,8 +2,8 @@ import { PlatformRef } from '@angular/core';
 /**
  * Providers for the browser test platform
  *
- * @deprecated Use `browserTestingPlatform()` or create a custom platform factory via
- * `createPlatformFactory(browserTestingPlatform, ...)`
+ * @deprecated Use `platformBrowserTesting()` or create a custom platform factory via
+ * `createPlatformFactory(platformBrowserTesting, ...)`
  */
 export declare const TEST_BROWSER_PLATFORM_PROVIDERS: Array<any>;
 /**
@@ -17,6 +17,10 @@ export declare const TEST_BROWSER_APPLICATION_PROVIDERS: Array<any>;
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
+ */
+export declare const platformBrowserTesting: (extraProviders?: any[]) => PlatformRef;
+/**
+ * @deprecated Use {@link platformBrowserTesting} instead
  */
 export declare const browserTestingPlatform: (extraProviders?: any[]) => PlatformRef;
 /**

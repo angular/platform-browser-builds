@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule, PlatformLocation } from '@angular/common';
-import { ApplicationModule, ExceptionHandler, NgModule, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, RootRenderer, SanitizationService, Testability, corePlatform, createPlatformFactory } from '@angular/core';
+import { ApplicationModule, ExceptionHandler, NgModule, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, RootRenderer, SanitizationService, Testability, createPlatformFactory, platformCore } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
@@ -32,8 +32,8 @@ export const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  *
  * Used automatically by `bootstrap`, or can be passed to `platform`.
  *
- * @deprecated Use `browserPlatform()` or create a custom platform factory via
- * `createPlatformFactory(browserPlatform, ...)`
+ * @deprecated Use `platformBrowser()` or create a custom platform factory via
+ * `createPlatformFactory(platformBrowser, ...)`
  */
 export const BROWSER_PLATFORM_PROVIDERS = [PLATFORM_COMMON_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS];
 /**
@@ -61,7 +61,11 @@ export const BROWSER_APP_PROVIDERS = [];
 /**
  * @experimental API related to bootstrapping are still under review.
  */
-export const browserPlatform = createPlatformFactory(corePlatform, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+export const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformBrowser} instead
+ */
+export const browserPlatform = platformBrowser;
 export function initDomAdapter() {
     BrowserDomAdapter.makeCurrent();
     wtfInit();

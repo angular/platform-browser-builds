@@ -2700,8 +2700,8 @@ var __extends = (this && this.__extends) || function (d, b) {
      *
      * Used automatically by `bootstrap`, or can be passed to `platform`.
      *
-     * @deprecated Use `browserPlatform()` or create a custom platform factory via
-     * `createPlatformFactory(browserPlatform, ...)`
+     * @deprecated Use `platformBrowser()` or create a custom platform factory via
+     * `createPlatformFactory(platformBrowser, ...)`
      */
     var BROWSER_PLATFORM_PROVIDERS = [_angular_core.PLATFORM_COMMON_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS];
     /**
@@ -2729,7 +2729,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * @experimental API related to bootstrapping are still under review.
      */
-    var browserPlatform = _angular_core.createPlatformFactory(_angular_core.corePlatform, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+    var platformBrowser = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+    /**
+     * @deprecated Use {@link platformBrowser} instead
+     */
+    var browserPlatform = platformBrowser;
     function initDomAdapter() {
         BrowserDomAdapter.makeCurrent();
         wtfInit();
@@ -4257,8 +4261,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
     ];
     /**
-     * * @deprecated Use `workerUiPlatform()` or create a custom platform factory via
-     * `createPlatformFactory(workerUiPlatform, ...)`
+     * * @deprecated Use `platformWorkerUi()` or create a custom platform factory via
+     * `createPlatformFactory(platformWorkerUi, ...)`
      */
     var WORKER_UI_PLATFORM_PROVIDERS = [_angular_core.PLATFORM_COMMON_PROVIDERS, _WORKER_UI_PLATFORM_PROVIDERS];
     /**
@@ -4296,7 +4300,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * @experimental WebWorker support is currently experimental.
      */
-    var workerUiPlatform = _angular_core.createPlatformFactory(_angular_core.corePlatform, 'workerUi', _WORKER_UI_PLATFORM_PROVIDERS);
+    var platformWorkerUi = _angular_core.createPlatformFactory(_angular_core.platformCore, 'workerUi', _WORKER_UI_PLATFORM_PROVIDERS);
+    /**
+     * @deprecated Use {@link platformWorkerUi} instead
+     */
+    var workerUiPlatform = platformWorkerUi;
     function _exceptionHandler$1() {
         return new _angular_core.ExceptionHandler(getDOM());
     }
@@ -4755,8 +4763,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         return PrintLogger;
     }());
     /**
-     * @deprecated Use `workerAppPlatform()` or create a custom platform factory via
-     * `createPlatformFactory(workerAppPlatform, ...)`
+     * @deprecated Use `platformWorkerApp()` or create a custom platform factory via
+     * `createPlatformFactory(platformWorkerApp, ...)`
      */
     var WORKER_APP_PLATFORM_PROVIDERS = _angular_core.PLATFORM_COMMON_PROVIDERS;
     /**
@@ -4769,7 +4777,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * @experimental
      */
-    var workerAppPlatform = _angular_core.createPlatformFactory(_angular_core.corePlatform, 'workerApp');
+    var platformWorkerApp = _angular_core.createPlatformFactory(_angular_core.platformCore, 'workerApp');
+    /**
+     * @deprecated Use {@link platformWorkerApp} instead
+     */
+    var workerAppPlatform = platformWorkerApp;
     function _exceptionHandler$2() {
         return new _angular_core.ExceptionHandler(new PrintLogger());
     }
@@ -4828,6 +4840,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
     exports.BrowserModule = BrowserModule;
     exports.browserPlatform = browserPlatform;
+    exports.platformBrowser = platformBrowser;
     exports.BrowserPlatformLocation = BrowserPlatformLocation;
     exports.Title = Title;
     exports.disableDebugTools = disableDebugTools;
@@ -4857,9 +4870,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports._WORKER_UI_PLATFORM_PROVIDERS = _WORKER_UI_PLATFORM_PROVIDERS;
     exports.WORKER_UI_PLATFORM_PROVIDERS = WORKER_UI_PLATFORM_PROVIDERS;
     exports.WORKER_UI_APPLICATION_PROVIDERS = WORKER_UI_APPLICATION_PROVIDERS;
+    exports.platformWorkerUi = platformWorkerUi;
     exports.workerUiPlatform = workerUiPlatform;
     exports.WORKER_APP_PLATFORM_PROVIDERS = WORKER_APP_PLATFORM_PROVIDERS;
     exports.WORKER_APP_APPLICATION_PROVIDERS = WORKER_APP_APPLICATION_PROVIDERS;
+    exports.platformWorkerApp = platformWorkerApp;
     exports.workerAppPlatform = workerAppPlatform;
     exports.WorkerAppModule = WorkerAppModule;
     exports.__platform_browser_private__ = __platform_browser_private__;

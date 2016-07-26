@@ -94,8 +94,8 @@ exports._WORKER_UI_PLATFORM_PROVIDERS = [
     { provide: message_bus_1.MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
 ];
 /**
- * * @deprecated Use `workerUiPlatform()` or create a custom platform factory via
- * `createPlatformFactory(workerUiPlatform, ...)`
+ * * @deprecated Use `platformWorkerUi()` or create a custom platform factory via
+ * `createPlatformFactory(platformWorkerUi, ...)`
  */
 exports.WORKER_UI_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, exports._WORKER_UI_PLATFORM_PROVIDERS];
 /**
@@ -133,7 +133,11 @@ function initWebWorkerRenderPlatform(injector) {
 /**
  * @experimental WebWorker support is currently experimental.
  */
-exports.workerUiPlatform = core_1.createPlatformFactory(core_1.corePlatform, 'workerUi', exports._WORKER_UI_PLATFORM_PROVIDERS);
+exports.platformWorkerUi = core_1.createPlatformFactory(core_1.platformCore, 'workerUi', exports._WORKER_UI_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformWorkerUi} instead
+ */
+exports.workerUiPlatform = exports.platformWorkerUi;
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(dom_adapter_1.getDOM());
 }

@@ -23,8 +23,8 @@ var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: core_1.PLATFORM_INITIALIZER, 
 /**
  * Providers for the browser test platform
  *
- * @deprecated Use `browserTestingPlatform()` or create a custom platform factory via
- * `createPlatformFactory(browserTestingPlatform, ...)`
+ * @deprecated Use `platformBrowserTesting()` or create a custom platform factory via
+ * `createPlatformFactory(platformBrowserTesting, ...)`
  */
 exports.TEST_BROWSER_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, _TEST_BROWSER_PLATFORM_PROVIDERS];
 /**
@@ -39,7 +39,11 @@ exports.TEST_BROWSER_APPLICATION_PROVIDERS = [];
  *
  * @experimental API related to bootstrapping are still under review.
  */
-exports.browserTestingPlatform = core_1.createPlatformFactory(core_1.corePlatform, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
+exports.platformBrowserTesting = core_1.createPlatformFactory(core_1.platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformBrowserTesting} instead
+ */
+exports.browserTestingPlatform = exports.platformBrowserTesting;
 var BrowserTestingModule = (function () {
     function BrowserTestingModule() {
     }

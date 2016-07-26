@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule, FORM_PROVIDERS } from '@angular/common';
-import { APP_INITIALIZER, ApplicationModule, ExceptionHandler, NgModule, NgZone, PLATFORM_COMMON_PROVIDERS, RootRenderer, corePlatform, createPlatformFactory } from '@angular/core';
+import { APP_INITIALIZER, ApplicationModule, ExceptionHandler, NgModule, NgZone, PLATFORM_COMMON_PROVIDERS, RootRenderer, createPlatformFactory, platformCore } from '@angular/core';
 import { BROWSER_SANITIZATION_PROVIDERS } from './browser';
 import { print } from './facade/lang';
 import { ON_WEB_WORKER } from './web_workers/shared/api';
@@ -27,8 +27,8 @@ class PrintLogger {
     logGroupEnd() { }
 }
 /**
- * @deprecated Use `workerAppPlatform()` or create a custom platform factory via
- * `createPlatformFactory(workerAppPlatform, ...)`
+ * @deprecated Use `platformWorkerApp()` or create a custom platform factory via
+ * `createPlatformFactory(platformWorkerApp, ...)`
  */
 export const WORKER_APP_PLATFORM_PROVIDERS = PLATFORM_COMMON_PROVIDERS;
 /**
@@ -41,7 +41,11 @@ export const WORKER_APP_APPLICATION_PROVIDERS = [];
 /**
  * @experimental
  */
-export const workerAppPlatform = createPlatformFactory(corePlatform, 'workerApp');
+export const platformWorkerApp = createPlatformFactory(platformCore, 'workerApp');
+/**
+ * @deprecated Use {@link platformWorkerApp} instead
+ */
+export const workerAppPlatform = platformWorkerApp;
 function _exceptionHandler() {
     return new ExceptionHandler(new PrintLogger());
 }

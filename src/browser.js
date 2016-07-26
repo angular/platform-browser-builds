@@ -33,8 +33,8 @@ exports.INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  *
  * Used automatically by `bootstrap`, or can be passed to `platform`.
  *
- * @deprecated Use `browserPlatform()` or create a custom platform factory via
- * `createPlatformFactory(browserPlatform, ...)`
+ * @deprecated Use `platformBrowser()` or create a custom platform factory via
+ * `createPlatformFactory(platformBrowser, ...)`
  */
 exports.BROWSER_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, exports.INTERNAL_BROWSER_PLATFORM_PROVIDERS];
 /**
@@ -62,7 +62,11 @@ exports.BROWSER_APP_PROVIDERS = [];
 /**
  * @experimental API related to bootstrapping are still under review.
  */
-exports.browserPlatform = core_1.createPlatformFactory(core_1.corePlatform, 'browser', exports.INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+exports.platformBrowser = core_1.createPlatformFactory(core_1.platformCore, 'browser', exports.INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformBrowser} instead
+ */
+exports.browserPlatform = exports.platformBrowser;
 function initDomAdapter() {
     browser_adapter_1.BrowserDomAdapter.makeCurrent();
     core_private_1.wtfInit();
