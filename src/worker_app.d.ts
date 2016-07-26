@@ -1,18 +1,22 @@
 import { PlatformRef } from '@angular/core';
 /**
- * @experimental
+ * @deprecated Use `workerAppPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(workerAppPlatform, ...)`
  */
 export declare const WORKER_APP_PLATFORM_PROVIDERS: Array<any>;
 /**
- * @experimental
+ * @deprecated Create a module that includes `WorkerAppModule` instead. This is empty for backwards
+ * compatibility,
+ * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
+ * providers 2x.
  */
 export declare const WORKER_APP_APPLICATION_PROVIDERS: Array<any>;
 /**
  * @experimental
  */
-export declare const workerAppPlatform: () => PlatformRef;
+export declare const workerAppPlatform: (extraProviders?: any[]) => PlatformRef;
 /**
- * The app module for the worker app side.
+ * The ng module for the worker app side.
  *
  * @experimental
  */

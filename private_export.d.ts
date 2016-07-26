@@ -40,4 +40,5 @@ export declare var __platform_browser_private__: {
     ELEMENT_PROBE_PROVIDERS: any[];
     DomEventsPlugin: typeof dom_events.DomEventsPlugin;
     initDomAdapter: () => void;
+    INTERNAL_BROWSER_PLATFORM_PROVIDERS: any[];
 };

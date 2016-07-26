@@ -32,21 +32,17 @@ export declare const WORKER_UI_STARTABLE_MESSAGING_SERVICE: OpaqueToken;
 /**
  * @experimental WebWorker support is currently experimental.
  */
+export declare const _WORKER_UI_PLATFORM_PROVIDERS: Array<any>;
+/**
+ * * @deprecated Use `workerUiPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(workerUiPlatform, ...)`
+ */
 export declare const WORKER_UI_PLATFORM_PROVIDERS: Array<any>;
 /**
- * @experimental WebWorker support is currently experimental.
+ * @deprecated Worker UI only has a platform but no application
  */
 export declare const WORKER_UI_APPLICATION_PROVIDERS: Array<any>;
 /**
  * @experimental WebWorker support is currently experimental.
  */
-export declare const workerUiPlatform: () => PlatformRef;
-/**
- * The app module for the worker ui side.
- * To use this, you need to create an own module that includes this module
- * and provides the `WORKER_SCRIPT` token.
- *
- * @experimental
- */
-export declare class WorkerUiModule {
-}
+export declare const workerUiPlatform: (extraProviders?: any[]) => PlatformRef;

@@ -19,36 +19,34 @@ function initBrowserTests() {
 function createNgZone() {
     return new core_1.NgZone({ enableLongStackTrace: true });
 }
+var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
 /**
  * Providers for the browser test platform
  *
- * @experimental
+ * @deprecated Use `browserTestingPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(browserTestingPlatform, ...)`
  */
-exports.TEST_BROWSER_PLATFORM_PROVIDERS = [
-    core_1.PLATFORM_COMMON_PROVIDERS,
-    { provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
-];
+exports.TEST_BROWSER_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, _TEST_BROWSER_PLATFORM_PROVIDERS];
 /**
- * @deprecated Use initTestEnvironment with BrowserTestModule instead.
+ * @deprecated Use initTestEnvironment with BrowserTestModule instead. This is empty for backwards
+ * compatibility,
+ * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
+ * providers 2x.
  */
-exports.TEST_BROWSER_APPLICATION_PROVIDERS = [
-    browser_1.BROWSER_APP_PROVIDERS, { provide: core_1.APP_ID, useValue: 'a' }, ng_probe_1.ELEMENT_PROBE_PROVIDERS,
-    { provide: core_1.NgZone, useFactory: createNgZone },
-    { provide: animation_driver_1.AnimationDriver, useValue: animation_driver_1.AnimationDriver.NOOP }
-];
+exports.TEST_BROWSER_APPLICATION_PROVIDERS = [];
 /**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
  */
-exports.browserTestPlatform = core_1.createPlatformFactory('browserTest', exports.TEST_BROWSER_PLATFORM_PROVIDERS);
-var BrowserTestModule = (function () {
-    function BrowserTestModule() {
+exports.browserTestingPlatform = core_1.createPlatformFactory(core_1.corePlatform, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
+var BrowserTestingModule = (function () {
+    function BrowserTestingModule() {
     }
     /** @nocollapse */
-    BrowserTestModule.decorators = [
-        { type: core_1.AppModule, args: [{
-                    modules: [browser_1.BrowserModule],
+    BrowserTestingModule.decorators = [
+        { type: core_1.NgModule, args: [{
+                    exports: [browser_1.BrowserModule],
                     providers: [
                         { provide: core_1.APP_ID, useValue: 'a' }, ng_probe_1.ELEMENT_PROBE_PROVIDERS,
                         { provide: core_1.NgZone, useFactory: createNgZone },
@@ -56,7 +54,7 @@ var BrowserTestModule = (function () {
                     ]
                 },] },
     ];
-    return BrowserTestModule;
+    return BrowserTestingModule;
 }());
-exports.BrowserTestModule = BrowserTestModule;
+exports.BrowserTestingModule = BrowserTestingModule;
 //# sourceMappingURL=browser.js.map

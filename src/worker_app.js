@@ -29,26 +29,21 @@ var PrintLogger = (function () {
     return PrintLogger;
 }());
 /**
- * @experimental
+ * @deprecated Use `workerAppPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(workerAppPlatform, ...)`
  */
 exports.WORKER_APP_PLATFORM_PROVIDERS = core_1.PLATFORM_COMMON_PROVIDERS;
 /**
- * @experimental
+ * @deprecated Create a module that includes `WorkerAppModule` instead. This is empty for backwards
+ * compatibility,
+ * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
+ * providers 2x.
  */
-exports.WORKER_APP_APPLICATION_PROVIDERS = [
-    core_1.APPLICATION_COMMON_PROVIDERS, common_1.FORM_PROVIDERS, browser_1.BROWSER_SANITIZATION_PROVIDERS, serializer_1.Serializer,
-    { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
-    { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
-    renderer_1.WebWorkerRootRenderer, { provide: core_1.RootRenderer, useExisting: renderer_1.WebWorkerRootRenderer },
-    { provide: api_1.ON_WEB_WORKER, useValue: true }, render_store_1.RenderStore,
-    { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
-    { provide: message_bus_1.MessageBus, useFactory: createMessageBus, deps: [core_1.NgZone] },
-    { provide: core_1.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
-];
+exports.WORKER_APP_APPLICATION_PROVIDERS = [];
 /**
  * @experimental
  */
-exports.workerAppPlatform = core_1.createPlatformFactory('workerApp', exports.WORKER_APP_PLATFORM_PROVIDERS);
+exports.workerAppPlatform = core_1.createPlatformFactory(core_1.corePlatform, 'workerApp');
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(new PrintLogger());
 }
@@ -73,10 +68,18 @@ var WorkerAppModule = (function () {
     }
     /** @nocollapse */
     WorkerAppModule.decorators = [
-        { type: core_1.AppModule, args: [{
-                    providers: exports.WORKER_APP_APPLICATION_PROVIDERS,
-                    directives: common_1.COMMON_DIRECTIVES,
-                    pipes: common_1.COMMON_PIPES
+        { type: core_1.NgModule, args: [{
+                    providers: [
+                        common_1.FORM_PROVIDERS, browser_1.BROWSER_SANITIZATION_PROVIDERS, serializer_1.Serializer,
+                        { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
+                        { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
+                        renderer_1.WebWorkerRootRenderer, { provide: core_1.RootRenderer, useExisting: renderer_1.WebWorkerRootRenderer },
+                        { provide: api_1.ON_WEB_WORKER, useValue: true }, render_store_1.RenderStore,
+                        { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+                        { provide: message_bus_1.MessageBus, useFactory: createMessageBus, deps: [core_1.NgZone] },
+                        { provide: core_1.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
+                    ],
+                    exports: [common_1.CommonModule, core_1.ApplicationModule]
                 },] },
     ];
     return WorkerAppModule;

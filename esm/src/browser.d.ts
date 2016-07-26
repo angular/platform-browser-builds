@@ -1,11 +1,13 @@
 import { ExceptionHandler, PlatformRef } from '@angular/core';
 import { AnimationDriver } from '../src/dom/animation_driver';
+export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Array<any>;
 /**
  * A set of providers to initialize the Angular platform in a web browser.
  *
  * Used automatically by `bootstrap`, or can be passed to `platform`.
  *
- * @experimental API related to bootstrapping are still under review.
+ * @deprecated Use `browserPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(browserPlatform, ...)`
  */
 export declare const BROWSER_PLATFORM_PROVIDERS: Array<any>;
 /**
@@ -21,19 +23,22 @@ export declare const BROWSER_SANITIZATION_PROVIDERS: Array<any>;
  * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef
  * PlatformRef.application}.
  *
- * @experimental API related to bootstrapping are still under review.
+ * @deprecated Create a module that includes `BrowserModule` instead. This is empty for backwards
+ * compatibility,
+ * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
+ * providers 2x.
  */
 export declare const BROWSER_APP_PROVIDERS: Array<any>;
 /**
  * @experimental API related to bootstrapping are still under review.
  */
-export declare const browserPlatform: () => PlatformRef;
+export declare const browserPlatform: (extraProviders?: any[]) => PlatformRef;
 export declare function initDomAdapter(): void;
 export declare function _exceptionHandler(): ExceptionHandler;
 export declare function _document(): any;
 export declare function _resolveDefaultAnimationDriver(): AnimationDriver;
 /**
- * The app module for the browser.
+ * The ng module for the browser.
  *
  * @experimental
  */

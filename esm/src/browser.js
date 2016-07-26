@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { COMMON_DIRECTIVES, COMMON_PIPES, PlatformLocation } from '@angular/common';
-import { APPLICATION_COMMON_PROVIDERS, AppModule, ExceptionHandler, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, RootRenderer, SanitizationService, Testability, createPlatformFactory } from '@angular/core';
+import { CommonModule, PlatformLocation } from '@angular/common';
+import { ApplicationModule, ExceptionHandler, NgModule, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, RootRenderer, SanitizationService, Testability, corePlatform, createPlatformFactory } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
@@ -23,17 +23,19 @@ import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerGesturesPlugin } from
 import { KeyEventsPlugin } from './dom/events/key_events';
 import { DomSharedStylesHost, SharedStylesHost } from './dom/shared_styles_host';
 import { DomSanitizationService, DomSanitizationServiceImpl } from './security/dom_sanitization_service';
+export const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
+    { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+    { provide: PlatformLocation, useClass: BrowserPlatformLocation }
+];
 /**
  * A set of providers to initialize the Angular platform in a web browser.
  *
  * Used automatically by `bootstrap`, or can be passed to `platform`.
  *
- * @experimental API related to bootstrapping are still under review.
+ * @deprecated Use `browserPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(browserPlatform, ...)`
  */
-export const BROWSER_PLATFORM_PROVIDERS = [
-    PLATFORM_COMMON_PROVIDERS, { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: PlatformLocation, useClass: BrowserPlatformLocation }
-];
+export const BROWSER_PLATFORM_PROVIDERS = [PLATFORM_COMMON_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
@@ -50,26 +52,16 @@ export const BROWSER_SANITIZATION_PROVIDERS = [
  * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef
  * PlatformRef.application}.
  *
- * @experimental API related to bootstrapping are still under review.
+ * @deprecated Create a module that includes `BrowserModule` instead. This is empty for backwards
+ * compatibility,
+ * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
+ * providers 2x.
  */
-export const BROWSER_APP_PROVIDERS = [
-    APPLICATION_COMMON_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
-    { provide: ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
-    { provide: DOCUMENT, useFactory: _document, deps: [] },
-    { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-    { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-    { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-    { provide: RootRenderer, useExisting: DomRootRenderer },
-    { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
-    Testability, EventManager, ELEMENT_PROBE_PROVIDERS
-];
+export const BROWSER_APP_PROVIDERS = [];
 /**
  * @experimental API related to bootstrapping are still under review.
  */
-export const browserPlatform = createPlatformFactory('browser', BROWSER_PLATFORM_PROVIDERS);
+export const browserPlatform = createPlatformFactory(corePlatform, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 export function initDomAdapter() {
     BrowserDomAdapter.makeCurrent();
     wtfInit();
@@ -91,12 +83,22 @@ export class BrowserModule {
 }
 /** @nocollapse */
 BrowserModule.decorators = [
-    { type: AppModule, args: [{
+    { type: NgModule, args: [{
                 providers: [
-                    BROWSER_APP_PROVIDERS,
+                    BROWSER_SANITIZATION_PROVIDERS,
+                    { provide: ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+                    { provide: DOCUMENT, useFactory: _document, deps: [] },
+                    { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+                    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+                    { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+                    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+                    { provide: DomRootRenderer, useClass: DomRootRenderer_ },
+                    { provide: RootRenderer, useExisting: DomRootRenderer },
+                    { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+                    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
+                    Testability, EventManager, ELEMENT_PROBE_PROVIDERS
                 ],
-                directives: COMMON_DIRECTIVES,
-                pipes: COMMON_PIPES
+                exports: [CommonModule, ApplicationModule]
             },] },
 ];
 //# sourceMappingURL=browser.js.map

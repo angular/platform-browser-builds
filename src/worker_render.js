@@ -59,15 +59,8 @@ exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE = new core_1.OpaqueToken('WorkerRe
 /**
  * @experimental WebWorker support is currently experimental.
  */
-exports.WORKER_UI_PLATFORM_PROVIDERS = [
-    core_1.PLATFORM_COMMON_PROVIDERS,
-    { provide: core_1.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
-];
-/**
- * @experimental WebWorker support is currently experimental.
- */
-exports.WORKER_UI_APPLICATION_PROVIDERS = [
-    core_1.APPLICATION_COMMON_PROVIDERS,
+exports._WORKER_UI_PLATFORM_PROVIDERS = [
+    { provide: core_1.NgZone, useFactory: createNgZone, deps: [] },
     renderer_1.MessageBasedRenderer,
     { provide: exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: renderer_1.MessageBasedRenderer, multi: true },
     browser_1.BROWSER_SANITIZATION_PROVIDERS,
@@ -92,9 +85,23 @@ exports.WORKER_UI_APPLICATION_PROVIDERS = [
     core_1.Testability,
     event_manager_1.EventManager,
     WebWorkerInstance,
-    { provide: core_1.APP_INITIALIZER, useFactory: initWebWorkerAppFn, multi: true, deps: [core_1.Injector] },
+    {
+        provide: core_1.PLATFORM_INITIALIZER,
+        useFactory: initWebWorkerRenderPlatform,
+        multi: true,
+        deps: [core_1.Injector]
+    },
     { provide: message_bus_1.MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
 ];
+/**
+ * * @deprecated Use `workerUiPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(workerUiPlatform, ...)`
+ */
+exports.WORKER_UI_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, exports._WORKER_UI_PLATFORM_PROVIDERS];
+/**
+ * @deprecated Worker UI only has a platform but no application
+ */
+exports.WORKER_UI_APPLICATION_PROVIDERS = [];
 function initializeGenericWorkerRenderer(injector) {
     var bus = injector.get(message_bus_1.MessageBus);
     var zone = injector.get(core_1.NgZone);
@@ -106,23 +113,11 @@ function initializeGenericWorkerRenderer(injector) {
 function messageBusFactory(instance) {
     return instance.bus;
 }
-function initWebWorkerRenderPlatform() {
-    browser_adapter_1.BrowserDomAdapter.makeCurrent();
-    core_private_1.wtfInit();
-    testability_1.BrowserGetTestability.init();
-}
-/**
- * @experimental WebWorker support is currently experimental.
- */
-exports.workerUiPlatform = core_1.createPlatformFactory('workerUi', exports.WORKER_UI_PLATFORM_PROVIDERS);
-function _exceptionHandler() {
-    return new core_1.ExceptionHandler(dom_adapter_1.getDOM());
-}
-function _document() {
-    return dom_adapter_1.getDOM().defaultDoc();
-}
-function initWebWorkerAppFn(injector) {
+function initWebWorkerRenderPlatform(injector) {
     return function () {
+        browser_adapter_1.BrowserDomAdapter.makeCurrent();
+        core_private_1.wtfInit();
+        testability_1.BrowserGetTestability.init();
         var scriptUri;
         try {
             scriptUri = injector.get(exports.WORKER_SCRIPT);
@@ -134,6 +129,19 @@ function initWebWorkerAppFn(injector) {
         spawnWebWorker(scriptUri, instance);
         initializeGenericWorkerRenderer(injector);
     };
+}
+/**
+ * @experimental WebWorker support is currently experimental.
+ */
+exports.workerUiPlatform = core_1.createPlatformFactory(core_1.corePlatform, 'workerUi', exports._WORKER_UI_PLATFORM_PROVIDERS);
+function _exceptionHandler() {
+    return new core_1.ExceptionHandler(dom_adapter_1.getDOM());
+}
+function _document() {
+    return dom_adapter_1.getDOM().defaultDoc();
+}
+function createNgZone() {
+    return new core_1.NgZone({ enableLongStackTrace: core_1.isDevMode() });
 }
 /**
  * Spawns a new class and initializes the WebWorkerInstance
@@ -150,14 +158,4 @@ function _resolveDefaultAnimationDriver() {
     // work with animations just yet...
     return animation_driver_1.AnimationDriver.NOOP;
 }
-var WorkerUiModule = (function () {
-    function WorkerUiModule() {
-    }
-    /** @nocollapse */
-    WorkerUiModule.decorators = [
-        { type: core_1.AppModule, args: [{ providers: exports.WORKER_UI_APPLICATION_PROVIDERS },] },
-    ];
-    return WorkerUiModule;
-}());
-exports.WorkerUiModule = WorkerUiModule;
 //# sourceMappingURL=worker_render.js.map

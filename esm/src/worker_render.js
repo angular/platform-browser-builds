@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { APPLICATION_COMMON_PROVIDERS, APP_INITIALIZER, AppModule, ExceptionHandler, Injectable, Injector, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, RootRenderer, Testability, createPlatformFactory } from '@angular/core';
+import { ExceptionHandler, Injectable, Injector, NgZone, OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, RootRenderer, Testability, corePlatform, createPlatformFactory, isDevMode } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { BROWSER_SANITIZATION_PROVIDERS } from './browser';
 import { BrowserDomAdapter } from './browser/browser_adapter';
@@ -54,15 +54,8 @@ export const WORKER_UI_STARTABLE_MESSAGING_SERVICE = new OpaqueToken('WorkerRend
 /**
  * @experimental WebWorker support is currently experimental.
  */
-export const WORKER_UI_PLATFORM_PROVIDERS = [
-    PLATFORM_COMMON_PROVIDERS,
-    { provide: PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
-];
-/**
- * @experimental WebWorker support is currently experimental.
- */
-export const WORKER_UI_APPLICATION_PROVIDERS = [
-    APPLICATION_COMMON_PROVIDERS,
+export const _WORKER_UI_PLATFORM_PROVIDERS = [
+    { provide: NgZone, useFactory: createNgZone, deps: [] },
     MessageBasedRenderer,
     { provide: WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: MessageBasedRenderer, multi: true },
     BROWSER_SANITIZATION_PROVIDERS,
@@ -87,9 +80,23 @@ export const WORKER_UI_APPLICATION_PROVIDERS = [
     Testability,
     EventManager,
     WebWorkerInstance,
-    { provide: APP_INITIALIZER, useFactory: initWebWorkerAppFn, multi: true, deps: [Injector] },
+    {
+        provide: PLATFORM_INITIALIZER,
+        useFactory: initWebWorkerRenderPlatform,
+        multi: true,
+        deps: [Injector]
+    },
     { provide: MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
 ];
+/**
+ * * @deprecated Use `workerUiPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(workerUiPlatform, ...)`
+ */
+export const WORKER_UI_PLATFORM_PROVIDERS = [PLATFORM_COMMON_PROVIDERS, _WORKER_UI_PLATFORM_PROVIDERS];
+/**
+ * @deprecated Worker UI only has a platform but no application
+ */
+export const WORKER_UI_APPLICATION_PROVIDERS = [];
 function initializeGenericWorkerRenderer(injector) {
     var bus = injector.get(MessageBus);
     let zone = injector.get(NgZone);
@@ -101,23 +108,11 @@ function initializeGenericWorkerRenderer(injector) {
 function messageBusFactory(instance) {
     return instance.bus;
 }
-function initWebWorkerRenderPlatform() {
-    BrowserDomAdapter.makeCurrent();
-    wtfInit();
-    BrowserGetTestability.init();
-}
-/**
- * @experimental WebWorker support is currently experimental.
- */
-export const workerUiPlatform = createPlatformFactory('workerUi', WORKER_UI_PLATFORM_PROVIDERS);
-function _exceptionHandler() {
-    return new ExceptionHandler(getDOM());
-}
-function _document() {
-    return getDOM().defaultDoc();
-}
-function initWebWorkerAppFn(injector) {
+function initWebWorkerRenderPlatform(injector) {
     return () => {
+        BrowserDomAdapter.makeCurrent();
+        wtfInit();
+        BrowserGetTestability.init();
         var scriptUri;
         try {
             scriptUri = injector.get(WORKER_SCRIPT);
@@ -129,6 +124,19 @@ function initWebWorkerAppFn(injector) {
         spawnWebWorker(scriptUri, instance);
         initializeGenericWorkerRenderer(injector);
     };
+}
+/**
+ * @experimental WebWorker support is currently experimental.
+ */
+export const workerUiPlatform = createPlatformFactory(corePlatform, 'workerUi', _WORKER_UI_PLATFORM_PROVIDERS);
+function _exceptionHandler() {
+    return new ExceptionHandler(getDOM());
+}
+function _document() {
+    return getDOM().defaultDoc();
+}
+function createNgZone() {
+    return new NgZone({ enableLongStackTrace: isDevMode() });
 }
 /**
  * Spawns a new class and initializes the WebWorkerInstance
@@ -145,10 +153,4 @@ function _resolveDefaultAnimationDriver() {
     // work with animations just yet...
     return AnimationDriver.NOOP;
 }
-export class WorkerUiModule {
-}
-/** @nocollapse */
-WorkerUiModule.decorators = [
-    { type: AppModule, args: [{ providers: WORKER_UI_APPLICATION_PROVIDERS },] },
-];
 //# sourceMappingURL=worker_render.js.map
