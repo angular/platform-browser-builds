@@ -390,9 +390,7 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return window.requestAnimationFrame(callback);
     }
     cancelAnimationFrame(id) { window.cancelAnimationFrame(id); }
-    supportsWebAnimation() {
-        return isFunction(document.body['animate']);
-    }
+    supportsWebAnimation() { return isFunction(Element.prototype['animate']); }
     performanceNow() {
         // performance.now() is not available in all browsers, see
         // http://caniuse.com/#search=performance.now

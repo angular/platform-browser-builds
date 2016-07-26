@@ -1307,9 +1307,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             return window.requestAnimationFrame(callback);
         };
         BrowserDomAdapter.prototype.cancelAnimationFrame = function (id) { window.cancelAnimationFrame(id); };
-        BrowserDomAdapter.prototype.supportsWebAnimation = function () {
-            return isFunction(document.body['animate']);
-        };
+        BrowserDomAdapter.prototype.supportsWebAnimation = function () { return isFunction(Element.prototype['animate']); };
         BrowserDomAdapter.prototype.performanceNow = function () {
             // performance.now() is not available in all browsers, see
             // http://caniuse.com/#search=performance.now
