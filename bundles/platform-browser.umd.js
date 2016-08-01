@@ -1347,14 +1347,14 @@ var __extends = (this && this.__extends) || function (d, b) {
         return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
             '/' + urlParsingNode.pathname;
     }
-    function parseCookieValue(cookie, name) {
+    function parseCookieValue(cookieStr, name) {
         name = encodeURIComponent(name);
-        var cookies = cookie.split(';');
-        for (var _i = 0, cookies_1 = cookies; _i < cookies_1.length; _i++) {
-            var cookie_1 = cookies_1[_i];
-            var _a = cookie_1.split('=', 2), key = _a[0], value = _a[1];
-            if (key.trim() === name) {
-                return decodeURIComponent(value);
+        for (var _i = 0, _a = cookieStr.split(';'); _i < _a.length; _i++) {
+            var cookie = _a[_i];
+            var eqIndex = cookie.indexOf('=');
+            var _b = eqIndex == -1 ? [cookie, ''] : [cookie.slice(0, eqIndex), cookie.slice(eqIndex + 1)], cookieName = _b[0], cookieValue = _b[1];
+            if (cookieName.trim() === name) {
+                return decodeURIComponent(cookieValue);
             }
         }
         return null;
