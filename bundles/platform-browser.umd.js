@@ -9,10 +9,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs/Subject'), require('rxjs/observable/PromiseObservable'), require('rxjs/operator/toPromise'), require('rxjs/Observable')) :
-        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', 'rxjs/Subject', 'rxjs/observable/PromiseObservable', 'rxjs/operator/toPromise', 'rxjs/Observable'], factory) :
-            (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.common, global.ng.core, global.Rx, global.Rx, global.Rx.Observable.prototype, global.Rx));
-}(this, function (exports, _angular_common, _angular_core, rxjs_Subject, rxjs_observable_PromiseObservable, rxjs_operator_toPromise, rxjs_Observable) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs/Subject'), require('rxjs/Observable')) :
+        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', 'rxjs/Subject', 'rxjs/Observable'], factory) :
+            (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.common, global.ng.core, global.Rx, global.Rx));
+}(this, function (exports, _angular_common, _angular_core, rxjs_Subject, rxjs_Observable) {
     'use strict';
     var wtfInit = _angular_core.__core_private__.wtfInit;
     var VIEW_ENCAPSULATION_VALUES = _angular_core.__core_private__.VIEW_ENCAPSULATION_VALUES;
@@ -83,7 +83,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function isArray(obj) {
         return Array.isArray(obj);
     }
-    function noop() { }
     function stringify(token) {
         if (typeof token === 'string') {
             return token;
@@ -1488,6 +1487,61 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @stable
      */
     var DOCUMENT = new _angular_core.OpaqueToken('DocumentToken');
+    /**
+     * @stable
+     */
+    var EVENT_MANAGER_PLUGINS = new _angular_core.OpaqueToken('EventManagerPlugins');
+    var EventManager = (function () {
+        function EventManager(plugins, _zone) {
+            var _this = this;
+            this._zone = _zone;
+            plugins.forEach(function (p) { return p.manager = _this; });
+            this._plugins = ListWrapper.reversed(plugins);
+        }
+        EventManager.prototype.addEventListener = function (element, eventName, handler) {
+            var plugin = this._findPluginFor(eventName);
+            return plugin.addEventListener(element, eventName, handler);
+        };
+        EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
+            var plugin = this._findPluginFor(eventName);
+            return plugin.addGlobalEventListener(target, eventName, handler);
+        };
+        EventManager.prototype.getZone = function () { return this._zone; };
+        /** @internal */
+        EventManager.prototype._findPluginFor = function (eventName) {
+            var plugins = this._plugins;
+            for (var i = 0; i < plugins.length; i++) {
+                var plugin = plugins[i];
+                if (plugin.supports(eventName)) {
+                    return plugin;
+                }
+            }
+            throw new BaseException$1("No event manager plugin found for event " + eventName);
+        };
+        return EventManager;
+    }());
+    /** @nocollapse */
+    EventManager.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    EventManager.ctorParameters = [
+        { type: Array, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+        { type: _angular_core.NgZone, },
+    ];
+    var EventManagerPlugin = (function () {
+        function EventManagerPlugin() {
+        }
+        // That is equivalent to having supporting $event.target
+        EventManagerPlugin.prototype.supports = function (eventName) { return false; };
+        EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
+            throw 'not implemented';
+        };
+        EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
+            throw 'not implemented';
+        };
+        return EventManagerPlugin;
+    }());
     var SharedStylesHost = (function () {
         function SharedStylesHost() {
             /** @internal */
@@ -1550,61 +1604,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     DomSharedStylesHost.ctorParameters = [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
     ];
-    /**
-     * @stable
-     */
-    var EVENT_MANAGER_PLUGINS = new _angular_core.OpaqueToken('EventManagerPlugins');
-    var EventManager = (function () {
-        function EventManager(plugins, _zone) {
-            var _this = this;
-            this._zone = _zone;
-            plugins.forEach(function (p) { return p.manager = _this; });
-            this._plugins = ListWrapper.reversed(plugins);
-        }
-        EventManager.prototype.addEventListener = function (element, eventName, handler) {
-            var plugin = this._findPluginFor(eventName);
-            return plugin.addEventListener(element, eventName, handler);
-        };
-        EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
-            var plugin = this._findPluginFor(eventName);
-            return plugin.addGlobalEventListener(target, eventName, handler);
-        };
-        EventManager.prototype.getZone = function () { return this._zone; };
-        /** @internal */
-        EventManager.prototype._findPluginFor = function (eventName) {
-            var plugins = this._plugins;
-            for (var i = 0; i < plugins.length; i++) {
-                var plugin = plugins[i];
-                if (plugin.supports(eventName)) {
-                    return plugin;
-                }
-            }
-            throw new BaseException$1("No event manager plugin found for event " + eventName);
-        };
-        return EventManager;
-    }());
-    /** @nocollapse */
-    EventManager.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    EventManager.ctorParameters = [
-        { type: Array, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-        { type: _angular_core.NgZone, },
-    ];
-    var EventManagerPlugin = (function () {
-        function EventManagerPlugin() {
-        }
-        // That is equivalent to having supporting $event.target
-        EventManagerPlugin.prototype.supports = function (eventName) { return false; };
-        EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
-            throw 'not implemented';
-        };
-        EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-            throw 'not implemented';
-        };
-        return EventManagerPlugin;
-    }());
     var NAMESPACE_URIS = {
         'xlink': 'http://www.w3.org/1999/xlink',
         'svg': 'http://www.w3.org/2000/svg',
@@ -2925,183 +2924,6 @@ var __extends = (this && this.__extends) || function (d, b) {
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var PromiseCompleter = (function () {
-        function PromiseCompleter() {
-            var _this = this;
-            this.promise = new Promise(function (res, rej) {
-                _this.resolve = res;
-                _this.reject = rej;
-            });
-        }
-        return PromiseCompleter;
-    }());
-    var PromiseWrapper = (function () {
-        function PromiseWrapper() {
-        }
-        PromiseWrapper.resolve = function (obj) { return Promise.resolve(obj); };
-        PromiseWrapper.reject = function (obj, _) { return Promise.reject(obj); };
-        // Note: We can't rename this method into `catch`, as this is not a valid
-        // method name in Dart.
-        PromiseWrapper.catchError = function (promise, onError) {
-            return promise.catch(onError);
-        };
-        PromiseWrapper.all = function (promises) {
-            if (promises.length == 0)
-                return Promise.resolve([]);
-            return Promise.all(promises);
-        };
-        PromiseWrapper.then = function (promise, success, rejection) {
-            return promise.then(success, rejection);
-        };
-        PromiseWrapper.wrap = function (computation) {
-            return new Promise(function (res, rej) {
-                try {
-                    res(computation());
-                }
-                catch (e) {
-                    rej(e);
-                }
-            });
-        };
-        PromiseWrapper.scheduleMicrotask = function (computation) {
-            PromiseWrapper.then(PromiseWrapper.resolve(null), computation, function (_) { });
-        };
-        PromiseWrapper.completer = function () { return new PromiseCompleter(); };
-        return PromiseWrapper;
-    }());
-    var ObservableWrapper = (function () {
-        function ObservableWrapper() {
-        }
-        // TODO(vsavkin): when we use rxnext, try inferring the generic type from the first arg
-        ObservableWrapper.subscribe = function (emitter, onNext, onError, onComplete) {
-            if (onComplete === void 0) { onComplete = function () { }; }
-            onError = (typeof onError === 'function') && onError || noop;
-            onComplete = (typeof onComplete === 'function') && onComplete || noop;
-            return emitter.subscribe({ next: onNext, error: onError, complete: onComplete });
-        };
-        ObservableWrapper.isObservable = function (obs) { return !!obs.subscribe; };
-        /**
-         * Returns whether `obs` has any subscribers listening to events.
-         */
-        ObservableWrapper.hasSubscribers = function (obs) { return obs.observers.length > 0; };
-        ObservableWrapper.dispose = function (subscription) { subscription.unsubscribe(); };
-        /**
-         * @deprecated - use callEmit() instead
-         */
-        ObservableWrapper.callNext = function (emitter, value) { emitter.emit(value); };
-        ObservableWrapper.callEmit = function (emitter, value) { emitter.emit(value); };
-        ObservableWrapper.callError = function (emitter, error) { emitter.error(error); };
-        ObservableWrapper.callComplete = function (emitter) { emitter.complete(); };
-        ObservableWrapper.fromPromise = function (promise) {
-            return rxjs_observable_PromiseObservable.PromiseObservable.create(promise);
-        };
-        ObservableWrapper.toPromise = function (obj) { return rxjs_operator_toPromise.toPromise.call(obj); };
-        return ObservableWrapper;
-    }());
-    /**
-     * Use by directives and components to emit custom Events.
-     *
-     * ### Examples
-     *
-     * In the following example, `Zippy` alternatively emits `open` and `close` events when its
-     * title gets clicked:
-     *
-     * ```
-     * @Component({
-     *   selector: 'zippy',
-     *   template: `
-     *   <div class="zippy">
-     *     <div (click)="toggle()">Toggle</div>
-     *     <div [hidden]="!visible">
-     *       <ng-content></ng-content>
-     *     </div>
-     *  </div>`})
-     * export class Zippy {
-     *   visible: boolean = true;
-     *   @Output() open: EventEmitter<any> = new EventEmitter();
-     *   @Output() close: EventEmitter<any> = new EventEmitter();
-     *
-     *   toggle() {
-     *     this.visible = !this.visible;
-     *     if (this.visible) {
-     *       this.open.emit(null);
-     *     } else {
-     *       this.close.emit(null);
-     *     }
-     *   }
-     * }
-     * ```
-     *
-     * The events payload can be accessed by the parameter `$event` on the components output event
-     * handler:
-     *
-     * ```
-     * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
-     * ```
-     *
-     * Uses Rx.Observable but provides an adapter to make it work as specified here:
-     * https://github.com/jhusain/observable-spec
-     *
-     * Once a reference implementation of the spec is available, switch to it.
-     * @stable
-     */
-    var EventEmitter = (function (_super) {
-        __extends(EventEmitter, _super);
-        /**
-         * Creates an instance of [EventEmitter], which depending on [isAsync],
-         * delivers events synchronously or asynchronously.
-         */
-        function EventEmitter(isAsync) {
-            if (isAsync === void 0) { isAsync = false; }
-            _super.call(this);
-            this.__isAsync = isAsync;
-        }
-        EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
-        /**
-         * @deprecated - use .emit(value) instead
-         */
-        EventEmitter.prototype.next = function (value) { _super.prototype.next.call(this, value); };
-        EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
-            var schedulerFn;
-            var errorFn = function (err) { return null; };
-            var completeFn = function () { return null; };
-            if (generatorOrNext && typeof generatorOrNext === 'object') {
-                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                    setTimeout(function () { return generatorOrNext.next(value); });
-                } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
-                if (generatorOrNext.error) {
-                    errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
-                        function (err) { generatorOrNext.error(err); };
-                }
-                if (generatorOrNext.complete) {
-                    completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
-                        function () { generatorOrNext.complete(); };
-                }
-            }
-            else {
-                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                    setTimeout(function () { return generatorOrNext(value); });
-                } : function (value /** TODO #9100 */) { generatorOrNext(value); };
-                if (error) {
-                    errorFn =
-                        this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
-                }
-                if (complete) {
-                    completeFn =
-                        this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
-                }
-            }
-            return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
-        };
-        return EventEmitter;
-    }(rxjs_Subject.Subject));
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /**
      * Message Bus is a low level API used to communicate between the UI and the background.
      * Communication is based on a channel abstraction. Messages published in a
@@ -3338,7 +3160,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._sink = messageBus.to(channel);
             this._serializer = _serializer;
             var source = messageBus.from(channel);
-            ObservableWrapper.subscribe(source, function (message) { return _this._handleMessage(message); });
+            source.subscribe({ next: function (message) { return _this._handleMessage(message); } });
         }
         ClientMessageBroker_.prototype._generateMessageId = function (name) {
             var time = stringify(DateWrapper.toMillis(DateWrapper.now()));
@@ -3366,14 +3188,15 @@ var __extends = (this && this.__extends) || function (d, b) {
             var promise;
             var id = null;
             if (returnType != null) {
-                var completer = PromiseWrapper.completer();
+                var completer_1;
+                promise = new Promise(function (resolve, reject) { completer_1 = { resolve: resolve, reject: reject }; });
                 id = this._generateMessageId(args.method);
-                this._pending.set(id, completer);
-                PromiseWrapper.catchError(completer.promise, function (err, stack) {
+                this._pending.set(id, completer_1);
+                promise.catch(function (err) {
                     print(err);
-                    completer.reject(err, stack);
+                    completer_1.reject(err);
                 });
-                promise = PromiseWrapper.then(completer.promise, function (value) {
+                promise = promise.then(function (value) {
                     if (_this._serializer == null) {
                         return value;
                     }
@@ -3390,7 +3213,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (id != null) {
                 message['id'] = id;
             }
-            ObservableWrapper.callEmit(this._sink, message);
+            this._sink.emit(message);
             return promise;
         };
         ClientMessageBroker_.prototype._handleMessage = function (message) {
@@ -3403,7 +3226,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                         this._pending.get(id).resolve(data.value);
                     }
                     else {
-                        this._pending.get(id).reject(data.value, null);
+                        this._pending.get(id).reject(data.value);
                     }
                     this._pending.delete(id);
                 }
@@ -3505,7 +3328,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._methods = new Map$1();
             this._sink = messageBus.to(channel);
             var source = messageBus.from(channel);
-            ObservableWrapper.subscribe(source, function (message) { return _this._handleMessage(message); });
+            source.subscribe({ next: function (message) { return _this._handleMessage(message); } });
         }
         ServiceMessageBroker_.prototype.registerMethod = function (methodName, signature, method, returnType) {
             var _this = this;
@@ -3531,8 +3354,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         ServiceMessageBroker_.prototype._wrapWebWorkerPromise = function (id, promise, type) {
             var _this = this;
-            PromiseWrapper.then(promise, function (result) {
-                ObservableWrapper.callEmit(_this._sink, { 'type': 'result', 'value': _this._serializer.serialize(result, type), 'id': id });
+            promise.then(function (result) {
+                _this._sink.emit({ 'type': 'result', 'value': _this._serializer.serialize(result, type), 'id': id });
             });
         };
         return ServiceMessageBroker_;
@@ -3586,21 +3409,23 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._location = null;
             this._broker = brokerFactory.createMessageBroker(ROUTER_CHANNEL);
             this._channelSource = bus.from(ROUTER_CHANNEL);
-            ObservableWrapper.subscribe(this._channelSource, function (msg) {
-                var listeners = null;
-                if (StringMapWrapper.contains(msg, 'event')) {
-                    var type = msg['event']['type'];
-                    if (StringWrapper.equals(type, 'popstate')) {
-                        listeners = _this._popStateListeners;
-                    }
-                    else if (StringWrapper.equals(type, 'hashchange')) {
-                        listeners = _this._hashChangeListeners;
-                    }
-                    if (listeners !== null) {
-                        var e_1 = deserializeGenericEvent(msg['event']);
-                        // There was a popState or hashChange event, so the location object thas been updated
-                        _this._location = _this._serializer.deserialize(msg['location'], LocationType);
-                        listeners.forEach(function (fn) { return fn(e_1); });
+            this._channelSource.subscribe({
+                next: function (msg) {
+                    var listeners = null;
+                    if (StringMapWrapper.contains(msg, 'event')) {
+                        var type = msg['event']['type'];
+                        if (StringWrapper.equals(type, 'popstate')) {
+                            listeners = _this._popStateListeners;
+                        }
+                        else if (StringWrapper.equals(type, 'hashchange')) {
+                            listeners = _this._hashChangeListeners;
+                        }
+                        if (listeners !== null) {
+                            var e_1 = deserializeGenericEvent(msg['event']);
+                            // There was a popState or hashChange event, so the location object thas been updated
+                            _this._location = _this._serializer.deserialize(msg['location'], LocationType);
+                            listeners.forEach(function (fn) { return fn(e_1); });
+                        }
                     }
                 }
             });
@@ -3610,7 +3435,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             var args = new UiArguments('getLocation');
             var locationPromise = this._broker.runOnService(args, LocationType);
-            return PromiseWrapper.then(locationPromise, function (val) {
+            return locationPromise.then(function (val) {
                 _this._location = val;
                 return true;
             }, function (err) { throw new BaseException$1(err); });
@@ -3724,12 +3549,12 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._broker.registerMethod('back', null, FunctionWrapper.bind(this._platformLocation.back, this._platformLocation));
         };
         MessageBasedPlatformLocation.prototype._getLocation = function () {
-            return PromiseWrapper.resolve(this._platformLocation.location);
+            return Promise.resolve(this._platformLocation.location);
         };
         MessageBasedPlatformLocation.prototype._sendUrlChangeEvent = function (e) {
             var loc = this._serializer.serialize(this._platformLocation.location, LocationType);
             var serializedEvent = { 'type': e.type };
-            ObservableWrapper.callEmit(this._channelSink, { 'event': serializedEvent, 'location': loc });
+            this._channelSink.emit({ 'event': serializedEvent, 'location': loc });
         };
         MessageBasedPlatformLocation.prototype._setPathname = function (pathname) { this._platformLocation.pathname = pathname; };
         return MessageBasedPlatformLocation;
@@ -3761,6 +3586,103 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
     }
     var ON_WEB_WORKER = new _angular_core.OpaqueToken('WebWorker.onWebWorker');
+    /**
+     * Use by directives and components to emit custom Events.
+     *
+     * ### Examples
+     *
+     * In the following example, `Zippy` alternatively emits `open` and `close` events when its
+     * title gets clicked:
+     *
+     * ```
+     * @Component({
+     *   selector: 'zippy',
+     *   template: `
+     *   <div class="zippy">
+     *     <div (click)="toggle()">Toggle</div>
+     *     <div [hidden]="!visible">
+     *       <ng-content></ng-content>
+     *     </div>
+     *  </div>`})
+     * export class Zippy {
+     *   visible: boolean = true;
+     *   @Output() open: EventEmitter<any> = new EventEmitter();
+     *   @Output() close: EventEmitter<any> = new EventEmitter();
+     *
+     *   toggle() {
+     *     this.visible = !this.visible;
+     *     if (this.visible) {
+     *       this.open.emit(null);
+     *     } else {
+     *       this.close.emit(null);
+     *     }
+     *   }
+     * }
+     * ```
+     *
+     * The events payload can be accessed by the parameter `$event` on the components output event
+     * handler:
+     *
+     * ```
+     * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
+     * ```
+     *
+     * Uses Rx.Observable but provides an adapter to make it work as specified here:
+     * https://github.com/jhusain/observable-spec
+     *
+     * Once a reference implementation of the spec is available, switch to it.
+     * @stable
+     */
+    var EventEmitter = (function (_super) {
+        __extends(EventEmitter, _super);
+        /**
+         * Creates an instance of [EventEmitter], which depending on [isAsync],
+         * delivers events synchronously or asynchronously.
+         */
+        function EventEmitter(isAsync) {
+            if (isAsync === void 0) { isAsync = false; }
+            _super.call(this);
+            this.__isAsync = isAsync;
+        }
+        EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
+        /**
+         * @deprecated - use .emit(value) instead
+         */
+        EventEmitter.prototype.next = function (value) { _super.prototype.next.call(this, value); };
+        EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
+            var schedulerFn;
+            var errorFn = function (err) { return null; };
+            var completeFn = function () { return null; };
+            if (generatorOrNext && typeof generatorOrNext === 'object') {
+                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
+                    setTimeout(function () { return generatorOrNext.next(value); });
+                } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
+                if (generatorOrNext.error) {
+                    errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
+                        function (err) { generatorOrNext.error(err); };
+                }
+                if (generatorOrNext.complete) {
+                    completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
+                        function () { generatorOrNext.complete(); };
+                }
+            }
+            else {
+                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
+                    setTimeout(function () { return generatorOrNext(value); });
+                } : function (value /** TODO #9100 */) { generatorOrNext(value); };
+                if (error) {
+                    errorFn =
+                        this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
+                }
+                if (complete) {
+                    completeFn =
+                        this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
+                }
+            }
+            return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
+        };
+        return EventEmitter;
+    }(rxjs_Subject.Subject));
     var PostMessageBusSink = (function () {
         function PostMessageBusSink(_postMessageTarget) {
             this._postMessageTarget = _postMessageTarget;
@@ -3770,9 +3692,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         PostMessageBusSink.prototype.attachToZone = function (zone) {
             var _this = this;
             this._zone = zone;
-            this._zone.runOutsideAngular(function () {
-                ObservableWrapper.subscribe(_this._zone.onStable, function (_) { _this._handleOnEventDone(); });
-            });
+            this._zone.runOutsideAngular(function () { _this._zone.onStable.subscribe({ next: function () { _this._handleOnEventDone(); } }); });
         };
         PostMessageBusSink.prototype.initChannel = function (channel, runInZone) {
             var _this = this;
@@ -4037,7 +3957,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 default:
                     throw new BaseException$1(eventName + ' not supported on WebWorkers');
             }
-            ObservableWrapper.callEmit(this._sink, {
+            this._sink.emit({
                 'element': this._serializer.serialize(element, RenderStoreObject),
                 'eventName': eventName,
                 'eventTarget': eventTarget,
@@ -4307,7 +4227,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._messageBroker = messageBrokerFactory.createMessageBroker(RENDERER_CHANNEL);
             bus.initChannel(EVENT_CHANNEL);
             var source = bus.from(EVENT_CHANNEL);
-            ObservableWrapper.subscribe(source, function (message) { return _this._dispatchEvent(message); });
+            source.subscribe({ next: function (message) { return _this._dispatchEvent(message); } });
         }
         WebWorkerRootRenderer.prototype._dispatchEvent = function (message) {
             var eventName = message['eventName'];
