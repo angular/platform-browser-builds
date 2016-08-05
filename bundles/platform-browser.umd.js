@@ -226,47 +226,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
         return NumberWrapper;
     }());
-    var RegExpWrapper = (function () {
-        function RegExpWrapper() {
-        }
-        RegExpWrapper.create = function (regExpStr, flags) {
-            if (flags === void 0) { flags = ''; }
-            flags = flags.replace(/g/g, '');
-            return new global$1.RegExp(regExpStr, flags + 'g');
-        };
-        RegExpWrapper.firstMatch = function (regExp, input) {
-            // Reset multimatch regex state
-            regExp.lastIndex = 0;
-            return regExp.exec(input);
-        };
-        RegExpWrapper.test = function (regExp, input) {
-            regExp.lastIndex = 0;
-            return regExp.test(input);
-        };
-        RegExpWrapper.matcher = function (regExp, input) {
-            // Reset regex state for the case
-            // someone did not loop over all matches
-            // last time.
-            regExp.lastIndex = 0;
-            return { re: regExp, input: input };
-        };
-        RegExpWrapper.replaceAll = function (regExp, input, replace) {
-            var c = regExp.exec(input);
-            var res = '';
-            regExp.lastIndex = 0;
-            var prev = 0;
-            while (c) {
-                res += input.substring(prev, c.index);
-                res += replace(c);
-                prev = c.index + c[0].length;
-                regExp.lastIndex = prev;
-                c = regExp.exec(input);
-            }
-            res += input.substring(prev);
-            return res;
-        };
-        return RegExpWrapper;
-    }());
     var FunctionWrapper = (function () {
         function FunctionWrapper() {
         }
@@ -1652,7 +1611,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         'xhtml': 'http://www.w3.org/1999/xhtml'
     };
     var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
-    var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/g;
+    var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
     var DomRootRenderer = (function () {
         function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver) {
             this.document = document;
@@ -1817,7 +1776,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         DomRenderer.prototype.setBindingDebugInfo = function (renderElement, propertyName, propertyValue) {
             var dashCasedPropertyName = camelCaseToDashCase(propertyName);
             if (getDOM().isCommentNode(renderElement)) {
-                var existingBindings = RegExpWrapper.firstMatch(TEMPLATE_BINDINGS_EXP, StringWrapper.replaceAll(getDOM().getText(renderElement), /\n/g, ''));
+                var existingBindings = StringWrapper.replaceAll(getDOM().getText(renderElement), /\n/g, '')
+                    .match(TEMPLATE_BINDINGS_EXP);
                 var parsedBindings = Json.parse(existingBindings[1]);
                 parsedBindings[dashCasedPropertyName] = propertyValue;
                 getDOM().setText(renderElement, StringWrapper.replace(TEMPLATE_COMMENT_TEXT, '{}', Json.stringify(parsedBindings)));
@@ -1904,12 +1864,12 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return target;
     }
-    var NS_PREFIX_RE = /^:([^:]+):(.+)/g;
+    var NS_PREFIX_RE = /^:([^:]+):(.+)$/;
     function splitNamespace(name) {
         if (name[0] != ':') {
             return [null, name];
         }
-        var match = RegExpWrapper.firstMatch(NS_PREFIX_RE, name);
+        var match = name.match(NS_PREFIX_RE);
         return [match[1], match[2]];
     }
     var CORE_TOKENS = {
@@ -2540,7 +2500,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             return '';
         // Single url(...) values are supported, but only for URLs that sanitize cleanly. See above for
         // reasoning behind this.
-        var urlMatch = URL_RE.exec(value);
+        var urlMatch = value.match(URL_RE);
         if ((urlMatch && sanitizeUrl(urlMatch[1]) === urlMatch[1]) ||
             value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
             return value; // Safe style values.
