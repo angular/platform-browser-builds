@@ -21,29 +21,11 @@ function createNgZone() {
 }
 var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
 /**
- * Providers for the browser test platform
- *
- * @deprecated Use `platformBrowserTesting()` or create a custom platform factory via
- * `createPlatformFactory(platformBrowserTesting, ...)`
- */
-exports.TEST_BROWSER_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, _TEST_BROWSER_PLATFORM_PROVIDERS];
-/**
- * @deprecated Use initTestEnvironment with BrowserTestModule instead. This is empty for backwards
- * compatibility,
- * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
- * providers 2x.
- */
-exports.TEST_BROWSER_APPLICATION_PROVIDERS = [];
-/**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
  */
 exports.platformBrowserTesting = core_1.createPlatformFactory(core_1.platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
-/**
- * @deprecated Use {@link platformBrowserTesting} instead
- */
-exports.browserTestingPlatform = exports.platformBrowserTesting;
 var BrowserTestingModule = (function () {
     function BrowserTestingModule() {
     }
