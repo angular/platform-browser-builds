@@ -9,7 +9,6 @@
 var core_1 = require('@angular/core');
 var async_1 = require('../../facade/async');
 var collection_1 = require('../../facade/collection');
-var exceptions_1 = require('../../facade/exceptions');
 var PostMessageBusSink = (function () {
     function PostMessageBusSink(_postMessageTarget) {
         this._postMessageTarget = _postMessageTarget;
@@ -25,7 +24,7 @@ var PostMessageBusSink = (function () {
         var _this = this;
         if (runInZone === void 0) { runInZone = true; }
         if (collection_1.StringMapWrapper.contains(this._channels, channel)) {
-            throw new exceptions_1.BaseException(channel + " has already been initialized");
+            throw new core_1.BaseException(channel + " has already been initialized");
         }
         var emitter = new async_1.EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
@@ -45,7 +44,7 @@ var PostMessageBusSink = (function () {
             return this._channels[channel].emitter;
         }
         else {
-            throw new exceptions_1.BaseException(channel + " is not set up. Did you forget to call initChannel?");
+            throw new core_1.BaseException(channel + " is not set up. Did you forget to call initChannel?");
         }
     };
     PostMessageBusSink.prototype._handleOnEventDone = function () {
@@ -75,7 +74,7 @@ var PostMessageBusSource = (function () {
     PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
         if (runInZone === void 0) { runInZone = true; }
         if (collection_1.StringMapWrapper.contains(this._channels, channel)) {
-            throw new exceptions_1.BaseException(channel + " has already been initialized");
+            throw new core_1.BaseException(channel + " has already been initialized");
         }
         var emitter = new async_1.EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
@@ -86,7 +85,7 @@ var PostMessageBusSource = (function () {
             return this._channels[channel].emitter;
         }
         else {
-            throw new exceptions_1.BaseException(channel + " is not set up. Did you forget to call initChannel?");
+            throw new core_1.BaseException(channel + " is not set up. Did you forget to call initChannel?");
         }
     };
     PostMessageBusSource.prototype._handleMessages = function (ev) {

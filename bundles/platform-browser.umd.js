@@ -1465,20 +1465,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         return BrowserGetTestability;
     }());
     /**
-     * @stable
-     */
-    var BaseException$1 = (function (_super) {
-        __extends(BaseException$1, _super);
-        function BaseException$1(message) {
-            if (message === void 0) { message = '--'; }
-            _super.call(this, message);
-            this.message = message;
-            this.stack = (new Error(message)).stack;
-        }
-        BaseException$1.prototype.toString = function () { return this.message; };
-        return BaseException$1;
-    }(Error));
-    /**
      * A DI Token representing the main rendering context. In a browser this is the DOM Document.
      *
      * Note: Document might not be available in the Application Context when Application and Rendering
@@ -1516,7 +1502,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     return plugin;
                 }
             }
-            throw new BaseException$1("No event manager plugin found for event " + eventName);
+            throw new _angular_core.BaseException("No event manager plugin found for event " + eventName);
         };
         return EventManager;
     }());
@@ -1670,7 +1656,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (isString(selectorOrNode)) {
                 el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
                 if (isBlank(el)) {
-                    throw new BaseException$1("The selector \"" + selectorOrNode + "\" did not match any elements");
+                    throw new _angular_core.BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
             }
             else {
@@ -2010,7 +1996,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
                 return false;
             if (!isPresent(window['Hammer'])) {
-                throw new BaseException$1("Hammer.js is not loaded, can not bind " + eventName + " event");
+                throw new _angular_core.BaseException("Hammer.js is not loaded, can not bind " + eventName + " event");
             }
             return true;
         };
@@ -3033,7 +3019,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._serializeLocation(obj);
             }
             else {
-                throw new BaseException$1('No serializer for ' + type.toString());
+                throw new _angular_core.BaseException('No serializer for ' + type.toString());
             }
         };
         Serializer.prototype.deserialize = function (map, type, data) {
@@ -3062,7 +3048,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._deserializeLocation(map);
             }
             else {
-                throw new BaseException$1('No deserializer for ' + type.toString());
+                throw new _angular_core.BaseException('No deserializer for ' + type.toString());
             }
         };
         Serializer.prototype._serializeLocation = function (loc) {
@@ -3438,10 +3424,10 @@ var __extends = (this && this.__extends) || function (d, b) {
             return locationPromise.then(function (val) {
                 _this._location = val;
                 return true;
-            }, function (err) { throw new BaseException$1(err); });
+            }, function (err) { throw new _angular_core.BaseException(err); });
         };
         WebWorkerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
-            throw new BaseException$1('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
+            throw new _angular_core.BaseException('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
         };
         WebWorkerPlatformLocation.prototype.onPopState = function (fn) { this._popStateListeners.push(fn); };
         WebWorkerPlatformLocation.prototype.onHashChange = function (fn) { this._hashChangeListeners.push(fn); };
@@ -3454,7 +3440,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             },
             set: function (newPath) {
                 if (this._location === null) {
-                    throw new BaseException$1('Attempt to set pathname before value is obtained from UI');
+                    throw new _angular_core.BaseException('Attempt to set pathname before value is obtained from UI');
                 }
                 this._location.pathname = newPath;
                 var fnArgs = [new FnArg(newPath, PRIMITIVE)];
@@ -3698,7 +3684,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new BaseException$1(channel + " has already been initialized");
+                throw new _angular_core.BaseException(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -3718,7 +3704,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new BaseException$1(channel + " is not set up. Did you forget to call initChannel?");
+                throw new _angular_core.BaseException(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSink.prototype._handleOnEventDone = function () {
@@ -3747,7 +3733,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new BaseException$1(channel + " has already been initialized");
+                throw new _angular_core.BaseException(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -3758,7 +3744,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new BaseException$1(channel + " is not set up. Did you forget to call initChannel?");
+                throw new _angular_core.BaseException(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSource.prototype._handleMessages = function (ev) {
@@ -3955,7 +3941,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     serializedEvent = serializeTransitionEvent(event);
                     break;
                 default:
-                    throw new BaseException$1(eventName + ' not supported on WebWorkers');
+                    throw new _angular_core.BaseException(eventName + ' not supported on WebWorkers');
             }
             this._sink.emit({
                 'element': this._serializer.serialize(element, RenderStoreObject),
@@ -4178,7 +4164,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 scriptUri = injector.get(WORKER_SCRIPT);
             }
             catch (e) {
-                throw new BaseException$1('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
+                throw new _angular_core.BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
             }
             var instance = injector.get(WebWorkerInstance);
             spawnWebWorker(scriptUri, instance);

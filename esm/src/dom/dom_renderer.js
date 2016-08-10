@@ -5,8 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Inject, Injectable, ViewEncapsulation } from '@angular/core';
-import { BaseException } from '../facade/exceptions';
+import { BaseException, Inject, Injectable, ViewEncapsulation } from '@angular/core';
 import { Json, StringWrapper, isArray, isBlank, isPresent, isString, stringify } from '../facade/lang';
 import { AnimationDriver } from './animation_driver';
 import { getDOM } from './dom_adapter';

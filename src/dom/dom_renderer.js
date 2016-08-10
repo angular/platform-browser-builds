@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var exceptions_1 = require('../facade/exceptions');
 var lang_1 = require('../facade/lang');
 var animation_driver_1 = require('./animation_driver');
 var dom_adapter_1 = require('./dom_adapter');
@@ -88,7 +87,7 @@ var DomRenderer = (function () {
         if (lang_1.isString(selectorOrNode)) {
             el = dom_adapter_1.getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
             if (lang_1.isBlank(el)) {
-                throw new exceptions_1.BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
+                throw new core_1.BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
             }
         }
         else {
