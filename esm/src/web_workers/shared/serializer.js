@@ -5,8 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException, Injectable, RenderComponentType, ViewEncapsulation } from '@angular/core';
+import { Injectable, RenderComponentType, ViewEncapsulation } from '@angular/core';
 import { VIEW_ENCAPSULATION_VALUES } from '../../../core_private';
+import { BaseException } from '../../facade/exceptions';
 import { isArray, isPresent, serializeEnum } from '../../facade/lang';
 import { RenderStore } from './render_store';
 import { LocationType } from './serialized_types';

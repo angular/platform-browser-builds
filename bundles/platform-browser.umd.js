@@ -2923,6 +2923,20 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return MessageBus;
     }());
+    /**
+     * @stable
+     */
+    var BaseException$1 = (function (_super) {
+        __extends(BaseException$1, _super);
+        function BaseException$1(message) {
+            if (message === void 0) { message = '--'; }
+            _super.call(this, message);
+            this.message = message;
+            this.stack = (new Error(message)).stack;
+        }
+        BaseException$1.prototype.toString = function () { return this.message; };
+        return BaseException$1;
+    }(Error));
     var RenderStore = (function () {
         function RenderStore() {
             this._nextIndex = 0;
@@ -3019,7 +3033,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._serializeLocation(obj);
             }
             else {
-                throw new _angular_core.BaseException('No serializer for ' + type.toString());
+                throw new BaseException$1('No serializer for ' + type.toString());
             }
         };
         Serializer.prototype.deserialize = function (map, type, data) {
@@ -3048,7 +3062,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._deserializeLocation(map);
             }
             else {
-                throw new _angular_core.BaseException('No deserializer for ' + type.toString());
+                throw new BaseException$1('No deserializer for ' + type.toString());
             }
         };
         Serializer.prototype._serializeLocation = function (loc) {
