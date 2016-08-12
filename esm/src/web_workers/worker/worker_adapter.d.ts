@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { Type } from '@angular/core';
 import { DomAdapter } from '../../dom/dom_adapter';
-import { Type } from '../../facade/lang';
 /**
  * This adapter is required to log error messages.
  *
@@ -22,7 +22,7 @@ export declare class WorkerDomAdapter extends DomAdapter {
     setProperty(el: Element, name: string, value: any): void;
     getProperty(el: Element, name: string): any;
     invoke(el: Element, methodName: string, args: any[]): any;
-    getXHR(): Type;
+    getXHR(): Type<any>;
     attrToPropMap: {
         [key: string]: string;
     };

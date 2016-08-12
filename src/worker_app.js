@@ -74,7 +74,7 @@ var WorkerAppModule = (function () {
     WorkerAppModule.decorators = [
         { type: core_1.NgModule, args: [{
                     providers: [
-                        common_1.FORM_PROVIDERS, browser_1.BROWSER_SANITIZATION_PROVIDERS, serializer_1.Serializer,
+                        browser_1.BROWSER_SANITIZATION_PROVIDERS, serializer_1.Serializer,
                         { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
                         { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
                         renderer_1.WebWorkerRootRenderer, { provide: core_1.RootRenderer, useExisting: renderer_1.WebWorkerRootRenderer },

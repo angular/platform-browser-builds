@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var exceptions_1 = require('../../facade/exceptions');
 var lang_1 = require('../../facade/lang');
 var hammer_common_1 = require('./hammer_common');
 /**
@@ -53,7 +52,7 @@ var HammerGesturesPlugin = (function (_super) {
         if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
             return false;
         if (!lang_1.isPresent(window['Hammer'])) {
-            throw new exceptions_1.BaseException("Hammer.js is not loaded, can not bind " + eventName + " event");
+            throw new core_1.BaseException("Hammer.js is not loaded, can not bind " + eventName + " event");
         }
         return true;
     };

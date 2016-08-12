@@ -1,4 +1,11 @@
-import { Type } from '../../facade/lang';
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { Type } from '@angular/core';
 import { MessageBus } from '../shared/message_bus';
 import { Serializer } from '../shared/serializer';
 /**
@@ -24,7 +31,7 @@ export declare class ServiceMessageBrokerFactory_ extends ServiceMessageBrokerFa
  * @experimental WebWorker support in Angular is currently experimental.
  */
 export declare abstract class ServiceMessageBroker {
-    abstract registerMethod(methodName: string, signature: Type[], method: Function, returnType?: Type): void;
+    abstract registerMethod(methodName: string, signature: Type<any>[], method: Function, returnType?: Type<any>): void;
 }
 export declare class ServiceMessageBroker_ extends ServiceMessageBroker {
     private _serializer;
@@ -32,7 +39,7 @@ export declare class ServiceMessageBroker_ extends ServiceMessageBroker {
     private _sink;
     private _methods;
     constructor(messageBus: MessageBus, _serializer: Serializer, channel: any);
-    registerMethod(methodName: string, signature: Type[], method: (..._: any[]) => Promise<any> | void, returnType?: Type): void;
+    registerMethod(methodName: string, signature: Type<any>[], method: (..._: any[]) => Promise<any> | void, returnType?: Type<any>): void;
     private _handleMessage(map);
     private _wrapWebWorkerPromise(id, promise, type);
 }
