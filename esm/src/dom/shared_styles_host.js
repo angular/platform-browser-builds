@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Inject, Injectable } from '@angular/core';
-import { SetWrapper } from '../facade/collection';
 import { getDOM } from './dom_adapter';
 import { DOCUMENT } from './dom_tokens';
 export class SharedStylesHost {
@@ -19,7 +18,7 @@ export class SharedStylesHost {
     addStyles(styles) {
         var additions = [];
         styles.forEach(style => {
-            if (!SetWrapper.has(this._stylesSet, style)) {
+            if (!this._stylesSet.has(style)) {
                 this._stylesSet.add(style);
                 this._styles.push(style);
                 additions.push(style);
@@ -53,7 +52,7 @@ export class DomSharedStylesHost extends SharedStylesHost {
         this._addStylesToHost(this._styles, hostNode);
         this._hostNodes.add(hostNode);
     }
-    removeHost(hostNode) { SetWrapper.delete(this._hostNodes, hostNode); }
+    removeHost(hostNode) { this._hostNodes.delete(hostNode); }
     onStylesAdded(additions) {
         this._hostNodes.forEach((hostNode) => { this._addStylesToHost(additions, hostNode); });
     }

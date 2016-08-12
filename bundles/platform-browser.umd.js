@@ -568,14 +568,6 @@ var __extends = (this && this.__extends) || function (d, b) {
             };
         }
     })();
-    var SetWrapper = (function () {
-        function SetWrapper() {
-        }
-        SetWrapper.createFromList = function (lst) { return createSetFromList(lst); };
-        SetWrapper.has = function (s, key) { return s.has(key); };
-        SetWrapper.delete = function (m, k) { m.delete(k); };
-        return SetWrapper;
-    }());
     var CAMEL_CASE_REGEXP = /([A-Z])/g;
     var DASH_CASE_REGEXP = /-([a-z])/g;
     function camelCaseToDashCase(input) {
@@ -1539,7 +1531,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             var additions = [];
             styles.forEach(function (style) {
-                if (!SetWrapper.has(_this._stylesSet, style)) {
+                if (!_this._stylesSet.has(style)) {
                     _this._stylesSet.add(style);
                     _this._styles.push(style);
                     additions.push(style);
@@ -1575,7 +1567,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._addStylesToHost(this._styles, hostNode);
             this._hostNodes.add(hostNode);
         };
-        DomSharedStylesHost.prototype.removeHost = function (hostNode) { SetWrapper.delete(this._hostNodes, hostNode); };
+        DomSharedStylesHost.prototype.removeHost = function (hostNode) { this._hostNodes.delete(hostNode); };
         DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
             var _this = this;
             this._hostNodes.forEach(function (hostNode) { _this._addStylesToHost(additions, hostNode); });
