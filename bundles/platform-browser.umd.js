@@ -1871,21 +1871,43 @@ var __extends = (this && this.__extends) || function (d, b) {
     function inspectNativeElement(element /** TODO #9100 */) {
         return _angular_core.getDebugNode(element);
     }
-    function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */) {
+    /**
+     * @experimental
+     */
+    var NgProbeToken = (function () {
+        function NgProbeToken(name, token) {
+            this.name = name;
+            this.token = token;
+        }
+        return NgProbeToken;
+    }());
+    function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */, extraTokens) {
         if (_angular_core.isDevMode()) {
-            return _createRootRenderer(rootRenderer);
+            return _createRootRenderer(rootRenderer, extraTokens);
         }
         return rootRenderer;
     }
-    function _createRootRenderer(rootRenderer /** TODO #9100 */) {
+    function _createRootRenderer(rootRenderer /** TODO #9100 */, extraTokens) {
         getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-        getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, CORE_TOKENS);
+        getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, StringMapWrapper.merge(CORE_TOKENS, _ngProbeTokensToMap(extraTokens || [])));
         return new DebugDomRootRenderer(rootRenderer);
+    }
+    function _ngProbeTokensToMap(tokens) {
+        return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
     }
     /**
      * Providers which support debugging Angular applications (e.g. via `ng.probe`).
      */
-    var ELEMENT_PROBE_PROVIDERS = [{ provide: _angular_core.RootRenderer, useFactory: _createConditionalRootRenderer, deps: [DomRootRenderer] }];
+    var ELEMENT_PROBE_PROVIDERS = [{
+            provide: _angular_core.RootRenderer,
+            useFactory: _createConditionalRootRenderer,
+            deps: [DomRootRenderer, [NgProbeToken, new _angular_core.Optional()]]
+        }];
+    var ELEMENT_PROBE_PROVIDERS_PROD_MODE = [{
+            provide: _angular_core.RootRenderer,
+            useFactory: _createRootRenderer,
+            deps: [DomRootRenderer, [NgProbeToken, new _angular_core.Optional()]]
+        }];
     var DomEventsPlugin = (function (_super) {
         __extends(DomEventsPlugin, _super);
         function DomEventsPlugin() {
@@ -4751,6 +4773,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.ServiceMessageBrokerFactory = ServiceMessageBrokerFactory;
     exports.WORKER_APP_LOCATION_PROVIDERS = WORKER_APP_LOCATION_PROVIDERS;
     exports.WORKER_UI_LOCATION_PROVIDERS = WORKER_UI_LOCATION_PROVIDERS;
+    exports.NgProbeToken = NgProbeToken;
     exports.MessageBus = MessageBus;
     exports.WebWorkerInstance = WebWorkerInstance;
     exports.WORKER_SCRIPT = WORKER_SCRIPT;

@@ -54,6 +54,8 @@ var location_providers_1 = require('./src/web_workers/worker/location_providers'
 exports.WORKER_APP_LOCATION_PROVIDERS = location_providers_1.WORKER_APP_LOCATION_PROVIDERS;
 var location_providers_2 = require('./src/web_workers/ui/location_providers');
 exports.WORKER_UI_LOCATION_PROVIDERS = location_providers_2.WORKER_UI_LOCATION_PROVIDERS;
+var ng_probe_1 = require('./src/dom/debug/ng_probe');
+exports.NgProbeToken = ng_probe_1.NgProbeToken;
 __export(require('./src/worker_render'));
 __export(require('./src/worker_app'));
 __export(require('./private_export'));
