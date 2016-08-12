@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CommonModule, FORM_PROVIDERS } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { APP_INITIALIZER, ApplicationModule, ExceptionHandler, NgModule, NgZone, PLATFORM_COMMON_PROVIDERS, RootRenderer, createPlatformFactory, platformCore } from '@angular/core';
 import { BROWSER_SANITIZATION_PROVIDERS } from './browser';
 import { print } from './facade/lang';
@@ -71,7 +71,7 @@ export class WorkerAppModule {
 WorkerAppModule.decorators = [
     { type: NgModule, args: [{
                 providers: [
-                    FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS, Serializer,
+                    BROWSER_SANITIZATION_PROVIDERS, Serializer,
                     { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
                     { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
                     WebWorkerRootRenderer, { provide: RootRenderer, useExisting: WebWorkerRootRenderer },

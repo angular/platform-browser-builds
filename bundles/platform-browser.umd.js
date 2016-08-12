@@ -4698,7 +4698,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     WorkerAppModule.decorators = [
         { type: _angular_core.NgModule, args: [{
                     providers: [
-                        _angular_common.FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS, Serializer,
+                        BROWSER_SANITIZATION_PROVIDERS, Serializer,
                         { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
                         { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
                         WebWorkerRootRenderer, { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
