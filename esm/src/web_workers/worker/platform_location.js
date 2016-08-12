@@ -6,8 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { PlatformLocation } from '@angular/common';
-import { BaseException, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { StringMapWrapper } from '../../facade/collection';
+import { BaseException } from '../../facade/exceptions';
 import { StringWrapper } from '../../facade/lang';
 import { ClientMessageBrokerFactory, FnArg, UiArguments } from '../shared/client_message_broker';
 import { MessageBus } from '../shared/message_bus';

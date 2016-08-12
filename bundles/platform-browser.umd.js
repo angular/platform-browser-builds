@@ -568,6 +568,14 @@ var __extends = (this && this.__extends) || function (d, b) {
             };
         }
     })();
+    var SetWrapper = (function () {
+        function SetWrapper() {
+        }
+        SetWrapper.createFromList = function (lst) { return createSetFromList(lst); };
+        SetWrapper.has = function (s, key) { return s.has(key); };
+        SetWrapper.delete = function (m, k) { m.delete(k); };
+        return SetWrapper;
+    }());
     var CAMEL_CASE_REGEXP = /([A-Z])/g;
     var DASH_CASE_REGEXP = /-([a-z])/g;
     function camelCaseToDashCase(input) {
@@ -1457,6 +1465,20 @@ var __extends = (this && this.__extends) || function (d, b) {
         return BrowserGetTestability;
     }());
     /**
+     * @stable
+     */
+    var BaseException$1 = (function (_super) {
+        __extends(BaseException$1, _super);
+        function BaseException$1(message) {
+            if (message === void 0) { message = '--'; }
+            _super.call(this, message);
+            this.message = message;
+            this.stack = (new Error(message)).stack;
+        }
+        BaseException$1.prototype.toString = function () { return this.message; };
+        return BaseException$1;
+    }(Error));
+    /**
      * A DI Token representing the main rendering context. In a browser this is the DOM Document.
      *
      * Note: Document might not be available in the Application Context when Application and Rendering
@@ -1494,7 +1516,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     return plugin;
                 }
             }
-            throw new _angular_core.BaseException("No event manager plugin found for event " + eventName);
+            throw new BaseException$1("No event manager plugin found for event " + eventName);
         };
         return EventManager;
     }());
@@ -1531,7 +1553,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             var additions = [];
             styles.forEach(function (style) {
-                if (!_this._stylesSet.has(style)) {
+                if (!SetWrapper.has(_this._stylesSet, style)) {
                     _this._stylesSet.add(style);
                     _this._styles.push(style);
                     additions.push(style);
@@ -1567,7 +1589,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._addStylesToHost(this._styles, hostNode);
             this._hostNodes.add(hostNode);
         };
-        DomSharedStylesHost.prototype.removeHost = function (hostNode) { this._hostNodes.delete(hostNode); };
+        DomSharedStylesHost.prototype.removeHost = function (hostNode) { SetWrapper.delete(this._hostNodes, hostNode); };
         DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
             var _this = this;
             this._hostNodes.forEach(function (hostNode) { _this._addStylesToHost(additions, hostNode); });
@@ -1648,7 +1670,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (isString(selectorOrNode)) {
                 el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
                 if (isBlank(el)) {
-                    throw new _angular_core.BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
+                    throw new BaseException$1("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
             }
             else {
@@ -1863,43 +1885,21 @@ var __extends = (this && this.__extends) || function (d, b) {
     function inspectNativeElement(element /** TODO #9100 */) {
         return _angular_core.getDebugNode(element);
     }
-    /**
-     * @experimental
-     */
-    var NgProbeToken = (function () {
-        function NgProbeToken(name, token) {
-            this.name = name;
-            this.token = token;
-        }
-        return NgProbeToken;
-    }());
-    function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */, extraTokens) {
+    function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */) {
         if (_angular_core.isDevMode()) {
-            return _createRootRenderer(rootRenderer, extraTokens);
+            return _createRootRenderer(rootRenderer);
         }
         return rootRenderer;
     }
-    function _createRootRenderer(rootRenderer /** TODO #9100 */, extraTokens) {
+    function _createRootRenderer(rootRenderer /** TODO #9100 */) {
         getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-        getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, StringMapWrapper.merge(CORE_TOKENS, _ngProbeTokensToMap(extraTokens || [])));
+        getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, CORE_TOKENS);
         return new DebugDomRootRenderer(rootRenderer);
-    }
-    function _ngProbeTokensToMap(tokens) {
-        return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
     }
     /**
      * Providers which support debugging Angular applications (e.g. via `ng.probe`).
      */
-    var ELEMENT_PROBE_PROVIDERS = [{
-            provide: _angular_core.RootRenderer,
-            useFactory: _createConditionalRootRenderer,
-            deps: [DomRootRenderer, [NgProbeToken, new _angular_core.Optional()]]
-        }];
-    var ELEMENT_PROBE_PROVIDERS_PROD_MODE = [{
-            provide: _angular_core.RootRenderer,
-            useFactory: _createRootRenderer,
-            deps: [DomRootRenderer, [NgProbeToken, new _angular_core.Optional()]]
-        }];
+    var ELEMENT_PROBE_PROVIDERS = [{ provide: _angular_core.RootRenderer, useFactory: _createConditionalRootRenderer, deps: [DomRootRenderer] }];
     var DomEventsPlugin = (function (_super) {
         __extends(DomEventsPlugin, _super);
         function DomEventsPlugin() {
@@ -2010,7 +2010,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
                 return false;
             if (!isPresent(window['Hammer'])) {
-                throw new _angular_core.BaseException("Hammer.js is not loaded, can not bind " + eventName + " event");
+                throw new BaseException$1("Hammer.js is not loaded, can not bind " + eventName + " event");
             }
             return true;
         };
@@ -2937,20 +2937,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return MessageBus;
     }());
-    /**
-     * @stable
-     */
-    var BaseException$1 = (function (_super) {
-        __extends(BaseException$1, _super);
-        function BaseException$1(message) {
-            if (message === void 0) { message = '--'; }
-            _super.call(this, message);
-            this.message = message;
-            this.stack = (new Error(message)).stack;
-        }
-        BaseException$1.prototype.toString = function () { return this.message; };
-        return BaseException$1;
-    }(Error));
     var RenderStore = (function () {
         function RenderStore() {
             this._nextIndex = 0;
@@ -3452,10 +3438,10 @@ var __extends = (this && this.__extends) || function (d, b) {
             return locationPromise.then(function (val) {
                 _this._location = val;
                 return true;
-            }, function (err) { throw new _angular_core.BaseException(err); });
+            }, function (err) { throw new BaseException$1(err); });
         };
         WebWorkerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
-            throw new _angular_core.BaseException('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
+            throw new BaseException$1('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
         };
         WebWorkerPlatformLocation.prototype.onPopState = function (fn) { this._popStateListeners.push(fn); };
         WebWorkerPlatformLocation.prototype.onHashChange = function (fn) { this._hashChangeListeners.push(fn); };
@@ -3468,7 +3454,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             },
             set: function (newPath) {
                 if (this._location === null) {
-                    throw new _angular_core.BaseException('Attempt to set pathname before value is obtained from UI');
+                    throw new BaseException$1('Attempt to set pathname before value is obtained from UI');
                 }
                 this._location.pathname = newPath;
                 var fnArgs = [new FnArg(newPath, PRIMITIVE)];
@@ -3712,7 +3698,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new _angular_core.BaseException(channel + " has already been initialized");
+                throw new BaseException$1(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -3732,7 +3718,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new _angular_core.BaseException(channel + " is not set up. Did you forget to call initChannel?");
+                throw new BaseException$1(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSink.prototype._handleOnEventDone = function () {
@@ -3761,7 +3747,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new _angular_core.BaseException(channel + " has already been initialized");
+                throw new BaseException$1(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -3772,7 +3758,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new _angular_core.BaseException(channel + " is not set up. Did you forget to call initChannel?");
+                throw new BaseException$1(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSource.prototype._handleMessages = function (ev) {
@@ -3969,7 +3955,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     serializedEvent = serializeTransitionEvent(event);
                     break;
                 default:
-                    throw new _angular_core.BaseException(eventName + ' not supported on WebWorkers');
+                    throw new BaseException$1(eventName + ' not supported on WebWorkers');
             }
             this._sink.emit({
                 'element': this._serializer.serialize(element, RenderStoreObject),
@@ -4192,7 +4178,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 scriptUri = injector.get(WORKER_SCRIPT);
             }
             catch (e) {
-                throw new _angular_core.BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
+                throw new BaseException$1('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
             }
             var instance = injector.get(WebWorkerInstance);
             spawnWebWorker(scriptUri, instance);
@@ -4712,7 +4698,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     WorkerAppModule.decorators = [
         { type: _angular_core.NgModule, args: [{
                     providers: [
-                        BROWSER_SANITIZATION_PROVIDERS, Serializer,
+                        _angular_common.FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS, Serializer,
                         { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
                         { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
                         WebWorkerRootRenderer, { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
@@ -4765,7 +4751,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.ServiceMessageBrokerFactory = ServiceMessageBrokerFactory;
     exports.WORKER_APP_LOCATION_PROVIDERS = WORKER_APP_LOCATION_PROVIDERS;
     exports.WORKER_UI_LOCATION_PROVIDERS = WORKER_UI_LOCATION_PROVIDERS;
-    exports.NgProbeToken = NgProbeToken;
     exports.MessageBus = MessageBus;
     exports.WebWorkerInstance = WebWorkerInstance;
     exports.WORKER_SCRIPT = WORKER_SCRIPT;

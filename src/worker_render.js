@@ -20,6 +20,7 @@ var event_manager_1 = require('./dom/events/event_manager');
 var hammer_gestures_1 = require('./dom/events/hammer_gestures');
 var key_events_1 = require('./dom/events/key_events');
 var shared_styles_host_1 = require('./dom/shared_styles_host');
+var exceptions_1 = require('./facade/exceptions');
 var api_1 = require('./web_workers/shared/api');
 var client_message_broker_1 = require('./web_workers/shared/client_message_broker');
 var message_bus_1 = require('./web_workers/shared/message_bus');
@@ -122,7 +123,7 @@ function initWebWorkerRenderPlatform(injector) {
             scriptUri = injector.get(exports.WORKER_SCRIPT);
         }
         catch (e) {
-            throw new core_1.BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
+            throw new exceptions_1.BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
         }
         var instance = injector.get(WebWorkerInstance);
         spawnWebWorker(scriptUri, instance);
