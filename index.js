@@ -10,11 +10,8 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 var browser_1 = require('./src/browser');
-exports.BROWSER_APP_PROVIDERS = browser_1.BROWSER_APP_PROVIDERS;
-exports.BROWSER_PLATFORM_PROVIDERS = browser_1.BROWSER_PLATFORM_PROVIDERS;
 exports.BROWSER_SANITIZATION_PROVIDERS = browser_1.BROWSER_SANITIZATION_PROVIDERS;
 exports.BrowserModule = browser_1.BrowserModule;
-exports.browserPlatform = browser_1.browserPlatform;
 exports.platformBrowser = browser_1.platformBrowser;
 var browser_platform_location_1 = require('./src/browser/location/browser_platform_location');
 exports.BrowserPlatformLocation = browser_platform_location_1.BrowserPlatformLocation;

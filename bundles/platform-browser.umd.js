@@ -2663,15 +2663,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
     ];
     /**
-     * A set of providers to initialize the Angular platform in a web browser.
-     *
-     * Used automatically by `bootstrap`, or can be passed to `platform`.
-     *
-     * @deprecated Use `platformBrowser()` or create a custom platform factory via
-     * `createPlatformFactory(platformBrowser, ...)`
-     */
-    var BROWSER_PLATFORM_PROVIDERS = [_angular_core.PLATFORM_COMMON_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS];
-    /**
      * @security Replacing built-in sanitization providers exposes the application to XSS risks.
      * Attacker-controlled data introduced by an unsanitized provider could expose your
      * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
@@ -2682,25 +2673,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
     ];
     /**
-     * A set of providers to initialize an Angular application in a web browser.
-     *
-     * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef
-     * PlatformRef.application}.
-     *
-     * @deprecated Create a module that includes `BrowserModule` instead. This is empty for backwards
-     * compatibility,
-     * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
-     * providers 2x.
-     */
-    var BROWSER_APP_PROVIDERS = [];
-    /**
      * @experimental API related to bootstrapping are still under review.
      */
     var platformBrowser = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
-    /**
-     * @deprecated Use {@link platformBrowser} instead
-     */
-    var browserPlatform = platformBrowser;
     function initDomAdapter() {
         BrowserDomAdapter.makeCurrent();
         wtfInit();
@@ -4158,15 +4133,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         },
         { provide: MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
     ];
-    /**
-     * * @deprecated Use `platformWorkerUi()` or create a custom platform factory via
-     * `createPlatformFactory(platformWorkerUi, ...)`
-     */
-    var WORKER_UI_PLATFORM_PROVIDERS = [_angular_core.PLATFORM_COMMON_PROVIDERS, _WORKER_UI_PLATFORM_PROVIDERS];
-    /**
-     * @deprecated Worker UI only has a platform but no application
-     */
-    var WORKER_UI_APPLICATION_PROVIDERS = [];
     function initializeGenericWorkerRenderer(injector) {
         var bus = injector.get(MessageBus);
         var zone = injector.get(_angular_core.NgZone);
@@ -4199,10 +4165,6 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @experimental WebWorker support is currently experimental.
      */
     var platformWorkerUi = _angular_core.createPlatformFactory(_angular_core.platformCore, 'workerUi', _WORKER_UI_PLATFORM_PROVIDERS);
-    /**
-     * @deprecated Use {@link platformWorkerUi} instead
-     */
-    var workerUiPlatform = platformWorkerUi;
     function _exceptionHandler$1() {
         return new _angular_core.ExceptionHandler(getDOM());
     }
@@ -4661,25 +4623,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         return PrintLogger;
     }());
     /**
-     * @deprecated Use `platformWorkerApp()` or create a custom platform factory via
-     * `createPlatformFactory(platformWorkerApp, ...)`
-     */
-    var WORKER_APP_PLATFORM_PROVIDERS = _angular_core.PLATFORM_COMMON_PROVIDERS;
-    /**
-     * @deprecated Create a module that includes `WorkerAppModule` instead. This is empty for backwards
-     * compatibility,
-     * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
-     * providers 2x.
-     */
-    var WORKER_APP_APPLICATION_PROVIDERS = [];
-    /**
      * @experimental
      */
     var platformWorkerApp = _angular_core.createPlatformFactory(_angular_core.platformCore, 'workerApp');
-    /**
-     * @deprecated Use {@link platformWorkerApp} instead
-     */
-    var workerAppPlatform = platformWorkerApp;
     function _exceptionHandler$2() {
         return new _angular_core.ExceptionHandler(new PrintLogger());
     }
@@ -4733,11 +4679,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         initDomAdapter: initDomAdapter,
         INTERNAL_BROWSER_PLATFORM_PROVIDERS: INTERNAL_BROWSER_PLATFORM_PROVIDERS
     };
-    exports.BROWSER_APP_PROVIDERS = BROWSER_APP_PROVIDERS;
-    exports.BROWSER_PLATFORM_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
     exports.BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
     exports.BrowserModule = BrowserModule;
-    exports.browserPlatform = browserPlatform;
     exports.platformBrowser = platformBrowser;
     exports.BrowserPlatformLocation = BrowserPlatformLocation;
     exports.Title = Title;
@@ -4767,14 +4710,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.WORKER_SCRIPT = WORKER_SCRIPT;
     exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE = WORKER_UI_STARTABLE_MESSAGING_SERVICE;
     exports._WORKER_UI_PLATFORM_PROVIDERS = _WORKER_UI_PLATFORM_PROVIDERS;
-    exports.WORKER_UI_PLATFORM_PROVIDERS = WORKER_UI_PLATFORM_PROVIDERS;
-    exports.WORKER_UI_APPLICATION_PROVIDERS = WORKER_UI_APPLICATION_PROVIDERS;
     exports.platformWorkerUi = platformWorkerUi;
-    exports.workerUiPlatform = workerUiPlatform;
-    exports.WORKER_APP_PLATFORM_PROVIDERS = WORKER_APP_PLATFORM_PROVIDERS;
-    exports.WORKER_APP_APPLICATION_PROVIDERS = WORKER_APP_APPLICATION_PROVIDERS;
     exports.platformWorkerApp = platformWorkerApp;
-    exports.workerAppPlatform = workerAppPlatform;
     exports.WorkerAppModule = WorkerAppModule;
     exports.__platform_browser_private__ = __platform_browser_private__;
 }));

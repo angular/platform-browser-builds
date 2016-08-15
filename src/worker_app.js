@@ -29,25 +29,9 @@ var PrintLogger = (function () {
     return PrintLogger;
 }());
 /**
- * @deprecated Use `platformWorkerApp()` or create a custom platform factory via
- * `createPlatformFactory(platformWorkerApp, ...)`
- */
-exports.WORKER_APP_PLATFORM_PROVIDERS = core_1.PLATFORM_COMMON_PROVIDERS;
-/**
- * @deprecated Create a module that includes `WorkerAppModule` instead. This is empty for backwards
- * compatibility,
- * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
- * providers 2x.
- */
-exports.WORKER_APP_APPLICATION_PROVIDERS = [];
-/**
  * @experimental
  */
 exports.platformWorkerApp = core_1.createPlatformFactory(core_1.platformCore, 'workerApp');
-/**
- * @deprecated Use {@link platformWorkerApp} instead
- */
-exports.workerAppPlatform = exports.platformWorkerApp;
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(new PrintLogger());
 }

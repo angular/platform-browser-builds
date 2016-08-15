@@ -29,15 +29,6 @@ exports.INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: common_1.PlatformLocation, useClass: browser_platform_location_1.BrowserPlatformLocation }
 ];
 /**
- * A set of providers to initialize the Angular platform in a web browser.
- *
- * Used automatically by `bootstrap`, or can be passed to `platform`.
- *
- * @deprecated Use `platformBrowser()` or create a custom platform factory via
- * `createPlatformFactory(platformBrowser, ...)`
- */
-exports.BROWSER_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, exports.INTERNAL_BROWSER_PLATFORM_PROVIDERS];
-/**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
@@ -48,25 +39,9 @@ exports.BROWSER_SANITIZATION_PROVIDERS = [
     { provide: dom_sanitization_service_1.DomSanitizationService, useClass: dom_sanitization_service_1.DomSanitizationServiceImpl },
 ];
 /**
- * A set of providers to initialize an Angular application in a web browser.
- *
- * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef
- * PlatformRef.application}.
- *
- * @deprecated Create a module that includes `BrowserModule` instead. This is empty for backwards
- * compatibility,
- * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
- * providers 2x.
- */
-exports.BROWSER_APP_PROVIDERS = [];
-/**
  * @experimental API related to bootstrapping are still under review.
  */
 exports.platformBrowser = core_1.createPlatformFactory(core_1.platformCore, 'browser', exports.INTERNAL_BROWSER_PLATFORM_PROVIDERS);
-/**
- * @deprecated Use {@link platformBrowser} instead
- */
-exports.browserPlatform = exports.platformBrowser;
 function initDomAdapter() {
     browser_adapter_1.BrowserDomAdapter.makeCurrent();
     core_private_1.wtfInit();
