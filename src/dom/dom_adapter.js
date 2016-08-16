@@ -28,10 +28,10 @@ exports.setRootDomAdapter = setRootDomAdapter;
  */
 var DomAdapter = (function () {
     function DomAdapter() {
-        this.xhrType = null;
+        this.resourceLoaderType = null;
     }
     /** @deprecated */
-    DomAdapter.prototype.getXHR = function () { return this.xhrType; };
+    DomAdapter.prototype.getResourceLoader = function () { return this.resourceLoaderType; };
     Object.defineProperty(DomAdapter.prototype, "attrToPropMap", {
         /**
          * Maps attribute names to their corresponding property names for cases

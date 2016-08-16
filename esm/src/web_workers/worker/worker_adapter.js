@@ -40,7 +40,7 @@ export class WorkerDomAdapter extends DomAdapter {
     setProperty(el, name, value) { throw 'not implemented'; }
     getProperty(el, name) { throw 'not implemented'; }
     invoke(el, methodName, args) { throw 'not implemented'; }
-    getXHR() { throw 'not implemented'; }
+    getResourceLoader() { throw 'not implemented'; }
     get attrToPropMap() { throw 'not implemented'; }
     set attrToPropMap(value) { throw 'not implemented'; }
     parse(templateHtml) { throw 'not implemented'; }
