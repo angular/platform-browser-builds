@@ -1,6 +1,13 @@
-import { ExceptionHandler, PlatformRef, Provider } from '@angular/core';
+import { ExceptionHandler, PlatformRef } from '@angular/core';
 import { AnimationDriver } from '../src/dom/animation_driver';
-export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Provider[];
+/**
+ * A set of providers to initialize the Angular platform in a web browser.
+ *
+ * Used automatically by `bootstrap`, or can be passed to `platform`.
+ *
+ * @experimental API related to bootstrapping are still under review.
+ */
+export declare const BROWSER_PLATFORM_PROVIDERS: Array<any>;
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
@@ -9,15 +16,24 @@ export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Provider[];
  */
 export declare const BROWSER_SANITIZATION_PROVIDERS: Array<any>;
 /**
+ * A set of providers to initialize an Angular application in a web browser.
+ *
+ * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef
+ * PlatformRef.application}.
+ *
  * @experimental API related to bootstrapping are still under review.
  */
-export declare const platformBrowser: (extraProviders?: any[]) => PlatformRef;
+export declare const BROWSER_APP_PROVIDERS: Array<any>;
+/**
+ * @experimental API related to bootstrapping are still under review.
+ */
+export declare const browserPlatform: () => PlatformRef;
 export declare function initDomAdapter(): void;
 export declare function _exceptionHandler(): ExceptionHandler;
 export declare function _document(): any;
 export declare function _resolveDefaultAnimationDriver(): AnimationDriver;
 /**
- * The ng module for the browser.
+ * The app module for the browser.
  *
  * @experimental
  */

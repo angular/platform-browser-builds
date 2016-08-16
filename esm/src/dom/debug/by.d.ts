@@ -5,8 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { DebugElement, Type } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { Predicate } from '../../facade/collection';
+import { Type } from '../../facade/lang';
 /**
  * Predicates for use with {@link DebugElement}'s query functions.
  *
@@ -36,5 +37,5 @@ export declare class By {
      *
      * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
      */
-    static directive(type: Type<any>): Predicate<DebugElement>;
+    static directive(type: Type): Predicate<DebugElement>;
 }

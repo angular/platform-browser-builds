@@ -12,6 +12,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
+var async_1 = require('../../facade/async');
 var collection_1 = require('../../facade/collection');
 var lang_1 = require('../../facade/lang');
 var message_bus_1 = require('../shared/message_bus');
@@ -73,7 +74,7 @@ var ServiceMessageBroker_ = (function (_super) {
         this._methods = new collection_1.Map();
         this._sink = messageBus.to(channel);
         var source = messageBus.from(channel);
-        source.subscribe({ next: function (message) { return _this._handleMessage(message); } });
+        async_1.ObservableWrapper.subscribe(source, function (message) { return _this._handleMessage(message); });
     }
     ServiceMessageBroker_.prototype.registerMethod = function (methodName, signature, method, returnType) {
         var _this = this;
@@ -99,8 +100,8 @@ var ServiceMessageBroker_ = (function (_super) {
     };
     ServiceMessageBroker_.prototype._wrapWebWorkerPromise = function (id, promise, type) {
         var _this = this;
-        promise.then(function (result) {
-            _this._sink.emit({ 'type': 'result', 'value': _this._serializer.serialize(result, type), 'id': id });
+        async_1.PromiseWrapper.then(promise, function (result) {
+            async_1.ObservableWrapper.callEmit(_this._sink, { 'type': 'result', 'value': _this._serializer.serialize(result, type), 'id': id });
         });
     };
     return ServiceMessageBroker_;

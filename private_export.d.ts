@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ClassProvider, ExistingProvider, FactoryProvider, TypeProvider, ValueProvider } from '@angular/core';
 import * as browser from './src/browser';
 import * as ng_proble from './src/dom/debug/ng_probe';
 import * as dom_adapter from './src/dom/dom_adapter';
@@ -41,5 +40,4 @@ export declare var __platform_browser_private__: {
     ELEMENT_PROBE_PROVIDERS: any[];
     DomEventsPlugin: typeof dom_events.DomEventsPlugin;
     initDomAdapter: () => void;
-    INTERNAL_BROWSER_PLATFORM_PROVIDERS: (TypeProvider | ValueProvider | ClassProvider | ExistingProvider | FactoryProvider | any[])[];
 };

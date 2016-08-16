@@ -19,20 +19,36 @@ function initBrowserTests() {
 function createNgZone() {
     return new core_1.NgZone({ enableLongStackTrace: true });
 }
-var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
+/**
+ * Providers for the browser test platform
+ *
+ * @experimental
+ */
+exports.TEST_BROWSER_PLATFORM_PROVIDERS = [
+    core_1.PLATFORM_COMMON_PROVIDERS,
+    { provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }
+];
+/**
+ * @deprecated Use initTestEnvironment with BrowserTestModule instead.
+ */
+exports.TEST_BROWSER_APPLICATION_PROVIDERS = [
+    browser_1.BROWSER_APP_PROVIDERS, { provide: core_1.APP_ID, useValue: 'a' }, ng_probe_1.ELEMENT_PROBE_PROVIDERS,
+    { provide: core_1.NgZone, useFactory: createNgZone },
+    { provide: animation_driver_1.AnimationDriver, useValue: animation_driver_1.AnimationDriver.NOOP }
+];
 /**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
  */
-exports.platformBrowserTesting = core_1.createPlatformFactory(core_1.platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
-var BrowserTestingModule = (function () {
-    function BrowserTestingModule() {
+exports.browserTestPlatform = core_1.createPlatformFactory('browserTest', exports.TEST_BROWSER_PLATFORM_PROVIDERS);
+var BrowserTestModule = (function () {
+    function BrowserTestModule() {
     }
     /** @nocollapse */
-    BrowserTestingModule.decorators = [
-        { type: core_1.NgModule, args: [{
-                    exports: [browser_1.BrowserModule],
+    BrowserTestModule.decorators = [
+        { type: core_1.AppModule, args: [{
+                    modules: [browser_1.BrowserModule],
                     providers: [
                         { provide: core_1.APP_ID, useValue: 'a' }, ng_probe_1.ELEMENT_PROBE_PROVIDERS,
                         { provide: core_1.NgZone, useFactory: createNgZone },
@@ -40,7 +56,7 @@ var BrowserTestingModule = (function () {
                     ]
                 },] },
     ];
-    return BrowserTestingModule;
+    return BrowserTestModule;
 }());
-exports.BrowserTestingModule = BrowserTestingModule;
+exports.BrowserTestModule = BrowserTestModule;
 //# sourceMappingURL=browser.js.map

@@ -8,6 +8,7 @@
 "use strict";
 var core_1 = require('@angular/core');
 var collection_1 = require('../../facade/collection');
+var exceptions_1 = require('../../facade/exceptions');
 /**
  * @stable
  */
@@ -37,7 +38,7 @@ var EventManager = (function () {
                 return plugin;
             }
         }
-        throw new core_1.BaseException("No event manager plugin found for event " + eventName);
+        throw new exceptions_1.BaseException("No event manager plugin found for event " + eventName);
     };
     /** @nocollapse */
     EventManager.decorators = [

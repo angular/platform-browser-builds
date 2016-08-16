@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Type } from '@angular/core';
+import { Type } from '../facade/lang';
 export declare function getDOM(): DomAdapter;
 export declare function setDOM(adapter: DomAdapter): void;
 export declare function setRootDomAdapter(adapter: DomAdapter): void;
@@ -13,7 +13,7 @@ export declare function setRootDomAdapter(adapter: DomAdapter): void;
  * Provides DOM operations in an environment-agnostic way.
  */
 export declare abstract class DomAdapter {
-    xhrType: Type<any>;
+    xhrType: Type;
     abstract hasProperty(element: any, name: string): boolean;
     abstract setProperty(el: Element, name: string, value: any): any;
     abstract getProperty(el: Element, name: string): any;
@@ -23,7 +23,7 @@ export declare abstract class DomAdapter {
     abstract logGroup(error: any): any;
     abstract logGroupEnd(): any;
     /** @deprecated */
-    getXHR(): Type<any>;
+    getXHR(): Type;
     /**
      * Maps attribute names to their corresponding property names for cases
      * where attribute name doesn't match property name.

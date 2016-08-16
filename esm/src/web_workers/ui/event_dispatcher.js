@@ -5,7 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException } from '@angular/core';
+import { ObservableWrapper } from '../../facade/async';
+import { BaseException } from '../../facade/exceptions';
 import { RenderStoreObject } from '../shared/serializer';
 import { serializeEventWithTarget, serializeGenericEvent, serializeKeyboardEvent, serializeMouseEvent, serializeTransitionEvent } from './event_serializer';
 export class EventDispatcher {
@@ -96,7 +97,7 @@ export class EventDispatcher {
             default:
                 throw new BaseException(eventName + ' not supported on WebWorkers');
         }
-        this._sink.emit({
+        ObservableWrapper.callEmit(this._sink, {
             'element': this._serializer.serialize(element, RenderStoreObject),
             'eventName': eventName,
             'eventTarget': eventTarget,

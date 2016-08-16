@@ -12,6 +12,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
+var async_1 = require('../../facade/async');
 var collection_1 = require('../../facade/collection');
 var lang_1 = require('../../facade/lang');
 var message_bus_1 = require('./message_bus');
@@ -71,7 +72,7 @@ var ClientMessageBroker_ = (function (_super) {
         this._sink = messageBus.to(channel);
         this._serializer = _serializer;
         var source = messageBus.from(channel);
-        source.subscribe({ next: function (message) { return _this._handleMessage(message); } });
+        async_1.ObservableWrapper.subscribe(source, function (message) { return _this._handleMessage(message); });
     }
     ClientMessageBroker_.prototype._generateMessageId = function (name) {
         var time = lang_1.stringify(lang_1.DateWrapper.toMillis(lang_1.DateWrapper.now()));
@@ -99,15 +100,14 @@ var ClientMessageBroker_ = (function (_super) {
         var promise;
         var id = null;
         if (returnType != null) {
-            var completer_1;
-            promise = new Promise(function (resolve, reject) { completer_1 = { resolve: resolve, reject: reject }; });
+            var completer = async_1.PromiseWrapper.completer();
             id = this._generateMessageId(args.method);
-            this._pending.set(id, completer_1);
-            promise.catch(function (err) {
+            this._pending.set(id, completer);
+            async_1.PromiseWrapper.catchError(completer.promise, function (err, stack) {
                 lang_1.print(err);
-                completer_1.reject(err);
+                completer.reject(err, stack);
             });
-            promise = promise.then(function (value) {
+            promise = async_1.PromiseWrapper.then(completer.promise, function (value) {
                 if (_this._serializer == null) {
                     return value;
                 }
@@ -124,7 +124,7 @@ var ClientMessageBroker_ = (function (_super) {
         if (id != null) {
             message['id'] = id;
         }
-        this._sink.emit(message);
+        async_1.ObservableWrapper.callEmit(this._sink, message);
         return promise;
     };
     ClientMessageBroker_.prototype._handleMessage = function (message) {
@@ -137,7 +137,7 @@ var ClientMessageBroker_ = (function (_super) {
                     this._pending.get(id).resolve(data.value);
                 }
                 else {
-                    this._pending.get(id).reject(data.value);
+                    this._pending.get(id).reject(data.value, null);
                 }
                 this._pending.delete(id);
             }

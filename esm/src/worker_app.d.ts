@@ -2,9 +2,17 @@ import { PlatformRef } from '@angular/core';
 /**
  * @experimental
  */
-export declare const platformWorkerApp: (extraProviders?: any[]) => PlatformRef;
+export declare const WORKER_APP_PLATFORM_PROVIDERS: Array<any>;
 /**
- * The ng module for the worker app side.
+ * @experimental
+ */
+export declare const WORKER_APP_APPLICATION_PROVIDERS: Array<any>;
+/**
+ * @experimental
+ */
+export declare const workerAppPlatform: () => PlatformRef;
+/**
+ * The app module for the worker app side.
  *
  * @experimental
  */

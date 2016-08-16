@@ -20,6 +20,7 @@ var event_manager_1 = require('./dom/events/event_manager');
 var hammer_gestures_1 = require('./dom/events/hammer_gestures');
 var key_events_1 = require('./dom/events/key_events');
 var shared_styles_host_1 = require('./dom/shared_styles_host');
+var exceptions_1 = require('./facade/exceptions');
 var api_1 = require('./web_workers/shared/api');
 var client_message_broker_1 = require('./web_workers/shared/client_message_broker');
 var message_bus_1 = require('./web_workers/shared/message_bus');
@@ -58,8 +59,15 @@ exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE = new core_1.OpaqueToken('WorkerRe
 /**
  * @experimental WebWorker support is currently experimental.
  */
-exports._WORKER_UI_PLATFORM_PROVIDERS = [
-    { provide: core_1.NgZone, useFactory: createNgZone, deps: [] },
+exports.WORKER_UI_PLATFORM_PROVIDERS = [
+    core_1.PLATFORM_COMMON_PROVIDERS,
+    { provide: core_1.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
+];
+/**
+ * @experimental WebWorker support is currently experimental.
+ */
+exports.WORKER_UI_APPLICATION_PROVIDERS = [
+    core_1.APPLICATION_COMMON_PROVIDERS,
     renderer_1.MessageBasedRenderer,
     { provide: exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: renderer_1.MessageBasedRenderer, multi: true },
     browser_1.BROWSER_SANITIZATION_PROVIDERS,
@@ -76,7 +84,7 @@ exports._WORKER_UI_PLATFORM_PROVIDERS = [
     { provide: shared_styles_host_1.SharedStylesHost, useExisting: shared_styles_host_1.DomSharedStylesHost },
     { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
     { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
-    { provide: animation_driver_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver, deps: [] },
+    { provide: animation_driver_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
     serializer_1.Serializer,
     { provide: api_1.ON_WEB_WORKER, useValue: false },
     render_store_1.RenderStore,
@@ -84,12 +92,7 @@ exports._WORKER_UI_PLATFORM_PROVIDERS = [
     core_1.Testability,
     event_manager_1.EventManager,
     WebWorkerInstance,
-    {
-        provide: core_1.PLATFORM_INITIALIZER,
-        useFactory: initWebWorkerRenderPlatform,
-        multi: true,
-        deps: [core_1.Injector]
-    },
+    { provide: core_1.APP_INITIALIZER, useFactory: initWebWorkerAppFn, multi: true, deps: [core_1.Injector] },
     { provide: message_bus_1.MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
 ];
 function initializeGenericWorkerRenderer(injector) {
@@ -103,35 +106,34 @@ function initializeGenericWorkerRenderer(injector) {
 function messageBusFactory(instance) {
     return instance.bus;
 }
-function initWebWorkerRenderPlatform(injector) {
-    return function () {
-        browser_adapter_1.BrowserDomAdapter.makeCurrent();
-        core_private_1.wtfInit();
-        testability_1.BrowserGetTestability.init();
-        var scriptUri;
-        try {
-            scriptUri = injector.get(exports.WORKER_SCRIPT);
-        }
-        catch (e) {
-            throw new core_1.BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
-        }
-        var instance = injector.get(WebWorkerInstance);
-        spawnWebWorker(scriptUri, instance);
-        initializeGenericWorkerRenderer(injector);
-    };
+function initWebWorkerRenderPlatform() {
+    browser_adapter_1.BrowserDomAdapter.makeCurrent();
+    core_private_1.wtfInit();
+    testability_1.BrowserGetTestability.init();
 }
 /**
  * @experimental WebWorker support is currently experimental.
  */
-exports.platformWorkerUi = core_1.createPlatformFactory(core_1.platformCore, 'workerUi', exports._WORKER_UI_PLATFORM_PROVIDERS);
+exports.workerUiPlatform = core_1.createPlatformFactory('workerUi', exports.WORKER_UI_PLATFORM_PROVIDERS);
 function _exceptionHandler() {
     return new core_1.ExceptionHandler(dom_adapter_1.getDOM());
 }
 function _document() {
     return dom_adapter_1.getDOM().defaultDoc();
 }
-function createNgZone() {
-    return new core_1.NgZone({ enableLongStackTrace: core_1.isDevMode() });
+function initWebWorkerAppFn(injector) {
+    return function () {
+        var scriptUri;
+        try {
+            scriptUri = injector.get(exports.WORKER_SCRIPT);
+        }
+        catch (e) {
+            throw new exceptions_1.BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
+        }
+        var instance = injector.get(WebWorkerInstance);
+        spawnWebWorker(scriptUri, instance);
+        initializeGenericWorkerRenderer(injector);
+    };
 }
 /**
  * Spawns a new class and initializes the WebWorkerInstance
@@ -148,4 +150,14 @@ function _resolveDefaultAnimationDriver() {
     // work with animations just yet...
     return animation_driver_1.AnimationDriver.NOOP;
 }
+var WorkerUiModule = (function () {
+    function WorkerUiModule() {
+    }
+    /** @nocollapse */
+    WorkerUiModule.decorators = [
+        { type: core_1.AppModule, args: [{ providers: exports.WORKER_UI_APPLICATION_PROVIDERS },] },
+    ];
+    return WorkerUiModule;
+}());
+exports.WorkerUiModule = WorkerUiModule;
 //# sourceMappingURL=worker_render.js.map

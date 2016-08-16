@@ -80,10 +80,8 @@ var DomSanitizationServiceImpl = (function (_super) {
                 this.checkNotSafeValue(value, 'Script');
                 throw new Error('unsafe value used in a script context');
             case core_1.SecurityContext.URL:
-                if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
-                    // Allow resource URLs in URL contexts, they are strictly more trusted.
+                if (value instanceof SafeUrlImpl)
                     return value.changingThisBreaksApplicationSecurity;
-                }
                 this.checkNotSafeValue(value, 'URL');
                 return url_sanitizer_1.sanitizeUrl(String(value));
             case core_1.SecurityContext.RESOURCE_URL:

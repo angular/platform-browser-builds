@@ -12,12 +12,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
+var exceptions_1 = require('../facade/exceptions');
 var lang_1 = require('../facade/lang');
-var animation_driver_1 = require('./animation_driver');
-var dom_adapter_1 = require('./dom_adapter');
-var dom_tokens_1 = require('./dom_tokens');
-var event_manager_1 = require('./events/event_manager');
 var shared_styles_host_1 = require('./shared_styles_host');
+var event_manager_1 = require('./events/event_manager');
+var dom_tokens_1 = require('./dom_tokens');
+var dom_adapter_1 = require('./dom_adapter');
+var animation_driver_1 = require('./animation_driver');
 var util_1 = require('./util');
 var NAMESPACE_URIS = {
     'xlink': 'http://www.w3.org/1999/xlink',
@@ -25,7 +26,7 @@ var NAMESPACE_URIS = {
     'xhtml': 'http://www.w3.org/1999/xhtml'
 };
 var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
-var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
+var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/g;
 var DomRootRenderer = (function () {
     function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver) {
         this.document = document;
@@ -87,7 +88,7 @@ var DomRenderer = (function () {
         if (lang_1.isString(selectorOrNode)) {
             el = dom_adapter_1.getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
             if (lang_1.isBlank(el)) {
-                throw new core_1.BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
+                throw new exceptions_1.BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
             }
         }
         else {
@@ -192,8 +193,7 @@ var DomRenderer = (function () {
     DomRenderer.prototype.setBindingDebugInfo = function (renderElement, propertyName, propertyValue) {
         var dashCasedPropertyName = util_1.camelCaseToDashCase(propertyName);
         if (dom_adapter_1.getDOM().isCommentNode(renderElement)) {
-            var existingBindings = lang_1.StringWrapper.replaceAll(dom_adapter_1.getDOM().getText(renderElement), /\n/g, '')
-                .match(TEMPLATE_BINDINGS_EXP);
+            var existingBindings = lang_1.RegExpWrapper.firstMatch(TEMPLATE_BINDINGS_EXP, lang_1.StringWrapper.replaceAll(dom_adapter_1.getDOM().getText(renderElement), /\n/g, ''));
             var parsedBindings = lang_1.Json.parse(existingBindings[1]);
             parsedBindings[dashCasedPropertyName] = propertyValue;
             dom_adapter_1.getDOM().setText(renderElement, lang_1.StringWrapper.replace(TEMPLATE_COMMENT_TEXT, '{}', lang_1.Json.stringify(parsedBindings)));
@@ -281,12 +281,12 @@ function _flattenStyles(compId, styles, target) {
     }
     return target;
 }
-var NS_PREFIX_RE = /^:([^:]+):(.+)$/;
+var NS_PREFIX_RE = /^:([^:]+):(.+)/g;
 function splitNamespace(name) {
     if (name[0] != ':') {
         return [null, name];
     }
-    var match = name.match(NS_PREFIX_RE);
+    var match = lang_1.RegExpWrapper.firstMatch(NS_PREFIX_RE, name);
     return [match[1], match[2]];
 }
 //# sourceMappingURL=dom_renderer.js.map

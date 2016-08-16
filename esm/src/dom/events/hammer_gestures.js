@@ -5,7 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException, Inject, Injectable, OpaqueToken } from '@angular/core';
+import { Inject, Injectable, OpaqueToken } from '@angular/core';
+import { BaseException } from '../../facade/exceptions';
 import { isPresent } from '../../facade/lang';
 import { HammerGesturesPluginCommon } from './hammer_common';
 /**
