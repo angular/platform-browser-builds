@@ -71,7 +71,7 @@ export const _WORKER_UI_PLATFORM_PROVIDERS = [
     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
     { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
     { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
-    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
+    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver, deps: [] },
     Serializer,
     { provide: ON_WEB_WORKER, useValue: false },
     RenderStore,

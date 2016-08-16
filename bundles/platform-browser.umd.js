@@ -4117,7 +4117,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
         { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
         { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
-        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver$1 },
+        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver$1, deps: [] },
         Serializer,
         { provide: ON_WEB_WORKER, useValue: false },
         RenderStore,

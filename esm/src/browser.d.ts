@@ -1,6 +1,6 @@
-import { ExceptionHandler, PlatformRef } from '@angular/core';
+import { ExceptionHandler, PlatformRef, Provider } from '@angular/core';
 import { AnimationDriver } from '../src/dom/animation_driver';
-export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Array<any>;
+export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Provider[];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your

@@ -76,7 +76,7 @@ exports._WORKER_UI_PLATFORM_PROVIDERS = [
     { provide: shared_styles_host_1.SharedStylesHost, useExisting: shared_styles_host_1.DomSharedStylesHost },
     { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
     { provide: client_message_broker_1.ClientMessageBrokerFactory, useClass: client_message_broker_1.ClientMessageBrokerFactory_ },
-    { provide: animation_driver_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
+    { provide: animation_driver_1.AnimationDriver, useFactory: _resolveDefaultAnimationDriver, deps: [] },
     serializer_1.Serializer,
     { provide: api_1.ON_WEB_WORKER, useValue: false },
     render_store_1.RenderStore,
