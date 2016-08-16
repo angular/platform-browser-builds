@@ -12,7 +12,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var core_1 = require('@angular/core');
-var collection_1 = require('../facade/collection');
 var dom_adapter_1 = require('./dom_adapter');
 var dom_tokens_1 = require('./dom_tokens');
 var SharedStylesHost = (function () {
@@ -26,7 +25,7 @@ var SharedStylesHost = (function () {
         var _this = this;
         var additions = [];
         styles.forEach(function (style) {
-            if (!collection_1.SetWrapper.has(_this._stylesSet, style)) {
+            if (!_this._stylesSet.has(style)) {
                 _this._stylesSet.add(style);
                 _this._styles.push(style);
                 additions.push(style);
@@ -63,7 +62,7 @@ var DomSharedStylesHost = (function (_super) {
         this._addStylesToHost(this._styles, hostNode);
         this._hostNodes.add(hostNode);
     };
-    DomSharedStylesHost.prototype.removeHost = function (hostNode) { collection_1.SetWrapper.delete(this._hostNodes, hostNode); };
+    DomSharedStylesHost.prototype.removeHost = function (hostNode) { this._hostNodes.delete(hostNode); };
     DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
         var _this = this;
         this._hostNodes.forEach(function (hostNode) { _this._addStylesToHost(additions, hostNode); });

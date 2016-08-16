@@ -1,24 +1,21 @@
-import { PlatformRef } from '@angular/core';
 /**
- * Providers for the browser test platform
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
  *
- * @experimental
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
-export declare const TEST_BROWSER_PLATFORM_PROVIDERS: Array<any>;
-/**
- * @deprecated Use initTestEnvironment with BrowserTestModule instead.
- */
-export declare const TEST_BROWSER_APPLICATION_PROVIDERS: Array<any>;
+import { PlatformRef } from '@angular/core';
 /**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
  */
-export declare const browserTestPlatform: () => PlatformRef;
+export declare const platformBrowserTesting: (extraProviders?: any[]) => PlatformRef;
 /**
- * AppModule for testing.
+ * NgModule for testing.
  *
- * @stable
+ * @experimental
  */
-export declare class BrowserTestModule {
+export declare class BrowserTestingModule {
 }

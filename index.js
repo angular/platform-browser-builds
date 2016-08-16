@@ -10,11 +10,9 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 var browser_1 = require('./src/browser');
-exports.BROWSER_APP_PROVIDERS = browser_1.BROWSER_APP_PROVIDERS;
-exports.BROWSER_PLATFORM_PROVIDERS = browser_1.BROWSER_PLATFORM_PROVIDERS;
 exports.BROWSER_SANITIZATION_PROVIDERS = browser_1.BROWSER_SANITIZATION_PROVIDERS;
 exports.BrowserModule = browser_1.BrowserModule;
-exports.browserPlatform = browser_1.browserPlatform;
+exports.platformBrowser = browser_1.platformBrowser;
 var browser_platform_location_1 = require('./src/browser/location/browser_platform_location');
 exports.BrowserPlatformLocation = browser_platform_location_1.BrowserPlatformLocation;
 var title_1 = require('./src/browser/title');
@@ -53,6 +51,8 @@ var location_providers_1 = require('./src/web_workers/worker/location_providers'
 exports.WORKER_APP_LOCATION_PROVIDERS = location_providers_1.WORKER_APP_LOCATION_PROVIDERS;
 var location_providers_2 = require('./src/web_workers/ui/location_providers');
 exports.WORKER_UI_LOCATION_PROVIDERS = location_providers_2.WORKER_UI_LOCATION_PROVIDERS;
+var ng_probe_1 = require('./src/dom/debug/ng_probe');
+exports.NgProbeToken = ng_probe_1.NgProbeToken;
 __export(require('./src/worker_render'));
 __export(require('./src/worker_app'));
 __export(require('./private_export'));

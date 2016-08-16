@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { RenderComponentType, Renderer, RootRenderer } from '@angular/core';
-import { DomSharedStylesHost } from './shared_styles_host';
-import { AnimationKeyframe, AnimationStyles, AnimationPlayer, RenderDebugInfo } from '../../core_private';
-import { EventManager } from './events/event_manager';
+import { AnimationKeyframe, AnimationPlayer, AnimationStyles, RenderDebugInfo } from '../../core_private';
 import { AnimationDriver } from './animation_driver';
+import { EventManager } from './events/event_manager';
+import { DomSharedStylesHost } from './shared_styles_host';
 export declare abstract class DomRootRenderer implements RootRenderer {
     document: any;
     eventManager: EventManager;

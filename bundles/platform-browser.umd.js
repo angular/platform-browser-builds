@@ -9,10 +9,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs/Subject'), require('rxjs/observable/PromiseObservable'), require('rxjs/operator/toPromise'), require('rxjs/Observable')) :
-        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', 'rxjs/Subject', 'rxjs/observable/PromiseObservable', 'rxjs/operator/toPromise', 'rxjs/Observable'], factory) :
-            (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.common, global.ng.core, global.Rx, global.Rx, global.Rx.Observable.prototype, global.Rx));
-}(this, function (exports, _angular_common, _angular_core, rxjs_Subject, rxjs_observable_PromiseObservable, rxjs_operator_toPromise, rxjs_Observable) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs/Subject'), require('rxjs/Observable')) :
+        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', 'rxjs/Subject', 'rxjs/Observable'], factory) :
+            (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.common, global.ng.core, global.Rx, global.Rx));
+}(this, function (exports, _angular_common, _angular_core, rxjs_Subject, rxjs_Observable) {
     'use strict';
     var wtfInit = _angular_core.__core_private__.wtfInit;
     var VIEW_ENCAPSULATION_VALUES = _angular_core.__core_private__.VIEW_ENCAPSULATION_VALUES;
@@ -83,7 +83,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function isArray(obj) {
         return Array.isArray(obj);
     }
-    function noop() { }
     function stringify(token) {
         if (typeof token === 'string') {
             return token;
@@ -91,11 +90,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         if (token === undefined || token === null) {
             return '' + token;
         }
-        if (token.name) {
-            return token.name;
-        }
         if (token.overriddenName) {
             return token.overriddenName;
+        }
+        if (token.name) {
+            return token.name;
         }
         var res = token.toString();
         var newLineIndex = res.indexOf('\n');
@@ -225,47 +224,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         NumberWrapper.isNaN = function (value) { return isNaN(value); };
         NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
         return NumberWrapper;
-    }());
-    var RegExpWrapper = (function () {
-        function RegExpWrapper() {
-        }
-        RegExpWrapper.create = function (regExpStr, flags) {
-            if (flags === void 0) { flags = ''; }
-            flags = flags.replace(/g/g, '');
-            return new global$1.RegExp(regExpStr, flags + 'g');
-        };
-        RegExpWrapper.firstMatch = function (regExp, input) {
-            // Reset multimatch regex state
-            regExp.lastIndex = 0;
-            return regExp.exec(input);
-        };
-        RegExpWrapper.test = function (regExp, input) {
-            regExp.lastIndex = 0;
-            return regExp.test(input);
-        };
-        RegExpWrapper.matcher = function (regExp, input) {
-            // Reset regex state for the case
-            // someone did not loop over all matches
-            // last time.
-            regExp.lastIndex = 0;
-            return { re: regExp, input: input };
-        };
-        RegExpWrapper.replaceAll = function (regExp, input, replace) {
-            var c = regExp.exec(input);
-            var res = '';
-            regExp.lastIndex = 0;
-            var prev = 0;
-            while (c) {
-                res += input.substring(prev, c.index);
-                res += replace(c);
-                prev = c.index + c[0].length;
-                regExp.lastIndex = prev;
-                c = regExp.exec(input);
-            }
-            res += input.substring(prev);
-            return res;
-        };
-        return RegExpWrapper;
     }());
     var FunctionWrapper = (function () {
         function FunctionWrapper() {
@@ -610,14 +568,6 @@ var __extends = (this && this.__extends) || function (d, b) {
             };
         }
     })();
-    var SetWrapper = (function () {
-        function SetWrapper() {
-        }
-        SetWrapper.createFromList = function (lst) { return createSetFromList(lst); };
-        SetWrapper.has = function (s, key) { return s.has(key); };
-        SetWrapper.delete = function (m, k) { m.delete(k); };
-        return SetWrapper;
-    }());
     var CAMEL_CASE_REGEXP = /([A-Z])/g;
     var DASH_CASE_REGEXP = /-([a-z])/g;
     function camelCaseToDashCase(input) {
@@ -1307,9 +1257,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             return window.requestAnimationFrame(callback);
         };
         BrowserDomAdapter.prototype.cancelAnimationFrame = function (id) { window.cancelAnimationFrame(id); };
-        BrowserDomAdapter.prototype.supportsWebAnimation = function () {
-            return isFunction(document.body['animate']);
-        };
+        BrowserDomAdapter.prototype.supportsWebAnimation = function () { return isFunction(Element.prototype['animate']); };
         BrowserDomAdapter.prototype.performanceNow = function () {
             // performance.now() is not available in all browsers, see
             // http://caniuse.com/#search=performance.now
@@ -1349,14 +1297,14 @@ var __extends = (this && this.__extends) || function (d, b) {
         return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
             '/' + urlParsingNode.pathname;
     }
-    function parseCookieValue(cookie, name) {
+    function parseCookieValue(cookieStr, name) {
         name = encodeURIComponent(name);
-        var cookies = cookie.split(';');
-        for (var _i = 0, cookies_1 = cookies; _i < cookies_1.length; _i++) {
-            var cookie_1 = cookies_1[_i];
-            var _a = cookie_1.split('=', 2), key = _a[0], value = _a[1];
-            if (key.trim() === name) {
-                return decodeURIComponent(value);
+        for (var _i = 0, _a = cookieStr.split(';'); _i < _a.length; _i++) {
+            var cookie = _a[_i];
+            var eqIndex = cookie.indexOf('=');
+            var _b = eqIndex == -1 ? [cookie, ''] : [cookie.slice(0, eqIndex), cookie.slice(eqIndex + 1)], cookieName = _b[0], cookieValue = _b[1];
+            if (cookieName.trim() === name) {
+                return decodeURIComponent(cookieValue);
             }
         }
         return null;
@@ -1509,20 +1457,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         return BrowserGetTestability;
     }());
     /**
-     * @stable
-     */
-    var BaseException$1 = (function (_super) {
-        __extends(BaseException$1, _super);
-        function BaseException$1(message) {
-            if (message === void 0) { message = '--'; }
-            _super.call(this, message);
-            this.message = message;
-            this.stack = (new Error(message)).stack;
-        }
-        BaseException$1.prototype.toString = function () { return this.message; };
-        return BaseException$1;
-    }(Error));
-    /**
      * A DI Token representing the main rendering context. In a browser this is the DOM Document.
      *
      * Note: Document might not be available in the Application Context when Application and Rendering
@@ -1531,6 +1465,61 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @stable
      */
     var DOCUMENT = new _angular_core.OpaqueToken('DocumentToken');
+    /**
+     * @stable
+     */
+    var EVENT_MANAGER_PLUGINS = new _angular_core.OpaqueToken('EventManagerPlugins');
+    var EventManager = (function () {
+        function EventManager(plugins, _zone) {
+            var _this = this;
+            this._zone = _zone;
+            plugins.forEach(function (p) { return p.manager = _this; });
+            this._plugins = ListWrapper.reversed(plugins);
+        }
+        EventManager.prototype.addEventListener = function (element, eventName, handler) {
+            var plugin = this._findPluginFor(eventName);
+            return plugin.addEventListener(element, eventName, handler);
+        };
+        EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
+            var plugin = this._findPluginFor(eventName);
+            return plugin.addGlobalEventListener(target, eventName, handler);
+        };
+        EventManager.prototype.getZone = function () { return this._zone; };
+        /** @internal */
+        EventManager.prototype._findPluginFor = function (eventName) {
+            var plugins = this._plugins;
+            for (var i = 0; i < plugins.length; i++) {
+                var plugin = plugins[i];
+                if (plugin.supports(eventName)) {
+                    return plugin;
+                }
+            }
+            throw new _angular_core.BaseException("No event manager plugin found for event " + eventName);
+        };
+        return EventManager;
+    }());
+    /** @nocollapse */
+    EventManager.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    EventManager.ctorParameters = [
+        { type: Array, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+        { type: _angular_core.NgZone, },
+    ];
+    var EventManagerPlugin = (function () {
+        function EventManagerPlugin() {
+        }
+        // That is equivalent to having supporting $event.target
+        EventManagerPlugin.prototype.supports = function (eventName) { return false; };
+        EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
+            throw 'not implemented';
+        };
+        EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
+            throw 'not implemented';
+        };
+        return EventManagerPlugin;
+    }());
     var SharedStylesHost = (function () {
         function SharedStylesHost() {
             /** @internal */
@@ -1542,7 +1531,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             var additions = [];
             styles.forEach(function (style) {
-                if (!SetWrapper.has(_this._stylesSet, style)) {
+                if (!_this._stylesSet.has(style)) {
                     _this._stylesSet.add(style);
                     _this._styles.push(style);
                     additions.push(style);
@@ -1578,7 +1567,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._addStylesToHost(this._styles, hostNode);
             this._hostNodes.add(hostNode);
         };
-        DomSharedStylesHost.prototype.removeHost = function (hostNode) { SetWrapper.delete(this._hostNodes, hostNode); };
+        DomSharedStylesHost.prototype.removeHost = function (hostNode) { this._hostNodes.delete(hostNode); };
         DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
             var _this = this;
             this._hostNodes.forEach(function (hostNode) { _this._addStylesToHost(additions, hostNode); });
@@ -1593,68 +1582,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     DomSharedStylesHost.ctorParameters = [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
     ];
-    /**
-     * @stable
-     */
-    var EVENT_MANAGER_PLUGINS = new _angular_core.OpaqueToken('EventManagerPlugins');
-    var EventManager = (function () {
-        function EventManager(plugins, _zone) {
-            var _this = this;
-            this._zone = _zone;
-            plugins.forEach(function (p) { return p.manager = _this; });
-            this._plugins = ListWrapper.reversed(plugins);
-        }
-        EventManager.prototype.addEventListener = function (element, eventName, handler) {
-            var plugin = this._findPluginFor(eventName);
-            return plugin.addEventListener(element, eventName, handler);
-        };
-        EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
-            var plugin = this._findPluginFor(eventName);
-            return plugin.addGlobalEventListener(target, eventName, handler);
-        };
-        EventManager.prototype.getZone = function () { return this._zone; };
-        /** @internal */
-        EventManager.prototype._findPluginFor = function (eventName) {
-            var plugins = this._plugins;
-            for (var i = 0; i < plugins.length; i++) {
-                var plugin = plugins[i];
-                if (plugin.supports(eventName)) {
-                    return plugin;
-                }
-            }
-            throw new BaseException$1("No event manager plugin found for event " + eventName);
-        };
-        return EventManager;
-    }());
-    /** @nocollapse */
-    EventManager.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    EventManager.ctorParameters = [
-        { type: Array, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-        { type: _angular_core.NgZone, },
-    ];
-    var EventManagerPlugin = (function () {
-        function EventManagerPlugin() {
-        }
-        // That is equivalent to having supporting $event.target
-        EventManagerPlugin.prototype.supports = function (eventName) { return false; };
-        EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
-            throw 'not implemented';
-        };
-        EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-            throw 'not implemented';
-        };
-        return EventManagerPlugin;
-    }());
     var NAMESPACE_URIS = {
         'xlink': 'http://www.w3.org/1999/xlink',
         'svg': 'http://www.w3.org/2000/svg',
         'xhtml': 'http://www.w3.org/1999/xhtml'
     };
     var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
-    var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/g;
+    var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
     var DomRootRenderer = (function () {
         function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver) {
             this.document = document;
@@ -1714,7 +1648,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (isString(selectorOrNode)) {
                 el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
                 if (isBlank(el)) {
-                    throw new BaseException$1("The selector \"" + selectorOrNode + "\" did not match any elements");
+                    throw new _angular_core.BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
             }
             else {
@@ -1819,7 +1753,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         DomRenderer.prototype.setBindingDebugInfo = function (renderElement, propertyName, propertyValue) {
             var dashCasedPropertyName = camelCaseToDashCase(propertyName);
             if (getDOM().isCommentNode(renderElement)) {
-                var existingBindings = RegExpWrapper.firstMatch(TEMPLATE_BINDINGS_EXP, StringWrapper.replaceAll(getDOM().getText(renderElement), /\n/g, ''));
+                var existingBindings = StringWrapper.replaceAll(getDOM().getText(renderElement), /\n/g, '')
+                    .match(TEMPLATE_BINDINGS_EXP);
                 var parsedBindings = Json.parse(existingBindings[1]);
                 parsedBindings[dashCasedPropertyName] = propertyValue;
                 getDOM().setText(renderElement, StringWrapper.replace(TEMPLATE_COMMENT_TEXT, '{}', Json.stringify(parsedBindings)));
@@ -1906,12 +1841,12 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return target;
     }
-    var NS_PREFIX_RE = /^:([^:]+):(.+)/g;
+    var NS_PREFIX_RE = /^:([^:]+):(.+)$/;
     function splitNamespace(name) {
         if (name[0] != ':') {
             return [null, name];
         }
-        var match = RegExpWrapper.firstMatch(NS_PREFIX_RE, name);
+        var match = name.match(NS_PREFIX_RE);
         return [match[1], match[2]];
     }
     var CORE_TOKENS = {
@@ -1928,21 +1863,43 @@ var __extends = (this && this.__extends) || function (d, b) {
     function inspectNativeElement(element /** TODO #9100 */) {
         return _angular_core.getDebugNode(element);
     }
-    function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */) {
+    /**
+     * @experimental
+     */
+    var NgProbeToken = (function () {
+        function NgProbeToken(name, token) {
+            this.name = name;
+            this.token = token;
+        }
+        return NgProbeToken;
+    }());
+    function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */, extraTokens) {
         if (_angular_core.isDevMode()) {
-            return _createRootRenderer(rootRenderer);
+            return _createRootRenderer(rootRenderer, extraTokens);
         }
         return rootRenderer;
     }
-    function _createRootRenderer(rootRenderer /** TODO #9100 */) {
+    function _createRootRenderer(rootRenderer /** TODO #9100 */, extraTokens) {
         getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-        getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, CORE_TOKENS);
+        getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, StringMapWrapper.merge(CORE_TOKENS, _ngProbeTokensToMap(extraTokens || [])));
         return new DebugDomRootRenderer(rootRenderer);
+    }
+    function _ngProbeTokensToMap(tokens) {
+        return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
     }
     /**
      * Providers which support debugging Angular applications (e.g. via `ng.probe`).
      */
-    var ELEMENT_PROBE_PROVIDERS = [{ provide: _angular_core.RootRenderer, useFactory: _createConditionalRootRenderer, deps: [DomRootRenderer] }];
+    var ELEMENT_PROBE_PROVIDERS = [{
+            provide: _angular_core.RootRenderer,
+            useFactory: _createConditionalRootRenderer,
+            deps: [DomRootRenderer, [NgProbeToken, new _angular_core.Optional()]]
+        }];
+    var ELEMENT_PROBE_PROVIDERS_PROD_MODE = [{
+            provide: _angular_core.RootRenderer,
+            useFactory: _createRootRenderer,
+            deps: [DomRootRenderer, [NgProbeToken, new _angular_core.Optional()]]
+        }];
     var DomEventsPlugin = (function (_super) {
         __extends(DomEventsPlugin, _super);
         function DomEventsPlugin() {
@@ -2053,7 +2010,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
                 return false;
             if (!isPresent(window['Hammer'])) {
-                throw new BaseException$1("Hammer.js is not loaded, can not bind " + eventName + " event");
+                throw new _angular_core.BaseException("Hammer.js is not loaded, can not bind " + eventName + " event");
             }
             return true;
         };
@@ -2247,7 +2204,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         var res = {};
         for (var _i = 0, _a = tags.split(','); _i < _a.length; _i++) {
             var t = _a[_i];
-            res[t.toLowerCase()] = true;
+            res[t] = true;
         }
         return res;
     }
@@ -2308,6 +2265,9 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     var SanitizingHtmlSerializer = (function () {
         function SanitizingHtmlSerializer() {
+            // Explicitly track if something was stripped, to avoid accidentally warning of sanitization just
+            // because characters were re-encoded.
+            this.sanitizedSomething = false;
             this.buf = [];
         }
         SanitizingHtmlSerializer.prototype.sanitizeChildren = function (el) {
@@ -2322,6 +2282,10 @@ var __extends = (this && this.__extends) || function (d, b) {
                 else if (DOM.isTextNode(current)) {
                     this.chars(DOM.nodeValue(current));
                 }
+                else {
+                    // Strip non-element, non-text nodes.
+                    this.sanitizedSomething = true;
+                }
                 if (DOM.firstChild(current)) {
                     current = DOM.firstChild(current);
                     continue;
@@ -2329,7 +2293,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 while (current) {
                     // Leaving the element. Walk up and to the right, closing tags as we go.
                     if (DOM.isElementNode(current)) {
-                        this.endElement(DOM.nodeName(current).toLowerCase());
+                        this.endElement(current);
                     }
                     if (DOM.nextSibling(current)) {
                         current = DOM.nextSibling(current);
@@ -2343,30 +2307,33 @@ var __extends = (this && this.__extends) || function (d, b) {
         SanitizingHtmlSerializer.prototype.startElement = function (element) {
             var _this = this;
             var tagName = DOM.nodeName(element).toLowerCase();
-            tagName = tagName.toLowerCase();
-            if (VALID_ELEMENTS.hasOwnProperty(tagName)) {
-                this.buf.push('<');
-                this.buf.push(tagName);
-                DOM.attributeMap(element).forEach(function (value, attrName) {
-                    var lower = attrName.toLowerCase();
-                    if (!VALID_ATTRS.hasOwnProperty(lower))
-                        return;
-                    // TODO(martinprobst): Special case image URIs for data:image/...
-                    if (URI_ATTRS[lower])
-                        value = sanitizeUrl(value);
-                    if (SRCSET_ATTRS[lower])
-                        value = sanitizeSrcset(value);
-                    _this.buf.push(' ');
-                    _this.buf.push(attrName);
-                    _this.buf.push('="');
-                    _this.buf.push(encodeEntities(value));
-                    _this.buf.push('"');
-                });
-                this.buf.push('>');
+            if (!VALID_ELEMENTS.hasOwnProperty(tagName)) {
+                this.sanitizedSomething = true;
+                return;
             }
+            this.buf.push('<');
+            this.buf.push(tagName);
+            DOM.attributeMap(element).forEach(function (value, attrName) {
+                var lower = attrName.toLowerCase();
+                if (!VALID_ATTRS.hasOwnProperty(lower)) {
+                    _this.sanitizedSomething = true;
+                    return;
+                }
+                // TODO(martinprobst): Special case image URIs for data:image/...
+                if (URI_ATTRS[lower])
+                    value = sanitizeUrl(value);
+                if (SRCSET_ATTRS[lower])
+                    value = sanitizeSrcset(value);
+                _this.buf.push(' ');
+                _this.buf.push(attrName);
+                _this.buf.push('="');
+                _this.buf.push(encodeEntities(value));
+                _this.buf.push('"');
+            });
+            this.buf.push('>');
         };
-        SanitizingHtmlSerializer.prototype.endElement = function (tagName) {
-            tagName = tagName.toLowerCase();
+        SanitizingHtmlSerializer.prototype.endElement = function (current) {
+            var tagName = DOM.nodeName(current).toLowerCase();
             if (VALID_ELEMENTS.hasOwnProperty(tagName) && !VOID_ELEMENTS.hasOwnProperty(tagName)) {
                 this.buf.push('</');
                 this.buf.push(tagName);
@@ -2387,14 +2354,14 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @param value
      * @returns {string} escaped text
      */
-    function encodeEntities(value /** TODO #9100 */) {
+    function encodeEntities(value) {
         return value.replace(/&/g, '&amp;')
-            .replace(SURROGATE_PAIR_REGEXP, function (match /** TODO #9100 */) {
+            .replace(SURROGATE_PAIR_REGEXP, function (match) {
             var hi = match.charCodeAt(0);
             var low = match.charCodeAt(1);
             return '&#' + (((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000) + ';';
         })
-            .replace(NON_ALPHANUMERIC_REGEXP, function (match /** TODO #9100 */) { return '&#' + match.charCodeAt(0) + ';'; })
+            .replace(NON_ALPHANUMERIC_REGEXP, function (match) { return '&#' + match.charCodeAt(0) + ';'; })
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
     }
@@ -2451,7 +2418,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 var child = _a[_i];
                 DOM.removeChild(parent_1, child);
             }
-            if (_angular_core.isDevMode() && safeHtml !== unsafeHtmlInput) {
+            if (_angular_core.isDevMode() && sanitizer.sanitizedSomething) {
                 DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
             }
             return safeHtml;
@@ -2532,7 +2499,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             return '';
         // Single url(...) values are supported, but only for URLs that sanitize cleanly. See above for
         // reasoning behind this.
-        var urlMatch = URL_RE.exec(value);
+        var urlMatch = value.match(URL_RE);
         if ((urlMatch && sanitizeUrl(urlMatch[1]) === urlMatch[1]) ||
             value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
             return value; // Safe style values.
@@ -2605,8 +2572,10 @@ var __extends = (this && this.__extends) || function (d, b) {
                     this.checkNotSafeValue(value, 'Script');
                     throw new Error('unsafe value used in a script context');
                 case _angular_core.SecurityContext.URL:
-                    if (value instanceof SafeUrlImpl)
+                    if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
+                        // Allow resource URLs in URL contexts, they are strictly more trusted.
                         return value.changingThisBreaksApplicationSecurity;
+                    }
                     this.checkNotSafeValue(value, 'URL');
                     return sanitizeUrl(String(value));
                 case _angular_core.SecurityContext.RESOURCE_URL:
@@ -2689,15 +2658,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         SafeResourceUrlImpl.prototype.getTypeName = function () { return 'ResourceURL'; };
         return SafeResourceUrlImpl;
     }(SafeValueImpl));
-    /**
-     * A set of providers to initialize the Angular platform in a web browser.
-     *
-     * Used automatically by `bootstrap`, or can be passed to `platform`.
-     *
-     * @experimental API related to bootstrapping are still under review.
-     */
-    var BROWSER_PLATFORM_PROVIDERS = [
-        _angular_core.PLATFORM_COMMON_PROVIDERS, { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+    var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
+        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
         { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
     ];
     /**
@@ -2711,31 +2673,9 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
     ];
     /**
-     * A set of providers to initialize an Angular application in a web browser.
-     *
-     * Used automatically by `bootstrap`, or can be passed to {@link PlatformRef
-     * PlatformRef.application}.
-     *
      * @experimental API related to bootstrapping are still under review.
      */
-    var BROWSER_APP_PROVIDERS = [
-        _angular_core.APPLICATION_COMMON_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS,
-        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
-        { provide: DOCUMENT, useFactory: _document, deps: [] },
-        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-        { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
-        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
-        _angular_core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS
-    ];
-    /**
-     * @experimental API related to bootstrapping are still under review.
-     */
-    var browserPlatform = _angular_core.createPlatformFactory('browser', BROWSER_PLATFORM_PROVIDERS);
+    var platformBrowser = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
     function initDomAdapter() {
         BrowserDomAdapter.makeCurrent();
         wtfInit();
@@ -2760,12 +2700,22 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     /** @nocollapse */
     BrowserModule.decorators = [
-        { type: _angular_core.AppModule, args: [{
+        { type: _angular_core.NgModule, args: [{
                     providers: [
-                        BROWSER_APP_PROVIDERS,
+                        BROWSER_SANITIZATION_PROVIDERS,
+                        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+                        { provide: DOCUMENT, useFactory: _document, deps: [] },
+                        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+                        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+                        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+                        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+                        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
+                        { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
+                        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+                        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
+                        _angular_core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS
                     ],
-                    directives: _angular_common.COMMON_DIRECTIVES,
-                    pipes: _angular_common.COMMON_PIPES
+                    exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
                 },] },
     ];
     /**
@@ -2949,183 +2899,6 @@ var __extends = (this && this.__extends) || function (d, b) {
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var PromiseCompleter = (function () {
-        function PromiseCompleter() {
-            var _this = this;
-            this.promise = new Promise(function (res, rej) {
-                _this.resolve = res;
-                _this.reject = rej;
-            });
-        }
-        return PromiseCompleter;
-    }());
-    var PromiseWrapper = (function () {
-        function PromiseWrapper() {
-        }
-        PromiseWrapper.resolve = function (obj) { return Promise.resolve(obj); };
-        PromiseWrapper.reject = function (obj, _) { return Promise.reject(obj); };
-        // Note: We can't rename this method into `catch`, as this is not a valid
-        // method name in Dart.
-        PromiseWrapper.catchError = function (promise, onError) {
-            return promise.catch(onError);
-        };
-        PromiseWrapper.all = function (promises) {
-            if (promises.length == 0)
-                return Promise.resolve([]);
-            return Promise.all(promises);
-        };
-        PromiseWrapper.then = function (promise, success, rejection) {
-            return promise.then(success, rejection);
-        };
-        PromiseWrapper.wrap = function (computation) {
-            return new Promise(function (res, rej) {
-                try {
-                    res(computation());
-                }
-                catch (e) {
-                    rej(e);
-                }
-            });
-        };
-        PromiseWrapper.scheduleMicrotask = function (computation) {
-            PromiseWrapper.then(PromiseWrapper.resolve(null), computation, function (_) { });
-        };
-        PromiseWrapper.completer = function () { return new PromiseCompleter(); };
-        return PromiseWrapper;
-    }());
-    var ObservableWrapper = (function () {
-        function ObservableWrapper() {
-        }
-        // TODO(vsavkin): when we use rxnext, try inferring the generic type from the first arg
-        ObservableWrapper.subscribe = function (emitter, onNext, onError, onComplete) {
-            if (onComplete === void 0) { onComplete = function () { }; }
-            onError = (typeof onError === 'function') && onError || noop;
-            onComplete = (typeof onComplete === 'function') && onComplete || noop;
-            return emitter.subscribe({ next: onNext, error: onError, complete: onComplete });
-        };
-        ObservableWrapper.isObservable = function (obs) { return !!obs.subscribe; };
-        /**
-         * Returns whether `obs` has any subscribers listening to events.
-         */
-        ObservableWrapper.hasSubscribers = function (obs) { return obs.observers.length > 0; };
-        ObservableWrapper.dispose = function (subscription) { subscription.unsubscribe(); };
-        /**
-         * @deprecated - use callEmit() instead
-         */
-        ObservableWrapper.callNext = function (emitter, value) { emitter.emit(value); };
-        ObservableWrapper.callEmit = function (emitter, value) { emitter.emit(value); };
-        ObservableWrapper.callError = function (emitter, error) { emitter.error(error); };
-        ObservableWrapper.callComplete = function (emitter) { emitter.complete(); };
-        ObservableWrapper.fromPromise = function (promise) {
-            return rxjs_observable_PromiseObservable.PromiseObservable.create(promise);
-        };
-        ObservableWrapper.toPromise = function (obj) { return rxjs_operator_toPromise.toPromise.call(obj); };
-        return ObservableWrapper;
-    }());
-    /**
-     * Use by directives and components to emit custom Events.
-     *
-     * ### Examples
-     *
-     * In the following example, `Zippy` alternatively emits `open` and `close` events when its
-     * title gets clicked:
-     *
-     * ```
-     * @Component({
-     *   selector: 'zippy',
-     *   template: `
-     *   <div class="zippy">
-     *     <div (click)="toggle()">Toggle</div>
-     *     <div [hidden]="!visible">
-     *       <ng-content></ng-content>
-     *     </div>
-     *  </div>`})
-     * export class Zippy {
-     *   visible: boolean = true;
-     *   @Output() open: EventEmitter<any> = new EventEmitter();
-     *   @Output() close: EventEmitter<any> = new EventEmitter();
-     *
-     *   toggle() {
-     *     this.visible = !this.visible;
-     *     if (this.visible) {
-     *       this.open.emit(null);
-     *     } else {
-     *       this.close.emit(null);
-     *     }
-     *   }
-     * }
-     * ```
-     *
-     * The events payload can be accessed by the parameter `$event` on the components output event
-     * handler:
-     *
-     * ```
-     * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
-     * ```
-     *
-     * Uses Rx.Observable but provides an adapter to make it work as specified here:
-     * https://github.com/jhusain/observable-spec
-     *
-     * Once a reference implementation of the spec is available, switch to it.
-     * @stable
-     */
-    var EventEmitter = (function (_super) {
-        __extends(EventEmitter, _super);
-        /**
-         * Creates an instance of [EventEmitter], which depending on [isAsync],
-         * delivers events synchronously or asynchronously.
-         */
-        function EventEmitter(isAsync) {
-            if (isAsync === void 0) { isAsync = false; }
-            _super.call(this);
-            this.__isAsync = isAsync;
-        }
-        EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
-        /**
-         * @deprecated - use .emit(value) instead
-         */
-        EventEmitter.prototype.next = function (value) { _super.prototype.next.call(this, value); };
-        EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
-            var schedulerFn;
-            var errorFn = function (err) { return null; };
-            var completeFn = function () { return null; };
-            if (generatorOrNext && typeof generatorOrNext === 'object') {
-                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                    setTimeout(function () { return generatorOrNext.next(value); });
-                } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
-                if (generatorOrNext.error) {
-                    errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
-                        function (err) { generatorOrNext.error(err); };
-                }
-                if (generatorOrNext.complete) {
-                    completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
-                        function () { generatorOrNext.complete(); };
-                }
-            }
-            else {
-                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
-                    setTimeout(function () { return generatorOrNext(value); });
-                } : function (value /** TODO #9100 */) { generatorOrNext(value); };
-                if (error) {
-                    errorFn =
-                        this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
-                }
-                if (complete) {
-                    completeFn =
-                        this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
-                }
-            }
-            return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
-        };
-        return EventEmitter;
-    }(rxjs_Subject.Subject));
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /**
      * Message Bus is a low level API used to communicate between the UI and the background.
      * Communication is based on a channel abstraction. Messages published in a
@@ -3139,6 +2912,20 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return MessageBus;
     }());
+    /**
+     * @stable
+     */
+    var BaseException$1 = (function (_super) {
+        __extends(BaseException$1, _super);
+        function BaseException$1(message) {
+            if (message === void 0) { message = '--'; }
+            _super.call(this, message);
+            this.message = message;
+            this.stack = (new Error(message)).stack;
+        }
+        BaseException$1.prototype.toString = function () { return this.message; };
+        return BaseException$1;
+    }(Error));
     var RenderStore = (function () {
         function RenderStore() {
             this._nextIndex = 0;
@@ -3362,7 +3149,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._sink = messageBus.to(channel);
             this._serializer = _serializer;
             var source = messageBus.from(channel);
-            ObservableWrapper.subscribe(source, function (message) { return _this._handleMessage(message); });
+            source.subscribe({ next: function (message) { return _this._handleMessage(message); } });
         }
         ClientMessageBroker_.prototype._generateMessageId = function (name) {
             var time = stringify(DateWrapper.toMillis(DateWrapper.now()));
@@ -3390,14 +3177,15 @@ var __extends = (this && this.__extends) || function (d, b) {
             var promise;
             var id = null;
             if (returnType != null) {
-                var completer = PromiseWrapper.completer();
+                var completer_1;
+                promise = new Promise(function (resolve, reject) { completer_1 = { resolve: resolve, reject: reject }; });
                 id = this._generateMessageId(args.method);
-                this._pending.set(id, completer);
-                PromiseWrapper.catchError(completer.promise, function (err, stack) {
+                this._pending.set(id, completer_1);
+                promise.catch(function (err) {
                     print(err);
-                    completer.reject(err, stack);
+                    completer_1.reject(err);
                 });
-                promise = PromiseWrapper.then(completer.promise, function (value) {
+                promise = promise.then(function (value) {
                     if (_this._serializer == null) {
                         return value;
                     }
@@ -3414,7 +3202,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (id != null) {
                 message['id'] = id;
             }
-            ObservableWrapper.callEmit(this._sink, message);
+            this._sink.emit(message);
             return promise;
         };
         ClientMessageBroker_.prototype._handleMessage = function (message) {
@@ -3427,7 +3215,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                         this._pending.get(id).resolve(data.value);
                     }
                     else {
-                        this._pending.get(id).reject(data.value, null);
+                        this._pending.get(id).reject(data.value);
                     }
                     this._pending.delete(id);
                 }
@@ -3529,7 +3317,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._methods = new Map$1();
             this._sink = messageBus.to(channel);
             var source = messageBus.from(channel);
-            ObservableWrapper.subscribe(source, function (message) { return _this._handleMessage(message); });
+            source.subscribe({ next: function (message) { return _this._handleMessage(message); } });
         }
         ServiceMessageBroker_.prototype.registerMethod = function (methodName, signature, method, returnType) {
             var _this = this;
@@ -3555,8 +3343,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         ServiceMessageBroker_.prototype._wrapWebWorkerPromise = function (id, promise, type) {
             var _this = this;
-            PromiseWrapper.then(promise, function (result) {
-                ObservableWrapper.callEmit(_this._sink, { 'type': 'result', 'value': _this._serializer.serialize(result, type), 'id': id });
+            promise.then(function (result) {
+                _this._sink.emit({ 'type': 'result', 'value': _this._serializer.serialize(result, type), 'id': id });
             });
         };
         return ServiceMessageBroker_;
@@ -3610,21 +3398,23 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._location = null;
             this._broker = brokerFactory.createMessageBroker(ROUTER_CHANNEL);
             this._channelSource = bus.from(ROUTER_CHANNEL);
-            ObservableWrapper.subscribe(this._channelSource, function (msg) {
-                var listeners = null;
-                if (StringMapWrapper.contains(msg, 'event')) {
-                    var type = msg['event']['type'];
-                    if (StringWrapper.equals(type, 'popstate')) {
-                        listeners = _this._popStateListeners;
-                    }
-                    else if (StringWrapper.equals(type, 'hashchange')) {
-                        listeners = _this._hashChangeListeners;
-                    }
-                    if (listeners !== null) {
-                        var e_1 = deserializeGenericEvent(msg['event']);
-                        // There was a popState or hashChange event, so the location object thas been updated
-                        _this._location = _this._serializer.deserialize(msg['location'], LocationType);
-                        listeners.forEach(function (fn) { return fn(e_1); });
+            this._channelSource.subscribe({
+                next: function (msg) {
+                    var listeners = null;
+                    if (StringMapWrapper.contains(msg, 'event')) {
+                        var type = msg['event']['type'];
+                        if (StringWrapper.equals(type, 'popstate')) {
+                            listeners = _this._popStateListeners;
+                        }
+                        else if (StringWrapper.equals(type, 'hashchange')) {
+                            listeners = _this._hashChangeListeners;
+                        }
+                        if (listeners !== null) {
+                            var e_1 = deserializeGenericEvent(msg['event']);
+                            // There was a popState or hashChange event, so the location object thas been updated
+                            _this._location = _this._serializer.deserialize(msg['location'], LocationType);
+                            listeners.forEach(function (fn) { return fn(e_1); });
+                        }
                     }
                 }
             });
@@ -3634,13 +3424,13 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             var args = new UiArguments('getLocation');
             var locationPromise = this._broker.runOnService(args, LocationType);
-            return PromiseWrapper.then(locationPromise, function (val) {
+            return locationPromise.then(function (val) {
                 _this._location = val;
                 return true;
-            }, function (err) { throw new BaseException$1(err); });
+            }, function (err) { throw new _angular_core.BaseException(err); });
         };
         WebWorkerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
-            throw new BaseException$1('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
+            throw new _angular_core.BaseException('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
         };
         WebWorkerPlatformLocation.prototype.onPopState = function (fn) { this._popStateListeners.push(fn); };
         WebWorkerPlatformLocation.prototype.onHashChange = function (fn) { this._hashChangeListeners.push(fn); };
@@ -3653,7 +3443,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             },
             set: function (newPath) {
                 if (this._location === null) {
-                    throw new BaseException$1('Attempt to set pathname before value is obtained from UI');
+                    throw new _angular_core.BaseException('Attempt to set pathname before value is obtained from UI');
                 }
                 this._location.pathname = newPath;
                 var fnArgs = [new FnArg(newPath, PRIMITIVE)];
@@ -3748,12 +3538,12 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._broker.registerMethod('back', null, FunctionWrapper.bind(this._platformLocation.back, this._platformLocation));
         };
         MessageBasedPlatformLocation.prototype._getLocation = function () {
-            return PromiseWrapper.resolve(this._platformLocation.location);
+            return Promise.resolve(this._platformLocation.location);
         };
         MessageBasedPlatformLocation.prototype._sendUrlChangeEvent = function (e) {
             var loc = this._serializer.serialize(this._platformLocation.location, LocationType);
             var serializedEvent = { 'type': e.type };
-            ObservableWrapper.callEmit(this._channelSink, { 'event': serializedEvent, 'location': loc });
+            this._channelSink.emit({ 'event': serializedEvent, 'location': loc });
         };
         MessageBasedPlatformLocation.prototype._setPathname = function (pathname) { this._platformLocation.pathname = pathname; };
         return MessageBasedPlatformLocation;
@@ -3776,7 +3566,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      */
     var WORKER_UI_LOCATION_PROVIDERS = [
         MessageBasedPlatformLocation, BrowserPlatformLocation,
-        { provide: _angular_core.APP_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [_angular_core.Injector] }
+        { provide: _angular_core.PLATFORM_INITIALIZER, useFactory: initUiLocation, multi: true, deps: [_angular_core.Injector] }
     ];
     function initUiLocation(injector) {
         return function () {
@@ -3785,6 +3575,99 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
     }
     var ON_WEB_WORKER = new _angular_core.OpaqueToken('WebWorker.onWebWorker');
+    /**
+     * Use by directives and components to emit custom Events.
+     *
+     * ### Examples
+     *
+     * In the following example, `Zippy` alternatively emits `open` and `close` events when its
+     * title gets clicked:
+     *
+     * ```
+     * @Component({
+     *   selector: 'zippy',
+     *   template: `
+     *   <div class="zippy">
+     *     <div (click)="toggle()">Toggle</div>
+     *     <div [hidden]="!visible">
+     *       <ng-content></ng-content>
+     *     </div>
+     *  </div>`})
+     * export class Zippy {
+     *   visible: boolean = true;
+     *   @Output() open: EventEmitter<any> = new EventEmitter();
+     *   @Output() close: EventEmitter<any> = new EventEmitter();
+     *
+     *   toggle() {
+     *     this.visible = !this.visible;
+     *     if (this.visible) {
+     *       this.open.emit(null);
+     *     } else {
+     *       this.close.emit(null);
+     *     }
+     *   }
+     * }
+     * ```
+     *
+     * The events payload can be accessed by the parameter `$event` on the components output event
+     * handler:
+     *
+     * ```
+     * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
+     * ```
+     *
+     * Uses Rx.Observable but provides an adapter to make it work as specified here:
+     * https://github.com/jhusain/observable-spec
+     *
+     * Once a reference implementation of the spec is available, switch to it.
+     * @stable
+     */
+    var EventEmitter = (function (_super) {
+        __extends(EventEmitter, _super);
+        /**
+         * Creates an instance of [EventEmitter], which depending on [isAsync],
+         * delivers events synchronously or asynchronously.
+         */
+        function EventEmitter(isAsync) {
+            if (isAsync === void 0) { isAsync = false; }
+            _super.call(this);
+            this.__isAsync = isAsync;
+        }
+        EventEmitter.prototype.emit = function (value) { _super.prototype.next.call(this, value); };
+        EventEmitter.prototype.subscribe = function (generatorOrNext, error, complete) {
+            var schedulerFn;
+            var errorFn = function (err) { return null; };
+            var completeFn = function () { return null; };
+            if (generatorOrNext && typeof generatorOrNext === 'object') {
+                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
+                    setTimeout(function () { return generatorOrNext.next(value); });
+                } : function (value /** TODO #9100 */) { generatorOrNext.next(value); };
+                if (generatorOrNext.error) {
+                    errorFn = this.__isAsync ? function (err) { setTimeout(function () { return generatorOrNext.error(err); }); } :
+                        function (err) { generatorOrNext.error(err); };
+                }
+                if (generatorOrNext.complete) {
+                    completeFn = this.__isAsync ? function () { setTimeout(function () { return generatorOrNext.complete(); }); } :
+                        function () { generatorOrNext.complete(); };
+                }
+            }
+            else {
+                schedulerFn = this.__isAsync ? function (value /** TODO #9100 */) {
+                    setTimeout(function () { return generatorOrNext(value); });
+                } : function (value /** TODO #9100 */) { generatorOrNext(value); };
+                if (error) {
+                    errorFn =
+                        this.__isAsync ? function (err) { setTimeout(function () { return error(err); }); } : function (err) { error(err); };
+                }
+                if (complete) {
+                    completeFn =
+                        this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
+                }
+            }
+            return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
+        };
+        return EventEmitter;
+    }(rxjs_Subject.Subject));
     var PostMessageBusSink = (function () {
         function PostMessageBusSink(_postMessageTarget) {
             this._postMessageTarget = _postMessageTarget;
@@ -3794,15 +3677,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         PostMessageBusSink.prototype.attachToZone = function (zone) {
             var _this = this;
             this._zone = zone;
-            this._zone.runOutsideAngular(function () {
-                ObservableWrapper.subscribe(_this._zone.onStable, function (_) { _this._handleOnEventDone(); });
-            });
+            this._zone.runOutsideAngular(function () { _this._zone.onStable.subscribe({ next: function () { _this._handleOnEventDone(); } }); });
         };
         PostMessageBusSink.prototype.initChannel = function (channel, runInZone) {
             var _this = this;
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new BaseException$1(channel + " has already been initialized");
+                throw new _angular_core.BaseException(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -3822,7 +3703,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new BaseException$1(channel + " is not set up. Did you forget to call initChannel?");
+                throw new _angular_core.BaseException(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSink.prototype._handleOnEventDone = function () {
@@ -3851,7 +3732,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new BaseException$1(channel + " has already been initialized");
+                throw new _angular_core.BaseException(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -3862,7 +3743,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new BaseException$1(channel + " is not set up. Did you forget to call initChannel?");
+                throw new _angular_core.BaseException(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSource.prototype._handleMessages = function (ev) {
@@ -4059,9 +3940,9 @@ var __extends = (this && this.__extends) || function (d, b) {
                     serializedEvent = serializeTransitionEvent(event);
                     break;
                 default:
-                    throw new BaseException$1(eventName + ' not supported on WebWorkers');
+                    throw new _angular_core.BaseException(eventName + ' not supported on WebWorkers');
             }
-            ObservableWrapper.callEmit(this._sink, {
+            this._sink.emit({
                 'element': this._serializer.serialize(element, RenderStoreObject),
                 'eventName': eventName,
                 'eventTarget': eventTarget,
@@ -4218,15 +4099,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * @experimental WebWorker support is currently experimental.
      */
-    var WORKER_UI_PLATFORM_PROVIDERS = [
-        _angular_core.PLATFORM_COMMON_PROVIDERS,
-        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initWebWorkerRenderPlatform, multi: true }
-    ];
-    /**
-     * @experimental WebWorker support is currently experimental.
-     */
-    var WORKER_UI_APPLICATION_PROVIDERS = [
-        _angular_core.APPLICATION_COMMON_PROVIDERS,
+    var _WORKER_UI_PLATFORM_PROVIDERS = [
+        { provide: _angular_core.NgZone, useFactory: createNgZone, deps: [] },
         MessageBasedRenderer,
         { provide: WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: MessageBasedRenderer, multi: true },
         BROWSER_SANITIZATION_PROVIDERS,
@@ -4243,7 +4117,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
         { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
         { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
-        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver$1 },
+        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver$1, deps: [] },
         Serializer,
         { provide: ON_WEB_WORKER, useValue: false },
         RenderStore,
@@ -4251,7 +4125,12 @@ var __extends = (this && this.__extends) || function (d, b) {
         _angular_core.Testability,
         EventManager,
         WebWorkerInstance,
-        { provide: _angular_core.APP_INITIALIZER, useFactory: initWebWorkerAppFn, multi: true, deps: [_angular_core.Injector] },
+        {
+            provide: _angular_core.PLATFORM_INITIALIZER,
+            useFactory: initWebWorkerRenderPlatform,
+            multi: true,
+            deps: [_angular_core.Injector]
+        },
         { provide: MessageBus, useFactory: messageBusFactory, deps: [WebWorkerInstance] }
     ];
     function initializeGenericWorkerRenderer(injector) {
@@ -4265,34 +4144,35 @@ var __extends = (this && this.__extends) || function (d, b) {
     function messageBusFactory(instance) {
         return instance.bus;
     }
-    function initWebWorkerRenderPlatform() {
-        BrowserDomAdapter.makeCurrent();
-        wtfInit();
-        BrowserGetTestability.init();
+    function initWebWorkerRenderPlatform(injector) {
+        return function () {
+            BrowserDomAdapter.makeCurrent();
+            wtfInit();
+            BrowserGetTestability.init();
+            var scriptUri;
+            try {
+                scriptUri = injector.get(WORKER_SCRIPT);
+            }
+            catch (e) {
+                throw new _angular_core.BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
+            }
+            var instance = injector.get(WebWorkerInstance);
+            spawnWebWorker(scriptUri, instance);
+            initializeGenericWorkerRenderer(injector);
+        };
     }
     /**
      * @experimental WebWorker support is currently experimental.
      */
-    var workerUiPlatform = _angular_core.createPlatformFactory('workerUi', WORKER_UI_PLATFORM_PROVIDERS);
+    var platformWorkerUi = _angular_core.createPlatformFactory(_angular_core.platformCore, 'workerUi', _WORKER_UI_PLATFORM_PROVIDERS);
     function _exceptionHandler$1() {
         return new _angular_core.ExceptionHandler(getDOM());
     }
     function _document$1() {
         return getDOM().defaultDoc();
     }
-    function initWebWorkerAppFn(injector) {
-        return function () {
-            var scriptUri;
-            try {
-                scriptUri = injector.get(WORKER_SCRIPT);
-            }
-            catch (e) {
-                throw new BaseException$1('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
-            }
-            var instance = injector.get(WebWorkerInstance);
-            spawnWebWorker(scriptUri, instance);
-            initializeGenericWorkerRenderer(injector);
-        };
+    function createNgZone() {
+        return new _angular_core.NgZone({ enableLongStackTrace: _angular_core.isDevMode() });
     }
     /**
      * Spawns a new class and initializes the WebWorkerInstance
@@ -4309,15 +4189,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         // work with animations just yet...
         return AnimationDriver.NOOP;
     }
-    var WorkerUiModule = (function () {
-        function WorkerUiModule() {
-        }
-        return WorkerUiModule;
-    }());
-    /** @nocollapse */
-    WorkerUiModule.decorators = [
-        { type: _angular_core.AppModule, args: [{ providers: WORKER_UI_APPLICATION_PROVIDERS },] },
-    ];
     var WebWorkerRootRenderer = (function () {
         function WebWorkerRootRenderer(messageBrokerFactory, bus, _serializer, _renderStore) {
             var _this = this;
@@ -4328,7 +4199,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._messageBroker = messageBrokerFactory.createMessageBroker(RENDERER_CHANNEL);
             bus.initChannel(EVENT_CHANNEL);
             var source = bus.from(EVENT_CHANNEL);
-            ObservableWrapper.subscribe(source, function (message) { return _this._dispatchEvent(message); });
+            source.subscribe({ next: function (message) { return _this._dispatchEvent(message); } });
         }
         WebWorkerRootRenderer.prototype._dispatchEvent = function (message) {
             var eventName = message['eventName'];
@@ -4754,24 +4625,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * @experimental
      */
-    var WORKER_APP_PLATFORM_PROVIDERS = _angular_core.PLATFORM_COMMON_PROVIDERS;
-    /**
-     * @experimental
-     */
-    var WORKER_APP_APPLICATION_PROVIDERS = [
-        _angular_core.APPLICATION_COMMON_PROVIDERS, _angular_common.FORM_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS, Serializer,
-        { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
-        { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
-        WebWorkerRootRenderer, { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
-        { provide: ON_WEB_WORKER, useValue: true }, RenderStore,
-        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler$2, deps: [] },
-        { provide: MessageBus, useFactory: createMessageBus, deps: [_angular_core.NgZone] },
-        { provide: _angular_core.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
-    ];
-    /**
-     * @experimental
-     */
-    var workerAppPlatform = _angular_core.createPlatformFactory('workerApp', WORKER_APP_PLATFORM_PROVIDERS);
+    var platformWorkerApp = _angular_core.createPlatformFactory(_angular_core.platformCore, 'workerApp');
     function _exceptionHandler$2() {
         return new _angular_core.ExceptionHandler(new PrintLogger());
     }
@@ -4798,10 +4652,18 @@ var __extends = (this && this.__extends) || function (d, b) {
     }());
     /** @nocollapse */
     WorkerAppModule.decorators = [
-        { type: _angular_core.AppModule, args: [{
-                    providers: WORKER_APP_APPLICATION_PROVIDERS,
-                    directives: _angular_common.COMMON_DIRECTIVES,
-                    pipes: _angular_common.COMMON_PIPES
+        { type: _angular_core.NgModule, args: [{
+                    providers: [
+                        BROWSER_SANITIZATION_PROVIDERS, Serializer,
+                        { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
+                        { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
+                        WebWorkerRootRenderer, { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
+                        { provide: ON_WEB_WORKER, useValue: true }, RenderStore,
+                        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler$2, deps: [] },
+                        { provide: MessageBus, useFactory: createMessageBus, deps: [_angular_core.NgZone] },
+                        { provide: _angular_core.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
+                    ],
+                    exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
                 },] },
     ];
     var __platform_browser_private__ = {
@@ -4814,13 +4676,12 @@ var __extends = (this && this.__extends) || function (d, b) {
         SharedStylesHost: SharedStylesHost,
         ELEMENT_PROBE_PROVIDERS: ELEMENT_PROBE_PROVIDERS,
         DomEventsPlugin: DomEventsPlugin,
-        initDomAdapter: initDomAdapter
+        initDomAdapter: initDomAdapter,
+        INTERNAL_BROWSER_PLATFORM_PROVIDERS: INTERNAL_BROWSER_PLATFORM_PROVIDERS
     };
-    exports.BROWSER_APP_PROVIDERS = BROWSER_APP_PROVIDERS;
-    exports.BROWSER_PLATFORM_PROVIDERS = BROWSER_PLATFORM_PROVIDERS;
     exports.BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
     exports.BrowserModule = BrowserModule;
-    exports.browserPlatform = browserPlatform;
+    exports.platformBrowser = platformBrowser;
     exports.BrowserPlatformLocation = BrowserPlatformLocation;
     exports.Title = Title;
     exports.disableDebugTools = disableDebugTools;
@@ -4843,17 +4704,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.ServiceMessageBrokerFactory = ServiceMessageBrokerFactory;
     exports.WORKER_APP_LOCATION_PROVIDERS = WORKER_APP_LOCATION_PROVIDERS;
     exports.WORKER_UI_LOCATION_PROVIDERS = WORKER_UI_LOCATION_PROVIDERS;
+    exports.NgProbeToken = NgProbeToken;
     exports.MessageBus = MessageBus;
     exports.WebWorkerInstance = WebWorkerInstance;
     exports.WORKER_SCRIPT = WORKER_SCRIPT;
     exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE = WORKER_UI_STARTABLE_MESSAGING_SERVICE;
-    exports.WORKER_UI_PLATFORM_PROVIDERS = WORKER_UI_PLATFORM_PROVIDERS;
-    exports.WORKER_UI_APPLICATION_PROVIDERS = WORKER_UI_APPLICATION_PROVIDERS;
-    exports.workerUiPlatform = workerUiPlatform;
-    exports.WorkerUiModule = WorkerUiModule;
-    exports.WORKER_APP_PLATFORM_PROVIDERS = WORKER_APP_PLATFORM_PROVIDERS;
-    exports.WORKER_APP_APPLICATION_PROVIDERS = WORKER_APP_APPLICATION_PROVIDERS;
-    exports.workerAppPlatform = workerAppPlatform;
+    exports._WORKER_UI_PLATFORM_PROVIDERS = _WORKER_UI_PLATFORM_PROVIDERS;
+    exports.platformWorkerUi = platformWorkerUi;
+    exports.platformWorkerApp = platformWorkerApp;
     exports.WorkerAppModule = WorkerAppModule;
     exports.__platform_browser_private__ = __platform_browser_private__;
 }));
