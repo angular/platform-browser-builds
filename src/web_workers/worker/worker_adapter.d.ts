@@ -22,7 +22,7 @@ export declare class WorkerDomAdapter extends DomAdapter {
     setProperty(el: Element, name: string, value: any): void;
     getProperty(el: Element, name: string): any;
     invoke(el: Element, methodName: string, args: any[]): any;
-    getResourceLoader(): Type<any>;
+    getXHR(): Type<any>;
     attrToPropMap: {
         [key: string]: string;
     };
