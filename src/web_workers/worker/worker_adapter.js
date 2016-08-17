@@ -50,7 +50,7 @@ var WorkerDomAdapter = (function (_super) {
     WorkerDomAdapter.prototype.setProperty = function (el, name, value) { throw 'not implemented'; };
     WorkerDomAdapter.prototype.getProperty = function (el, name) { throw 'not implemented'; };
     WorkerDomAdapter.prototype.invoke = function (el, methodName, args) { throw 'not implemented'; };
-    WorkerDomAdapter.prototype.getXHR = function () { throw 'not implemented'; };
+    WorkerDomAdapter.prototype.getResourceLoader = function () { throw 'not implemented'; };
     Object.defineProperty(WorkerDomAdapter.prototype, "attrToPropMap", {
         get: function () { throw 'not implemented'; },
         set: function (value) { throw 'not implemented'; },

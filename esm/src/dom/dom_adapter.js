@@ -24,10 +24,10 @@ export function setRootDomAdapter(adapter) {
  */
 export class DomAdapter {
     constructor() {
-        this.xhrType = null;
+        this.resourceLoaderType = null;
     }
     /** @deprecated */
-    getXHR() { return this.xhrType; }
+    getResourceLoader() { return this.resourceLoaderType; }
     /**
      * Maps attribute names to their corresponding property names for cases
      * where attribute name doesn't match property name.
