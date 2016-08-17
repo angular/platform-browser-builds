@@ -33,8 +33,6 @@ var DomAdapter = (function () {
     function DomAdapter() {
         this.resourceLoaderType = null;
     }
-    /** @deprecated */
-    DomAdapter.prototype.getResourceLoader = function () { return this.resourceLoaderType; };
     Object.defineProperty(DomAdapter.prototype, "attrToPropMap", {
         /**
          * Maps attribute names to their corresponding property names for cases

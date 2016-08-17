@@ -29,8 +29,6 @@ export class DomAdapter {
     constructor() {
         this.resourceLoaderType = null;
     }
-    /** @deprecated */
-    getResourceLoader() { return this.resourceLoaderType; }
     /**
      * Maps attribute names to their corresponding property names for cases
      * where attribute name doesn't match property name.
