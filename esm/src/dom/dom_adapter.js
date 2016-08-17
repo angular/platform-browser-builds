@@ -21,6 +21,9 @@ export function setRootDomAdapter(adapter) {
 /* tslint:disable:requireParameterType */
 /**
  * Provides DOM operations in an environment-agnostic way.
+ *
+ * @security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
  */
 export class DomAdapter {
     constructor() {

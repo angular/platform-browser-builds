@@ -588,6 +588,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     /* tslint:disable:requireParameterType */
     /**
      * Provides DOM operations in an environment-agnostic way.
+     *
+     * @security Tread carefully! Interacting with the DOM directly is dangerous and
+     * can introduce XSS risks.
      */
     var DomAdapter = (function () {
         function DomAdapter() {
@@ -804,6 +807,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     }
     /**
      * Provides DOM operations in any browser environment.
+     *
+     * @security Tread carefully! Interacting with the DOM directly is dangerous and
+     * can introduce XSS risks.
      */
     var GenericBrowserDomAdapter = (function (_super) {
         __extends(GenericBrowserDomAdapter, _super);
@@ -908,6 +914,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     };
     /**
      * A `DomAdapter` powered by full browser DOM APIs.
+     *
+     * @security Tread carefully! Interacting with the DOM directly is dangerous and
+     * can introduce XSS risks.
      */
     /* tslint:disable:requireParameterType */
     var BrowserDomAdapter = (function (_super) {

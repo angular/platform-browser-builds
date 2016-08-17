@@ -1,6 +1,9 @@
 import { GenericBrowserDomAdapter } from './generic_browser_adapter';
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
+ *
+ * @security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
  */
 export declare class BrowserDomAdapter extends GenericBrowserDomAdapter {
     parse(templateHtml: string): void;

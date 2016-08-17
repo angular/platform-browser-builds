@@ -11,6 +11,9 @@ export declare function setDOM(adapter: DomAdapter): void;
 export declare function setRootDomAdapter(adapter: DomAdapter): void;
 /**
  * Provides DOM operations in an environment-agnostic way.
+ *
+ * @security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
  */
 export declare abstract class DomAdapter {
     resourceLoaderType: Type<any>;

@@ -16,6 +16,9 @@ var collection_1 = require('../facade/collection');
 var lang_1 = require('../facade/lang');
 /**
  * Provides DOM operations in any browser environment.
+ *
+ * @security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
  */
 var GenericBrowserDomAdapter = (function (_super) {
     __extends(GenericBrowserDomAdapter, _super);
