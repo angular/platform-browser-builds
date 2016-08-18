@@ -64,7 +64,10 @@ function _resolveDefaultAnimationDriver() {
 }
 exports._resolveDefaultAnimationDriver = _resolveDefaultAnimationDriver;
 var BrowserModule = (function () {
-    function BrowserModule() {
+    function BrowserModule(parentModule) {
+        if (parentModule) {
+            throw new core_1.BaseException("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
+        }
     }
     /** @nocollapse */
     BrowserModule.decorators = [
@@ -85,6 +88,10 @@ var BrowserModule = (function () {
                     ],
                     exports: [common_1.CommonModule, core_1.ApplicationModule]
                 },] },
+    ];
+    /** @nocollapse */
+    BrowserModule.ctorParameters = [
+        { type: BrowserModule, decorators: [{ type: core_1.Optional }, { type: core_1.SkipSelf },] },
     ];
     return BrowserModule;
 }());

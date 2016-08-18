@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule, PlatformLocation } from '@angular/common';
-import { ApplicationModule, ExceptionHandler, NgModule, PLATFORM_INITIALIZER, RootRenderer, SanitizationService, Testability, createPlatformFactory, platformCore } from '@angular/core';
+import { ApplicationModule, BaseException, ExceptionHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, SanitizationService, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
@@ -59,6 +59,11 @@ export function _resolveDefaultAnimationDriver() {
     return AnimationDriver.NOOP;
 }
 export class BrowserModule {
+    constructor(parentModule) {
+        if (parentModule) {
+            throw new BaseException(`BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.`);
+        }
+    }
 }
 /** @nocollapse */
 BrowserModule.decorators = [
@@ -79,5 +84,9 @@ BrowserModule.decorators = [
                 ],
                 exports: [CommonModule, ApplicationModule]
             },] },
+];
+/** @nocollapse */
+BrowserModule.ctorParameters = [
+    { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ];
 //# sourceMappingURL=browser.js.map

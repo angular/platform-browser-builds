@@ -22,4 +22,5 @@ export declare function _resolveDefaultAnimationDriver(): AnimationDriver;
  * @experimental
  */
 export declare class BrowserModule {
+    constructor(parentModule: BrowserModule);
 }

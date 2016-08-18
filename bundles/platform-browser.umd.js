@@ -2701,7 +2701,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         return AnimationDriver.NOOP;
     }
     var BrowserModule = (function () {
-        function BrowserModule() {
+        function BrowserModule(parentModule) {
+            if (parentModule) {
+                throw new _angular_core.BaseException("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
+            }
         }
         return BrowserModule;
     }());
@@ -2724,6 +2727,10 @@ var __extends = (this && this.__extends) || function (d, b) {
                     ],
                     exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
                 },] },
+    ];
+    /** @nocollapse */
+    BrowserModule.ctorParameters = [
+        { type: BrowserModule, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
     ];
     /**
      * A service that can be used to get and set the title of a current HTML document.
