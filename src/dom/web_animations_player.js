@@ -15,7 +15,8 @@ var WebAnimationsPlayer = (function () {
         this.element = element;
         this.keyframes = keyframes;
         this.options = options;
-        this._subscriptions = [];
+        this._onDoneFns = [];
+        this._onStartFns = [];
         this._finished = false;
         this._initialized = false;
         this._started = false;
@@ -28,8 +29,8 @@ var WebAnimationsPlayer = (function () {
             if (!lang_1.isPresent(this.parentPlayer)) {
                 this.destroy();
             }
-            this._subscriptions.forEach(function (fn) { return fn(); });
-            this._subscriptions = [];
+            this._onDoneFns.forEach(function (fn) { return fn(); });
+            this._onDoneFns = [];
         }
     };
     WebAnimationsPlayer.prototype.init = function () {
@@ -53,9 +54,15 @@ var WebAnimationsPlayer = (function () {
     WebAnimationsPlayer.prototype._triggerWebAnimation = function (element, keyframes, options) {
         return element.animate(keyframes, options);
     };
-    WebAnimationsPlayer.prototype.onDone = function (fn) { this._subscriptions.push(fn); };
+    WebAnimationsPlayer.prototype.onStart = function (fn) { this._onStartFns.push(fn); };
+    WebAnimationsPlayer.prototype.onDone = function (fn) { this._onDoneFns.push(fn); };
     WebAnimationsPlayer.prototype.play = function () {
         this.init();
+        if (!this.hasStarted()) {
+            this._onStartFns.forEach(function (fn) { return fn(); });
+            this._onStartFns = [];
+            this._started = true;
+        }
         this._player.play();
     };
     WebAnimationsPlayer.prototype.pause = function () {

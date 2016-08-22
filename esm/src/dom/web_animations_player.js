@@ -14,7 +14,8 @@ export class WebAnimationsPlayer {
         this.element = element;
         this.keyframes = keyframes;
         this.options = options;
-        this._subscriptions = [];
+        this._onDoneFns = [];
+        this._onStartFns = [];
         this._finished = false;
         this._initialized = false;
         this._started = false;
@@ -27,8 +28,8 @@ export class WebAnimationsPlayer {
             if (!isPresent(this.parentPlayer)) {
                 this.destroy();
             }
-            this._subscriptions.forEach(fn => fn());
-            this._subscriptions = [];
+            this._onDoneFns.forEach(fn => fn());
+            this._onDoneFns = [];
         }
     }
     init() {
@@ -51,9 +52,15 @@ export class WebAnimationsPlayer {
     _triggerWebAnimation(element, keyframes, options) {
         return element.animate(keyframes, options);
     }
-    onDone(fn) { this._subscriptions.push(fn); }
+    onStart(fn) { this._onStartFns.push(fn); }
+    onDone(fn) { this._onDoneFns.push(fn); }
     play() {
         this.init();
+        if (!this.hasStarted()) {
+            this._onStartFns.forEach(fn => fn());
+            this._onStartFns = [];
+            this._started = true;
+        }
         this._player.play();
     }
     pause() {
