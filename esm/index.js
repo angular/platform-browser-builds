@@ -23,7 +23,7 @@ export * from './src/web_workers/shared/message_bus';
 export { WORKER_APP_LOCATION_PROVIDERS } from './src/web_workers/worker/location_providers';
 export { WORKER_UI_LOCATION_PROVIDERS } from './src/web_workers/ui/location_providers';
 export { NgProbeToken } from './src/dom/debug/ng_probe';
-export * from './src/worker_render';
+export { platformWorkerUi, WebWorkerInstance, WORKER_SCRIPT, WORKER_UI_STARTABLE_MESSAGING_SERVICE } from './src/worker_render';
 export { platformWorkerApp, WorkerAppModule } from './src/worker_app';
 export * from './private_export';
 //# sourceMappingURL=index.js.map
