@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { NgZone } from '@angular/core';
 import { getDOM } from '../src/dom/dom_adapter';
 import { ListWrapper } from '../src/facade/collection';
 import { StringWrapper, global, isPresent, isString } from '../src/facade/lang';
@@ -106,4 +107,7 @@ export function stringifyElement(el /** TODO #9100 */) {
     return result;
 }
 export var browserDetection = new BrowserDetection(null);
+export function createNgZone() {
+    return new NgZone({ enableLongStackTrace: true });
+}
 //# sourceMappingURL=browser_util.js.map

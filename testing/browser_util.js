@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
+var core_1 = require('@angular/core');
 var dom_adapter_1 = require('../src/dom/dom_adapter');
 var collection_1 = require('../src/facade/collection');
 var lang_1 = require('../src/facade/lang');
@@ -153,4 +154,8 @@ function stringifyElement(el /** TODO #9100 */) {
 }
 exports.stringifyElement = stringifyElement;
 exports.browserDetection = new BrowserDetection(null);
+function createNgZone() {
+    return new core_1.NgZone({ enableLongStackTrace: true });
+}
+exports.createNgZone = createNgZone;
 //# sourceMappingURL=browser_util.js.map

@@ -4633,6 +4633,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         WorkerDomAdapter.prototype.setCookie = function (name, value) { throw 'not implemented'; };
         return WorkerDomAdapter;
     }(DomAdapter));
+    /**
+     * Logger for web workers.
+     *
+     * @experimental
+     */
     var PrintLogger = (function () {
         function PrintLogger() {
             this.log = print;
@@ -4646,7 +4651,12 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @experimental
      */
     var platformWorkerApp = _angular_core.createPlatformFactory(_angular_core.platformCore, 'workerApp');
-    function _exceptionHandler$2() {
+    /**
+     * Exception handler factory function.
+     *
+     * @experimental
+     */
+    function exceptionHandler() {
         return new _angular_core.ExceptionHandler(new PrintLogger());
     }
     // TODO(jteplitz602) remove this and compile with lib.webworker.d.ts (#3492)
@@ -4655,6 +4665,11 @@ var __extends = (this && this.__extends) || function (d, b) {
             postMessage(message, transferrables);
         }
     };
+    /**
+     * MessageBus factory function.
+     *
+     * @experimental
+     */
     function createMessageBus(zone) {
         var sink = new PostMessageBusSink(_postMessage);
         var source = new PostMessageBusSource();
@@ -4662,6 +4677,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         bus.attachToZone(zone);
         return bus;
     }
+    /**
+     * Application initializer for web workers.
+     *
+     * @experimental
+     */
     function setupWebWorker() {
         WorkerDomAdapter.makeCurrent();
     }
@@ -4679,7 +4699,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                         { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
                         WebWorkerRootRenderer, { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
                         { provide: ON_WEB_WORKER, useValue: true }, RenderStore,
-                        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler$2, deps: [] },
+                        { provide: _angular_core.ExceptionHandler, useFactory: exceptionHandler, deps: [] },
                         { provide: MessageBus, useFactory: createMessageBus, deps: [_angular_core.NgZone] },
                         { provide: _angular_core.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
                     ],
@@ -4725,13 +4745,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.WORKER_APP_LOCATION_PROVIDERS = WORKER_APP_LOCATION_PROVIDERS;
     exports.WORKER_UI_LOCATION_PROVIDERS = WORKER_UI_LOCATION_PROVIDERS;
     exports.NgProbeToken = NgProbeToken;
+    exports.platformWorkerApp = platformWorkerApp;
+    exports.WorkerAppModule = WorkerAppModule;
     exports.MessageBus = MessageBus;
     exports.WebWorkerInstance = WebWorkerInstance;
     exports.WORKER_SCRIPT = WORKER_SCRIPT;
     exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE = WORKER_UI_STARTABLE_MESSAGING_SERVICE;
     exports._WORKER_UI_PLATFORM_PROVIDERS = _WORKER_UI_PLATFORM_PROVIDERS;
     exports.platformWorkerUi = platformWorkerUi;
-    exports.platformWorkerApp = platformWorkerApp;
-    exports.WorkerAppModule = WorkerAppModule;
     exports.__platform_browser_private__ = __platform_browser_private__;
 }));

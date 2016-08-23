@@ -10,13 +10,10 @@ import { BrowserModule } from '../src/browser';
 import { BrowserDomAdapter } from '../src/browser/browser_adapter';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { ELEMENT_PROBE_PROVIDERS } from '../src/dom/debug/ng_probe';
-import { BrowserDetection } from './browser_util';
+import { BrowserDetection, createNgZone } from './browser_util';
 function initBrowserTests() {
     BrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
-}
-function createNgZone() {
-    return new NgZone({ enableLongStackTrace: true });
 }
 const _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
 /**

@@ -18,7 +18,12 @@ import { Serializer } from './web_workers/shared/serializer';
 import { ServiceMessageBrokerFactory, ServiceMessageBrokerFactory_ } from './web_workers/shared/service_message_broker';
 import { WebWorkerRootRenderer } from './web_workers/worker/renderer';
 import { WorkerDomAdapter } from './web_workers/worker/worker_adapter';
-class PrintLogger {
+/**
+ * Logger for web workers.
+ *
+ * @experimental
+ */
+export class PrintLogger {
     constructor() {
         this.log = print;
         this.logError = print;
@@ -30,7 +35,12 @@ class PrintLogger {
  * @experimental
  */
 export const platformWorkerApp = createPlatformFactory(platformCore, 'workerApp');
-function _exceptionHandler() {
+/**
+ * Exception handler factory function.
+ *
+ * @experimental
+ */
+export function exceptionHandler() {
     return new ExceptionHandler(new PrintLogger());
 }
 // TODO(jteplitz602) remove this and compile with lib.webworker.d.ts (#3492)
@@ -39,14 +49,24 @@ let _postMessage = {
         postMessage(message, transferrables);
     }
 };
-function createMessageBus(zone) {
+/**
+ * MessageBus factory function.
+ *
+ * @experimental
+ */
+export function createMessageBus(zone) {
     let sink = new PostMessageBusSink(_postMessage);
     let source = new PostMessageBusSource();
     let bus = new PostMessageBus(sink, source);
     bus.attachToZone(zone);
     return bus;
 }
-function setupWebWorker() {
+/**
+ * Application initializer for web workers.
+ *
+ * @experimental
+ */
+export function setupWebWorker() {
     WorkerDomAdapter.makeCurrent();
 }
 export class WorkerAppModule {
@@ -60,7 +80,7 @@ WorkerAppModule.decorators = [
                     { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
                     WebWorkerRootRenderer, { provide: RootRenderer, useExisting: WebWorkerRootRenderer },
                     { provide: ON_WEB_WORKER, useValue: true }, RenderStore,
-                    { provide: ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+                    { provide: ExceptionHandler, useFactory: exceptionHandler, deps: [] },
                     { provide: MessageBus, useFactory: createMessageBus, deps: [NgZone] },
                     { provide: APP_INITIALIZER, useValue: setupWebWorker, multi: true }
                 ],

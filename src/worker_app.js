@@ -19,6 +19,11 @@ var serializer_1 = require('./web_workers/shared/serializer');
 var service_message_broker_1 = require('./web_workers/shared/service_message_broker');
 var renderer_1 = require('./web_workers/worker/renderer');
 var worker_adapter_1 = require('./web_workers/worker/worker_adapter');
+/**
+ * Logger for web workers.
+ *
+ * @experimental
+ */
 var PrintLogger = (function () {
     function PrintLogger() {
         this.log = lang_1.print;
@@ -28,19 +33,31 @@ var PrintLogger = (function () {
     PrintLogger.prototype.logGroupEnd = function () { };
     return PrintLogger;
 }());
+exports.PrintLogger = PrintLogger;
 /**
  * @experimental
  */
 exports.platformWorkerApp = core_1.createPlatformFactory(core_1.platformCore, 'workerApp');
-function _exceptionHandler() {
+/**
+ * Exception handler factory function.
+ *
+ * @experimental
+ */
+function exceptionHandler() {
     return new core_1.ExceptionHandler(new PrintLogger());
 }
+exports.exceptionHandler = exceptionHandler;
 // TODO(jteplitz602) remove this and compile with lib.webworker.d.ts (#3492)
 var _postMessage = {
     postMessage: function (message, transferrables) {
         postMessage(message, transferrables);
     }
 };
+/**
+ * MessageBus factory function.
+ *
+ * @experimental
+ */
 function createMessageBus(zone) {
     var sink = new post_message_bus_1.PostMessageBusSink(_postMessage);
     var source = new post_message_bus_1.PostMessageBusSource();
@@ -48,9 +65,16 @@ function createMessageBus(zone) {
     bus.attachToZone(zone);
     return bus;
 }
+exports.createMessageBus = createMessageBus;
+/**
+ * Application initializer for web workers.
+ *
+ * @experimental
+ */
 function setupWebWorker() {
     worker_adapter_1.WorkerDomAdapter.makeCurrent();
 }
+exports.setupWebWorker = setupWebWorker;
 var WorkerAppModule = (function () {
     function WorkerAppModule() {
     }
@@ -63,7 +87,7 @@ var WorkerAppModule = (function () {
                         { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
                         renderer_1.WebWorkerRootRenderer, { provide: core_1.RootRenderer, useExisting: renderer_1.WebWorkerRootRenderer },
                         { provide: api_1.ON_WEB_WORKER, useValue: true }, render_store_1.RenderStore,
-                        { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+                        { provide: core_1.ExceptionHandler, useFactory: exceptionHandler, deps: [] },
                         { provide: message_bus_1.MessageBus, useFactory: createMessageBus, deps: [core_1.NgZone] },
                         { provide: core_1.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
                     ],

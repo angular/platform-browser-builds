@@ -16,9 +16,6 @@ function initBrowserTests() {
     browser_adapter_1.BrowserDomAdapter.makeCurrent();
     browser_util_1.BrowserDetection.setup();
 }
-function createNgZone() {
-    return new core_1.NgZone({ enableLongStackTrace: true });
-}
 var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: core_1.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
 /**
  * Platform for testing
@@ -35,7 +32,7 @@ var BrowserTestingModule = (function () {
                     exports: [browser_1.BrowserModule],
                     providers: [
                         { provide: core_1.APP_ID, useValue: 'a' }, ng_probe_1.ELEMENT_PROBE_PROVIDERS,
-                        { provide: core_1.NgZone, useFactory: createNgZone },
+                        { provide: core_1.NgZone, useFactory: browser_util_1.createNgZone },
                         { provide: animation_driver_1.AnimationDriver, useValue: animation_driver_1.AnimationDriver.NOOP }
                     ]
                 },] },
