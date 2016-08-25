@@ -19,7 +19,7 @@ const _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useVa
 /**
  * Platform for testing
  *
- * @experimental API related to bootstrapping are still under review.
+ * @stable
  */
 export const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
 export class BrowserTestingModule {

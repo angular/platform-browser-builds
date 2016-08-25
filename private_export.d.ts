@@ -26,7 +26,7 @@ export declare var __platform_browser_private__: {
     DomRootRenderer_: typeof dom_renderer.DomRootRenderer_;
     DomSharedStylesHost: typeof shared_styles_host.DomSharedStylesHost;
     SharedStylesHost: typeof shared_styles_host.SharedStylesHost;
-    ELEMENT_PROBE_PROVIDERS: any[];
+    ELEMENT_PROBE_PROVIDERS: (TypeProvider | ValueProvider | ClassProvider | ExistingProvider | FactoryProvider | any[])[];
     DomEventsPlugin: typeof dom_events.DomEventsPlugin;
     initDomAdapter: () => void;
     INTERNAL_BROWSER_PLATFORM_PROVIDERS: (TypeProvider | ValueProvider | ClassProvider | ExistingProvider | FactoryProvider | any[])[];

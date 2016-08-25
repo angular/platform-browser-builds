@@ -39,7 +39,7 @@ exports.BROWSER_SANITIZATION_PROVIDERS = [
     { provide: dom_sanitization_service_1.DomSanitizationService, useClass: dom_sanitization_service_1.DomSanitizationServiceImpl },
 ];
 /**
- * @experimental API related to bootstrapping are still under review.
+ * @stable
  */
 exports.platformBrowser = core_1.createPlatformFactory(core_1.platformCore, 'browser', exports.INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 function initDomAdapter() {

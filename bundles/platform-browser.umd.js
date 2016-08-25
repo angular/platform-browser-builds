@@ -2687,7 +2687,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
     ];
     /**
-     * @experimental API related to bootstrapping are still under review.
+     * @stable
      */
     var platformBrowser = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
     function initDomAdapter() {
@@ -4719,7 +4719,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         initDomAdapter: initDomAdapter,
         INTERNAL_BROWSER_PLATFORM_PROVIDERS: INTERNAL_BROWSER_PLATFORM_PROVIDERS
     };
-    exports.BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
     exports.BrowserPlatformLocation = BrowserPlatformLocation;

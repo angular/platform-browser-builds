@@ -1,4 +1,4 @@
-import { ExceptionHandler, NgZone, PlatformRef } from '@angular/core';
+import { ClassProvider, ExceptionHandler, ExistingProvider, FactoryProvider, NgZone, PlatformRef, TypeProvider, ValueProvider } from '@angular/core';
 import { print } from './facade/lang';
 import { MessageBus } from './web_workers/shared/message_bus';
 /**
@@ -15,7 +15,7 @@ export declare class PrintLogger {
 /**
  * @experimental
  */
-export declare const platformWorkerApp: (extraProviders?: any[]) => PlatformRef;
+export declare const platformWorkerApp: (extraProviders?: (TypeProvider | ValueProvider | ClassProvider | ExistingProvider | FactoryProvider | any[])[]) => PlatformRef;
 /**
  * Exception handler factory function.
  *

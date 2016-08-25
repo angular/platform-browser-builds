@@ -5,17 +5,17 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { PlatformRef } from '@angular/core';
+import { ClassProvider, ExistingProvider, FactoryProvider, PlatformRef, TypeProvider, ValueProvider } from '@angular/core';
 /**
  * Platform for testing
  *
- * @experimental API related to bootstrapping are still under review.
+ * @stable
  */
-export declare const platformBrowserTesting: (extraProviders?: any[]) => PlatformRef;
+export declare const platformBrowserTesting: (extraProviders?: (TypeProvider | ValueProvider | ClassProvider | ExistingProvider | FactoryProvider | any[])[]) => PlatformRef;
 /**
  * NgModule for testing.
  *
- * @experimental
+ * @stable
  */
 export declare class BrowserTestingModule {
 }

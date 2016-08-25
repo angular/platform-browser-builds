@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-export { BROWSER_SANITIZATION_PROVIDERS, BrowserModule, platformBrowser } from './src/browser';
+export { BrowserModule, platformBrowser } from './src/browser';
 export { BrowserPlatformLocation } from './src/browser/location/browser_platform_location';
 export { Title } from './src/browser/title';
 export { disableDebugTools, enableDebugTools } from './src/browser/tools/tools';

@@ -1,4 +1,4 @@
-import { ExceptionHandler, PlatformRef, Provider } from '@angular/core';
+import { ClassProvider, ExceptionHandler, ExistingProvider, FactoryProvider, PlatformRef, Provider, TypeProvider, ValueProvider } from '@angular/core';
 import { AnimationDriver } from '../src/dom/animation_driver';
 export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Provider[];
 /**
@@ -9,9 +9,9 @@ export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Provider[];
  */
 export declare const BROWSER_SANITIZATION_PROVIDERS: Array<any>;
 /**
- * @experimental API related to bootstrapping are still under review.
+ * @stable
  */
-export declare const platformBrowser: (extraProviders?: any[]) => PlatformRef;
+export declare const platformBrowser: (extraProviders?: (TypeProvider | ValueProvider | ClassProvider | ExistingProvider | FactoryProvider | any[])[]) => PlatformRef;
 export declare function initDomAdapter(): void;
 export declare function _exceptionHandler(): ExceptionHandler;
 export declare function _document(): any;
@@ -19,7 +19,7 @@ export declare function _resolveDefaultAnimationDriver(): AnimationDriver;
 /**
  * The ng module for the browser.
  *
- * @experimental
+ * @stable
  */
 export declare class BrowserModule {
     constructor(parentModule: BrowserModule);

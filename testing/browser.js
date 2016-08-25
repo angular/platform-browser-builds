@@ -20,7 +20,7 @@ var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: core_1.PLATFORM_INITIALIZER, 
 /**
  * Platform for testing
  *
- * @experimental API related to bootstrapping are still under review.
+ * @stable
  */
 exports.platformBrowserTesting = core_1.createPlatformFactory(core_1.platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
 var BrowserTestingModule = (function () {

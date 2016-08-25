@@ -38,7 +38,7 @@ export const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
 ];
 /**
- * @experimental API related to bootstrapping are still under review.
+ * @stable
  */
 export const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 export function initDomAdapter() {
