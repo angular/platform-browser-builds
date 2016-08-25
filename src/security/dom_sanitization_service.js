@@ -17,7 +17,7 @@ var html_sanitizer_1 = require('./html_sanitizer');
 var style_sanitizer_1 = require('./style_sanitizer');
 var url_sanitizer_1 = require('./url_sanitizer');
 /**
- * DomSanitizationService helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
+ * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.
  *
  * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
@@ -47,18 +47,18 @@ var url_sanitizer_1 = require('./url_sanitizer');
  *
  * @stable
  */
-var DomSanitizationService = (function () {
-    function DomSanitizationService() {
+var DomSanitizer = (function () {
+    function DomSanitizer() {
     }
-    return DomSanitizationService;
+    return DomSanitizer;
 }());
-exports.DomSanitizationService = DomSanitizationService;
-var DomSanitizationServiceImpl = (function (_super) {
-    __extends(DomSanitizationServiceImpl, _super);
-    function DomSanitizationServiceImpl() {
+exports.DomSanitizer = DomSanitizer;
+var DomSanitizerImpl = (function (_super) {
+    __extends(DomSanitizerImpl, _super);
+    function DomSanitizerImpl() {
         _super.apply(this, arguments);
     }
-    DomSanitizationServiceImpl.prototype.sanitize = function (ctx, value) {
+    DomSanitizerImpl.prototype.sanitize = function (ctx, value) {
         if (value == null)
             return null;
         switch (ctx) {
@@ -96,26 +96,26 @@ var DomSanitizationServiceImpl = (function (_super) {
                 throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
         }
     };
-    DomSanitizationServiceImpl.prototype.checkNotSafeValue = function (value, expectedType) {
+    DomSanitizerImpl.prototype.checkNotSafeValue = function (value, expectedType) {
         if (value instanceof SafeValueImpl) {
             throw new Error(("Required a safe " + expectedType + ", got a " + value.getTypeName() + " ") +
                 "(see http://g.co/ng/security#xss)");
         }
     };
-    DomSanitizationServiceImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
-    DomSanitizationServiceImpl.prototype.bypassSecurityTrustStyle = function (value) { return new SafeStyleImpl(value); };
-    DomSanitizationServiceImpl.prototype.bypassSecurityTrustScript = function (value) { return new SafeScriptImpl(value); };
-    DomSanitizationServiceImpl.prototype.bypassSecurityTrustUrl = function (value) { return new SafeUrlImpl(value); };
-    DomSanitizationServiceImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
+    DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
+    DomSanitizerImpl.prototype.bypassSecurityTrustStyle = function (value) { return new SafeStyleImpl(value); };
+    DomSanitizerImpl.prototype.bypassSecurityTrustScript = function (value) { return new SafeScriptImpl(value); };
+    DomSanitizerImpl.prototype.bypassSecurityTrustUrl = function (value) { return new SafeUrlImpl(value); };
+    DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
         return new SafeResourceUrlImpl(value);
     };
     /** @nocollapse */
-    DomSanitizationServiceImpl.decorators = [
+    DomSanitizerImpl.decorators = [
         { type: core_1.Injectable },
     ];
-    return DomSanitizationServiceImpl;
-}(DomSanitizationService));
-exports.DomSanitizationServiceImpl = DomSanitizationServiceImpl;
+    return DomSanitizerImpl;
+}(DomSanitizer));
+exports.DomSanitizerImpl = DomSanitizerImpl;
 var SafeValueImpl = (function () {
     function SafeValueImpl(changingThisBreaksApplicationSecurity) {
         this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;

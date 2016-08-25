@@ -32,7 +32,7 @@ var hammer_gestures_1 = require('./src/dom/events/hammer_gestures');
 exports.HAMMER_GESTURE_CONFIG = hammer_gestures_1.HAMMER_GESTURE_CONFIG;
 exports.HammerGestureConfig = hammer_gestures_1.HammerGestureConfig;
 var dom_sanitization_service_1 = require('./src/security/dom_sanitization_service');
-exports.DomSanitizationService = dom_sanitization_service_1.DomSanitizationService;
+exports.DomSanitizer = dom_sanitization_service_1.DomSanitizer;
 // Web Workers
 var client_message_broker_1 = require('./src/web_workers/shared/client_message_broker');
 exports.ClientMessageBroker = client_message_broker_1.ClientMessageBroker;

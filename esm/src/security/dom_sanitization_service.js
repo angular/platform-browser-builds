@@ -11,7 +11,7 @@ import { sanitizeStyle } from './style_sanitizer';
 import { sanitizeUrl } from './url_sanitizer';
 export { SecurityContext };
 /**
- * DomSanitizationService helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
+ * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.
  *
  * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
@@ -41,9 +41,9 @@ export { SecurityContext };
  *
  * @stable
  */
-export class DomSanitizationService {
+export class DomSanitizer {
 }
-export class DomSanitizationServiceImpl extends DomSanitizationService {
+export class DomSanitizerImpl extends DomSanitizer {
     sanitize(ctx, value) {
         if (value == null)
             return null;
@@ -97,7 +97,7 @@ export class DomSanitizationServiceImpl extends DomSanitizationService {
     }
 }
 /** @nocollapse */
-DomSanitizationServiceImpl.decorators = [
+DomSanitizerImpl.decorators = [
     { type: Injectable },
 ];
 class SafeValueImpl {

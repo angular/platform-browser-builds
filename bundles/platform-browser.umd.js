@@ -2524,7 +2524,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return 'unsafe';
     }
     /**
-     * DomSanitizationService helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
+     * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
      * values to be safe to use in the different DOM contexts.
      *
      * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
@@ -2554,17 +2554,17 @@ var __extends = (this && this.__extends) || function (d, b) {
      *
      * @stable
      */
-    var DomSanitizationService = (function () {
-        function DomSanitizationService() {
+    var DomSanitizer = (function () {
+        function DomSanitizer() {
         }
-        return DomSanitizationService;
+        return DomSanitizer;
     }());
-    var DomSanitizationServiceImpl = (function (_super) {
-        __extends(DomSanitizationServiceImpl, _super);
-        function DomSanitizationServiceImpl() {
+    var DomSanitizerImpl = (function (_super) {
+        __extends(DomSanitizerImpl, _super);
+        function DomSanitizerImpl() {
             _super.apply(this, arguments);
         }
-        DomSanitizationServiceImpl.prototype.sanitize = function (ctx, value) {
+        DomSanitizerImpl.prototype.sanitize = function (ctx, value) {
             if (value == null)
                 return null;
             switch (ctx) {
@@ -2602,23 +2602,23 @@ var __extends = (this && this.__extends) || function (d, b) {
                     throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
             }
         };
-        DomSanitizationServiceImpl.prototype.checkNotSafeValue = function (value, expectedType) {
+        DomSanitizerImpl.prototype.checkNotSafeValue = function (value, expectedType) {
             if (value instanceof SafeValueImpl) {
                 throw new Error(("Required a safe " + expectedType + ", got a " + value.getTypeName() + " ") +
                     "(see http://g.co/ng/security#xss)");
             }
         };
-        DomSanitizationServiceImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
-        DomSanitizationServiceImpl.prototype.bypassSecurityTrustStyle = function (value) { return new SafeStyleImpl(value); };
-        DomSanitizationServiceImpl.prototype.bypassSecurityTrustScript = function (value) { return new SafeScriptImpl(value); };
-        DomSanitizationServiceImpl.prototype.bypassSecurityTrustUrl = function (value) { return new SafeUrlImpl(value); };
-        DomSanitizationServiceImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
+        DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
+        DomSanitizerImpl.prototype.bypassSecurityTrustStyle = function (value) { return new SafeStyleImpl(value); };
+        DomSanitizerImpl.prototype.bypassSecurityTrustScript = function (value) { return new SafeScriptImpl(value); };
+        DomSanitizerImpl.prototype.bypassSecurityTrustUrl = function (value) { return new SafeUrlImpl(value); };
+        DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
             return new SafeResourceUrlImpl(value);
         };
-        return DomSanitizationServiceImpl;
-    }(DomSanitizationService));
+        return DomSanitizerImpl;
+    }(DomSanitizer));
     /** @nocollapse */
-    DomSanitizationServiceImpl.decorators = [
+    DomSanitizerImpl.decorators = [
         { type: _angular_core.Injectable },
     ];
     var SafeValueImpl = (function () {
@@ -2683,8 +2683,8 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @experimental
      */
     var BROWSER_SANITIZATION_PROVIDERS = [
-        { provide: _angular_core.SanitizationService, useExisting: DomSanitizationService },
-        { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
+        { provide: _angular_core.Sanitizer, useExisting: DomSanitizer },
+        { provide: DomSanitizer, useClass: DomSanitizerImpl },
     ];
     /**
      * @stable
@@ -4732,7 +4732,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.EventManager = EventManager;
     exports.HAMMER_GESTURE_CONFIG = HAMMER_GESTURE_CONFIG;
     exports.HammerGestureConfig = HammerGestureConfig;
-    exports.DomSanitizationService = DomSanitizationService;
+    exports.DomSanitizer = DomSanitizer;
     exports.ClientMessageBroker = ClientMessageBroker;
     exports.ClientMessageBrokerFactory = ClientMessageBrokerFactory;
     exports.FnArg = FnArg;

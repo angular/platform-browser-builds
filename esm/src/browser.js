@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule, PlatformLocation } from '@angular/common';
-import { ApplicationModule, BaseException, ExceptionHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, SanitizationService, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core';
+import { ApplicationModule, BaseException, ExceptionHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, Sanitizer, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
@@ -22,7 +22,7 @@ import { EVENT_MANAGER_PLUGINS, EventManager } from './dom/events/event_manager'
 import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerGesturesPlugin } from './dom/events/hammer_gestures';
 import { KeyEventsPlugin } from './dom/events/key_events';
 import { DomSharedStylesHost, SharedStylesHost } from './dom/shared_styles_host';
-import { DomSanitizationService, DomSanitizationServiceImpl } from './security/dom_sanitization_service';
+import { DomSanitizer, DomSanitizerImpl } from './security/dom_sanitization_service';
 export const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation }
@@ -34,8 +34,8 @@ export const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  * @experimental
  */
 export const BROWSER_SANITIZATION_PROVIDERS = [
-    { provide: SanitizationService, useExisting: DomSanitizationService },
-    { provide: DomSanitizationService, useClass: DomSanitizationServiceImpl },
+    { provide: Sanitizer, useExisting: DomSanitizer },
+    { provide: DomSanitizer, useClass: DomSanitizerImpl },
 ];
 /**
  * @stable

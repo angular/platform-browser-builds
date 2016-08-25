@@ -35,8 +35,8 @@ exports.INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  * @experimental
  */
 exports.BROWSER_SANITIZATION_PROVIDERS = [
-    { provide: core_1.SanitizationService, useExisting: dom_sanitization_service_1.DomSanitizationService },
-    { provide: dom_sanitization_service_1.DomSanitizationService, useClass: dom_sanitization_service_1.DomSanitizationServiceImpl },
+    { provide: core_1.Sanitizer, useExisting: dom_sanitization_service_1.DomSanitizer },
+    { provide: dom_sanitization_service_1.DomSanitizer, useClass: dom_sanitization_service_1.DomSanitizerImpl },
 ];
 /**
  * @stable
