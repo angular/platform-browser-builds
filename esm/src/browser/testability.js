@@ -52,10 +52,10 @@ export class BrowserGetTestability {
                 testability.whenStable(decrement);
             });
         };
-        if (!global.frameworkStabilizers) {
-            global.frameworkStabilizers = ListWrapper.createGrowableSize(0);
+        if (!global['frameworkStabilizers']) {
+            global['frameworkStabilizers'] = ListWrapper.createGrowableSize(0);
         }
-        global.frameworkStabilizers.push(whenAllStable);
+        global['frameworkStabilizers'].push(whenAllStable);
     }
     findTestabilityInTree(registry, elem, findInAncestors) {
         if (elem == null) {

@@ -57,10 +57,10 @@ var BrowserGetTestability = (function () {
                 testability.whenStable(decrement);
             });
         };
-        if (!lang_1.global.frameworkStabilizers) {
-            lang_1.global.frameworkStabilizers = collection_1.ListWrapper.createGrowableSize(0);
+        if (!lang_1.global['frameworkStabilizers']) {
+            lang_1.global['frameworkStabilizers'] = collection_1.ListWrapper.createGrowableSize(0);
         }
-        lang_1.global.frameworkStabilizers.push(whenAllStable);
+        lang_1.global['frameworkStabilizers'].push(whenAllStable);
     };
     BrowserGetTestability.prototype.findTestabilityInTree = function (registry, elem, findInAncestors) {
         if (elem == null) {

@@ -1447,10 +1447,10 @@ var __extends = (this && this.__extends) || function (d, b) {
                     testability.whenStable(decrement);
                 });
             };
-            if (!global$1.frameworkStabilizers) {
-                global$1.frameworkStabilizers = ListWrapper.createGrowableSize(0);
+            if (!global$1['frameworkStabilizers']) {
+                global$1['frameworkStabilizers'] = ListWrapper.createGrowableSize(0);
             }
-            global$1.frameworkStabilizers.push(whenAllStable);
+            global$1['frameworkStabilizers'].push(whenAllStable);
         };
         BrowserGetTestability.prototype.findTestabilityInTree = function (registry, elem, findInAncestors) {
             if (elem == null) {
