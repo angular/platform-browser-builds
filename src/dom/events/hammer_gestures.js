@@ -52,7 +52,7 @@ var HammerGesturesPlugin = (function (_super) {
         if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
             return false;
         if (!lang_1.isPresent(window['Hammer'])) {
-            throw new core_1.BaseException("Hammer.js is not loaded, can not bind " + eventName + " event");
+            throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
         }
         return true;
     };

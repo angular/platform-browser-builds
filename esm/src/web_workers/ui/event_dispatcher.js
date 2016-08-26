@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException } from '@angular/core';
 import { RenderStoreObject } from '../shared/serializer';
 import { serializeEventWithTarget, serializeGenericEvent, serializeKeyboardEvent, serializeMouseEvent, serializeTransitionEvent } from './event_serializer';
 export class EventDispatcher {
@@ -94,7 +93,7 @@ export class EventDispatcher {
                 serializedEvent = serializeTransitionEvent(event);
                 break;
             default:
-                throw new BaseException(eventName + ' not supported on WebWorkers');
+                throw new Error(eventName + ' not supported on WebWorkers');
         }
         this._sink.emit({
             'element': this._serializer.serialize(element, RenderStoreObject),

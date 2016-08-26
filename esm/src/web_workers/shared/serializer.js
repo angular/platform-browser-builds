@@ -7,7 +7,6 @@
  */
 import { Injectable, RenderComponentType, ViewEncapsulation } from '@angular/core';
 import { VIEW_ENCAPSULATION_VALUES } from '../../../core_private';
-import { BaseException } from '../../facade/exceptions';
 import { isArray, isPresent, serializeEnum } from '../../facade/lang';
 import { RenderStore } from './render_store';
 import { LocationType } from './serialized_types';
@@ -44,7 +43,7 @@ export class Serializer {
             return this._serializeLocation(obj);
         }
         else {
-            throw new BaseException('No serializer for ' + type.toString());
+            throw new Error('No serializer for ' + type.toString());
         }
     }
     deserialize(map, type, data) {
@@ -72,7 +71,7 @@ export class Serializer {
             return this._deserializeLocation(map);
         }
         else {
-            throw new BaseException('No deserializer for ' + type.toString());
+            throw new Error('No deserializer for ' + type.toString());
         }
     }
     _serializeLocation(loc) {

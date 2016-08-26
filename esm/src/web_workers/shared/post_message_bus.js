@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { EventEmitter } from '../../facade/async';
 import { StringMapWrapper } from '../../facade/collection';
 export class PostMessageBusSink {
@@ -20,7 +20,7 @@ export class PostMessageBusSink {
     }
     initChannel(channel, runInZone = true) {
         if (StringMapWrapper.contains(this._channels, channel)) {
-            throw new BaseException(`${channel} has already been initialized`);
+            throw new Error(`${channel} has already been initialized`);
         }
         var emitter = new EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
@@ -40,7 +40,7 @@ export class PostMessageBusSink {
             return this._channels[channel].emitter;
         }
         else {
-            throw new BaseException(`${channel} is not set up. Did you forget to call initChannel?`);
+            throw new Error(`${channel} is not set up. Did you forget to call initChannel?`);
         }
     }
     _handleOnEventDone() {
@@ -66,7 +66,7 @@ export class PostMessageBusSource {
     attachToZone(zone) { this._zone = zone; }
     initChannel(channel, runInZone = true) {
         if (StringMapWrapper.contains(this._channels, channel)) {
-            throw new BaseException(`${channel} has already been initialized`);
+            throw new Error(`${channel} has already been initialized`);
         }
         var emitter = new EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
@@ -77,7 +77,7 @@ export class PostMessageBusSource {
             return this._channels[channel].emitter;
         }
         else {
-            throw new BaseException(`${channel} is not set up. Did you forget to call initChannel?`);
+            throw new Error(`${channel} is not set up. Did you forget to call initChannel?`);
         }
     }
     _handleMessages(ev) {

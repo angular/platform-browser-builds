@@ -48,10 +48,10 @@ function initDomAdapter() {
     testability_1.BrowserGetTestability.init();
 }
 exports.initDomAdapter = initDomAdapter;
-function _exceptionHandler() {
-    return new core_1.ExceptionHandler(dom_adapter_1.getDOM());
+function errorHandler() {
+    return new core_1.ErrorHandler();
 }
-exports._exceptionHandler = _exceptionHandler;
+exports.errorHandler = errorHandler;
 function _document() {
     return dom_adapter_1.getDOM().defaultDoc();
 }
@@ -66,15 +66,14 @@ exports._resolveDefaultAnimationDriver = _resolveDefaultAnimationDriver;
 var BrowserModule = (function () {
     function BrowserModule(parentModule) {
         if (parentModule) {
-            throw new core_1.BaseException("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
+            throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
         }
     }
     /** @nocollapse */
     BrowserModule.decorators = [
         { type: core_1.NgModule, args: [{
                     providers: [
-                        exports.BROWSER_SANITIZATION_PROVIDERS,
-                        { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+                        exports.BROWSER_SANITIZATION_PROVIDERS, { provide: core_1.ErrorHandler, useFactory: errorHandler, deps: [] },
                         { provide: dom_tokens_1.DOCUMENT, useFactory: _document, deps: [] },
                         { provide: event_manager_1.EVENT_MANAGER_PLUGINS, useClass: dom_events_1.DomEventsPlugin, multi: true },
                         { provide: event_manager_1.EVENT_MANAGER_PLUGINS, useClass: key_events_1.KeyEventsPlugin, multi: true },

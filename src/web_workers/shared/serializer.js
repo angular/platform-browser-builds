@@ -8,7 +8,6 @@
 "use strict";
 var core_1 = require('@angular/core');
 var core_private_1 = require('../../../core_private');
-var exceptions_1 = require('../../facade/exceptions');
 var lang_1 = require('../../facade/lang');
 var render_store_1 = require('./render_store');
 var serialized_types_1 = require('./serialized_types');
@@ -46,7 +45,7 @@ var Serializer = (function () {
             return this._serializeLocation(obj);
         }
         else {
-            throw new exceptions_1.BaseException('No serializer for ' + type.toString());
+            throw new Error('No serializer for ' + type.toString());
         }
     };
     Serializer.prototype.deserialize = function (map, type, data) {
@@ -75,7 +74,7 @@ var Serializer = (function () {
             return this._deserializeLocation(map);
         }
         else {
-            throw new exceptions_1.BaseException('No deserializer for ' + type.toString());
+            throw new Error('No deserializer for ' + type.toString());
         }
     };
     Serializer.prototype._serializeLocation = function (loc) {

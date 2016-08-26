@@ -37,7 +37,7 @@ var EventManager = (function () {
                 return plugin;
             }
         }
-        throw new core_1.BaseException("No event manager plugin found for event " + eventName);
+        throw new Error("No event manager plugin found for event " + eventName);
     };
     /** @nocollapse */
     EventManager.decorators = [

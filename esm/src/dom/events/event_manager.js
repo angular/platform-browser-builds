@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException, Inject, Injectable, NgZone, OpaqueToken } from '@angular/core';
+import { Inject, Injectable, NgZone, OpaqueToken } from '@angular/core';
 import { ListWrapper } from '../../facade/collection';
 /**
  * @stable
@@ -35,7 +35,7 @@ export class EventManager {
                 return plugin;
             }
         }
-        throw new BaseException(`No event manager plugin found for event ${eventName}`);
+        throw new Error(`No event manager plugin found for event ${eventName}`);
     }
 }
 /** @nocollapse */

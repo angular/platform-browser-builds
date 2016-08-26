@@ -24,7 +24,7 @@ var PostMessageBusSink = (function () {
         var _this = this;
         if (runInZone === void 0) { runInZone = true; }
         if (collection_1.StringMapWrapper.contains(this._channels, channel)) {
-            throw new core_1.BaseException(channel + " has already been initialized");
+            throw new Error(channel + " has already been initialized");
         }
         var emitter = new async_1.EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
@@ -44,7 +44,7 @@ var PostMessageBusSink = (function () {
             return this._channels[channel].emitter;
         }
         else {
-            throw new core_1.BaseException(channel + " is not set up. Did you forget to call initChannel?");
+            throw new Error(channel + " is not set up. Did you forget to call initChannel?");
         }
     };
     PostMessageBusSink.prototype._handleOnEventDone = function () {
@@ -74,7 +74,7 @@ var PostMessageBusSource = (function () {
     PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
         if (runInZone === void 0) { runInZone = true; }
         if (collection_1.StringMapWrapper.contains(this._channels, channel)) {
-            throw new core_1.BaseException(channel + " has already been initialized");
+            throw new Error(channel + " has already been initialized");
         }
         var emitter = new async_1.EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
@@ -85,7 +85,7 @@ var PostMessageBusSource = (function () {
             return this._channels[channel].emitter;
         }
         else {
-            throw new core_1.BaseException(channel + " is not set up. Did you forget to call initChannel?");
+            throw new Error(channel + " is not set up. Did you forget to call initChannel?");
         }
     };
     PostMessageBusSource.prototype._handleMessages = function (ev) {

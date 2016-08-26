@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException, ExceptionHandler, Injectable, Injector, NgZone, OpaqueToken, PLATFORM_INITIALIZER, RootRenderer, Testability, createPlatformFactory, isDevMode, platformCore } from '@angular/core';
+import { ErrorHandler, Injectable, Injector, NgZone, OpaqueToken, PLATFORM_INITIALIZER, RootRenderer, Testability, createPlatformFactory, isDevMode, platformCore } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { BROWSER_SANITIZATION_PROVIDERS } from './browser';
 import { BrowserDomAdapter } from './browser/browser_adapter';
@@ -58,7 +58,7 @@ export const _WORKER_UI_PLATFORM_PROVIDERS = [
     MessageBasedRenderer,
     { provide: WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: MessageBasedRenderer, multi: true },
     BROWSER_SANITIZATION_PROVIDERS,
-    { provide: ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+    { provide: ErrorHandler, useFactory: _exceptionHandler, deps: [] },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
     // TODO(jteplitz602): Investigate if we definitely need EVENT_MANAGER on the render thread
     // #5298
@@ -108,7 +108,7 @@ function initWebWorkerRenderPlatform(injector) {
             scriptUri = injector.get(WORKER_SCRIPT);
         }
         catch (e) {
-            throw new BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
+            throw new Error('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
         }
         let instance = injector.get(WebWorkerInstance);
         spawnWebWorker(scriptUri, instance);
@@ -120,7 +120,7 @@ function initWebWorkerRenderPlatform(injector) {
  */
 export const platformWorkerUi = createPlatformFactory(platformCore, 'workerUi', _WORKER_UI_PLATFORM_PROVIDERS);
 function _exceptionHandler() {
-    return new ExceptionHandler(getDOM());
+    return new ErrorHandler();
 }
 function _document() {
     return getDOM().defaultDoc();

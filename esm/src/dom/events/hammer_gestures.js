@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException, Inject, Injectable, OpaqueToken } from '@angular/core';
+import { Inject, Injectable, OpaqueToken } from '@angular/core';
 import { isPresent } from '../../facade/lang';
 import { HammerGesturesPluginCommon } from './hammer_common';
 /**
@@ -43,7 +43,7 @@ export class HammerGesturesPlugin extends HammerGesturesPluginCommon {
         if (!super.supports(eventName) && !this.isCustomEvent(eventName))
             return false;
         if (!isPresent(window['Hammer'])) {
-            throw new BaseException(`Hammer.js is not loaded, can not bind ${eventName} event`);
+            throw new Error(`Hammer.js is not loaded, can not bind ${eventName} event`);
         }
         return true;
     }

@@ -63,7 +63,7 @@ exports._WORKER_UI_PLATFORM_PROVIDERS = [
     renderer_1.MessageBasedRenderer,
     { provide: exports.WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: renderer_1.MessageBasedRenderer, multi: true },
     browser_1.BROWSER_SANITIZATION_PROVIDERS,
-    { provide: core_1.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+    { provide: core_1.ErrorHandler, useFactory: _exceptionHandler, deps: [] },
     { provide: dom_tokens_1.DOCUMENT, useFactory: _document, deps: [] },
     // TODO(jteplitz602): Investigate if we definitely need EVENT_MANAGER on the render thread
     // #5298
@@ -113,7 +113,7 @@ function initWebWorkerRenderPlatform(injector) {
             scriptUri = injector.get(exports.WORKER_SCRIPT);
         }
         catch (e) {
-            throw new core_1.BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
+            throw new Error('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
         }
         var instance = injector.get(WebWorkerInstance);
         spawnWebWorker(scriptUri, instance);
@@ -125,7 +125,7 @@ function initWebWorkerRenderPlatform(injector) {
  */
 exports.platformWorkerUi = core_1.createPlatformFactory(core_1.platformCore, 'workerUi', exports._WORKER_UI_PLATFORM_PROVIDERS);
 function _exceptionHandler() {
-    return new core_1.ExceptionHandler(dom_adapter_1.getDOM());
+    return new core_1.ErrorHandler();
 }
 function _document() {
     return dom_adapter_1.getDOM().defaultDoc();

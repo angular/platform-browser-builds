@@ -173,15 +173,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return StringWrapper;
     }());
-    var NumberParseError = (function (_super) {
-        __extends(NumberParseError, _super);
-        function NumberParseError(message) {
-            _super.call(this);
-            this.message = message;
-        }
-        NumberParseError.prototype.toString = function () { return this.message; };
-        return NumberParseError;
-    }(Error));
     var NumberWrapper = (function () {
         function NumberWrapper() {
         }
@@ -190,7 +181,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         NumberWrapper.parseIntAutoRadix = function (text) {
             var result = parseInt(text);
             if (isNaN(result)) {
-                throw new NumberParseError('Invalid integer literal when parsing ' + text);
+                throw new Error('Invalid integer literal when parsing ' + text);
             }
             return result;
         };
@@ -211,7 +202,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     return result;
                 }
             }
-            throw new NumberParseError('Invalid integer literal when parsing ' + text + ' in base ' + radix);
+            throw new Error('Invalid integer literal when parsing ' + text + ' in base ' + radix);
         };
         // TODO: NaN is a valid literal but is returned by parseFloat to indicate an error.
         NumberWrapper.parseFloat = function (text) { return parseFloat(text); };
@@ -758,7 +749,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 unit = 'px';
             }
             else if (_findDimensionalSuffix(val.toString()).length == 0) {
-                throw new _angular_core.BaseException('Please provide a CSS unit value for ' + userProvidedProp + ':' + val);
+                throw new Error('Please provide a CSS unit value for ' + userProvidedProp + ':' + val);
             }
         }
         return unit;
@@ -1508,7 +1499,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     return plugin;
                 }
             }
-            throw new _angular_core.BaseException("No event manager plugin found for event " + eventName);
+            throw new Error("No event manager plugin found for event " + eventName);
         };
         return EventManager;
     }());
@@ -1662,7 +1653,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (isString(selectorOrNode)) {
                 el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
                 if (isBlank(el)) {
-                    throw new _angular_core.BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
+                    throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
             }
             else {
@@ -2024,7 +2015,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
                 return false;
             if (!isPresent(window['Hammer'])) {
-                throw new _angular_core.BaseException("Hammer.js is not loaded, can not bind " + eventName + " event");
+                throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
             }
             return true;
         };
@@ -2695,8 +2686,8 @@ var __extends = (this && this.__extends) || function (d, b) {
         wtfInit();
         BrowserGetTestability.init();
     }
-    function _exceptionHandler() {
-        return new _angular_core.ExceptionHandler(getDOM());
+    function errorHandler() {
+        return new _angular_core.ErrorHandler();
     }
     function _document() {
         return getDOM().defaultDoc();
@@ -2710,7 +2701,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     var BrowserModule = (function () {
         function BrowserModule(parentModule) {
             if (parentModule) {
-                throw new _angular_core.BaseException("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
+                throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
             }
         }
         return BrowserModule;
@@ -2719,8 +2710,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     BrowserModule.decorators = [
         { type: _angular_core.NgModule, args: [{
                     providers: [
-                        BROWSER_SANITIZATION_PROVIDERS,
-                        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+                        BROWSER_SANITIZATION_PROVIDERS, { provide: _angular_core.ErrorHandler, useFactory: errorHandler, deps: [] },
                         { provide: DOCUMENT, useFactory: _document, deps: [] },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
@@ -2933,20 +2923,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return MessageBus;
     }());
-    /**
-     * @stable
-     */
-    var BaseException$1 = (function (_super) {
-        __extends(BaseException$1, _super);
-        function BaseException$1(message) {
-            if (message === void 0) { message = '--'; }
-            _super.call(this, message);
-            this.message = message;
-            this.stack = (new Error(message)).stack;
-        }
-        BaseException$1.prototype.toString = function () { return this.message; };
-        return BaseException$1;
-    }(Error));
     var RenderStore = (function () {
         function RenderStore() {
             this._nextIndex = 0;
@@ -3043,7 +3019,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._serializeLocation(obj);
             }
             else {
-                throw new BaseException$1('No serializer for ' + type.toString());
+                throw new Error('No serializer for ' + type.toString());
             }
         };
         Serializer.prototype.deserialize = function (map, type, data) {
@@ -3072,7 +3048,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._deserializeLocation(map);
             }
             else {
-                throw new BaseException$1('No deserializer for ' + type.toString());
+                throw new Error('No deserializer for ' + type.toString());
             }
         };
         Serializer.prototype._serializeLocation = function (loc) {
@@ -3448,10 +3424,10 @@ var __extends = (this && this.__extends) || function (d, b) {
             return locationPromise.then(function (val) {
                 _this._location = val;
                 return true;
-            }, function (err) { throw new _angular_core.BaseException(err); });
+            }, function (err) { throw new Error(err); });
         };
         WebWorkerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
-            throw new _angular_core.BaseException('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
+            throw new Error('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
         };
         WebWorkerPlatformLocation.prototype.onPopState = function (fn) { this._popStateListeners.push(fn); };
         WebWorkerPlatformLocation.prototype.onHashChange = function (fn) { this._hashChangeListeners.push(fn); };
@@ -3464,7 +3440,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             },
             set: function (newPath) {
                 if (this._location === null) {
-                    throw new _angular_core.BaseException('Attempt to set pathname before value is obtained from UI');
+                    throw new Error('Attempt to set pathname before value is obtained from UI');
                 }
                 this._location.pathname = newPath;
                 var fnArgs = [new FnArg(newPath, PRIMITIVE)];
@@ -3704,7 +3680,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new _angular_core.BaseException(channel + " has already been initialized");
+                throw new Error(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -3724,7 +3700,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new _angular_core.BaseException(channel + " is not set up. Did you forget to call initChannel?");
+                throw new Error(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSink.prototype._handleOnEventDone = function () {
@@ -3753,7 +3729,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
             if (runInZone === void 0) { runInZone = true; }
             if (StringMapWrapper.contains(this._channels, channel)) {
-                throw new _angular_core.BaseException(channel + " has already been initialized");
+                throw new Error(channel + " has already been initialized");
             }
             var emitter = new EventEmitter(false);
             var channelInfo = new _Channel(emitter, runInZone);
@@ -3764,7 +3740,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return this._channels[channel].emitter;
             }
             else {
-                throw new _angular_core.BaseException(channel + " is not set up. Did you forget to call initChannel?");
+                throw new Error(channel + " is not set up. Did you forget to call initChannel?");
             }
         };
         PostMessageBusSource.prototype._handleMessages = function (ev) {
@@ -3961,7 +3937,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                     serializedEvent = serializeTransitionEvent(event);
                     break;
                 default:
-                    throw new _angular_core.BaseException(eventName + ' not supported on WebWorkers');
+                    throw new Error(eventName + ' not supported on WebWorkers');
             }
             this._sink.emit({
                 'element': this._serializer.serialize(element, RenderStoreObject),
@@ -4125,7 +4101,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         MessageBasedRenderer,
         { provide: WORKER_UI_STARTABLE_MESSAGING_SERVICE, useExisting: MessageBasedRenderer, multi: true },
         BROWSER_SANITIZATION_PROVIDERS,
-        { provide: _angular_core.ExceptionHandler, useFactory: _exceptionHandler$1, deps: [] },
+        { provide: _angular_core.ErrorHandler, useFactory: _exceptionHandler, deps: [] },
         { provide: DOCUMENT, useFactory: _document$1, deps: [] },
         // TODO(jteplitz602): Investigate if we definitely need EVENT_MANAGER on the render thread
         // #5298
@@ -4175,7 +4151,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                 scriptUri = injector.get(WORKER_SCRIPT);
             }
             catch (e) {
-                throw new _angular_core.BaseException('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
+                throw new Error('You must provide your WebWorker\'s initialization script with the WORKER_SCRIPT token');
             }
             var instance = injector.get(WebWorkerInstance);
             spawnWebWorker(scriptUri, instance);
@@ -4186,8 +4162,8 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @experimental WebWorker support is currently experimental.
      */
     var platformWorkerUi = _angular_core.createPlatformFactory(_angular_core.platformCore, 'workerUi', _WORKER_UI_PLATFORM_PROVIDERS);
-    function _exceptionHandler$1() {
-        return new _angular_core.ExceptionHandler(getDOM());
+    function _exceptionHandler() {
+        return new _angular_core.ErrorHandler();
     }
     function _document$1() {
         return getDOM().defaultDoc();
@@ -4634,20 +4610,6 @@ var __extends = (this && this.__extends) || function (d, b) {
         return WorkerDomAdapter;
     }(DomAdapter));
     /**
-     * Logger for web workers.
-     *
-     * @experimental
-     */
-    var PrintLogger = (function () {
-        function PrintLogger() {
-            this.log = print;
-            this.logError = print;
-            this.logGroup = print;
-        }
-        PrintLogger.prototype.logGroupEnd = function () { };
-        return PrintLogger;
-    }());
-    /**
      * @experimental
      */
     var platformWorkerApp = _angular_core.createPlatformFactory(_angular_core.platformCore, 'workerApp');
@@ -4656,8 +4618,8 @@ var __extends = (this && this.__extends) || function (d, b) {
      *
      * @experimental
      */
-    function exceptionHandler() {
-        return new _angular_core.ExceptionHandler(new PrintLogger());
+    function errorHandler$1() {
+        return new _angular_core.ErrorHandler();
     }
     // TODO(jteplitz602) remove this and compile with lib.webworker.d.ts (#3492)
     var _postMessage = {
@@ -4699,7 +4661,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                         { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
                         WebWorkerRootRenderer, { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
                         { provide: ON_WEB_WORKER, useValue: true }, RenderStore,
-                        { provide: _angular_core.ExceptionHandler, useFactory: exceptionHandler, deps: [] },
+                        { provide: _angular_core.ErrorHandler, useFactory: errorHandler$1, deps: [] },
                         { provide: MessageBus, useFactory: createMessageBus, deps: [_angular_core.NgZone] },
                         { provide: _angular_core.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
                     ],

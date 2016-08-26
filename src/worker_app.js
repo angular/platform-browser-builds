@@ -9,7 +9,6 @@
 var common_1 = require('@angular/common');
 var core_1 = require('@angular/core');
 var browser_1 = require('./browser');
-var lang_1 = require('./facade/lang');
 var api_1 = require('./web_workers/shared/api');
 var client_message_broker_1 = require('./web_workers/shared/client_message_broker');
 var message_bus_1 = require('./web_workers/shared/message_bus');
@@ -20,21 +19,6 @@ var service_message_broker_1 = require('./web_workers/shared/service_message_bro
 var renderer_1 = require('./web_workers/worker/renderer');
 var worker_adapter_1 = require('./web_workers/worker/worker_adapter');
 /**
- * Logger for web workers.
- *
- * @experimental
- */
-var PrintLogger = (function () {
-    function PrintLogger() {
-        this.log = lang_1.print;
-        this.logError = lang_1.print;
-        this.logGroup = lang_1.print;
-    }
-    PrintLogger.prototype.logGroupEnd = function () { };
-    return PrintLogger;
-}());
-exports.PrintLogger = PrintLogger;
-/**
  * @experimental
  */
 exports.platformWorkerApp = core_1.createPlatformFactory(core_1.platformCore, 'workerApp');
@@ -43,10 +27,10 @@ exports.platformWorkerApp = core_1.createPlatformFactory(core_1.platformCore, 'w
  *
  * @experimental
  */
-function exceptionHandler() {
-    return new core_1.ExceptionHandler(new PrintLogger());
+function errorHandler() {
+    return new core_1.ErrorHandler();
 }
-exports.exceptionHandler = exceptionHandler;
+exports.errorHandler = errorHandler;
 // TODO(jteplitz602) remove this and compile with lib.webworker.d.ts (#3492)
 var _postMessage = {
     postMessage: function (message, transferrables) {
@@ -87,7 +71,7 @@ var WorkerAppModule = (function () {
                         { provide: service_message_broker_1.ServiceMessageBrokerFactory, useClass: service_message_broker_1.ServiceMessageBrokerFactory_ },
                         renderer_1.WebWorkerRootRenderer, { provide: core_1.RootRenderer, useExisting: renderer_1.WebWorkerRootRenderer },
                         { provide: api_1.ON_WEB_WORKER, useValue: true }, render_store_1.RenderStore,
-                        { provide: core_1.ExceptionHandler, useFactory: exceptionHandler, deps: [] },
+                        { provide: core_1.ErrorHandler, useFactory: errorHandler, deps: [] },
                         { provide: message_bus_1.MessageBus, useFactory: createMessageBus, deps: [core_1.NgZone] },
                         { provide: core_1.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
                     ],

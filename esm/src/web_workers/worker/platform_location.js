@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { PlatformLocation } from '@angular/common';
-import { BaseException, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { StringMapWrapper } from '../../facade/collection';
 import { StringWrapper } from '../../facade/lang';
 import { ClientMessageBrokerFactory, FnArg, UiArguments } from '../shared/client_message_broker';
@@ -52,10 +52,10 @@ export class WebWorkerPlatformLocation extends PlatformLocation {
         return locationPromise.then((val) => {
             this._location = val;
             return true;
-        }, (err) => { throw new BaseException(err); });
+        }, (err) => { throw new Error(err); });
     }
     getBaseHrefFromDOM() {
-        throw new BaseException('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
+        throw new Error('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
     }
     onPopState(fn) { this._popStateListeners.push(fn); }
     onHashChange(fn) { this._hashChangeListeners.push(fn); }
@@ -79,7 +79,7 @@ export class WebWorkerPlatformLocation extends PlatformLocation {
     }
     set pathname(newPath) {
         if (this._location === null) {
-            throw new BaseException('Attempt to set pathname before value is obtained from UI');
+            throw new Error('Attempt to set pathname before value is obtained from UI');
         }
         this._location.pathname = newPath;
         var fnArgs = [new FnArg(newPath, PRIMITIVE)];

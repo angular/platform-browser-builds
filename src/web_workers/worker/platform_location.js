@@ -61,10 +61,10 @@ var WebWorkerPlatformLocation = (function (_super) {
         return locationPromise.then(function (val) {
             _this._location = val;
             return true;
-        }, function (err) { throw new core_1.BaseException(err); });
+        }, function (err) { throw new Error(err); });
     };
     WebWorkerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
-        throw new core_1.BaseException('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
+        throw new Error('Attempt to get base href from DOM from WebWorker. You must either provide a value for the APP_BASE_HREF token through DI or use the hash location strategy.');
     };
     WebWorkerPlatformLocation.prototype.onPopState = function (fn) { this._popStateListeners.push(fn); };
     WebWorkerPlatformLocation.prototype.onHashChange = function (fn) { this._hashChangeListeners.push(fn); };
@@ -77,7 +77,7 @@ var WebWorkerPlatformLocation = (function (_super) {
         },
         set: function (newPath) {
             if (this._location === null) {
-                throw new core_1.BaseException('Attempt to set pathname before value is obtained from UI');
+                throw new Error('Attempt to set pathname before value is obtained from UI');
             }
             this._location.pathname = newPath;
             var fnArgs = [new client_message_broker_1.FnArg(newPath, serializer_1.PRIMITIVE)];

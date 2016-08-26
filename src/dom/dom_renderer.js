@@ -87,7 +87,7 @@ var DomRenderer = (function () {
         if (lang_1.isString(selectorOrNode)) {
             el = dom_adapter_1.getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
             if (lang_1.isBlank(el)) {
-                throw new core_1.BaseException("The selector \"" + selectorOrNode + "\" did not match any elements");
+                throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
             }
         }
         else {

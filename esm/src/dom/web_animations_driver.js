@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AUTO_STYLE, BaseException } from '@angular/core';
+import { AUTO_STYLE } from '@angular/core';
 import { StringMapWrapper } from '../facade/collection';
 import { StringWrapper, isNumber, isPresent } from '../facade/lang';
 import { dashCaseToCamelCase } from './util';
@@ -69,7 +69,7 @@ function _resolveStyleUnit(val, userProvidedProp, formattedProp) {
             unit = 'px';
         }
         else if (_findDimensionalSuffix(val.toString()).length == 0) {
-            throw new BaseException('Please provide a CSS unit value for ' + userProvidedProp + ':' + val);
+            throw new Error('Please provide a CSS unit value for ' + userProvidedProp + ':' + val);
         }
     }
     return unit;

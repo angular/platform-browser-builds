@@ -74,7 +74,7 @@ function _resolveStyleUnit(val, userProvidedProp, formattedProp) {
             unit = 'px';
         }
         else if (_findDimensionalSuffix(val.toString()).length == 0) {
-            throw new core_1.BaseException('Please provide a CSS unit value for ' + userProvidedProp + ':' + val);
+            throw new Error('Please provide a CSS unit value for ' + userProvidedProp + ':' + val);
         }
     }
     return unit;

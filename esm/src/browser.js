@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule, PlatformLocation } from '@angular/common';
-import { ApplicationModule, BaseException, ExceptionHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, Sanitizer, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core';
+import { ApplicationModule, ErrorHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, Sanitizer, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core';
 import { wtfInit } from '../core_private';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
@@ -46,8 +46,8 @@ export function initDomAdapter() {
     wtfInit();
     BrowserGetTestability.init();
 }
-export function _exceptionHandler() {
-    return new ExceptionHandler(getDOM());
+export function errorHandler() {
+    return new ErrorHandler();
 }
 export function _document() {
     return getDOM().defaultDoc();
@@ -61,7 +61,7 @@ export function _resolveDefaultAnimationDriver() {
 export class BrowserModule {
     constructor(parentModule) {
         if (parentModule) {
-            throw new BaseException(`BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.`);
+            throw new Error(`BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.`);
         }
     }
 }
@@ -69,8 +69,7 @@ export class BrowserModule {
 BrowserModule.decorators = [
     { type: NgModule, args: [{
                 providers: [
-                    BROWSER_SANITIZATION_PROVIDERS,
-                    { provide: ExceptionHandler, useFactory: _exceptionHandler, deps: [] },
+                    BROWSER_SANITIZATION_PROVIDERS, { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
                     { provide: DOCUMENT, useFactory: _document, deps: [] },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
