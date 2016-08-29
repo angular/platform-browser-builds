@@ -9,19 +9,6 @@ import { setTestabilityGetter } from '@angular/core';
 import { getDOM } from '../dom/dom_adapter';
 import { ListWrapper } from '../facade/collection';
 import { global, isPresent } from '../facade/lang';
-class PublicTestability {
-    constructor(testability) {
-        this._testability = testability;
-    }
-    isStable() { return this._testability.isStable(); }
-    whenStable(callback) { this._testability.whenStable(callback); }
-    findBindings(using, provider, exactMatch) {
-        return this.findProviders(using, provider, exactMatch);
-    }
-    findProviders(using, provider, exactMatch) {
-        return this._testability.findBindings(using, provider, exactMatch);
-    }
-}
 export class BrowserGetTestability {
     static init() { setTestabilityGetter(new BrowserGetTestability()); }
     addToWindow(registry) {
@@ -30,12 +17,9 @@ export class BrowserGetTestability {
             if (testability == null) {
                 throw new Error('Could not find testability for element.');
             }
-            return new PublicTestability(testability);
+            return testability;
         };
-        global.getAllAngularTestabilities = () => {
-            var testabilities = registry.getAllTestabilities();
-            return testabilities.map((testability) => { return new PublicTestability(testability); });
-        };
+        global.getAllAngularTestabilities = () => { return registry.getAllTestabilities(); };
         global.getAllAngularRootElements = () => registry.getAllRootElements();
         var whenAllStable = (callback /** TODO #9100 */) => {
             var testabilities = global.getAllAngularTestabilities();

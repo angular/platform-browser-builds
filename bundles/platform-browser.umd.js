@@ -1391,20 +1391,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     ];
     /** @nocollapse */
     BrowserPlatformLocation.ctorParameters = [];
-    var PublicTestability = (function () {
-        function PublicTestability(testability) {
-            this._testability = testability;
-        }
-        PublicTestability.prototype.isStable = function () { return this._testability.isStable(); };
-        PublicTestability.prototype.whenStable = function (callback) { this._testability.whenStable(callback); };
-        PublicTestability.prototype.findBindings = function (using, provider, exactMatch) {
-            return this.findProviders(using, provider, exactMatch);
-        };
-        PublicTestability.prototype.findProviders = function (using, provider, exactMatch) {
-            return this._testability.findBindings(using, provider, exactMatch);
-        };
-        return PublicTestability;
-    }());
     var BrowserGetTestability = (function () {
         function BrowserGetTestability() {
         }
@@ -1416,12 +1402,9 @@ var __extends = (this && this.__extends) || function (d, b) {
                 if (testability == null) {
                     throw new Error('Could not find testability for element.');
                 }
-                return new PublicTestability(testability);
+                return testability;
             };
-            global$1.getAllAngularTestabilities = function () {
-                var testabilities = registry.getAllTestabilities();
-                return testabilities.map(function (testability) { return new PublicTestability(testability); });
-            };
+            global$1.getAllAngularTestabilities = function () { return registry.getAllTestabilities(); };
             global$1.getAllAngularRootElements = function () { return registry.getAllRootElements(); };
             var whenAllStable = function (callback /** TODO #9100 */) {
                 var testabilities = global$1.getAllAngularTestabilities();

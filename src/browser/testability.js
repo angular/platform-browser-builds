@@ -10,20 +10,6 @@ var core_1 = require('@angular/core');
 var dom_adapter_1 = require('../dom/dom_adapter');
 var collection_1 = require('../facade/collection');
 var lang_1 = require('../facade/lang');
-var PublicTestability = (function () {
-    function PublicTestability(testability) {
-        this._testability = testability;
-    }
-    PublicTestability.prototype.isStable = function () { return this._testability.isStable(); };
-    PublicTestability.prototype.whenStable = function (callback) { this._testability.whenStable(callback); };
-    PublicTestability.prototype.findBindings = function (using, provider, exactMatch) {
-        return this.findProviders(using, provider, exactMatch);
-    };
-    PublicTestability.prototype.findProviders = function (using, provider, exactMatch) {
-        return this._testability.findBindings(using, provider, exactMatch);
-    };
-    return PublicTestability;
-}());
 var BrowserGetTestability = (function () {
     function BrowserGetTestability() {
     }
@@ -35,12 +21,9 @@ var BrowserGetTestability = (function () {
             if (testability == null) {
                 throw new Error('Could not find testability for element.');
             }
-            return new PublicTestability(testability);
+            return testability;
         };
-        lang_1.global.getAllAngularTestabilities = function () {
-            var testabilities = registry.getAllTestabilities();
-            return testabilities.map(function (testability) { return new PublicTestability(testability); });
-        };
+        lang_1.global.getAllAngularTestabilities = function () { return registry.getAllTestabilities(); };
         lang_1.global.getAllAngularRootElements = function () { return registry.getAllRootElements(); };
         var whenAllStable = function (callback /** TODO #9100 */) {
             var testabilities = lang_1.global.getAllAngularTestabilities();
