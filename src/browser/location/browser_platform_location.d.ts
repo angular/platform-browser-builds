@@ -10,13 +10,12 @@ import { LocationChangeListener, PlatformLocation } from '@angular/common';
  * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
  * This class should not be used directly by an application developer. Instead, use
  * {@link Location}.
- *
- * @stable
  */
 export declare class BrowserPlatformLocation extends PlatformLocation {
     private _location;
     private _history;
     constructor();
+    location: Location;
     getBaseHrefFromDOM(): string;
     onPopState(fn: LocationChangeListener): void;
     onHashChange(fn: LocationChangeListener): void;
