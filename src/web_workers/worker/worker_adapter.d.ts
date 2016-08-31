@@ -117,8 +117,6 @@ export declare class WorkerDomAdapter extends DomAdapter {
     getComputedStyle(element: any): any;
     getData(element: any, name: string): string;
     setGlobalVar(name: string, value: any): void;
-    requestAnimationFrame(callback: any): number;
-    cancelAnimationFrame(id: any): void;
     performanceNow(): number;
     getAnimationPrefix(): string;
     getTransitionEnd(): string;

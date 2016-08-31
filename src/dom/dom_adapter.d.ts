@@ -133,8 +133,6 @@ export declare abstract class DomAdapter {
     abstract getComputedStyle(element: any): any;
     abstract getData(element: any, name: string): string;
     abstract setGlobalVar(name: string, value: any): any;
-    abstract requestAnimationFrame(callback: any): number;
-    abstract cancelAnimationFrame(id: any): any;
     abstract supportsWebAnimation(): boolean;
     abstract performanceNow(): number;
     abstract getAnimationPrefix(): string;

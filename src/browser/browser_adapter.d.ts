@@ -112,8 +112,6 @@ export declare class BrowserDomAdapter extends GenericBrowserDomAdapter {
     getData(element: any, name: string): string;
     getComputedStyle(element: any): any;
     setGlobalVar(path: string, value: any): void;
-    requestAnimationFrame(callback: any): number;
-    cancelAnimationFrame(id: number): void;
     supportsWebAnimation(): boolean;
     performanceNow(): number;
     supportsCookies(): boolean;

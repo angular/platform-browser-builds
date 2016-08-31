@@ -410,10 +410,6 @@ export var BrowserDomAdapter = (function (_super) {
     BrowserDomAdapter.prototype.getComputedStyle = function (element /** TODO #9100 */) { return getComputedStyle(element); };
     // TODO(tbosch): move this into a separate environment class once we have it
     BrowserDomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(global, path, value); };
-    BrowserDomAdapter.prototype.requestAnimationFrame = function (callback /** TODO #9100 */) {
-        return window.requestAnimationFrame(callback);
-    };
-    BrowserDomAdapter.prototype.cancelAnimationFrame = function (id) { window.cancelAnimationFrame(id); };
     BrowserDomAdapter.prototype.supportsWebAnimation = function () { return isFunction(Element.prototype['animate']); };
     BrowserDomAdapter.prototype.performanceNow = function () {
         // performance.now() is not available in all browsers, see
