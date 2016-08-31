@@ -5,24 +5,23 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var dom_adapter_1 = require('../../dom/dom_adapter');
+import { DomAdapter, setRootDomAdapter } from '../../dom/dom_adapter';
 /**
  * This adapter is required to log error messages.
  *
  * Note: other methods all throw as the DOM is not accessible directly in web worker context.
  */
-var WorkerDomAdapter = (function (_super) {
+export var WorkerDomAdapter = (function (_super) {
     __extends(WorkerDomAdapter, _super);
     function WorkerDomAdapter() {
         _super.apply(this, arguments);
     }
-    WorkerDomAdapter.makeCurrent = function () { dom_adapter_1.setRootDomAdapter(new WorkerDomAdapter()); };
+    WorkerDomAdapter.makeCurrent = function () { setRootDomAdapter(new WorkerDomAdapter()); };
     WorkerDomAdapter.prototype.logError = function (error /** TODO #9100 */) {
         if (console.error) {
             console.error(error);
@@ -209,6 +208,5 @@ var WorkerDomAdapter = (function (_super) {
     WorkerDomAdapter.prototype.getCookie = function (name) { throw 'not implemented'; };
     WorkerDomAdapter.prototype.setCookie = function (name, value) { throw 'not implemented'; };
     return WorkerDomAdapter;
-}(dom_adapter_1.DomAdapter));
-exports.WorkerDomAdapter = WorkerDomAdapter;
+}(DomAdapter));
 //# sourceMappingURL=worker_adapter.js.map

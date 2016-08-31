@@ -5,9 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
-var core_1 = require('@angular/core');
-var RenderStore = (function () {
+import { Injectable } from '@angular/core';
+export var RenderStore = (function () {
     function RenderStore() {
         this._nextIndex = 0;
         this._lookupById = new Map();
@@ -38,13 +37,11 @@ var RenderStore = (function () {
         }
         return this._lookupByObject.get(obj);
     };
-    /** @nocollapse */
     RenderStore.decorators = [
-        { type: core_1.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     RenderStore.ctorParameters = [];
     return RenderStore;
 }());
-exports.RenderStore = RenderStore;
 //# sourceMappingURL=render_store.js.map

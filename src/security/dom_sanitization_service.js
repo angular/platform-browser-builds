@@ -5,17 +5,16 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-exports.SecurityContext = core_1.SecurityContext;
-var html_sanitizer_1 = require('./html_sanitizer');
-var style_sanitizer_1 = require('./style_sanitizer');
-var url_sanitizer_1 = require('./url_sanitizer');
+import { Injectable, SecurityContext } from '@angular/core';
+import { sanitizeHtml } from './html_sanitizer';
+import { sanitizeStyle } from './style_sanitizer';
+import { sanitizeUrl } from './url_sanitizer';
+export { SecurityContext };
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.
@@ -47,13 +46,12 @@ var url_sanitizer_1 = require('./url_sanitizer');
  *
  * @stable
  */
-var DomSanitizer = (function () {
+export var DomSanitizer = (function () {
     function DomSanitizer() {
     }
     return DomSanitizer;
 }());
-exports.DomSanitizer = DomSanitizer;
-var DomSanitizerImpl = (function (_super) {
+export var DomSanitizerImpl = (function (_super) {
     __extends(DomSanitizerImpl, _super);
     function DomSanitizerImpl() {
         _super.apply(this, arguments);
@@ -62,31 +60,31 @@ var DomSanitizerImpl = (function (_super) {
         if (value == null)
             return null;
         switch (ctx) {
-            case core_1.SecurityContext.NONE:
+            case SecurityContext.NONE:
                 return value;
-            case core_1.SecurityContext.HTML:
+            case SecurityContext.HTML:
                 if (value instanceof SafeHtmlImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'HTML');
-                return html_sanitizer_1.sanitizeHtml(String(value));
-            case core_1.SecurityContext.STYLE:
+                return sanitizeHtml(String(value));
+            case SecurityContext.STYLE:
                 if (value instanceof SafeStyleImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'Style');
-                return style_sanitizer_1.sanitizeStyle(value);
-            case core_1.SecurityContext.SCRIPT:
+                return sanitizeStyle(value);
+            case SecurityContext.SCRIPT:
                 if (value instanceof SafeScriptImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'Script');
                 throw new Error('unsafe value used in a script context');
-            case core_1.SecurityContext.URL:
+            case SecurityContext.URL:
                 if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
                     // Allow resource URLs in URL contexts, they are strictly more trusted.
                     return value.changingThisBreaksApplicationSecurity;
                 }
                 this.checkNotSafeValue(value, 'URL');
-                return url_sanitizer_1.sanitizeUrl(String(value));
-            case core_1.SecurityContext.RESOURCE_URL:
+                return sanitizeUrl(String(value));
+            case SecurityContext.RESOURCE_URL:
                 if (value instanceof SafeResourceUrlImpl) {
                     return value.changingThisBreaksApplicationSecurity;
                 }
@@ -109,13 +107,13 @@ var DomSanitizerImpl = (function (_super) {
     DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
         return new SafeResourceUrlImpl(value);
     };
-    /** @nocollapse */
     DomSanitizerImpl.decorators = [
-        { type: core_1.Injectable },
+        { type: Injectable },
     ];
+    /** @nocollapse */
+    DomSanitizerImpl.ctorParameters = [];
     return DomSanitizerImpl;
 }(DomSanitizer));
-exports.DomSanitizerImpl = DomSanitizerImpl;
 var SafeValueImpl = (function () {
     function SafeValueImpl(changingThisBreaksApplicationSecurity) {
         this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;

@@ -5,23 +5,22 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var common_1 = require('@angular/common');
-var core_1 = require('@angular/core');
-var collection_1 = require('../../facade/collection');
-var lang_1 = require('../../facade/lang');
-var client_message_broker_1 = require('../shared/client_message_broker');
-var message_bus_1 = require('../shared/message_bus');
-var messaging_api_1 = require('../shared/messaging_api');
-var serialized_types_1 = require('../shared/serialized_types');
-var serializer_1 = require('../shared/serializer');
-var event_deserializer_1 = require('./event_deserializer');
-var WebWorkerPlatformLocation = (function (_super) {
+import { PlatformLocation } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { StringMapWrapper } from '../../facade/collection';
+import { StringWrapper } from '../../facade/lang';
+import { ClientMessageBrokerFactory, FnArg, UiArguments } from '../shared/client_message_broker';
+import { MessageBus } from '../shared/message_bus';
+import { ROUTER_CHANNEL } from '../shared/messaging_api';
+import { LocationType } from '../shared/serialized_types';
+import { PRIMITIVE, Serializer } from '../shared/serializer';
+import { deserializeGenericEvent } from './event_deserializer';
+export var WebWorkerPlatformLocation = (function (_super) {
     __extends(WebWorkerPlatformLocation, _super);
     function WebWorkerPlatformLocation(brokerFactory, bus, _serializer) {
         var _this = this;
@@ -30,23 +29,23 @@ var WebWorkerPlatformLocation = (function (_super) {
         this._popStateListeners = [];
         this._hashChangeListeners = [];
         this._location = null;
-        this._broker = brokerFactory.createMessageBroker(messaging_api_1.ROUTER_CHANNEL);
-        this._channelSource = bus.from(messaging_api_1.ROUTER_CHANNEL);
+        this._broker = brokerFactory.createMessageBroker(ROUTER_CHANNEL);
+        this._channelSource = bus.from(ROUTER_CHANNEL);
         this._channelSource.subscribe({
             next: function (msg) {
                 var listeners = null;
-                if (collection_1.StringMapWrapper.contains(msg, 'event')) {
+                if (StringMapWrapper.contains(msg, 'event')) {
                     var type = msg['event']['type'];
-                    if (lang_1.StringWrapper.equals(type, 'popstate')) {
+                    if (StringWrapper.equals(type, 'popstate')) {
                         listeners = _this._popStateListeners;
                     }
-                    else if (lang_1.StringWrapper.equals(type, 'hashchange')) {
+                    else if (StringWrapper.equals(type, 'hashchange')) {
                         listeners = _this._hashChangeListeners;
                     }
                     if (listeners !== null) {
-                        var e_1 = event_deserializer_1.deserializeGenericEvent(msg['event']);
+                        var e_1 = deserializeGenericEvent(msg['event']);
                         // There was a popState or hashChange event, so the location object thas been updated
-                        _this._location = _this._serializer.deserialize(msg['location'], serialized_types_1.LocationType);
+                        _this._location = _this._serializer.deserialize(msg['location'], LocationType);
                         listeners.forEach(function (fn) { return fn(e_1); });
                     }
                 }
@@ -56,8 +55,8 @@ var WebWorkerPlatformLocation = (function (_super) {
     /** @internal **/
     WebWorkerPlatformLocation.prototype.init = function () {
         var _this = this;
-        var args = new client_message_broker_1.UiArguments('getLocation');
-        var locationPromise = this._broker.runOnService(args, serialized_types_1.LocationType);
+        var args = new UiArguments('getLocation');
+        var locationPromise = this._broker.runOnService(args, LocationType);
         return locationPromise.then(function (val) {
             _this._location = val;
             return true;
@@ -80,8 +79,8 @@ var WebWorkerPlatformLocation = (function (_super) {
                 throw new Error('Attempt to set pathname before value is obtained from UI');
             }
             this._location.pathname = newPath;
-            var fnArgs = [new client_message_broker_1.FnArg(newPath, serializer_1.PRIMITIVE)];
-            var args = new client_message_broker_1.UiArguments('setPathname', fnArgs);
+            var fnArgs = [new FnArg(newPath, PRIMITIVE)];
+            var args = new UiArguments('setPathname', fnArgs);
             this._broker.runOnService(args, null);
         },
         enumerable: true,
@@ -108,34 +107,32 @@ var WebWorkerPlatformLocation = (function (_super) {
         configurable: true
     });
     WebWorkerPlatformLocation.prototype.pushState = function (state, title, url) {
-        var fnArgs = [new client_message_broker_1.FnArg(state, serializer_1.PRIMITIVE), new client_message_broker_1.FnArg(title, serializer_1.PRIMITIVE), new client_message_broker_1.FnArg(url, serializer_1.PRIMITIVE)];
-        var args = new client_message_broker_1.UiArguments('pushState', fnArgs);
+        var fnArgs = [new FnArg(state, PRIMITIVE), new FnArg(title, PRIMITIVE), new FnArg(url, PRIMITIVE)];
+        var args = new UiArguments('pushState', fnArgs);
         this._broker.runOnService(args, null);
     };
     WebWorkerPlatformLocation.prototype.replaceState = function (state, title, url) {
-        var fnArgs = [new client_message_broker_1.FnArg(state, serializer_1.PRIMITIVE), new client_message_broker_1.FnArg(title, serializer_1.PRIMITIVE), new client_message_broker_1.FnArg(url, serializer_1.PRIMITIVE)];
-        var args = new client_message_broker_1.UiArguments('replaceState', fnArgs);
+        var fnArgs = [new FnArg(state, PRIMITIVE), new FnArg(title, PRIMITIVE), new FnArg(url, PRIMITIVE)];
+        var args = new UiArguments('replaceState', fnArgs);
         this._broker.runOnService(args, null);
     };
     WebWorkerPlatformLocation.prototype.forward = function () {
-        var args = new client_message_broker_1.UiArguments('forward');
+        var args = new UiArguments('forward');
         this._broker.runOnService(args, null);
     };
     WebWorkerPlatformLocation.prototype.back = function () {
-        var args = new client_message_broker_1.UiArguments('back');
+        var args = new UiArguments('back');
         this._broker.runOnService(args, null);
     };
-    /** @nocollapse */
     WebWorkerPlatformLocation.decorators = [
-        { type: core_1.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     WebWorkerPlatformLocation.ctorParameters = [
-        { type: client_message_broker_1.ClientMessageBrokerFactory, },
-        { type: message_bus_1.MessageBus, },
-        { type: serializer_1.Serializer, },
+        { type: ClientMessageBrokerFactory, },
+        { type: MessageBus, },
+        { type: Serializer, },
     ];
     return WebWorkerPlatformLocation;
-}(common_1.PlatformLocation));
-exports.WebWorkerPlatformLocation = WebWorkerPlatformLocation;
+}(PlatformLocation));
 //# sourceMappingURL=platform_location.js.map

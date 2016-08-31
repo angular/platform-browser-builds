@@ -1,4 +1,4 @@
-import { AnimationPlayer } from '../../core_private';
+import { AnimationPlayer } from '../private_import_core';
 export declare class WebAnimationsPlayer implements AnimationPlayer {
     element: any;
     keyframes: {

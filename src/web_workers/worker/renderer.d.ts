@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { RenderComponentType, Renderer, RootRenderer } from '@angular/core';
-import { AnimationKeyframe, AnimationPlayer, AnimationStyles, RenderDebugInfo } from '../../../core_private';
+import { AnimationKeyframe, AnimationPlayer, AnimationStyles, RenderDebugInfo } from '../../private_import_core';
 import { ClientMessageBrokerFactory, FnArg } from '../shared/client_message_broker';
 import { MessageBus } from '../shared/message_bus';
 import { RenderStore } from '../shared/render_store';

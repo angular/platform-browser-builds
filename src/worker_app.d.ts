@@ -1,9 +1,9 @@
-import { ClassProvider, ErrorHandler, ExistingProvider, FactoryProvider, NgZone, PlatformRef, TypeProvider, ValueProvider } from '@angular/core';
+import { ErrorHandler, NgZone, PlatformRef, Provider } from '@angular/core';
 import { MessageBus } from './web_workers/shared/message_bus';
 /**
  * @experimental
  */
-export declare const platformWorkerApp: (extraProviders?: (TypeProvider | ValueProvider | ClassProvider | ExistingProvider | FactoryProvider | any[])[]) => PlatformRef;
+export declare const platformWorkerApp: (extraProviders?: Provider[]) => PlatformRef;
 /**
  * Exception handler factory function.
  *

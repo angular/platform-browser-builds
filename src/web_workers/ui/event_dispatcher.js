@@ -5,10 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
-var serializer_1 = require('../shared/serializer');
-var event_serializer_1 = require('./event_serializer');
-var EventDispatcher = (function () {
+import { RenderStoreObject } from '../shared/serializer';
+import { serializeEventWithTarget, serializeGenericEvent, serializeKeyboardEvent, serializeMouseEvent, serializeTransitionEvent } from './event_serializer';
+export var EventDispatcher = (function () {
     function EventDispatcher(_sink, _serializer) {
         this._sink = _sink;
         this._serializer = _serializer;
@@ -28,17 +27,17 @@ var EventDispatcher = (function () {
             case 'mouseout':
             case 'mouseover':
             case 'show':
-                serializedEvent = event_serializer_1.serializeMouseEvent(event);
+                serializedEvent = serializeMouseEvent(event);
                 break;
             case 'keydown':
             case 'keypress':
             case 'keyup':
-                serializedEvent = event_serializer_1.serializeKeyboardEvent(event);
+                serializedEvent = serializeKeyboardEvent(event);
                 break;
             case 'input':
             case 'change':
             case 'blur':
-                serializedEvent = event_serializer_1.serializeEventWithTarget(event);
+                serializedEvent = serializeEventWithTarget(event);
                 break;
             case 'abort':
             case 'afterprint':
@@ -88,16 +87,16 @@ var EventDispatcher = (function () {
             case 'visibilitychange':
             case 'volumechange':
             case 'waiting':
-                serializedEvent = event_serializer_1.serializeGenericEvent(event);
+                serializedEvent = serializeGenericEvent(event);
                 break;
             case 'transitionend':
-                serializedEvent = event_serializer_1.serializeTransitionEvent(event);
+                serializedEvent = serializeTransitionEvent(event);
                 break;
             default:
                 throw new Error(eventName + ' not supported on WebWorkers');
         }
         this._sink.emit({
-            'element': this._serializer.serialize(element, serializer_1.RenderStoreObject),
+            'element': this._serializer.serialize(element, RenderStoreObject),
             'eventName': eventName,
             'eventTarget': eventTarget,
             'event': serializedEvent
@@ -108,5 +107,4 @@ var EventDispatcher = (function () {
     };
     return EventDispatcher;
 }());
-exports.EventDispatcher = EventDispatcher;
 //# sourceMappingURL=event_dispatcher.js.map

@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 /**
  * Message Bus is a low level API used to communicate between the UI and the background.
  * Communication is based on a channel abstraction. Messages published in a
@@ -14,10 +13,9 @@
  *
  * @experimental WebWorker support in Angular is currenlty experimental.
  */
-var MessageBus = (function () {
+export var MessageBus = (function () {
     function MessageBus() {
     }
     return MessageBus;
 }());
-exports.MessageBus = MessageBus;
 //# sourceMappingURL=message_bus.js.map

@@ -13,7 +13,7 @@ import { MessageBasedPlatformLocation } from './platform_location';
  * include these providers when setting up the render thread.
  * @experimental
  */
-export declare const WORKER_UI_LOCATION_PROVIDERS: (typeof MessageBasedPlatformLocation | typeof BrowserPlatformLocation | {
+export declare const WORKER_UI_LOCATION_PROVIDERS: (typeof BrowserPlatformLocation | typeof MessageBasedPlatformLocation | {
     provide: any;
     useFactory: (injector: Injector) => () => void;
     multi: boolean;

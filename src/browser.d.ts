@@ -1,4 +1,4 @@
-import { ClassProvider, ErrorHandler, ExistingProvider, FactoryProvider, PlatformRef, Provider, TypeProvider, ValueProvider } from '@angular/core';
+import { ErrorHandler, PlatformRef, Provider } from '@angular/core';
 import { AnimationDriver } from '../src/dom/animation_driver';
 export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Provider[];
 /**
@@ -11,7 +11,7 @@ export declare const BROWSER_SANITIZATION_PROVIDERS: Array<any>;
 /**
  * @stable
  */
-export declare const platformBrowser: (extraProviders?: (TypeProvider | ValueProvider | ClassProvider | ExistingProvider | FactoryProvider | any[])[]) => PlatformRef;
+export declare const platformBrowser: (extraProviders?: Provider[]) => PlatformRef;
 export declare function initDomAdapter(): void;
 export declare function errorHandler(): ErrorHandler;
 export declare function _document(): any;

@@ -5,17 +5,16 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
-var core_1 = require('@angular/core');
-var dom_adapter_1 = require('../dom/dom_adapter');
-var collection_1 = require('../facade/collection');
-var lang_1 = require('../facade/lang');
-var BrowserGetTestability = (function () {
+import { setTestabilityGetter } from '@angular/core';
+import { getDOM } from '../dom/dom_adapter';
+import { ListWrapper } from '../facade/collection';
+import { global, isPresent } from '../facade/lang';
+export var BrowserGetTestability = (function () {
     function BrowserGetTestability() {
     }
-    BrowserGetTestability.init = function () { core_1.setTestabilityGetter(new BrowserGetTestability()); };
+    BrowserGetTestability.init = function () { setTestabilityGetter(new BrowserGetTestability()); };
     BrowserGetTestability.prototype.addToWindow = function (registry) {
-        lang_1.global.getAngularTestability = function (elem, findInAncestors) {
+        global.getAngularTestability = function (elem, findInAncestors) {
             if (findInAncestors === void 0) { findInAncestors = true; }
             var testability = registry.findTestabilityInTree(elem, findInAncestors);
             if (testability == null) {
@@ -23,10 +22,10 @@ var BrowserGetTestability = (function () {
             }
             return testability;
         };
-        lang_1.global.getAllAngularTestabilities = function () { return registry.getAllTestabilities(); };
-        lang_1.global.getAllAngularRootElements = function () { return registry.getAllRootElements(); };
+        global.getAllAngularTestabilities = function () { return registry.getAllTestabilities(); };
+        global.getAllAngularRootElements = function () { return registry.getAllRootElements(); };
         var whenAllStable = function (callback /** TODO #9100 */) {
-            var testabilities = lang_1.global.getAllAngularTestabilities();
+            var testabilities = global.getAllAngularTestabilities();
             var count = testabilities.length;
             var didWork = false;
             var decrement = function (didWork_ /** TODO #9100 */) {
@@ -40,28 +39,27 @@ var BrowserGetTestability = (function () {
                 testability.whenStable(decrement);
             });
         };
-        if (!lang_1.global['frameworkStabilizers']) {
-            lang_1.global['frameworkStabilizers'] = collection_1.ListWrapper.createGrowableSize(0);
+        if (!global['frameworkStabilizers']) {
+            global['frameworkStabilizers'] = ListWrapper.createGrowableSize(0);
         }
-        lang_1.global['frameworkStabilizers'].push(whenAllStable);
+        global['frameworkStabilizers'].push(whenAllStable);
     };
     BrowserGetTestability.prototype.findTestabilityInTree = function (registry, elem, findInAncestors) {
         if (elem == null) {
             return null;
         }
         var t = registry.getTestability(elem);
-        if (lang_1.isPresent(t)) {
+        if (isPresent(t)) {
             return t;
         }
         else if (!findInAncestors) {
             return null;
         }
-        if (dom_adapter_1.getDOM().isShadowRoot(elem)) {
-            return this.findTestabilityInTree(registry, dom_adapter_1.getDOM().getHost(elem), true);
+        if (getDOM().isShadowRoot(elem)) {
+            return this.findTestabilityInTree(registry, getDOM().getHost(elem), true);
         }
-        return this.findTestabilityInTree(registry, dom_adapter_1.getDOM().parentElement(elem), true);
+        return this.findTestabilityInTree(registry, getDOM().parentElement(elem), true);
     };
     return BrowserGetTestability;
 }());
-exports.BrowserGetTestability = BrowserGetTestability;
 //# sourceMappingURL=testability.js.map

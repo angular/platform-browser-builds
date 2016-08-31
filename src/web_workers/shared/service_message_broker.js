@@ -5,27 +5,25 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var core_1 = require('@angular/core');
-var collection_1 = require('../../facade/collection');
-var lang_1 = require('../../facade/lang');
-var message_bus_1 = require('../shared/message_bus');
-var serializer_1 = require('../shared/serializer');
+import { Injectable } from '@angular/core';
+import { ListWrapper, Map } from '../../facade/collection';
+import { FunctionWrapper, isPresent } from '../../facade/lang';
+import { MessageBus } from '../shared/message_bus';
+import { Serializer } from '../shared/serializer';
 /**
  * @experimental WebWorker support in Angular is currently experimental.
  */
-var ServiceMessageBrokerFactory = (function () {
+export var ServiceMessageBrokerFactory = (function () {
     function ServiceMessageBrokerFactory() {
     }
     return ServiceMessageBrokerFactory;
 }());
-exports.ServiceMessageBrokerFactory = ServiceMessageBrokerFactory;
-var ServiceMessageBrokerFactory_ = (function (_super) {
+export var ServiceMessageBrokerFactory_ = (function (_super) {
     __extends(ServiceMessageBrokerFactory_, _super);
     function ServiceMessageBrokerFactory_(_messageBus, _serializer) {
         _super.call(this);
@@ -37,18 +35,16 @@ var ServiceMessageBrokerFactory_ = (function (_super) {
         this._messageBus.initChannel(channel, runInZone);
         return new ServiceMessageBroker_(this._messageBus, this._serializer, channel);
     };
-    /** @nocollapse */
     ServiceMessageBrokerFactory_.decorators = [
-        { type: core_1.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     ServiceMessageBrokerFactory_.ctorParameters = [
-        { type: message_bus_1.MessageBus, },
-        { type: serializer_1.Serializer, },
+        { type: MessageBus, },
+        { type: Serializer, },
     ];
     return ServiceMessageBrokerFactory_;
 }(ServiceMessageBrokerFactory));
-exports.ServiceMessageBrokerFactory_ = ServiceMessageBrokerFactory_;
 /**
  * Helper class for UIComponents that allows components to register methods.
  * If a registered method message is received from the broker on the worker,
@@ -57,20 +53,19 @@ exports.ServiceMessageBrokerFactory_ = ServiceMessageBrokerFactory_;
  *
  * @experimental WebWorker support in Angular is currently experimental.
  */
-var ServiceMessageBroker = (function () {
+export var ServiceMessageBroker = (function () {
     function ServiceMessageBroker() {
     }
     return ServiceMessageBroker;
 }());
-exports.ServiceMessageBroker = ServiceMessageBroker;
-var ServiceMessageBroker_ = (function (_super) {
+export var ServiceMessageBroker_ = (function (_super) {
     __extends(ServiceMessageBroker_, _super);
     function ServiceMessageBroker_(messageBus, _serializer, channel /** TODO #9100 */) {
         var _this = this;
         _super.call(this);
         this._serializer = _serializer;
         this.channel = channel;
-        this._methods = new collection_1.Map();
+        this._methods = new Map();
         this._sink = messageBus.to(channel);
         var source = messageBus.from(channel);
         source.subscribe({ next: function (message) { return _this._handleMessage(message); } });
@@ -80,13 +75,13 @@ var ServiceMessageBroker_ = (function (_super) {
         this._methods.set(methodName, function (message) {
             var serializedArgs = message.args;
             var numArgs = signature === null ? 0 : signature.length;
-            var deserializedArgs = collection_1.ListWrapper.createFixedSize(numArgs);
+            var deserializedArgs = ListWrapper.createFixedSize(numArgs);
             for (var i = 0; i < numArgs; i++) {
                 var serializedArg = serializedArgs[i];
                 deserializedArgs[i] = _this._serializer.deserialize(serializedArg, signature[i]);
             }
-            var promise = lang_1.FunctionWrapper.apply(method, deserializedArgs);
-            if (lang_1.isPresent(returnType) && lang_1.isPresent(promise)) {
+            var promise = FunctionWrapper.apply(method, deserializedArgs);
+            if (isPresent(returnType) && isPresent(promise)) {
                 _this._wrapWebWorkerPromise(message.id, promise, returnType);
             }
         });
@@ -105,11 +100,10 @@ var ServiceMessageBroker_ = (function (_super) {
     };
     return ServiceMessageBroker_;
 }(ServiceMessageBroker));
-exports.ServiceMessageBroker_ = ServiceMessageBroker_;
 /**
  * @experimental WebWorker support in Angular is currently experimental.
  */
-var ReceivedMessage = (function () {
+export var ReceivedMessage = (function () {
     function ReceivedMessage(data) {
         this.method = data['method'];
         this.args = data['args'];
@@ -118,5 +112,4 @@ var ReceivedMessage = (function () {
     }
     return ReceivedMessage;
 }());
-exports.ReceivedMessage = ReceivedMessage;
 //# sourceMappingURL=service_message_broker.js.map

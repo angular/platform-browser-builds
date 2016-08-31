@@ -5,16 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
-var core_1 = require('@angular/core');
-var lang_1 = require('../../facade/lang');
-var message_bus_1 = require('../shared/message_bus');
-var messaging_api_1 = require('../shared/messaging_api');
-var render_store_1 = require('../shared/render_store');
-var serializer_1 = require('../shared/serializer');
-var service_message_broker_1 = require('../shared/service_message_broker');
-var event_dispatcher_1 = require('../ui/event_dispatcher');
-var MessageBasedRenderer = (function () {
+import { Injectable, RenderComponentType, RootRenderer } from '@angular/core';
+import { FunctionWrapper } from '../../facade/lang';
+import { MessageBus } from '../shared/message_bus';
+import { EVENT_CHANNEL, RENDERER_CHANNEL } from '../shared/messaging_api';
+import { RenderStore } from '../shared/render_store';
+import { PRIMITIVE, RenderStoreObject, Serializer } from '../shared/serializer';
+import { ServiceMessageBrokerFactory } from '../shared/service_message_broker';
+import { EventDispatcher } from '../ui/event_dispatcher';
+export var MessageBasedRenderer = (function () {
     function MessageBasedRenderer(_brokerFactory, _bus, _serializer, _renderStore, _rootRenderer) {
         this._brokerFactory = _brokerFactory;
         this._bus = _bus;
@@ -23,29 +22,29 @@ var MessageBasedRenderer = (function () {
         this._rootRenderer = _rootRenderer;
     }
     MessageBasedRenderer.prototype.start = function () {
-        var broker = this._brokerFactory.createMessageBroker(messaging_api_1.RENDERER_CHANNEL);
-        this._bus.initChannel(messaging_api_1.EVENT_CHANNEL);
-        this._eventDispatcher = new event_dispatcher_1.EventDispatcher(this._bus.to(messaging_api_1.EVENT_CHANNEL), this._serializer);
-        broker.registerMethod('renderComponent', [core_1.RenderComponentType, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._renderComponent, this));
-        broker.registerMethod('selectRootElement', [serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._selectRootElement, this));
-        broker.registerMethod('createElement', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createElement, this));
-        broker.registerMethod('createViewRoot', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createViewRoot, this));
-        broker.registerMethod('createTemplateAnchor', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createTemplateAnchor, this));
-        broker.registerMethod('createText', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._createText, this));
-        broker.registerMethod('projectNodes', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._projectNodes, this));
-        broker.registerMethod('attachViewAfter', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._attachViewAfter, this));
-        broker.registerMethod('detachView', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._detachView, this));
-        broker.registerMethod('destroyView', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._destroyView, this));
-        broker.registerMethod('setElementProperty', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementProperty, this));
-        broker.registerMethod('setElementAttribute', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementAttribute, this));
-        broker.registerMethod('setBindingDebugInfo', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setBindingDebugInfo, this));
-        broker.registerMethod('setElementClass', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementClass, this));
-        broker.registerMethod('setElementStyle', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setElementStyle, this));
-        broker.registerMethod('invokeElementMethod', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._invokeElementMethod, this));
-        broker.registerMethod('setText', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setText, this));
-        broker.registerMethod('listen', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._listen, this));
-        broker.registerMethod('listenGlobal', [serializer_1.RenderStoreObject, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._listenGlobal, this));
-        broker.registerMethod('listenDone', [serializer_1.RenderStoreObject, serializer_1.RenderStoreObject], lang_1.FunctionWrapper.bind(this._listenDone, this));
+        var broker = this._brokerFactory.createMessageBroker(RENDERER_CHANNEL);
+        this._bus.initChannel(EVENT_CHANNEL);
+        this._eventDispatcher = new EventDispatcher(this._bus.to(EVENT_CHANNEL), this._serializer);
+        broker.registerMethod('renderComponent', [RenderComponentType, PRIMITIVE], FunctionWrapper.bind(this._renderComponent, this));
+        broker.registerMethod('selectRootElement', [RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._selectRootElement, this));
+        broker.registerMethod('createElement', [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._createElement, this));
+        broker.registerMethod('createViewRoot', [RenderStoreObject, RenderStoreObject, PRIMITIVE], FunctionWrapper.bind(this._createViewRoot, this));
+        broker.registerMethod('createTemplateAnchor', [RenderStoreObject, RenderStoreObject, PRIMITIVE], FunctionWrapper.bind(this._createTemplateAnchor, this));
+        broker.registerMethod('createText', [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._createText, this));
+        broker.registerMethod('projectNodes', [RenderStoreObject, RenderStoreObject, RenderStoreObject], FunctionWrapper.bind(this._projectNodes, this));
+        broker.registerMethod('attachViewAfter', [RenderStoreObject, RenderStoreObject, RenderStoreObject], FunctionWrapper.bind(this._attachViewAfter, this));
+        broker.registerMethod('detachView', [RenderStoreObject, RenderStoreObject], FunctionWrapper.bind(this._detachView, this));
+        broker.registerMethod('destroyView', [RenderStoreObject, RenderStoreObject, RenderStoreObject], FunctionWrapper.bind(this._destroyView, this));
+        broker.registerMethod('setElementProperty', [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setElementProperty, this));
+        broker.registerMethod('setElementAttribute', [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setElementAttribute, this));
+        broker.registerMethod('setBindingDebugInfo', [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setBindingDebugInfo, this));
+        broker.registerMethod('setElementClass', [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setElementClass, this));
+        broker.registerMethod('setElementStyle', [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._setElementStyle, this));
+        broker.registerMethod('invokeElementMethod', [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._invokeElementMethod, this));
+        broker.registerMethod('setText', [RenderStoreObject, RenderStoreObject, PRIMITIVE], FunctionWrapper.bind(this._setText, this));
+        broker.registerMethod('listen', [RenderStoreObject, RenderStoreObject, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._listen, this));
+        broker.registerMethod('listenGlobal', [RenderStoreObject, PRIMITIVE, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._listenGlobal, this));
+        broker.registerMethod('listenDone', [RenderStoreObject, RenderStoreObject], FunctionWrapper.bind(this._listenDone, this));
     };
     MessageBasedRenderer.prototype._renderComponent = function (renderComponentType, rendererId) {
         var renderer = this._rootRenderer.renderComponent(renderComponentType);
@@ -120,19 +119,17 @@ var MessageBasedRenderer = (function () {
         this._renderStore.store(unregisterCallback, unlistenId);
     };
     MessageBasedRenderer.prototype._listenDone = function (renderer, unlistenCallback) { unlistenCallback(); };
-    /** @nocollapse */
     MessageBasedRenderer.decorators = [
-        { type: core_1.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     MessageBasedRenderer.ctorParameters = [
-        { type: service_message_broker_1.ServiceMessageBrokerFactory, },
-        { type: message_bus_1.MessageBus, },
-        { type: serializer_1.Serializer, },
-        { type: render_store_1.RenderStore, },
-        { type: core_1.RootRenderer, },
+        { type: ServiceMessageBrokerFactory, },
+        { type: MessageBus, },
+        { type: Serializer, },
+        { type: RenderStore, },
+        { type: RootRenderer, },
     ];
     return MessageBasedRenderer;
 }());
-exports.MessageBasedRenderer = MessageBasedRenderer;
 //# sourceMappingURL=renderer.js.map

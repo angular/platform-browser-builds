@@ -5,14 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
-var core_1 = require('@angular/core');
-var async_1 = require('../../facade/async');
-var collection_1 = require('../../facade/collection');
-var PostMessageBusSink = (function () {
+import { Injectable } from '@angular/core';
+import { EventEmitter } from '../../facade/async';
+import { StringMapWrapper } from '../../facade/collection';
+export var PostMessageBusSink = (function () {
     function PostMessageBusSink(_postMessageTarget) {
         this._postMessageTarget = _postMessageTarget;
-        this._channels = collection_1.StringMapWrapper.create();
+        this._channels = StringMapWrapper.create();
         this._messageBuffer = [];
     }
     PostMessageBusSink.prototype.attachToZone = function (zone) {
@@ -23,10 +22,10 @@ var PostMessageBusSink = (function () {
     PostMessageBusSink.prototype.initChannel = function (channel, runInZone) {
         var _this = this;
         if (runInZone === void 0) { runInZone = true; }
-        if (collection_1.StringMapWrapper.contains(this._channels, channel)) {
+        if (StringMapWrapper.contains(this._channels, channel)) {
             throw new Error(channel + " has already been initialized");
         }
-        var emitter = new async_1.EventEmitter(false);
+        var emitter = new EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
         this._channels[channel] = channelInfo;
         emitter.subscribe(function (data) {
@@ -40,7 +39,7 @@ var PostMessageBusSink = (function () {
         });
     };
     PostMessageBusSink.prototype.to = function (channel) {
-        if (collection_1.StringMapWrapper.contains(this._channels, channel)) {
+        if (StringMapWrapper.contains(this._channels, channel)) {
             return this._channels[channel].emitter;
         }
         else {
@@ -56,11 +55,10 @@ var PostMessageBusSink = (function () {
     PostMessageBusSink.prototype._sendMessages = function (messages) { this._postMessageTarget.postMessage(messages); };
     return PostMessageBusSink;
 }());
-exports.PostMessageBusSink = PostMessageBusSink;
-var PostMessageBusSource = (function () {
+export var PostMessageBusSource = (function () {
     function PostMessageBusSource(eventTarget) {
         var _this = this;
-        this._channels = collection_1.StringMapWrapper.create();
+        this._channels = StringMapWrapper.create();
         if (eventTarget) {
             eventTarget.addEventListener('message', function (ev) { return _this._handleMessages(ev); });
         }
@@ -73,15 +71,15 @@ var PostMessageBusSource = (function () {
     PostMessageBusSource.prototype.attachToZone = function (zone) { this._zone = zone; };
     PostMessageBusSource.prototype.initChannel = function (channel, runInZone) {
         if (runInZone === void 0) { runInZone = true; }
-        if (collection_1.StringMapWrapper.contains(this._channels, channel)) {
+        if (StringMapWrapper.contains(this._channels, channel)) {
             throw new Error(channel + " has already been initialized");
         }
-        var emitter = new async_1.EventEmitter(false);
+        var emitter = new EventEmitter(false);
         var channelInfo = new _Channel(emitter, runInZone);
         this._channels[channel] = channelInfo;
     };
     PostMessageBusSource.prototype.from = function (channel) {
-        if (collection_1.StringMapWrapper.contains(this._channels, channel)) {
+        if (StringMapWrapper.contains(this._channels, channel)) {
             return this._channels[channel].emitter;
         }
         else {
@@ -96,7 +94,7 @@ var PostMessageBusSource = (function () {
     };
     PostMessageBusSource.prototype._handleMessage = function (data) {
         var channel = data.channel;
-        if (collection_1.StringMapWrapper.contains(this._channels, channel)) {
+        if (StringMapWrapper.contains(this._channels, channel)) {
             var channelInfo = this._channels[channel];
             if (channelInfo.runInZone) {
                 this._zone.run(function () { channelInfo.emitter.emit(data.message); });
@@ -108,8 +106,11 @@ var PostMessageBusSource = (function () {
     };
     return PostMessageBusSource;
 }());
-exports.PostMessageBusSource = PostMessageBusSource;
-var PostMessageBus = (function () {
+/**
+ * A TypeScript implementation of {@link MessageBus} for communicating via JavaScript's
+ * postMessage API.
+ */
+export var PostMessageBus = (function () {
     function PostMessageBus(sink, source) {
         this.sink = sink;
         this.source = source;
@@ -125,9 +126,8 @@ var PostMessageBus = (function () {
     };
     PostMessageBus.prototype.from = function (channel) { return this.source.from(channel); };
     PostMessageBus.prototype.to = function (channel) { return this.sink.to(channel); };
-    /** @nocollapse */
     PostMessageBus.decorators = [
-        { type: core_1.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     PostMessageBus.ctorParameters = [
@@ -136,7 +136,6 @@ var PostMessageBus = (function () {
     ];
     return PostMessageBus;
 }());
-exports.PostMessageBus = PostMessageBus;
 /**
  * Helper class that wraps a channel's {@link EventEmitter} and
  * keeps track of if it should run in the zone.

@@ -5,54 +5,51 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
-var core_1 = require('@angular/core');
-var browser_platform_location_1 = require('../../browser/location/browser_platform_location');
-var lang_1 = require('../../facade/lang');
-var message_bus_1 = require('../shared/message_bus');
-var messaging_api_1 = require('../shared/messaging_api');
-var serialized_types_1 = require('../shared/serialized_types');
-var serializer_1 = require('../shared/serializer');
-var service_message_broker_1 = require('../shared/service_message_broker');
-var MessageBasedPlatformLocation = (function () {
+import { Injectable } from '@angular/core';
+import { BrowserPlatformLocation } from '../../browser/location/browser_platform_location';
+import { FunctionWrapper } from '../../facade/lang';
+import { MessageBus } from '../shared/message_bus';
+import { ROUTER_CHANNEL } from '../shared/messaging_api';
+import { LocationType } from '../shared/serialized_types';
+import { PRIMITIVE, Serializer } from '../shared/serializer';
+import { ServiceMessageBrokerFactory } from '../shared/service_message_broker';
+export var MessageBasedPlatformLocation = (function () {
     function MessageBasedPlatformLocation(_brokerFactory, _platformLocation, bus, _serializer) {
         this._brokerFactory = _brokerFactory;
         this._platformLocation = _platformLocation;
         this._serializer = _serializer;
-        this._platformLocation.onPopState(lang_1.FunctionWrapper.bind(this._sendUrlChangeEvent, this));
-        this._platformLocation.onHashChange(lang_1.FunctionWrapper.bind(this._sendUrlChangeEvent, this));
-        this._broker = this._brokerFactory.createMessageBroker(messaging_api_1.ROUTER_CHANNEL);
-        this._channelSink = bus.to(messaging_api_1.ROUTER_CHANNEL);
+        this._platformLocation.onPopState(FunctionWrapper.bind(this._sendUrlChangeEvent, this));
+        this._platformLocation.onHashChange(FunctionWrapper.bind(this._sendUrlChangeEvent, this));
+        this._broker = this._brokerFactory.createMessageBroker(ROUTER_CHANNEL);
+        this._channelSink = bus.to(ROUTER_CHANNEL);
     }
     MessageBasedPlatformLocation.prototype.start = function () {
-        this._broker.registerMethod('getLocation', null, lang_1.FunctionWrapper.bind(this._getLocation, this), serialized_types_1.LocationType);
-        this._broker.registerMethod('setPathname', [serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._setPathname, this));
-        this._broker.registerMethod('pushState', [serializer_1.PRIMITIVE, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._platformLocation.pushState, this._platformLocation));
-        this._broker.registerMethod('replaceState', [serializer_1.PRIMITIVE, serializer_1.PRIMITIVE, serializer_1.PRIMITIVE], lang_1.FunctionWrapper.bind(this._platformLocation.replaceState, this._platformLocation));
-        this._broker.registerMethod('forward', null, lang_1.FunctionWrapper.bind(this._platformLocation.forward, this._platformLocation));
-        this._broker.registerMethod('back', null, lang_1.FunctionWrapper.bind(this._platformLocation.back, this._platformLocation));
+        this._broker.registerMethod('getLocation', null, FunctionWrapper.bind(this._getLocation, this), LocationType);
+        this._broker.registerMethod('setPathname', [PRIMITIVE], FunctionWrapper.bind(this._setPathname, this));
+        this._broker.registerMethod('pushState', [PRIMITIVE, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._platformLocation.pushState, this._platformLocation));
+        this._broker.registerMethod('replaceState', [PRIMITIVE, PRIMITIVE, PRIMITIVE], FunctionWrapper.bind(this._platformLocation.replaceState, this._platformLocation));
+        this._broker.registerMethod('forward', null, FunctionWrapper.bind(this._platformLocation.forward, this._platformLocation));
+        this._broker.registerMethod('back', null, FunctionWrapper.bind(this._platformLocation.back, this._platformLocation));
     };
     MessageBasedPlatformLocation.prototype._getLocation = function () {
         return Promise.resolve(this._platformLocation.location);
     };
     MessageBasedPlatformLocation.prototype._sendUrlChangeEvent = function (e) {
-        var loc = this._serializer.serialize(this._platformLocation.location, serialized_types_1.LocationType);
+        var loc = this._serializer.serialize(this._platformLocation.location, LocationType);
         var serializedEvent = { 'type': e.type };
         this._channelSink.emit({ 'event': serializedEvent, 'location': loc });
     };
     MessageBasedPlatformLocation.prototype._setPathname = function (pathname) { this._platformLocation.pathname = pathname; };
-    /** @nocollapse */
     MessageBasedPlatformLocation.decorators = [
-        { type: core_1.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     MessageBasedPlatformLocation.ctorParameters = [
-        { type: service_message_broker_1.ServiceMessageBrokerFactory, },
-        { type: browser_platform_location_1.BrowserPlatformLocation, },
-        { type: message_bus_1.MessageBus, },
-        { type: serializer_1.Serializer, },
+        { type: ServiceMessageBrokerFactory, },
+        { type: BrowserPlatformLocation, },
+        { type: MessageBus, },
+        { type: Serializer, },
     ];
     return MessageBasedPlatformLocation;
 }());
-exports.MessageBasedPlatformLocation = MessageBasedPlatformLocation;
 //# sourceMappingURL=platform_location.js.map

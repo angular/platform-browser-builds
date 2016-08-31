@@ -3,21 +3,16 @@
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs/Subject'), require('rxjs/Observable')) :
-        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', 'rxjs/Subject', 'rxjs/Observable'], factory) :
-            (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}), global.ng.common, global.ng.core, global.Rx, global.Rx));
-}(this, function (exports, _angular_common, _angular_core, rxjs_Subject, rxjs_Observable) {
-    'use strict';
-    var wtfInit = _angular_core.__core_private__.wtfInit;
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', 'rxjs/Subject', 'rxjs/Observable'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}),global.ng.common,global.ng.core,global.Rx,global.Rx));
+}(this, function (exports,_angular_common,_angular_core,rxjs_Subject,rxjs_Observable) { 'use strict';
+
     var VIEW_ENCAPSULATION_VALUES = _angular_core.__core_private__.VIEW_ENCAPSULATION_VALUES;
     var DebugDomRootRenderer = _angular_core.__core_private__.DebugDomRootRenderer;
     var NoOpAnimationPlayer = _angular_core.__core_private__.NoOpAnimationPlayer;
+
     var _NoOpAnimationDriver = (function () {
         function _NoOpAnimationDriver() {
         }
@@ -32,9 +27,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     var AnimationDriver = (function () {
         function AnimationDriver() {
         }
+        AnimationDriver.NOOP = new _NoOpAnimationDriver();
         return AnimationDriver;
     }());
-    AnimationDriver.NOOP = new _NoOpAnimationDriver();
+
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -273,6 +269,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         obj[parts.shift()] = value;
     }
+
     var Map$1 = global$1.Map;
     var Set$1 = global$1.Set;
     // Safari and Internet Explorer do not support the iterable parameter to the
@@ -559,6 +556,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             };
         }
     })();
+
     var CAMEL_CASE_REGEXP = /([A-Z])/g;
     var DASH_CASE_REGEXP = /-([a-z])/g;
     function camelCaseToDashCase(input) {
@@ -567,6 +565,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function dashCaseToCamelCase(input) {
         return StringWrapper.replaceAllMapped(input, DASH_CASE_REGEXP, function (m /** TODO #9100 */) { return m[1].toUpperCase(); });
     }
+
     var _DOM = null;
     function getDOM() {
         return _DOM;
@@ -601,6 +600,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         ;
         return DomAdapter;
     }());
+
     var WebAnimationsPlayer = (function () {
         function WebAnimationsPlayer(element, keyframes, options) {
             this.element = element;
@@ -687,6 +687,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function _computeStyle(element, prop) {
         return getDOM().getComputedStyle(element)[prop];
     }
+
     var WebAnimationsDriver = (function () {
         function WebAnimationsDriver() {
         }
@@ -801,6 +802,19 @@ var __extends = (this && this.__extends) || function (d, b) {
                 return false;
         }
     }
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$1 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     /**
      * Provides DOM operations in any browser environment.
      *
@@ -808,7 +822,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * can introduce XSS risks.
      */
     var GenericBrowserDomAdapter = (function (_super) {
-        __extends(GenericBrowserDomAdapter, _super);
+        __extends$1(GenericBrowserDomAdapter, _super);
         function GenericBrowserDomAdapter() {
             var _this = this;
             _super.call(this);
@@ -862,6 +876,19 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return GenericBrowserDomAdapter;
     }(DomAdapter));
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var _attrToPropMap = {
         'class': 'className',
         'innerHtml': 'innerHTML',
@@ -1189,7 +1216,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         BrowserDomAdapter.prototype.isCommentNode = function (node) { return node.nodeType === Node.COMMENT_NODE; };
         BrowserDomAdapter.prototype.isElementNode = function (node) { return node.nodeType === Node.ELEMENT_NODE; };
         BrowserDomAdapter.prototype.hasShadowRoot = function (node /** TODO #9100 */) {
-            return node instanceof HTMLElement && isPresent(node.shadowRoot);
+            return isPresent(node.shadowRoot) && node instanceof HTMLElement;
         };
         BrowserDomAdapter.prototype.isShadowRoot = function (node /** TODO #9100 */) { return node instanceof DocumentFragment; };
         BrowserDomAdapter.prototype.importIntoDoc = function (node) {
@@ -1314,6 +1341,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return null;
     }
+
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -1324,8 +1352,28 @@ var __extends = (this && this.__extends) || function (d, b) {
     function supportsState() {
         return !!window.history.pushState;
     }
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$2 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+    /**
+     * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
+     * This class should not be used directly by an application developer. Instead, use
+     * {@link Location}.
+     *
+     * @stable
+     */
     var BrowserPlatformLocation = (function (_super) {
-        __extends(BrowserPlatformLocation, _super);
+        __extends$2(BrowserPlatformLocation, _super);
         function BrowserPlatformLocation() {
             _super.call(this);
             this._init();
@@ -1383,14 +1431,14 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
         BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
+        BrowserPlatformLocation.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        BrowserPlatformLocation.ctorParameters = [];
         return BrowserPlatformLocation;
     }(_angular_common.PlatformLocation));
-    /** @nocollapse */
-    BrowserPlatformLocation.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    BrowserPlatformLocation.ctorParameters = [];
+
     var BrowserGetTestability = (function () {
         function BrowserGetTestability() {
         }
@@ -1444,6 +1492,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return BrowserGetTestability;
     }());
+
     /**
      * A DI Token representing the main rendering context. In a browser this is the DOM Document.
      *
@@ -1453,10 +1502,14 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @stable
      */
     var DOCUMENT = new _angular_core.OpaqueToken('DocumentToken');
+
     /**
      * @stable
      */
     var EVENT_MANAGER_PLUGINS = new _angular_core.OpaqueToken('EventManagerPlugins');
+    /**
+     * @stable
+     */
     var EventManager = (function () {
         function EventManager(plugins, _zone) {
             var _this = this;
@@ -1484,17 +1537,16 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
             throw new Error("No event manager plugin found for event " + eventName);
         };
+        EventManager.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        EventManager.ctorParameters = [
+            { type: Array, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+            { type: _angular_core.NgZone, },
+        ];
         return EventManager;
     }());
-    /** @nocollapse */
-    EventManager.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    EventManager.ctorParameters = [
-        { type: Array, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-        { type: _angular_core.NgZone, },
-    ];
     var EventManagerPlugin = (function () {
         function EventManagerPlugin() {
         }
@@ -1508,6 +1560,19 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return EventManagerPlugin;
     }());
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$4 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var SharedStylesHost = (function () {
         function SharedStylesHost() {
             /** @internal */
@@ -1529,16 +1594,15 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         SharedStylesHost.prototype.onStylesAdded = function (additions) { };
         SharedStylesHost.prototype.getAllStyles = function () { return this._styles; };
+        SharedStylesHost.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        SharedStylesHost.ctorParameters = [];
         return SharedStylesHost;
     }());
-    /** @nocollapse */
-    SharedStylesHost.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    SharedStylesHost.ctorParameters = [];
     var DomSharedStylesHost = (function (_super) {
-        __extends(DomSharedStylesHost, _super);
+        __extends$4(DomSharedStylesHost, _super);
         function DomSharedStylesHost(doc) {
             _super.call(this);
             this._hostNodes = new Set();
@@ -1560,16 +1624,28 @@ var __extends = (this && this.__extends) || function (d, b) {
             var _this = this;
             this._hostNodes.forEach(function (hostNode) { _this._addStylesToHost(additions, hostNode); });
         };
+        DomSharedStylesHost.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        DomSharedStylesHost.ctorParameters = [
+            { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
+        ];
         return DomSharedStylesHost;
     }(SharedStylesHost));
-    /** @nocollapse */
-    DomSharedStylesHost.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    DomSharedStylesHost.ctorParameters = [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
-    ];
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$3 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var NAMESPACE_URIS = {
         'xlink': 'http://www.w3.org/1999/xlink',
         'svg': 'http://www.w3.org/2000/svg',
@@ -1596,23 +1672,22 @@ var __extends = (this && this.__extends) || function (d, b) {
         return DomRootRenderer;
     }());
     var DomRootRenderer_ = (function (_super) {
-        __extends(DomRootRenderer_, _super);
+        __extends$3(DomRootRenderer_, _super);
         function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver) {
             _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver);
         }
+        DomRootRenderer_.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        DomRootRenderer_.ctorParameters = [
+            { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
+            { type: EventManager, },
+            { type: DomSharedStylesHost, },
+            { type: AnimationDriver, },
+        ];
         return DomRootRenderer_;
     }(DomRootRenderer));
-    /** @nocollapse */
-    DomRootRenderer_.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    DomRootRenderer_.ctorParameters = [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
-        { type: EventManager, },
-        { type: DomSharedStylesHost, },
-        { type: AnimationDriver, },
-    ];
     var DomRenderer = (function () {
         function DomRenderer(_rootRenderer, componentProto, _animationDriver) {
             this._rootRenderer = _rootRenderer;
@@ -1837,6 +1912,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         var match = name.match(NS_PREFIX_RE);
         return [match[1], match[2]];
     }
+
     var CORE_TOKENS = {
         'ApplicationRef': _angular_core.ApplicationRef,
         'NgZone': _angular_core.NgZone
@@ -1888,8 +1964,21 @@ var __extends = (this && this.__extends) || function (d, b) {
             useFactory: _createRootRenderer,
             deps: [DomRootRenderer, [NgProbeToken, new _angular_core.Optional()]]
         }];
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$5 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var DomEventsPlugin = (function (_super) {
-        __extends(DomEventsPlugin, _super);
+        __extends$5(DomEventsPlugin, _super);
         function DomEventsPlugin() {
             _super.apply(this, arguments);
         }
@@ -1907,12 +1996,26 @@ var __extends = (this && this.__extends) || function (d, b) {
             var outsideHandler = function (event /** TODO #9100 */) { return zone.runGuarded(function () { return handler(event); }); };
             return this.manager.getZone().runOutsideAngular(function () { return getDOM().onAndCancel(element, eventName, outsideHandler); });
         };
+        DomEventsPlugin.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        DomEventsPlugin.ctorParameters = [];
         return DomEventsPlugin;
     }(EventManagerPlugin));
-    /** @nocollapse */
-    DomEventsPlugin.decorators = [
-        { type: _angular_core.Injectable },
-    ];
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$7 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var _eventNames = {
         // pan
         'pan': true,
@@ -1951,7 +2054,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         'tap': true,
     };
     var HammerGesturesPluginCommon = (function (_super) {
-        __extends(HammerGesturesPluginCommon, _super);
+        __extends$7(HammerGesturesPluginCommon, _super);
         function HammerGesturesPluginCommon() {
             _super.call(this);
         }
@@ -1961,6 +2064,19 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return HammerGesturesPluginCommon;
     }(EventManagerPlugin));
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$6 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     /**
      * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
      * Hammer gestures.
@@ -1968,6 +2084,9 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @experimental
      */
     var HAMMER_GESTURE_CONFIG = new _angular_core.OpaqueToken('HammerGestureConfig');
+    /**
+     * @experimental
+     */
     var HammerGestureConfig = (function () {
         function HammerGestureConfig() {
             this.events = [];
@@ -1982,14 +2101,15 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
             return mc;
         };
+        HammerGestureConfig.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        HammerGestureConfig.ctorParameters = [];
         return HammerGestureConfig;
     }());
-    /** @nocollapse */
-    HammerGestureConfig.decorators = [
-        { type: _angular_core.Injectable },
-    ];
     var HammerGesturesPlugin = (function (_super) {
-        __extends(HammerGesturesPlugin, _super);
+        __extends$6(HammerGesturesPlugin, _super);
         function HammerGesturesPlugin(_config) {
             _super.call(this);
             this._config = _config;
@@ -2017,16 +2137,28 @@ var __extends = (this && this.__extends) || function (d, b) {
             });
         };
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
+        HammerGesturesPlugin.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        HammerGesturesPlugin.ctorParameters = [
+            { type: HammerGestureConfig, decorators: [{ type: _angular_core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+        ];
         return HammerGesturesPlugin;
     }(HammerGesturesPluginCommon));
-    /** @nocollapse */
-    HammerGesturesPlugin.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    HammerGesturesPlugin.ctorParameters = [
-        { type: HammerGestureConfig, decorators: [{ type: _angular_core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
-    ];
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$8 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var modifierKeys = ['alt', 'control', 'meta', 'shift'];
     var modifierKeyGetters = {
         'alt': function (event) { return event.altKey; },
@@ -2034,8 +2166,11 @@ var __extends = (this && this.__extends) || function (d, b) {
         'meta': function (event) { return event.metaKey; },
         'shift': function (event) { return event.shiftKey; }
     };
+    /**
+     * @experimental
+     */
     var KeyEventsPlugin = (function (_super) {
-        __extends(KeyEventsPlugin, _super);
+        __extends$8(KeyEventsPlugin, _super);
         function KeyEventsPlugin() {
             _super.call(this);
         }
@@ -2113,14 +2248,14 @@ var __extends = (this && this.__extends) || function (d, b) {
                     return keyName;
             }
         };
+        KeyEventsPlugin.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        KeyEventsPlugin.ctorParameters = [];
         return KeyEventsPlugin;
     }(EventManagerPlugin));
-    /** @nocollapse */
-    KeyEventsPlugin.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    KeyEventsPlugin.ctorParameters = [];
+
     /**
      * A pattern that recognizes a commonly useful subset of URLs that are safe.
      *
@@ -2163,6 +2298,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         srcset = String(srcset);
         return srcset.split(',').map(function (srcset) { return sanitizeUrl(srcset.trim()); }).join(', ');
     }
+
     /** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
     var inertElement = null;
     /** Lazily initialized to make sure the DOM adapter gets set before use. */
@@ -2417,6 +2553,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             throw e;
         }
     }
+
     /**
      * Regular expression for safe style values.
      *
@@ -2497,6 +2634,19 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return 'unsafe';
     }
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$9 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     /**
      * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
      * values to be safe to use in the different DOM contexts.
@@ -2534,7 +2684,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return DomSanitizer;
     }());
     var DomSanitizerImpl = (function (_super) {
-        __extends(DomSanitizerImpl, _super);
+        __extends$9(DomSanitizerImpl, _super);
         function DomSanitizerImpl() {
             _super.apply(this, arguments);
         }
@@ -2589,12 +2739,13 @@ var __extends = (this && this.__extends) || function (d, b) {
         DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
             return new SafeResourceUrlImpl(value);
         };
+        DomSanitizerImpl.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        DomSanitizerImpl.ctorParameters = [];
         return DomSanitizerImpl;
     }(DomSanitizer));
-    /** @nocollapse */
-    DomSanitizerImpl.decorators = [
-        { type: _angular_core.Injectable },
-    ];
     var SafeValueImpl = (function () {
         function SafeValueImpl(changingThisBreaksApplicationSecurity) {
             this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
@@ -2607,7 +2758,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return SafeValueImpl;
     }());
     var SafeHtmlImpl = (function (_super) {
-        __extends(SafeHtmlImpl, _super);
+        __extends$9(SafeHtmlImpl, _super);
         function SafeHtmlImpl() {
             _super.apply(this, arguments);
         }
@@ -2615,7 +2766,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return SafeHtmlImpl;
     }(SafeValueImpl));
     var SafeStyleImpl = (function (_super) {
-        __extends(SafeStyleImpl, _super);
+        __extends$9(SafeStyleImpl, _super);
         function SafeStyleImpl() {
             _super.apply(this, arguments);
         }
@@ -2623,7 +2774,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return SafeStyleImpl;
     }(SafeValueImpl));
     var SafeScriptImpl = (function (_super) {
-        __extends(SafeScriptImpl, _super);
+        __extends$9(SafeScriptImpl, _super);
         function SafeScriptImpl() {
             _super.apply(this, arguments);
         }
@@ -2631,7 +2782,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return SafeScriptImpl;
     }(SafeValueImpl));
     var SafeUrlImpl = (function (_super) {
-        __extends(SafeUrlImpl, _super);
+        __extends$9(SafeUrlImpl, _super);
         function SafeUrlImpl() {
             _super.apply(this, arguments);
         }
@@ -2639,13 +2790,14 @@ var __extends = (this && this.__extends) || function (d, b) {
         return SafeUrlImpl;
     }(SafeValueImpl));
     var SafeResourceUrlImpl = (function (_super) {
-        __extends(SafeResourceUrlImpl, _super);
+        __extends$9(SafeResourceUrlImpl, _super);
         function SafeResourceUrlImpl() {
             _super.apply(this, arguments);
         }
         SafeResourceUrlImpl.prototype.getTypeName = function () { return 'ResourceURL'; };
         return SafeResourceUrlImpl;
     }(SafeValueImpl));
+
     var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
         { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
         { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
@@ -2666,7 +2818,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     var platformBrowser = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
     function initDomAdapter() {
         BrowserDomAdapter.makeCurrent();
-        wtfInit();
         BrowserGetTestability.init();
     }
     function errorHandler() {
@@ -2681,37 +2832,42 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return AnimationDriver.NOOP;
     }
+    /**
+     * The ng module for the browser.
+     *
+     * @stable
+     */
     var BrowserModule = (function () {
         function BrowserModule(parentModule) {
             if (parentModule) {
                 throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
             }
         }
+        BrowserModule.decorators = [
+            { type: _angular_core.NgModule, args: [{
+                        providers: [
+                            BROWSER_SANITIZATION_PROVIDERS, { provide: _angular_core.ErrorHandler, useFactory: errorHandler, deps: [] },
+                            { provide: DOCUMENT, useFactory: _document, deps: [] },
+                            { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+                            { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+                            { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+                            { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+                            { provide: DomRootRenderer, useClass: DomRootRenderer_ },
+                            { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
+                            { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+                            { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
+                            _angular_core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS
+                        ],
+                        exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
+                    },] },
+        ];
+        /** @nocollapse */
+        BrowserModule.ctorParameters = [
+            { type: BrowserModule, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
+        ];
         return BrowserModule;
     }());
-    /** @nocollapse */
-    BrowserModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    providers: [
-                        BROWSER_SANITIZATION_PROVIDERS, { provide: _angular_core.ErrorHandler, useFactory: errorHandler, deps: [] },
-                        { provide: DOCUMENT, useFactory: _document, deps: [] },
-                        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-                        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-                        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-                        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-                        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-                        { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
-                        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-                        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
-                        _angular_core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS
-                    ],
-                    exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
-                },] },
-    ];
-    /** @nocollapse */
-    BrowserModule.ctorParameters = [
-        { type: BrowserModule, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
-    ];
+
     /**
      * A service that can be used to get and set the title of a current HTML document.
      *
@@ -2737,6 +2893,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(newTitle); };
         return Title;
     }());
+
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -2748,6 +2905,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * JS version of browser APIs. This library can only run in the browser.
      */
     var win = typeof window !== 'undefined' && window || {};
+
     var ChangeDetectionPerfRecord = (function () {
         function ChangeDetectionPerfRecord(msPerTick, numTicks) {
             this.msPerTick = msPerTick;
@@ -2818,6 +2976,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return AngularProfiler;
     }());
+
     var context = global$1;
     /**
      * Enabled Angular 2 debug tools that are accessible via your browser's
@@ -2844,6 +3003,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function disableDebugTools() {
         delete context.ng;
     }
+
     /**
      * Predicates for use with {@link DebugElement}'s query functions.
      *
@@ -2886,6 +3046,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return By;
     }());
+
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -2906,6 +3067,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return MessageBus;
     }());
+
     var RenderStore = (function () {
         function RenderStore() {
             this._nextIndex = 0;
@@ -2937,14 +3099,14 @@ var __extends = (this && this.__extends) || function (d, b) {
             }
             return this._lookupByObject.get(obj);
         };
+        RenderStore.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        RenderStore.ctorParameters = [];
         return RenderStore;
     }());
-    /** @nocollapse */
-    RenderStore.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    RenderStore.ctorParameters = [];
+
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -2968,6 +3130,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return LocationType;
     }());
+
     // PRIMITIVE is any type that does not need to be serialized (string, number, boolean)
     // We set it to String so that it is considered a Type.
     /**
@@ -3062,21 +3225,33 @@ var __extends = (this && this.__extends) || function (d, b) {
         Serializer.prototype._deserializeRenderComponentType = function (map) {
             return new _angular_core.RenderComponentType(map['id'], map['templateUrl'], map['slotCount'], this.deserialize(map['encapsulation'], _angular_core.ViewEncapsulation), this.deserialize(map['styles'], PRIMITIVE), {});
         };
+        Serializer.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        Serializer.ctorParameters = [
+            { type: RenderStore, },
+        ];
         return Serializer;
     }());
-    /** @nocollapse */
-    Serializer.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    Serializer.ctorParameters = [
-        { type: RenderStore, },
-    ];
     var RenderStoreObject = (function () {
         function RenderStoreObject() {
         }
         return RenderStoreObject;
     }());
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$10 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     /**
      * @experimental WebWorker support in Angular is experimental.
      */
@@ -3086,7 +3261,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return ClientMessageBrokerFactory;
     }());
     var ClientMessageBrokerFactory_ = (function (_super) {
-        __extends(ClientMessageBrokerFactory_, _super);
+        __extends$10(ClientMessageBrokerFactory_, _super);
         function ClientMessageBrokerFactory_(_messageBus, _serializer) {
             _super.call(this);
             this._messageBus = _messageBus;
@@ -3100,17 +3275,16 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._messageBus.initChannel(channel, runInZone);
             return new ClientMessageBroker_(this._messageBus, this._serializer, channel);
         };
+        ClientMessageBrokerFactory_.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        ClientMessageBrokerFactory_.ctorParameters = [
+            { type: MessageBus, },
+            { type: Serializer, },
+        ];
         return ClientMessageBrokerFactory_;
     }(ClientMessageBrokerFactory));
-    /** @nocollapse */
-    ClientMessageBrokerFactory_.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    ClientMessageBrokerFactory_.ctorParameters = [
-        { type: MessageBus, },
-        { type: Serializer, },
-    ];
     /**
      * @experimental WebWorker support in Angular is experimental.
      */
@@ -3120,7 +3294,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return ClientMessageBroker;
     }());
     var ClientMessageBroker_ = (function (_super) {
-        __extends(ClientMessageBroker_, _super);
+        __extends$10(ClientMessageBroker_, _super);
         function ClientMessageBroker_(messageBus, _serializer, channel /** TODO #9100 */) {
             var _this = this;
             _super.call(this);
@@ -3243,6 +3417,19 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return UiArguments;
     }());
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$11 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     /**
      * @experimental WebWorker support in Angular is currently experimental.
      */
@@ -3252,7 +3439,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return ServiceMessageBrokerFactory;
     }());
     var ServiceMessageBrokerFactory_ = (function (_super) {
-        __extends(ServiceMessageBrokerFactory_, _super);
+        __extends$11(ServiceMessageBrokerFactory_, _super);
         function ServiceMessageBrokerFactory_(_messageBus, _serializer) {
             _super.call(this);
             this._messageBus = _messageBus;
@@ -3263,17 +3450,16 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._messageBus.initChannel(channel, runInZone);
             return new ServiceMessageBroker_(this._messageBus, this._serializer, channel);
         };
+        ServiceMessageBrokerFactory_.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        ServiceMessageBrokerFactory_.ctorParameters = [
+            { type: MessageBus, },
+            { type: Serializer, },
+        ];
         return ServiceMessageBrokerFactory_;
     }(ServiceMessageBrokerFactory));
-    /** @nocollapse */
-    ServiceMessageBrokerFactory_.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    ServiceMessageBrokerFactory_.ctorParameters = [
-        { type: MessageBus, },
-        { type: Serializer, },
-    ];
     /**
      * Helper class for UIComponents that allows components to register methods.
      * If a registered method message is received from the broker on the worker,
@@ -3288,7 +3474,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         return ServiceMessageBroker;
     }());
     var ServiceMessageBroker_ = (function (_super) {
-        __extends(ServiceMessageBroker_, _super);
+        __extends$11(ServiceMessageBroker_, _super);
         function ServiceMessageBroker_(messageBus, _serializer, channel /** TODO #9100 */) {
             var _this = this;
             _super.call(this);
@@ -3341,6 +3527,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return ReceivedMessage;
     }());
+
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -3355,6 +3542,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     var RENDERER_CHANNEL = 'ng-Renderer';
     var EVENT_CHANNEL = 'ng-Events';
     var ROUTER_CHANNEL = 'ng-Router';
+
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -3367,8 +3555,21 @@ var __extends = (this && this.__extends) || function (d, b) {
     function deserializeGenericEvent(serializedEvent) {
         return serializedEvent;
     }
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$12 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var WebWorkerPlatformLocation = (function (_super) {
-        __extends(WebWorkerPlatformLocation, _super);
+        __extends$12(WebWorkerPlatformLocation, _super);
         function WebWorkerPlatformLocation(brokerFactory, bus, _serializer) {
             var _this = this;
             _super.call(this);
@@ -3471,18 +3672,18 @@ var __extends = (this && this.__extends) || function (d, b) {
             var args = new UiArguments('back');
             this._broker.runOnService(args, null);
         };
+        WebWorkerPlatformLocation.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        WebWorkerPlatformLocation.ctorParameters = [
+            { type: ClientMessageBrokerFactory, },
+            { type: MessageBus, },
+            { type: Serializer, },
+        ];
         return WebWorkerPlatformLocation;
     }(_angular_common.PlatformLocation));
-    /** @nocollapse */
-    WebWorkerPlatformLocation.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    WebWorkerPlatformLocation.ctorParameters = [
-        { type: ClientMessageBrokerFactory, },
-        { type: MessageBus, },
-        { type: Serializer, },
-    ];
+
     /**
      * Those providers should be added when the router is used in a worker context in addition to the
      * {@link ROUTER_PROVIDERS} and after them.
@@ -3499,6 +3700,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function appInitFnFactory(platformLocation, zone) {
         return function () { return zone.runGuarded(function () { return platformLocation.init(); }); };
     }
+
     var MessageBasedPlatformLocation = (function () {
         function MessageBasedPlatformLocation(_brokerFactory, _platformLocation, bus, _serializer) {
             this._brokerFactory = _brokerFactory;
@@ -3526,19 +3728,19 @@ var __extends = (this && this.__extends) || function (d, b) {
             this._channelSink.emit({ 'event': serializedEvent, 'location': loc });
         };
         MessageBasedPlatformLocation.prototype._setPathname = function (pathname) { this._platformLocation.pathname = pathname; };
+        MessageBasedPlatformLocation.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        MessageBasedPlatformLocation.ctorParameters = [
+            { type: ServiceMessageBrokerFactory, },
+            { type: BrowserPlatformLocation, },
+            { type: MessageBus, },
+            { type: Serializer, },
+        ];
         return MessageBasedPlatformLocation;
     }());
-    /** @nocollapse */
-    MessageBasedPlatformLocation.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    MessageBasedPlatformLocation.ctorParameters = [
-        { type: ServiceMessageBrokerFactory, },
-        { type: BrowserPlatformLocation, },
-        { type: MessageBus, },
-        { type: Serializer, },
-    ];
+
     /**
      * A list of {@link Provider}s. To use the router in a Worker enabled application you must
      * include these providers when setting up the render thread.
@@ -3554,7 +3756,21 @@ var __extends = (this && this.__extends) || function (d, b) {
             zone.runGuarded(function () { return injector.get(MessageBasedPlatformLocation).start(); });
         };
     }
+
     var ON_WEB_WORKER = new _angular_core.OpaqueToken('WebWorker.onWebWorker');
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$13 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     /**
      * Use by directives and components to emit custom Events.
      *
@@ -3603,7 +3819,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @stable
      */
     var EventEmitter = (function (_super) {
-        __extends(EventEmitter, _super);
+        __extends$13(EventEmitter, _super);
         /**
          * Creates an instance of [EventEmitter], which depending on [isAsync],
          * delivers events synchronously or asynchronously.
@@ -3648,6 +3864,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return EventEmitter;
     }(rxjs_Subject.Subject));
+
     var PostMessageBusSink = (function () {
         function PostMessageBusSink(_postMessageTarget) {
             this._postMessageTarget = _postMessageTarget;
@@ -3746,6 +3963,10 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return PostMessageBusSource;
     }());
+    /**
+     * A TypeScript implementation of {@link MessageBus} for communicating via JavaScript's
+     * postMessage API.
+     */
     var PostMessageBus = (function () {
         function PostMessageBus(sink, source) {
             this.sink = sink;
@@ -3762,17 +3983,16 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         PostMessageBus.prototype.from = function (channel) { return this.source.from(channel); };
         PostMessageBus.prototype.to = function (channel) { return this.sink.to(channel); };
+        PostMessageBus.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        PostMessageBus.ctorParameters = [
+            { type: PostMessageBusSink, },
+            { type: PostMessageBusSource, },
+        ];
         return PostMessageBus;
     }());
-    /** @nocollapse */
-    PostMessageBus.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    PostMessageBus.ctorParameters = [
-        { type: PostMessageBusSink, },
-        { type: PostMessageBusSource, },
-    ];
     /**
      * Helper class that wraps a channel's {@link EventEmitter} and
      * keeps track of if it should run in the zone.
@@ -3784,6 +4004,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return _Channel;
     }());
+
     var MOUSE_EVENT_PROPERTIES = [
         'altKey', 'button', 'clientX', 'clientY', 'metaKey', 'movementX', 'movementY', 'offsetX',
         'offsetY', 'region', 'screenX', 'screenY', 'shiftKey'
@@ -3834,6 +4055,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return serialized;
     }
+
     var EventDispatcher = (function () {
         function EventDispatcher(_sink, _serializer) {
             this._sink = _sink;
@@ -3934,6 +4156,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         return EventDispatcher;
     }());
+
     var MessageBasedRenderer = (function () {
         function MessageBasedRenderer(_brokerFactory, _bus, _serializer, _renderStore, _rootRenderer) {
             this._brokerFactory = _brokerFactory;
@@ -4027,29 +4250,39 @@ var __extends = (this && this.__extends) || function (d, b) {
         };
         MessageBasedRenderer.prototype._listen = function (renderer, renderElement, eventName, unlistenId) {
             var _this = this;
-            var unregisterCallback = renderer.listen(renderElement, eventName, function (event /** TODO #9100 */) { return _this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event); });
+            var unregisterCallback = renderer.listen(renderElement, eventName, function (event /** TODO #9100 */) {
+                return _this._eventDispatcher.dispatchRenderEvent(renderElement, null, eventName, event);
+            });
             this._renderStore.store(unregisterCallback, unlistenId);
         };
         MessageBasedRenderer.prototype._listenGlobal = function (renderer, eventTarget, eventName, unlistenId) {
             var _this = this;
-            var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, function (event /** TODO #9100 */) { return _this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event); });
+            var unregisterCallback = renderer.listenGlobal(eventTarget, eventName, function (event /** TODO #9100 */) {
+                return _this._eventDispatcher.dispatchRenderEvent(null, eventTarget, eventName, event);
+            });
             this._renderStore.store(unregisterCallback, unlistenId);
         };
         MessageBasedRenderer.prototype._listenDone = function (renderer, unlistenCallback) { unlistenCallback(); };
+        MessageBasedRenderer.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        MessageBasedRenderer.ctorParameters = [
+            { type: ServiceMessageBrokerFactory, },
+            { type: MessageBus, },
+            { type: Serializer, },
+            { type: RenderStore, },
+            { type: _angular_core.RootRenderer, },
+        ];
         return MessageBasedRenderer;
     }());
-    /** @nocollapse */
-    MessageBasedRenderer.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    MessageBasedRenderer.ctorParameters = [
-        { type: ServiceMessageBrokerFactory, },
-        { type: MessageBus, },
-        { type: Serializer, },
-        { type: RenderStore, },
-        { type: _angular_core.RootRenderer, },
-    ];
+
+    /**
+     * Wrapper class that exposes the Worker
+     * and underlying {@link MessageBus} for lower level message passing.
+     *
+     * @experimental WebWorker support is currently experimental.
+     */
     var WebWorkerInstance = (function () {
         function WebWorkerInstance() {
         }
@@ -4058,12 +4291,13 @@ var __extends = (this && this.__extends) || function (d, b) {
             this.worker = worker;
             this.bus = bus;
         };
+        WebWorkerInstance.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        WebWorkerInstance.ctorParameters = [];
         return WebWorkerInstance;
     }());
-    /** @nocollapse */
-    WebWorkerInstance.decorators = [
-        { type: _angular_core.Injectable },
-    ];
     /**
      * @experimental WebWorker support is currently experimental.
      */
@@ -4127,7 +4361,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function initWebWorkerRenderPlatform(injector) {
         return function () {
             BrowserDomAdapter.makeCurrent();
-            wtfInit();
             BrowserGetTestability.init();
             var scriptUri;
             try {
@@ -4169,6 +4402,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         // work with animations just yet...
         return AnimationDriver.NOOP;
     }
+
     var WebWorkerRootRenderer = (function () {
         function WebWorkerRootRenderer(messageBrokerFactory, bus, _serializer, _renderStore) {
             var _this = this;
@@ -4223,19 +4457,18 @@ var __extends = (this && this.__extends) || function (d, b) {
                 this._renderStore.remove(nodes[i]);
             }
         };
+        WebWorkerRootRenderer.decorators = [
+            { type: _angular_core.Injectable },
+        ];
+        /** @nocollapse */
+        WebWorkerRootRenderer.ctorParameters = [
+            { type: ClientMessageBrokerFactory, },
+            { type: MessageBus, },
+            { type: Serializer, },
+            { type: RenderStore, },
+        ];
         return WebWorkerRootRenderer;
     }());
-    /** @nocollapse */
-    WebWorkerRootRenderer.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    WebWorkerRootRenderer.ctorParameters = [
-        { type: ClientMessageBrokerFactory, },
-        { type: MessageBus, },
-        { type: Serializer, },
-        { type: RenderStore, },
-    ];
     var WebWorkerRenderer = (function () {
         function WebWorkerRenderer(_rootRenderer, _componentType) {
             this._rootRenderer = _rootRenderer;
@@ -4394,13 +4627,26 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         return WebWorkerRenderNode;
     }());
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends$14 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     /**
      * This adapter is required to log error messages.
      *
      * Note: other methods all throw as the DOM is not accessible directly in web worker context.
      */
     var WorkerDomAdapter = (function (_super) {
-        __extends(WorkerDomAdapter, _super);
+        __extends$14(WorkerDomAdapter, _super);
         function WorkerDomAdapter() {
             _super.apply(this, arguments);
         }
@@ -4592,6 +4838,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         WorkerDomAdapter.prototype.setCookie = function (name, value) { throw 'not implemented'; };
         return WorkerDomAdapter;
     }(DomAdapter));
+
     /**
      * @experimental
      */
@@ -4630,32 +4877,39 @@ var __extends = (this && this.__extends) || function (d, b) {
     function setupWebWorker() {
         WorkerDomAdapter.makeCurrent();
     }
+    /**
+     * The ng module for the worker app side.
+     *
+     * @experimental
+     */
     var WorkerAppModule = (function () {
         function WorkerAppModule() {
         }
+        WorkerAppModule.decorators = [
+            { type: _angular_core.NgModule, args: [{
+                        providers: [
+                            BROWSER_SANITIZATION_PROVIDERS, Serializer,
+                            { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
+                            { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
+                            WebWorkerRootRenderer, { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
+                            { provide: ON_WEB_WORKER, useValue: true }, RenderStore,
+                            { provide: _angular_core.ErrorHandler, useFactory: errorHandler$1, deps: [] },
+                            { provide: MessageBus, useFactory: createMessageBus, deps: [_angular_core.NgZone] },
+                            { provide: _angular_core.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
+                        ],
+                        exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
+                    },] },
+        ];
+        /** @nocollapse */
+        WorkerAppModule.ctorParameters = [];
         return WorkerAppModule;
     }());
-    /** @nocollapse */
-    WorkerAppModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    providers: [
-                        BROWSER_SANITIZATION_PROVIDERS, Serializer,
-                        { provide: ClientMessageBrokerFactory, useClass: ClientMessageBrokerFactory_ },
-                        { provide: ServiceMessageBrokerFactory, useClass: ServiceMessageBrokerFactory_ },
-                        WebWorkerRootRenderer, { provide: _angular_core.RootRenderer, useExisting: WebWorkerRootRenderer },
-                        { provide: ON_WEB_WORKER, useValue: true }, RenderStore,
-                        { provide: _angular_core.ErrorHandler, useFactory: errorHandler$1, deps: [] },
-                        { provide: MessageBus, useFactory: createMessageBus, deps: [_angular_core.NgZone] },
-                        { provide: _angular_core.APP_INITIALIZER, useValue: setupWebWorker, multi: true }
-                    ],
-                    exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
-                },] },
-    ];
+
     var __platform_browser_private__ = {
         DomAdapter: DomAdapter,
+        BrowserDomAdapter: BrowserDomAdapter,
         getDOM: getDOM,
         setRootDomAdapter: setRootDomAdapter,
-        DomRootRenderer: DomRootRenderer,
         DomRootRenderer_: DomRootRenderer_,
         DomSharedStylesHost: DomSharedStylesHost,
         SharedStylesHost: SharedStylesHost,
@@ -4664,6 +4918,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         initDomAdapter: initDomAdapter,
         INTERNAL_BROWSER_PLATFORM_PROVIDERS: INTERNAL_BROWSER_PLATFORM_PROVIDERS
     };
+
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
     exports.BrowserPlatformLocation = BrowserPlatformLocation;
@@ -4697,4 +4952,5 @@ var __extends = (this && this.__extends) || function (d, b) {
     exports.WorkerAppModule = WorkerAppModule;
     exports.MessageBus = MessageBus;
     exports.__platform_browser_private__ = __platform_browser_private__;
+
 }));
