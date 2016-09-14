@@ -1468,6 +1468,32 @@
     }());
 
     /**
+     * A service that can be used to get and set the title of a current HTML document.
+     *
+     * Since an Angular 2 application can't be bootstrapped on the entire HTML document (`<html>` tag)
+     * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
+     * (representing the `<title>` tag). Instead, this service can be used to set and get the current
+     * title value.
+     *
+     * @experimental
+     */
+    var Title = (function () {
+        function Title() {
+        }
+        /**
+         * Get the title of the current HTML document.
+         * @returns {string}
+         */
+        Title.prototype.getTitle = function () { return getDOM().getTitle(); };
+        /**
+         * Set the title of the current HTML document.
+         * @param newTitle
+         */
+        Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(newTitle); };
+        return Title;
+    }());
+
+    /**
      * A DI Token representing the main rendering context. In a browser this is the DOM Document.
      *
      * Note: Document might not be available in the Application Context when Application and Rendering
@@ -2830,7 +2856,7 @@
                             { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
                             { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
                             { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
-                            _angular_core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS
+                            _angular_core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS, Title
                         ],
                         exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
                     },] },
@@ -2840,32 +2866,6 @@
             { type: BrowserModule, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
         ];
         return BrowserModule;
-    }());
-
-    /**
-     * A service that can be used to get and set the title of a current HTML document.
-     *
-     * Since an Angular 2 application can't be bootstrapped on the entire HTML document (`<html>` tag)
-     * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
-     * (representing the `<title>` tag). Instead, this service can be used to set and get the current
-     * title value.
-     *
-     * @experimental
-     */
-    var Title = (function () {
-        function Title() {
-        }
-        /**
-         * Get the title of the current HTML document.
-         * @returns {string}
-         */
-        Title.prototype.getTitle = function () { return getDOM().getTitle(); };
-        /**
-         * Set the title of the current HTML document.
-         * @param newTitle
-         */
-        Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(newTitle); };
-        return Title;
     }());
 
     /**
