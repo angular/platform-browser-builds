@@ -53,7 +53,6 @@
     // Need to declare a new variable for global here since TypeScript
     // exports the original value of the symbol.
     var global$1 = globalScope;
-    var Date = global$1.Date;
     // TODO: remove calls to assert in production environment
     // Note: Can't just export this and import in in other files
     // as `assert` is a reserved keyword in Dart
@@ -93,7 +92,7 @@
         }
         var res = token.toString();
         var newLineIndex = res.indexOf('\n');
-        return (newLineIndex === -1) ? res : res.substring(0, newLineIndex);
+        return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
     }
     var StringWrapper = (function () {
         function StringWrapper() {
@@ -295,10 +294,15 @@
     var StringMapWrapper = (function () {
         function StringMapWrapper() {
         }
-        StringMapWrapper.get = function (map, key) {
-            return map.hasOwnProperty(key) ? map[key] : undefined;
+        StringMapWrapper.create = function () {
+            // Note: We are not using Object.create(null) here due to
+            // performance!
+            // http://jsperf.com/ng2-object-create-null
+            return {};
         };
-        StringMapWrapper.set = function (map, key, value) { map[key] = value; };
+        StringMapWrapper.contains = function (map, key) {
+            return map.hasOwnProperty(key);
+        };
         StringMapWrapper.keys = function (map) { return Object.keys(map); };
         StringMapWrapper.values = function (map) {
             return Object.keys(map).map(function (k) { return map[k]; });
@@ -2114,9 +2118,9 @@
         };
         KeyEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
             var parsedEvent = KeyEventsPlugin.parseEventName(eventName);
-            var outsideHandler = KeyEventsPlugin.eventCallback(element, StringMapWrapper.get(parsedEvent, 'fullKey'), handler, this.manager.getZone());
+            var outsideHandler = KeyEventsPlugin.eventCallback(element, parsedEvent['fullKey'], handler, this.manager.getZone());
             return this.manager.getZone().runOutsideAngular(function () {
-                return getDOM().onAndCancel(element, StringMapWrapper.get(parsedEvent, 'domEventName'), outsideHandler);
+                return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
             });
         };
         KeyEventsPlugin.parseEventName = function (eventName) {
@@ -2141,8 +2145,8 @@
                 return null;
             }
             var result = {};
-            StringMapWrapper.set(result, 'domEventName', domEventName);
-            StringMapWrapper.set(result, 'fullKey', fullKey);
+            result['domEventName'] = domEventName;
+            result['fullKey'] = fullKey;
             return result;
         };
         KeyEventsPlugin.getEventFullKey = function (event) {
@@ -2157,7 +2161,7 @@
             }
             modifierKeys.forEach(function (modifierName) {
                 if (modifierName != key) {
-                    var modifierGetter = StringMapWrapper.get(modifierKeyGetters, modifierName);
+                    var modifierGetter = modifierKeyGetters[modifierName];
                     if (modifierGetter(event)) {
                         fullKey += modifierName + '.';
                     }
