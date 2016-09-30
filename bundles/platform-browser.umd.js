@@ -487,12 +487,19 @@
         return StringWrapper.replaceAllMapped(input, DASH_CASE_REGEXP, function (m /** TODO #9100 */) { return m[1].toUpperCase(); });
     }
 
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     var _DOM = null;
     function getDOM() {
         return _DOM;
     }
     function setRootDomAdapter(adapter) {
-        if (isBlank(_DOM)) {
+        if (!_DOM) {
             _DOM = adapter;
         }
     }
@@ -1603,7 +1610,7 @@
         }
         DomRootRenderer.prototype.renderComponent = function (componentProto) {
             var renderer = this.registeredComponents.get(componentProto.id);
-            if (isBlank(renderer)) {
+            if (!renderer) {
                 renderer = new DomRenderer(this, componentProto, this.animationDriver);
                 this.registeredComponents.set(componentProto.id, renderer);
             }
