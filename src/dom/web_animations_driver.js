@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AUTO_STYLE } from '@angular/core';
-import { StringMapWrapper } from '../facade/collection';
 import { StringWrapper, isNumber, isPresent } from '../facade/lang';
 import { dashCaseToCamelCase } from './util';
 import { WebAnimationsPlayer } from './web_animations_player';
@@ -52,15 +51,16 @@ export var WebAnimationsDriver = (function () {
 function _populateStyles(element, styles, defaultStyles) {
     var data = {};
     styles.styles.forEach(function (entry) {
-        StringMapWrapper.forEach(entry, function (val, prop) {
+        Object.keys(entry).forEach(function (prop) {
+            var val = entry[prop];
             var formattedProp = dashCaseToCamelCase(prop);
             data[formattedProp] =
                 val == AUTO_STYLE ? val : val.toString() + _resolveStyleUnit(val, prop, formattedProp);
         });
     });
-    StringMapWrapper.forEach(defaultStyles, function (value, prop) {
+    Object.keys(defaultStyles).forEach(function (prop) {
         if (!isPresent(data[prop])) {
-            data[prop] = value;
+            data[prop] = defaultStyles[prop];
         }
     });
     return data;
