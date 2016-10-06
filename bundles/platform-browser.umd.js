@@ -91,74 +91,6 @@
         var newLineIndex = res.indexOf('\n');
         return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
     }
-    var StringWrapper = (function () {
-        function StringWrapper() {
-        }
-        StringWrapper.fromCharCode = function (code) { return String.fromCharCode(code); };
-        StringWrapper.charCodeAt = function (s, index) { return s.charCodeAt(index); };
-        StringWrapper.split = function (s, regExp) { return s.split(regExp); };
-        StringWrapper.equals = function (s, s2) { return s === s2; };
-        StringWrapper.stripLeft = function (s, charVal) {
-            if (s && s.length) {
-                var pos = 0;
-                for (var i = 0; i < s.length; i++) {
-                    if (s[i] != charVal)
-                        break;
-                    pos++;
-                }
-                s = s.substring(pos);
-            }
-            return s;
-        };
-        StringWrapper.stripRight = function (s, charVal) {
-            if (s && s.length) {
-                var pos = s.length;
-                for (var i = s.length - 1; i >= 0; i--) {
-                    if (s[i] != charVal)
-                        break;
-                    pos--;
-                }
-                s = s.substring(0, pos);
-            }
-            return s;
-        };
-        StringWrapper.replace = function (s, from, replace) {
-            return s.replace(from, replace);
-        };
-        StringWrapper.replaceAll = function (s, from, replace) {
-            return s.replace(from, replace);
-        };
-        StringWrapper.slice = function (s, from, to) {
-            if (from === void 0) { from = 0; }
-            if (to === void 0) { to = null; }
-            return s.slice(from, to === null ? undefined : to);
-        };
-        StringWrapper.replaceAllMapped = function (s, from, cb) {
-            return s.replace(from, function () {
-                var matches = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    matches[_i - 0] = arguments[_i];
-                }
-                // Remove offset & string from the result array
-                matches.splice(-2, 2);
-                // The callback receives match, p1, ..., pn
-                return cb(matches);
-            });
-        };
-        StringWrapper.contains = function (s, substr) { return s.indexOf(substr) != -1; };
-        StringWrapper.compare = function (a, b) {
-            if (a < b) {
-                return -1;
-            }
-            else if (a > b) {
-                return 1;
-            }
-            else {
-                return 0;
-            }
-        };
-        return StringWrapper;
-    }());
     var NumberWrapper = (function () {
         function NumberWrapper() {
         }
@@ -229,13 +161,32 @@
         obj[parts.shift()] = value;
     }
 
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     var CAMEL_CASE_REGEXP = /([A-Z])/g;
     var DASH_CASE_REGEXP = /-([a-z])/g;
     function camelCaseToDashCase(input) {
-        return StringWrapper.replaceAllMapped(input, CAMEL_CASE_REGEXP, function (m) { return '-' + m[1].toLowerCase(); });
+        return input.replace(CAMEL_CASE_REGEXP, function () {
+            var m = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                m[_i - 0] = arguments[_i];
+            }
+            return '-' + m[1].toLowerCase();
+        });
     }
     function dashCaseToCamelCase(input) {
-        return StringWrapper.replaceAllMapped(input, DASH_CASE_REGEXP, function (m) { return m[1].toUpperCase(); });
+        return input.replace(DASH_CASE_REGEXP, function () {
+            var m = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                m[_i - 0] = arguments[_i];
+            }
+            return m[1].toUpperCase();
+        });
     }
 
     /**
@@ -441,7 +392,7 @@
     var _$PERIOD = 46;
     function _findDimensionalSuffix(value) {
         for (var i = 0; i < value.length; i++) {
-            var c = StringWrapper.charCodeAt(value, i);
+            var c = value.charCodeAt(i);
             if ((c >= _$0 && c <= _$9) || c == _$PERIOD)
                 continue;
             return value.substring(i, value.length);
@@ -1655,11 +1606,10 @@
         DomRenderer.prototype.setBindingDebugInfo = function (renderElement, propertyName, propertyValue) {
             var dashCasedPropertyName = camelCaseToDashCase(propertyName);
             if (getDOM().isCommentNode(renderElement)) {
-                var existingBindings = StringWrapper.replaceAll(getDOM().getText(renderElement), /\n/g, '')
-                    .match(TEMPLATE_BINDINGS_EXP);
+                var existingBindings = getDOM().getText(renderElement).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
                 var parsedBindings = Json.parse(existingBindings[1]);
                 parsedBindings[dashCasedPropertyName] = propertyValue;
-                getDOM().setText(renderElement, StringWrapper.replace(TEMPLATE_COMMENT_TEXT, '{}', Json.stringify(parsedBindings)));
+                getDOM().setText(renderElement, TEMPLATE_COMMENT_TEXT.replace('{}', Json.stringify(parsedBindings)));
             }
             else {
                 this.setElementAttribute(renderElement, propertyName, propertyValue);
@@ -1725,10 +1675,10 @@
     var HOST_ATTR = "_nghost-" + COMPONENT_VARIABLE;
     var CONTENT_ATTR = "_ngcontent-" + COMPONENT_VARIABLE;
     function _shimContentAttribute(componentShortId) {
-        return StringWrapper.replaceAll(CONTENT_ATTR, COMPONENT_REGEX, componentShortId);
+        return CONTENT_ATTR.replace(COMPONENT_REGEX, componentShortId);
     }
     function _shimHostAttribute(componentShortId) {
-        return StringWrapper.replaceAll(HOST_ATTR, COMPONENT_REGEX, componentShortId);
+        return HOST_ATTR.replace(COMPONENT_REGEX, componentShortId);
     }
     function _flattenStyles(compId, styles, target) {
         for (var i = 0; i < styles.length; i++) {
@@ -1737,7 +1687,7 @@
                 _flattenStyles(compId, style, target);
             }
             else {
-                style = StringWrapper.replaceAll(style, COMPONENT_REGEX, compId);
+                style = style.replace(COMPONENT_REGEX, compId);
                 target.push(style);
             }
         }
@@ -2025,9 +1975,7 @@
         KeyEventsPlugin.parseEventName = function (eventName) {
             var parts = eventName.toLowerCase().split('.');
             var domEventName = parts.shift();
-            if ((parts.length === 0) ||
-                !(StringWrapper.equals(domEventName, 'keydown') ||
-                    StringWrapper.equals(domEventName, 'keyup'))) {
+            if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
                 return null;
             }
             var key = KeyEventsPlugin._normalizeKey(parts.pop());
@@ -2052,10 +2000,10 @@
             var fullKey = '';
             var key = getDOM().getEventKey(event);
             key = key.toLowerCase();
-            if (StringWrapper.equals(key, ' ')) {
+            if (key === ' ') {
                 key = 'space'; // for readability
             }
-            else if (StringWrapper.equals(key, '.')) {
+            else if (key === '.') {
                 key = 'dot'; // because '.' is used as a separator in event names
             }
             modifierKeys.forEach(function (modifierName) {
@@ -2071,7 +2019,7 @@
         };
         KeyEventsPlugin.eventCallback = function (element, fullKey, handler, zone) {
             return function (event /** TODO #9100 */) {
-                if (StringWrapper.equals(KeyEventsPlugin.getEventFullKey(event), fullKey)) {
+                if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
                     zone.runGuarded(function () { return handler(event); });
                 }
             };
