@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AUTO_STYLE } from '@angular/core';
-import { StringWrapper, isNumber, isPresent } from '../facade/lang';
+import { isNumber, isPresent } from '../facade/lang';
 import { dashCaseToCamelCase } from './util';
 import { WebAnimationsPlayer } from './web_animations_player';
 export var WebAnimationsDriver = (function () {
@@ -82,7 +82,7 @@ var _$9 = 57;
 var _$PERIOD = 46;
 function _findDimensionalSuffix(value) {
     for (var i = 0; i < value.length; i++) {
-        var c = StringWrapper.charCodeAt(value, i);
+        var c = value.charCodeAt(i);
         if ((c >= _$0 && c <= _$9) || c == _$PERIOD)
             continue;
         return value.substring(i, value.length);
