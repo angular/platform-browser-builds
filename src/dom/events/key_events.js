@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 import { Injectable } from '@angular/core';
 import { ListWrapper } from '../../facade/collection';
-import { isPresent } from '../../facade/lang';
+import { StringWrapper, isPresent } from '../../facade/lang';
 import { getDOM } from '../dom_adapter';
 import { EventManagerPlugin } from './event_manager';
 var modifierKeys = ['alt', 'control', 'meta', 'shift'];
@@ -43,7 +43,9 @@ export var KeyEventsPlugin = (function (_super) {
     KeyEventsPlugin.parseEventName = function (eventName) {
         var parts = eventName.toLowerCase().split('.');
         var domEventName = parts.shift();
-        if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
+        if ((parts.length === 0) ||
+            !(StringWrapper.equals(domEventName, 'keydown') ||
+                StringWrapper.equals(domEventName, 'keyup'))) {
             return null;
         }
         var key = KeyEventsPlugin._normalizeKey(parts.pop());
@@ -68,10 +70,10 @@ export var KeyEventsPlugin = (function (_super) {
         var fullKey = '';
         var key = getDOM().getEventKey(event);
         key = key.toLowerCase();
-        if (key === ' ') {
+        if (StringWrapper.equals(key, ' ')) {
             key = 'space'; // for readability
         }
-        else if (key === '.') {
+        else if (StringWrapper.equals(key, '.')) {
             key = 'dot'; // because '.' is used as a separator in event names
         }
         modifierKeys.forEach(function (modifierName) {
@@ -87,7 +89,7 @@ export var KeyEventsPlugin = (function (_super) {
     };
     KeyEventsPlugin.eventCallback = function (element, fullKey, handler, zone) {
         return function (event /** TODO #9100 */) {
-            if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
+            if (StringWrapper.equals(KeyEventsPlugin.getEventFullKey(event), fullKey)) {
                 zone.runGuarded(function () { return handler(event); });
             }
         };

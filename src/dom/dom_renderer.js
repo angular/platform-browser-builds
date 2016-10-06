@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 import { Inject, Injectable, ViewEncapsulation } from '@angular/core';
-import { Json, isArray, isBlank, isPresent, isString, stringify } from '../facade/lang';
+import { Json, StringWrapper, isArray, isBlank, isPresent, isString, stringify } from '../facade/lang';
 import { AnimationDriver } from './animation_driver';
 import { getDOM } from './dom_adapter';
 import { DOCUMENT } from './dom_tokens';
@@ -188,10 +188,11 @@ export var DomRenderer = (function () {
     DomRenderer.prototype.setBindingDebugInfo = function (renderElement, propertyName, propertyValue) {
         var dashCasedPropertyName = camelCaseToDashCase(propertyName);
         if (getDOM().isCommentNode(renderElement)) {
-            var existingBindings = getDOM().getText(renderElement).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+            var existingBindings = StringWrapper.replaceAll(getDOM().getText(renderElement), /\n/g, '')
+                .match(TEMPLATE_BINDINGS_EXP);
             var parsedBindings = Json.parse(existingBindings[1]);
             parsedBindings[dashCasedPropertyName] = propertyValue;
-            getDOM().setText(renderElement, TEMPLATE_COMMENT_TEXT.replace('{}', Json.stringify(parsedBindings)));
+            getDOM().setText(renderElement, StringWrapper.replace(TEMPLATE_COMMENT_TEXT, '{}', Json.stringify(parsedBindings)));
         }
         else {
             this.setElementAttribute(renderElement, propertyName, propertyValue);
@@ -257,10 +258,10 @@ export var COMPONENT_VARIABLE = '%COMP%';
 export var HOST_ATTR = "_nghost-" + COMPONENT_VARIABLE;
 export var CONTENT_ATTR = "_ngcontent-" + COMPONENT_VARIABLE;
 function _shimContentAttribute(componentShortId) {
-    return CONTENT_ATTR.replace(COMPONENT_REGEX, componentShortId);
+    return StringWrapper.replaceAll(CONTENT_ATTR, COMPONENT_REGEX, componentShortId);
 }
 function _shimHostAttribute(componentShortId) {
-    return HOST_ATTR.replace(COMPONENT_REGEX, componentShortId);
+    return StringWrapper.replaceAll(HOST_ATTR, COMPONENT_REGEX, componentShortId);
 }
 function _flattenStyles(compId, styles, target) {
     for (var i = 0; i < styles.length; i++) {
@@ -269,7 +270,7 @@ function _flattenStyles(compId, styles, target) {
             _flattenStyles(compId, style, target);
         }
         else {
-            style = style.replace(COMPONENT_REGEX, compId);
+            style = StringWrapper.replaceAll(style, COMPONENT_REGEX, compId);
             target.push(style);
         }
     }
