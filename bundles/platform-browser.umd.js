@@ -65,6 +65,15 @@
     function isBlank(obj) {
         return obj === undefined || obj === null;
     }
+    function isNumber(obj) {
+        return typeof obj === 'number';
+    }
+    function isString(obj) {
+        return typeof obj === 'string';
+    }
+    function isArray(obj) {
+        return Array.isArray(obj);
+    }
     function stringify(token) {
         if (typeof token === 'string') {
             return token;
@@ -82,6 +91,58 @@
         var newLineIndex = res.indexOf('\n');
         return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
     }
+    var NumberWrapper = (function () {
+        function NumberWrapper() {
+        }
+        NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
+        NumberWrapper.equal = function (a, b) { return a === b; };
+        NumberWrapper.parseIntAutoRadix = function (text) {
+            var result = parseInt(text);
+            if (isNaN(result)) {
+                throw new Error('Invalid integer literal when parsing ' + text);
+            }
+            return result;
+        };
+        NumberWrapper.parseInt = function (text, radix) {
+            if (radix == 10) {
+                if (/^(\-|\+)?[0-9]+$/.test(text)) {
+                    return parseInt(text, radix);
+                }
+            }
+            else if (radix == 16) {
+                if (/^(\-|\+)?[0-9ABCDEFabcdef]+$/.test(text)) {
+                    return parseInt(text, radix);
+                }
+            }
+            else {
+                var result = parseInt(text, radix);
+                if (!isNaN(result)) {
+                    return result;
+                }
+            }
+            throw new Error('Invalid integer literal when parsing ' + text + ' in base ' + radix);
+        };
+        Object.defineProperty(NumberWrapper, "NaN", {
+            get: function () { return NaN; },
+            enumerable: true,
+            configurable: true
+        });
+        NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
+        NumberWrapper.isNaN = function (value) { return isNaN(value); };
+        NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
+        return NumberWrapper;
+    }());
+    // Can't be all uppercase as our transpiler would think it is a special directive...
+    var Json = (function () {
+        function Json() {
+        }
+        Json.parse = function (s) { return global$1.JSON.parse(s); };
+        Json.stringify = function (data) {
+            // Dart doesn't take 3 arguments
+            return global$1.JSON.stringify(data, null, 2);
+        };
+        return Json;
+    }());
     function setValueOnPath(global, path, value) {
         var parts = path.split('.');
         var obj = global;
@@ -317,7 +378,7 @@
     function _resolveStyleUnit(val, userProvidedProp, formattedProp) {
         var unit = '';
         if (_isPixelDimensionStyle(formattedProp) && val != 0 && val != '0') {
-            if (typeof val === 'number') {
+            if (isNumber(val)) {
                 unit = 'px';
             }
             else if (_findDimensionalSuffix(val.toString()).length == 0) {
@@ -940,6 +1001,22 @@
         return BrowserPlatformLocation;
     }(_angular_common.PlatformLocation));
 
+    var _clearValues = (function () {
+        if ((new Map()).keys().next) {
+            return function _clearValues(m) {
+                var keyIterator = m.keys();
+                var k;
+                while (!((k = keyIterator.next()).done)) {
+                    m.set(k.value, null);
+                }
+            };
+        }
+        else {
+            return function _clearValuesWithForeEach(m) {
+                m.forEach(function (v, k) { m.set(k, null); });
+            };
+        }
+    })();
     // Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
     // TODO(mlaval): remove the work around once we have a working polyfill of Array.from
     var _arrayFromMap = (function () {
@@ -1115,7 +1192,7 @@
         if (isPresent(source)) {
             for (var i = 0; i < source.length; i++) {
                 var item = source[i];
-                if (Array.isArray(item)) {
+                if (isArray(item)) {
                     _flattenArray(item, target);
                 }
                 else {
@@ -1421,7 +1498,7 @@
         }
         DomRenderer.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
             var el;
-            if (typeof selectorOrNode === 'string') {
+            if (isString(selectorOrNode)) {
                 el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
                 if (isBlank(el)) {
                     throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
@@ -1530,9 +1607,9 @@
             var dashCasedPropertyName = camelCaseToDashCase(propertyName);
             if (getDOM().isCommentNode(renderElement)) {
                 var existingBindings = getDOM().getText(renderElement).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
-                var parsedBindings = JSON.parse(existingBindings[1]);
+                var parsedBindings = Json.parse(existingBindings[1]);
                 parsedBindings[dashCasedPropertyName] = propertyValue;
-                getDOM().setText(renderElement, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(parsedBindings, null, 2)));
+                getDOM().setText(renderElement, TEMPLATE_COMMENT_TEXT.replace('{}', Json.stringify(parsedBindings)));
             }
             else {
                 this.setElementAttribute(renderElement, propertyName, propertyValue);
@@ -1606,7 +1683,7 @@
     function _flattenStyles(compId, styles, target) {
         for (var i = 0; i < styles.length; i++) {
             var style = styles[i];
-            if (Array.isArray(style)) {
+            if (isArray(style)) {
                 _flattenStyles(compId, style, target);
             }
             else {
@@ -2631,7 +2708,7 @@
          * ```
          */
         AngularProfiler.prototype.timeChangeDetection = function (config) {
-            var record = config && config['record'];
+            var record = isPresent(config) && config['record'];
             var profileName = 'Change Detection';
             // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
             var isProfilerAvailable = isPresent(win.console.profile);
@@ -2654,7 +2731,7 @@
             }
             var msPerTick = (end - start) / numTicks;
             win.console.log("ran " + numTicks + " change detection cycles");
-            win.console.log(msPerTick.toFixed(2) + " ms per check");
+            win.console.log(NumberWrapper.toFixed(msPerTick, 2) + " ms per check");
             return new ChangeDetectionPerfRecord(msPerTick, numTicks);
         };
         return AngularProfiler;
