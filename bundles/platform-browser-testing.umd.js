@@ -39,7 +39,7 @@
         // TODO: to be fixed properly via #2830, noop for now
     };
     function isPresent(obj) {
-        return obj !== undefined && obj !== null;
+        return obj != null;
     }
 
     // Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
@@ -78,7 +78,7 @@
                     return this._overrideUa;
                 }
                 else {
-                    return isPresent(getDOM()) ? getDOM().getUserAgent() : '';
+                    return getDOM() ? getDOM().getUserAgent() : '';
                 }
             },
             enumerable: true,
