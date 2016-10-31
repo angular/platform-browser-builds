@@ -1764,7 +1764,7 @@
         HammerGesturesPlugin.prototype.supports = function (eventName) {
             if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
                 return false;
-            if (!isPresent(window['Hammer'])) {
+            if (!window.Hammer) {
                 throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
             }
             return true;
@@ -1776,11 +1776,11 @@
             return zone.runOutsideAngular(function () {
                 // Creating the manager bind events, must be done outside of angular
                 var mc = _this._config.buildHammer(element);
-                var callback = function (eventObj /** TODO #???? */) {
+                var callback = function (eventObj) {
                     zone.runGuarded(function () { handler(eventObj); });
                 };
                 mc.on(eventName, callback);
-                return function () { mc.off(eventName, callback); };
+                return function () { return mc.off(eventName, callback); };
             });
         };
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };

@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 import { Inject, Injectable, OpaqueToken } from '@angular/core';
-import { isPresent } from '../../facade/lang';
 import { HammerGesturesPluginCommon } from './hammer_common';
 /**
  * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
@@ -53,7 +52,7 @@ export var HammerGesturesPlugin = (function (_super) {
     HammerGesturesPlugin.prototype.supports = function (eventName) {
         if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
             return false;
-        if (!isPresent(window['Hammer'])) {
+        if (!window.Hammer) {
             throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
         }
         return true;
@@ -65,11 +64,11 @@ export var HammerGesturesPlugin = (function (_super) {
         return zone.runOutsideAngular(function () {
             // Creating the manager bind events, must be done outside of angular
             var mc = _this._config.buildHammer(element);
-            var callback = function (eventObj /** TODO #???? */) {
+            var callback = function (eventObj) {
                 zone.runGuarded(function () { handler(eventObj); });
             };
             mc.on(eventName, callback);
-            return function () { mc.off(eventName, callback); };
+            return function () { return mc.off(eventName, callback); };
         });
     };
     HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
