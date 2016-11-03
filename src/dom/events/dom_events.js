@@ -11,7 +11,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 import { Injectable } from '@angular/core';
-import { getDOM } from '../dom_adapter';
 import { EventManagerPlugin } from './event_manager';
 export var DomEventsPlugin = (function (_super) {
     __extends(DomEventsPlugin, _super);
@@ -22,15 +21,25 @@ export var DomEventsPlugin = (function (_super) {
     // events.
     DomEventsPlugin.prototype.supports = function (eventName) { return true; };
     DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        var zone = this.manager.getZone();
-        var outsideHandler = function (event /** TODO #9100 */) { return zone.runGuarded(function () { return handler(event); }); };
-        return this.manager.getZone().runOutsideAngular(function () { return getDOM().onAndCancel(element, eventName, outsideHandler); });
+        element.addEventListener(eventName, handler, false);
+        return function () { return element.removeEventListener(eventName, handler, false); };
     };
     DomEventsPlugin.prototype.addGlobalEventListener = function (target, eventName, handler) {
-        var element = getDOM().getGlobalEventTarget(target);
-        var zone = this.manager.getZone();
-        var outsideHandler = function (event /** TODO #9100 */) { return zone.runGuarded(function () { return handler(event); }); };
-        return this.manager.getZone().runOutsideAngular(function () { return getDOM().onAndCancel(element, eventName, outsideHandler); });
+        var element;
+        switch (target) {
+            case 'window':
+                element = window;
+                break;
+            case 'document':
+                element = document;
+                break;
+            case 'body':
+                element = document.body;
+                break;
+            default:
+                throw new Error("Unsupported event target " + target + " for event " + eventName);
+        }
+        return this.addEventListener(element, eventName, handler);
     };
     DomEventsPlugin.decorators = [
         { type: Injectable },
