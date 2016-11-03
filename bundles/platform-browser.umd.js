@@ -2613,7 +2613,7 @@
      * @experimental All debugging apis are currently experimental.
      */
     function enableDebugTools(ref) {
-        Object.assign(context.ng, new AngularTools(ref));
+        context.ng = new AngularTools(ref);
         return ref;
     }
     /**
@@ -2622,7 +2622,7 @@
      * @experimental All debugging apis are currently experimental.
      */
     function disableDebugTools() {
-        delete context.ng.profiler;
+        delete context.ng;
     }
 
     /**
