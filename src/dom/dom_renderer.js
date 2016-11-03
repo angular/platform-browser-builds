@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-import { Inject, Injectable, ViewEncapsulation } from '@angular/core';
+import { APP_ID, Inject, Injectable, ViewEncapsulation } from '@angular/core';
 import { isBlank, isPresent, stringify } from '../facade/lang';
 import { AnimationDriver } from './animation_driver';
 import { getDOM } from './dom_adapter';
@@ -26,17 +26,18 @@ var NAMESPACE_URIS = {
 var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
 var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
 export var DomRootRenderer = (function () {
-    function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver) {
+    function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver, appId) {
         this.document = document;
         this.eventManager = eventManager;
         this.sharedStylesHost = sharedStylesHost;
         this.animationDriver = animationDriver;
+        this.appId = appId;
         this.registeredComponents = new Map();
     }
     DomRootRenderer.prototype.renderComponent = function (componentProto) {
         var renderer = this.registeredComponents.get(componentProto.id);
         if (!renderer) {
-            renderer = new DomRenderer(this, componentProto, this.animationDriver);
+            renderer = new DomRenderer(this, componentProto, this.animationDriver, this.appId + "-" + componentProto.id);
             this.registeredComponents.set(componentProto.id, renderer);
         }
         return renderer;
@@ -45,8 +46,8 @@ export var DomRootRenderer = (function () {
 }());
 export var DomRootRenderer_ = (function (_super) {
     __extends(DomRootRenderer_, _super);
-    function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver) {
-        _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver);
+    function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver, appId) {
+        _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId);
     }
     DomRootRenderer_.decorators = [
         { type: Injectable },
@@ -57,21 +58,22 @@ export var DomRootRenderer_ = (function (_super) {
         { type: EventManager, },
         { type: DomSharedStylesHost, },
         { type: AnimationDriver, },
+        { type: undefined, decorators: [{ type: Inject, args: [APP_ID,] },] },
     ];
     return DomRootRenderer_;
 }(DomRootRenderer));
 export var DomRenderer = (function () {
-    function DomRenderer(_rootRenderer, componentProto, _animationDriver) {
+    function DomRenderer(_rootRenderer, componentProto, _animationDriver, styleShimId) {
         this._rootRenderer = _rootRenderer;
         this.componentProto = componentProto;
         this._animationDriver = _animationDriver;
-        this._styles = _flattenStyles(componentProto.id, componentProto.styles, []);
+        this._styles = _flattenStyles(styleShimId, componentProto.styles, []);
         if (componentProto.encapsulation !== ViewEncapsulation.Native) {
             this._rootRenderer.sharedStylesHost.addStyles(this._styles);
         }
         if (this.componentProto.encapsulation === ViewEncapsulation.Emulated) {
-            this._contentAttr = _shimContentAttribute(componentProto.id);
-            this._hostAttr = _shimHostAttribute(componentProto.id);
+            this._contentAttr = _shimContentAttribute(styleShimId);
+            this._hostAttr = _shimHostAttribute(styleShimId);
         }
         else {
             this._contentAttr = null;

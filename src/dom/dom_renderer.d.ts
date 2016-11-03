@@ -15,12 +15,13 @@ export declare abstract class DomRootRenderer implements RootRenderer {
     eventManager: EventManager;
     sharedStylesHost: DomSharedStylesHost;
     animationDriver: AnimationDriver;
+    appId: string;
     protected registeredComponents: Map<string, DomRenderer>;
-    constructor(document: any, eventManager: EventManager, sharedStylesHost: DomSharedStylesHost, animationDriver: AnimationDriver);
+    constructor(document: any, eventManager: EventManager, sharedStylesHost: DomSharedStylesHost, animationDriver: AnimationDriver, appId: string);
     renderComponent(componentProto: RenderComponentType): Renderer;
 }
 export declare class DomRootRenderer_ extends DomRootRenderer {
-    constructor(_document: any, _eventManager: EventManager, sharedStylesHost: DomSharedStylesHost, animationDriver: AnimationDriver);
+    constructor(_document: any, _eventManager: EventManager, sharedStylesHost: DomSharedStylesHost, animationDriver: AnimationDriver, appId: string);
 }
 export declare class DomRenderer implements Renderer {
     private _rootRenderer;
@@ -29,7 +30,7 @@ export declare class DomRenderer implements Renderer {
     private _contentAttr;
     private _hostAttr;
     private _styles;
-    constructor(_rootRenderer: DomRootRenderer, componentProto: RenderComponentType, _animationDriver: AnimationDriver);
+    constructor(_rootRenderer: DomRootRenderer, componentProto: RenderComponentType, _animationDriver: AnimationDriver, styleShimId: string);
     selectRootElement(selectorOrNode: string | any, debugInfo: RenderDebugInfo): Element;
     createElement(parent: Element, name: string, debugInfo: RenderDebugInfo): Node;
     createViewRoot(hostElement: any): any;

@@ -1303,17 +1303,18 @@
     var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
     var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
     var DomRootRenderer = (function () {
-        function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver) {
+        function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver, appId) {
             this.document = document;
             this.eventManager = eventManager;
             this.sharedStylesHost = sharedStylesHost;
             this.animationDriver = animationDriver;
+            this.appId = appId;
             this.registeredComponents = new Map();
         }
         DomRootRenderer.prototype.renderComponent = function (componentProto) {
             var renderer = this.registeredComponents.get(componentProto.id);
             if (!renderer) {
-                renderer = new DomRenderer(this, componentProto, this.animationDriver);
+                renderer = new DomRenderer(this, componentProto, this.animationDriver, this.appId + "-" + componentProto.id);
                 this.registeredComponents.set(componentProto.id, renderer);
             }
             return renderer;
@@ -1322,8 +1323,8 @@
     }());
     var DomRootRenderer_ = (function (_super) {
         __extends$3(DomRootRenderer_, _super);
-        function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver) {
-            _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver);
+        function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver, appId) {
+            _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId);
         }
         DomRootRenderer_.decorators = [
             { type: _angular_core.Injectable },
@@ -1334,21 +1335,22 @@
             { type: EventManager, },
             { type: DomSharedStylesHost, },
             { type: AnimationDriver, },
+            { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_core.APP_ID,] },] },
         ];
         return DomRootRenderer_;
     }(DomRootRenderer));
     var DomRenderer = (function () {
-        function DomRenderer(_rootRenderer, componentProto, _animationDriver) {
+        function DomRenderer(_rootRenderer, componentProto, _animationDriver, styleShimId) {
             this._rootRenderer = _rootRenderer;
             this.componentProto = componentProto;
             this._animationDriver = _animationDriver;
-            this._styles = _flattenStyles(componentProto.id, componentProto.styles, []);
+            this._styles = _flattenStyles(styleShimId, componentProto.styles, []);
             if (componentProto.encapsulation !== _angular_core.ViewEncapsulation.Native) {
                 this._rootRenderer.sharedStylesHost.addStyles(this._styles);
             }
             if (this.componentProto.encapsulation === _angular_core.ViewEncapsulation.Emulated) {
-                this._contentAttr = _shimContentAttribute(componentProto.id);
-                this._hostAttr = _shimHostAttribute(componentProto.id);
+                this._contentAttr = _shimContentAttribute(styleShimId);
+                this._hostAttr = _shimHostAttribute(styleShimId);
             }
             else {
                 this._contentAttr = null;
