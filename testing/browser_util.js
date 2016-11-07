@@ -6,7 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { NgZone } from '@angular/core';
-import { global } from './facade/lang';
+import { MapWrapper } from './facade/collection';
+import { global, isPresent } from './facade/lang';
 import { getDOM } from './private_import_platform-browser';
 export var BrowserDetection = (function () {
     function BrowserDetection(ua) {
@@ -14,10 +15,12 @@ export var BrowserDetection = (function () {
     }
     Object.defineProperty(BrowserDetection.prototype, "_ua", {
         get: function () {
-            if (typeof this._overrideUa === 'string') {
+            if (isPresent(this._overrideUa)) {
                 return this._overrideUa;
             }
-            return getDOM() ? getDOM().getUserAgent() : '';
+            else {
+                return getDOM() ? getDOM().getUserAgent() : '';
+            }
         },
         enumerable: true,
         configurable: true
@@ -135,7 +138,7 @@ export function stringifyElement(el /** TODO #9100 */) {
         result += "<" + tagName;
         // Attributes in an ordered way
         var attributeMap = getDOM().attributeMap(el);
-        var keys = Array.from(attributeMap.keys()).sort();
+        var keys = MapWrapper.keys(attributeMap).sort();
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             var attValue = attributeMap.get(key);
@@ -149,7 +152,7 @@ export function stringifyElement(el /** TODO #9100 */) {
         result += '>';
         // Children
         var childrenRoot = getDOM().templateAwareRoot(el);
-        var children = childrenRoot ? getDOM().childNodes(childrenRoot) : [];
+        var children = isPresent(childrenRoot) ? getDOM().childNodes(childrenRoot) : [];
         for (var j = 0; j < children.length; j++) {
             result += stringifyElement(children[j]);
         }

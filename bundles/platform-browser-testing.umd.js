@@ -38,6 +38,31 @@
     _global.assert = function assert(condition) {
         // TODO: to be fixed properly via #2830, noop for now
     };
+    function isPresent(obj) {
+        return obj != null;
+    }
+
+    // Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
+    // TODO(mlaval): remove the work around once we have a working polyfill of Array.from
+    var _arrayFromMap = (function () {
+        try {
+            if ((new Map()).values().next) {
+                return function createArrayFromMap(m, getValues) {
+                    return getValues ? Array.from(m.values()) : Array.from(m.keys());
+                };
+            }
+        }
+        catch (e) {
+        }
+        return function createArrayFromMapWithForeach(m, getValues) {
+            var res = new Array(m.size), i = 0;
+            m.forEach(function (v, k) {
+                res[i] = getValues ? v : k;
+                i++;
+            });
+            return res;
+        };
+    })();
 
     var getDOM = _angular_platformBrowser.__platform_browser_private__.getDOM;
     var BrowserDomAdapter = _angular_platformBrowser.__platform_browser_private__.BrowserDomAdapter;
@@ -49,10 +74,12 @@
         }
         Object.defineProperty(BrowserDetection.prototype, "_ua", {
             get: function () {
-                if (typeof this._overrideUa === 'string') {
+                if (isPresent(this._overrideUa)) {
                     return this._overrideUa;
                 }
-                return getDOM() ? getDOM().getUserAgent() : '';
+                else {
+                    return getDOM() ? getDOM().getUserAgent() : '';
+                }
             },
             enumerable: true,
             configurable: true

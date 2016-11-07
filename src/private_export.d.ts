@@ -31,12 +31,6 @@ export declare var __platform_browser_private__: {
     DomRootRenderer: typeof dom_renderer.DomRootRenderer;
     _DomRootRenderer_?: dom_renderer.DomRootRenderer;
     DomRootRenderer_: typeof dom_renderer.DomRootRenderer_;
-    NAMESPACE_URIS: typeof dom_renderer.NAMESPACE_URIS;
-    shimContentAttribute: typeof dom_renderer.shimContentAttribute;
-    shimHostAttribute: typeof dom_renderer.shimHostAttribute;
-    flattenStyles: typeof dom_renderer.flattenStyles;
-    splitNamespace: typeof dom_renderer.splitNamespace;
-    isNamespaced: typeof dom_renderer.isNamespaced;
     _DomSharedStylesHost?: shared_styles_host.DomSharedStylesHost;
     DomSharedStylesHost: typeof shared_styles_host.DomSharedStylesHost;
     _SharedStylesHost?: shared_styles_host.SharedStylesHost;
