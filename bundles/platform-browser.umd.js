@@ -100,24 +100,7 @@
         obj[parts.shift()] = value;
     }
 
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    var CAMEL_CASE_REGEXP = /([A-Z])/g;
     var DASH_CASE_REGEXP = /-([a-z])/g;
-    function camelCaseToDashCase(input) {
-        return input.replace(CAMEL_CASE_REGEXP, function () {
-            var m = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                m[_i - 0] = arguments[_i];
-            }
-            return '-' + m[1].toLowerCase();
-        });
-    }
     function dashCaseToCamelCase(input) {
         return input.replace(DASH_CASE_REGEXP, function () {
             var m = [];
@@ -1020,27 +1003,6 @@
         return Title;
     }());
 
-    // Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
-    // TODO(mlaval): remove the work around once we have a working polyfill of Array.from
-    var _arrayFromMap = (function () {
-        try {
-            if ((new Map()).values().next) {
-                return function createArrayFromMap(m, getValues) {
-                    return getValues ? Array.from(m.values()) : Array.from(m.keys());
-                };
-            }
-        }
-        catch (e) {
-        }
-        return function createArrayFromMapWithForeach(m, getValues) {
-            var res = new Array(m.size), i = 0;
-            m.forEach(function (v, k) {
-                res[i] = getValues ? v : k;
-                i++;
-            });
-            return res;
-        };
-    })();
     /**
      * Wraps Javascript Objects
      */
@@ -1260,8 +1222,9 @@
         /** @internal */
         DomSharedStylesHost.prototype._addStylesToHost = function (styles, host) {
             for (var i = 0; i < styles.length; i++) {
-                var style = styles[i];
-                getDOM().appendChild(host, getDOM().createStyleElement(style));
+                var styleEl = document.createElement('style');
+                styleEl.textContent = styles[i];
+                host.appendChild(styleEl);
             }
         };
         DomSharedStylesHost.prototype.addHost = function (hostNode) {
@@ -1303,17 +1266,18 @@
     var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
     var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
     var DomRootRenderer = (function () {
-        function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver) {
+        function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver, appId) {
             this.document = document;
             this.eventManager = eventManager;
             this.sharedStylesHost = sharedStylesHost;
             this.animationDriver = animationDriver;
+            this.appId = appId;
             this.registeredComponents = new Map();
         }
         DomRootRenderer.prototype.renderComponent = function (componentProto) {
             var renderer = this.registeredComponents.get(componentProto.id);
             if (!renderer) {
-                renderer = new DomRenderer(this, componentProto, this.animationDriver);
+                renderer = new DomRenderer(this, componentProto, this.animationDriver, this.appId + "-" + componentProto.id);
                 this.registeredComponents.set(componentProto.id, renderer);
             }
             return renderer;
@@ -1322,8 +1286,8 @@
     }());
     var DomRootRenderer_ = (function (_super) {
         __extends$3(DomRootRenderer_, _super);
-        function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver) {
-            _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver);
+        function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver, appId) {
+            _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId);
         }
         DomRootRenderer_.decorators = [
             { type: _angular_core.Injectable },
@@ -1334,21 +1298,34 @@
             { type: EventManager, },
             { type: DomSharedStylesHost, },
             { type: AnimationDriver, },
+            { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_core.APP_ID,] },] },
         ];
         return DomRootRenderer_;
     }(DomRootRenderer));
+    var DIRECT_DOM_RENDERER = {
+        remove: function (node) {
+            if (node.parentNode) {
+                node.parentNode.removeChild(node);
+            }
+        },
+        appendChild: function (node, parent) { parent.appendChild(node); },
+        insertBefore: function (node, refNode) { refNode.parentNode.insertBefore(node, refNode); },
+        nextSibling: function (node) { return node.nextSibling; },
+        parentElement: function (node) { return node.parentNode; }
+    };
     var DomRenderer = (function () {
-        function DomRenderer(_rootRenderer, componentProto, _animationDriver) {
+        function DomRenderer(_rootRenderer, componentProto, _animationDriver, styleShimId) {
             this._rootRenderer = _rootRenderer;
             this.componentProto = componentProto;
             this._animationDriver = _animationDriver;
-            this._styles = _flattenStyles(componentProto.id, componentProto.styles, []);
+            this.directRenderer = DIRECT_DOM_RENDERER;
+            this._styles = flattenStyles(styleShimId, componentProto.styles, []);
             if (componentProto.encapsulation !== _angular_core.ViewEncapsulation.Native) {
                 this._rootRenderer.sharedStylesHost.addStyles(this._styles);
             }
             if (this.componentProto.encapsulation === _angular_core.ViewEncapsulation.Emulated) {
-                this._contentAttr = _shimContentAttribute(componentProto.id);
-                this._hostAttr = _shimHostAttribute(componentProto.id);
+                this._contentAttr = shimContentAttribute(styleShimId);
+                this._hostAttr = shimHostAttribute(styleShimId);
             }
             else {
                 this._contentAttr = null;
@@ -1358,75 +1335,86 @@
         DomRenderer.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
             var el;
             if (typeof selectorOrNode === 'string') {
-                el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
-                if (isBlank(el)) {
+                el = this._rootRenderer.document.querySelector(selectorOrNode);
+                if (!el) {
                     throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
             }
             else {
                 el = selectorOrNode;
             }
-            getDOM().clearNodes(el);
+            while (el.firstChild) {
+                el.removeChild(el.firstChild);
+            }
             return el;
         };
         DomRenderer.prototype.createElement = function (parent, name, debugInfo) {
-            var nsAndName = splitNamespace(name);
-            var el = isPresent(nsAndName[0]) ?
-                getDOM().createElementNS(NAMESPACE_URIS[nsAndName[0]], nsAndName[1]) :
-                getDOM().createElement(nsAndName[1]);
-            if (isPresent(this._contentAttr)) {
-                getDOM().setAttribute(el, this._contentAttr, '');
+            var el;
+            if (isNamespaced(name)) {
+                var nsAndName = splitNamespace(name);
+                el = document.createElementNS((NAMESPACE_URIS)[nsAndName[0]], nsAndName[1]);
             }
-            if (isPresent(parent)) {
-                getDOM().appendChild(parent, el);
+            else {
+                el = document.createElement(name);
+            }
+            if (this._contentAttr) {
+                el.setAttribute(this._contentAttr, '');
+            }
+            if (parent) {
+                parent.appendChild(el);
             }
             return el;
         };
         DomRenderer.prototype.createViewRoot = function (hostElement) {
             var nodesParent;
             if (this.componentProto.encapsulation === _angular_core.ViewEncapsulation.Native) {
-                nodesParent = getDOM().createShadowRoot(hostElement);
+                nodesParent = hostElement.createShadowRoot();
                 this._rootRenderer.sharedStylesHost.addHost(nodesParent);
                 for (var i = 0; i < this._styles.length; i++) {
-                    getDOM().appendChild(nodesParent, getDOM().createStyleElement(this._styles[i]));
+                    var styleEl = document.createElement('style');
+                    styleEl.textContent = this._styles[i];
+                    nodesParent.appendChild(styleEl);
                 }
             }
             else {
-                if (isPresent(this._hostAttr)) {
-                    getDOM().setAttribute(hostElement, this._hostAttr, '');
+                if (this._hostAttr) {
+                    hostElement.setAttribute(this._hostAttr, '');
                 }
                 nodesParent = hostElement;
             }
             return nodesParent;
         };
         DomRenderer.prototype.createTemplateAnchor = function (parentElement, debugInfo) {
-            var comment = getDOM().createComment(TEMPLATE_COMMENT_TEXT);
-            if (isPresent(parentElement)) {
-                getDOM().appendChild(parentElement, comment);
+            var comment = document.createComment(TEMPLATE_COMMENT_TEXT);
+            if (parentElement) {
+                parentElement.appendChild(comment);
             }
             return comment;
         };
         DomRenderer.prototype.createText = function (parentElement, value, debugInfo) {
-            var node = getDOM().createTextNode(value);
-            if (isPresent(parentElement)) {
-                getDOM().appendChild(parentElement, node);
+            var node = document.createTextNode(value);
+            if (parentElement) {
+                parentElement.appendChild(node);
             }
             return node;
         };
         DomRenderer.prototype.projectNodes = function (parentElement, nodes) {
-            if (isBlank(parentElement))
+            if (!parentElement)
                 return;
             appendNodes(parentElement, nodes);
         };
         DomRenderer.prototype.attachViewAfter = function (node, viewRootNodes) { moveNodesAfterSibling(node, viewRootNodes); };
         DomRenderer.prototype.detachView = function (viewRootNodes) {
             for (var i = 0; i < viewRootNodes.length; i++) {
-                getDOM().remove(viewRootNodes[i]);
+                var node = viewRootNodes[i];
+                if (node.parentNode) {
+                    node.parentNode.removeChild(node);
+                }
             }
         };
         DomRenderer.prototype.destroyView = function (hostElement, viewAllNodes) {
-            if (this.componentProto.encapsulation === _angular_core.ViewEncapsulation.Native && isPresent(hostElement)) {
-                this._rootRenderer.sharedStylesHost.removeHost(getDOM().getShadowRoot(hostElement));
+            if (this.componentProto.encapsulation === _angular_core.ViewEncapsulation.Native && hostElement) {
+                this._rootRenderer.sharedStylesHost.removeHost(hostElement.shadowRoot);
             }
         };
         DomRenderer.prototype.listen = function (renderElement, name, callback) {
@@ -1436,39 +1424,41 @@
             return this._rootRenderer.eventManager.addGlobalEventListener(target, name, decoratePreventDefault(callback));
         };
         DomRenderer.prototype.setElementProperty = function (renderElement, propertyName, propertyValue) {
-            getDOM().setProperty(renderElement, propertyName, propertyValue);
+            renderElement[propertyName] = propertyValue;
         };
         DomRenderer.prototype.setElementAttribute = function (renderElement, attributeName, attributeValue) {
             var attrNs;
-            var nsAndName = splitNamespace(attributeName);
-            if (isPresent(nsAndName[0])) {
+            var attrNameWithoutNs = attributeName;
+            if (isNamespaced(attributeName)) {
+                var nsAndName = splitNamespace(attributeName);
+                attrNameWithoutNs = nsAndName[1];
                 attributeName = nsAndName[0] + ':' + nsAndName[1];
                 attrNs = NAMESPACE_URIS[nsAndName[0]];
             }
             if (isPresent(attributeValue)) {
-                if (isPresent(attrNs)) {
-                    getDOM().setAttributeNS(renderElement, attrNs, attributeName, attributeValue);
+                if (attrNs) {
+                    renderElement.setAttributeNS(attrNs, attributeName, attributeValue);
                 }
                 else {
-                    getDOM().setAttribute(renderElement, attributeName, attributeValue);
+                    renderElement.setAttribute(attributeName, attributeValue);
                 }
             }
             else {
                 if (isPresent(attrNs)) {
-                    getDOM().removeAttributeNS(renderElement, attrNs, nsAndName[1]);
+                    renderElement.removeAttributeNS(attrNs, attrNameWithoutNs);
                 }
                 else {
-                    getDOM().removeAttribute(renderElement, attributeName);
+                    renderElement.removeAttribute(attributeName);
                 }
             }
         };
         DomRenderer.prototype.setBindingDebugInfo = function (renderElement, propertyName, propertyValue) {
-            var dashCasedPropertyName = camelCaseToDashCase(propertyName);
-            if (getDOM().isCommentNode(renderElement)) {
-                var existingBindings = getDOM().getText(renderElement).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+            if (renderElement.nodeType === Node.COMMENT_NODE) {
+                var existingBindings = renderElement.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
                 var parsedBindings = JSON.parse(existingBindings[1]);
-                parsedBindings[dashCasedPropertyName] = propertyValue;
-                getDOM().setText(renderElement, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(parsedBindings, null, 2)));
+                parsedBindings[propertyName] = propertyValue;
+                renderElement.nodeValue =
+                    TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(parsedBindings, null, 2));
             }
             else {
                 this.setElementAttribute(renderElement, propertyName, propertyValue);
@@ -1476,56 +1466,59 @@
         };
         DomRenderer.prototype.setElementClass = function (renderElement, className, isAdd) {
             if (isAdd) {
-                getDOM().addClass(renderElement, className);
+                renderElement.classList.add(className);
             }
             else {
-                getDOM().removeClass(renderElement, className);
+                renderElement.classList.remove(className);
             }
         };
         DomRenderer.prototype.setElementStyle = function (renderElement, styleName, styleValue) {
             if (isPresent(styleValue)) {
-                getDOM().setStyle(renderElement, styleName, stringify(styleValue));
+                renderElement.style[styleName] = stringify(styleValue);
             }
             else {
-                getDOM().removeStyle(renderElement, styleName);
+                // IE requires '' instead of null
+                // see https://github.com/angular/angular/issues/7916
+                renderElement.style[styleName] = '';
             }
         };
         DomRenderer.prototype.invokeElementMethod = function (renderElement, methodName, args) {
-            getDOM().invoke(renderElement, methodName, args);
+            renderElement[methodName].apply(renderElement, args);
         };
-        DomRenderer.prototype.setText = function (renderNode, text) { getDOM().setText(renderNode, text); };
+        DomRenderer.prototype.setText = function (renderNode, text) { renderNode.nodeValue = text; };
         DomRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
             return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing);
         };
         return DomRenderer;
     }());
-    function moveNodesAfterSibling(sibling /** TODO #9100 */, nodes /** TODO #9100 */) {
-        var parent = getDOM().parentElement(sibling);
-        if (nodes.length > 0 && isPresent(parent)) {
-            var nextSibling = getDOM().nextSibling(sibling);
-            if (isPresent(nextSibling)) {
+    function moveNodesAfterSibling(sibling, nodes) {
+        var parent = sibling.parentNode;
+        if (nodes.length > 0 && parent) {
+            var nextSibling = sibling.nextSibling;
+            if (nextSibling) {
                 for (var i = 0; i < nodes.length; i++) {
-                    getDOM().insertBefore(nextSibling, nodes[i]);
+                    parent.insertBefore(nodes[i], nextSibling);
                 }
             }
             else {
                 for (var i = 0; i < nodes.length; i++) {
-                    getDOM().appendChild(parent, nodes[i]);
+                    parent.appendChild(nodes[i]);
                 }
             }
         }
     }
-    function appendNodes(parent /** TODO #9100 */, nodes /** TODO #9100 */) {
+    function appendNodes(parent, nodes) {
         for (var i = 0; i < nodes.length; i++) {
-            getDOM().appendChild(parent, nodes[i]);
+            parent.appendChild(nodes[i]);
         }
     }
     function decoratePreventDefault(eventHandler) {
-        return function (event /** TODO #9100 */) {
+        return function (event) {
             var allowDefaultBehavior = eventHandler(event);
             if (allowDefaultBehavior === false) {
                 // TODO(tbosch): move preventDefault into event plugins...
-                getDOM().preventDefault(event);
+                event.preventDefault();
+                event.returnValue = false;
             }
         };
     }
@@ -1533,17 +1526,17 @@
     var COMPONENT_VARIABLE = '%COMP%';
     var HOST_ATTR = "_nghost-" + COMPONENT_VARIABLE;
     var CONTENT_ATTR = "_ngcontent-" + COMPONENT_VARIABLE;
-    function _shimContentAttribute(componentShortId) {
+    function shimContentAttribute(componentShortId) {
         return CONTENT_ATTR.replace(COMPONENT_REGEX, componentShortId);
     }
-    function _shimHostAttribute(componentShortId) {
+    function shimHostAttribute(componentShortId) {
         return HOST_ATTR.replace(COMPONENT_REGEX, componentShortId);
     }
-    function _flattenStyles(compId, styles, target) {
+    function flattenStyles(compId, styles, target) {
         for (var i = 0; i < styles.length; i++) {
             var style = styles[i];
             if (Array.isArray(style)) {
-                _flattenStyles(compId, style, target);
+                flattenStyles(compId, style, target);
             }
             else {
                 style = style.replace(COMPONENT_REGEX, compId);
@@ -1553,10 +1546,10 @@
         return target;
     }
     var NS_PREFIX_RE = /^:([^:]+):(.+)$/;
+    function isNamespaced(name) {
+        return name[0] === ':';
+    }
     function splitNamespace(name) {
-        if (name[0] != ':') {
-            return [null, name];
-        }
         var match = name.match(NS_PREFIX_RE);
         return [match[1], match[2]];
     }
@@ -1634,15 +1627,25 @@
         // events.
         DomEventsPlugin.prototype.supports = function (eventName) { return true; };
         DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
-            var zone = this.manager.getZone();
-            var outsideHandler = function (event /** TODO #9100 */) { return zone.runGuarded(function () { return handler(event); }); };
-            return this.manager.getZone().runOutsideAngular(function () { return getDOM().onAndCancel(element, eventName, outsideHandler); });
+            element.addEventListener(eventName, handler, false);
+            return function () { return element.removeEventListener(eventName, handler, false); };
         };
         DomEventsPlugin.prototype.addGlobalEventListener = function (target, eventName, handler) {
-            var element = getDOM().getGlobalEventTarget(target);
-            var zone = this.manager.getZone();
-            var outsideHandler = function (event /** TODO #9100 */) { return zone.runGuarded(function () { return handler(event); }); };
-            return this.manager.getZone().runOutsideAngular(function () { return getDOM().onAndCancel(element, eventName, outsideHandler); });
+            var element;
+            switch (target) {
+                case 'window':
+                    element = window;
+                    break;
+                case 'document':
+                    element = document;
+                    break;
+                case 'body':
+                    element = document.body;
+                    break;
+                default:
+                    throw new Error("Unsupported event target " + target + " for event " + eventName);
+            }
+            return this.addEventListener(element, eventName, handler);
         };
         DomEventsPlugin.decorators = [
             { type: _angular_core.Injectable },
@@ -2611,7 +2614,7 @@
      * @experimental All debugging apis are currently experimental.
      */
     function enableDebugTools(ref) {
-        context.ng = new AngularTools(ref);
+        Object.assign(context.ng, new AngularTools(ref));
         return ref;
     }
     /**
@@ -2620,7 +2623,7 @@
      * @experimental All debugging apis are currently experimental.
      */
     function disableDebugTools() {
-        delete context.ng;
+        delete context.ng.profiler;
     }
 
     /**
@@ -2675,6 +2678,12 @@
         setRootDomAdapter: setRootDomAdapter,
         DomRootRenderer_: DomRootRenderer_,
         DomRootRenderer: DomRootRenderer,
+        NAMESPACE_URIS: NAMESPACE_URIS,
+        shimContentAttribute: shimContentAttribute,
+        shimHostAttribute: shimHostAttribute,
+        flattenStyles: flattenStyles,
+        splitNamespace: splitNamespace,
+        isNamespaced: isNamespaced,
         DomSharedStylesHost: DomSharedStylesHost,
         SharedStylesHost: SharedStylesHost,
         ELEMENT_PROBE_PROVIDERS: ELEMENT_PROBE_PROVIDERS,
