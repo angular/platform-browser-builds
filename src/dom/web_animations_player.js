@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AUTO_STYLE } from '@angular/core';
-import { isPresent } from '../facade/lang';
 import { getDOM } from './dom_adapter';
 export var WebAnimationsPlayer = (function () {
     function WebAnimationsPlayer(element, keyframes, options) {
@@ -15,18 +14,16 @@ export var WebAnimationsPlayer = (function () {
         this.options = options;
         this._onDoneFns = [];
         this._onStartFns = [];
-        this._finished = false;
         this._initialized = false;
+        this._finished = false;
         this._started = false;
+        this._destroyed = false;
         this.parentPlayer = null;
         this._duration = options['duration'];
     }
     WebAnimationsPlayer.prototype._onFinish = function () {
         if (!this._finished) {
             this._finished = true;
-            if (!isPresent(this.parentPlayer)) {
-                this.destroy();
-            }
             this._onDoneFns.forEach(function (fn) { return fn(); });
             this._onDoneFns = [];
         }
@@ -46,7 +43,7 @@ export var WebAnimationsPlayer = (function () {
         });
         this._player = this._triggerWebAnimation(this.element, keyframes, this.options);
         // this is required so that the player doesn't start to animate right away
-        this.reset();
+        this._resetDomPlayerState();
         this._player.onfinish = function () { return _this._onFinish(); };
     };
     /** @internal */
@@ -73,15 +70,24 @@ export var WebAnimationsPlayer = (function () {
         this._onFinish();
         this._player.finish();
     };
-    WebAnimationsPlayer.prototype.reset = function () { this._player.cancel(); };
+    WebAnimationsPlayer.prototype.reset = function () {
+        this._resetDomPlayerState();
+        this._destroyed = false;
+        this._finished = false;
+        this._started = false;
+    };
+    WebAnimationsPlayer.prototype._resetDomPlayerState = function () { this._player.cancel(); };
     WebAnimationsPlayer.prototype.restart = function () {
         this.reset();
         this.play();
     };
     WebAnimationsPlayer.prototype.hasStarted = function () { return this._started; };
     WebAnimationsPlayer.prototype.destroy = function () {
-        this.reset();
-        this._onFinish();
+        if (!this._destroyed) {
+            this._resetDomPlayerState();
+            this._onFinish();
+            this._destroyed = true;
+        }
     };
     Object.defineProperty(WebAnimationsPlayer.prototype, "totalTime", {
         get: function () { return this._duration; },

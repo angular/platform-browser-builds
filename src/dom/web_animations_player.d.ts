@@ -9,11 +9,12 @@ export declare class WebAnimationsPlayer implements AnimationPlayer {
     };
     private _onDoneFns;
     private _onStartFns;
-    private _finished;
-    private _initialized;
     private _player;
-    private _started;
     private _duration;
+    private _initialized;
+    private _finished;
+    private _started;
+    private _destroyed;
     parentPlayer: AnimationPlayer;
     constructor(element: any, keyframes: {
         [key: string]: string | number;
@@ -28,6 +29,7 @@ export declare class WebAnimationsPlayer implements AnimationPlayer {
     pause(): void;
     finish(): void;
     reset(): void;
+    private _resetDomPlayerState();
     restart(): void;
     hasStarted(): boolean;
     destroy(): void;
