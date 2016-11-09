@@ -1,4 +1,5 @@
 import { AnimationPlayer } from '../private_import_core';
+import { DomAnimatePlayer } from './dom_animate_player';
 export declare class WebAnimationsPlayer implements AnimationPlayer {
     element: any;
     keyframes: {
@@ -23,6 +24,7 @@ export declare class WebAnimationsPlayer implements AnimationPlayer {
     });
     private _onFinish();
     init(): void;
+    domPlayer: DomAnimatePlayer;
     onStart(fn: () => void): void;
     onDone(fn: () => void): void;
     play(): void;

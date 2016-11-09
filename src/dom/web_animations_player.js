@@ -44,12 +44,17 @@ export var WebAnimationsPlayer = (function () {
         this._player = this._triggerWebAnimation(this.element, keyframes, this.options);
         // this is required so that the player doesn't start to animate right away
         this._resetDomPlayerState();
-        this._player.onfinish = function () { return _this._onFinish(); };
+        this._player.addEventListener('finish', function () { return _this._onFinish(); });
     };
     /** @internal */
     WebAnimationsPlayer.prototype._triggerWebAnimation = function (element, keyframes, options) {
         return element.animate(keyframes, options);
     };
+    Object.defineProperty(WebAnimationsPlayer.prototype, "domPlayer", {
+        get: function () { return this._player; },
+        enumerable: true,
+        configurable: true
+    });
     WebAnimationsPlayer.prototype.onStart = function (fn) { this._onStartFns.push(fn); };
     WebAnimationsPlayer.prototype.onDone = function (fn) { this._onDoneFns.push(fn); };
     WebAnimationsPlayer.prototype.play = function () {
