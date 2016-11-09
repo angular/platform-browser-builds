@@ -100,17 +100,6 @@
         obj[parts.shift()] = value;
     }
 
-    var DASH_CASE_REGEXP = /-([a-z])/g;
-    function dashCaseToCamelCase(input) {
-        return input.replace(DASH_CASE_REGEXP, function () {
-            var m = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                m[_i - 0] = arguments[_i];
-            }
-            return m[1].toUpperCase();
-        });
-    }
-
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -282,79 +271,13 @@
     }());
     function _populateStyles(element, styles, defaultStyles) {
         var data = {};
-        styles.styles.forEach(function (entry) {
-            Object.keys(entry).forEach(function (prop) {
-                var val = entry[prop];
-                var formattedProp = dashCaseToCamelCase(prop);
-                data[formattedProp] =
-                    val == _angular_core.AUTO_STYLE ? val : val.toString() + _resolveStyleUnit(val, prop, formattedProp);
-            });
-        });
+        styles.styles.forEach(function (entry) { Object.keys(entry).forEach(function (prop) { data[prop] = entry[prop]; }); });
         Object.keys(defaultStyles).forEach(function (prop) {
             if (!isPresent(data[prop])) {
                 data[prop] = defaultStyles[prop];
             }
         });
         return data;
-    }
-    function _resolveStyleUnit(val, userProvidedProp, formattedProp) {
-        var unit = '';
-        if (_isPixelDimensionStyle(formattedProp) && val != 0 && val != '0') {
-            if (typeof val === 'number') {
-                unit = 'px';
-            }
-            else if (_findDimensionalSuffix(val.toString()).length == 0) {
-                throw new Error('Please provide a CSS unit value for ' + userProvidedProp + ':' + val);
-            }
-        }
-        return unit;
-    }
-    var _$0 = 48;
-    var _$9 = 57;
-    var _$PERIOD = 46;
-    function _findDimensionalSuffix(value) {
-        for (var i = 0; i < value.length; i++) {
-            var c = value.charCodeAt(i);
-            if ((c >= _$0 && c <= _$9) || c == _$PERIOD)
-                continue;
-            return value.substring(i, value.length);
-        }
-        return '';
-    }
-    function _isPixelDimensionStyle(prop) {
-        switch (prop) {
-            case 'width':
-            case 'height':
-            case 'minWidth':
-            case 'minHeight':
-            case 'maxWidth':
-            case 'maxHeight':
-            case 'left':
-            case 'top':
-            case 'bottom':
-            case 'right':
-            case 'fontSize':
-            case 'outlineWidth':
-            case 'outlineOffset':
-            case 'paddingTop':
-            case 'paddingLeft':
-            case 'paddingBottom':
-            case 'paddingRight':
-            case 'marginTop':
-            case 'marginLeft':
-            case 'marginBottom':
-            case 'marginRight':
-            case 'borderRadius':
-            case 'borderWidth':
-            case 'borderTopWidth':
-            case 'borderLeftWidth':
-            case 'borderRightWidth':
-            case 'borderBottomWidth':
-            case 'textIndent':
-                return true;
-            default:
-                return false;
-        }
     }
 
     /**
