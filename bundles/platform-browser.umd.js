@@ -2597,7 +2597,8 @@
         HammerGesturesPlugin: HammerGesturesPlugin,
         initDomAdapter: initDomAdapter,
         INTERNAL_BROWSER_PLATFORM_PROVIDERS: INTERNAL_BROWSER_PLATFORM_PROVIDERS,
-        BROWSER_SANITIZATION_PROVIDERS: BROWSER_SANITIZATION_PROVIDERS
+        BROWSER_SANITIZATION_PROVIDERS: BROWSER_SANITIZATION_PROVIDERS,
+        WebAnimationsDriver: WebAnimationsDriver
     };
 
     exports.BrowserModule = BrowserModule;

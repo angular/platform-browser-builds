@@ -16,6 +16,7 @@ import * as dom_events from './dom/events/dom_events';
 import * as hammer_gesture from './dom/events/hammer_gestures';
 import * as key_events from './dom/events/key_events';
 import * as shared_styles_host from './dom/shared_styles_host';
+import { WebAnimationsDriver } from './dom/web_animations_driver';
 export var __platform_browser_private__ = {
     BrowserPlatformLocation: location.BrowserPlatformLocation,
     DomAdapter: dom_adapter.DomAdapter,
@@ -39,6 +40,7 @@ export var __platform_browser_private__ = {
     HammerGesturesPlugin: hammer_gesture.HammerGesturesPlugin,
     initDomAdapter: browser.initDomAdapter,
     INTERNAL_BROWSER_PLATFORM_PROVIDERS: browser.INTERNAL_BROWSER_PLATFORM_PROVIDERS,
-    BROWSER_SANITIZATION_PROVIDERS: browser.BROWSER_SANITIZATION_PROVIDERS
+    BROWSER_SANITIZATION_PROVIDERS: browser.BROWSER_SANITIZATION_PROVIDERS,
+    WebAnimationsDriver: WebAnimationsDriver
 };
 //# sourceMappingURL=private_export.js.map
