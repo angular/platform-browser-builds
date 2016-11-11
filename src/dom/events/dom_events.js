@@ -24,23 +24,6 @@ export var DomEventsPlugin = (function (_super) {
         element.addEventListener(eventName, handler, false);
         return function () { return element.removeEventListener(eventName, handler, false); };
     };
-    DomEventsPlugin.prototype.addGlobalEventListener = function (target, eventName, handler) {
-        var element;
-        switch (target) {
-            case 'window':
-                element = window;
-                break;
-            case 'document':
-                element = document;
-                break;
-            case 'body':
-                element = document.body;
-                break;
-            default:
-                throw new Error("Unsupported event target " + target + " for event " + eventName);
-        }
-        return this.addEventListener(element, eventName, handler);
-    };
     DomEventsPlugin.decorators = [
         { type: Injectable },
     ];

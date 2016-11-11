@@ -986,42 +986,6 @@
         };
         return StringMapWrapper;
     }());
-    var ListWrapper = (function () {
-        function ListWrapper() {
-        }
-        ListWrapper.removeAll = function (list, items) {
-            for (var i = 0; i < items.length; ++i) {
-                var index = list.indexOf(items[i]);
-                if (index > -1) {
-                    list.splice(index, 1);
-                }
-            }
-        };
-        ListWrapper.remove = function (list, el) {
-            var index = list.indexOf(el);
-            if (index > -1) {
-                list.splice(index, 1);
-                return true;
-            }
-            return false;
-        };
-        ListWrapper.equals = function (a, b) {
-            if (a.length != b.length)
-                return false;
-            for (var i = 0; i < a.length; ++i) {
-                if (a[i] !== b[i])
-                    return false;
-            }
-            return true;
-        };
-        ListWrapper.flatten = function (list) {
-            return list.reduce(function (flat, item) {
-                var flatItem = Array.isArray(item) ? ListWrapper.flatten(item) : item;
-                return flat.concat(flatItem);
-            }, []);
-        };
-        return ListWrapper;
-    }());
 
     /**
      * A DI Token representing the main rendering context. In a browser this is the DOM Document.
@@ -1080,14 +1044,14 @@
     var EventManagerPlugin = (function () {
         function EventManagerPlugin() {
         }
-        // That is equivalent to having supporting $event.target
-        EventManagerPlugin.prototype.supports = function (eventName) { return false; };
-        EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
-            throw 'not implemented';
-        };
         EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-            throw 'not implemented';
+            var target = getDOM().getGlobalEventTarget(element);
+            if (!target) {
+                throw new Error("Unsupported event target " + target + " for event " + eventName);
+            }
+            return this.addEventListener(target, eventName, handler);
         };
+        ;
         return EventManagerPlugin;
     }());
 
@@ -1549,23 +1513,6 @@
             element.addEventListener(eventName, handler, false);
             return function () { return element.removeEventListener(eventName, handler, false); };
         };
-        DomEventsPlugin.prototype.addGlobalEventListener = function (target, eventName, handler) {
-            var element;
-            switch (target) {
-                case 'window':
-                    element = window;
-                    break;
-                case 'document':
-                    element = document;
-                    break;
-                case 'body':
-                    element = document.body;
-                    break;
-                default:
-                    throw new Error("Unsupported event target " + target + " for event " + eventName);
-            }
-            return this.addEventListener(element, eventName, handler);
-        };
         DomEventsPlugin.decorators = [
             { type: _angular_core.Injectable },
         ];
@@ -1581,12 +1528,12 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var __extends$7 = (this && this.__extends) || function (d, b) {
+    var __extends$6 = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var _eventNames = {
+    var EVENT_NAMES = {
         // pan
         'pan': true,
         'panstart': true,
@@ -1622,29 +1569,6 @@
         'swipedown': true,
         // tap
         'tap': true,
-    };
-    var HammerGesturesPluginCommon = (function (_super) {
-        __extends$7(HammerGesturesPluginCommon, _super);
-        function HammerGesturesPluginCommon() {
-            _super.call(this);
-        }
-        HammerGesturesPluginCommon.prototype.supports = function (eventName) {
-            return _eventNames.hasOwnProperty(eventName.toLowerCase());
-        };
-        return HammerGesturesPluginCommon;
-    }(EventManagerPlugin));
-
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    var __extends$6 = (this && this.__extends) || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
     /**
      * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
@@ -1684,8 +1608,9 @@
             this._config = _config;
         }
         HammerGesturesPlugin.prototype.supports = function (eventName) {
-            if (!_super.prototype.supports.call(this, eventName) && !this.isCustomEvent(eventName))
+            if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
                 return false;
+            }
             if (!window.Hammer) {
                 throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
             }
@@ -1714,7 +1639,7 @@
             { type: HammerGestureConfig, decorators: [{ type: _angular_core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
         ];
         return HammerGesturesPlugin;
-    }(HammerGesturesPluginCommon));
+    }(EventManagerPlugin));
 
     /**
      * @license
@@ -1723,13 +1648,13 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var __extends$8 = (this && this.__extends) || function (d, b) {
+    var __extends$7 = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var modifierKeys = ['alt', 'control', 'meta', 'shift'];
-    var modifierKeyGetters = {
+    var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
+    var MODIFIER_KEY_GETTERS = {
         'alt': function (event) { return event.altKey; },
         'control': function (event) { return event.ctrlKey; },
         'meta': function (event) { return event.metaKey; },
@@ -1739,16 +1664,14 @@
      * @experimental
      */
     var KeyEventsPlugin = (function (_super) {
-        __extends$8(KeyEventsPlugin, _super);
+        __extends$7(KeyEventsPlugin, _super);
         function KeyEventsPlugin() {
             _super.call(this);
         }
-        KeyEventsPlugin.prototype.supports = function (eventName) {
-            return isPresent(KeyEventsPlugin.parseEventName(eventName));
-        };
+        KeyEventsPlugin.prototype.supports = function (eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; };
         KeyEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
             var parsedEvent = KeyEventsPlugin.parseEventName(eventName);
-            var outsideHandler = KeyEventsPlugin.eventCallback(element, parsedEvent['fullKey'], handler, this.manager.getZone());
+            var outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
             return this.manager.getZone().runOutsideAngular(function () {
                 return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
             });
@@ -1761,9 +1684,10 @@
             }
             var key = KeyEventsPlugin._normalizeKey(parts.pop());
             var fullKey = '';
-            modifierKeys.forEach(function (modifierName) {
-                if (parts.indexOf(modifierName) > -1) {
-                    ListWrapper.remove(parts, modifierName);
+            MODIFIER_KEYS.forEach(function (modifierName) {
+                var index = parts.indexOf(modifierName);
+                if (index > -1) {
+                    parts.splice(index, 1);
                     fullKey += modifierName + '.';
                 }
             });
@@ -1787,9 +1711,9 @@
             else if (key === '.') {
                 key = 'dot'; // because '.' is used as a separator in event names
             }
-            modifierKeys.forEach(function (modifierName) {
+            MODIFIER_KEYS.forEach(function (modifierName) {
                 if (modifierName != key) {
-                    var modifierGetter = modifierKeyGetters[modifierName];
+                    var modifierGetter = MODIFIER_KEY_GETTERS[modifierName];
                     if (modifierGetter(event)) {
                         fullKey += modifierName + '.';
                     }
@@ -1798,7 +1722,7 @@
             fullKey += key;
             return fullKey;
         };
-        KeyEventsPlugin.eventCallback = function (element, fullKey, handler, zone) {
+        KeyEventsPlugin.eventCallback = function (fullKey, handler, zone) {
             return function (event /** TODO #9100 */) {
                 if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
                     zone.runGuarded(function () { return handler(event); });
@@ -1807,7 +1731,7 @@
         };
         /** @internal */
         KeyEventsPlugin._normalizeKey = function (keyName) {
-            // TODO: switch to a StringMap if the mapping grows too much
+            // TODO: switch to a Map if the mapping grows too much
             switch (keyName) {
                 case 'esc':
                     return 'escape';
@@ -2209,7 +2133,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var __extends$9 = (this && this.__extends) || function (d, b) {
+    var __extends$8 = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -2251,7 +2175,7 @@
         return DomSanitizer;
     }());
     var DomSanitizerImpl = (function (_super) {
-        __extends$9(DomSanitizerImpl, _super);
+        __extends$8(DomSanitizerImpl, _super);
         function DomSanitizerImpl() {
             _super.apply(this, arguments);
         }
@@ -2325,7 +2249,7 @@
         return SafeValueImpl;
     }());
     var SafeHtmlImpl = (function (_super) {
-        __extends$9(SafeHtmlImpl, _super);
+        __extends$8(SafeHtmlImpl, _super);
         function SafeHtmlImpl() {
             _super.apply(this, arguments);
         }
@@ -2333,7 +2257,7 @@
         return SafeHtmlImpl;
     }(SafeValueImpl));
     var SafeStyleImpl = (function (_super) {
-        __extends$9(SafeStyleImpl, _super);
+        __extends$8(SafeStyleImpl, _super);
         function SafeStyleImpl() {
             _super.apply(this, arguments);
         }
@@ -2341,7 +2265,7 @@
         return SafeStyleImpl;
     }(SafeValueImpl));
     var SafeScriptImpl = (function (_super) {
-        __extends$9(SafeScriptImpl, _super);
+        __extends$8(SafeScriptImpl, _super);
         function SafeScriptImpl() {
             _super.apply(this, arguments);
         }
@@ -2349,7 +2273,7 @@
         return SafeScriptImpl;
     }(SafeValueImpl));
     var SafeUrlImpl = (function (_super) {
-        __extends$9(SafeUrlImpl, _super);
+        __extends$8(SafeUrlImpl, _super);
         function SafeUrlImpl() {
             _super.apply(this, arguments);
         }
@@ -2357,7 +2281,7 @@
         return SafeUrlImpl;
     }(SafeValueImpl));
     var SafeResourceUrlImpl = (function (_super) {
-        __extends$9(SafeResourceUrlImpl, _super);
+        __extends$8(SafeResourceUrlImpl, _super);
         function SafeResourceUrlImpl() {
             _super.apply(this, arguments);
         }

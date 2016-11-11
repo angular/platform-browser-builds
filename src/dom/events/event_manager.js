@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Inject, Injectable, NgZone, OpaqueToken } from '@angular/core';
+import { getDOM } from '../dom_adapter';
 /**
  * @stable
  */
@@ -53,14 +54,14 @@ export var EventManager = (function () {
 export var EventManagerPlugin = (function () {
     function EventManagerPlugin() {
     }
-    // That is equivalent to having supporting $event.target
-    EventManagerPlugin.prototype.supports = function (eventName) { return false; };
-    EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        throw 'not implemented';
-    };
     EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-        throw 'not implemented';
+        var target = getDOM().getGlobalEventTarget(element);
+        if (!target) {
+            throw new Error("Unsupported event target " + target + " for event " + eventName);
+        }
+        return this.addEventListener(target, eventName, handler);
     };
+    ;
     return EventManagerPlugin;
 }());
 //# sourceMappingURL=event_manager.js.map
