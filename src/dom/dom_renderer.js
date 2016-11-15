@@ -244,8 +244,9 @@ export var DomRenderer = (function () {
         renderElement[methodName].apply(renderElement, args);
     };
     DomRenderer.prototype.setText = function (renderNode, text) { renderNode.nodeValue = text; };
-    DomRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
-        return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing);
+    DomRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
+        if (previousPlayers === void 0) { previousPlayers = []; }
+        return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
     };
     return DomRenderer;
 }());

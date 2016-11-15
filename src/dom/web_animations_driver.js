@@ -10,16 +10,17 @@ import { WebAnimationsPlayer } from './web_animations_player';
 export var WebAnimationsDriver = (function () {
     function WebAnimationsDriver() {
     }
-    WebAnimationsDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
+    WebAnimationsDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
+        if (previousPlayers === void 0) { previousPlayers = []; }
         var formattedSteps = [];
         var startingStyleLookup = {};
         if (isPresent(startingStyles) && startingStyles.styles.length > 0) {
-            startingStyleLookup = _populateStyles(element, startingStyles, {});
+            startingStyleLookup = _populateStyles(startingStyles, {});
             startingStyleLookup['offset'] = 0;
             formattedSteps.push(startingStyleLookup);
         }
         keyframes.forEach(function (keyframe) {
-            var data = _populateStyles(element, keyframe.styles, startingStyleLookup);
+            var data = _populateStyles(keyframe.styles, startingStyleLookup);
             data['offset'] = keyframe.offset;
             formattedSteps.push(data);
         });
@@ -42,11 +43,11 @@ export var WebAnimationsDriver = (function () {
         if (easing) {
             playerOptions['easing'] = easing;
         }
-        return new WebAnimationsPlayer(element, formattedSteps, playerOptions);
+        return new WebAnimationsPlayer(element, formattedSteps, playerOptions, previousPlayers);
     };
     return WebAnimationsDriver;
 }());
-function _populateStyles(element, styles, defaultStyles) {
+function _populateStyles(styles, defaultStyles) {
     var data = {};
     styles.styles.forEach(function (entry) { Object.keys(entry).forEach(function (prop) { data[prop] = entry[prop]; }); });
     Object.keys(defaultStyles).forEach(function (prop) {
