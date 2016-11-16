@@ -43,6 +43,9 @@ export var WebAnimationsDriver = (function () {
         if (easing) {
             playerOptions['easing'] = easing;
         }
+        // there may be a chance a NoOp player is returned depending
+        // on when the previous animation was cancelled
+        previousPlayers = previousPlayers.filter(filterWebAnimationPlayerFn);
         return new WebAnimationsPlayer(element, formattedSteps, playerOptions, previousPlayers);
     };
     return WebAnimationsDriver;
@@ -56,5 +59,8 @@ function _populateStyles(styles, defaultStyles) {
         }
     });
     return data;
+}
+function filterWebAnimationPlayerFn(player) {
+    return player instanceof WebAnimationsPlayer;
 }
 //# sourceMappingURL=web_animations_driver.js.map
