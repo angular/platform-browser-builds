@@ -2536,7 +2536,9 @@
      * @experimental All debugging apis are currently experimental.
      */
     function disableDebugTools() {
-        delete context.ng.profiler;
+        if (context.ng) {
+            delete context.ng.profiler;
+        }
     }
 
     /**

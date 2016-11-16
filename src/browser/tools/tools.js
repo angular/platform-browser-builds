@@ -31,6 +31,8 @@ export function enableDebugTools(ref) {
  * @experimental All debugging apis are currently experimental.
  */
 export function disableDebugTools() {
-    delete context.ng.profiler;
+    if (context.ng) {
+        delete context.ng.profiler;
+    }
 }
 //# sourceMappingURL=tools.js.map
