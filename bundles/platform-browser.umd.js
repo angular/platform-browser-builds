@@ -7,10 +7,10 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core')) :
     typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core'], factory) :
     (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}),global.ng.common,global.ng.core));
-}(this, function (exports,_angular_common,_angular_core) { 'use strict';
+}(this, function (exports,_angular_common,core) { 'use strict';
 
-    var DebugDomRootRenderer = _angular_core.__core_private__.DebugDomRootRenderer;
-    var NoOpAnimationPlayer = _angular_core.__core_private__.NoOpAnimationPlayer;
+    var DebugDomRootRenderer = core.__core_private__.DebugDomRootRenderer;
+    var NoOpAnimationPlayer = core.__core_private__.NoOpAnimationPlayer;
 
     var _NoOpAnimationDriver = (function () {
         function _NoOpAnimationDriver() {
@@ -180,7 +180,7 @@
                 var formattedKeyframe = {};
                 Object.keys(styles).forEach(function (prop, index) {
                     var value = styles[prop];
-                    if (value == _angular_core.AUTO_STYLE) {
+                    if (value == core.AUTO_STYLE) {
                         value = _computeStyle(_this.element, prop);
                     }
                     if (value != undefined) {
@@ -930,7 +930,7 @@
         BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
         BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
         BrowserPlatformLocation.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         BrowserPlatformLocation.ctorParameters = [];
@@ -940,7 +940,7 @@
     var BrowserGetTestability = (function () {
         function BrowserGetTestability() {
         }
-        BrowserGetTestability.init = function () { _angular_core.setTestabilityGetter(new BrowserGetTestability()); };
+        BrowserGetTestability.init = function () { core.setTestabilityGetter(new BrowserGetTestability()); };
         BrowserGetTestability.prototype.addToWindow = function (registry) {
             global$1.getAngularTestability = function (elem, findInAncestors) {
                 if (findInAncestors === void 0) { findInAncestors = true; }
@@ -1060,12 +1060,12 @@
      *
      * @stable
      */
-    var DOCUMENT = new _angular_core.OpaqueToken('DocumentToken');
+    var DOCUMENT = new core.OpaqueToken('DocumentToken');
 
     /**
      * @stable
      */
-    var EVENT_MANAGER_PLUGINS = new _angular_core.OpaqueToken('EventManagerPlugins');
+    var EVENT_MANAGER_PLUGINS = new core.OpaqueToken('EventManagerPlugins');
     /**
      * @stable
      */
@@ -1103,12 +1103,12 @@
             throw new Error("No event manager plugin found for event " + eventName);
         };
         EventManager.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         EventManager.ctorParameters = [
-            { type: Array, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-            { type: _angular_core.NgZone, },
+            { type: Array, decorators: [{ type: core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+            { type: core.NgZone, },
         ];
         return EventManager;
     }());
@@ -1160,7 +1160,7 @@
         SharedStylesHost.prototype.onStylesAdded = function (additions) { };
         SharedStylesHost.prototype.getAllStyles = function () { return this._styles; };
         SharedStylesHost.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         SharedStylesHost.ctorParameters = [];
@@ -1191,11 +1191,11 @@
             this._hostNodes.forEach(function (hostNode) { _this._addStylesToHost(additions, hostNode); });
         };
         DomSharedStylesHost.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         DomSharedStylesHost.ctorParameters = [
-            { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
+            { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
         ];
         return DomSharedStylesHost;
     }(SharedStylesHost));
@@ -1244,15 +1244,15 @@
             _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId);
         }
         DomRootRenderer_.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         DomRootRenderer_.ctorParameters = [
-            { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT,] },] },
+            { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
             { type: EventManager, },
             { type: DomSharedStylesHost, },
             { type: AnimationDriver, },
-            { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_core.APP_ID,] },] },
+            { type: undefined, decorators: [{ type: core.Inject, args: [core.APP_ID,] },] },
         ];
         return DomRootRenderer_;
     }(DomRootRenderer));
@@ -1274,10 +1274,10 @@
             this._animationDriver = _animationDriver;
             this.directRenderer = DIRECT_DOM_RENDERER;
             this._styles = flattenStyles(styleShimId, componentProto.styles, []);
-            if (componentProto.encapsulation !== _angular_core.ViewEncapsulation.Native) {
+            if (componentProto.encapsulation !== core.ViewEncapsulation.Native) {
                 this._rootRenderer.sharedStylesHost.addStyles(this._styles);
             }
-            if (this.componentProto.encapsulation === _angular_core.ViewEncapsulation.Emulated) {
+            if (this.componentProto.encapsulation === core.ViewEncapsulation.Emulated) {
                 this._contentAttr = shimContentAttribute(styleShimId);
                 this._hostAttr = shimHostAttribute(styleShimId);
             }
@@ -1321,7 +1321,7 @@
         };
         DomRenderer.prototype.createViewRoot = function (hostElement) {
             var nodesParent;
-            if (this.componentProto.encapsulation === _angular_core.ViewEncapsulation.Native) {
+            if (this.componentProto.encapsulation === core.ViewEncapsulation.Native) {
                 nodesParent = hostElement.createShadowRoot();
                 this._rootRenderer.sharedStylesHost.addHost(nodesParent);
                 for (var i = 0; i < this._styles.length; i++) {
@@ -1367,7 +1367,7 @@
             }
         };
         DomRenderer.prototype.destroyView = function (hostElement, viewAllNodes) {
-            if (this.componentProto.encapsulation === _angular_core.ViewEncapsulation.Native && hostElement) {
+            if (this.componentProto.encapsulation === core.ViewEncapsulation.Native && hostElement) {
                 this._rootRenderer.sharedStylesHost.removeHost(hostElement.shadowRoot);
             }
         };
@@ -1510,8 +1510,8 @@
     }
 
     var CORE_TOKENS = {
-        'ApplicationRef': _angular_core.ApplicationRef,
-        'NgZone': _angular_core.NgZone
+        'ApplicationRef': core.ApplicationRef,
+        'NgZone': core.NgZone,
     };
     var INSPECT_GLOBAL_NAME = 'ng.probe';
     var CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
@@ -1520,11 +1520,12 @@
      * null if the given native element does not have an Angular view associated
      * with it.
      */
-    function inspectNativeElement(element /** TODO #9100 */) {
-        return _angular_core.getDebugNode(element);
+    function inspectNativeElement(element) {
+        return core.getDebugNode(element);
     }
     /**
-     * @experimental
+     * Deprecated. Use the one from '@angular/core'.
+     * @deprecated
      */
     var NgProbeToken = (function () {
         function NgProbeToken(name, token) {
@@ -1533,13 +1534,12 @@
         }
         return NgProbeToken;
     }());
-    function _createConditionalRootRenderer(rootRenderer /** TODO #9100 */, extraTokens) {
-        if (_angular_core.isDevMode()) {
-            return _createRootRenderer(rootRenderer, extraTokens);
-        }
-        return rootRenderer;
+    function _createConditionalRootRenderer(rootRenderer, extraTokens, coreTokens) {
+        return core.isDevMode() ?
+            _createRootRenderer(rootRenderer, (extraTokens || []).concat(coreTokens || [])) :
+            rootRenderer;
     }
-    function _createRootRenderer(rootRenderer /** TODO #9100 */, extraTokens) {
+    function _createRootRenderer(rootRenderer, extraTokens) {
         getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
         getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, StringMapWrapper.merge(CORE_TOKENS, _ngProbeTokensToMap(extraTokens || [])));
         return new DebugDomRootRenderer(rootRenderer);
@@ -1551,14 +1551,12 @@
      * Providers which support debugging Angular applications (e.g. via `ng.probe`).
      */
     var ELEMENT_PROBE_PROVIDERS = [{
-            provide: _angular_core.RootRenderer,
+            provide: core.RootRenderer,
             useFactory: _createConditionalRootRenderer,
-            deps: [DomRootRenderer, [NgProbeToken, new _angular_core.Optional()]]
-        }];
-    var ELEMENT_PROBE_PROVIDERS_PROD_MODE = [{
-            provide: _angular_core.RootRenderer,
-            useFactory: _createRootRenderer,
-            deps: [DomRootRenderer, [NgProbeToken, new _angular_core.Optional()]]
+            deps: [
+                DomRootRenderer, [NgProbeToken, new core.Optional()],
+                [core.NgProbeToken, new core.Optional()]
+            ]
         }];
 
     /**
@@ -1586,7 +1584,7 @@
             return function () { return element.removeEventListener(eventName, handler, false); };
         };
         DomEventsPlugin.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         DomEventsPlugin.ctorParameters = [];
@@ -1648,7 +1646,7 @@
      *
      * @experimental
      */
-    var HAMMER_GESTURE_CONFIG = new _angular_core.OpaqueToken('HammerGestureConfig');
+    var HAMMER_GESTURE_CONFIG = new core.OpaqueToken('HammerGestureConfig');
     /**
      * @experimental
      */
@@ -1667,7 +1665,7 @@
             return mc;
         };
         HammerGestureConfig.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         HammerGestureConfig.ctorParameters = [];
@@ -1704,11 +1702,11 @@
         };
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
         HammerGesturesPlugin.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         HammerGesturesPlugin.ctorParameters = [
-            { type: HammerGestureConfig, decorators: [{ type: _angular_core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+            { type: HammerGestureConfig, decorators: [{ type: core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
         ];
         return HammerGesturesPlugin;
     }(EventManagerPlugin));
@@ -1812,7 +1810,7 @@
             }
         };
         KeyEventsPlugin.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         KeyEventsPlugin.ctorParameters = [];
@@ -1852,7 +1850,7 @@
         url = String(url);
         if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
             return url;
-        if (_angular_core.isDevMode()) {
+        if (core.isDevMode()) {
             getDOM().log("WARNING: sanitizing unsafe URL value " + url + " (see http://g.co/ng/security#xss)");
         }
         return 'unsafe:' + url;
@@ -2105,7 +2103,7 @@
                 var child = _a[_i];
                 DOM.removeChild(parent_1, child);
             }
-            if (_angular_core.isDevMode() && sanitizer.sanitizedSomething) {
+            if (core.isDevMode() && sanitizer.sanitizedSomething) {
                 DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
             }
             return safeHtml;
@@ -2192,7 +2190,7 @@
             value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
             return value; // Safe style values.
         }
-        if (_angular_core.isDevMode()) {
+        if (core.isDevMode()) {
             getDOM().log("WARNING: sanitizing unsafe style value " + value + " (see http://g.co/ng/security#xss).");
         }
         return 'unsafe';
@@ -2255,31 +2253,31 @@
             if (value == null)
                 return null;
             switch (ctx) {
-                case _angular_core.SecurityContext.NONE:
+                case core.SecurityContext.NONE:
                     return value;
-                case _angular_core.SecurityContext.HTML:
+                case core.SecurityContext.HTML:
                     if (value instanceof SafeHtmlImpl)
                         return value.changingThisBreaksApplicationSecurity;
                     this.checkNotSafeValue(value, 'HTML');
                     return sanitizeHtml(String(value));
-                case _angular_core.SecurityContext.STYLE:
+                case core.SecurityContext.STYLE:
                     if (value instanceof SafeStyleImpl)
                         return value.changingThisBreaksApplicationSecurity;
                     this.checkNotSafeValue(value, 'Style');
                     return sanitizeStyle(value);
-                case _angular_core.SecurityContext.SCRIPT:
+                case core.SecurityContext.SCRIPT:
                     if (value instanceof SafeScriptImpl)
                         return value.changingThisBreaksApplicationSecurity;
                     this.checkNotSafeValue(value, 'Script');
                     throw new Error('unsafe value used in a script context');
-                case _angular_core.SecurityContext.URL:
+                case core.SecurityContext.URL:
                     if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
                         // Allow resource URLs in URL contexts, they are strictly more trusted.
                         return value.changingThisBreaksApplicationSecurity;
                     }
                     this.checkNotSafeValue(value, 'URL');
                     return sanitizeUrl(String(value));
-                case _angular_core.SecurityContext.RESOURCE_URL:
+                case core.SecurityContext.RESOURCE_URL:
                     if (value instanceof SafeResourceUrlImpl) {
                         return value.changingThisBreaksApplicationSecurity;
                     }
@@ -2303,7 +2301,7 @@
             return new SafeResourceUrlImpl(value);
         };
         DomSanitizerImpl.decorators = [
-            { type: _angular_core.Injectable },
+            { type: core.Injectable },
         ];
         /** @nocollapse */
         DomSanitizerImpl.ctorParameters = [];
@@ -2362,7 +2360,7 @@
     }(SafeValueImpl));
 
     var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+        { provide: core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
         { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
     ];
     /**
@@ -2372,19 +2370,19 @@
      * @experimental
      */
     var BROWSER_SANITIZATION_PROVIDERS = [
-        { provide: _angular_core.Sanitizer, useExisting: DomSanitizer },
+        { provide: core.Sanitizer, useExisting: DomSanitizer },
         { provide: DomSanitizer, useClass: DomSanitizerImpl },
     ];
     /**
      * @stable
      */
-    var platformBrowser = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+    var platformBrowser = core.createPlatformFactory(core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
     function initDomAdapter() {
         BrowserDomAdapter.makeCurrent();
         BrowserGetTestability.init();
     }
     function errorHandler() {
-        return new _angular_core.ErrorHandler();
+        return new core.ErrorHandler();
     }
     function _document() {
         return getDOM().defaultDoc();
@@ -2407,26 +2405,26 @@
             }
         }
         BrowserModule.decorators = [
-            { type: _angular_core.NgModule, args: [{
+            { type: core.NgModule, args: [{
                         providers: [
-                            BROWSER_SANITIZATION_PROVIDERS, { provide: _angular_core.ErrorHandler, useFactory: errorHandler, deps: [] },
+                            BROWSER_SANITIZATION_PROVIDERS, { provide: core.ErrorHandler, useFactory: errorHandler, deps: [] },
                             { provide: DOCUMENT, useFactory: _document, deps: [] },
                             { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                             { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
                             { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
                             { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
                             { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-                            { provide: _angular_core.RootRenderer, useExisting: DomRootRenderer },
+                            { provide: core.RootRenderer, useExisting: DomRootRenderer },
                             { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
                             { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost,
-                            _angular_core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS, Title
+                            core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS, Title
                         ],
-                        exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
+                        exports: [_angular_common.CommonModule, core.ApplicationModule]
                     },] },
         ];
         /** @nocollapse */
         BrowserModule.ctorParameters = [
-            { type: BrowserModule, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
+            { type: BrowserModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
         ];
         return BrowserModule;
     }());
@@ -2466,7 +2464,7 @@
      */
     var AngularProfiler = (function () {
         function AngularProfiler(ref) {
-            this.appRef = ref.injector.get(_angular_core.ApplicationRef);
+            this.appRef = ref.injector.get(core.ApplicationRef);
         }
         /**
          * Exercises change detection in a loop and then prints the average amount of
