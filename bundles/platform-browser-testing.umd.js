@@ -170,7 +170,7 @@
                     },] },
         ];
         /** @nocollapse */
-        BrowserTestingModule.ctorParameters = [];
+        BrowserTestingModule.ctorParameters = function () { return []; };
         return BrowserTestingModule;
     }());
 
