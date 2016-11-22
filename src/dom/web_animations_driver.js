@@ -10,27 +10,15 @@ import { WebAnimationsPlayer } from './web_animations_player';
 export var WebAnimationsDriver = (function () {
     function WebAnimationsDriver() {
     }
-    /**
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */
     WebAnimationsDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
         if (previousPlayers === void 0) { previousPlayers = []; }
-        var /** @type {?} */ formattedSteps = [];
-        var /** @type {?} */ startingStyleLookup = {};
-        if (isPresent(startingStyles) && startingStyles.styles.length > 0) {
+        var formattedSteps = [];
+        var startingStyleLookup = {};
+        if (isPresent(startingStyles)) {
             startingStyleLookup = _populateStyles(startingStyles, {});
-            startingStyleLookup['offset'] = 0;
-            formattedSteps.push(startingStyleLookup);
         }
         keyframes.forEach(function (keyframe) {
-            var /** @type {?} */ data = _populateStyles(keyframe.styles, startingStyleLookup);
+            var data = _populateStyles(keyframe.styles, startingStyleLookup);
             data['offset'] = keyframe.offset;
             formattedSteps.push(data);
         });
@@ -39,11 +27,11 @@ export var WebAnimationsDriver = (function () {
         // end with the same values. Removing the offset and having only
         // start/end values is suitable enough for the web-animations API
         if (formattedSteps.length == 1) {
-            var /** @type {?} */ start = formattedSteps[0];
+            var start = formattedSteps[0];
             start['offset'] = null;
             formattedSteps = [start, start];
         }
-        var /** @type {?} */ playerOptions = {
+        var playerOptions = {
             'duration': duration,
             'delay': delay,
             'fill': 'both' // we use `both` because it allows for styling at 0% to work with `delay`
@@ -56,17 +44,12 @@ export var WebAnimationsDriver = (function () {
         // there may be a chance a NoOp player is returned depending
         // on when the previous animation was cancelled
         previousPlayers = previousPlayers.filter(filterWebAnimationPlayerFn);
-        return new WebAnimationsPlayer(element, formattedSteps, playerOptions, /** @type {?} */ (previousPlayers));
+        return new WebAnimationsPlayer(element, formattedSteps, playerOptions, previousPlayers);
     };
     return WebAnimationsDriver;
 }());
-/**
- * @param {?} styles
- * @param {?} defaultStyles
- * @return {?}
- */
 function _populateStyles(styles, defaultStyles) {
-    var /** @type {?} */ data = {};
+    var data = {};
     styles.styles.forEach(function (entry) { Object.keys(entry).forEach(function (prop) { data[prop] = entry[prop]; }); });
     Object.keys(defaultStyles).forEach(function (prop) {
         if (!isPresent(data[prop])) {
@@ -75,10 +58,6 @@ function _populateStyles(styles, defaultStyles) {
     });
     return data;
 }
-/**
- * @param {?} player
- * @return {?}
- */
 function filterWebAnimationPlayerFn(player) {
     return player instanceof WebAnimationsPlayer;
 }
