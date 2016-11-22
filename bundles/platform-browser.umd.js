@@ -998,23 +998,12 @@
           });
           var /** @type {?} */ previousStyleProps = Object.keys(this.previousStyles);
           if (previousStyleProps.length) {
-              var /** @type {?} */ startingKeyframe_1 = keyframes[0];
-              var /** @type {?} */ missingStyleProps_1 = [];
+              var /** @type {?} */ startingKeyframe_1 = findStartingKeyframe(keyframes);
               previousStyleProps.forEach(function (prop) {
-                  if (!isPresent(startingKeyframe_1[prop])) {
-                      missingStyleProps_1.push(prop);
+                  if (isPresent(startingKeyframe_1[prop])) {
+                      startingKeyframe_1[prop] = _this.previousStyles[prop];
                   }
-                  startingKeyframe_1[prop] = _this.previousStyles[prop];
               });
-              if (missingStyleProps_1.length) {
-                  var _loop_1 = function(i) {
-                      var /** @type {?} */ kf = keyframes[i];
-                      missingStyleProps_1.forEach(function (prop) { kf[prop] = _computeStyle(_this.element, prop); });
-                  };
-                  for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
-                      _loop_1(i);
-                  }
-              }
           }
           this._player = this._triggerWebAnimation(this.element, keyframes, this.options);
           this._finalKeyframe = _copyKeyframeStyles(keyframes[keyframes.length - 1]);
@@ -1166,6 +1155,23 @@
       });
       return newStyles;
   }
+  /**
+   * @param {?} keyframes
+   * @return {?}
+   */
+  function findStartingKeyframe(keyframes) {
+      var /** @type {?} */ startingKeyframe = keyframes[0];
+      // it's important that we find the LAST keyframe
+      // to ensure that style overidding is final.
+      for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
+          var /** @type {?} */ kf = keyframes[i];
+          var /** @type {?} */ offset = kf['offset'];
+          if (offset !== 0)
+              break;
+          startingKeyframe = kf;
+      }
+      return startingKeyframe;
+  }
 
   var WebAnimationsDriver = (function () {
       function WebAnimationsDriver() {
@@ -1184,8 +1190,10 @@
           if (previousPlayers === void 0) { previousPlayers = []; }
           var /** @type {?} */ formattedSteps = [];
           var /** @type {?} */ startingStyleLookup = {};
-          if (isPresent(startingStyles)) {
+          if (isPresent(startingStyles) && startingStyles.styles.length > 0) {
               startingStyleLookup = _populateStyles(startingStyles, {});
+              startingStyleLookup['offset'] = 0;
+              formattedSteps.push(startingStyleLookup);
           }
           keyframes.forEach(function (keyframe) {
               var /** @type {?} */ data = _populateStyles(keyframe.styles, startingStyleLookup);
