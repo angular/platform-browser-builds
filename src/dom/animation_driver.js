@@ -9,6 +9,16 @@ import { NoOpAnimationPlayer } from '../private_import_core';
 var _NoOpAnimationDriver = (function () {
     function _NoOpAnimationDriver() {
     }
+    /**
+     * @param {?} element
+     * @param {?} startingStyles
+     * @param {?} keyframes
+     * @param {?} duration
+     * @param {?} delay
+     * @param {?} easing
+     * @param {?=} previousPlayers
+     * @return {?}
+     */
     _NoOpAnimationDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
         if (previousPlayers === void 0) { previousPlayers = []; }
         return new NoOpAnimationPlayer();
@@ -16,12 +26,28 @@ var _NoOpAnimationDriver = (function () {
     return _NoOpAnimationDriver;
 }());
 /**
- * @experimental
+ * @abstract
  */
 export var AnimationDriver = (function () {
     function AnimationDriver() {
     }
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} startingStyles
+     * @param {?} keyframes
+     * @param {?} duration
+     * @param {?} delay
+     * @param {?} easing
+     * @param {?=} previousPlayers
+     * @return {?}
+     */
+    AnimationDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) { };
     AnimationDriver.NOOP = new _NoOpAnimationDriver();
     return AnimationDriver;
 }());
+function AnimationDriver_tsickle_Closure_declarations() {
+    /** @type {?} */
+    AnimationDriver.NOOP;
+}
 //# sourceMappingURL=animation_driver.js.map

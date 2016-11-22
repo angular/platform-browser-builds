@@ -9,6 +9,12 @@ import { AUTO_STYLE } from '@angular/core';
 import { isPresent } from '../facade/lang';
 import { getDOM } from './dom_adapter';
 export var WebAnimationsPlayer = (function () {
+    /**
+     * @param {?} element
+     * @param {?} keyframes
+     * @param {?} options
+     * @param {?=} previousPlayers
+     */
     function WebAnimationsPlayer(element, keyframes, options, previousPlayers) {
         var _this = this;
         if (previousPlayers === void 0) { previousPlayers = []; }
@@ -29,6 +35,9 @@ export var WebAnimationsPlayer = (function () {
             Object.keys(styles).forEach(function (prop) { return _this.previousStyles[prop] = styles[prop]; });
         });
     }
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype._onFinish = function () {
         if (!this._finished) {
             this._finished = true;
@@ -36,15 +45,18 @@ export var WebAnimationsPlayer = (function () {
             this._onDoneFns = [];
         }
     };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.init = function () {
         var _this = this;
         if (this._initialized)
             return;
         this._initialized = true;
-        var keyframes = this.keyframes.map(function (styles) {
-            var formattedKeyframe = {};
+        var /** @type {?} */ keyframes = this.keyframes.map(function (styles) {
+            var /** @type {?} */ formattedKeyframe = {};
             Object.keys(styles).forEach(function (prop, index) {
-                var value = styles[prop];
+                var /** @type {?} */ value = styles[prop];
                 if (value == AUTO_STYLE) {
                     value = _computeStyle(_this.element, prop);
                 }
@@ -54,10 +66,10 @@ export var WebAnimationsPlayer = (function () {
             });
             return formattedKeyframe;
         });
-        var previousStyleProps = Object.keys(this.previousStyles);
+        var /** @type {?} */ previousStyleProps = Object.keys(this.previousStyles);
         if (previousStyleProps.length) {
-            var startingKeyframe_1 = keyframes[0];
-            var missingStyleProps_1 = [];
+            var /** @type {?} */ startingKeyframe_1 = keyframes[0];
+            var /** @type {?} */ missingStyleProps_1 = [];
             previousStyleProps.forEach(function (prop) {
                 if (!isPresent(startingKeyframe_1[prop])) {
                     missingStyleProps_1.push(prop);
@@ -66,10 +78,10 @@ export var WebAnimationsPlayer = (function () {
             });
             if (missingStyleProps_1.length) {
                 var _loop_1 = function(i) {
-                    var kf = keyframes[i];
+                    var /** @type {?} */ kf = keyframes[i];
                     missingStyleProps_1.forEach(function (prop) { kf[prop] = _computeStyle(_this.element, prop); });
                 };
-                for (var i = 1; i < keyframes.length; i++) {
+                for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
                     _loop_1(i);
                 }
             }
@@ -80,17 +92,36 @@ export var WebAnimationsPlayer = (function () {
         this._resetDomPlayerState();
         this._player.addEventListener('finish', function () { return _this._onFinish(); });
     };
-    /** @internal */
+    /**
+     * @param {?} element
+     * @param {?} keyframes
+     * @param {?} options
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype._triggerWebAnimation = function (element, keyframes, options) {
-        return element.animate(keyframes, options);
+        return (element.animate(keyframes, options));
     };
     Object.defineProperty(WebAnimationsPlayer.prototype, "domPlayer", {
+        /**
+         * @return {?}
+         */
         get: function () { return this._player; },
         enumerable: true,
         configurable: true
     });
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.onStart = function (fn) { this._onStartFns.push(fn); };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.onDone = function (fn) { this._onDoneFns.push(fn); };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.play = function () {
         this.init();
         if (!this.hasStarted()) {
@@ -100,27 +131,48 @@ export var WebAnimationsPlayer = (function () {
         }
         this._player.play();
     };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.pause = function () {
         this.init();
         this._player.pause();
     };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.finish = function () {
         this.init();
         this._onFinish();
         this._player.finish();
     };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.reset = function () {
         this._resetDomPlayerState();
         this._destroyed = false;
         this._finished = false;
         this._started = false;
     };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype._resetDomPlayerState = function () { this._player.cancel(); };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.restart = function () {
         this.reset();
         this.play();
     };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.hasStarted = function () { return this._started; };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.destroy = function () {
         if (!this._destroyed) {
             this._resetDomPlayerState();
@@ -129,15 +181,28 @@ export var WebAnimationsPlayer = (function () {
         }
     };
     Object.defineProperty(WebAnimationsPlayer.prototype, "totalTime", {
+        /**
+         * @return {?}
+         */
         get: function () { return this._duration; },
         enumerable: true,
         configurable: true
     });
+    /**
+     * @param {?} p
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.setPosition = function (p) { this._player.currentTime = p * this.totalTime; };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype.getPosition = function () { return this._player.currentTime / this.totalTime; };
+    /**
+     * @return {?}
+     */
     WebAnimationsPlayer.prototype._captureStyles = function () {
         var _this = this;
-        var styles = {};
+        var /** @type {?} */ styles = {};
         if (this.hasStarted()) {
             Object.keys(this._finalKeyframe).forEach(function (prop) {
                 if (prop != 'offset') {
@@ -150,11 +215,50 @@ export var WebAnimationsPlayer = (function () {
     };
     return WebAnimationsPlayer;
 }());
+function WebAnimationsPlayer_tsickle_Closure_declarations() {
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._onDoneFns;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._onStartFns;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._player;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._duration;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._initialized;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._finished;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._started;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._destroyed;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._finalKeyframe;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype.parentPlayer;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype.previousStyles;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype.element;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype.keyframes;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype.options;
+}
+/**
+ * @param {?} element
+ * @param {?} prop
+ * @return {?}
+ */
 function _computeStyle(element, prop) {
     return getDOM().getComputedStyle(element)[prop];
 }
+/**
+ * @param {?} styles
+ * @return {?}
+ */
 function _copyKeyframeStyles(styles) {
-    var newStyles = {};
+    var /** @type {?} */ newStyles = {};
     Object.keys(styles).forEach(function (prop) {
         if (prop != 'offset') {
             newStyles[prop] = styles[prop];
