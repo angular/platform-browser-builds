@@ -24,10 +24,8 @@ export var WebAnimationsDriver = (function () {
         if (previousPlayers === void 0) { previousPlayers = []; }
         var /** @type {?} */ formattedSteps = [];
         var /** @type {?} */ startingStyleLookup = {};
-        if (isPresent(startingStyles) && startingStyles.styles.length > 0) {
+        if (isPresent(startingStyles)) {
             startingStyleLookup = _populateStyles(startingStyles, {});
-            startingStyleLookup['offset'] = 0;
-            formattedSteps.push(startingStyleLookup);
         }
         keyframes.forEach(function (keyframe) {
             var /** @type {?} */ data = _populateStyles(keyframe.styles, startingStyleLookup);
