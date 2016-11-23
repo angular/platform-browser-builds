@@ -16,24 +16,14 @@ import { AnimationDriver } from './animation_driver';
 import { DOCUMENT } from './dom_tokens';
 import { EventManager } from './events/event_manager';
 import { DomSharedStylesHost } from './shared_styles_host';
-export var /** @type {?} */ NAMESPACE_URIS = {
+export var NAMESPACE_URIS = {
     'xlink': 'http://www.w3.org/1999/xlink',
     'svg': 'http://www.w3.org/2000/svg',
     'xhtml': 'http://www.w3.org/1999/xhtml'
 };
-var /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
-var /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
-/**
- * @abstract
- */
+var TEMPLATE_COMMENT_TEXT = 'template bindings={}';
+var TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
 export var DomRootRenderer = (function () {
-    /**
-     * @param {?} document
-     * @param {?} eventManager
-     * @param {?} sharedStylesHost
-     * @param {?} animationDriver
-     * @param {?} appId
-     */
     function DomRootRenderer(document, eventManager, sharedStylesHost, animationDriver, appId) {
         this.document = document;
         this.eventManager = eventManager;
@@ -42,12 +32,8 @@ export var DomRootRenderer = (function () {
         this.appId = appId;
         this.registeredComponents = new Map();
     }
-    /**
-     * @param {?} componentProto
-     * @return {?}
-     */
     DomRootRenderer.prototype.renderComponent = function (componentProto) {
-        var /** @type {?} */ renderer = this.registeredComponents.get(componentProto.id);
+        var renderer = this.registeredComponents.get(componentProto.id);
         if (!renderer) {
             renderer = new DomRenderer(this, componentProto, this.animationDriver, this.appId + "-" + componentProto.id);
             this.registeredComponents.set(componentProto.id, renderer);
@@ -56,29 +42,8 @@ export var DomRootRenderer = (function () {
     };
     return DomRootRenderer;
 }());
-function DomRootRenderer_tsickle_Closure_declarations() {
-    /** @type {?} */
-    DomRootRenderer.prototype.registeredComponents;
-    /** @type {?} */
-    DomRootRenderer.prototype.document;
-    /** @type {?} */
-    DomRootRenderer.prototype.eventManager;
-    /** @type {?} */
-    DomRootRenderer.prototype.sharedStylesHost;
-    /** @type {?} */
-    DomRootRenderer.prototype.animationDriver;
-    /** @type {?} */
-    DomRootRenderer.prototype.appId;
-}
 export var DomRootRenderer_ = (function (_super) {
     __extends(DomRootRenderer_, _super);
-    /**
-     * @param {?} _document
-     * @param {?} _eventManager
-     * @param {?} sharedStylesHost
-     * @param {?} animationDriver
-     * @param {?} appId
-     */
     function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver, appId) {
         _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId);
     }
@@ -86,64 +51,27 @@ export var DomRootRenderer_ = (function (_super) {
         { type: Injectable },
     ];
     /** @nocollapse */
-    DomRootRenderer_.ctorParameters = function () { return [
+    DomRootRenderer_.ctorParameters = [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
         { type: EventManager, },
         { type: DomSharedStylesHost, },
         { type: AnimationDriver, },
         { type: undefined, decorators: [{ type: Inject, args: [APP_ID,] },] },
-    ]; };
+    ];
     return DomRootRenderer_;
 }(DomRootRenderer));
-function DomRootRenderer__tsickle_Closure_declarations() {
-    /** @type {?} */
-    DomRootRenderer_.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    DomRootRenderer_.ctorParameters;
-}
-export var /** @type {?} */ DIRECT_DOM_RENDERER = {
-    /**
-     * @param {?} node
-     * @return {?}
-     */
+export var DIRECT_DOM_RENDERER = {
     remove: function (node) {
         if (node.parentNode) {
             node.parentNode.removeChild(node);
         }
     },
-    /**
-     * @param {?} node
-     * @param {?} parent
-     * @return {?}
-     */
     appendChild: function (node, parent) { parent.appendChild(node); },
-    /**
-     * @param {?} node
-     * @param {?} refNode
-     * @return {?}
-     */
     insertBefore: function (node, refNode) { refNode.parentNode.insertBefore(node, refNode); },
-    /**
-     * @param {?} node
-     * @return {?}
-     */
     nextSibling: function (node) { return node.nextSibling; },
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    parentElement: function (node) { return (node.parentNode); }
+    parentElement: function (node) { return node.parentNode; }
 };
 export var DomRenderer = (function () {
-    /**
-     * @param {?} _rootRenderer
-     * @param {?} componentProto
-     * @param {?} _animationDriver
-     * @param {?} styleShimId
-     */
     function DomRenderer(_rootRenderer, componentProto, _animationDriver, styleShimId) {
         this._rootRenderer = _rootRenderer;
         this.componentProto = componentProto;
@@ -162,13 +90,8 @@ export var DomRenderer = (function () {
             this._hostAttr = null;
         }
     }
-    /**
-     * @param {?} selectorOrNode
-     * @param {?} debugInfo
-     * @return {?}
-     */
     DomRenderer.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
-        var /** @type {?} */ el;
+        var el;
         if (typeof selectorOrNode === 'string') {
             el = this._rootRenderer.document.querySelector(selectorOrNode);
             if (!el) {
@@ -183,16 +106,10 @@ export var DomRenderer = (function () {
         }
         return el;
     };
-    /**
-     * @param {?} parent
-     * @param {?} name
-     * @param {?} debugInfo
-     * @return {?}
-     */
     DomRenderer.prototype.createElement = function (parent, name, debugInfo) {
-        var /** @type {?} */ el;
+        var el;
         if (isNamespaced(name)) {
-            var /** @type {?} */ nsAndName = splitNamespace(name);
+            var nsAndName = splitNamespace(name);
             el = document.createElementNS((NAMESPACE_URIS)[nsAndName[0]], nsAndName[1]);
         }
         else {
@@ -206,17 +123,13 @@ export var DomRenderer = (function () {
         }
         return el;
     };
-    /**
-     * @param {?} hostElement
-     * @return {?}
-     */
     DomRenderer.prototype.createViewRoot = function (hostElement) {
-        var /** @type {?} */ nodesParent;
+        var nodesParent;
         if (this.componentProto.encapsulation === ViewEncapsulation.Native) {
-            nodesParent = ((hostElement)).createShadowRoot();
+            nodesParent = hostElement.createShadowRoot();
             this._rootRenderer.sharedStylesHost.addHost(nodesParent);
-            for (var /** @type {?} */ i = 0; i < this._styles.length; i++) {
-                var /** @type {?} */ styleEl = document.createElement('style');
+            for (var i = 0; i < this._styles.length; i++) {
+                var styleEl = document.createElement('style');
                 styleEl.textContent = this._styles[i];
                 nodesParent.appendChild(styleEl);
             }
@@ -229,107 +142,53 @@ export var DomRenderer = (function () {
         }
         return nodesParent;
     };
-    /**
-     * @param {?} parentElement
-     * @param {?} debugInfo
-     * @return {?}
-     */
     DomRenderer.prototype.createTemplateAnchor = function (parentElement, debugInfo) {
-        var /** @type {?} */ comment = document.createComment(TEMPLATE_COMMENT_TEXT);
+        var comment = document.createComment(TEMPLATE_COMMENT_TEXT);
         if (parentElement) {
             parentElement.appendChild(comment);
         }
         return comment;
     };
-    /**
-     * @param {?} parentElement
-     * @param {?} value
-     * @param {?} debugInfo
-     * @return {?}
-     */
     DomRenderer.prototype.createText = function (parentElement, value, debugInfo) {
-        var /** @type {?} */ node = document.createTextNode(value);
+        var node = document.createTextNode(value);
         if (parentElement) {
             parentElement.appendChild(node);
         }
         return node;
     };
-    /**
-     * @param {?} parentElement
-     * @param {?} nodes
-     * @return {?}
-     */
     DomRenderer.prototype.projectNodes = function (parentElement, nodes) {
         if (!parentElement)
             return;
         appendNodes(parentElement, nodes);
     };
-    /**
-     * @param {?} node
-     * @param {?} viewRootNodes
-     * @return {?}
-     */
     DomRenderer.prototype.attachViewAfter = function (node, viewRootNodes) { moveNodesAfterSibling(node, viewRootNodes); };
-    /**
-     * @param {?} viewRootNodes
-     * @return {?}
-     */
     DomRenderer.prototype.detachView = function (viewRootNodes) {
-        for (var /** @type {?} */ i = 0; i < viewRootNodes.length; i++) {
-            var /** @type {?} */ node = viewRootNodes[i];
+        for (var i = 0; i < viewRootNodes.length; i++) {
+            var node = viewRootNodes[i];
             if (node.parentNode) {
                 node.parentNode.removeChild(node);
             }
         }
     };
-    /**
-     * @param {?} hostElement
-     * @param {?} viewAllNodes
-     * @return {?}
-     */
     DomRenderer.prototype.destroyView = function (hostElement, viewAllNodes) {
         if (this.componentProto.encapsulation === ViewEncapsulation.Native && hostElement) {
-            this._rootRenderer.sharedStylesHost.removeHost(((hostElement)).shadowRoot);
+            this._rootRenderer.sharedStylesHost.removeHost(hostElement.shadowRoot);
         }
     };
-    /**
-     * @param {?} renderElement
-     * @param {?} name
-     * @param {?} callback
-     * @return {?}
-     */
     DomRenderer.prototype.listen = function (renderElement, name, callback) {
         return this._rootRenderer.eventManager.addEventListener(renderElement, name, decoratePreventDefault(callback));
     };
-    /**
-     * @param {?} target
-     * @param {?} name
-     * @param {?} callback
-     * @return {?}
-     */
     DomRenderer.prototype.listenGlobal = function (target, name, callback) {
         return this._rootRenderer.eventManager.addGlobalEventListener(target, name, decoratePreventDefault(callback));
     };
-    /**
-     * @param {?} renderElement
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */
     DomRenderer.prototype.setElementProperty = function (renderElement, propertyName, propertyValue) {
-        ((renderElement))[propertyName] = propertyValue;
+        renderElement[propertyName] = propertyValue;
     };
-    /**
-     * @param {?} renderElement
-     * @param {?} attributeName
-     * @param {?} attributeValue
-     * @return {?}
-     */
     DomRenderer.prototype.setElementAttribute = function (renderElement, attributeName, attributeValue) {
-        var /** @type {?} */ attrNs;
-        var /** @type {?} */ attrNameWithoutNs = attributeName;
+        var attrNs;
+        var attrNameWithoutNs = attributeName;
         if (isNamespaced(attributeName)) {
-            var /** @type {?} */ nsAndName = splitNamespace(attributeName);
+            var nsAndName = splitNamespace(attributeName);
             attrNameWithoutNs = nsAndName[1];
             attributeName = nsAndName[0] + ':' + nsAndName[1];
             attrNs = NAMESPACE_URIS[nsAndName[0]];
@@ -351,16 +210,10 @@ export var DomRenderer = (function () {
             }
         }
     };
-    /**
-     * @param {?} renderElement
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */
     DomRenderer.prototype.setBindingDebugInfo = function (renderElement, propertyName, propertyValue) {
         if (renderElement.nodeType === Node.COMMENT_NODE) {
-            var /** @type {?} */ existingBindings = renderElement.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
-            var /** @type {?} */ parsedBindings = JSON.parse(existingBindings[1]);
+            var existingBindings = renderElement.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+            var parsedBindings = JSON.parse(existingBindings[1]);
             parsedBindings[propertyName] = propertyValue;
             renderElement.nodeValue =
                 TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(parsedBindings, null, 2));
@@ -369,12 +222,6 @@ export var DomRenderer = (function () {
             this.setElementAttribute(renderElement, propertyName, propertyValue);
         }
     };
-    /**
-     * @param {?} renderElement
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */
     DomRenderer.prototype.setElementClass = function (renderElement, className, isAdd) {
         if (isAdd) {
             renderElement.classList.add(className);
@@ -383,107 +230,50 @@ export var DomRenderer = (function () {
             renderElement.classList.remove(className);
         }
     };
-    /**
-     * @param {?} renderElement
-     * @param {?} styleName
-     * @param {?} styleValue
-     * @return {?}
-     */
     DomRenderer.prototype.setElementStyle = function (renderElement, styleName, styleValue) {
         if (isPresent(styleValue)) {
-            ((renderElement.style))[styleName] = stringify(styleValue);
+            renderElement.style[styleName] = stringify(styleValue);
         }
         else {
             // IE requires '' instead of null
             // see https://github.com/angular/angular/issues/7916
-            ((renderElement.style))[styleName] = '';
+            renderElement.style[styleName] = '';
         }
     };
-    /**
-     * @param {?} renderElement
-     * @param {?} methodName
-     * @param {?} args
-     * @return {?}
-     */
     DomRenderer.prototype.invokeElementMethod = function (renderElement, methodName, args) {
-        ((renderElement))[methodName].apply(renderElement, args);
+        renderElement[methodName].apply(renderElement, args);
     };
-    /**
-     * @param {?} renderNode
-     * @param {?} text
-     * @return {?}
-     */
     DomRenderer.prototype.setText = function (renderNode, text) { renderNode.nodeValue = text; };
-    /**
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */
     DomRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
         if (previousPlayers === void 0) { previousPlayers = []; }
         return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
     };
     return DomRenderer;
 }());
-function DomRenderer_tsickle_Closure_declarations() {
-    /** @type {?} */
-    DomRenderer.prototype._contentAttr;
-    /** @type {?} */
-    DomRenderer.prototype._hostAttr;
-    /** @type {?} */
-    DomRenderer.prototype._styles;
-    /** @type {?} */
-    DomRenderer.prototype.directRenderer;
-    /** @type {?} */
-    DomRenderer.prototype._rootRenderer;
-    /** @type {?} */
-    DomRenderer.prototype.componentProto;
-    /** @type {?} */
-    DomRenderer.prototype._animationDriver;
-}
-/**
- * @param {?} sibling
- * @param {?} nodes
- * @return {?}
- */
 function moveNodesAfterSibling(sibling, nodes) {
-    var /** @type {?} */ parent = sibling.parentNode;
+    var parent = sibling.parentNode;
     if (nodes.length > 0 && parent) {
-        var /** @type {?} */ nextSibling = sibling.nextSibling;
+        var nextSibling = sibling.nextSibling;
         if (nextSibling) {
-            for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
+            for (var i = 0; i < nodes.length; i++) {
                 parent.insertBefore(nodes[i], nextSibling);
             }
         }
         else {
-            for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
+            for (var i = 0; i < nodes.length; i++) {
                 parent.appendChild(nodes[i]);
             }
         }
     }
 }
-/**
- * @param {?} parent
- * @param {?} nodes
- * @return {?}
- */
 function appendNodes(parent, nodes) {
-    for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
+    for (var i = 0; i < nodes.length; i++) {
         parent.appendChild(nodes[i]);
     }
 }
-/**
- * @param {?} eventHandler
- * @return {?}
- */
 function decoratePreventDefault(eventHandler) {
     return function (event) {
-        var /** @type {?} */ allowDefaultBehavior = eventHandler(event);
+        var allowDefaultBehavior = eventHandler(event);
         if (allowDefaultBehavior === false) {
             // TODO(tbosch): move preventDefault into event plugins...
             event.preventDefault();
@@ -491,33 +281,19 @@ function decoratePreventDefault(eventHandler) {
         }
     };
 }
-var /** @type {?} */ COMPONENT_REGEX = /%COMP%/g;
-export var /** @type {?} */ COMPONENT_VARIABLE = '%COMP%';
-export var /** @type {?} */ HOST_ATTR = "_nghost-" + COMPONENT_VARIABLE;
-export var /** @type {?} */ CONTENT_ATTR = "_ngcontent-" + COMPONENT_VARIABLE;
-/**
- * @param {?} componentShortId
- * @return {?}
- */
+var COMPONENT_REGEX = /%COMP%/g;
+export var COMPONENT_VARIABLE = '%COMP%';
+export var HOST_ATTR = "_nghost-" + COMPONENT_VARIABLE;
+export var CONTENT_ATTR = "_ngcontent-" + COMPONENT_VARIABLE;
 export function shimContentAttribute(componentShortId) {
     return CONTENT_ATTR.replace(COMPONENT_REGEX, componentShortId);
 }
-/**
- * @param {?} componentShortId
- * @return {?}
- */
 export function shimHostAttribute(componentShortId) {
     return HOST_ATTR.replace(COMPONENT_REGEX, componentShortId);
 }
-/**
- * @param {?} compId
- * @param {?} styles
- * @param {?} target
- * @return {?}
- */
 export function flattenStyles(compId, styles, target) {
-    for (var /** @type {?} */ i = 0; i < styles.length; i++) {
-        var /** @type {?} */ style = styles[i];
+    for (var i = 0; i < styles.length; i++) {
+        var style = styles[i];
         if (Array.isArray(style)) {
             flattenStyles(compId, style, target);
         }
@@ -528,20 +304,12 @@ export function flattenStyles(compId, styles, target) {
     }
     return target;
 }
-var /** @type {?} */ NS_PREFIX_RE = /^:([^:]+):(.+)$/;
-/**
- * @param {?} name
- * @return {?}
- */
+var NS_PREFIX_RE = /^:([^:]+):(.+)$/;
 export function isNamespaced(name) {
     return name[0] === ':';
 }
-/**
- * @param {?} name
- * @return {?}
- */
 export function splitNamespace(name) {
-    var /** @type {?} */ match = name.match(NS_PREFIX_RE);
+    var match = name.match(NS_PREFIX_RE);
     return [match[1], match[2]];
 }
 //# sourceMappingURL=dom_renderer.js.map

@@ -32,7 +32,7 @@ export var BrowserTestingModule = (function () {
                 },] },
     ];
     /** @nocollapse */
-    BrowserTestingModule.ctorParameters = function () { return []; };
+    BrowserTestingModule.ctorParameters = [];
     return BrowserTestingModule;
 }());
 //# sourceMappingURL=browser.js.map
