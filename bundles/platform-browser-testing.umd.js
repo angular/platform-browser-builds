@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.2.3-3803771
+ * @license Angular v2.3.0-beta.0-2a3ca7b
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -170,7 +170,7 @@
                     },] },
         ];
         /** @nocollapse */
-        BrowserTestingModule.ctorParameters = [];
+        BrowserTestingModule.ctorParameters = function () { return []; };
         return BrowserTestingModule;
     }());
 
