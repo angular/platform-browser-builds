@@ -7,29 +7,28 @@
  */
 import { global } from '../../facade/lang';
 import { AngularTools } from './common_tools';
-var /** @type {?} */ context = (global);
+var context = global;
 /**
- *  Enabled Angular 2 debug tools that are accessible via your browser's
-  * developer console.
-  * *
-  * Usage:
-  * *
-  * 1. Open developer console (e.g. in Chrome Ctrl + Shift + j)
-  * 1. Type `ng.` (usually the console will show auto-complete suggestion)
-  * 1. Try the change detection profiler `ng.profiler.timeChangeDetection()`
-  * then hit Enter.
-  * *
- * @param {?} ref
- * @return {?}
+ * Enabled Angular 2 debug tools that are accessible via your browser's
+ * developer console.
+ *
+ * Usage:
+ *
+ * 1. Open developer console (e.g. in Chrome Ctrl + Shift + j)
+ * 1. Type `ng.` (usually the console will show auto-complete suggestion)
+ * 1. Try the change detection profiler `ng.profiler.timeChangeDetection()`
+ *    then hit Enter.
+ *
+ * @experimental All debugging apis are currently experimental.
  */
 export function enableDebugTools(ref) {
-    ((Object)).assign(context.ng, new AngularTools(ref));
+    Object.assign(context.ng, new AngularTools(ref));
     return ref;
 }
 /**
- *  Disables Angular 2 tools.
-  * *
- * @return {?}
+ * Disables Angular 2 tools.
+ *
+ * @experimental All debugging apis are currently experimental.
  */
 export function disableDebugTools() {
     if (context.ng) {
