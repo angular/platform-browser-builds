@@ -1,13 +1,13 @@
 /**
- * @license Angular v2.3.0-beta.0-3e73bea
+ * @license Angular v2.3.0-beta.0-e628b66
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core')) :
-  typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core'], factory) :
-  (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}),global.ng.common,global.ng.core));
-}(this, function (exports,_angular_common,core) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common')) :
+  typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common'], factory) :
+  (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}),global.ng.core,global.ng.common));
+}(this, function (exports,core,_angular_common) { 'use strict';
 
   var /** @type {?} */ DebugDomRootRenderer = core.__core_private__.DebugDomRootRenderer;
   var /** @type {?} */ NoOpAnimationPlayer = core.__core_private__.NoOpAnimationPlayer;
@@ -4362,6 +4362,7 @@
 
   var /** @type {?} */ INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
       { provide: core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+      { provide: core.PLATFORM_INITIALIZER, useValue: recordAngularVersion, multi: true },
       { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
   ];
   /**
@@ -4384,6 +4385,16 @@
   function initDomAdapter() {
       BrowserDomAdapter.makeCurrent();
       BrowserGetTestability.init();
+  }
+  /**
+   * @return {?}
+   */
+  function recordAngularVersion() {
+      var /** @type {?} */ domAdapter = getDOM();
+      var /** @type {?} */ body = domAdapter.getElementsByTagName(domAdapter.defaultDoc(), 'body');
+      if (body.length > 0) {
+          domAdapter.setAttribute(body[0], 'ng-version', core.VERSION.full);
+      }
   }
   /**
    * @return {?}
@@ -4643,6 +4654,12 @@
       WebAnimationsDriver: WebAnimationsDriver
   };
 
+  /**
+   * @stable
+   */
+  var /** @type {?} */ VERSION$1 = new core.Version('2.3.0-beta.0-e628b66');
+
+  exports.VERSION = VERSION$1;
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
   exports.Title = Title;
