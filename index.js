@@ -9,6 +9,6 @@ import { Version } from '@angular/core';
 /**
  * @stable
  */
-export var /** @type {?} */ VERSION = new Version('2.3.0-rc.0-b8c839b');
+export var /** @type {?} */ VERSION = new Version('2.3.0-rc.0-a132287');
 export { BrowserModule, platformBrowser, Title, disableDebugTools, enableDebugTools, AnimationDriver, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, __platform_browser_private__ } from './src/platform-browser';
 //# sourceMappingURL=index.js.map
