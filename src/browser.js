@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule, PlatformLocation } from '@angular/common';
-import { ApplicationModule, ErrorHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, Sanitizer, SkipSelf, Testability, VERSION, createPlatformFactory, platformCore } from '@angular/core';
+import { ApplicationModule, ErrorHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, Sanitizer, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
 import { BrowserDomAdapter } from './browser/browser_adapter';
@@ -25,7 +25,6 @@ import { DomSharedStylesHost, SharedStylesHost } from './dom/shared_styles_host'
 import { DomSanitizer, DomSanitizerImpl } from './security/dom_sanitization_service';
 export var /** @type {?} */ INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: PLATFORM_INITIALIZER, useValue: recordAngularVersion, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation }
 ];
 /**
@@ -48,16 +47,6 @@ export var /** @type {?} */ platformBrowser = createPlatformFactory(platformCore
 export function initDomAdapter() {
     BrowserDomAdapter.makeCurrent();
     BrowserGetTestability.init();
-}
-/**
- * @return {?}
- */
-export function recordAngularVersion() {
-    var /** @type {?} */ domAdapter = getDOM();
-    var /** @type {?} */ body = domAdapter.getElementsByTagName(domAdapter.defaultDoc(), 'body');
-    if (body.length > 0) {
-        domAdapter.setAttribute(body[0], 'ng-version', VERSION.full);
-    }
 }
 /**
  * @return {?}

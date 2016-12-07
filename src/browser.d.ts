@@ -13,7 +13,6 @@ export declare const BROWSER_SANITIZATION_PROVIDERS: Array<any>;
  */
 export declare const platformBrowser: (extraProviders?: Provider[]) => PlatformRef;
 export declare function initDomAdapter(): void;
-export declare function recordAngularVersion(): void;
 export declare function errorHandler(): ErrorHandler;
 export declare function _document(): any;
 export declare function _resolveDefaultAnimationDriver(): AnimationDriver;
