@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.3.0-1b54788
+ * @license Angular v2.3.0-4398056
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -4646,7 +4646,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('2.3.0-1b54788');
+  var /** @type {?} */ VERSION = new core.Version('2.3.0-4398056');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
