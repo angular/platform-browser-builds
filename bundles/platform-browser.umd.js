@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.3.0-08ff2e5
+ * @license Angular v2.3.0-8a8c532
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1457,7 +1457,12 @@
        */
       BrowserDomAdapter.prototype.logError = function (error) {
           if (window.console) {
-              (window.console.error || window.console.log)(error);
+              if (console.error) {
+                  console.error(error);
+              }
+              else {
+                  console.log(error);
+              }
           }
       };
       /**
@@ -1477,7 +1482,6 @@
       BrowserDomAdapter.prototype.logGroup = function (error) {
           if (window.console) {
               window.console.group && window.console.group(error);
-              this.logError(error);
           }
       };
       /**
@@ -4804,7 +4808,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('2.3.0-08ff2e5');
+  var /** @type {?} */ VERSION = new core.Version('2.3.0-8a8c532');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
