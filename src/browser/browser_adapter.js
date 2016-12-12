@@ -116,6 +116,7 @@ export var BrowserDomAdapter = (function (_super) {
                 console.error(error);
             }
             else {
+                // tslint:disable-next-line:no-console
                 console.log(error);
             }
         }
