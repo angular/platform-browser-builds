@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "2.3.0-f5f1d5f",
+  "version": "2.3.0-7256d0e",
   "description": "Angular - library for using Angular in a web browser",
   "main": "bundles/platform-browser.umd.js",
   "module": "index.js",
@@ -8,8 +8,8 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "2.3.0-f5f1d5f",
-    "@angular/common": "2.3.0-f5f1d5f"
+    "@angular/core": "2.3.0-7256d0e",
+    "@angular/common": "2.3.0-7256d0e"
   },
   "repository": {
     "type": "git",
