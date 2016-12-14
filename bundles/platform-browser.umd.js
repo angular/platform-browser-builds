@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.3.0-5031adc
+ * @license Angular v2.3.0-d4ddb60
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1197,7 +1197,7 @@
           }
           keyframes.forEach(function (keyframe) {
               var /** @type {?} */ data = _populateStyles(keyframe.styles, startingStyleLookup);
-              data['offset'] = keyframe.offset;
+              data['offset'] = Math.max(0, Math.min(1, keyframe.offset));
               formattedSteps.push(data);
           });
           // this is a special case when only styles are applied as an
@@ -4809,7 +4809,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('2.3.0-5031adc');
+  var /** @type {?} */ VERSION = new core.Version('2.3.0-d4ddb60');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
