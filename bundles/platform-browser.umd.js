@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.3.0-aa40366
+ * @license Angular v2.3.0-fd8e15b
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -12,8 +12,11 @@
   var /** @type {?} */ DebugDomRootRenderer = core.__core_private__.DebugDomRootRenderer;
   var /** @type {?} */ NoOpAnimationPlayer = core.__core_private__.NoOpAnimationPlayer;
 
-  var _NoOpAnimationDriver = (function () {
-      function _NoOpAnimationDriver() {
+  /**
+   * @experimental
+   */
+  var NoOpAnimationDriver = (function () {
+      function NoOpAnimationDriver() {
       }
       /**
        * @param {?} element
@@ -25,11 +28,11 @@
        * @param {?=} previousPlayers
        * @return {?}
        */
-      _NoOpAnimationDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
+      NoOpAnimationDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
           if (previousPlayers === void 0) { previousPlayers = []; }
           return new NoOpAnimationPlayer();
       };
-      return _NoOpAnimationDriver;
+      return NoOpAnimationDriver;
   }());
   /**
    * @abstract
@@ -49,7 +52,7 @@
        * @return {?}
        */
       AnimationDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) { };
-      AnimationDriver.NOOP = new _NoOpAnimationDriver();
+      AnimationDriver.NOOP = new NoOpAnimationDriver();
       return AnimationDriver;
   }());
 
@@ -4809,7 +4812,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('2.3.0-aa40366');
+  var /** @type {?} */ VERSION = new core.Version('2.3.0-fd8e15b');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
