@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.0-5b6e8ea
+ * @license Angular v4.0.0-beta.0-0c19898
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1080,7 +1080,11 @@
       /**
        * @return {?}
        */
-      WebAnimationsPlayer.prototype._resetDomPlayerState = function () { this._player.cancel(); };
+      WebAnimationsPlayer.prototype._resetDomPlayerState = function () {
+          if (this._player) {
+              this._player.cancel();
+          }
+      };
       /**
        * @return {?}
        */
@@ -4812,7 +4816,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.0-5b6e8ea');
+  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.0-0c19898');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
