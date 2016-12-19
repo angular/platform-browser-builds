@@ -147,11 +147,7 @@ export var WebAnimationsPlayer = (function () {
     /**
      * @return {?}
      */
-    WebAnimationsPlayer.prototype._resetDomPlayerState = function () {
-        if (this._player) {
-            this._player.cancel();
-        }
-    };
+    WebAnimationsPlayer.prototype._resetDomPlayerState = function () { this._player.cancel(); };
     /**
      * @return {?}
      */
