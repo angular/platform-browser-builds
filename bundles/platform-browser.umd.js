@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.0-fcd116f
+ * @license Angular v4.0.0-beta.0-e69c1fb
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1468,7 +1468,6 @@
                   console.error(error);
               }
               else {
-                  // tslint:disable-next-line:no-console
                   console.log(error);
               }
           }
@@ -4815,7 +4814,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.0-fcd116f');
+  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.0-e69c1fb');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
