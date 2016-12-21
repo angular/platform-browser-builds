@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.4.1-df8643f
+ * @license Angular v2.4.1-28a92b2
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3174,7 +3174,12 @@
        */
       DomRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
           if (previousPlayers === void 0) { previousPlayers = []; }
-          return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
+          try {
+              return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
+          }
+          catch (e) {
+              return new NoOpAnimationPlayer();
+          }
       };
       return DomRenderer;
   }());
@@ -4656,7 +4661,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('2.4.1-df8643f');
+  var /** @type {?} */ VERSION = new core.Version('2.4.1-28a92b2');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
