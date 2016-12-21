@@ -65,7 +65,7 @@ var /** @type {?} */ _chromeNumKeyPadMap = {
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-/* tslint:disable:requireParameterType */
+/* tslint:disable:requireParameterType no-console */
 export var BrowserDomAdapter = (function (_super) {
     __extends(BrowserDomAdapter, _super);
     function BrowserDomAdapter() {
@@ -127,7 +127,6 @@ export var BrowserDomAdapter = (function (_super) {
      */
     BrowserDomAdapter.prototype.log = function (error) {
         if (window.console) {
-            // tslint:disable-next-line:no-console
             window.console.log && window.console.log(error);
         }
     };

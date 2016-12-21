@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.0-383adc9
+ * @license Angular v4.0.0-beta.0-9da4c25
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1417,7 +1417,7 @@
    * @security Tread carefully! Interacting with the DOM directly is dangerous and
    * can introduce XSS risks.
    */
-  /* tslint:disable:requireParameterType */
+  /* tslint:disable:requireParameterType no-console */
   var BrowserDomAdapter = (function (_super) {
       __extends(BrowserDomAdapter, _super);
       function BrowserDomAdapter() {
@@ -1479,7 +1479,6 @@
        */
       BrowserDomAdapter.prototype.log = function (error) {
           if (window.console) {
-              // tslint:disable-next-line:no-console
               window.console.log && window.console.log(error);
           }
       };
@@ -4816,7 +4815,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.0-383adc9');
+  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.0-9da4c25');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
