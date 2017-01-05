@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.1-1bd04e9
+ * @license Angular v4.0.0-beta.1-889b48d
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1001,12 +1001,23 @@
           });
           var /** @type {?} */ previousStyleProps = Object.keys(this.previousStyles);
           if (previousStyleProps.length) {
-              var /** @type {?} */ startingKeyframe_1 = findStartingKeyframe(keyframes);
+              var /** @type {?} */ startingKeyframe_1 = keyframes[0];
+              var /** @type {?} */ missingStyleProps_1 = [];
               previousStyleProps.forEach(function (prop) {
-                  if (isPresent(startingKeyframe_1[prop])) {
-                      startingKeyframe_1[prop] = _this.previousStyles[prop];
+                  if (!isPresent(startingKeyframe_1[prop])) {
+                      missingStyleProps_1.push(prop);
                   }
+                  startingKeyframe_1[prop] = _this.previousStyles[prop];
               });
+              if (missingStyleProps_1.length) {
+                  var _loop_1 = function(i) {
+                      var /** @type {?} */ kf = keyframes[i];
+                      missingStyleProps_1.forEach(function (prop) { kf[prop] = _computeStyle(_this.element, prop); });
+                  };
+                  for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
+                      _loop_1(i);
+                  }
+              }
           }
           this._player = this._triggerWebAnimation(this.element, keyframes, this.options);
           this._finalKeyframe = _copyKeyframeStyles(keyframes[keyframes.length - 1]);
@@ -1162,23 +1173,6 @@
       });
       return newStyles;
   }
-  /**
-   * @param {?} keyframes
-   * @return {?}
-   */
-  function findStartingKeyframe(keyframes) {
-      var /** @type {?} */ startingKeyframe = keyframes[0];
-      // it's important that we find the LAST keyframe
-      // to ensure that style overidding is final.
-      for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
-          var /** @type {?} */ kf = keyframes[i];
-          var /** @type {?} */ offset = kf['offset'];
-          if (offset !== 0)
-              break;
-          startingKeyframe = kf;
-      }
-      return startingKeyframe;
-  }
 
   var WebAnimationsDriver = (function () {
       function WebAnimationsDriver() {
@@ -1197,24 +1191,27 @@
           if (previousPlayers === void 0) { previousPlayers = []; }
           var /** @type {?} */ formattedSteps = [];
           var /** @type {?} */ startingStyleLookup = {};
-          if (isPresent(startingStyles) && startingStyles.styles.length > 0) {
+          if (isPresent(startingStyles)) {
               startingStyleLookup = _populateStyles(startingStyles, {});
-              startingStyleLookup['offset'] = 0;
-              formattedSteps.push(startingStyleLookup);
           }
           keyframes.forEach(function (keyframe) {
               var /** @type {?} */ data = _populateStyles(keyframe.styles, startingStyleLookup);
               data['offset'] = Math.max(0, Math.min(1, keyframe.offset));
               formattedSteps.push(data);
           });
-          // this is a special case when only styles are applied as an
-          // animation. When this occurs we want to animate from start to
-          // end with the same values. Removing the offset and having only
-          // start/end values is suitable enough for the web-animations API
-          if (formattedSteps.length == 1) {
-              var /** @type {?} */ start = formattedSteps[0];
-              start['offset'] = null;
-              formattedSteps = [start, start];
+          // Styling passed into element.animate() must always be balanced.
+          // The special cases below can occur if only style() calls exist
+          // within an animation or when a style() calls are used prior
+          // to a group() animation being issued or if the renderer is
+          // invoked by the user directly.
+          if (formattedSteps.length == 0) {
+              formattedSteps = [startingStyleLookup, startingStyleLookup];
+          }
+          else if (formattedSteps.length == 1) {
+              var /** @type {?} */ start = startingStyleLookup;
+              var /** @type {?} */ end = formattedSteps[0];
+              end['offset'] = null;
+              formattedSteps = [start, end];
           }
           var /** @type {?} */ playerOptions = {
               'duration': duration,
@@ -4819,7 +4816,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.1-1bd04e9');
+  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.1-889b48d');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
