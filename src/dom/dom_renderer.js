@@ -427,12 +427,10 @@ export var DomRenderer = (function () {
      */
     DomRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
         if (previousPlayers === void 0) { previousPlayers = []; }
-        try {
+        if (this._rootRenderer.document.body.contains(element)) {
             return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
         }
-        catch (e) {
-            return new NoOpAnimationPlayer();
-        }
+        return new NoOpAnimationPlayer();
     };
     return DomRenderer;
 }());
