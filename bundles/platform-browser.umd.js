@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.4.2-d43e5dd
+ * @license Angular v2.4.2-d7f2a3c
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -4656,7 +4656,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('2.4.2-d43e5dd');
+  var /** @type {?} */ VERSION = new core.Version('2.4.2-d7f2a3c');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
