@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.3-dc63cef
+ * @license Angular v4.0.0-beta.3-5237b1c
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1032,7 +1032,9 @@
        * @return {?}
        */
       WebAnimationsPlayer.prototype._triggerWebAnimation = function (element, keyframes, options) {
-          return (element.animate(keyframes, options));
+          // jscompiler doesn't seem to know animate is a native property because it's not fully
+          // supported yet across common browsers (we polyfill it for Edge/Safari) [CL #143630929]
+          return (element['animate'](keyframes, options));
       };
       Object.defineProperty(WebAnimationsPlayer.prototype, "domPlayer", {
           /**
@@ -4814,7 +4816,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.3-dc63cef');
+  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.3-5237b1c');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
