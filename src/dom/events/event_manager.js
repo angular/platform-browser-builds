@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Inject, Injectable, NgZone, OpaqueToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken, NgZone } from '@angular/core';
 import { getDOM } from '../dom_adapter';
 /**
  * @stable
  */
-export var /** @type {?} */ EVENT_MANAGER_PLUGINS = new OpaqueToken('EventManagerPlugins');
+export var /** @type {?} */ EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
  * @stable
  */

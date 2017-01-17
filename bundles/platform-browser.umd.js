@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.3-5237b1c
+ * @license Angular v4.0.0-beta.3-d169c24
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2705,12 +2705,12 @@
    *
    * @stable
    */
-  var /** @type {?} */ DOCUMENT = new core.OpaqueToken('DocumentToken');
+  var /** @type {?} */ DOCUMENT = new core.InjectionToken('DocumentToken');
 
   /**
    * @stable
    */
-  var /** @type {?} */ EVENT_MANAGER_PLUGINS = new core.OpaqueToken('EventManagerPlugins');
+  var /** @type {?} */ EVENT_MANAGER_PLUGINS = new core.InjectionToken('EventManagerPlugins');
   /**
    * @stable
    */
@@ -3591,7 +3591,7 @@
    *
    * @experimental
    */
-  var /** @type {?} */ HAMMER_GESTURE_CONFIG = new core.OpaqueToken('HammerGestureConfig');
+  var /** @type {?} */ HAMMER_GESTURE_CONFIG = new core.InjectionToken('HammerGestureConfig');
   /**
    * @experimental
    */
@@ -4162,8 +4162,12 @@
   var /** @type {?} */ VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
   var /** @type {?} */ TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
   var /** @type {?} */ COLOR_FNS = '(?:rgb|hsl)a?';
-  var /** @type {?} */ FN_ARGS = '\\([-0-9.%, a-zA-Z]+\\)';
-  var /** @type {?} */ SAFE_STYLE_VALUE = new RegExp("^(" + VALUES + "|(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + ")" + FN_ARGS + ")$", 'g');
+  var /** @type {?} */ GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
+  var /** @type {?} */ CSS3_FNS = '(?:calc|attr)';
+  var /** @type {?} */ FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
+  var /** @type {?} */ SAFE_STYLE_VALUE = new RegExp(("^(" + VALUES + "|") +
+      ("(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + "|" + GRADIENTS + "|" + CSS3_FNS + ")") +
+      (FN_ARGS + ")$"), 'g');
   /**
    * Matches a `url(...)` value with an arbitrary argument as long as it does
    * not contain parentheses.
@@ -4816,7 +4820,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.3-5237b1c');
+  var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.3-d169c24');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;

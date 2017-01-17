@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-import { Inject, Injectable, OpaqueToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
 var /** @type {?} */ EVENT_NAMES = {
     // pan
@@ -55,7 +55,7 @@ var /** @type {?} */ EVENT_NAMES = {
  *
  * @experimental
  */
-export var /** @type {?} */ HAMMER_GESTURE_CONFIG = new OpaqueToken('HammerGestureConfig');
+export var /** @type {?} */ HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
 /**
  * @experimental
  */

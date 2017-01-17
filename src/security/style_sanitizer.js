@@ -25,8 +25,12 @@ import { sanitizeUrl } from './url_sanitizer';
 var /** @type {?} */ VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
 var /** @type {?} */ TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
 var /** @type {?} */ COLOR_FNS = '(?:rgb|hsl)a?';
-var /** @type {?} */ FN_ARGS = '\\([-0-9.%, a-zA-Z]+\\)';
-var /** @type {?} */ SAFE_STYLE_VALUE = new RegExp("^(" + VALUES + "|(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + ")" + FN_ARGS + ")$", 'g');
+var /** @type {?} */ GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
+var /** @type {?} */ CSS3_FNS = '(?:calc|attr)';
+var /** @type {?} */ FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
+var /** @type {?} */ SAFE_STYLE_VALUE = new RegExp(("^(" + VALUES + "|") +
+    ("(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + "|" + GRADIENTS + "|" + CSS3_FNS + ")") +
+    (FN_ARGS + ")$"), 'g');
 /**
  * Matches a `url(...)` value with an arbitrary argument as long as it does
  * not contain parentheses.

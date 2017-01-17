@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
 /**
  * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
@@ -13,7 +13,7 @@ import { EventManagerPlugin } from './event_manager';
  *
  * @experimental
  */
-export declare const HAMMER_GESTURE_CONFIG: OpaqueToken;
+export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
 export interface HammerInstance {
     on(eventName: string, callback: Function): void;
     off(eventName: string, callback: Function): void;
