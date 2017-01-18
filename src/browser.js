@@ -77,8 +77,9 @@ export function _resolveDefaultAnimationDriver() {
     return AnimationDriver.NOOP;
 }
 /**
- *  The ng module for the browser.
-  * *
+ * The ng module for the browser.
+ *
+ * \@stable
  */
 export var BrowserModule = (function () {
     /**

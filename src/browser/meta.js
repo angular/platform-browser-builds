@@ -8,8 +8,9 @@
 import { Injectable } from '@angular/core';
 import { DomAdapter } from '../dom/dom_adapter';
 /**
- *  A service that can be used to get and add meta tags.
-  * *
+ * A service that can be used to get and add meta tags.
+ *
+ * \@experimental
  */
 export var Meta = (function () {
     /**

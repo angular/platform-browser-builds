@@ -51,12 +51,12 @@ var /** @type {?} */ SAFE_STYLE_VALUE = new RegExp(("^(" + VALUES + "|") +
  */
 var /** @type {?} */ URL_RE = /^url\(([^)]+)\)$/;
 /**
- *  Checks that quotes (" and ') are properly balanced inside a string. Assumes
-  * that neither escape (\) nor any other character that could result in
-  * breaking out of a string parsing context are allowed;
-  * see http://www.w3.org/TR/css3-syntax/#string-token-diagram.
-  * *
-  * This code was taken from the Closure sanitization library.
+ * Checks that quotes (" and ') are properly balanced inside a string. Assumes
+ * that neither escape (\) nor any other character that could result in
+ * breaking out of a string parsing context are allowed;
+ * see http://www.w3.org/TR/css3-syntax/#string-token-diagram.
+ *
+ * This code was taken from the Closure sanitization library.
  * @param {?} value
  * @return {?}
  */
@@ -75,8 +75,8 @@ function hasBalancedQuotes(value) {
     return outsideSingle && outsideDouble;
 }
 /**
- *  Sanitizes the given untrusted CSS style property value (i.e. not an entire object, just a single
-  * value) and returns a value that is safe to use in a browser environment.
+ * Sanitizes the given untrusted CSS style property value (i.e. not an entire object, just a single
+ * value) and returns a value that is safe to use in a browser environment.
  * @param {?} value
  * @return {?}
  */

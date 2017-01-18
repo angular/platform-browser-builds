@@ -93,6 +93,7 @@ export var WebAnimationsPlayer = (function () {
         this._player.addEventListener('finish', function () { return _this._onFinish(); });
     };
     /**
+     * \@internal
      * @param {?} element
      * @param {?} keyframes
      * @param {?} options
