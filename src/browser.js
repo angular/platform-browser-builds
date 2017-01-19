@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CommonModule, PlatformLocation } from '@angular/common/index';
-import { ApplicationModule, ErrorHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, Sanitizer, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core/index';
+import { CommonModule, PlatformLocation } from '@angular/common';
+import { ApplicationModule, ErrorHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, Sanitizer, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
 import { BrowserDomAdapter } from './browser/browser_adapter';
@@ -24,7 +24,7 @@ import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerGesturesPlugin } from
 import { KeyEventsPlugin } from './dom/events/key_events';
 import { DomSharedStylesHost, SharedStylesHost } from './dom/shared_styles_host';
 import { DomSanitizer, DomSanitizerImpl } from './security/dom_sanitization_service';
-export const /** @type {?} */ INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
+export var /** @type {?} */ INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation }
 ];
@@ -34,14 +34,14 @@ export const /** @type {?} */ INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
  * @experimental
  */
-export const /** @type {?} */ BROWSER_SANITIZATION_PROVIDERS = [
+export var /** @type {?} */ BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl },
 ];
 /**
  * @stable
  */
-export const /** @type {?} */ platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+export var /** @type {?} */ platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 /**
  * @return {?}
  */
@@ -81,44 +81,45 @@ export function _resolveDefaultAnimationDriver() {
  *
  * \@stable
  */
-export class BrowserModule {
+export var BrowserModule = (function () {
     /**
      * @param {?} parentModule
      */
-    constructor(parentModule) {
+    function BrowserModule(parentModule) {
         if (parentModule) {
-            throw new Error(`BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.`);
+            throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
         }
     }
-}
-BrowserModule.decorators = [
-    { type: NgModule, args: [{
-                providers: [
-                    BROWSER_SANITIZATION_PROVIDERS,
-                    { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
-                    { provide: DOCUMENT, useFactory: _document, deps: [] },
-                    { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-                    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-                    { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-                    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-                    { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-                    { provide: RootRenderer, useExisting: DomRootRenderer },
-                    { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-                    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
-                    { provide: Meta, useFactory: meta },
-                    DomSharedStylesHost,
-                    Testability,
-                    EventManager,
-                    ELEMENT_PROBE_PROVIDERS,
-                    Title,
-                ],
-                exports: [CommonModule, ApplicationModule]
-            },] },
-];
-/** @nocollapse */
-BrowserModule.ctorParameters = () => [
-    { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf },] },
-];
+    BrowserModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [
+                        BROWSER_SANITIZATION_PROVIDERS,
+                        { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
+                        { provide: DOCUMENT, useFactory: _document, deps: [] },
+                        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+                        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+                        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+                        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+                        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
+                        { provide: RootRenderer, useExisting: DomRootRenderer },
+                        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+                        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
+                        { provide: Meta, useFactory: meta },
+                        DomSharedStylesHost,
+                        Testability,
+                        EventManager,
+                        ELEMENT_PROBE_PROVIDERS,
+                        Title,
+                    ],
+                    exports: [CommonModule, ApplicationModule]
+                },] },
+    ];
+    /** @nocollapse */
+    BrowserModule.ctorParameters = function () { return [
+        { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf },] },
+    ]; };
+    return BrowserModule;
+}());
 function BrowserModule_tsickle_Closure_declarations() {
     /** @type {?} */
     BrowserModule.decorators;

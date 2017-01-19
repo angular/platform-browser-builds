@@ -5,20 +5,21 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ApplicationRef } from '@angular/core/index';
+import { ApplicationRef } from '@angular/core';
 import { getDOM } from '../../dom/dom_adapter';
 import { window } from '../../facade/browser';
 import { isPresent } from '../../facade/lang';
-export class ChangeDetectionPerfRecord {
+export var ChangeDetectionPerfRecord = (function () {
     /**
      * @param {?} msPerTick
      * @param {?} numTicks
      */
-    constructor(msPerTick, numTicks) {
+    function ChangeDetectionPerfRecord(msPerTick, numTicks) {
         this.msPerTick = msPerTick;
         this.numTicks = numTicks;
     }
-}
+    return ChangeDetectionPerfRecord;
+}());
 function ChangeDetectionPerfRecord_tsickle_Closure_declarations() {
     /** @type {?} */
     ChangeDetectionPerfRecord.prototype.msPerTick;
@@ -29,14 +30,15 @@ function ChangeDetectionPerfRecord_tsickle_Closure_declarations() {
  * Entry point for all Angular debug tools. This object corresponds to the `ng`
  * global variable accessible in the dev console.
  */
-export class AngularTools {
+export var AngularTools = (function () {
     /**
      * @param {?} ref
      */
-    constructor(ref) {
+    function AngularTools(ref) {
         this.profiler = new AngularProfiler(ref);
     }
-}
+    return AngularTools;
+}());
 function AngularTools_tsickle_Closure_declarations() {
     /** @type {?} */
     AngularTools.prototype.profiler;
@@ -45,11 +47,11 @@ function AngularTools_tsickle_Closure_declarations() {
  * Entry point for all Angular profiling-related debug tools. This object
  * corresponds to the `ng.profiler` in the dev console.
  */
-export class AngularProfiler {
+export var AngularProfiler = (function () {
     /**
      * @param {?} ref
      */
-    constructor(ref) {
+    function AngularProfiler(ref) {
         this.appRef = ref.injector.get(ApplicationRef);
     }
     /**
@@ -70,21 +72,21 @@ export class AngularProfiler {
      * @param {?} config
      * @return {?}
      */
-    timeChangeDetection(config) {
-        const /** @type {?} */ record = config && config['record'];
-        const /** @type {?} */ profileName = 'Change Detection';
+    AngularProfiler.prototype.timeChangeDetection = function (config) {
+        var /** @type {?} */ record = config && config['record'];
+        var /** @type {?} */ profileName = 'Change Detection';
         // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
-        const /** @type {?} */ isProfilerAvailable = isPresent(window.console.profile);
+        var /** @type {?} */ isProfilerAvailable = isPresent(window.console.profile);
         if (record && isProfilerAvailable) {
             window.console.profile(profileName);
         }
-        const /** @type {?} */ start = getDOM().performanceNow();
-        let /** @type {?} */ numTicks = 0;
+        var /** @type {?} */ start = getDOM().performanceNow();
+        var /** @type {?} */ numTicks = 0;
         while (numTicks < 5 || (getDOM().performanceNow() - start) < 500) {
             this.appRef.tick();
             numTicks++;
         }
-        const /** @type {?} */ end = getDOM().performanceNow();
+        var /** @type {?} */ end = getDOM().performanceNow();
         if (record && isProfilerAvailable) {
             // need to cast to <any> because type checker thinks there's no argument
             // while in fact there is:
@@ -92,12 +94,13 @@ export class AngularProfiler {
             // https://developer.mozilla.org/en-US/docs/Web/API/Console/profileEnd
             ((window.console.profileEnd))(profileName);
         }
-        const /** @type {?} */ msPerTick = (end - start) / numTicks;
-        window.console.log(`ran ${numTicks} change detection cycles`);
-        window.console.log(`${msPerTick.toFixed(2)} ms per check`);
+        var /** @type {?} */ msPerTick = (end - start) / numTicks;
+        window.console.log("ran " + numTicks + " change detection cycles");
+        window.console.log(msPerTick.toFixed(2) + " ms per check");
         return new ChangeDetectionPerfRecord(msPerTick, numTicks);
-    }
-}
+    };
+    return AngularProfiler;
+}());
 function AngularProfiler_tsickle_Closure_declarations() {
     /** @type {?} */
     AngularProfiler.prototype.appRef;

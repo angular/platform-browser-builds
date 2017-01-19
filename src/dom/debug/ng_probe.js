@@ -5,17 +5,17 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as core from '@angular/core/index';
+import * as core from '@angular/core';
 import { StringMapWrapper } from '../../facade/collection';
 import { DebugDomRootRenderer } from '../../private_import_core';
 import { getDOM } from '../dom_adapter';
 import { DomRootRenderer } from '../dom_renderer';
-const /** @type {?} */ CORE_TOKENS = {
+var /** @type {?} */ CORE_TOKENS = {
     'ApplicationRef': core.ApplicationRef,
     'NgZone': core.NgZone,
 };
-const /** @type {?} */ INSPECT_GLOBAL_NAME = 'ng.probe';
-const /** @type {?} */ CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
+var /** @type {?} */ INSPECT_GLOBAL_NAME = 'ng.probe';
+var /** @type {?} */ CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
 /**
  * Returns a {\@link DebugElement} for the given native DOM element, or
  * null if the given native element does not have an Angular view associated
@@ -30,16 +30,17 @@ export function inspectNativeElement(element) {
  * Deprecated. Use the one from '\@angular/core'.
  * @deprecated
  */
-export class NgProbeToken {
+export var NgProbeToken = (function () {
     /**
      * @param {?} name
      * @param {?} token
      */
-    constructor(name, token) {
+    function NgProbeToken(name, token) {
         this.name = name;
         this.token = token;
     }
-}
+    return NgProbeToken;
+}());
 function NgProbeToken_tsickle_Closure_declarations() {
     /** @type {?} */
     NgProbeToken.prototype.name;
@@ -72,12 +73,12 @@ function _createRootRenderer(rootRenderer, extraTokens) {
  * @return {?}
  */
 function _ngProbeTokensToMap(tokens) {
-    return tokens.reduce((prev, t) => (prev[t.name] = t.token, prev), {});
+    return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
 }
 /**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
-export const /** @type {?} */ ELEMENT_PROBE_PROVIDERS = [{
+export var /** @type {?} */ ELEMENT_PROBE_PROVIDERS = [{
         provide: core.RootRenderer,
         useFactory: _createConditionalRootRenderer,
         deps: [

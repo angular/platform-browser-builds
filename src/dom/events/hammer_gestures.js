@@ -5,9 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Inject, Injectable, InjectionToken } from '@angular/core/index';
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
-const /** @type {?} */ EVENT_NAMES = {
+var /** @type {?} */ EVENT_NAMES = {
     // pan
     'pan': true,
     'panstart': true,
@@ -50,12 +55,12 @@ const /** @type {?} */ EVENT_NAMES = {
  *
  * @experimental
  */
-export const /** @type {?} */ HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
+export var /** @type {?} */ HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
 /**
  * \@experimental
  */
-export class HammerGestureConfig {
-    constructor() {
+export var HammerGestureConfig = (function () {
+    function HammerGestureConfig() {
         this.events = [];
         this.overrides = {};
     }
@@ -63,21 +68,22 @@ export class HammerGestureConfig {
      * @param {?} element
      * @return {?}
      */
-    buildHammer(element) {
-        const /** @type {?} */ mc = new Hammer(element);
+    HammerGestureConfig.prototype.buildHammer = function (element) {
+        var /** @type {?} */ mc = new Hammer(element);
         mc.get('pinch').set({ enable: true });
         mc.get('rotate').set({ enable: true });
-        for (const eventName in this.overrides) {
+        for (var eventName in this.overrides) {
             mc.get(eventName).set(this.overrides[eventName]);
         }
         return mc;
-    }
-}
-HammerGestureConfig.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-HammerGestureConfig.ctorParameters = () => [];
+    };
+    HammerGestureConfig.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    HammerGestureConfig.ctorParameters = function () { return []; };
+    return HammerGestureConfig;
+}());
 function HammerGestureConfig_tsickle_Closure_declarations() {
     /** @type {?} */
     HammerGestureConfig.decorators;
@@ -91,59 +97,62 @@ function HammerGestureConfig_tsickle_Closure_declarations() {
     /** @type {?} */
     HammerGestureConfig.prototype.overrides;
 }
-export class HammerGesturesPlugin extends EventManagerPlugin {
+export var HammerGesturesPlugin = (function (_super) {
+    __extends(HammerGesturesPlugin, _super);
     /**
      * @param {?} _config
      */
-    constructor(_config) {
-        super();
+    function HammerGesturesPlugin(_config) {
+        _super.call(this);
         this._config = _config;
     }
     /**
      * @param {?} eventName
      * @return {?}
      */
-    supports(eventName) {
+    HammerGesturesPlugin.prototype.supports = function (eventName) {
         if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
             return false;
         }
         if (!((window)).Hammer) {
-            throw new Error(`Hammer.js is not loaded, can not bind ${eventName} event`);
+            throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
         }
         return true;
-    }
+    };
     /**
      * @param {?} element
      * @param {?} eventName
      * @param {?} handler
      * @return {?}
      */
-    addEventListener(element, eventName, handler) {
-        const /** @type {?} */ zone = this.manager.getZone();
+    HammerGesturesPlugin.prototype.addEventListener = function (element, eventName, handler) {
+        var _this = this;
+        var /** @type {?} */ zone = this.manager.getZone();
         eventName = eventName.toLowerCase();
-        return zone.runOutsideAngular(() => {
+        return zone.runOutsideAngular(function () {
             // Creating the manager bind events, must be done outside of angular
-            const /** @type {?} */ mc = this._config.buildHammer(element);
-            const /** @type {?} */ callback = function (eventObj) {
+            var /** @type {?} */ mc = _this._config.buildHammer(element);
+            var /** @type {?} */ callback = function (eventObj) {
                 zone.runGuarded(function () { handler(eventObj); });
             };
             mc.on(eventName, callback);
-            return () => mc.off(eventName, callback);
+            return function () { return mc.off(eventName, callback); };
         });
-    }
+    };
     /**
      * @param {?} eventName
      * @return {?}
      */
-    isCustomEvent(eventName) { return this._config.events.indexOf(eventName) > -1; }
-}
-HammerGesturesPlugin.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-HammerGesturesPlugin.ctorParameters = () => [
-    { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
-];
+    HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
+    HammerGesturesPlugin.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    HammerGesturesPlugin.ctorParameters = function () { return [
+        { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+    ]; };
+    return HammerGesturesPlugin;
+}(EventManagerPlugin));
 function HammerGesturesPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     HammerGesturesPlugin.decorators;

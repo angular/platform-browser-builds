@@ -12,7 +12,9 @@ import { isPresent } from '../../facade/lang';
  *
  * \@experimental All debugging apis are currently experimental.
  */
-export class By {
+export var By = (function () {
+    function By() {
+    }
     /**
      * Match all elements.
      *
@@ -21,7 +23,7 @@ export class By {
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
      * @return {?}
      */
-    static all() { return (debugElement) => true; }
+    By.all = function () { return function (debugElement) { return true; }; };
     /**
      * Match elements by the given CSS selector.
      *
@@ -31,13 +33,13 @@ export class By {
      * @param {?} selector
      * @return {?}
      */
-    static css(selector) {
-        return (debugElement) => {
+    By.css = function (selector) {
+        return function (debugElement) {
             return isPresent(debugElement.nativeElement) ?
                 getDOM().elementMatches(debugElement.nativeElement, selector) :
                 false;
         };
-    }
+    };
     /**
      * Match elements that have the given directive present.
      *
@@ -47,8 +49,9 @@ export class By {
      * @param {?} type
      * @return {?}
      */
-    static directive(type) {
-        return (debugElement) => debugElement.providerTokens.indexOf(type) !== -1;
-    }
-}
+    By.directive = function (type) {
+        return function (debugElement) { return debugElement.providerTokens.indexOf(type) !== -1; };
+    };
+    return By;
+}());
 //# sourceMappingURL=by.js.map

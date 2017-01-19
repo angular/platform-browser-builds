@@ -16,17 +16,20 @@ import { getDOM } from '../dom/dom_adapter';
  *
  * \@experimental
  */
-export class Title {
+export var Title = (function () {
+    function Title() {
+    }
     /**
      * Get the title of the current HTML document.
      * @return {?}
      */
-    getTitle() { return getDOM().getTitle(); }
+    Title.prototype.getTitle = function () { return getDOM().getTitle(); };
     /**
      * Set the title of the current HTML document.
      * @param {?} newTitle
      * @return {?}
      */
-    setTitle(newTitle) { getDOM().setTitle(newTitle); }
-}
+    Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(newTitle); };
+    return Title;
+}());
 //# sourceMappingURL=title.js.map

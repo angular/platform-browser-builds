@@ -5,10 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Inject, Injectable } from '@angular/core/index';
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from './dom_tokens';
-export class SharedStylesHost {
-    constructor() {
+export var SharedStylesHost = (function () {
+    function SharedStylesHost() {
         /** @internal */
         this._styles = [];
         /** @internal */
@@ -18,32 +23,34 @@ export class SharedStylesHost {
      * @param {?} styles
      * @return {?}
      */
-    addStyles(styles) {
-        const /** @type {?} */ additions = [];
-        styles.forEach(style => {
-            if (!this._stylesSet.has(style)) {
-                this._stylesSet.add(style);
-                this._styles.push(style);
+    SharedStylesHost.prototype.addStyles = function (styles) {
+        var _this = this;
+        var /** @type {?} */ additions = [];
+        styles.forEach(function (style) {
+            if (!_this._stylesSet.has(style)) {
+                _this._stylesSet.add(style);
+                _this._styles.push(style);
                 additions.push(style);
             }
         });
         this.onStylesAdded(additions);
-    }
+    };
     /**
      * @param {?} additions
      * @return {?}
      */
-    onStylesAdded(additions) { }
+    SharedStylesHost.prototype.onStylesAdded = function (additions) { };
     /**
      * @return {?}
      */
-    getAllStyles() { return this._styles; }
-}
-SharedStylesHost.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-SharedStylesHost.ctorParameters = () => [];
+    SharedStylesHost.prototype.getAllStyles = function () { return this._styles; };
+    SharedStylesHost.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    SharedStylesHost.ctorParameters = function () { return []; };
+    return SharedStylesHost;
+}());
 function SharedStylesHost_tsickle_Closure_declarations() {
     /** @type {?} */
     SharedStylesHost.decorators;
@@ -63,12 +70,13 @@ function SharedStylesHost_tsickle_Closure_declarations() {
      */
     SharedStylesHost.prototype._stylesSet;
 }
-export class DomSharedStylesHost extends SharedStylesHost {
+export var DomSharedStylesHost = (function (_super) {
+    __extends(DomSharedStylesHost, _super);
     /**
      * @param {?} doc
      */
-    constructor(doc) {
-        super();
+    function DomSharedStylesHost(doc) {
+        _super.call(this);
         this._hostNodes = new Set();
         this._hostNodes.add(doc.head);
     }
@@ -78,41 +86,43 @@ export class DomSharedStylesHost extends SharedStylesHost {
      * @param {?} host
      * @return {?}
      */
-    _addStylesToHost(styles, host) {
-        for (let /** @type {?} */ i = 0; i < styles.length; i++) {
-            const /** @type {?} */ styleEl = document.createElement('style');
+    DomSharedStylesHost.prototype._addStylesToHost = function (styles, host) {
+        for (var /** @type {?} */ i = 0; i < styles.length; i++) {
+            var /** @type {?} */ styleEl = document.createElement('style');
             styleEl.textContent = styles[i];
             host.appendChild(styleEl);
         }
-    }
+    };
     /**
      * @param {?} hostNode
      * @return {?}
      */
-    addHost(hostNode) {
+    DomSharedStylesHost.prototype.addHost = function (hostNode) {
         this._addStylesToHost(this._styles, hostNode);
         this._hostNodes.add(hostNode);
-    }
+    };
     /**
      * @param {?} hostNode
      * @return {?}
      */
-    removeHost(hostNode) { this._hostNodes.delete(hostNode); }
+    DomSharedStylesHost.prototype.removeHost = function (hostNode) { this._hostNodes.delete(hostNode); };
     /**
      * @param {?} additions
      * @return {?}
      */
-    onStylesAdded(additions) {
-        this._hostNodes.forEach((hostNode) => { this._addStylesToHost(additions, hostNode); });
-    }
-}
-DomSharedStylesHost.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-DomSharedStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-];
+    DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
+        var _this = this;
+        this._hostNodes.forEach(function (hostNode) { _this._addStylesToHost(additions, hostNode); });
+    };
+    DomSharedStylesHost.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    DomSharedStylesHost.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    ]; };
+    return DomSharedStylesHost;
+}(SharedStylesHost));
 function DomSharedStylesHost_tsickle_Closure_declarations() {
     /** @type {?} */
     DomSharedStylesHost.decorators;

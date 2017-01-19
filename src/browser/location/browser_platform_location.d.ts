@@ -15,13 +15,13 @@ export declare class BrowserPlatformLocation extends PlatformLocation {
     private _location;
     private _history;
     constructor();
-    readonly location: Location;
+    location: Location;
     getBaseHrefFromDOM(): string;
     onPopState(fn: LocationChangeListener): void;
     onHashChange(fn: LocationChangeListener): void;
     pathname: string;
-    readonly search: string;
-    readonly hash: string;
+    search: string;
+    hash: string;
     pushState(state: any, title: string, url: string): void;
     replaceState(state: any, title: string, url: string): void;
     forward(): void;

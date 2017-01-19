@@ -5,24 +5,25 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Inject, Injectable, InjectionToken, NgZone } from '@angular/core/index';
+import { Inject, Injectable, InjectionToken, NgZone } from '@angular/core';
 import { getDOM } from '../dom_adapter';
 /**
  * @stable
  */
-export const /** @type {?} */ EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
+export var /** @type {?} */ EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
  * \@stable
  */
-export class EventManager {
+export var EventManager = (function () {
     /**
      * @param {?} plugins
      * @param {?} _zone
      */
-    constructor(plugins, _zone) {
+    function EventManager(plugins, _zone) {
+        var _this = this;
         this._zone = _zone;
         this._eventNameToPlugin = new Map();
-        plugins.forEach(p => p.manager = this);
+        plugins.forEach(function (p) { return p.manager = _this; });
         this._plugins = plugins.slice().reverse();
     }
     /**
@@ -31,53 +32,54 @@ export class EventManager {
      * @param {?} handler
      * @return {?}
      */
-    addEventListener(element, eventName, handler) {
-        const /** @type {?} */ plugin = this._findPluginFor(eventName);
+    EventManager.prototype.addEventListener = function (element, eventName, handler) {
+        var /** @type {?} */ plugin = this._findPluginFor(eventName);
         return plugin.addEventListener(element, eventName, handler);
-    }
+    };
     /**
      * @param {?} target
      * @param {?} eventName
      * @param {?} handler
      * @return {?}
      */
-    addGlobalEventListener(target, eventName, handler) {
-        const /** @type {?} */ plugin = this._findPluginFor(eventName);
+    EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
+        var /** @type {?} */ plugin = this._findPluginFor(eventName);
         return plugin.addGlobalEventListener(target, eventName, handler);
-    }
+    };
     /**
      * @return {?}
      */
-    getZone() { return this._zone; }
+    EventManager.prototype.getZone = function () { return this._zone; };
     /**
      * \@internal
      * @param {?} eventName
      * @return {?}
      */
-    _findPluginFor(eventName) {
-        const /** @type {?} */ plugin = this._eventNameToPlugin.get(eventName);
+    EventManager.prototype._findPluginFor = function (eventName) {
+        var /** @type {?} */ plugin = this._eventNameToPlugin.get(eventName);
         if (plugin) {
             return plugin;
         }
-        const /** @type {?} */ plugins = this._plugins;
-        for (let /** @type {?} */ i = 0; i < plugins.length; i++) {
-            const /** @type {?} */ plugin = plugins[i];
-            if (plugin.supports(eventName)) {
-                this._eventNameToPlugin.set(eventName, plugin);
-                return plugin;
+        var /** @type {?} */ plugins = this._plugins;
+        for (var /** @type {?} */ i = 0; i < plugins.length; i++) {
+            var /** @type {?} */ plugin_1 = plugins[i];
+            if (plugin_1.supports(eventName)) {
+                this._eventNameToPlugin.set(eventName, plugin_1);
+                return plugin_1;
             }
         }
-        throw new Error(`No event manager plugin found for event ${eventName}`);
-    }
-}
-EventManager.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-EventManager.ctorParameters = () => [
-    { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-    { type: NgZone, },
-];
+        throw new Error("No event manager plugin found for event " + eventName);
+    };
+    EventManager.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    EventManager.ctorParameters = function () { return [
+        { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+        { type: NgZone, },
+    ]; };
+    return EventManager;
+}());
 function EventManager_tsickle_Closure_declarations() {
     /** @type {?} */
     EventManager.decorators;
@@ -96,13 +98,15 @@ function EventManager_tsickle_Closure_declarations() {
 /**
  * @abstract
  */
-export class EventManagerPlugin {
+export var EventManagerPlugin = (function () {
+    function EventManagerPlugin() {
+    }
     /**
      * @abstract
      * @param {?} eventName
      * @return {?}
      */
-    supports(eventName) { }
+    EventManagerPlugin.prototype.supports = function (eventName) { };
     /**
      * @abstract
      * @param {?} element
@@ -110,22 +114,23 @@ export class EventManagerPlugin {
      * @param {?} handler
      * @return {?}
      */
-    addEventListener(element, eventName, handler) { }
+    EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) { };
     /**
      * @param {?} element
      * @param {?} eventName
      * @param {?} handler
      * @return {?}
      */
-    addGlobalEventListener(element, eventName, handler) {
-        const /** @type {?} */ target = getDOM().getGlobalEventTarget(element);
+    EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
+        var /** @type {?} */ target = getDOM().getGlobalEventTarget(element);
         if (!target) {
-            throw new Error(`Unsupported event target ${target} for event ${eventName}`);
+            throw new Error("Unsupported event target " + target + " for event " + eventName);
         }
         return this.addEventListener(target, eventName, handler);
-    }
+    };
     ;
-}
+    return EventManagerPlugin;
+}());
 function EventManagerPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     EventManagerPlugin.prototype.manager;

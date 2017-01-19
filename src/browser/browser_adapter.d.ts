@@ -16,7 +16,7 @@ export declare class BrowserDomAdapter extends GenericBrowserDomAdapter {
     log(error: string): void;
     logGroup(error: string): void;
     logGroupEnd(): void;
-    readonly attrToPropMap: any;
+    attrToPropMap: any;
     query(selector: string): any;
     querySelector(el: Element, selector: string): HTMLElement;
     querySelectorAll(el: any, selector: string): any[];

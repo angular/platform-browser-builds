@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken } from '@angular/core/index';
+import { InjectionToken } from '@angular/core';
 /**
  * A DI Token representing the main rendering context. In a browser this is the DOM Document.
  *
@@ -14,5 +14,5 @@ import { InjectionToken } from '@angular/core/index';
  *
  * @stable
  */
-export const /** @type {?} */ DOCUMENT = new InjectionToken('DocumentToken');
+export var /** @type {?} */ DOCUMENT = new InjectionToken('DocumentToken');
 //# sourceMappingURL=dom_tokens.js.map
