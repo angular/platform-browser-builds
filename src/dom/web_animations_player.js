@@ -93,13 +93,16 @@ export var WebAnimationsPlayer = (function () {
         this._player.addEventListener('finish', function () { return _this._onFinish(); });
     };
     /**
+     * \@internal
      * @param {?} element
      * @param {?} keyframes
      * @param {?} options
      * @return {?}
      */
     WebAnimationsPlayer.prototype._triggerWebAnimation = function (element, keyframes, options) {
-        return (element.animate(keyframes, options));
+        // jscompiler doesn't seem to know animate is a native property because it's not fully
+        // supported yet across common browsers (we polyfill it for Edge/Safari) [CL #143630929]
+        return (element['animate'](keyframes, options));
     };
     Object.defineProperty(WebAnimationsPlayer.prototype, "domPlayer", {
         /**
