@@ -5,13 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-import { PlatformLocation } from '@angular/common';
-import { Injectable } from '@angular/core';
+import { PlatformLocation } from '@angular/common/index';
+import { Injectable } from '@angular/core/index';
 import { getDOM } from '../../dom/dom_adapter';
 import { supportsState } from './history';
 /**
@@ -19,118 +14,100 @@ import { supportsState } from './history';
  * This class should not be used directly by an application developer. Instead, use
  * {\@link Location}.
  */
-export var BrowserPlatformLocation = (function (_super) {
-    __extends(BrowserPlatformLocation, _super);
-    function BrowserPlatformLocation() {
-        _super.call(this);
+export class BrowserPlatformLocation extends PlatformLocation {
+    constructor() {
+        super();
         this._init();
     }
     /**
      * \@internal
      * @return {?}
      */
-    BrowserPlatformLocation.prototype._init = function () {
+    _init() {
         this._location = getDOM().getLocation();
         this._history = getDOM().getHistory();
-    };
-    Object.defineProperty(BrowserPlatformLocation.prototype, "location", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location; },
-        enumerable: true,
-        configurable: true
-    });
+    }
     /**
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(); };
+    get location() { return this._location; }
+    /**
+     * @return {?}
+     */
+    getBaseHrefFromDOM() { return getDOM().getBaseHref(); }
     /**
      * @param {?} fn
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.onPopState = function (fn) {
+    onPopState(fn) {
         getDOM().getGlobalEventTarget('window').addEventListener('popstate', fn, false);
-    };
+    }
     /**
      * @param {?} fn
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.onHashChange = function (fn) {
+    onHashChange(fn) {
         getDOM().getGlobalEventTarget('window').addEventListener('hashchange', fn, false);
-    };
-    Object.defineProperty(BrowserPlatformLocation.prototype, "pathname", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location.pathname; },
-        /**
-         * @param {?} newPath
-         * @return {?}
-         */
-        set: function (newPath) { this._location.pathname = newPath; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "search", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location.search; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "hash", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location.hash; },
-        enumerable: true,
-        configurable: true
-    });
+    }
+    /**
+     * @return {?}
+     */
+    get pathname() { return this._location.pathname; }
+    /**
+     * @return {?}
+     */
+    get search() { return this._location.search; }
+    /**
+     * @return {?}
+     */
+    get hash() { return this._location.hash; }
+    /**
+     * @param {?} newPath
+     * @return {?}
+     */
+    set pathname(newPath) { this._location.pathname = newPath; }
     /**
      * @param {?} state
      * @param {?} title
      * @param {?} url
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.pushState = function (state, title, url) {
+    pushState(state, title, url) {
         if (supportsState()) {
             this._history.pushState(state, title, url);
         }
         else {
             this._location.hash = url;
         }
-    };
+    }
     /**
      * @param {?} state
      * @param {?} title
      * @param {?} url
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.replaceState = function (state, title, url) {
+    replaceState(state, title, url) {
         if (supportsState()) {
             this._history.replaceState(state, title, url);
         }
         else {
             this._location.hash = url;
         }
-    };
+    }
     /**
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
+    forward() { this._history.forward(); }
     /**
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
-    BrowserPlatformLocation.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    BrowserPlatformLocation.ctorParameters = function () { return []; };
-    return BrowserPlatformLocation;
-}(PlatformLocation));
+    back() { this._history.back(); }
+}
+BrowserPlatformLocation.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+BrowserPlatformLocation.ctorParameters = () => [];
 function BrowserPlatformLocation_tsickle_Closure_declarations() {
     /** @type {?} */
     BrowserPlatformLocation.decorators;

@@ -7,7 +7,7 @@
  */
 import { global } from '../../facade/lang';
 import { AngularTools } from './common_tools';
-var /** @type {?} */ context = (global);
+const /** @type {?} */ context = (global);
 /**
  * Enabled Angular 2 debug tools that are accessible via your browser's
  * developer console.

@@ -9,9 +9,7 @@ import { NoOpAnimationPlayer } from '../private_import_core';
 /**
  * \@experimental
  */
-export var NoOpAnimationDriver = (function () {
-    function NoOpAnimationDriver() {
-    }
+export class NoOpAnimationDriver {
     /**
      * @param {?} element
      * @param {?} startingStyles
@@ -22,19 +20,15 @@ export var NoOpAnimationDriver = (function () {
      * @param {?=} previousPlayers
      * @return {?}
      */
-    NoOpAnimationDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
-        if (previousPlayers === void 0) { previousPlayers = []; }
+    animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers = []) {
         return new NoOpAnimationPlayer();
-    };
-    return NoOpAnimationDriver;
-}());
+    }
+}
 /**
  * \@experimental
  * @abstract
  */
-export var AnimationDriver = (function () {
-    function AnimationDriver() {
-    }
+export class AnimationDriver {
     /**
      * @abstract
      * @param {?} element
@@ -46,10 +40,9 @@ export var AnimationDriver = (function () {
      * @param {?=} previousPlayers
      * @return {?}
      */
-    AnimationDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) { };
-    AnimationDriver.NOOP = new NoOpAnimationDriver();
-    return AnimationDriver;
-}());
+    animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers) { }
+}
+AnimationDriver.NOOP = new NoOpAnimationDriver();
 function AnimationDriver_tsickle_Closure_declarations() {
     /** @type {?} */
     AnimationDriver.NOOP;

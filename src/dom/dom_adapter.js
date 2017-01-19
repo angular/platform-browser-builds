@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var /** @type {?} */ _DOM = null;
+let /** @type {?} */ _DOM = null;
 /**
  * @return {?}
  */
@@ -35,8 +35,8 @@ export function setRootDomAdapter(adapter) {
  * can introduce XSS risks.
  * @abstract
  */
-export var DomAdapter = (function () {
-    function DomAdapter() {
+export class DomAdapter {
+    constructor() {
         this.resourceLoaderType = null;
     }
     /**
@@ -45,7 +45,7 @@ export var DomAdapter = (function () {
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.hasProperty = function (element /** TODO #9100 */, name) { };
+    hasProperty(element /** TODO #9100 */, name) { }
     /**
      * @abstract
      * @param {?} el
@@ -53,14 +53,14 @@ export var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setProperty = function (el, name, value) { };
+    setProperty(el, name, value) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.getProperty = function (el, name) { };
+    getProperty(el, name) { }
     /**
      * @abstract
      * @param {?} el
@@ -68,73 +68,69 @@ export var DomAdapter = (function () {
      * @param {?} args
      * @return {?}
      */
-    DomAdapter.prototype.invoke = function (el, methodName, args) { };
+    invoke(el, methodName, args) { }
     /**
      * @abstract
      * @param {?} error
      * @return {?}
      */
-    DomAdapter.prototype.logError = function (error) { };
+    logError(error) { }
     /**
      * @abstract
      * @param {?} error
      * @return {?}
      */
-    DomAdapter.prototype.log = function (error) { };
+    log(error) { }
     /**
      * @abstract
      * @param {?} error
      * @return {?}
      */
-    DomAdapter.prototype.logGroup = function (error) { };
+    logGroup(error) { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.logGroupEnd = function () { };
-    Object.defineProperty(DomAdapter.prototype, "attrToPropMap", {
-        /**
-         * Maps attribute names to their corresponding property names for cases
-         * where attribute name doesn't match property name.
-         * @return {?}
-         */
-        get: function () { return this._attrToPropMap; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._attrToPropMap = value; },
-        enumerable: true,
-        configurable: true
-    });
+    logGroupEnd() { }
+    /**
+     * Maps attribute names to their corresponding property names for cases
+     * where attribute name doesn't match property name.
+     * @return {?}
+     */
+    get attrToPropMap() { return this._attrToPropMap; }
     ;
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set attrToPropMap(value) { this._attrToPropMap = value; }
     ;
     /**
      * @abstract
      * @param {?} templateHtml
      * @return {?}
      */
-    DomAdapter.prototype.parse = function (templateHtml) { };
+    parse(templateHtml) { }
     /**
      * @abstract
      * @param {?} selector
      * @return {?}
      */
-    DomAdapter.prototype.query = function (selector) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    DomAdapter.prototype.querySelector = function (el /** TODO #9100 */, selector) { };
+    query(selector) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} selector
      * @return {?}
      */
-    DomAdapter.prototype.querySelectorAll = function (el /** TODO #9100 */, selector) { };
+    querySelector(el /** TODO #9100 */, selector) { }
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} selector
+     * @return {?}
+     */
+    querySelectorAll(el /** TODO #9100 */, selector) { }
     /**
      * @abstract
      * @param {?} el
@@ -142,7 +138,7 @@ export var DomAdapter = (function () {
      * @param {?} listener
      * @return {?}
      */
-    DomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener) { };
+    on(el /** TODO #9100 */, evt /** TODO #9100 */, listener) { }
     /**
      * @abstract
      * @param {?} el
@@ -150,131 +146,131 @@ export var DomAdapter = (function () {
      * @param {?} listener
      * @return {?}
      */
-    DomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener) { };
+    onAndCancel(el /** TODO #9100 */, evt /** TODO #9100 */, listener) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} evt
      * @return {?}
      */
-    DomAdapter.prototype.dispatchEvent = function (el /** TODO #9100 */, evt) { };
+    dispatchEvent(el /** TODO #9100 */, evt) { }
     /**
      * @abstract
      * @param {?} eventType
      * @return {?}
      */
-    DomAdapter.prototype.createMouseEvent = function (eventType) { };
+    createMouseEvent(eventType) { }
     /**
      * @abstract
      * @param {?} eventType
      * @return {?}
      */
-    DomAdapter.prototype.createEvent = function (eventType) { };
+    createEvent(eventType) { }
     /**
      * @abstract
      * @param {?} evt
      * @return {?}
      */
-    DomAdapter.prototype.preventDefault = function (evt) { };
+    preventDefault(evt) { }
     /**
      * @abstract
      * @param {?} evt
      * @return {?}
      */
-    DomAdapter.prototype.isPrevented = function (evt) { };
+    isPrevented(evt) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.getInnerHTML = function (el) { };
+    getInnerHTML(el) { }
     /**
      * Returns content if el is a <template> element, null otherwise.
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.getTemplateContent = function (el) { };
+    getTemplateContent(el) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.getOuterHTML = function (el) { };
+    getOuterHTML(el) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.nodeName = function (node) { };
+    nodeName(node) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.nodeValue = function (node) { };
+    nodeValue(node) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.type = function (node) { };
+    type(node) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.content = function (node) { };
+    content(node) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.firstChild = function (el) { };
+    firstChild(el) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.nextSibling = function (el) { };
+    nextSibling(el) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.parentElement = function (el) { };
+    parentElement(el) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.childNodes = function (el) { };
+    childNodes(el) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.childNodesAsList = function (el) { };
+    childNodesAsList(el) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.clearNodes = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.appendChild = function (el /** TODO #9100 */, node) { };
+    clearNodes(el) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.removeChild = function (el /** TODO #9100 */, node) { };
+    appendChild(el /** TODO #9100 */, node) { }
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} node
+     * @return {?}
+     */
+    removeChild(el /** TODO #9100 */, node) { }
     /**
      * @abstract
      * @param {?} el
@@ -282,99 +278,99 @@ export var DomAdapter = (function () {
      * @param {?} oldNode
      * @return {?}
      */
-    DomAdapter.prototype.replaceChild = function (el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode) { };
+    replaceChild(el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.remove = function (el) { };
+    remove(el) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.insertBefore = function (el /** TODO #9100 */, node) { };
+    insertBefore(el /** TODO #9100 */, node) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} nodes
      * @return {?}
      */
-    DomAdapter.prototype.insertAllBefore = function (el /** TODO #9100 */, nodes) { };
+    insertAllBefore(el /** TODO #9100 */, nodes) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.insertAfter = function (el /** TODO #9100 */, node) { };
+    insertAfter(el /** TODO #9100 */, node) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setInnerHTML = function (el /** TODO #9100 */, value) { };
+    setInnerHTML(el /** TODO #9100 */, value) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.getText = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setText = function (el /** TODO #9100 */, value) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getValue = function (el) { };
+    getText(el) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setValue = function (el /** TODO #9100 */, value) { };
+    setText(el /** TODO #9100 */, value) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.getChecked = function (el) { };
+    getValue(el) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setChecked = function (el /** TODO #9100 */, value) { };
+    setValue(el /** TODO #9100 */, value) { }
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    getChecked(el) { }
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    setChecked(el /** TODO #9100 */, value) { }
     /**
      * @abstract
      * @param {?} text
      * @return {?}
      */
-    DomAdapter.prototype.createComment = function (text) { };
+    createComment(text) { }
     /**
      * @abstract
      * @param {?} html
      * @return {?}
      */
-    DomAdapter.prototype.createTemplate = function (html) { };
+    createTemplate(html) { }
     /**
      * @abstract
      * @param {?} tagName
      * @param {?=} doc
      * @return {?}
      */
-    DomAdapter.prototype.createElement = function (tagName /** TODO #9100 */, doc) { };
+    createElement(tagName /** TODO #9100 */, doc) { }
     /**
      * @abstract
      * @param {?} ns
@@ -382,14 +378,14 @@ export var DomAdapter = (function () {
      * @param {?=} doc
      * @return {?}
      */
-    DomAdapter.prototype.createElementNS = function (ns, tagName, doc) { };
+    createElementNS(ns, tagName, doc) { }
     /**
      * @abstract
      * @param {?} text
      * @param {?=} doc
      * @return {?}
      */
-    DomAdapter.prototype.createTextNode = function (text, doc) { };
+    createTextNode(text, doc) { }
     /**
      * @abstract
      * @param {?} attrName
@@ -397,85 +393,85 @@ export var DomAdapter = (function () {
      * @param {?=} doc
      * @return {?}
      */
-    DomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) { };
+    createScriptTag(attrName, attrValue, doc) { }
     /**
      * @abstract
      * @param {?} css
      * @param {?=} doc
      * @return {?}
      */
-    DomAdapter.prototype.createStyleElement = function (css, doc) { };
+    createStyleElement(css, doc) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.createShadowRoot = function (el) { };
+    createShadowRoot(el) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.getShadowRoot = function (el) { };
+    getShadowRoot(el) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.getHost = function (el) { };
+    getHost(el) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.getDistributedNodes = function (el) { };
+    getDistributedNodes(el) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.clone /*<T extends Node>*/ = function (node) { };
+    clone /*<T extends Node>*/(node) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.getElementsByClassName = function (element /** TODO #9100 */, name) { };
+    getElementsByClassName(element /** TODO #9100 */, name) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.getElementsByTagName = function (element /** TODO #9100 */, name) { };
+    getElementsByTagName(element /** TODO #9100 */, name) { }
     /**
      * @abstract
      * @param {?} element
      * @return {?}
      */
-    DomAdapter.prototype.classList = function (element) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    DomAdapter.prototype.addClass = function (element /** TODO #9100 */, className) { };
+    classList(element) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} className
      * @return {?}
      */
-    DomAdapter.prototype.removeClass = function (element /** TODO #9100 */, className) { };
+    addClass(element /** TODO #9100 */, className) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} className
      * @return {?}
      */
-    DomAdapter.prototype.hasClass = function (element /** TODO #9100 */, className) { };
+    removeClass(element /** TODO #9100 */, className) { }
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    hasClass(element /** TODO #9100 */, className) { }
     /**
      * @abstract
      * @param {?} element
@@ -483,21 +479,21 @@ export var DomAdapter = (function () {
      * @param {?} styleValue
      * @return {?}
      */
-    DomAdapter.prototype.setStyle = function (element /** TODO #9100 */, styleName, styleValue) { };
+    setStyle(element /** TODO #9100 */, styleName, styleValue) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} styleName
      * @return {?}
      */
-    DomAdapter.prototype.removeStyle = function (element /** TODO #9100 */, styleName) { };
+    removeStyle(element /** TODO #9100 */, styleName) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} styleName
      * @return {?}
      */
-    DomAdapter.prototype.getStyle = function (element /** TODO #9100 */, styleName) { };
+    getStyle(element /** TODO #9100 */, styleName) { }
     /**
      * @abstract
      * @param {?} element
@@ -505,26 +501,26 @@ export var DomAdapter = (function () {
      * @param {?=} styleValue
      * @return {?}
      */
-    DomAdapter.prototype.hasStyle = function (element /** TODO #9100 */, styleName, styleValue) { };
+    hasStyle(element /** TODO #9100 */, styleName, styleValue) { }
     /**
      * @abstract
      * @param {?} element
      * @return {?}
      */
-    DomAdapter.prototype.tagName = function (element) { };
+    tagName(element) { }
     /**
      * @abstract
      * @param {?} element
      * @return {?}
      */
-    DomAdapter.prototype.attributeMap = function (element) { };
+    attributeMap(element) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.hasAttribute = function (element /** TODO #9100 */, attribute) { };
+    hasAttribute(element /** TODO #9100 */, attribute) { }
     /**
      * @abstract
      * @param {?} element
@@ -532,14 +528,14 @@ export var DomAdapter = (function () {
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.hasAttributeNS = function (element /** TODO #9100 */, ns, attribute) { };
+    hasAttributeNS(element /** TODO #9100 */, ns, attribute) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.getAttribute = function (element /** TODO #9100 */, attribute) { };
+    getAttribute(element /** TODO #9100 */, attribute) { }
     /**
      * @abstract
      * @param {?} element
@@ -547,7 +543,7 @@ export var DomAdapter = (function () {
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.getAttributeNS = function (element /** TODO #9100 */, ns, attribute) { };
+    getAttributeNS(element /** TODO #9100 */, ns, attribute) { }
     /**
      * @abstract
      * @param {?} element
@@ -555,7 +551,7 @@ export var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setAttribute = function (element /** TODO #9100 */, name, value) { };
+    setAttribute(element /** TODO #9100 */, name, value) { }
     /**
      * @abstract
      * @param {?} element
@@ -564,14 +560,14 @@ export var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setAttributeNS = function (element /** TODO #9100 */, ns, name, value) { };
+    setAttributeNS(element /** TODO #9100 */, ns, name, value) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) { };
+    removeAttribute(element /** TODO #9100 */, attribute) { }
     /**
      * @abstract
      * @param {?} element
@@ -579,107 +575,107 @@ export var DomAdapter = (function () {
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, attribute) { };
+    removeAttributeNS(element /** TODO #9100 */, ns, attribute) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.templateAwareRoot = function (el) { };
+    templateAwareRoot(el) { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.createHtmlDocument = function () { };
+    createHtmlDocument() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.defaultDoc = function () { };
+    defaultDoc() { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.getBoundingClientRect = function (el) { };
+    getBoundingClientRect(el) { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.getTitle = function () { };
+    getTitle() { }
     /**
      * @abstract
      * @param {?} newTitle
      * @return {?}
      */
-    DomAdapter.prototype.setTitle = function (newTitle) { };
+    setTitle(newTitle) { }
     /**
      * @abstract
      * @param {?} n
      * @param {?} selector
      * @return {?}
      */
-    DomAdapter.prototype.elementMatches = function (n /** TODO #9100 */, selector) { };
+    elementMatches(n /** TODO #9100 */, selector) { }
     /**
      * @abstract
      * @param {?} el
      * @return {?}
      */
-    DomAdapter.prototype.isTemplateElement = function (el) { };
+    isTemplateElement(el) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.isTextNode = function (node) { };
+    isTextNode(node) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.isCommentNode = function (node) { };
+    isCommentNode(node) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.isElementNode = function (node) { };
+    isElementNode(node) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.hasShadowRoot = function (node) { };
+    hasShadowRoot(node) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.isShadowRoot = function (node) { };
+    isShadowRoot(node) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.importIntoDoc /*<T extends Node>*/ = function (node) { };
+    importIntoDoc /*<T extends Node>*/(node) { }
     /**
      * @abstract
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.adoptNode /*<T extends Node>*/ = function (node) { };
+    adoptNode /*<T extends Node>*/(node) { }
     /**
      * @abstract
      * @param {?} element
      * @return {?}
      */
-    DomAdapter.prototype.getHref = function (element) { };
+    getHref(element) { }
     /**
      * @abstract
      * @param {?} event
      * @return {?}
      */
-    DomAdapter.prototype.getEventKey = function (event) { };
+    getEventKey(event) { }
     /**
      * @abstract
      * @param {?} element
@@ -687,48 +683,48 @@ export var DomAdapter = (function () {
      * @param {?} href
      * @return {?}
      */
-    DomAdapter.prototype.resolveAndSetHref = function (element /** TODO #9100 */, baseUrl, href) { };
+    resolveAndSetHref(element /** TODO #9100 */, baseUrl, href) { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.supportsDOMEvents = function () { };
+    supportsDOMEvents() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.supportsNativeShadowDOM = function () { };
+    supportsNativeShadowDOM() { }
     /**
      * @abstract
      * @param {?} target
      * @return {?}
      */
-    DomAdapter.prototype.getGlobalEventTarget = function (target) { };
+    getGlobalEventTarget(target) { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.getHistory = function () { };
+    getHistory() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.getLocation = function () { };
+    getLocation() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.getBaseHref = function () { };
+    getBaseHref() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.resetBaseElement = function () { };
+    resetBaseElement() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.getUserAgent = function () { };
+    getUserAgent() { }
     /**
      * @abstract
      * @param {?} element
@@ -736,72 +732,71 @@ export var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setData = function (element /** TODO #9100 */, name, value) { };
+    setData(element /** TODO #9100 */, name, value) { }
     /**
      * @abstract
      * @param {?} element
      * @return {?}
      */
-    DomAdapter.prototype.getComputedStyle = function (element) { };
+    getComputedStyle(element) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.getData = function (element /** TODO #9100 */, name) { };
+    getData(element /** TODO #9100 */, name) { }
     /**
      * @abstract
      * @param {?} name
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setGlobalVar = function (name, value) { };
+    setGlobalVar(name, value) { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.supportsWebAnimation = function () { };
+    supportsWebAnimation() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.performanceNow = function () { };
+    performanceNow() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.getAnimationPrefix = function () { };
+    getAnimationPrefix() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.getTransitionEnd = function () { };
+    getTransitionEnd() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.supportsAnimation = function () { };
+    supportsAnimation() { }
     /**
      * @abstract
      * @return {?}
      */
-    DomAdapter.prototype.supportsCookies = function () { };
+    supportsCookies() { }
     /**
      * @abstract
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.getCookie = function (name) { };
+    getCookie(name) { }
     /**
      * @abstract
      * @param {?} name
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setCookie = function (name, value) { };
-    return DomAdapter;
-}());
+    setCookie(name, value) { }
+}
 function DomAdapter_tsickle_Closure_declarations() {
     /** @type {?} */
     DomAdapter.prototype.resourceLoaderType;
