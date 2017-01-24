@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.4-f20d1a8
+ * @license Angular v4.0.0-beta.4-6541737
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -4829,7 +4829,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.4-f20d1a8');
+    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.4-6541737');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
