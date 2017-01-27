@@ -9,7 +9,7 @@ import { global } from '../../facade/lang';
 import { AngularTools } from './common_tools';
 const /** @type {?} */ context = (global);
 /**
- * Enabled Angular 2 debug tools that are accessible via your browser's
+ * Enabled Angular debug tools that are accessible via your browser's
  * developer console.
  *
  * Usage:
@@ -28,7 +28,7 @@ export function enableDebugTools(ref) {
     return ref;
 }
 /**
- * Disables Angular 2 tools.
+ * Disables Angular tools.
  *
  * \@experimental All debugging apis are currently experimental.
  * @return {?}
