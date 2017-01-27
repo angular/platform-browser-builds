@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.5-d339d8b
+ * @license Angular v4.0.0-beta.5-da41a95
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2628,7 +2628,7 @@
     /**
      * A service that can be used to get and set the title of a current HTML document.
      *
-     * Since an Angular 2 application can't be bootstrapped on the entire HTML document (`<html>` tag)
+     * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
      * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
      * (representing the `<title>` tag). Instead, this service can be used to set and get the current
      * title value.
@@ -4721,7 +4721,7 @@
 
     var /** @type {?} */ context = (global$1);
     /**
-     * Enabled Angular 2 debug tools that are accessible via your browser's
+     * Enabled Angular debug tools that are accessible via your browser's
      * developer console.
      *
      * Usage:
@@ -4740,7 +4740,7 @@
         return ref;
     }
     /**
-     * Disables Angular 2 tools.
+     * Disables Angular tools.
      *
      * \@experimental All debugging apis are currently experimental.
      * @return {?}
@@ -4829,7 +4829,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.5-d339d8b');
+    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.5-da41a95');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
