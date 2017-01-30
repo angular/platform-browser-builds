@@ -6,11 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Inject, Injectable } from '@angular/core/index';
+import { getDOM } from './dom_adapter';
 import { DOCUMENT } from './dom_tokens';
 export class SharedStylesHost {
     constructor() {
-        /** @internal */
-        this._styles = [];
         /** @internal */
         this._stylesSet = new Set();
     }
@@ -19,12 +18,11 @@ export class SharedStylesHost {
      * @return {?}
      */
     addStyles(styles) {
-        const /** @type {?} */ additions = [];
+        const /** @type {?} */ additions = new Set();
         styles.forEach(style => {
             if (!this._stylesSet.has(style)) {
                 this._stylesSet.add(style);
-                this._styles.push(style);
-                additions.push(style);
+                additions.add(style);
             }
         });
         this.onStylesAdded(additions);
@@ -37,7 +35,7 @@ export class SharedStylesHost {
     /**
      * @return {?}
      */
-    getAllStyles() { return this._styles; }
+    getAllStyles() { return Array.from(this._stylesSet); }
 }
 SharedStylesHost.decorators = [
     { type: Injectable },
@@ -56,41 +54,37 @@ function SharedStylesHost_tsickle_Closure_declarations() {
      * \@internal
      * @type {?}
      */
-    SharedStylesHost.prototype._styles;
-    /**
-     * \@internal
-     * @type {?}
-     */
     SharedStylesHost.prototype._stylesSet;
 }
 export class DomSharedStylesHost extends SharedStylesHost {
     /**
-     * @param {?} doc
+     * @param {?} _doc
      */
-    constructor(doc) {
+    constructor(_doc) {
         super();
+        this._doc = _doc;
         this._hostNodes = new Set();
-        this._hostNodes.add(doc.head);
+        this._styleNodes = new Set();
+        this._hostNodes.add(_doc.head);
     }
     /**
-     * \@internal
      * @param {?} styles
      * @param {?} host
      * @return {?}
      */
     _addStylesToHost(styles, host) {
-        for (let /** @type {?} */ i = 0; i < styles.length; i++) {
-            const /** @type {?} */ styleEl = document.createElement('style');
-            styleEl.textContent = styles[i];
-            host.appendChild(styleEl);
-        }
+        styles.forEach((style) => {
+            const /** @type {?} */ styleEl = this._doc.createElement('style');
+            styleEl.textContent = style;
+            this._styleNodes.add(host.appendChild(styleEl));
+        });
     }
     /**
      * @param {?} hostNode
      * @return {?}
      */
     addHost(hostNode) {
-        this._addStylesToHost(this._styles, hostNode);
+        this._addStylesToHost(this._stylesSet, hostNode);
         this._hostNodes.add(hostNode);
     }
     /**
@@ -103,8 +97,12 @@ export class DomSharedStylesHost extends SharedStylesHost {
      * @return {?}
      */
     onStylesAdded(additions) {
-        this._hostNodes.forEach((hostNode) => { this._addStylesToHost(additions, hostNode); });
+        this._hostNodes.forEach(hostNode => this._addStylesToHost(additions, hostNode));
     }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { this._styleNodes.forEach(styleNode => getDOM().remove(styleNode)); }
 }
 DomSharedStylesHost.decorators = [
     { type: Injectable },
@@ -123,5 +121,9 @@ function DomSharedStylesHost_tsickle_Closure_declarations() {
     DomSharedStylesHost.ctorParameters;
     /** @type {?} */
     DomSharedStylesHost.prototype._hostNodes;
+    /** @type {?} */
+    DomSharedStylesHost.prototype._styleNodes;
+    /** @type {?} */
+    DomSharedStylesHost.prototype._doc;
 }
 //# sourceMappingURL=shared_styles_host.js.map
