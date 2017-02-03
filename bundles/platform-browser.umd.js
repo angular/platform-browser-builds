@@ -1,6 +1,6 @@
 /**
- * @license Angular v2.4.5-7ed39eb
- * (c) 2010-2016 Google, Inc. https://angular.io/
+ * @license Angular v2.4.6-343ee8a
+ * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
@@ -2685,8 +2685,6 @@
     var SharedStylesHost = (function () {
         function SharedStylesHost() {
             /** @internal */
-            this._styles = [];
-            /** @internal */
             this._stylesSet = new Set();
         }
         /**
@@ -2695,12 +2693,11 @@
          */
         SharedStylesHost.prototype.addStyles = function (styles) {
             var _this = this;
-            var /** @type {?} */ additions = [];
+            var /** @type {?} */ additions = new Set();
             styles.forEach(function (style) {
                 if (!_this._stylesSet.has(style)) {
                     _this._stylesSet.add(style);
-                    _this._styles.push(style);
-                    additions.push(style);
+                    additions.add(style);
                 }
             });
             this.onStylesAdded(additions);
@@ -2713,7 +2710,7 @@
         /**
          * @return {?}
          */
-        SharedStylesHost.prototype.getAllStyles = function () { return this._styles; };
+        SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
         SharedStylesHost.decorators = [
             { type: core.Injectable },
         ];
@@ -2724,32 +2721,34 @@
     var DomSharedStylesHost = (function (_super) {
         __extends$4(DomSharedStylesHost, _super);
         /**
-         * @param {?} doc
+         * @param {?} _doc
          */
-        function DomSharedStylesHost(doc) {
+        function DomSharedStylesHost(_doc) {
             _super.call(this);
+            this._doc = _doc;
             this._hostNodes = new Set();
-            this._hostNodes.add(doc.head);
+            this._styleNodes = new Set();
+            this._hostNodes.add(_doc.head);
         }
         /**
-         * \@internal
          * @param {?} styles
          * @param {?} host
          * @return {?}
          */
         DomSharedStylesHost.prototype._addStylesToHost = function (styles, host) {
-            for (var /** @type {?} */ i = 0; i < styles.length; i++) {
-                var /** @type {?} */ styleEl = document.createElement('style');
-                styleEl.textContent = styles[i];
-                host.appendChild(styleEl);
-            }
+            var _this = this;
+            styles.forEach(function (style) {
+                var /** @type {?} */ styleEl = _this._doc.createElement('style');
+                styleEl.textContent = style;
+                _this._styleNodes.add(host.appendChild(styleEl));
+            });
         };
         /**
          * @param {?} hostNode
          * @return {?}
          */
         DomSharedStylesHost.prototype.addHost = function (hostNode) {
-            this._addStylesToHost(this._styles, hostNode);
+            this._addStylesToHost(this._stylesSet, hostNode);
             this._hostNodes.add(hostNode);
         };
         /**
@@ -2763,8 +2762,12 @@
          */
         DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
             var _this = this;
-            this._hostNodes.forEach(function (hostNode) { _this._addStylesToHost(additions, hostNode); });
+            this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
         };
+        /**
+         * @return {?}
+         */
+        DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
         DomSharedStylesHost.decorators = [
             { type: core.Injectable },
         ];
@@ -4670,7 +4673,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('2.4.5-7ed39eb');
+    var /** @type {?} */ VERSION = new core.Version('2.4.6-343ee8a');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
