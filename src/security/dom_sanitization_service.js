@@ -47,7 +47,7 @@ export { SecurityContext };
  * \@stable
  * @abstract
  */
-export var DomSanitizer = (function () {
+var DomSanitizer = (function () {
     function DomSanitizer() {
     }
     /**
@@ -119,10 +119,11 @@ export var DomSanitizer = (function () {
     DomSanitizer.prototype.bypassSecurityTrustResourceUrl = function (value) { };
     return DomSanitizer;
 }());
-export var DomSanitizerImpl = (function (_super) {
+export { DomSanitizer };
+var DomSanitizerImpl = (function (_super) {
     __extends(DomSanitizerImpl, _super);
     function DomSanitizerImpl() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @param {?} ctx
@@ -174,7 +175,7 @@ export var DomSanitizerImpl = (function (_super) {
      */
     DomSanitizerImpl.prototype.checkNotSafeValue = function (value, expectedType) {
         if (value instanceof SafeValueImpl) {
-            throw new Error(("Required a safe " + expectedType + ", got a " + value.getTypeName() + " ") +
+            throw new Error("Required a safe " + expectedType + ", got a " + value.getTypeName() + " " +
                 "(see http://g.co/ng/security#xss)");
         }
     };
@@ -205,13 +206,14 @@ export var DomSanitizerImpl = (function (_super) {
     DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
         return new SafeResourceUrlImpl(value);
     };
-    DomSanitizerImpl.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    DomSanitizerImpl.ctorParameters = function () { return []; };
     return DomSanitizerImpl;
 }(DomSanitizer));
+export { DomSanitizerImpl };
+DomSanitizerImpl.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+DomSanitizerImpl.ctorParameters = function () { return []; };
 function DomSanitizerImpl_tsickle_Closure_declarations() {
     /** @type {?} */
     DomSanitizerImpl.decorators;
@@ -241,7 +243,7 @@ var SafeValueImpl = (function () {
      * @return {?}
      */
     SafeValueImpl.prototype.toString = function () {
-        return ("SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity) +
+        return "SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity +
             " (see http://g.co/ng/security#xss)";
     };
     return SafeValueImpl;
@@ -253,7 +255,7 @@ function SafeValueImpl_tsickle_Closure_declarations() {
 var SafeHtmlImpl = (function (_super) {
     __extends(SafeHtmlImpl, _super);
     function SafeHtmlImpl() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @return {?}
@@ -264,7 +266,7 @@ var SafeHtmlImpl = (function (_super) {
 var SafeStyleImpl = (function (_super) {
     __extends(SafeStyleImpl, _super);
     function SafeStyleImpl() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @return {?}
@@ -275,7 +277,7 @@ var SafeStyleImpl = (function (_super) {
 var SafeScriptImpl = (function (_super) {
     __extends(SafeScriptImpl, _super);
     function SafeScriptImpl() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @return {?}
@@ -286,7 +288,7 @@ var SafeScriptImpl = (function (_super) {
 var SafeUrlImpl = (function (_super) {
     __extends(SafeUrlImpl, _super);
     function SafeUrlImpl() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @return {?}
@@ -297,7 +299,7 @@ var SafeUrlImpl = (function (_super) {
 var SafeResourceUrlImpl = (function (_super) {
     __extends(SafeResourceUrlImpl, _super);
     function SafeResourceUrlImpl() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @return {?}

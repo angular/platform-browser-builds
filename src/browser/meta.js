@@ -12,7 +12,7 @@ import { DomAdapter } from '../dom/dom_adapter';
  *
  * \@experimental
  */
-export var Meta = (function () {
+var Meta = (function () {
     /**
      * @param {?} _dom
      */
@@ -144,15 +144,16 @@ export var Meta = (function () {
         var _this = this;
         return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
     };
-    Meta.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    Meta.ctorParameters = function () { return [
-        { type: DomAdapter, },
-    ]; };
     return Meta;
 }());
+export { Meta };
+Meta.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+Meta.ctorParameters = function () { return [
+    { type: DomAdapter, },
+]; };
 function Meta_tsickle_Closure_declarations() {
     /** @type {?} */
     Meta.decorators;

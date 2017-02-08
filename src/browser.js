@@ -81,7 +81,7 @@ export function _resolveDefaultAnimationDriver() {
  *
  * \@stable
  */
-export var BrowserModule = (function () {
+var BrowserModule = (function () {
     /**
      * @param {?} parentModule
      */
@@ -90,36 +90,37 @@ export var BrowserModule = (function () {
             throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
         }
     }
-    BrowserModule.decorators = [
-        { type: NgModule, args: [{
-                    providers: [
-                        BROWSER_SANITIZATION_PROVIDERS,
-                        { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
-                        { provide: DOCUMENT, useFactory: _document, deps: [] },
-                        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-                        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-                        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-                        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-                        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-                        { provide: RootRenderer, useExisting: DomRootRenderer },
-                        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-                        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
-                        { provide: Meta, useFactory: meta },
-                        DomSharedStylesHost,
-                        Testability,
-                        EventManager,
-                        ELEMENT_PROBE_PROVIDERS,
-                        Title,
-                    ],
-                    exports: [CommonModule, ApplicationModule]
-                },] },
-    ];
-    /** @nocollapse */
-    BrowserModule.ctorParameters = function () { return [
-        { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf },] },
-    ]; };
     return BrowserModule;
 }());
+export { BrowserModule };
+BrowserModule.decorators = [
+    { type: NgModule, args: [{
+                providers: [
+                    BROWSER_SANITIZATION_PROVIDERS,
+                    { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
+                    { provide: DOCUMENT, useFactory: _document, deps: [] },
+                    { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+                    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+                    { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+                    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+                    { provide: DomRootRenderer, useClass: DomRootRenderer_ },
+                    { provide: RootRenderer, useExisting: DomRootRenderer },
+                    { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+                    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
+                    { provide: Meta, useFactory: meta },
+                    DomSharedStylesHost,
+                    Testability,
+                    EventManager,
+                    ELEMENT_PROBE_PROVIDERS,
+                    Title,
+                ],
+                exports: [CommonModule, ApplicationModule]
+            },] },
+];
+/** @nocollapse */
+BrowserModule.ctorParameters = function () { return [
+    { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf },] },
+]; };
 function BrowserModule_tsickle_Closure_declarations() {
     /** @type {?} */
     BrowserModule.decorators;

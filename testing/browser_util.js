@@ -9,7 +9,7 @@ import { NgZone } from '@angular/core';
 import { global } from './facade/lang';
 import { getDOM } from './private_import_platform-browser';
 export var browserDetection;
-export var BrowserDetection = (function () {
+var BrowserDetection = (function () {
     function BrowserDetection(ua) {
         this._overrideUa = ua;
     }
@@ -100,6 +100,7 @@ export var BrowserDetection = (function () {
     });
     return BrowserDetection;
 }());
+export { BrowserDetection };
 BrowserDetection.setup();
 export function dispatchEvent(element /** TODO #9100 */, eventType /** TODO #9100 */) {
     getDOM().dispatchEvent(element, getDOM().createEvent(eventType));
@@ -115,16 +116,16 @@ export function normalizeCSS(css) {
         .replace(/url\((\"|\s)(.+)(\"|\s)\)(\s*)/g, function () {
         var match = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            match[_i - 0] = arguments[_i];
+            match[_i] = arguments[_i];
         }
-        return ("url(\"" + match[2] + "\")");
+        return "url(\"" + match[2] + "\")";
     })
         .replace(/\[(.+)=([^"\]]+)\]/g, function () {
         var match = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            match[_i - 0] = arguments[_i];
+            match[_i] = arguments[_i];
         }
-        return ("[" + match[1] + "=\"" + match[2] + "\"]");
+        return "[" + match[1] + "=\"" + match[2] + "\"]";
     });
 }
 var _singleTagWhitelist = ['br', 'hr', 'input'];

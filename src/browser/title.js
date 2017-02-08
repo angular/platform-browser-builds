@@ -16,7 +16,7 @@ import { getDOM } from '../dom/dom_adapter';
  *
  * \@experimental
  */
-export var Title = (function () {
+var Title = (function () {
     function Title() {
     }
     /**
@@ -32,4 +32,5 @@ export var Title = (function () {
     Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(newTitle); };
     return Title;
 }());
+export { Title };
 //# sourceMappingURL=title.js.map

@@ -12,10 +12,10 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 import { Injectable } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
-export var DomEventsPlugin = (function (_super) {
+var DomEventsPlugin = (function (_super) {
     __extends(DomEventsPlugin, _super);
     function DomEventsPlugin() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @param {?} eventName
@@ -32,13 +32,14 @@ export var DomEventsPlugin = (function (_super) {
         element.addEventListener(eventName, /** @type {?} */ (handler), false);
         return function () { return element.removeEventListener(eventName, /** @type {?} */ (handler), false); };
     };
-    DomEventsPlugin.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    DomEventsPlugin.ctorParameters = function () { return []; };
     return DomEventsPlugin;
 }(EventManagerPlugin));
+export { DomEventsPlugin };
+DomEventsPlugin.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+DomEventsPlugin.ctorParameters = function () { return []; };
 function DomEventsPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     DomEventsPlugin.decorators;

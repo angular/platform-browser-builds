@@ -14,7 +14,7 @@ export var /** @type {?} */ EVENT_MANAGER_PLUGINS = new InjectionToken('EventMan
 /**
  * \@stable
  */
-export var EventManager = (function () {
+var EventManager = (function () {
     /**
      * @param {?} plugins
      * @param {?} _zone
@@ -70,16 +70,17 @@ export var EventManager = (function () {
         }
         throw new Error("No event manager plugin found for event " + eventName);
     };
-    EventManager.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    EventManager.ctorParameters = function () { return [
-        { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-        { type: NgZone, },
-    ]; };
     return EventManager;
 }());
+export { EventManager };
+EventManager.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+EventManager.ctorParameters = function () { return [
+    { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+    { type: NgZone, },
+]; };
 function EventManager_tsickle_Closure_declarations() {
     /** @type {?} */
     EventManager.decorators;
@@ -98,7 +99,7 @@ function EventManager_tsickle_Closure_declarations() {
 /**
  * @abstract
  */
-export var EventManagerPlugin = (function () {
+var EventManagerPlugin = (function () {
     function EventManagerPlugin() {
     }
     /**
@@ -131,6 +132,7 @@ export var EventManagerPlugin = (function () {
     ;
     return EventManagerPlugin;
 }());
+export { EventManagerPlugin };
 function EventManagerPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     EventManagerPlugin.prototype.manager;

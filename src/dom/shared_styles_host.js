@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 import { Inject, Injectable } from '@angular/core';
 import { getDOM } from './dom_adapter';
 import { DOCUMENT } from './dom_tokens';
-export var SharedStylesHost = (function () {
+var SharedStylesHost = (function () {
     function SharedStylesHost() {
         /** @internal */
         this._stylesSet = new Set();
@@ -42,13 +42,14 @@ export var SharedStylesHost = (function () {
      * @return {?}
      */
     SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
-    SharedStylesHost.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    SharedStylesHost.ctorParameters = function () { return []; };
     return SharedStylesHost;
 }());
+export { SharedStylesHost };
+SharedStylesHost.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+SharedStylesHost.ctorParameters = function () { return []; };
 function SharedStylesHost_tsickle_Closure_declarations() {
     /** @type {?} */
     SharedStylesHost.decorators;
@@ -63,17 +64,18 @@ function SharedStylesHost_tsickle_Closure_declarations() {
      */
     SharedStylesHost.prototype._stylesSet;
 }
-export var DomSharedStylesHost = (function (_super) {
+var DomSharedStylesHost = (function (_super) {
     __extends(DomSharedStylesHost, _super);
     /**
      * @param {?} _doc
      */
     function DomSharedStylesHost(_doc) {
-        _super.call(this);
-        this._doc = _doc;
-        this._hostNodes = new Set();
-        this._styleNodes = new Set();
-        this._hostNodes.add(_doc.head);
+        var _this = _super.call(this) || this;
+        _this._doc = _doc;
+        _this._hostNodes = new Set();
+        _this._styleNodes = new Set();
+        _this._hostNodes.add(_doc.head);
+        return _this;
     }
     /**
      * @param {?} styles
@@ -113,15 +115,16 @@ export var DomSharedStylesHost = (function (_super) {
      * @return {?}
      */
     DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
-    DomSharedStylesHost.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    DomSharedStylesHost.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    ]; };
     return DomSharedStylesHost;
 }(SharedStylesHost));
+export { DomSharedStylesHost };
+DomSharedStylesHost.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+DomSharedStylesHost.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+]; };
 function DomSharedStylesHost_tsickle_Closure_declarations() {
     /** @type {?} */
     DomSharedStylesHost.decorators;

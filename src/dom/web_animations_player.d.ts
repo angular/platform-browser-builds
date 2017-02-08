@@ -28,7 +28,7 @@ export declare class WebAnimationsPlayer implements AnimationPlayer {
     }, previousPlayers?: WebAnimationsPlayer[]);
     private _onFinish();
     init(): void;
-    domPlayer: DomAnimatePlayer;
+    readonly domPlayer: DomAnimatePlayer;
     onStart(fn: () => void): void;
     onDone(fn: () => void): void;
     play(): void;
@@ -39,7 +39,7 @@ export declare class WebAnimationsPlayer implements AnimationPlayer {
     restart(): void;
     hasStarted(): boolean;
     destroy(): void;
-    totalTime: number;
+    readonly totalTime: number;
     setPosition(p: number): void;
     getPosition(): number;
     private _captureStyles();

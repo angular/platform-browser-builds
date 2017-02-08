@@ -30,7 +30,7 @@ export function inspectNativeElement(element) {
  * Deprecated. Use the one from '\@angular/core'.
  * @deprecated
  */
-export var NgProbeToken = (function () {
+var NgProbeToken = (function () {
     /**
      * @param {?} name
      * @param {?} token
@@ -41,6 +41,7 @@ export var NgProbeToken = (function () {
     }
     return NgProbeToken;
 }());
+export { NgProbeToken };
 function NgProbeToken_tsickle_Closure_declarations() {
     /** @type {?} */
     NgProbeToken.prototype.name;

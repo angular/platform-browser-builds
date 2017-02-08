@@ -55,12 +55,12 @@ function tagSet(tags) {
 function merge() {
     var sets = [];
     for (var _i = 0; _i < arguments.length; _i++) {
-        sets[_i - 0] = arguments[_i];
+        sets[_i] = arguments[_i];
     }
     var /** @type {?} */ res = {};
     for (var _a = 0, sets_1 = sets; _a < sets_1.length; _a++) {
         var s = sets_1[_a];
-        for (var v in s) {
+        for (var /** @type {?} */ v in s) {
             if (s.hasOwnProperty(v))
                 res[v] = true;
         }

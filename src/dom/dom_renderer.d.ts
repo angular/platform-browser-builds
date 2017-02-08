@@ -56,7 +56,7 @@ export declare class DomRenderer implements Renderer {
     setText(renderNode: Text, text: string): void;
     animate(element: any, startingStyles: AnimationStyles, keyframes: AnimationKeyframe[], duration: number, delay: number, easing: string, previousPlayers?: AnimationPlayer[]): AnimationPlayer;
 }
-export declare const COMPONENT_VARIABLE: string;
+export declare const COMPONENT_VARIABLE = "%COMP%";
 export declare const HOST_ATTR: string;
 export declare const CONTENT_ATTR: string;
 export declare function shimContentAttribute(componentShortId: string): string;

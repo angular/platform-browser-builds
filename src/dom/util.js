@@ -15,7 +15,7 @@ export function camelCaseToDashCase(input) {
     return input.replace(CAMEL_CASE_REGEXP, function () {
         var m = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            m[_i - 0] = arguments[_i];
+            m[_i] = arguments[_i];
         }
         return '-' + m[1].toLowerCase();
     });
@@ -28,7 +28,7 @@ export function dashCaseToCamelCase(input) {
     return input.replace(DASH_CASE_REGEXP, function () {
         var m = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            m[_i - 0] = arguments[_i];
+            m[_i] = arguments[_i];
         }
         return m[1].toUpperCase();
     });

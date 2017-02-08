@@ -23,10 +23,10 @@ var /** @type {?} */ MODIFIER_KEY_GETTERS = {
 /**
  * \@experimental
  */
-export var KeyEventsPlugin = (function (_super) {
+var KeyEventsPlugin = (function (_super) {
     __extends(KeyEventsPlugin, _super);
     function KeyEventsPlugin() {
-        _super.call(this);
+        return _super.call(this) || this;
     }
     /**
      * @param {?} eventName
@@ -127,13 +127,14 @@ export var KeyEventsPlugin = (function (_super) {
                 return keyName;
         }
     };
-    KeyEventsPlugin.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    KeyEventsPlugin.ctorParameters = function () { return []; };
     return KeyEventsPlugin;
 }(EventManagerPlugin));
+export { KeyEventsPlugin };
+KeyEventsPlugin.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+KeyEventsPlugin.ctorParameters = function () { return []; };
 function KeyEventsPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     KeyEventsPlugin.decorators;

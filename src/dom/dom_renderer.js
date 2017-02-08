@@ -27,7 +27,7 @@ var /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
 /**
  * @abstract
  */
-export var DomRootRenderer = (function () {
+var DomRootRenderer = (function () {
     /**
      * @param {?} document
      * @param {?} eventManager
@@ -57,6 +57,7 @@ export var DomRootRenderer = (function () {
     };
     return DomRootRenderer;
 }());
+export { DomRootRenderer };
 function DomRootRenderer_tsickle_Closure_declarations() {
     /** @type {?} */
     DomRootRenderer.prototype.registeredComponents;
@@ -71,7 +72,7 @@ function DomRootRenderer_tsickle_Closure_declarations() {
     /** @type {?} */
     DomRootRenderer.prototype.appId;
 }
-export var DomRootRenderer_ = (function (_super) {
+var DomRootRenderer_ = (function (_super) {
     __extends(DomRootRenderer_, _super);
     /**
      * @param {?} _document
@@ -81,21 +82,22 @@ export var DomRootRenderer_ = (function (_super) {
      * @param {?} appId
      */
     function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver, appId) {
-        _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId);
+        return _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId) || this;
     }
-    DomRootRenderer_.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    DomRootRenderer_.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-        { type: EventManager, },
-        { type: DomSharedStylesHost, },
-        { type: AnimationDriver, },
-        { type: undefined, decorators: [{ type: Inject, args: [APP_ID,] },] },
-    ]; };
     return DomRootRenderer_;
 }(DomRootRenderer));
+export { DomRootRenderer_ };
+DomRootRenderer_.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+DomRootRenderer_.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: EventManager, },
+    { type: DomSharedStylesHost, },
+    { type: AnimationDriver, },
+    { type: undefined, decorators: [{ type: Inject, args: [APP_ID,] },] },
+]; };
 function DomRootRenderer__tsickle_Closure_declarations() {
     /** @type {?} */
     DomRootRenderer_.decorators;
@@ -138,7 +140,7 @@ export var /** @type {?} */ DIRECT_DOM_RENDERER = {
      */
     parentElement: function (node) { return (node.parentNode); }
 };
-export var DomRenderer = (function () {
+var DomRenderer = (function () {
     /**
      * @param {?} _rootRenderer
      * @param {?} componentProto
@@ -434,6 +436,7 @@ export var DomRenderer = (function () {
     };
     return DomRenderer;
 }());
+export { DomRenderer };
 function DomRenderer_tsickle_Closure_declarations() {
     /** @type {?} */
     DomRenderer.prototype._contentAttr;

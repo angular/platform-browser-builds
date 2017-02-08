@@ -8,7 +8,7 @@
 import { AUTO_STYLE } from '@angular/core';
 import { isPresent } from '../facade/lang';
 import { getDOM } from './dom_adapter';
-export var WebAnimationsPlayer = (function () {
+var WebAnimationsPlayer = (function () {
     /**
      * @param {?} element
      * @param {?} keyframes
@@ -16,8 +16,8 @@ export var WebAnimationsPlayer = (function () {
      * @param {?=} previousPlayers
      */
     function WebAnimationsPlayer(element, keyframes, options, previousPlayers) {
-        var _this = this;
         if (previousPlayers === void 0) { previousPlayers = []; }
+        var _this = this;
         this.element = element;
         this.keyframes = keyframes;
         this.options = options;
@@ -77,12 +77,12 @@ export var WebAnimationsPlayer = (function () {
                 startingKeyframe_1[prop] = _this.previousStyles[prop];
             });
             if (missingStyleProps_1.length) {
-                var _loop_1 = function(i) {
+                var _loop_1 = function (i) {
                     var /** @type {?} */ kf = keyframes[i];
                     missingStyleProps_1.forEach(function (prop) { kf[prop] = _computeStyle(_this.element, prop); });
                 };
                 for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
-                    _loop_1(i);
+                    _loop_1(/** @type {?} */ i);
                 }
             }
         }
@@ -222,6 +222,7 @@ export var WebAnimationsPlayer = (function () {
     };
     return WebAnimationsPlayer;
 }());
+export { WebAnimationsPlayer };
 function WebAnimationsPlayer_tsickle_Closure_declarations() {
     /** @type {?} */
     WebAnimationsPlayer.prototype._onDoneFns;

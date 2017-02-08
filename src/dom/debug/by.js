@@ -12,7 +12,7 @@ import { isPresent } from '../../facade/lang';
  *
  * \@experimental All debugging apis are currently experimental.
  */
-export var By = (function () {
+var By = (function () {
     function By() {
     }
     /**
@@ -54,4 +54,5 @@ export var By = (function () {
     };
     return By;
 }());
+export { By };
 //# sourceMappingURL=by.js.map

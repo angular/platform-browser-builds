@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.6-c33fda2
+ * @license Angular v4.0.0-beta.6-7a4c255
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -159,20 +159,20 @@
     var BrowserTestingModule = (function () {
         function BrowserTestingModule() {
         }
-        BrowserTestingModule.decorators = [
-            { type: _angular_core.NgModule, args: [{
-                        exports: [_angular_platformBrowser.BrowserModule],
-                        providers: [
-                            { provide: _angular_core.APP_ID, useValue: 'a' }, ELEMENT_PROBE_PROVIDERS,
-                            { provide: _angular_core.NgZone, useFactory: createNgZone },
-                            { provide: _angular_platformBrowser.AnimationDriver, useValue: _angular_platformBrowser.AnimationDriver.NOOP }
-                        ]
-                    },] },
-        ];
-        /** @nocollapse */
-        BrowserTestingModule.ctorParameters = function () { return []; };
         return BrowserTestingModule;
     }());
+    BrowserTestingModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    exports: [_angular_platformBrowser.BrowserModule],
+                    providers: [
+                        { provide: _angular_core.APP_ID, useValue: 'a' }, ELEMENT_PROBE_PROVIDERS,
+                        { provide: _angular_core.NgZone, useFactory: createNgZone },
+                        { provide: _angular_platformBrowser.AnimationDriver, useValue: _angular_platformBrowser.AnimationDriver.NOOP }
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    BrowserTestingModule.ctorParameters = function () { return []; };
 
     exports.platformBrowserTesting = platformBrowserTesting;
     exports.BrowserTestingModule = BrowserTestingModule;

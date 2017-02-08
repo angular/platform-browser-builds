@@ -59,10 +59,10 @@ var /** @type {?} */ _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
-export var BrowserDomAdapter = (function (_super) {
+var BrowserDomAdapter = (function (_super) {
     __extends(BrowserDomAdapter, _super);
     function BrowserDomAdapter() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @param {?} templateHtml
@@ -98,7 +98,10 @@ export var BrowserDomAdapter = (function (_super) {
      * @param {?} args
      * @return {?}
      */
-    BrowserDomAdapter.prototype.invoke = function (el, methodName, args) { (_a = ((el)))[methodName].apply(_a, args); var _a; };
+    BrowserDomAdapter.prototype.invoke = function (el, methodName, args) {
+        (_a = ((el)))[methodName].apply(_a, args);
+        var _a;
+    };
     /**
      * @param {?} error
      * @return {?}
@@ -869,6 +872,7 @@ export var BrowserDomAdapter = (function (_super) {
     };
     return BrowserDomAdapter;
 }(GenericBrowserDomAdapter));
+export { BrowserDomAdapter };
 var /** @type {?} */ baseElement = null;
 /**
  * @return {?}

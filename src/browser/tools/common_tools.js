@@ -9,7 +9,7 @@ import { ApplicationRef } from '@angular/core';
 import { getDOM } from '../../dom/dom_adapter';
 import { window } from '../../facade/browser';
 import { isPresent } from '../../facade/lang';
-export var ChangeDetectionPerfRecord = (function () {
+var ChangeDetectionPerfRecord = (function () {
     /**
      * @param {?} msPerTick
      * @param {?} numTicks
@@ -20,6 +20,7 @@ export var ChangeDetectionPerfRecord = (function () {
     }
     return ChangeDetectionPerfRecord;
 }());
+export { ChangeDetectionPerfRecord };
 function ChangeDetectionPerfRecord_tsickle_Closure_declarations() {
     /** @type {?} */
     ChangeDetectionPerfRecord.prototype.msPerTick;
@@ -30,7 +31,7 @@ function ChangeDetectionPerfRecord_tsickle_Closure_declarations() {
  * Entry point for all Angular debug tools. This object corresponds to the `ng`
  * global variable accessible in the dev console.
  */
-export var AngularTools = (function () {
+var AngularTools = (function () {
     /**
      * @param {?} ref
      */
@@ -39,6 +40,7 @@ export var AngularTools = (function () {
     }
     return AngularTools;
 }());
+export { AngularTools };
 function AngularTools_tsickle_Closure_declarations() {
     /** @type {?} */
     AngularTools.prototype.profiler;
@@ -47,7 +49,7 @@ function AngularTools_tsickle_Closure_declarations() {
  * Entry point for all Angular profiling-related debug tools. This object
  * corresponds to the `ng.profiler` in the dev console.
  */
-export var AngularProfiler = (function () {
+var AngularProfiler = (function () {
     /**
      * @param {?} ref
      */
@@ -101,6 +103,7 @@ export var AngularProfiler = (function () {
     };
     return AngularProfiler;
 }());
+export { AngularProfiler };
 function AngularProfiler_tsickle_Closure_declarations() {
     /** @type {?} */
     AngularProfiler.prototype.appRef;

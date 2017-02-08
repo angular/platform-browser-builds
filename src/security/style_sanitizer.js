@@ -28,7 +28,7 @@ var /** @type {?} */ COLOR_FNS = '(?:rgb|hsl)a?';
 var /** @type {?} */ GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
 var /** @type {?} */ CSS3_FNS = '(?:calc|attr)';
 var /** @type {?} */ FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
-var /** @type {?} */ SAFE_STYLE_VALUE = new RegExp(("^(" + VALUES + "|") +
+var /** @type {?} */ SAFE_STYLE_VALUE = new RegExp("^(" + VALUES + "|" +
     ("(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + "|" + GRADIENTS + "|" + CSS3_FNS + ")") +
     (FN_ARGS + ")$"), 'g');
 /**

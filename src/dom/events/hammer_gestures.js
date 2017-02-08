@@ -59,7 +59,7 @@ export var /** @type {?} */ HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGe
 /**
  * \@experimental
  */
-export var HammerGestureConfig = (function () {
+var HammerGestureConfig = (function () {
     function HammerGestureConfig() {
         this.events = [];
         this.overrides = {};
@@ -72,18 +72,19 @@ export var HammerGestureConfig = (function () {
         var /** @type {?} */ mc = new Hammer(element);
         mc.get('pinch').set({ enable: true });
         mc.get('rotate').set({ enable: true });
-        for (var eventName in this.overrides) {
+        for (var /** @type {?} */ eventName in this.overrides) {
             mc.get(eventName).set(this.overrides[eventName]);
         }
         return mc;
     };
-    HammerGestureConfig.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    HammerGestureConfig.ctorParameters = function () { return []; };
     return HammerGestureConfig;
 }());
+export { HammerGestureConfig };
+HammerGestureConfig.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+HammerGestureConfig.ctorParameters = function () { return []; };
 function HammerGestureConfig_tsickle_Closure_declarations() {
     /** @type {?} */
     HammerGestureConfig.decorators;
@@ -97,14 +98,15 @@ function HammerGestureConfig_tsickle_Closure_declarations() {
     /** @type {?} */
     HammerGestureConfig.prototype.overrides;
 }
-export var HammerGesturesPlugin = (function (_super) {
+var HammerGesturesPlugin = (function (_super) {
     __extends(HammerGesturesPlugin, _super);
     /**
      * @param {?} _config
      */
     function HammerGesturesPlugin(_config) {
-        _super.call(this);
-        this._config = _config;
+        var _this = _super.call(this) || this;
+        _this._config = _config;
+        return _this;
     }
     /**
      * @param {?} eventName
@@ -144,15 +146,16 @@ export var HammerGesturesPlugin = (function (_super) {
      * @return {?}
      */
     HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
-    HammerGesturesPlugin.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    HammerGesturesPlugin.ctorParameters = function () { return [
-        { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
-    ]; };
     return HammerGesturesPlugin;
 }(EventManagerPlugin));
+export { HammerGesturesPlugin };
+HammerGesturesPlugin.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+HammerGesturesPlugin.ctorParameters = function () { return [
+    { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+]; };
 function HammerGesturesPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     HammerGesturesPlugin.decorators;

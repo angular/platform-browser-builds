@@ -19,23 +19,22 @@ import { isPresent } from '../facade/lang';
  * can introduce XSS risks.
  * @abstract
  */
-export var GenericBrowserDomAdapter = (function (_super) {
+var GenericBrowserDomAdapter = (function (_super) {
     __extends(GenericBrowserDomAdapter, _super);
     function GenericBrowserDomAdapter() {
-        var _this = this;
-        _super.call(this);
-        this._animationPrefix = null;
-        this._transitionEnd = null;
+        var _this = _super.call(this) || this;
+        _this._animationPrefix = null;
+        _this._transitionEnd = null;
         try {
-            var element_1 = this.createElement('div', this.defaultDoc());
-            if (isPresent(this.getStyle(element_1, 'animationName'))) {
-                this._animationPrefix = '';
+            var element_1 = _this.createElement('div', _this.defaultDoc());
+            if (isPresent(_this.getStyle(element_1, 'animationName'))) {
+                _this._animationPrefix = '';
             }
             else {
                 var domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
                 for (var i = 0; i < domPrefixes.length; i++) {
-                    if (isPresent(this.getStyle(element_1, domPrefixes[i] + 'AnimationName'))) {
-                        this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
+                    if (isPresent(_this.getStyle(element_1, domPrefixes[i] + 'AnimationName'))) {
+                        _this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
                         break;
                     }
                 }
@@ -53,9 +52,10 @@ export var GenericBrowserDomAdapter = (function (_super) {
             });
         }
         catch (e) {
-            this._animationPrefix = null;
-            this._transitionEnd = null;
+            _this._animationPrefix = null;
+            _this._transitionEnd = null;
         }
+        return _this;
     }
     /**
      * @param {?} el
@@ -97,6 +97,7 @@ export var GenericBrowserDomAdapter = (function (_super) {
     };
     return GenericBrowserDomAdapter;
 }(DomAdapter));
+export { GenericBrowserDomAdapter };
 function GenericBrowserDomAdapter_tsickle_Closure_declarations() {
     /** @type {?} */
     GenericBrowserDomAdapter.prototype._animationPrefix;

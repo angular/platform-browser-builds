@@ -8,7 +8,7 @@
 import { setTestabilityGetter } from '@angular/core';
 import { getDOM } from '../dom/dom_adapter';
 import { global, isPresent } from '../facade/lang';
-export var BrowserGetTestability = (function () {
+var BrowserGetTestability = (function () {
     function BrowserGetTestability() {
     }
     /**
@@ -74,4 +74,5 @@ export var BrowserGetTestability = (function () {
     };
     return BrowserGetTestability;
 }());
+export { BrowserGetTestability };
 //# sourceMappingURL=testability.js.map

@@ -7,7 +7,7 @@
  */
 import { isPresent } from '../facade/lang';
 import { WebAnimationsPlayer } from './web_animations_player';
-export var WebAnimationsDriver = (function () {
+var WebAnimationsDriver = (function () {
     function WebAnimationsDriver() {
     }
     /**
@@ -63,6 +63,7 @@ export var WebAnimationsDriver = (function () {
     };
     return WebAnimationsDriver;
 }());
+export { WebAnimationsDriver };
 /**
  * @param {?} styles
  * @param {?} defaultStyles

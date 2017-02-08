@@ -9,7 +9,7 @@ import { NoOpAnimationPlayer } from '../private_import_core';
 /**
  * \@experimental
  */
-export var NoOpAnimationDriver = (function () {
+var NoOpAnimationDriver = (function () {
     function NoOpAnimationDriver() {
     }
     /**
@@ -28,11 +28,12 @@ export var NoOpAnimationDriver = (function () {
     };
     return NoOpAnimationDriver;
 }());
+export { NoOpAnimationDriver };
 /**
  * \@experimental
  * @abstract
  */
-export var AnimationDriver = (function () {
+var AnimationDriver = (function () {
     function AnimationDriver() {
     }
     /**
@@ -47,9 +48,10 @@ export var AnimationDriver = (function () {
      * @return {?}
      */
     AnimationDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) { };
-    AnimationDriver.NOOP = new NoOpAnimationDriver();
     return AnimationDriver;
 }());
+export { AnimationDriver };
+AnimationDriver.NOOP = new NoOpAnimationDriver();
 function AnimationDriver_tsickle_Closure_declarations() {
     /** @type {?} */
     AnimationDriver.NOOP;

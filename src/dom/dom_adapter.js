@@ -35,7 +35,7 @@ export function setRootDomAdapter(adapter) {
  * can introduce XSS risks.
  * @abstract
  */
-export var DomAdapter = (function () {
+var DomAdapter = (function () {
     function DomAdapter() {
         this.resourceLoaderType = null;
     }
@@ -802,6 +802,7 @@ export var DomAdapter = (function () {
     DomAdapter.prototype.setCookie = function (name, value) { };
     return DomAdapter;
 }());
+export { DomAdapter };
 function DomAdapter_tsickle_Closure_declarations() {
     /** @type {?} */
     DomAdapter.prototype.resourceLoaderType;

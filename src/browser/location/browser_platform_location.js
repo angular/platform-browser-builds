@@ -19,11 +19,12 @@ import { supportsState } from './history';
  * This class should not be used directly by an application developer. Instead, use
  * {\@link Location}.
  */
-export var BrowserPlatformLocation = (function (_super) {
+var BrowserPlatformLocation = (function (_super) {
     __extends(BrowserPlatformLocation, _super);
     function BrowserPlatformLocation() {
-        _super.call(this);
-        this._init();
+        var _this = _super.call(this) || this;
+        _this._init();
+        return _this;
     }
     /**
      * \@internal
@@ -124,13 +125,14 @@ export var BrowserPlatformLocation = (function (_super) {
      * @return {?}
      */
     BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
-    BrowserPlatformLocation.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    BrowserPlatformLocation.ctorParameters = function () { return []; };
     return BrowserPlatformLocation;
 }(PlatformLocation));
+export { BrowserPlatformLocation };
+BrowserPlatformLocation.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+BrowserPlatformLocation.ctorParameters = function () { return []; };
 function BrowserPlatformLocation_tsickle_Closure_declarations() {
     /** @type {?} */
     BrowserPlatformLocation.decorators;
