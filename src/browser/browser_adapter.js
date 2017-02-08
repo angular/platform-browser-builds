@@ -879,7 +879,7 @@ function relativePath(url) {
  */
 export function parseCookieValue(cookieStr, name) {
     name = encodeURIComponent(name);
-    for (const cookie of cookieStr.split(';')) {
+    for (const /** @type {?} */ cookie of cookieStr.split(';')) {
         const /** @type {?} */ eqIndex = cookie.indexOf('=');
         const [cookieName, cookieValue] = eqIndex == -1 ? [cookie, ''] : [cookie.slice(0, eqIndex), cookie.slice(eqIndex + 1)];
         if (cookieName.trim() === name) {

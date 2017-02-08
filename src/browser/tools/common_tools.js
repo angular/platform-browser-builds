@@ -33,9 +33,7 @@ export class AngularTools {
     /**
      * @param {?} ref
      */
-    constructor(ref) {
-        this.profiler = new AngularProfiler(ref);
-    }
+    constructor(ref) { this.profiler = new AngularProfiler(ref); }
 }
 function AngularTools_tsickle_Closure_declarations() {
     /** @type {?} */
@@ -49,9 +47,7 @@ export class AngularProfiler {
     /**
      * @param {?} ref
      */
-    constructor(ref) {
-        this.appRef = ref.injector.get(ApplicationRef);
-    }
+    constructor(ref) { this.appRef = ref.injector.get(ApplicationRef); }
     /**
      * Exercises change detection in a loop and then prints the average amount of
      * time in milliseconds how long a single round of change detection takes for

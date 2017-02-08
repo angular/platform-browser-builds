@@ -10,9 +10,6 @@ import { global } from './facade/lang';
 import { getDOM } from './private_import_platform-browser';
 export let browserDetection;
 export class BrowserDetection {
-    constructor(ua) {
-        this._overrideUa = ua;
-    }
     get _ua() {
         if (typeof this._overrideUa === 'string') {
             return this._overrideUa;
@@ -20,6 +17,7 @@ export class BrowserDetection {
         return getDOM() ? getDOM().getUserAgent() : '';
     }
     static setup() { browserDetection = new BrowserDetection(null); }
+    constructor(ua) { this._overrideUa = ua; }
     get isFirefox() { return this._ua.indexOf('Firefox') > -1; }
     get isAndroid() {
         return this._ua.indexOf('Mozilla/5.0') > -1 && this._ua.indexOf('Android') > -1 &&

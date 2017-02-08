@@ -159,20 +159,20 @@
     var BrowserTestingModule = (function () {
         function BrowserTestingModule() {
         }
-        BrowserTestingModule.decorators = [
-            { type: _angular_core.NgModule, args: [{
-                        exports: [_angular_platformBrowser.BrowserModule],
-                        providers: [
-                            { provide: _angular_core.APP_ID, useValue: 'a' }, ELEMENT_PROBE_PROVIDERS,
-                            { provide: _angular_core.NgZone, useFactory: createNgZone },
-                            { provide: _angular_platformBrowser.AnimationDriver, useValue: _angular_platformBrowser.AnimationDriver.NOOP }
-                        ]
-                    },] },
-        ];
-        /** @nocollapse */
-        BrowserTestingModule.ctorParameters = function () { return []; };
         return BrowserTestingModule;
     }());
+    BrowserTestingModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    exports: [_angular_platformBrowser.BrowserModule],
+                    providers: [
+                        { provide: _angular_core.APP_ID, useValue: 'a' }, ELEMENT_PROBE_PROVIDERS,
+                        { provide: _angular_core.NgZone, useFactory: createNgZone },
+                        { provide: _angular_platformBrowser.AnimationDriver, useValue: _angular_platformBrowser.AnimationDriver.NOOP }
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    BrowserTestingModule.ctorParameters = function () { return []; };
 
     exports.platformBrowserTesting = platformBrowserTesting;
     exports.BrowserTestingModule = BrowserTestingModule;

@@ -53,9 +53,9 @@
          * @return {?}
          */
         AnimationDriver.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) { };
-        AnimationDriver.NOOP = new NoOpAnimationDriver();
         return AnimationDriver;
     }());
+    AnimationDriver.NOOP = new NoOpAnimationDriver();
 
     /**
      * @license
@@ -951,8 +951,8 @@
          * @param {?=} previousPlayers
          */
         function WebAnimationsPlayer(element, keyframes, options, previousPlayers) {
-            var _this = this;
             if (previousPlayers === void 0) { previousPlayers = []; }
+            var _this = this;
             this.element = element;
             this.keyframes = keyframes;
             this.options = options;
@@ -1012,12 +1012,12 @@
                     startingKeyframe_1[prop] = _this.previousStyles[prop];
                 });
                 if (missingStyleProps_1.length) {
-                    var _loop_1 = function(i) {
+                    var _loop_1 = function (i) {
                         var /** @type {?} */ kf = keyframes[i];
                         missingStyleProps_1.forEach(function (prop) { kf[prop] = _computeStyle(_this.element, prop); });
                     };
                     for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
-                        _loop_1(i);
+                        _loop_1(/** @type {?} */ i);
                     }
                 }
             }
@@ -1280,20 +1280,19 @@
     var GenericBrowserDomAdapter = (function (_super) {
         __extends$1(GenericBrowserDomAdapter, _super);
         function GenericBrowserDomAdapter() {
-            var _this = this;
-            _super.call(this);
-            this._animationPrefix = null;
-            this._transitionEnd = null;
+            var _this = _super.call(this) || this;
+            _this._animationPrefix = null;
+            _this._transitionEnd = null;
             try {
-                var element_1 = this.createElement('div', this.defaultDoc());
-                if (isPresent(this.getStyle(element_1, 'animationName'))) {
-                    this._animationPrefix = '';
+                var element_1 = _this.createElement('div', _this.defaultDoc());
+                if (isPresent(_this.getStyle(element_1, 'animationName'))) {
+                    _this._animationPrefix = '';
                 }
                 else {
                     var domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
                     for (var i = 0; i < domPrefixes.length; i++) {
-                        if (isPresent(this.getStyle(element_1, domPrefixes[i] + 'AnimationName'))) {
-                            this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
+                        if (isPresent(_this.getStyle(element_1, domPrefixes[i] + 'AnimationName'))) {
+                            _this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
                             break;
                         }
                     }
@@ -1311,9 +1310,10 @@
                 });
             }
             catch (e) {
-                this._animationPrefix = null;
-                this._transitionEnd = null;
+                _this._animationPrefix = null;
+                _this._transitionEnd = null;
             }
+            return _this;
         }
         /**
          * @param {?} el
@@ -1417,7 +1417,7 @@
     var BrowserDomAdapter = (function (_super) {
         __extends(BrowserDomAdapter, _super);
         function BrowserDomAdapter() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?} templateHtml
@@ -1453,7 +1453,10 @@
          * @param {?} args
          * @return {?}
          */
-        BrowserDomAdapter.prototype.invoke = function (el, methodName, args) { (_a = ((el)))[methodName].apply(_a, args); var _a; };
+        BrowserDomAdapter.prototype.invoke = function (el, methodName, args) {
+            (_a = ((el)))[methodName].apply(_a, args);
+            var _a;
+        };
         /**
          * @param {?} error
          * @return {?}
@@ -2301,8 +2304,9 @@
     var BrowserPlatformLocation = (function (_super) {
         __extends$2(BrowserPlatformLocation, _super);
         function BrowserPlatformLocation() {
-            _super.call(this);
-            this._init();
+            var _this = _super.call(this) || this;
+            _this._init();
+            return _this;
         }
         /**
          * \@internal
@@ -2403,13 +2407,13 @@
          * @return {?}
          */
         BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
-        BrowserPlatformLocation.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        BrowserPlatformLocation.ctorParameters = function () { return []; };
         return BrowserPlatformLocation;
     }(_angular_common.PlatformLocation));
+    BrowserPlatformLocation.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    BrowserPlatformLocation.ctorParameters = function () { return []; };
 
     /**
      * A service that can be used to get and add meta tags.
@@ -2548,15 +2552,15 @@
             var _this = this;
             return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
         };
-        Meta.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        Meta.ctorParameters = function () { return [
-            { type: DomAdapter, },
-        ]; };
         return Meta;
     }());
+    Meta.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    Meta.ctorParameters = function () { return [
+        { type: DomAdapter, },
+    ]; };
 
     var BrowserGetTestability = (function () {
         function BrowserGetTestability() {
@@ -2770,16 +2774,16 @@
             }
             throw new Error("No event manager plugin found for event " + eventName);
         };
-        EventManager.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        EventManager.ctorParameters = function () { return [
-            { type: Array, decorators: [{ type: core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-            { type: core.NgZone, },
-        ]; };
         return EventManager;
     }());
+    EventManager.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    EventManager.ctorParameters = function () { return [
+        { type: Array, decorators: [{ type: core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+        { type: core.NgZone, },
+    ]; };
     /**
      * @abstract
      */
@@ -2858,24 +2862,25 @@
          * @return {?}
          */
         SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
-        SharedStylesHost.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        SharedStylesHost.ctorParameters = function () { return []; };
         return SharedStylesHost;
     }());
+    SharedStylesHost.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    SharedStylesHost.ctorParameters = function () { return []; };
     var DomSharedStylesHost = (function (_super) {
         __extends$4(DomSharedStylesHost, _super);
         /**
          * @param {?} _doc
          */
         function DomSharedStylesHost(_doc) {
-            _super.call(this);
-            this._doc = _doc;
-            this._hostNodes = new Set();
-            this._styleNodes = new Set();
-            this._hostNodes.add(_doc.head);
+            var _this = _super.call(this) || this;
+            _this._doc = _doc;
+            _this._hostNodes = new Set();
+            _this._styleNodes = new Set();
+            _this._hostNodes.add(_doc.head);
+            return _this;
         }
         /**
          * @param {?} styles
@@ -2915,15 +2920,15 @@
          * @return {?}
          */
         DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
-        DomSharedStylesHost.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        DomSharedStylesHost.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
-        ]; };
         return DomSharedStylesHost;
     }(SharedStylesHost));
+    DomSharedStylesHost.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    DomSharedStylesHost.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
+    ]; };
 
     /**
      * @license
@@ -2987,21 +2992,21 @@
          * @param {?} appId
          */
         function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver, appId) {
-            _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId);
+            return _super.call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId) || this;
         }
-        DomRootRenderer_.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        DomRootRenderer_.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
-            { type: EventManager, },
-            { type: DomSharedStylesHost, },
-            { type: AnimationDriver, },
-            { type: undefined, decorators: [{ type: core.Inject, args: [core.APP_ID,] },] },
-        ]; };
         return DomRootRenderer_;
     }(DomRootRenderer));
+    DomRootRenderer_.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    DomRootRenderer_.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
+        { type: EventManager, },
+        { type: DomSharedStylesHost, },
+        { type: AnimationDriver, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [core.APP_ID,] },] },
+    ]; };
     var /** @type {?} */ DIRECT_DOM_RENDERER = {
         /**
          * @param {?} node
@@ -3516,7 +3521,7 @@
     var DomEventsPlugin = (function (_super) {
         __extends$5(DomEventsPlugin, _super);
         function DomEventsPlugin() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?} eventName
@@ -3533,13 +3538,13 @@
             element.addEventListener(eventName, /** @type {?} */ (handler), false);
             return function () { return element.removeEventListener(eventName, /** @type {?} */ (handler), false); };
         };
-        DomEventsPlugin.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        DomEventsPlugin.ctorParameters = function () { return []; };
         return DomEventsPlugin;
     }(EventManagerPlugin));
+    DomEventsPlugin.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    DomEventsPlugin.ctorParameters = function () { return []; };
 
     /**
      * @license
@@ -3613,26 +3618,27 @@
             var /** @type {?} */ mc = new Hammer(element);
             mc.get('pinch').set({ enable: true });
             mc.get('rotate').set({ enable: true });
-            for (var eventName in this.overrides) {
+            for (var /** @type {?} */ eventName in this.overrides) {
                 mc.get(eventName).set(this.overrides[eventName]);
             }
             return mc;
         };
-        HammerGestureConfig.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        HammerGestureConfig.ctorParameters = function () { return []; };
         return HammerGestureConfig;
     }());
+    HammerGestureConfig.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    HammerGestureConfig.ctorParameters = function () { return []; };
     var HammerGesturesPlugin = (function (_super) {
         __extends$6(HammerGesturesPlugin, _super);
         /**
          * @param {?} _config
          */
         function HammerGesturesPlugin(_config) {
-            _super.call(this);
-            this._config = _config;
+            var _this = _super.call(this) || this;
+            _this._config = _config;
+            return _this;
         }
         /**
          * @param {?} eventName
@@ -3672,15 +3678,15 @@
          * @return {?}
          */
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
-        HammerGesturesPlugin.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        HammerGesturesPlugin.ctorParameters = function () { return [
-            { type: HammerGestureConfig, decorators: [{ type: core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
-        ]; };
         return HammerGesturesPlugin;
     }(EventManagerPlugin));
+    HammerGesturesPlugin.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    HammerGesturesPlugin.ctorParameters = function () { return [
+        { type: HammerGestureConfig, decorators: [{ type: core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+    ]; };
 
     /**
      * @license
@@ -3707,7 +3713,7 @@
     var KeyEventsPlugin = (function (_super) {
         __extends$7(KeyEventsPlugin, _super);
         function KeyEventsPlugin() {
-            _super.call(this);
+            return _super.call(this) || this;
         }
         /**
          * @param {?} eventName
@@ -3808,13 +3814,13 @@
                     return keyName;
             }
         };
-        KeyEventsPlugin.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        KeyEventsPlugin.ctorParameters = function () { return []; };
         return KeyEventsPlugin;
     }(EventManagerPlugin));
+    KeyEventsPlugin.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    KeyEventsPlugin.ctorParameters = function () { return []; };
 
     /**
      * A pattern that recognizes a commonly useful subset of URLs that are safe.
@@ -3914,12 +3920,12 @@
     function merge() {
         var sets = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            sets[_i - 0] = arguments[_i];
+            sets[_i] = arguments[_i];
         }
         var /** @type {?} */ res = {};
         for (var _a = 0, sets_1 = sets; _a < sets_1.length; _a++) {
             var s = sets_1[_a];
-            for (var v in s) {
+            for (var /** @type {?} */ v in s) {
                 if (s.hasOwnProperty(v))
                     res[v] = true;
             }
@@ -4171,7 +4177,7 @@
     var /** @type {?} */ GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
     var /** @type {?} */ CSS3_FNS = '(?:calc|attr)';
     var /** @type {?} */ FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
-    var /** @type {?} */ SAFE_STYLE_VALUE = new RegExp(("^(" + VALUES + "|") +
+    var /** @type {?} */ SAFE_STYLE_VALUE = new RegExp("^(" + VALUES + "|" +
         ("(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + "|" + GRADIENTS + "|" + CSS3_FNS + ")") +
         (FN_ARGS + ")$"), 'g');
     /**
@@ -4359,7 +4365,7 @@
     var DomSanitizerImpl = (function (_super) {
         __extends$8(DomSanitizerImpl, _super);
         function DomSanitizerImpl() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?} ctx
@@ -4411,7 +4417,7 @@
          */
         DomSanitizerImpl.prototype.checkNotSafeValue = function (value, expectedType) {
             if (value instanceof SafeValueImpl) {
-                throw new Error(("Required a safe " + expectedType + ", got a " + value.getTypeName() + " ") +
+                throw new Error("Required a safe " + expectedType + ", got a " + value.getTypeName() + " " +
                     "(see http://g.co/ng/security#xss)");
             }
         };
@@ -4442,13 +4448,13 @@
         DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
             return new SafeResourceUrlImpl(value);
         };
-        DomSanitizerImpl.decorators = [
-            { type: core.Injectable },
-        ];
-        /** @nocollapse */
-        DomSanitizerImpl.ctorParameters = function () { return []; };
         return DomSanitizerImpl;
     }(DomSanitizer));
+    DomSanitizerImpl.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    DomSanitizerImpl.ctorParameters = function () { return []; };
     /**
      * @abstract
      */
@@ -4469,7 +4475,7 @@
          * @return {?}
          */
         SafeValueImpl.prototype.toString = function () {
-            return ("SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity) +
+            return "SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity +
                 " (see http://g.co/ng/security#xss)";
         };
         return SafeValueImpl;
@@ -4477,7 +4483,7 @@
     var SafeHtmlImpl = (function (_super) {
         __extends$8(SafeHtmlImpl, _super);
         function SafeHtmlImpl() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @return {?}
@@ -4488,7 +4494,7 @@
     var SafeStyleImpl = (function (_super) {
         __extends$8(SafeStyleImpl, _super);
         function SafeStyleImpl() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @return {?}
@@ -4499,7 +4505,7 @@
     var SafeScriptImpl = (function (_super) {
         __extends$8(SafeScriptImpl, _super);
         function SafeScriptImpl() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @return {?}
@@ -4510,7 +4516,7 @@
     var SafeUrlImpl = (function (_super) {
         __extends$8(SafeUrlImpl, _super);
         function SafeUrlImpl() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @return {?}
@@ -4521,7 +4527,7 @@
     var SafeResourceUrlImpl = (function (_super) {
         __extends$8(SafeResourceUrlImpl, _super);
         function SafeResourceUrlImpl() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @return {?}
@@ -4596,36 +4602,36 @@
                 throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
             }
         }
-        BrowserModule.decorators = [
-            { type: core.NgModule, args: [{
-                        providers: [
-                            BROWSER_SANITIZATION_PROVIDERS,
-                            { provide: core.ErrorHandler, useFactory: errorHandler, deps: [] },
-                            { provide: DOCUMENT, useFactory: _document, deps: [] },
-                            { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-                            { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-                            { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-                            { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-                            { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-                            { provide: core.RootRenderer, useExisting: DomRootRenderer },
-                            { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-                            { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
-                            { provide: Meta, useFactory: meta },
-                            DomSharedStylesHost,
-                            core.Testability,
-                            EventManager,
-                            ELEMENT_PROBE_PROVIDERS,
-                            Title,
-                        ],
-                        exports: [_angular_common.CommonModule, core.ApplicationModule]
-                    },] },
-        ];
-        /** @nocollapse */
-        BrowserModule.ctorParameters = function () { return [
-            { type: BrowserModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
-        ]; };
         return BrowserModule;
     }());
+    BrowserModule.decorators = [
+        { type: core.NgModule, args: [{
+                    providers: [
+                        BROWSER_SANITIZATION_PROVIDERS,
+                        { provide: core.ErrorHandler, useFactory: errorHandler, deps: [] },
+                        { provide: DOCUMENT, useFactory: _document, deps: [] },
+                        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
+                        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
+                        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
+                        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
+                        { provide: DomRootRenderer, useClass: DomRootRenderer_ },
+                        { provide: core.RootRenderer, useExisting: DomRootRenderer },
+                        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+                        { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
+                        { provide: Meta, useFactory: meta },
+                        DomSharedStylesHost,
+                        core.Testability,
+                        EventManager,
+                        ELEMENT_PROBE_PROVIDERS,
+                        Title,
+                    ],
+                    exports: [_angular_common.CommonModule, core.ApplicationModule]
+                },] },
+    ];
+    /** @nocollapse */
+    BrowserModule.ctorParameters = function () { return [
+        { type: BrowserModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
+    ]; };
 
     /**
      * @license

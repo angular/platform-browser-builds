@@ -19,9 +19,7 @@ const /** @type {?} */ MODIFIER_KEY_GETTERS = {
  * \@experimental
  */
 export class KeyEventsPlugin extends EventManagerPlugin {
-    constructor() {
-        super();
-    }
+    constructor() { super(); }
     /**
      * @param {?} eventName
      * @return {?}

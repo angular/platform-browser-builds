@@ -42,7 +42,7 @@ function getInertElement() {
  */
 function tagSet(tags) {
     const /** @type {?} */ res = {};
-    for (const t of tags.split(','))
+    for (const /** @type {?} */ t of tags.split(','))
         res[t] = true;
     return res;
 }
@@ -52,8 +52,8 @@ function tagSet(tags) {
  */
 function merge(...sets) {
     const /** @type {?} */ res = {};
-    for (const s of sets) {
-        for (const v in s) {
+    for (const /** @type {?} */ s of sets) {
+        for (const /** @type {?} */ v in s) {
             if (s.hasOwnProperty(v))
                 res[v] = true;
         }
@@ -235,7 +235,7 @@ function stripCustomNsAttrs(el) {
             DOM.removeAttribute(el, attrName);
         }
     });
-    for (const n of DOM.childNodesAsList(el)) {
+    for (const /** @type {?} */ n of DOM.childNodesAsList(el)) {
         if (DOM.isElementNode(n))
             stripCustomNsAttrs(/** @type {?} */ (n));
     }
@@ -272,7 +272,7 @@ export function sanitizeHtml(unsafeHtmlInput) {
         const /** @type {?} */ safeHtml = sanitizer.sanitizeChildren(DOM.getTemplateContent(containerEl) || containerEl);
         // Clear out the body element.
         const /** @type {?} */ parent = DOM.getTemplateContent(containerEl) || containerEl;
-        for (const child of DOM.childNodesAsList(parent)) {
+        for (const /** @type {?} */ child of DOM.childNodesAsList(parent)) {
             DOM.removeChild(parent, child);
         }
         if (isDevMode() && sanitizer.sanitizedSomething) {
