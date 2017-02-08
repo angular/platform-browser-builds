@@ -11,4 +11,5 @@
  * Entry point for all public APIs of the platform-browser package.
  */
 export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, AnimationDriver, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, __platform_browser_private__ } from './src/platform-browser';
+// This file only reexports content of the `src` folder. Keep it that way.
 //# sourceMappingURL=index.js.map
