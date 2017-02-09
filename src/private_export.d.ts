@@ -53,4 +53,5 @@ export declare const __platform_browser_private__: {
     INTERNAL_BROWSER_PLATFORM_PROVIDERS: typeof browser.INTERNAL_BROWSER_PLATFORM_PROVIDERS;
     BROWSER_SANITIZATION_PROVIDERS: typeof browser.BROWSER_SANITIZATION_PROVIDERS;
     WebAnimationsDriver: typeof WebAnimationsDriver;
+    LogAdapter: typeof browserDomAdapter.LogAdapter;
 };

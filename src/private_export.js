@@ -41,6 +41,7 @@ export const /** @type {?} */ __platform_browser_private__ = {
     initDomAdapter: browser.initDomAdapter,
     INTERNAL_BROWSER_PLATFORM_PROVIDERS: browser.INTERNAL_BROWSER_PLATFORM_PROVIDERS,
     BROWSER_SANITIZATION_PROVIDERS: browser.BROWSER_SANITIZATION_PROVIDERS,
-    WebAnimationsDriver: WebAnimationsDriver
+    WebAnimationsDriver: WebAnimationsDriver,
+    LogAdapter: browserDomAdapter.LogAdapter,
 };
 //# sourceMappingURL=private_export.js.map

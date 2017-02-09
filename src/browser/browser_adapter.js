@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { Injectable } from '@angular/core/index';
 import { setRootDomAdapter } from '../dom/dom_adapter';
 import { global, isBlank, isPresent, setValueOnPath } from '../facade/lang';
 import { GenericBrowserDomAdapter } from './generic_browser_adapter';
@@ -54,6 +55,62 @@ const /** @type {?} */ _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
+export class LogAdapter {
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    logError(error) {
+        if (window.console) {
+            if (console.error) {
+                console.error(error);
+            }
+            else {
+                console.log(error);
+            }
+        }
+    }
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    log(error) {
+        if (window.console) {
+            window.console.log && window.console.log(error);
+        }
+    }
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    logGroup(error) {
+        if (window.console) {
+            window.console.group && window.console.group(error);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    logGroupEnd() {
+        if (window.console) {
+            window.console.groupEnd && window.console.groupEnd();
+        }
+    }
+}
+LogAdapter.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+LogAdapter.ctorParameters = () => [];
+function LogAdapter_tsickle_Closure_declarations() {
+    /** @type {?} */
+    LogAdapter.decorators;
+    /**
+     * @nocollapse
+     * @type {?}
+     */
+    LogAdapter.ctorParameters;
+}
 export class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @param {?} templateHtml

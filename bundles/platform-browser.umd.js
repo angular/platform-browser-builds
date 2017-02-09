@@ -1414,6 +1414,56 @@
         '\x60': '0',
         '\x90': 'NumLock'
     };
+    var LogAdapter = (function () {
+        function LogAdapter() {
+        }
+        /**
+         * @param {?} error
+         * @return {?}
+         */
+        LogAdapter.prototype.logError = function (error) {
+            if (window.console) {
+                if (console.error) {
+                    console.error(error);
+                }
+                else {
+                    console.log(error);
+                }
+            }
+        };
+        /**
+         * @param {?} error
+         * @return {?}
+         */
+        LogAdapter.prototype.log = function (error) {
+            if (window.console) {
+                window.console.log && window.console.log(error);
+            }
+        };
+        /**
+         * @param {?} error
+         * @return {?}
+         */
+        LogAdapter.prototype.logGroup = function (error) {
+            if (window.console) {
+                window.console.group && window.console.group(error);
+            }
+        };
+        /**
+         * @return {?}
+         */
+        LogAdapter.prototype.logGroupEnd = function () {
+            if (window.console) {
+                window.console.groupEnd && window.console.groupEnd();
+            }
+        };
+        return LogAdapter;
+    }());
+    LogAdapter.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    LogAdapter.ctorParameters = function () { return []; };
     var BrowserDomAdapter = (function (_super) {
         __extends(BrowserDomAdapter, _super);
         function BrowserDomAdapter() {
@@ -4832,7 +4882,8 @@
         initDomAdapter: initDomAdapter,
         INTERNAL_BROWSER_PLATFORM_PROVIDERS: INTERNAL_BROWSER_PLATFORM_PROVIDERS,
         BROWSER_SANITIZATION_PROVIDERS: BROWSER_SANITIZATION_PROVIDERS,
-        WebAnimationsDriver: WebAnimationsDriver
+        WebAnimationsDriver: WebAnimationsDriver,
+        LogAdapter: LogAdapter,
     };
 
     /**
