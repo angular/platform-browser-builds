@@ -10,6 +10,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+import { Injectable } from '@angular/core';
 import { setRootDomAdapter } from '../dom/dom_adapter';
 import { global, isBlank, isPresent, setValueOnPath } from '../facade/lang';
 import { GenericBrowserDomAdapter } from './generic_browser_adapter';
@@ -59,6 +60,66 @@ var /** @type {?} */ _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
+var LogAdapter = (function () {
+    function LogAdapter() {
+    }
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    LogAdapter.prototype.logError = function (error) {
+        if (window.console) {
+            if (console.error) {
+                console.error(error);
+            }
+            else {
+                console.log(error);
+            }
+        }
+    };
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    LogAdapter.prototype.log = function (error) {
+        if (window.console) {
+            window.console.log && window.console.log(error);
+        }
+    };
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    LogAdapter.prototype.logGroup = function (error) {
+        if (window.console) {
+            window.console.group && window.console.group(error);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    LogAdapter.prototype.logGroupEnd = function () {
+        if (window.console) {
+            window.console.groupEnd && window.console.groupEnd();
+        }
+    };
+    return LogAdapter;
+}());
+export { LogAdapter };
+LogAdapter.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+LogAdapter.ctorParameters = function () { return []; };
+function LogAdapter_tsickle_Closure_declarations() {
+    /** @type {?} */
+    LogAdapter.decorators;
+    /**
+     * @nocollapse
+     * @type {?}
+     */
+    LogAdapter.ctorParameters;
+}
 var BrowserDomAdapter = (function (_super) {
     __extends(BrowserDomAdapter, _super);
     function BrowserDomAdapter() {

@@ -1,4 +1,10 @@
 import { GenericBrowserDomAdapter } from './generic_browser_adapter';
+export declare class LogAdapter {
+    logError(error: string): void;
+    log(error: string): void;
+    logGroup(error: string): void;
+    logGroupEnd(): void;
+}
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
