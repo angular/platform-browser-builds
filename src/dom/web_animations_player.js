@@ -23,6 +23,7 @@ var WebAnimationsPlayer = (function () {
         this.options = options;
         this._onDoneFns = [];
         this._onStartFns = [];
+        this._onDestroyFns = [];
         this._initialized = false;
         this._finished = false;
         this._started = false;
@@ -123,6 +124,11 @@ var WebAnimationsPlayer = (function () {
      */
     WebAnimationsPlayer.prototype.onDone = function (fn) { this._onDoneFns.push(fn); };
     /**
+     * @param {?} fn
+     * @return {?}
+     */
+    WebAnimationsPlayer.prototype.onDestroy = function (fn) { this._onDestroyFns.push(fn); };
+    /**
      * @return {?}
      */
     WebAnimationsPlayer.prototype.play = function () {
@@ -185,6 +191,8 @@ var WebAnimationsPlayer = (function () {
             this._resetDomPlayerState();
             this._onFinish();
             this._destroyed = true;
+            this._onDestroyFns.forEach(function (fn) { return fn(); });
+            this._onDestroyFns = [];
         }
     };
     Object.defineProperty(WebAnimationsPlayer.prototype, "totalTime", {
@@ -228,6 +236,8 @@ function WebAnimationsPlayer_tsickle_Closure_declarations() {
     WebAnimationsPlayer.prototype._onDoneFns;
     /** @type {?} */
     WebAnimationsPlayer.prototype._onStartFns;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._onDestroyFns;
     /** @type {?} */
     WebAnimationsPlayer.prototype._player;
     /** @type {?} */
