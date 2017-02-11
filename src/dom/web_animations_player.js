@@ -21,6 +21,7 @@ export class WebAnimationsPlayer {
         this.options = options;
         this._onDoneFns = [];
         this._onStartFns = [];
+        this._onDestroyFns = [];
         this._initialized = false;
         this._finished = false;
         this._started = false;
@@ -113,6 +114,11 @@ export class WebAnimationsPlayer {
      */
     onDone(fn) { this._onDoneFns.push(fn); }
     /**
+     * @param {?} fn
+     * @return {?}
+     */
+    onDestroy(fn) { this._onDestroyFns.push(fn); }
+    /**
      * @return {?}
      */
     play() {
@@ -175,6 +181,8 @@ export class WebAnimationsPlayer {
             this._resetDomPlayerState();
             this._onFinish();
             this._destroyed = true;
+            this._onDestroyFns.forEach(fn => fn());
+            this._onDestroyFns = [];
         }
     }
     /**
@@ -211,6 +219,8 @@ function WebAnimationsPlayer_tsickle_Closure_declarations() {
     WebAnimationsPlayer.prototype._onDoneFns;
     /** @type {?} */
     WebAnimationsPlayer.prototype._onStartFns;
+    /** @type {?} */
+    WebAnimationsPlayer.prototype._onDestroyFns;
     /** @type {?} */
     WebAnimationsPlayer.prototype._player;
     /** @type {?} */

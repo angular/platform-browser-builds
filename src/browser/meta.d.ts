@@ -4,7 +4,7 @@ import { DomAdapter } from '../dom/dom_adapter';
  *
  * @experimental
  */
-export interface MetaDefinition {
+export declare type MetaDefinition = {
     charset?: string;
     content?: string;
     httpEquiv?: string;
@@ -14,8 +14,9 @@ export interface MetaDefinition {
     property?: string;
     scheme?: string;
     url?: string;
+} & {
     [prop: string]: string;
-}
+};
 /**
  * A service that can be used to get and add meta tags.
  *

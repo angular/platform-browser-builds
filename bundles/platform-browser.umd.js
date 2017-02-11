@@ -958,6 +958,7 @@
             this.options = options;
             this._onDoneFns = [];
             this._onStartFns = [];
+            this._onDestroyFns = [];
             this._initialized = false;
             this._finished = false;
             this._started = false;
@@ -1058,6 +1059,11 @@
          */
         WebAnimationsPlayer.prototype.onDone = function (fn) { this._onDoneFns.push(fn); };
         /**
+         * @param {?} fn
+         * @return {?}
+         */
+        WebAnimationsPlayer.prototype.onDestroy = function (fn) { this._onDestroyFns.push(fn); };
+        /**
          * @return {?}
          */
         WebAnimationsPlayer.prototype.play = function () {
@@ -1120,6 +1126,8 @@
                 this._resetDomPlayerState();
                 this._onFinish();
                 this._destroyed = true;
+                this._onDestroyFns.forEach(function (fn) { return fn(); });
+                this._onDestroyFns = [];
             }
         };
         Object.defineProperty(WebAnimationsPlayer.prototype, "totalTime", {
@@ -3117,7 +3125,6 @@
             var /** @type {?} */ nodesParent;
             if (this.componentProto.encapsulation === core.ViewEncapsulation.Native) {
                 nodesParent = ((hostElement)).createShadowRoot();
-                this._rootRenderer.sharedStylesHost.addHost(nodesParent);
                 for (var /** @type {?} */ i = 0; i < this._styles.length; i++) {
                     var /** @type {?} */ styleEl = document.createElement('style');
                     styleEl.textContent = this._styles[i];
@@ -3269,7 +3276,15 @@
                     TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(parsedBindings, null, 2));
             }
             else {
-                this.setElementAttribute(renderElement, propertyName, propertyValue);
+                // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
+                if (propertyName[propertyName.length - 1] === '$') {
+                    var /** @type {?} */ attrNode = (createAttrNode(propertyName).cloneNode(true));
+                    attrNode.value = propertyValue;
+                    renderElement.setAttributeNode(attrNode);
+                }
+                else {
+                    this.setElementAttribute(renderElement, propertyName, propertyValue);
+                }
             }
         };
         /**
@@ -3433,6 +3448,26 @@
     function splitNamespace(name) {
         var /** @type {?} */ match = name.match(NS_PREFIX_RE);
         return [match[1], match[2]];
+    }
+    var /** @type {?} */ attrCache;
+    /**
+     * @param {?} name
+     * @return {?}
+     */
+    function createAttrNode(name) {
+        if (!attrCache) {
+            attrCache = new Map();
+        }
+        if (attrCache.has(name)) {
+            return attrCache.get(name);
+        }
+        else {
+            var /** @type {?} */ div = document.createElement('div');
+            div.innerHTML = "<div " + name + ">";
+            var /** @type {?} */ attr = div.firstChild.attributes[0];
+            attrCache.set(name, attr);
+            return attr;
+        }
     }
 
     var /** @type {?} */ CORE_TOKENS = {

@@ -207,7 +207,6 @@ export class DomRenderer {
         let /** @type {?} */ nodesParent;
         if (this.componentProto.encapsulation === ViewEncapsulation.Native) {
             nodesParent = ((hostElement)).createShadowRoot();
-            this._rootRenderer.sharedStylesHost.addHost(nodesParent);
             for (let /** @type {?} */ i = 0; i < this._styles.length; i++) {
                 const /** @type {?} */ styleEl = document.createElement('style');
                 styleEl.textContent = this._styles[i];
@@ -359,7 +358,15 @@ export class DomRenderer {
                 TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(parsedBindings, null, 2));
         }
         else {
-            this.setElementAttribute(renderElement, propertyName, propertyValue);
+            // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
+            if (propertyName[propertyName.length - 1] === '$') {
+                const /** @type {?} */ attrNode = (createAttrNode(propertyName).cloneNode(true));
+                attrNode.value = propertyValue;
+                renderElement.setAttributeNode(attrNode);
+            }
+            else {
+                this.setElementAttribute(renderElement, propertyName, propertyValue);
+            }
         }
     }
     /**
@@ -537,5 +544,25 @@ export function isNamespaced(name) {
 export function splitNamespace(name) {
     const /** @type {?} */ match = name.match(NS_PREFIX_RE);
     return [match[1], match[2]];
+}
+let /** @type {?} */ attrCache;
+/**
+ * @param {?} name
+ * @return {?}
+ */
+function createAttrNode(name) {
+    if (!attrCache) {
+        attrCache = new Map();
+    }
+    if (attrCache.has(name)) {
+        return attrCache.get(name);
+    }
+    else {
+        const /** @type {?} */ div = document.createElement('div');
+        div.innerHTML = `<div ${name}>`;
+        const /** @type {?} */ attr = div.firstChild.attributes[0];
+        attrCache.set(name, attr);
+        return attr;
+    }
 }
 //# sourceMappingURL=dom_renderer.js.map

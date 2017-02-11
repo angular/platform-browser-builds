@@ -10,6 +10,7 @@ export declare class WebAnimationsPlayer implements AnimationPlayer {
     };
     private _onDoneFns;
     private _onStartFns;
+    private _onDestroyFns;
     private _player;
     private _duration;
     private _initialized;
@@ -31,6 +32,7 @@ export declare class WebAnimationsPlayer implements AnimationPlayer {
     readonly domPlayer: DomAnimatePlayer;
     onStart(fn: () => void): void;
     onDone(fn: () => void): void;
+    onDestroy(fn: () => void): void;
     play(): void;
     pause(): void;
     finish(): void;
