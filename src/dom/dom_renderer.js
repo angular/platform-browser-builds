@@ -370,7 +370,7 @@ var DomRenderer = (function () {
         else {
             // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
             if (propertyName[propertyName.length - 1] === '$') {
-                var /** @type {?} */ attrNode = (createAttrNode(propertyName).cloneNode(true));
+                var /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
                 attrNode.value = propertyValue;
                 renderElement.setAttributeNode(attrNode);
             }
@@ -563,19 +563,251 @@ var /** @type {?} */ attrCache;
  * @param {?} name
  * @return {?}
  */
-function createAttrNode(name) {
+function createAttributeNode(name) {
     if (!attrCache) {
         attrCache = new Map();
     }
     if (attrCache.has(name)) {
         return attrCache.get(name);
     }
-    else {
-        var /** @type {?} */ div = document.createElement('div');
-        div.innerHTML = "<div " + name + ">";
-        var /** @type {?} */ attr = div.firstChild.attributes[0];
-        attrCache.set(name, attr);
-        return attr;
+    var /** @type {?} */ div = document.createElement('div');
+    div.innerHTML = "<div " + name + ">";
+    var /** @type {?} */ attr = div.firstChild.attributes[0];
+    attrCache.set(name, attr);
+    return attr;
+}
+var DomRendererV2 = (function () {
+    /**
+     * @param {?} eventManager
+     */
+    function DomRendererV2(eventManager) {
+        this.eventManager = eventManager;
     }
+    ;
+    /**
+     * @param {?} name
+     * @param {?=} namespace
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    DomRendererV2.prototype.createElement = function (name, namespace, debugInfo) {
+        if (namespace) {
+            return document.createElementNS(NAMESPACE_URIS[namespace], name);
+        }
+        return document.createElement(name);
+    };
+    /**
+     * @param {?} value
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    DomRendererV2.prototype.createComment = function (value, debugInfo) { return document.createComment(value); };
+    /**
+     * @param {?} value
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    DomRendererV2.prototype.createText = function (value, debugInfo) { return document.createTextNode(value); };
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    DomRendererV2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    DomRendererV2.prototype.insertBefore = function (parent, newChild, refChild) {
+        if (parent) {
+            parent.insertBefore(newChild, refChild);
+        }
+    };
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    DomRendererV2.prototype.removeChild = function (parent, oldChild) { parent.removeChild(oldChild); };
+    /**
+     * @param {?} selectorOrNode
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    DomRendererV2.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
+        var /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
+            selectorOrNode;
+        el.textContent = '';
+        return el;
+    };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    DomRendererV2.prototype.parentNode = function (node) { return node.parentNode; };
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    DomRendererV2.prototype.nextSibling = function (node) { return node.nextSibling; };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @param {?=} namespace
+     * @return {?}
+     */
+    DomRendererV2.prototype.setAttribute = function (el, name, value, namespace) {
+        if (namespace) {
+            el.setAttributeNS(NAMESPACE_URIS[namespace], namespace + ':' + name, value);
+        }
+        else {
+            el.setAttribute(name, value);
+        }
+    };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    DomRendererV2.prototype.removeAttribute = function (el, name, namespace) {
+        if (namespace) {
+            el.removeAttributeNS(NAMESPACE_URIS[namespace], name);
+        }
+        else {
+            el.removeAttribute(name);
+        }
+    };
+    /**
+     * @param {?} el
+     * @param {?} propertyName
+     * @param {?} propertyValue
+     * @return {?}
+     */
+    DomRendererV2.prototype.setBindingDebugInfo = function (el, propertyName, propertyValue) {
+        if (el.nodeType === Node.COMMENT_NODE) {
+            var /** @type {?} */ m = el.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+            var /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+            obj[propertyName] = propertyValue;
+            el.nodeValue = TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2));
+        }
+        else {
+            // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
+            if (propertyName[propertyName.length - 1] === '$') {
+                var /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
+                attrNode.value = propertyValue;
+                el.setAttributeNode(attrNode);
+            }
+            else {
+                this.setAttribute(el, propertyName, propertyValue);
+            }
+        }
+    };
+    /**
+     * @param {?} el
+     * @param {?} propertyName
+     * @return {?}
+     */
+    DomRendererV2.prototype.removeBindingDebugInfo = function (el, propertyName) {
+        if (el.nodeType === Node.COMMENT_NODE) {
+            var /** @type {?} */ m = el.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+            var /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+            delete obj[propertyName];
+            el.nodeValue = TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2));
+        }
+        else {
+            // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
+            if (propertyName[propertyName.length - 1] === '$') {
+                var /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
+                attrNode.value = '';
+                el.setAttributeNode(attrNode);
+            }
+            else {
+                this.removeAttribute(el, propertyName);
+            }
+        }
+    };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    DomRendererV2.prototype.addClass = function (el, name) { el.classList.add(name); };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    DomRendererV2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} value
+     * @param {?} hasVendorPrefix
+     * @param {?} hasImportant
+     * @return {?}
+     */
+    DomRendererV2.prototype.setStyle = function (el, style, value, hasVendorPrefix, hasImportant) {
+        el.style[style] = value;
+    };
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} hasVendorPrefix
+     * @return {?}
+     */
+    DomRendererV2.prototype.removeStyle = function (el, style, hasVendorPrefix) {
+        // IE requires '' instead of null
+        // see https://github.com/angular/angular/issues/7916
+        el.style[style] = '';
+    };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomRendererV2.prototype.setProperty = function (el, name, value) { el[name] = value; };
+    /**
+     * @param {?} node
+     * @param {?} value
+     * @return {?}
+     */
+    DomRendererV2.prototype.setText = function (node, value) { node.nodeValue = value; };
+    /**
+     * @param {?} target
+     * @param {?} event
+     * @param {?} callback
+     * @return {?}
+     */
+    DomRendererV2.prototype.listen = function (target, event, callback) {
+        if (typeof target === 'string') {
+            return (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
+        }
+        return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
+    };
+    return DomRendererV2;
+}());
+export { DomRendererV2 };
+DomRendererV2.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+DomRendererV2.ctorParameters = function () { return [
+    { type: EventManager, },
+]; };
+function DomRendererV2_tsickle_Closure_declarations() {
+    /** @type {?} */
+    DomRendererV2.decorators;
+    /**
+     * @nocollapse
+     * @type {?}
+     */
+    DomRendererV2.ctorParameters;
+    /** @type {?} */
+    DomRendererV2.prototype.eventManager;
 }
 //# sourceMappingURL=dom_renderer.js.map

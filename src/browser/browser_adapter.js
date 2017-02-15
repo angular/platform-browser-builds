@@ -335,25 +335,28 @@ var BrowserDomAdapter = (function (_super) {
         return node;
     };
     /**
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.insertBefore = function (el, node) { el.parentNode.insertBefore(node, el); };
+    BrowserDomAdapter.prototype.insertBefore = function (parent, ref, node) { parent.insertBefore(node, ref); };
     /**
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} nodes
      * @return {?}
      */
-    BrowserDomAdapter.prototype.insertAllBefore = function (el, nodes) {
-        nodes.forEach(function (n) { return el.parentNode.insertBefore(n, el); });
+    BrowserDomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) {
+        nodes.forEach(function (n) { return parent.insertBefore(n, ref); });
     };
     /**
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.insertAfter = function (el, node) { el.parentNode.insertBefore(node, el.nextSibling); };
+    BrowserDomAdapter.prototype.insertAfter = function (parent, ref, node) { parent.insertBefore(node, ref.nextSibling); };
     /**
      * @param {?} el
      * @param {?} value

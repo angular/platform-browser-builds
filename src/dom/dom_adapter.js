@@ -45,7 +45,7 @@ var DomAdapter = (function () {
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.hasProperty = function (element /** TODO #9100 */, name) { };
+    DomAdapter.prototype.hasProperty = function (element, name) { };
     /**
      * @abstract
      * @param {?} el
@@ -121,14 +121,14 @@ var DomAdapter = (function () {
      * @param {?} selector
      * @return {?}
      */
-    DomAdapter.prototype.querySelector = function (el /** TODO #9100 */, selector) { };
+    DomAdapter.prototype.querySelector = function (el, selector) { };
     /**
      * @abstract
      * @param {?} el
      * @param {?} selector
      * @return {?}
      */
-    DomAdapter.prototype.querySelectorAll = function (el /** TODO #9100 */, selector) { };
+    DomAdapter.prototype.querySelectorAll = function (el, selector) { };
     /**
      * @abstract
      * @param {?} el
@@ -136,7 +136,7 @@ var DomAdapter = (function () {
      * @param {?} listener
      * @return {?}
      */
-    DomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener) { };
+    DomAdapter.prototype.on = function (el, evt, listener) { };
     /**
      * @abstract
      * @param {?} el
@@ -144,14 +144,14 @@ var DomAdapter = (function () {
      * @param {?} listener
      * @return {?}
      */
-    DomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener) { };
+    DomAdapter.prototype.onAndCancel = function (el, evt, listener) { };
     /**
      * @abstract
      * @param {?} el
      * @param {?} evt
      * @return {?}
      */
-    DomAdapter.prototype.dispatchEvent = function (el /** TODO #9100 */, evt) { };
+    DomAdapter.prototype.dispatchEvent = function (el, evt) { };
     /**
      * @abstract
      * @param {?} eventType
@@ -261,14 +261,14 @@ var DomAdapter = (function () {
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.appendChild = function (el /** TODO #9100 */, node) { };
+    DomAdapter.prototype.appendChild = function (el, node) { };
     /**
      * @abstract
      * @param {?} el
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.removeChild = function (el /** TODO #9100 */, node) { };
+    DomAdapter.prototype.removeChild = function (el, node) { };
     /**
      * @abstract
      * @param {?} el
@@ -276,7 +276,7 @@ var DomAdapter = (function () {
      * @param {?} oldNode
      * @return {?}
      */
-    DomAdapter.prototype.replaceChild = function (el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode) { };
+    DomAdapter.prototype.replaceChild = function (el, newNode, oldNode) { };
     /**
      * @abstract
      * @param {?} el
@@ -285,32 +285,35 @@ var DomAdapter = (function () {
     DomAdapter.prototype.remove = function (el) { };
     /**
      * @abstract
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.insertBefore = function (el /** TODO #9100 */, node) { };
+    DomAdapter.prototype.insertBefore = function (parent, ref, node) { };
     /**
      * @abstract
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} nodes
      * @return {?}
      */
-    DomAdapter.prototype.insertAllBefore = function (el /** TODO #9100 */, nodes) { };
+    DomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) { };
     /**
      * @abstract
+     * @param {?} parent
      * @param {?} el
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.insertAfter = function (el /** TODO #9100 */, node) { };
+    DomAdapter.prototype.insertAfter = function (parent, el, node) { };
     /**
      * @abstract
      * @param {?} el
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setInnerHTML = function (el /** TODO #9100 */, value) { };
+    DomAdapter.prototype.setInnerHTML = function (el, value) { };
     /**
      * @abstract
      * @param {?} el
@@ -323,7 +326,7 @@ var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setText = function (el /** TODO #9100 */, value) { };
+    DomAdapter.prototype.setText = function (el, value) { };
     /**
      * @abstract
      * @param {?} el
@@ -336,7 +339,7 @@ var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setValue = function (el /** TODO #9100 */, value) { };
+    DomAdapter.prototype.setValue = function (el, value) { };
     /**
      * @abstract
      * @param {?} el
@@ -349,7 +352,7 @@ var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setChecked = function (el /** TODO #9100 */, value) { };
+    DomAdapter.prototype.setChecked = function (el, value) { };
     /**
      * @abstract
      * @param {?} text
@@ -368,7 +371,7 @@ var DomAdapter = (function () {
      * @param {?=} doc
      * @return {?}
      */
-    DomAdapter.prototype.createElement = function (tagName /** TODO #9100 */, doc) { };
+    DomAdapter.prototype.createElement = function (tagName, doc) { };
     /**
      * @abstract
      * @param {?} ns
@@ -435,14 +438,14 @@ var DomAdapter = (function () {
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.getElementsByClassName = function (element /** TODO #9100 */, name) { };
+    DomAdapter.prototype.getElementsByClassName = function (element, name) { };
     /**
      * @abstract
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.getElementsByTagName = function (element /** TODO #9100 */, name) { };
+    DomAdapter.prototype.getElementsByTagName = function (element, name) { };
     /**
      * @abstract
      * @param {?} element
@@ -455,21 +458,21 @@ var DomAdapter = (function () {
      * @param {?} className
      * @return {?}
      */
-    DomAdapter.prototype.addClass = function (element /** TODO #9100 */, className) { };
+    DomAdapter.prototype.addClass = function (element, className) { };
     /**
      * @abstract
      * @param {?} element
      * @param {?} className
      * @return {?}
      */
-    DomAdapter.prototype.removeClass = function (element /** TODO #9100 */, className) { };
+    DomAdapter.prototype.removeClass = function (element, className) { };
     /**
      * @abstract
      * @param {?} element
      * @param {?} className
      * @return {?}
      */
-    DomAdapter.prototype.hasClass = function (element /** TODO #9100 */, className) { };
+    DomAdapter.prototype.hasClass = function (element, className) { };
     /**
      * @abstract
      * @param {?} element
@@ -477,21 +480,21 @@ var DomAdapter = (function () {
      * @param {?} styleValue
      * @return {?}
      */
-    DomAdapter.prototype.setStyle = function (element /** TODO #9100 */, styleName, styleValue) { };
+    DomAdapter.prototype.setStyle = function (element, styleName, styleValue) { };
     /**
      * @abstract
      * @param {?} element
      * @param {?} styleName
      * @return {?}
      */
-    DomAdapter.prototype.removeStyle = function (element /** TODO #9100 */, styleName) { };
+    DomAdapter.prototype.removeStyle = function (element, styleName) { };
     /**
      * @abstract
      * @param {?} element
      * @param {?} styleName
      * @return {?}
      */
-    DomAdapter.prototype.getStyle = function (element /** TODO #9100 */, styleName) { };
+    DomAdapter.prototype.getStyle = function (element, styleName) { };
     /**
      * @abstract
      * @param {?} element
@@ -499,7 +502,7 @@ var DomAdapter = (function () {
      * @param {?=} styleValue
      * @return {?}
      */
-    DomAdapter.prototype.hasStyle = function (element /** TODO #9100 */, styleName, styleValue) { };
+    DomAdapter.prototype.hasStyle = function (element, styleName, styleValue) { };
     /**
      * @abstract
      * @param {?} element
@@ -518,7 +521,7 @@ var DomAdapter = (function () {
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.hasAttribute = function (element /** TODO #9100 */, attribute) { };
+    DomAdapter.prototype.hasAttribute = function (element, attribute) { };
     /**
      * @abstract
      * @param {?} element
@@ -526,14 +529,14 @@ var DomAdapter = (function () {
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.hasAttributeNS = function (element /** TODO #9100 */, ns, attribute) { };
+    DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { };
     /**
      * @abstract
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.getAttribute = function (element /** TODO #9100 */, attribute) { };
+    DomAdapter.prototype.getAttribute = function (element, attribute) { };
     /**
      * @abstract
      * @param {?} element
@@ -541,7 +544,7 @@ var DomAdapter = (function () {
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.getAttributeNS = function (element /** TODO #9100 */, ns, attribute) { };
+    DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { };
     /**
      * @abstract
      * @param {?} element
@@ -549,7 +552,7 @@ var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setAttribute = function (element /** TODO #9100 */, name, value) { };
+    DomAdapter.prototype.setAttribute = function (element, name, value) { };
     /**
      * @abstract
      * @param {?} element
@@ -558,14 +561,14 @@ var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setAttributeNS = function (element /** TODO #9100 */, ns, name, value) { };
+    DomAdapter.prototype.setAttributeNS = function (element, ns, name, value) { };
     /**
      * @abstract
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) { };
+    DomAdapter.prototype.removeAttribute = function (element, attribute) { };
     /**
      * @abstract
      * @param {?} element
@@ -573,7 +576,7 @@ var DomAdapter = (function () {
      * @param {?} attribute
      * @return {?}
      */
-    DomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, attribute) { };
+    DomAdapter.prototype.removeAttributeNS = function (element, ns, attribute) { };
     /**
      * @abstract
      * @param {?} el
@@ -610,7 +613,7 @@ var DomAdapter = (function () {
      * @param {?} selector
      * @return {?}
      */
-    DomAdapter.prototype.elementMatches = function (n /** TODO #9100 */, selector) { };
+    DomAdapter.prototype.elementMatches = function (n, selector) { };
     /**
      * @abstract
      * @param {?} el
@@ -678,7 +681,7 @@ var DomAdapter = (function () {
      * @param {?} href
      * @return {?}
      */
-    DomAdapter.prototype.resolveAndSetHref = function (element /** TODO #9100 */, baseUrl, href) { };
+    DomAdapter.prototype.resolveAndSetHref = function (element, baseUrl, href) { };
     /**
      * @abstract
      * @return {?}
@@ -729,7 +732,7 @@ var DomAdapter = (function () {
      * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.setData = function (element /** TODO #9100 */, name, value) { };
+    DomAdapter.prototype.setData = function (element, name, value) { };
     /**
      * @abstract
      * @param {?} element
@@ -742,7 +745,7 @@ var DomAdapter = (function () {
      * @param {?} name
      * @return {?}
      */
-    DomAdapter.prototype.getData = function (element /** TODO #9100 */, name) { };
+    DomAdapter.prototype.getData = function (element, name) { };
     /**
      * @abstract
      * @param {?} name

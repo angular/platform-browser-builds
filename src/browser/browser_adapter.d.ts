@@ -43,9 +43,9 @@ export declare class BrowserDomAdapter extends GenericBrowserDomAdapter {
     removeChild(el: Node, node: Node): void;
     replaceChild(el: Node, newChild: Node, oldChild: Node): void;
     remove(node: Node): Node;
-    insertBefore(el: Node, node: Node): void;
-    insertAllBefore(el: Node, nodes: Node[]): void;
-    insertAfter(el: Node, node: any): void;
+    insertBefore(parent: Node, ref: Node, node: Node): void;
+    insertAllBefore(parent: Node, ref: Node, nodes: Node[]): void;
+    insertAfter(parent: Node, ref: Node, node: any): void;
     setInnerHTML(el: Element, value: string): void;
     getText(el: Node): string;
     setText(el: Node, value: string): void;

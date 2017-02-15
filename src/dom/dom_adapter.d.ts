@@ -60,9 +60,9 @@ export declare abstract class DomAdapter {
     abstract removeChild(el: any, node: any): any;
     abstract replaceChild(el: any, newNode: any, oldNode: any): any;
     abstract remove(el: any): Node;
-    abstract insertBefore(el: any, node: any): any;
-    abstract insertAllBefore(el: any, nodes: any): any;
-    abstract insertAfter(el: any, node: any): any;
+    abstract insertBefore(parent: any, ref: any, node: any): any;
+    abstract insertAllBefore(parent: any, ref: any, nodes: any): any;
+    abstract insertAfter(parent: any, el: any, node: any): any;
     abstract setInnerHTML(el: any, value: any): any;
     abstract getText(el: any): string;
     abstract setText(el: any, value: string): any;

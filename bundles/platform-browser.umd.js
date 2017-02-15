@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.7-b4d444a
+ * @license Angular v4.0.0-beta.7-bb9c7ae
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -10,6 +10,7 @@
 }(this, function (exports,_angular_common,core) { 'use strict';
 
     var /** @type {?} */ DebugDomRootRenderer = core.__core_private__.DebugDomRootRenderer;
+    var /** @type {?} */ DebugDomRendererV2 = core.__core_private__.DebugDomRendererV2;
     var /** @type {?} */ NoOpAnimationPlayer = core.__core_private__.NoOpAnimationPlayer;
 
     /**
@@ -185,7 +186,7 @@
          * @param {?} name
          * @return {?}
          */
-        DomAdapter.prototype.hasProperty = function (element /** TODO #9100 */, name) { };
+        DomAdapter.prototype.hasProperty = function (element, name) { };
         /**
          * @abstract
          * @param {?} el
@@ -261,14 +262,14 @@
          * @param {?} selector
          * @return {?}
          */
-        DomAdapter.prototype.querySelector = function (el /** TODO #9100 */, selector) { };
+        DomAdapter.prototype.querySelector = function (el, selector) { };
         /**
          * @abstract
          * @param {?} el
          * @param {?} selector
          * @return {?}
          */
-        DomAdapter.prototype.querySelectorAll = function (el /** TODO #9100 */, selector) { };
+        DomAdapter.prototype.querySelectorAll = function (el, selector) { };
         /**
          * @abstract
          * @param {?} el
@@ -276,7 +277,7 @@
          * @param {?} listener
          * @return {?}
          */
-        DomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener) { };
+        DomAdapter.prototype.on = function (el, evt, listener) { };
         /**
          * @abstract
          * @param {?} el
@@ -284,14 +285,14 @@
          * @param {?} listener
          * @return {?}
          */
-        DomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener) { };
+        DomAdapter.prototype.onAndCancel = function (el, evt, listener) { };
         /**
          * @abstract
          * @param {?} el
          * @param {?} evt
          * @return {?}
          */
-        DomAdapter.prototype.dispatchEvent = function (el /** TODO #9100 */, evt) { };
+        DomAdapter.prototype.dispatchEvent = function (el, evt) { };
         /**
          * @abstract
          * @param {?} eventType
@@ -401,14 +402,14 @@
          * @param {?} node
          * @return {?}
          */
-        DomAdapter.prototype.appendChild = function (el /** TODO #9100 */, node) { };
+        DomAdapter.prototype.appendChild = function (el, node) { };
         /**
          * @abstract
          * @param {?} el
          * @param {?} node
          * @return {?}
          */
-        DomAdapter.prototype.removeChild = function (el /** TODO #9100 */, node) { };
+        DomAdapter.prototype.removeChild = function (el, node) { };
         /**
          * @abstract
          * @param {?} el
@@ -416,7 +417,7 @@
          * @param {?} oldNode
          * @return {?}
          */
-        DomAdapter.prototype.replaceChild = function (el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode) { };
+        DomAdapter.prototype.replaceChild = function (el, newNode, oldNode) { };
         /**
          * @abstract
          * @param {?} el
@@ -425,32 +426,35 @@
         DomAdapter.prototype.remove = function (el) { };
         /**
          * @abstract
-         * @param {?} el
+         * @param {?} parent
+         * @param {?} ref
          * @param {?} node
          * @return {?}
          */
-        DomAdapter.prototype.insertBefore = function (el /** TODO #9100 */, node) { };
+        DomAdapter.prototype.insertBefore = function (parent, ref, node) { };
         /**
          * @abstract
-         * @param {?} el
+         * @param {?} parent
+         * @param {?} ref
          * @param {?} nodes
          * @return {?}
          */
-        DomAdapter.prototype.insertAllBefore = function (el /** TODO #9100 */, nodes) { };
+        DomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) { };
         /**
          * @abstract
+         * @param {?} parent
          * @param {?} el
          * @param {?} node
          * @return {?}
          */
-        DomAdapter.prototype.insertAfter = function (el /** TODO #9100 */, node) { };
+        DomAdapter.prototype.insertAfter = function (parent, el, node) { };
         /**
          * @abstract
          * @param {?} el
          * @param {?} value
          * @return {?}
          */
-        DomAdapter.prototype.setInnerHTML = function (el /** TODO #9100 */, value) { };
+        DomAdapter.prototype.setInnerHTML = function (el, value) { };
         /**
          * @abstract
          * @param {?} el
@@ -463,7 +467,7 @@
          * @param {?} value
          * @return {?}
          */
-        DomAdapter.prototype.setText = function (el /** TODO #9100 */, value) { };
+        DomAdapter.prototype.setText = function (el, value) { };
         /**
          * @abstract
          * @param {?} el
@@ -476,7 +480,7 @@
          * @param {?} value
          * @return {?}
          */
-        DomAdapter.prototype.setValue = function (el /** TODO #9100 */, value) { };
+        DomAdapter.prototype.setValue = function (el, value) { };
         /**
          * @abstract
          * @param {?} el
@@ -489,7 +493,7 @@
          * @param {?} value
          * @return {?}
          */
-        DomAdapter.prototype.setChecked = function (el /** TODO #9100 */, value) { };
+        DomAdapter.prototype.setChecked = function (el, value) { };
         /**
          * @abstract
          * @param {?} text
@@ -508,7 +512,7 @@
          * @param {?=} doc
          * @return {?}
          */
-        DomAdapter.prototype.createElement = function (tagName /** TODO #9100 */, doc) { };
+        DomAdapter.prototype.createElement = function (tagName, doc) { };
         /**
          * @abstract
          * @param {?} ns
@@ -575,14 +579,14 @@
          * @param {?} name
          * @return {?}
          */
-        DomAdapter.prototype.getElementsByClassName = function (element /** TODO #9100 */, name) { };
+        DomAdapter.prototype.getElementsByClassName = function (element, name) { };
         /**
          * @abstract
          * @param {?} element
          * @param {?} name
          * @return {?}
          */
-        DomAdapter.prototype.getElementsByTagName = function (element /** TODO #9100 */, name) { };
+        DomAdapter.prototype.getElementsByTagName = function (element, name) { };
         /**
          * @abstract
          * @param {?} element
@@ -595,21 +599,21 @@
          * @param {?} className
          * @return {?}
          */
-        DomAdapter.prototype.addClass = function (element /** TODO #9100 */, className) { };
+        DomAdapter.prototype.addClass = function (element, className) { };
         /**
          * @abstract
          * @param {?} element
          * @param {?} className
          * @return {?}
          */
-        DomAdapter.prototype.removeClass = function (element /** TODO #9100 */, className) { };
+        DomAdapter.prototype.removeClass = function (element, className) { };
         /**
          * @abstract
          * @param {?} element
          * @param {?} className
          * @return {?}
          */
-        DomAdapter.prototype.hasClass = function (element /** TODO #9100 */, className) { };
+        DomAdapter.prototype.hasClass = function (element, className) { };
         /**
          * @abstract
          * @param {?} element
@@ -617,21 +621,21 @@
          * @param {?} styleValue
          * @return {?}
          */
-        DomAdapter.prototype.setStyle = function (element /** TODO #9100 */, styleName, styleValue) { };
+        DomAdapter.prototype.setStyle = function (element, styleName, styleValue) { };
         /**
          * @abstract
          * @param {?} element
          * @param {?} styleName
          * @return {?}
          */
-        DomAdapter.prototype.removeStyle = function (element /** TODO #9100 */, styleName) { };
+        DomAdapter.prototype.removeStyle = function (element, styleName) { };
         /**
          * @abstract
          * @param {?} element
          * @param {?} styleName
          * @return {?}
          */
-        DomAdapter.prototype.getStyle = function (element /** TODO #9100 */, styleName) { };
+        DomAdapter.prototype.getStyle = function (element, styleName) { };
         /**
          * @abstract
          * @param {?} element
@@ -639,7 +643,7 @@
          * @param {?=} styleValue
          * @return {?}
          */
-        DomAdapter.prototype.hasStyle = function (element /** TODO #9100 */, styleName, styleValue) { };
+        DomAdapter.prototype.hasStyle = function (element, styleName, styleValue) { };
         /**
          * @abstract
          * @param {?} element
@@ -658,7 +662,7 @@
          * @param {?} attribute
          * @return {?}
          */
-        DomAdapter.prototype.hasAttribute = function (element /** TODO #9100 */, attribute) { };
+        DomAdapter.prototype.hasAttribute = function (element, attribute) { };
         /**
          * @abstract
          * @param {?} element
@@ -666,14 +670,14 @@
          * @param {?} attribute
          * @return {?}
          */
-        DomAdapter.prototype.hasAttributeNS = function (element /** TODO #9100 */, ns, attribute) { };
+        DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { };
         /**
          * @abstract
          * @param {?} element
          * @param {?} attribute
          * @return {?}
          */
-        DomAdapter.prototype.getAttribute = function (element /** TODO #9100 */, attribute) { };
+        DomAdapter.prototype.getAttribute = function (element, attribute) { };
         /**
          * @abstract
          * @param {?} element
@@ -681,7 +685,7 @@
          * @param {?} attribute
          * @return {?}
          */
-        DomAdapter.prototype.getAttributeNS = function (element /** TODO #9100 */, ns, attribute) { };
+        DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { };
         /**
          * @abstract
          * @param {?} element
@@ -689,7 +693,7 @@
          * @param {?} value
          * @return {?}
          */
-        DomAdapter.prototype.setAttribute = function (element /** TODO #9100 */, name, value) { };
+        DomAdapter.prototype.setAttribute = function (element, name, value) { };
         /**
          * @abstract
          * @param {?} element
@@ -698,14 +702,14 @@
          * @param {?} value
          * @return {?}
          */
-        DomAdapter.prototype.setAttributeNS = function (element /** TODO #9100 */, ns, name, value) { };
+        DomAdapter.prototype.setAttributeNS = function (element, ns, name, value) { };
         /**
          * @abstract
          * @param {?} element
          * @param {?} attribute
          * @return {?}
          */
-        DomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) { };
+        DomAdapter.prototype.removeAttribute = function (element, attribute) { };
         /**
          * @abstract
          * @param {?} element
@@ -713,7 +717,7 @@
          * @param {?} attribute
          * @return {?}
          */
-        DomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, attribute) { };
+        DomAdapter.prototype.removeAttributeNS = function (element, ns, attribute) { };
         /**
          * @abstract
          * @param {?} el
@@ -750,7 +754,7 @@
          * @param {?} selector
          * @return {?}
          */
-        DomAdapter.prototype.elementMatches = function (n /** TODO #9100 */, selector) { };
+        DomAdapter.prototype.elementMatches = function (n, selector) { };
         /**
          * @abstract
          * @param {?} el
@@ -818,7 +822,7 @@
          * @param {?} href
          * @return {?}
          */
-        DomAdapter.prototype.resolveAndSetHref = function (element /** TODO #9100 */, baseUrl, href) { };
+        DomAdapter.prototype.resolveAndSetHref = function (element, baseUrl, href) { };
         /**
          * @abstract
          * @return {?}
@@ -869,7 +873,7 @@
          * @param {?} value
          * @return {?}
          */
-        DomAdapter.prototype.setData = function (element /** TODO #9100 */, name, value) { };
+        DomAdapter.prototype.setData = function (element, name, value) { };
         /**
          * @abstract
          * @param {?} element
@@ -882,7 +886,7 @@
          * @param {?} name
          * @return {?}
          */
-        DomAdapter.prototype.getData = function (element /** TODO #9100 */, name) { };
+        DomAdapter.prototype.getData = function (element, name) { };
         /**
          * @abstract
          * @param {?} name
@@ -1691,25 +1695,28 @@
             return node;
         };
         /**
-         * @param {?} el
+         * @param {?} parent
+         * @param {?} ref
          * @param {?} node
          * @return {?}
          */
-        BrowserDomAdapter.prototype.insertBefore = function (el, node) { el.parentNode.insertBefore(node, el); };
+        BrowserDomAdapter.prototype.insertBefore = function (parent, ref, node) { parent.insertBefore(node, ref); };
         /**
-         * @param {?} el
+         * @param {?} parent
+         * @param {?} ref
          * @param {?} nodes
          * @return {?}
          */
-        BrowserDomAdapter.prototype.insertAllBefore = function (el, nodes) {
-            nodes.forEach(function (n) { return el.parentNode.insertBefore(n, el); });
+        BrowserDomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) {
+            nodes.forEach(function (n) { return parent.insertBefore(n, ref); });
         };
         /**
-         * @param {?} el
+         * @param {?} parent
+         * @param {?} ref
          * @param {?} node
          * @return {?}
          */
-        BrowserDomAdapter.prototype.insertAfter = function (el, node) { el.parentNode.insertBefore(node, el.nextSibling); };
+        BrowserDomAdapter.prototype.insertAfter = function (parent, ref, node) { parent.insertBefore(node, ref.nextSibling); };
         /**
          * @param {?} el
          * @param {?} value
@@ -3286,7 +3293,7 @@
             else {
                 // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
                 if (propertyName[propertyName.length - 1] === '$') {
-                    var /** @type {?} */ attrNode = (createAttrNode(propertyName).cloneNode(true));
+                    var /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
                     attrNode.value = propertyValue;
                     renderElement.setAttributeNode(attrNode);
                 }
@@ -3462,21 +3469,241 @@
      * @param {?} name
      * @return {?}
      */
-    function createAttrNode(name) {
+    function createAttributeNode(name) {
         if (!attrCache) {
             attrCache = new Map();
         }
         if (attrCache.has(name)) {
             return attrCache.get(name);
         }
-        else {
-            var /** @type {?} */ div = document.createElement('div');
-            div.innerHTML = "<div " + name + ">";
-            var /** @type {?} */ attr = div.firstChild.attributes[0];
-            attrCache.set(name, attr);
-            return attr;
-        }
+        var /** @type {?} */ div = document.createElement('div');
+        div.innerHTML = "<div " + name + ">";
+        var /** @type {?} */ attr = div.firstChild.attributes[0];
+        attrCache.set(name, attr);
+        return attr;
     }
+    var DomRendererV2 = (function () {
+        /**
+         * @param {?} eventManager
+         */
+        function DomRendererV2(eventManager) {
+            this.eventManager = eventManager;
+        }
+        ;
+        /**
+         * @param {?} name
+         * @param {?=} namespace
+         * @param {?=} debugInfo
+         * @return {?}
+         */
+        DomRendererV2.prototype.createElement = function (name, namespace, debugInfo) {
+            if (namespace) {
+                return document.createElementNS(NAMESPACE_URIS[namespace], name);
+            }
+            return document.createElement(name);
+        };
+        /**
+         * @param {?} value
+         * @param {?=} debugInfo
+         * @return {?}
+         */
+        DomRendererV2.prototype.createComment = function (value, debugInfo) { return document.createComment(value); };
+        /**
+         * @param {?} value
+         * @param {?=} debugInfo
+         * @return {?}
+         */
+        DomRendererV2.prototype.createText = function (value, debugInfo) { return document.createTextNode(value); };
+        /**
+         * @param {?} parent
+         * @param {?} newChild
+         * @return {?}
+         */
+        DomRendererV2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
+        /**
+         * @param {?} parent
+         * @param {?} newChild
+         * @param {?} refChild
+         * @return {?}
+         */
+        DomRendererV2.prototype.insertBefore = function (parent, newChild, refChild) {
+            if (parent) {
+                parent.insertBefore(newChild, refChild);
+            }
+        };
+        /**
+         * @param {?} parent
+         * @param {?} oldChild
+         * @return {?}
+         */
+        DomRendererV2.prototype.removeChild = function (parent, oldChild) { parent.removeChild(oldChild); };
+        /**
+         * @param {?} selectorOrNode
+         * @param {?=} debugInfo
+         * @return {?}
+         */
+        DomRendererV2.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
+            var /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
+                selectorOrNode;
+            el.textContent = '';
+            return el;
+        };
+        /**
+         * @param {?} node
+         * @return {?}
+         */
+        DomRendererV2.prototype.parentNode = function (node) { return node.parentNode; };
+        /**
+         * @param {?} node
+         * @return {?}
+         */
+        DomRendererV2.prototype.nextSibling = function (node) { return node.nextSibling; };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @param {?} value
+         * @param {?=} namespace
+         * @return {?}
+         */
+        DomRendererV2.prototype.setAttribute = function (el, name, value, namespace) {
+            if (namespace) {
+                el.setAttributeNS(NAMESPACE_URIS[namespace], namespace + ':' + name, value);
+            }
+            else {
+                el.setAttribute(name, value);
+            }
+        };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @param {?=} namespace
+         * @return {?}
+         */
+        DomRendererV2.prototype.removeAttribute = function (el, name, namespace) {
+            if (namespace) {
+                el.removeAttributeNS(NAMESPACE_URIS[namespace], name);
+            }
+            else {
+                el.removeAttribute(name);
+            }
+        };
+        /**
+         * @param {?} el
+         * @param {?} propertyName
+         * @param {?} propertyValue
+         * @return {?}
+         */
+        DomRendererV2.prototype.setBindingDebugInfo = function (el, propertyName, propertyValue) {
+            if (el.nodeType === Node.COMMENT_NODE) {
+                var /** @type {?} */ m = el.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+                var /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+                obj[propertyName] = propertyValue;
+                el.nodeValue = TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2));
+            }
+            else {
+                // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
+                if (propertyName[propertyName.length - 1] === '$') {
+                    var /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
+                    attrNode.value = propertyValue;
+                    el.setAttributeNode(attrNode);
+                }
+                else {
+                    this.setAttribute(el, propertyName, propertyValue);
+                }
+            }
+        };
+        /**
+         * @param {?} el
+         * @param {?} propertyName
+         * @return {?}
+         */
+        DomRendererV2.prototype.removeBindingDebugInfo = function (el, propertyName) {
+            if (el.nodeType === Node.COMMENT_NODE) {
+                var /** @type {?} */ m = el.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+                var /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+                delete obj[propertyName];
+                el.nodeValue = TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2));
+            }
+            else {
+                // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
+                if (propertyName[propertyName.length - 1] === '$') {
+                    var /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
+                    attrNode.value = '';
+                    el.setAttributeNode(attrNode);
+                }
+                else {
+                    this.removeAttribute(el, propertyName);
+                }
+            }
+        };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @return {?}
+         */
+        DomRendererV2.prototype.addClass = function (el, name) { el.classList.add(name); };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @return {?}
+         */
+        DomRendererV2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
+        /**
+         * @param {?} el
+         * @param {?} style
+         * @param {?} value
+         * @param {?} hasVendorPrefix
+         * @param {?} hasImportant
+         * @return {?}
+         */
+        DomRendererV2.prototype.setStyle = function (el, style, value, hasVendorPrefix, hasImportant) {
+            el.style[style] = value;
+        };
+        /**
+         * @param {?} el
+         * @param {?} style
+         * @param {?} hasVendorPrefix
+         * @return {?}
+         */
+        DomRendererV2.prototype.removeStyle = function (el, style, hasVendorPrefix) {
+            // IE requires '' instead of null
+            // see https://github.com/angular/angular/issues/7916
+            el.style[style] = '';
+        };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @param {?} value
+         * @return {?}
+         */
+        DomRendererV2.prototype.setProperty = function (el, name, value) { el[name] = value; };
+        /**
+         * @param {?} node
+         * @param {?} value
+         * @return {?}
+         */
+        DomRendererV2.prototype.setText = function (node, value) { node.nodeValue = value; };
+        /**
+         * @param {?} target
+         * @param {?} event
+         * @param {?} callback
+         * @return {?}
+         */
+        DomRendererV2.prototype.listen = function (target, event, callback) {
+            if (typeof target === 'string') {
+                return (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
+            }
+            return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
+        };
+        return DomRendererV2;
+    }());
+    DomRendererV2.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    DomRendererV2.ctorParameters = function () { return [
+        { type: EventManager, },
+    ]; };
 
     var /** @type {?} */ CORE_TOKENS = {
         'ApplicationRef': core.ApplicationRef,
@@ -3538,16 +3765,31 @@
         return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
     }
     /**
+     * @param {?} renderer
+     * @return {?}
+     */
+    function _createDebugRendererV2(renderer) {
+        return core.isDevMode() ? new DebugDomRendererV2(renderer) : renderer;
+    }
+    /**
      * Providers which support debugging Angular applications (e.g. via `ng.probe`).
      */
-    var /** @type {?} */ ELEMENT_PROBE_PROVIDERS = [{
+    var /** @type {?} */ ELEMENT_PROBE_PROVIDERS = [
+        {
             provide: core.RootRenderer,
             useFactory: _createConditionalRootRenderer,
             deps: [
-                DomRootRenderer, [NgProbeToken, new core.Optional()],
-                [core.NgProbeToken, new core.Optional()]
-            ]
-        }];
+                DomRootRenderer,
+                [NgProbeToken, new core.Optional()],
+                [core.NgProbeToken, new core.Optional()],
+            ],
+        },
+        {
+            provide: core.RendererV2,
+            useFactory: _createDebugRendererV2,
+            deps: [core.RENDERER_V2_DIRECT],
+        }
+    ];
 
     /**
      * @license
@@ -4673,6 +4915,8 @@
                         { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
                         { provide: DomRootRenderer, useClass: DomRootRenderer_ },
                         { provide: core.RootRenderer, useExisting: DomRootRenderer },
+                        { provide: core.RENDERER_V2_DIRECT, useClass: DomRendererV2 },
+                        { provide: core.RendererV2, useExisting: core.RENDERER_V2_DIRECT },
                         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
                         { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
                         DomSharedStylesHost,
@@ -4895,7 +5139,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.7-b4d444a');
+    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.7-bb9c7ae');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;

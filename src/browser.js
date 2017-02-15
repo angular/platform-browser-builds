@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule, PlatformLocation } from '@angular/common';
-import { ApplicationModule, ErrorHandler, NgModule, Optional, PLATFORM_INITIALIZER, RootRenderer, Sanitizer, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core';
+import { ApplicationModule, ErrorHandler, NgModule, Optional, PLATFORM_INITIALIZER, RENDERER_V2_DIRECT, RendererV2, RootRenderer, Sanitizer, SkipSelf, Testability, createPlatformFactory, platformCore } from '@angular/core';
 import { AnimationDriver } from '../src/dom/animation_driver';
 import { WebAnimationsDriver } from '../src/dom/web_animations_driver';
 import { BrowserDomAdapter } from './browser/browser_adapter';
@@ -16,7 +16,7 @@ import { BrowserGetTestability } from './browser/testability';
 import { Title } from './browser/title';
 import { ELEMENT_PROBE_PROVIDERS } from './dom/debug/ng_probe';
 import { getDOM } from './dom/dom_adapter';
-import { DomRootRenderer, DomRootRenderer_ } from './dom/dom_renderer';
+import { DomRendererV2, DomRootRenderer, DomRootRenderer_ } from './dom/dom_renderer';
 import { DOCUMENT } from './dom/dom_tokens';
 import { DomEventsPlugin } from './dom/events/dom_events';
 import { EVENT_MANAGER_PLUGINS, EventManager } from './dom/events/event_manager';
@@ -99,6 +99,8 @@ BrowserModule.decorators = [
                     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
                     { provide: DomRootRenderer, useClass: DomRootRenderer_ },
                     { provide: RootRenderer, useExisting: DomRootRenderer },
+                    { provide: RENDERER_V2_DIRECT, useClass: DomRendererV2 },
+                    { provide: RendererV2, useExisting: RENDERER_V2_DIRECT },
                     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
                     { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
                     DomSharedStylesHost,
