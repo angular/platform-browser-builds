@@ -6,8 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { PlatformLocation } from '@angular/common/index';
-import { Injectable } from '@angular/core/index';
+import { Inject, Injectable } from '@angular/core/index';
 import { getDOM } from '../../dom/dom_adapter';
+import { DOCUMENT } from '../../dom/dom_tokens';
 import { supportsState } from './history';
 /**
  * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
@@ -15,8 +16,12 @@ import { supportsState } from './history';
  * {\@link Location}.
  */
 export class BrowserPlatformLocation extends PlatformLocation {
-    constructor() {
+    /**
+     * @param {?} _doc
+     */
+    constructor(_doc) {
         super();
+        this._doc = _doc;
         this._init();
     }
     /**
@@ -34,20 +39,20 @@ export class BrowserPlatformLocation extends PlatformLocation {
     /**
      * @return {?}
      */
-    getBaseHrefFromDOM() { return getDOM().getBaseHref(); }
+    getBaseHrefFromDOM() { return getDOM().getBaseHref(this._doc); }
     /**
      * @param {?} fn
      * @return {?}
      */
     onPopState(fn) {
-        getDOM().getGlobalEventTarget('window').addEventListener('popstate', fn, false);
+        getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('popstate', fn, false);
     }
     /**
      * @param {?} fn
      * @return {?}
      */
     onHashChange(fn) {
-        getDOM().getGlobalEventTarget('window').addEventListener('hashchange', fn, false);
+        getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('hashchange', fn, false);
     }
     /**
      * @return {?}
@@ -107,7 +112,9 @@ BrowserPlatformLocation.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-BrowserPlatformLocation.ctorParameters = () => [];
+BrowserPlatformLocation.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+];
 function BrowserPlatformLocation_tsickle_Closure_declarations() {
     /** @type {?} */
     BrowserPlatformLocation.decorators;
@@ -120,5 +127,7 @@ function BrowserPlatformLocation_tsickle_Closure_declarations() {
     BrowserPlatformLocation.prototype._location;
     /** @type {?} */
     BrowserPlatformLocation.prototype._history;
+    /** @type {?} */
+    BrowserPlatformLocation.prototype._doc;
 }
 //# sourceMappingURL=browser_platform_location.js.map

@@ -26,7 +26,8 @@ import { DomSharedStylesHost, SharedStylesHost } from './dom/shared_styles_host'
 import { DomSanitizer, DomSanitizerImpl } from './security/dom_sanitization_service';
 export const /** @type {?} */ INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: PlatformLocation, useClass: BrowserPlatformLocation }
+    { provide: PlatformLocation, useClass: BrowserPlatformLocation },
+    { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -58,14 +59,8 @@ export function errorHandler() {
 /**
  * @return {?}
  */
-export function meta() {
-    return new Meta(getDOM());
-}
-/**
- * @return {?}
- */
 export function _document() {
-    return getDOM().defaultDoc();
+    return document;
 }
 /**
  * @return {?}
@@ -96,7 +91,6 @@ BrowserModule.decorators = [
                 providers: [
                     BROWSER_SANITIZATION_PROVIDERS,
                     { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
-                    { provide: DOCUMENT, useFactory: _document, deps: [] },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
@@ -105,11 +99,11 @@ BrowserModule.decorators = [
                     { provide: RootRenderer, useExisting: DomRootRenderer },
                     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
                     { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
-                    { provide: Meta, useFactory: meta },
                     DomSharedStylesHost,
                     Testability,
                     EventManager,
                     ELEMENT_PROBE_PROVIDERS,
+                    Meta,
                     Title,
                 ],
                 exports: [CommonModule, ApplicationModule]

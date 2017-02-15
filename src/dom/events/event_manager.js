@@ -98,6 +98,12 @@ function EventManager_tsickle_Closure_declarations() {
  */
 export class EventManagerPlugin {
     /**
+     * @param {?} _doc
+     */
+    constructor(_doc) {
+        this._doc = _doc;
+    }
+    /**
      * @abstract
      * @param {?} eventName
      * @return {?}
@@ -118,7 +124,7 @@ export class EventManagerPlugin {
      * @return {?}
      */
     addGlobalEventListener(element, eventName, handler) {
-        const /** @type {?} */ target = getDOM().getGlobalEventTarget(element);
+        const /** @type {?} */ target = getDOM().getGlobalEventTarget(this._doc, element);
         if (!target) {
             throw new Error(`Unsupported event target ${target} for event ${eventName}`);
         }
@@ -129,5 +135,7 @@ export class EventManagerPlugin {
 function EventManagerPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     EventManagerPlugin.prototype.manager;
+    /** @type {?} */
+    EventManagerPlugin.prototype._doc;
 }
 //# sourceMappingURL=event_manager.js.map

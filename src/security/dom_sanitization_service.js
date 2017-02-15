@@ -5,7 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable, SecurityContext } from '@angular/core/index';
+import { Inject, Injectable, SecurityContext } from '@angular/core/index';
+import { DOCUMENT } from '../dom/dom_tokens';
 import { sanitizeHtml } from './html_sanitizer';
 import { sanitizeStyle } from './style_sanitizer';
 import { sanitizeUrl } from './url_sanitizer';
@@ -113,6 +114,13 @@ export class DomSanitizer {
 }
 export class DomSanitizerImpl extends DomSanitizer {
     /**
+     * @param {?} _doc
+     */
+    constructor(_doc) {
+        super();
+        this._doc = _doc;
+    }
+    /**
      * @param {?} ctx
      * @param {?} value
      * @return {?}
@@ -127,7 +135,7 @@ export class DomSanitizerImpl extends DomSanitizer {
                 if (value instanceof SafeHtmlImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'HTML');
-                return sanitizeHtml(String(value));
+                return sanitizeHtml(this._doc, String(value));
             case SecurityContext.STYLE:
                 if (value instanceof SafeStyleImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -198,7 +206,9 @@ DomSanitizerImpl.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-DomSanitizerImpl.ctorParameters = () => [];
+DomSanitizerImpl.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+];
 function DomSanitizerImpl_tsickle_Closure_declarations() {
     /** @type {?} */
     DomSanitizerImpl.decorators;
@@ -207,6 +217,8 @@ function DomSanitizerImpl_tsickle_Closure_declarations() {
      * @type {?}
      */
     DomSanitizerImpl.ctorParameters;
+    /** @type {?} */
+    DomSanitizerImpl.prototype._doc;
 }
 /**
  * @abstract

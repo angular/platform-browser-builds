@@ -5,8 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable } from '@angular/core/index';
+import { Inject, Injectable } from '@angular/core/index';
 import { getDOM } from '../dom_adapter';
+import { DOCUMENT } from '../dom_tokens';
 import { EventManagerPlugin } from './event_manager';
 const /** @type {?} */ MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
 const /** @type {?} */ MODIFIER_KEY_GETTERS = {
@@ -19,7 +20,10 @@ const /** @type {?} */ MODIFIER_KEY_GETTERS = {
  * \@experimental
  */
 export class KeyEventsPlugin extends EventManagerPlugin {
-    constructor() { super(); }
+    /**
+     * @param {?} doc
+     */
+    constructor(doc) { super(doc); }
     /**
      * @param {?} eventName
      * @return {?}
@@ -124,7 +128,9 @@ KeyEventsPlugin.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-KeyEventsPlugin.ctorParameters = () => [];
+KeyEventsPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+];
 function KeyEventsPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     KeyEventsPlugin.decorators;

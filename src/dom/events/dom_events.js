@@ -5,9 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable } from '@angular/core/index';
+import { Inject, Injectable } from '@angular/core/index';
+import { DOCUMENT } from '../dom_tokens';
 import { EventManagerPlugin } from './event_manager';
 export class DomEventsPlugin extends EventManagerPlugin {
+    /**
+     * @param {?} doc
+     */
+    constructor(doc) { super(doc); }
     /**
      * @param {?} eventName
      * @return {?}
@@ -28,7 +33,9 @@ DomEventsPlugin.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-DomEventsPlugin.ctorParameters = () => [];
+DomEventsPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+];
 function DomEventsPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     DomEventsPlugin.decorators;

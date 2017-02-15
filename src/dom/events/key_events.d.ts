@@ -11,7 +11,7 @@ import { EventManagerPlugin } from './event_manager';
  * @experimental
  */
 export declare class KeyEventsPlugin extends EventManagerPlugin {
-    constructor();
+    constructor(doc: any);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     static parseEventName(eventName: string): {

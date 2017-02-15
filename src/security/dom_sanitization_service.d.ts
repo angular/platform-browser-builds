@@ -131,6 +131,8 @@ export declare abstract class DomSanitizer implements Sanitizer {
     abstract bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
 }
 export declare class DomSanitizerImpl extends DomSanitizer {
+    private _doc;
+    constructor(_doc: any);
     sanitize(ctx: SecurityContext, value: any): string;
     private checkNotSafeValue(value, expectedType);
     bypassSecurityTrustHtml(value: string): SafeHtml;

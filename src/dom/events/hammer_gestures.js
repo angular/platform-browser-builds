@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Inject, Injectable, InjectionToken } from '@angular/core/index';
+import { DOCUMENT } from '../dom_tokens';
 import { EventManagerPlugin } from './event_manager';
 const /** @type {?} */ EVENT_NAMES = {
     // pan
@@ -93,10 +94,11 @@ function HammerGestureConfig_tsickle_Closure_declarations() {
 }
 export class HammerGesturesPlugin extends EventManagerPlugin {
     /**
+     * @param {?} doc
      * @param {?} _config
      */
-    constructor(_config) {
-        super();
+    constructor(doc, _config) {
+        super(doc);
         this._config = _config;
     }
     /**
@@ -142,6 +144,7 @@ HammerGesturesPlugin.decorators = [
 ];
 /** @nocollapse */
 HammerGesturesPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
 ];
 function HammerGesturesPlugin_tsickle_Closure_declarations() {

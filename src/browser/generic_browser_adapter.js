@@ -20,7 +20,7 @@ export class GenericBrowserDomAdapter extends DomAdapter {
         this._animationPrefix = null;
         this._transitionEnd = null;
         try {
-            const element = this.createElement('div', this.defaultDoc());
+            const element = this.createElement('div', document);
             if (isPresent(this.getStyle(element, 'animationName'))) {
                 this._animationPrefix = '';
             }
@@ -72,7 +72,7 @@ export class GenericBrowserDomAdapter extends DomAdapter {
      * @return {?}
      */
     supportsNativeShadowDOM() {
-        return typeof ((this.defaultDoc().body)).createShadowRoot === 'function';
+        return typeof ((document.body)).createShadowRoot === 'function';
     }
     /**
      * @return {?}

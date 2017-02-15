@@ -12,9 +12,10 @@ import { LocationChangeListener, PlatformLocation } from '@angular/common';
  * {@link Location}.
  */
 export declare class BrowserPlatformLocation extends PlatformLocation {
+    private _doc;
     private _location;
     private _history;
-    constructor();
+    constructor(_doc: any);
     readonly location: Location;
     getBaseHrefFromDOM(): string;
     onPopState(fn: LocationChangeListener): void;

@@ -257,12 +257,6 @@
         DomAdapter.prototype.parse = function (templateHtml) { };
         /**
          * @abstract
-         * @param {?} selector
-         * @return {?}
-         */
-        DomAdapter.prototype.query = function (selector) { };
-        /**
-         * @abstract
          * @param {?} el
          * @param {?} selector
          * @return {?}
@@ -733,26 +727,23 @@
         DomAdapter.prototype.createHtmlDocument = function () { };
         /**
          * @abstract
-         * @return {?}
-         */
-        DomAdapter.prototype.defaultDoc = function () { };
-        /**
-         * @abstract
          * @param {?} el
          * @return {?}
          */
         DomAdapter.prototype.getBoundingClientRect = function (el) { };
         /**
          * @abstract
+         * @param {?} doc
          * @return {?}
          */
-        DomAdapter.prototype.getTitle = function () { };
+        DomAdapter.prototype.getTitle = function (doc) { };
         /**
          * @abstract
+         * @param {?} doc
          * @param {?} newTitle
          * @return {?}
          */
-        DomAdapter.prototype.setTitle = function (newTitle) { };
+        DomAdapter.prototype.setTitle = function (doc, newTitle) { };
         /**
          * @abstract
          * @param {?} n
@@ -840,10 +831,11 @@
         DomAdapter.prototype.supportsNativeShadowDOM = function () { };
         /**
          * @abstract
+         * @param {?} doc
          * @param {?} target
          * @return {?}
          */
-        DomAdapter.prototype.getGlobalEventTarget = function (target) { };
+        DomAdapter.prototype.getGlobalEventTarget = function (doc, target) { };
         /**
          * @abstract
          * @return {?}
@@ -856,9 +848,10 @@
         DomAdapter.prototype.getLocation = function () { };
         /**
          * @abstract
+         * @param {?} doc
          * @return {?}
          */
-        DomAdapter.prototype.getBaseHref = function () { };
+        DomAdapter.prototype.getBaseHref = function (doc) { };
         /**
          * @abstract
          * @return {?}
@@ -1292,7 +1285,7 @@
             _this._animationPrefix = null;
             _this._transitionEnd = null;
             try {
-                var element_1 = _this.createElement('div', _this.defaultDoc());
+                var element_1 = _this.createElement('div', document);
                 if (isPresent(_this.getStyle(element_1, 'animationName'))) {
                     _this._animationPrefix = '';
                 }
@@ -1345,7 +1338,7 @@
          * @return {?}
          */
         GenericBrowserDomAdapter.prototype.supportsNativeShadowDOM = function () {
-            return typeof ((this.defaultDoc().body)).createShadowRoot === 'function';
+            return typeof ((document.body)).createShadowRoot === 'function';
         };
         /**
          * @return {?}
@@ -1514,18 +1507,11 @@
             configurable: true
         });
         /**
-         * @param {?} selector
-         * @return {?}
-         */
-        BrowserDomAdapter.prototype.query = function (selector) { return document.querySelector(selector); };
-        /**
          * @param {?} el
          * @param {?} selector
          * @return {?}
          */
-        BrowserDomAdapter.prototype.querySelector = function (el, selector) {
-            return (el.querySelector(selector));
-        };
+        BrowserDomAdapter.prototype.querySelector = function (el, selector) { return el.querySelector(selector); };
         /**
          * @param {?} el
          * @param {?} selector
@@ -2021,10 +2007,6 @@
             return document.implementation.createHTMLDocument('fakeTitle');
         };
         /**
-         * @return {?}
-         */
-        BrowserDomAdapter.prototype.defaultDoc = function () { return document; };
-        /**
          * @param {?} el
          * @return {?}
          */
@@ -2037,14 +2019,16 @@
             }
         };
         /**
+         * @param {?} doc
          * @return {?}
          */
-        BrowserDomAdapter.prototype.getTitle = function () { return document.title; };
+        BrowserDomAdapter.prototype.getTitle = function (doc) { return document.title; };
         /**
+         * @param {?} doc
          * @param {?} newTitle
          * @return {?}
          */
-        BrowserDomAdapter.prototype.setTitle = function (newTitle) { document.title = newTitle || ''; };
+        BrowserDomAdapter.prototype.setTitle = function (doc, newTitle) { document.title = newTitle || ''; };
         /**
          * @param {?} n
          * @param {?} selector
@@ -2134,10 +2118,11 @@
             return _keyMap[key] || key;
         };
         /**
+         * @param {?} doc
          * @param {?} target
          * @return {?}
          */
-        BrowserDomAdapter.prototype.getGlobalEventTarget = function (target) {
+        BrowserDomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target === 'window') {
                 return window;
             }
@@ -2157,9 +2142,10 @@
          */
         BrowserDomAdapter.prototype.getLocation = function () { return window.location; };
         /**
+         * @param {?} doc
          * @return {?}
          */
-        BrowserDomAdapter.prototype.getBaseHref = function () {
+        BrowserDomAdapter.prototype.getBaseHref = function (doc) {
             var /** @type {?} */ href = getBaseElementHref();
             return isBlank(href) ? null : relativePath(href);
         };
@@ -2281,6 +2267,16 @@
     }
 
     /**
+     * A DI Token representing the main rendering context. In a browser this is the DOM Document.
+     *
+     * Note: Document might not be available in the Application Context when Application and Rendering
+     * Contexts are not the same (e.g. when running the application into a Web Worker).
+     *
+     * @stable
+     */
+    var /** @type {?} */ DOCUMENT = new core.InjectionToken('DocumentToken');
+
+    /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
      *
@@ -2311,8 +2307,12 @@
      */
     var BrowserPlatformLocation = (function (_super) {
         __extends$2(BrowserPlatformLocation, _super);
-        function BrowserPlatformLocation() {
+        /**
+         * @param {?} _doc
+         */
+        function BrowserPlatformLocation(_doc) {
             var _this = _super.call(this) || this;
+            _this._doc = _doc;
             _this._init();
             return _this;
         }
@@ -2335,20 +2335,20 @@
         /**
          * @return {?}
          */
-        BrowserPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(); };
+        BrowserPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(this._doc); };
         /**
          * @param {?} fn
          * @return {?}
          */
         BrowserPlatformLocation.prototype.onPopState = function (fn) {
-            getDOM().getGlobalEventTarget('window').addEventListener('popstate', fn, false);
+            getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('popstate', fn, false);
         };
         /**
          * @param {?} fn
          * @return {?}
          */
         BrowserPlatformLocation.prototype.onHashChange = function (fn) {
-            getDOM().getGlobalEventTarget('window').addEventListener('hashchange', fn, false);
+            getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('hashchange', fn, false);
         };
         Object.defineProperty(BrowserPlatformLocation.prototype, "pathname", {
             /**
@@ -2421,7 +2421,9 @@
         { type: core.Injectable },
     ];
     /** @nocollapse */
-    BrowserPlatformLocation.ctorParameters = function () { return []; };
+    BrowserPlatformLocation.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
+    ]; };
 
     /**
      * A service that can be used to get and add meta tags.
@@ -2430,10 +2432,11 @@
      */
     var Meta = (function () {
         /**
-         * @param {?} _dom
+         * @param {?} _doc
          */
-        function Meta(_dom) {
-            this._dom = _dom;
+        function Meta(_doc) {
+            this._doc = _doc;
+            this._dom = getDOM();
         }
         /**
          * @param {?} tag
@@ -2470,7 +2473,7 @@
         Meta.prototype.getTag = function (attrSelector) {
             if (!attrSelector)
                 return null;
-            return this._dom.query("meta[" + attrSelector + "]");
+            return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]");
         };
         /**
          * @param {?} attrSelector
@@ -2479,7 +2482,7 @@
         Meta.prototype.getTags = function (attrSelector) {
             if (!attrSelector)
                 return [];
-            var /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._dom.defaultDoc(), "meta[" + attrSelector + "]");
+            var /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._doc, "meta[" + attrSelector + "]");
             return list ? [].slice.call(list) : [];
         };
         /**
@@ -2529,7 +2532,7 @@
             }
             var /** @type {?} */ element = (this._dom.createElement('meta'));
             this._setMetaElementAttributes(meta, element);
-            var /** @type {?} */ head = this._dom.getElementsByTagName(this._dom.defaultDoc(), 'head')[0];
+            var /** @type {?} */ head = this._dom.getElementsByTagName(this._doc, 'head')[0];
             this._dom.appendChild(head, element);
             return element;
         };
@@ -2567,7 +2570,7 @@
     ];
     /** @nocollapse */
     Meta.ctorParameters = function () { return [
-        { type: DomAdapter, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
     ]; };
 
     var BrowserGetTestability = (function () {
@@ -2648,21 +2651,32 @@
      * \@experimental
      */
     var Title = (function () {
-        function Title() {
+        /**
+         * @param {?} _doc
+         */
+        function Title(_doc) {
+            this._doc = _doc;
         }
         /**
          * Get the title of the current HTML document.
          * @return {?}
          */
-        Title.prototype.getTitle = function () { return getDOM().getTitle(); };
+        Title.prototype.getTitle = function () { return getDOM().getTitle(this._doc); };
         /**
          * Set the title of the current HTML document.
          * @param {?} newTitle
          * @return {?}
          */
-        Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(newTitle); };
+        Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
         return Title;
     }());
+    Title.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    Title.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
+    ]; };
 
     /**
      * Wraps Javascript Objects
@@ -2708,16 +2722,6 @@
         };
         return StringMapWrapper;
     }());
-
-    /**
-     * A DI Token representing the main rendering context. In a browser this is the DOM Document.
-     *
-     * Note: Document might not be available in the Application Context when Application and Rendering
-     * Contexts are not the same (e.g. when running the application into a Web Worker).
-     *
-     * @stable
-     */
-    var /** @type {?} */ DOCUMENT = new core.InjectionToken('DocumentToken');
 
     /**
      * @stable
@@ -2796,7 +2800,11 @@
      * @abstract
      */
     var EventManagerPlugin = (function () {
-        function EventManagerPlugin() {
+        /**
+         * @param {?} _doc
+         */
+        function EventManagerPlugin(_doc) {
+            this._doc = _doc;
         }
         /**
          * @abstract
@@ -2819,7 +2827,7 @@
          * @return {?}
          */
         EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-            var /** @type {?} */ target = getDOM().getGlobalEventTarget(element);
+            var /** @type {?} */ target = getDOM().getGlobalEventTarget(this._doc, element);
             if (!target) {
                 throw new Error("Unsupported event target " + target + " for event " + eventName);
             }
@@ -3555,8 +3563,11 @@
     };
     var DomEventsPlugin = (function (_super) {
         __extends$5(DomEventsPlugin, _super);
-        function DomEventsPlugin() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * @param {?} doc
+         */
+        function DomEventsPlugin(doc) {
+            return _super.call(this, doc) || this;
         }
         /**
          * @param {?} eventName
@@ -3579,7 +3590,9 @@
         { type: core.Injectable },
     ];
     /** @nocollapse */
-    DomEventsPlugin.ctorParameters = function () { return []; };
+    DomEventsPlugin.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
+    ]; };
 
     /**
      * @license
@@ -3668,10 +3681,11 @@
     var HammerGesturesPlugin = (function (_super) {
         __extends$6(HammerGesturesPlugin, _super);
         /**
+         * @param {?} doc
          * @param {?} _config
          */
-        function HammerGesturesPlugin(_config) {
-            var _this = _super.call(this) || this;
+        function HammerGesturesPlugin(doc, _config) {
+            var _this = _super.call(this, doc) || this;
             _this._config = _config;
             return _this;
         }
@@ -3720,6 +3734,7 @@
     ];
     /** @nocollapse */
     HammerGesturesPlugin.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
         { type: HammerGestureConfig, decorators: [{ type: core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
     ]; };
 
@@ -3747,8 +3762,11 @@
      */
     var KeyEventsPlugin = (function (_super) {
         __extends$7(KeyEventsPlugin, _super);
-        function KeyEventsPlugin() {
-            return _super.call(this) || this;
+        /**
+         * @param {?} doc
+         */
+        function KeyEventsPlugin(doc) {
+            return _super.call(this, doc) || this;
         }
         /**
          * @param {?} eventName
@@ -3855,7 +3873,9 @@
         { type: core.Injectable },
     ];
     /** @nocollapse */
-    KeyEventsPlugin.ctorParameters = function () { return []; };
+    KeyEventsPlugin.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
+    ]; };
 
     /**
      * A pattern that recognizes a commonly useful subset of URLs that are safe.
@@ -4147,10 +4167,11 @@
     /**
      * Sanitizes the given unsafe, untrusted HTML fragment, and returns HTML text that is safe to add to
      * the DOM in a browser environment.
+     * @param {?} defaultDoc
      * @param {?} unsafeHtmlInput
      * @return {?}
      */
-    function sanitizeHtml(unsafeHtmlInput) {
+    function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
         try {
             var /** @type {?} */ containerEl = getInertElement();
             // Make sure unsafeHtml is actually a string (TypeScript types are not enforced at runtime).
@@ -4166,7 +4187,7 @@
                 mXSSAttempts--;
                 unsafeHtml = parsedHtml;
                 DOM.setInnerHTML(containerEl, unsafeHtml);
-                if (((DOM.defaultDoc())).documentMode) {
+                if (defaultDoc.documentMode) {
                     // strip custom-namespaced attributes on IE<=11
                     stripCustomNsAttrs(containerEl);
                 }
@@ -4399,8 +4420,13 @@
     }());
     var DomSanitizerImpl = (function (_super) {
         __extends$8(DomSanitizerImpl, _super);
-        function DomSanitizerImpl() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * @param {?} _doc
+         */
+        function DomSanitizerImpl(_doc) {
+            var _this = _super.call(this) || this;
+            _this._doc = _doc;
+            return _this;
         }
         /**
          * @param {?} ctx
@@ -4417,7 +4443,7 @@
                     if (value instanceof SafeHtmlImpl)
                         return value.changingThisBreaksApplicationSecurity;
                     this.checkNotSafeValue(value, 'HTML');
-                    return sanitizeHtml(String(value));
+                    return sanitizeHtml(this._doc, String(value));
                 case core.SecurityContext.STYLE:
                     if (value instanceof SafeStyleImpl)
                         return value.changingThisBreaksApplicationSecurity;
@@ -4489,7 +4515,9 @@
         { type: core.Injectable },
     ];
     /** @nocollapse */
-    DomSanitizerImpl.ctorParameters = function () { return []; };
+    DomSanitizerImpl.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
+    ]; };
     /**
      * @abstract
      */
@@ -4573,7 +4601,8 @@
 
     var /** @type {?} */ INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
         { provide: core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-        { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation }
+        { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation },
+        { provide: DOCUMENT, useFactory: _document, deps: [] },
     ];
     /**
      * @security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -4605,14 +4634,8 @@
     /**
      * @return {?}
      */
-    function meta() {
-        return new Meta(getDOM());
-    }
-    /**
-     * @return {?}
-     */
     function _document() {
-        return getDOM().defaultDoc();
+        return document;
     }
     /**
      * @return {?}
@@ -4644,7 +4667,6 @@
                     providers: [
                         BROWSER_SANITIZATION_PROVIDERS,
                         { provide: core.ErrorHandler, useFactory: errorHandler, deps: [] },
-                        { provide: DOCUMENT, useFactory: _document, deps: [] },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
@@ -4653,11 +4675,11 @@
                         { provide: core.RootRenderer, useExisting: DomRootRenderer },
                         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
                         { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
-                        { provide: Meta, useFactory: meta },
                         DomSharedStylesHost,
                         core.Testability,
                         EventManager,
                         ELEMENT_PROBE_PROVIDERS,
+                        Meta,
                         Title,
                     ],
                     exports: [_angular_common.CommonModule, core.ApplicationModule]

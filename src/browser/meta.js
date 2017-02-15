@@ -5,8 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable } from '@angular/core/index';
-import { DomAdapter } from '../dom/dom_adapter';
+import { Inject, Injectable } from '@angular/core/index';
+import { getDOM } from '../dom/dom_adapter';
+import { DOCUMENT } from '../dom/dom_tokens';
 /**
  * A service that can be used to get and add meta tags.
  *
@@ -14,10 +15,11 @@ import { DomAdapter } from '../dom/dom_adapter';
  */
 export class Meta {
     /**
-     * @param {?} _dom
+     * @param {?} _doc
      */
-    constructor(_dom) {
-        this._dom = _dom;
+    constructor(_doc) {
+        this._doc = _doc;
+        this._dom = getDOM();
     }
     /**
      * @param {?} tag
@@ -51,7 +53,7 @@ export class Meta {
     getTag(attrSelector) {
         if (!attrSelector)
             return null;
-        return this._dom.query(`meta[${attrSelector}]`);
+        return this._dom.querySelector(this._doc, `meta[${attrSelector}]`);
     }
     /**
      * @param {?} attrSelector
@@ -60,7 +62,7 @@ export class Meta {
     getTags(attrSelector) {
         if (!attrSelector)
             return [];
-        const /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._dom.defaultDoc(), `meta[${attrSelector}]`);
+        const /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
         return list ? [].slice.call(list) : [];
     }
     /**
@@ -109,7 +111,7 @@ export class Meta {
         }
         const /** @type {?} */ element = (this._dom.createElement('meta'));
         this._setMetaElementAttributes(meta, element);
-        const /** @type {?} */ head = this._dom.getElementsByTagName(this._dom.defaultDoc(), 'head')[0];
+        const /** @type {?} */ head = this._dom.getElementsByTagName(this._doc, 'head')[0];
         this._dom.appendChild(head, element);
         return element;
     }
@@ -144,7 +146,7 @@ Meta.decorators = [
 ];
 /** @nocollapse */
 Meta.ctorParameters = () => [
-    { type: DomAdapter, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 function Meta_tsickle_Closure_declarations() {
     /** @type {?} */
@@ -156,5 +158,7 @@ function Meta_tsickle_Closure_declarations() {
     Meta.ctorParameters;
     /** @type {?} */
     Meta.prototype._dom;
+    /** @type {?} */
+    Meta.prototype._doc;
 }
 //# sourceMappingURL=meta.js.map

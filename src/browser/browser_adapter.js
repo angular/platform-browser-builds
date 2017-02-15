@@ -135,18 +135,11 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     get attrToPropMap() { return _attrToPropMap; }
     /**
-     * @param {?} selector
-     * @return {?}
-     */
-    query(selector) { return document.querySelector(selector); }
-    /**
      * @param {?} el
      * @param {?} selector
      * @return {?}
      */
-    querySelector(el, selector) {
-        return (el.querySelector(selector));
-    }
+    querySelector(el, selector) { return el.querySelector(selector); }
     /**
      * @param {?} el
      * @param {?} selector
@@ -632,10 +625,6 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return document.implementation.createHTMLDocument('fakeTitle');
     }
     /**
-     * @return {?}
-     */
-    defaultDoc() { return document; }
-    /**
      * @param {?} el
      * @return {?}
      */
@@ -648,14 +637,16 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         }
     }
     /**
+     * @param {?} doc
      * @return {?}
      */
-    getTitle() { return document.title; }
+    getTitle(doc) { return document.title; }
     /**
+     * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    setTitle(newTitle) { document.title = newTitle || ''; }
+    setTitle(doc, newTitle) { document.title = newTitle || ''; }
     /**
      * @param {?} n
      * @param {?} selector
@@ -745,10 +736,11 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return _keyMap[key] || key;
     }
     /**
+     * @param {?} doc
      * @param {?} target
      * @return {?}
      */
-    getGlobalEventTarget(target) {
+    getGlobalEventTarget(doc, target) {
         if (target === 'window') {
             return window;
         }
@@ -768,9 +760,10 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     getLocation() { return window.location; }
     /**
+     * @param {?} doc
      * @return {?}
      */
-    getBaseHref() {
+    getBaseHref(doc) {
         const /** @type {?} */ href = getBaseElementHref();
         return isBlank(href) ? null : relativePath(href);
     }

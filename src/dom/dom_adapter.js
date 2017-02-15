@@ -113,12 +113,6 @@ export class DomAdapter {
     parse(templateHtml) { }
     /**
      * @abstract
-     * @param {?} selector
-     * @return {?}
-     */
-    query(selector) { }
-    /**
-     * @abstract
      * @param {?} el
      * @param {?} selector
      * @return {?}
@@ -589,26 +583,23 @@ export class DomAdapter {
     createHtmlDocument() { }
     /**
      * @abstract
-     * @return {?}
-     */
-    defaultDoc() { }
-    /**
-     * @abstract
      * @param {?} el
      * @return {?}
      */
     getBoundingClientRect(el) { }
     /**
      * @abstract
+     * @param {?} doc
      * @return {?}
      */
-    getTitle() { }
+    getTitle(doc) { }
     /**
      * @abstract
+     * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    setTitle(newTitle) { }
+    setTitle(doc, newTitle) { }
     /**
      * @abstract
      * @param {?} n
@@ -696,10 +687,11 @@ export class DomAdapter {
     supportsNativeShadowDOM() { }
     /**
      * @abstract
+     * @param {?} doc
      * @param {?} target
      * @return {?}
      */
-    getGlobalEventTarget(target) { }
+    getGlobalEventTarget(doc, target) { }
     /**
      * @abstract
      * @return {?}
@@ -712,9 +704,10 @@ export class DomAdapter {
     getLocation() { }
     /**
      * @abstract
+     * @param {?} doc
      * @return {?}
      */
-    getBaseHref() { }
+    getBaseHref(doc) { }
     /**
      * @abstract
      * @return {?}
