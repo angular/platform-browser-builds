@@ -617,7 +617,11 @@ export class DomRendererV2 {
      * @param {?} oldChild
      * @return {?}
      */
-    removeChild(parent, oldChild) { parent.removeChild(oldChild); }
+    removeChild(parent, oldChild) {
+        if (parent) {
+            parent.removeChild(oldChild);
+        }
+    }
     /**
      * @param {?} selectorOrNode
      * @param {?=} debugInfo
