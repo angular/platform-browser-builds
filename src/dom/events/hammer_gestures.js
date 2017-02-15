@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { DOCUMENT } from '../dom_tokens';
 import { EventManagerPlugin } from './event_manager';
 var /** @type {?} */ EVENT_NAMES = {
     // pan
@@ -101,10 +102,11 @@ function HammerGestureConfig_tsickle_Closure_declarations() {
 var HammerGesturesPlugin = (function (_super) {
     __extends(HammerGesturesPlugin, _super);
     /**
+     * @param {?} doc
      * @param {?} _config
      */
-    function HammerGesturesPlugin(_config) {
-        var _this = _super.call(this) || this;
+    function HammerGesturesPlugin(doc, _config) {
+        var _this = _super.call(this, doc) || this;
         _this._config = _config;
         return _this;
     }
@@ -154,6 +156,7 @@ HammerGesturesPlugin.decorators = [
 ];
 /** @nocollapse */
 HammerGesturesPlugin.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
 ]; };
 function HammerGesturesPlugin_tsickle_Closure_declarations() {

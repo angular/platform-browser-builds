@@ -151,18 +151,11 @@ var BrowserDomAdapter = (function (_super) {
         configurable: true
     });
     /**
-     * @param {?} selector
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.query = function (selector) { return document.querySelector(selector); };
-    /**
      * @param {?} el
      * @param {?} selector
      * @return {?}
      */
-    BrowserDomAdapter.prototype.querySelector = function (el, selector) {
-        return (el.querySelector(selector));
-    };
+    BrowserDomAdapter.prototype.querySelector = function (el, selector) { return el.querySelector(selector); };
     /**
      * @param {?} el
      * @param {?} selector
@@ -658,10 +651,6 @@ var BrowserDomAdapter = (function (_super) {
         return document.implementation.createHTMLDocument('fakeTitle');
     };
     /**
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.defaultDoc = function () { return document; };
-    /**
      * @param {?} el
      * @return {?}
      */
@@ -674,14 +663,16 @@ var BrowserDomAdapter = (function (_super) {
         }
     };
     /**
+     * @param {?} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getTitle = function () { return document.title; };
+    BrowserDomAdapter.prototype.getTitle = function (doc) { return document.title; };
     /**
+     * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setTitle = function (newTitle) { document.title = newTitle || ''; };
+    BrowserDomAdapter.prototype.setTitle = function (doc, newTitle) { document.title = newTitle || ''; };
     /**
      * @param {?} n
      * @param {?} selector
@@ -771,10 +762,11 @@ var BrowserDomAdapter = (function (_super) {
         return _keyMap[key] || key;
     };
     /**
+     * @param {?} doc
      * @param {?} target
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getGlobalEventTarget = function (target) {
+    BrowserDomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
         if (target === 'window') {
             return window;
         }
@@ -794,9 +786,10 @@ var BrowserDomAdapter = (function (_super) {
      */
     BrowserDomAdapter.prototype.getLocation = function () { return window.location; };
     /**
+     * @param {?} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getBaseHref = function () {
+    BrowserDomAdapter.prototype.getBaseHref = function (doc) {
         var /** @type {?} */ href = getBaseElementHref();
         return isBlank(href) ? null : relativePath(href);
     };

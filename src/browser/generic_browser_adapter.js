@@ -26,7 +26,7 @@ var GenericBrowserDomAdapter = (function (_super) {
         _this._animationPrefix = null;
         _this._transitionEnd = null;
         try {
-            var element_1 = _this.createElement('div', _this.defaultDoc());
+            var element_1 = _this.createElement('div', document);
             if (isPresent(_this.getStyle(element_1, 'animationName'))) {
                 _this._animationPrefix = '';
             }
@@ -79,7 +79,7 @@ var GenericBrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     GenericBrowserDomAdapter.prototype.supportsNativeShadowDOM = function () {
-        return typeof ((this.defaultDoc().body)).createShadowRoot === 'function';
+        return typeof ((document.body)).createShadowRoot === 'function';
     };
     /**
      * @return {?}

@@ -10,7 +10,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-import { Injectable, SecurityContext } from '@angular/core';
+import { Inject, Injectable, SecurityContext } from '@angular/core';
+import { DOCUMENT } from '../dom/dom_tokens';
 import { sanitizeHtml } from './html_sanitizer';
 import { sanitizeStyle } from './style_sanitizer';
 import { sanitizeUrl } from './url_sanitizer';
@@ -122,8 +123,13 @@ var DomSanitizer = (function () {
 export { DomSanitizer };
 var DomSanitizerImpl = (function (_super) {
     __extends(DomSanitizerImpl, _super);
-    function DomSanitizerImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    /**
+     * @param {?} _doc
+     */
+    function DomSanitizerImpl(_doc) {
+        var _this = _super.call(this) || this;
+        _this._doc = _doc;
+        return _this;
     }
     /**
      * @param {?} ctx
@@ -140,7 +146,7 @@ var DomSanitizerImpl = (function (_super) {
                 if (value instanceof SafeHtmlImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'HTML');
-                return sanitizeHtml(String(value));
+                return sanitizeHtml(this._doc, String(value));
             case SecurityContext.STYLE:
                 if (value instanceof SafeStyleImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -213,7 +219,9 @@ DomSanitizerImpl.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-DomSanitizerImpl.ctorParameters = function () { return []; };
+DomSanitizerImpl.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+]; };
 function DomSanitizerImpl_tsickle_Closure_declarations() {
     /** @type {?} */
     DomSanitizerImpl.decorators;
@@ -222,6 +230,8 @@ function DomSanitizerImpl_tsickle_Closure_declarations() {
      * @type {?}
      */
     DomSanitizerImpl.ctorParameters;
+    /** @type {?} */
+    DomSanitizerImpl.prototype._doc;
 }
 /**
  * @abstract

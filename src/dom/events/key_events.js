@@ -10,8 +10,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { getDOM } from '../dom_adapter';
+import { DOCUMENT } from '../dom_tokens';
 import { EventManagerPlugin } from './event_manager';
 var /** @type {?} */ MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
 var /** @type {?} */ MODIFIER_KEY_GETTERS = {
@@ -25,8 +26,11 @@ var /** @type {?} */ MODIFIER_KEY_GETTERS = {
  */
 var KeyEventsPlugin = (function (_super) {
     __extends(KeyEventsPlugin, _super);
-    function KeyEventsPlugin() {
-        return _super.call(this) || this;
+    /**
+     * @param {?} doc
+     */
+    function KeyEventsPlugin(doc) {
+        return _super.call(this, doc) || this;
     }
     /**
      * @param {?} eventName
@@ -134,7 +138,9 @@ KeyEventsPlugin.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-KeyEventsPlugin.ctorParameters = function () { return []; };
+KeyEventsPlugin.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+]; };
 function KeyEventsPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     KeyEventsPlugin.decorators;

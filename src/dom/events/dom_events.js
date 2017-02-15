@@ -10,12 +10,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '../dom_tokens';
 import { EventManagerPlugin } from './event_manager';
 var DomEventsPlugin = (function (_super) {
     __extends(DomEventsPlugin, _super);
-    function DomEventsPlugin() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    /**
+     * @param {?} doc
+     */
+    function DomEventsPlugin(doc) {
+        return _super.call(this, doc) || this;
     }
     /**
      * @param {?} eventName
@@ -39,7 +43,9 @@ DomEventsPlugin.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-DomEventsPlugin.ctorParameters = function () { return []; };
+DomEventsPlugin.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+]; };
 function DomEventsPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     DomEventsPlugin.decorators;

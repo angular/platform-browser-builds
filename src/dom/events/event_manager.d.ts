@@ -23,6 +23,8 @@ export declare class EventManager {
     getZone(): NgZone;
 }
 export declare abstract class EventManagerPlugin {
+    private _doc;
+    constructor(_doc: any);
     manager: EventManager;
     abstract supports(eventName: string): boolean;
     abstract addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;

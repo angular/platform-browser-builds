@@ -1,4 +1,3 @@
-import { DomAdapter } from '../dom/dom_adapter';
 /**
  * Represents a meta element.
  *
@@ -23,8 +22,9 @@ export declare type MetaDefinition = {
  * @experimental
  */
 export declare class Meta {
+    private _doc;
     private _dom;
-    constructor(_dom: DomAdapter);
+    constructor(_doc: any);
     addTag(tag: MetaDefinition, forceCreation?: boolean): HTMLMetaElement;
     addTags(tags: MetaDefinition[], forceCreation?: boolean): HTMLMetaElement[];
     getTag(attrSelector: string): HTMLMetaElement;

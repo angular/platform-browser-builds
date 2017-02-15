@@ -100,7 +100,11 @@ function EventManager_tsickle_Closure_declarations() {
  * @abstract
  */
 var EventManagerPlugin = (function () {
-    function EventManagerPlugin() {
+    /**
+     * @param {?} _doc
+     */
+    function EventManagerPlugin(_doc) {
+        this._doc = _doc;
     }
     /**
      * @abstract
@@ -123,7 +127,7 @@ var EventManagerPlugin = (function () {
      * @return {?}
      */
     EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-        var /** @type {?} */ target = getDOM().getGlobalEventTarget(element);
+        var /** @type {?} */ target = getDOM().getGlobalEventTarget(this._doc, element);
         if (!target) {
             throw new Error("Unsupported event target " + target + " for event " + eventName);
         }
@@ -136,5 +140,7 @@ export { EventManagerPlugin };
 function EventManagerPlugin_tsickle_Closure_declarations() {
     /** @type {?} */
     EventManagerPlugin.prototype.manager;
+    /** @type {?} */
+    EventManagerPlugin.prototype._doc;
 }
 //# sourceMappingURL=event_manager.js.map

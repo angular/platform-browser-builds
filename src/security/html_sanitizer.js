@@ -253,10 +253,11 @@ function stripCustomNsAttrs(el) {
 /**
  * Sanitizes the given unsafe, untrusted HTML fragment, and returns HTML text that is safe to add to
  * the DOM in a browser environment.
+ * @param {?} defaultDoc
  * @param {?} unsafeHtmlInput
  * @return {?}
  */
-export function sanitizeHtml(unsafeHtmlInput) {
+export function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
     try {
         var /** @type {?} */ containerEl = getInertElement();
         // Make sure unsafeHtml is actually a string (TypeScript types are not enforced at runtime).
@@ -272,7 +273,7 @@ export function sanitizeHtml(unsafeHtmlInput) {
             mXSSAttempts--;
             unsafeHtml = parsedHtml;
             DOM.setInnerHTML(containerEl, unsafeHtml);
-            if (((DOM.defaultDoc())).documentMode) {
+            if (defaultDoc.documentMode) {
                 // strip custom-namespaced attributes on IE<=11
                 stripCustomNsAttrs(containerEl);
             }

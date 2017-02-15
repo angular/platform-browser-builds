@@ -5,8 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable } from '@angular/core';
-import { DomAdapter } from '../dom/dom_adapter';
+import { Inject, Injectable } from '@angular/core';
+import { getDOM } from '../dom/dom_adapter';
+import { DOCUMENT } from '../dom/dom_tokens';
 /**
  * A service that can be used to get and add meta tags.
  *
@@ -14,10 +15,11 @@ import { DomAdapter } from '../dom/dom_adapter';
  */
 var Meta = (function () {
     /**
-     * @param {?} _dom
+     * @param {?} _doc
      */
-    function Meta(_dom) {
-        this._dom = _dom;
+    function Meta(_doc) {
+        this._doc = _doc;
+        this._dom = getDOM();
     }
     /**
      * @param {?} tag
@@ -54,7 +56,7 @@ var Meta = (function () {
     Meta.prototype.getTag = function (attrSelector) {
         if (!attrSelector)
             return null;
-        return this._dom.query("meta[" + attrSelector + "]");
+        return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]");
     };
     /**
      * @param {?} attrSelector
@@ -63,7 +65,7 @@ var Meta = (function () {
     Meta.prototype.getTags = function (attrSelector) {
         if (!attrSelector)
             return [];
-        var /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._dom.defaultDoc(), "meta[" + attrSelector + "]");
+        var /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._doc, "meta[" + attrSelector + "]");
         return list ? [].slice.call(list) : [];
     };
     /**
@@ -113,7 +115,7 @@ var Meta = (function () {
         }
         var /** @type {?} */ element = (this._dom.createElement('meta'));
         this._setMetaElementAttributes(meta, element);
-        var /** @type {?} */ head = this._dom.getElementsByTagName(this._dom.defaultDoc(), 'head')[0];
+        var /** @type {?} */ head = this._dom.getElementsByTagName(this._doc, 'head')[0];
         this._dom.appendChild(head, element);
         return element;
     };
@@ -152,7 +154,7 @@ Meta.decorators = [
 ];
 /** @nocollapse */
 Meta.ctorParameters = function () { return [
-    { type: DomAdapter, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
 function Meta_tsickle_Closure_declarations() {
     /** @type {?} */
@@ -164,5 +166,7 @@ function Meta_tsickle_Closure_declarations() {
     Meta.ctorParameters;
     /** @type {?} */
     Meta.prototype._dom;
+    /** @type {?} */
+    Meta.prototype._doc;
 }
 //# sourceMappingURL=meta.js.map

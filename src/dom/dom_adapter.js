@@ -117,12 +117,6 @@ var DomAdapter = (function () {
     DomAdapter.prototype.parse = function (templateHtml) { };
     /**
      * @abstract
-     * @param {?} selector
-     * @return {?}
-     */
-    DomAdapter.prototype.query = function (selector) { };
-    /**
-     * @abstract
      * @param {?} el
      * @param {?} selector
      * @return {?}
@@ -593,26 +587,23 @@ var DomAdapter = (function () {
     DomAdapter.prototype.createHtmlDocument = function () { };
     /**
      * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.defaultDoc = function () { };
-    /**
-     * @abstract
      * @param {?} el
      * @return {?}
      */
     DomAdapter.prototype.getBoundingClientRect = function (el) { };
     /**
      * @abstract
+     * @param {?} doc
      * @return {?}
      */
-    DomAdapter.prototype.getTitle = function () { };
+    DomAdapter.prototype.getTitle = function (doc) { };
     /**
      * @abstract
+     * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    DomAdapter.prototype.setTitle = function (newTitle) { };
+    DomAdapter.prototype.setTitle = function (doc, newTitle) { };
     /**
      * @abstract
      * @param {?} n
@@ -700,10 +691,11 @@ var DomAdapter = (function () {
     DomAdapter.prototype.supportsNativeShadowDOM = function () { };
     /**
      * @abstract
+     * @param {?} doc
      * @param {?} target
      * @return {?}
      */
-    DomAdapter.prototype.getGlobalEventTarget = function (target) { };
+    DomAdapter.prototype.getGlobalEventTarget = function (doc, target) { };
     /**
      * @abstract
      * @return {?}
@@ -716,9 +708,10 @@ var DomAdapter = (function () {
     DomAdapter.prototype.getLocation = function () { };
     /**
      * @abstract
+     * @param {?} doc
      * @return {?}
      */
-    DomAdapter.prototype.getBaseHref = function () { };
+    DomAdapter.prototype.getBaseHref = function (doc) { };
     /**
      * @abstract
      * @return {?}

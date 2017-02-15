@@ -30,7 +30,7 @@ export declare class HammerGestureConfig {
 }
 export declare class HammerGesturesPlugin extends EventManagerPlugin {
     private _config;
-    constructor(_config: HammerGestureConfig);
+    constructor(doc: any, _config: HammerGestureConfig);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
