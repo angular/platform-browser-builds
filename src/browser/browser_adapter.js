@@ -319,25 +319,28 @@ export class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return node;
     }
     /**
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} node
      * @return {?}
      */
-    insertBefore(el, node) { el.parentNode.insertBefore(node, el); }
+    insertBefore(parent, ref, node) { parent.insertBefore(node, ref); }
     /**
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} nodes
      * @return {?}
      */
-    insertAllBefore(el, nodes) {
-        nodes.forEach((n) => el.parentNode.insertBefore(n, el));
+    insertAllBefore(parent, ref, nodes) {
+        nodes.forEach((n) => parent.insertBefore(n, ref));
     }
     /**
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} node
      * @return {?}
      */
-    insertAfter(el, node) { el.parentNode.insertBefore(node, el.nextSibling); }
+    insertAfter(parent, ref, node) { parent.insertBefore(node, ref.nextSibling); }
     /**
      * @param {?} el
      * @param {?} value

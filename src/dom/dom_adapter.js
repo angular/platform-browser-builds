@@ -45,7 +45,7 @@ export class DomAdapter {
      * @param {?} name
      * @return {?}
      */
-    hasProperty(element /** TODO #9100 */, name) { }
+    hasProperty(element, name) { }
     /**
      * @abstract
      * @param {?} el
@@ -117,14 +117,14 @@ export class DomAdapter {
      * @param {?} selector
      * @return {?}
      */
-    querySelector(el /** TODO #9100 */, selector) { }
+    querySelector(el, selector) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} selector
      * @return {?}
      */
-    querySelectorAll(el /** TODO #9100 */, selector) { }
+    querySelectorAll(el, selector) { }
     /**
      * @abstract
      * @param {?} el
@@ -132,7 +132,7 @@ export class DomAdapter {
      * @param {?} listener
      * @return {?}
      */
-    on(el /** TODO #9100 */, evt /** TODO #9100 */, listener) { }
+    on(el, evt, listener) { }
     /**
      * @abstract
      * @param {?} el
@@ -140,14 +140,14 @@ export class DomAdapter {
      * @param {?} listener
      * @return {?}
      */
-    onAndCancel(el /** TODO #9100 */, evt /** TODO #9100 */, listener) { }
+    onAndCancel(el, evt, listener) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} evt
      * @return {?}
      */
-    dispatchEvent(el /** TODO #9100 */, evt) { }
+    dispatchEvent(el, evt) { }
     /**
      * @abstract
      * @param {?} eventType
@@ -257,14 +257,14 @@ export class DomAdapter {
      * @param {?} node
      * @return {?}
      */
-    appendChild(el /** TODO #9100 */, node) { }
+    appendChild(el, node) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} node
      * @return {?}
      */
-    removeChild(el /** TODO #9100 */, node) { }
+    removeChild(el, node) { }
     /**
      * @abstract
      * @param {?} el
@@ -272,7 +272,7 @@ export class DomAdapter {
      * @param {?} oldNode
      * @return {?}
      */
-    replaceChild(el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode) { }
+    replaceChild(el, newNode, oldNode) { }
     /**
      * @abstract
      * @param {?} el
@@ -281,32 +281,35 @@ export class DomAdapter {
     remove(el) { }
     /**
      * @abstract
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} node
      * @return {?}
      */
-    insertBefore(el /** TODO #9100 */, node) { }
+    insertBefore(parent, ref, node) { }
     /**
      * @abstract
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} nodes
      * @return {?}
      */
-    insertAllBefore(el /** TODO #9100 */, nodes) { }
+    insertAllBefore(parent, ref, nodes) { }
     /**
      * @abstract
+     * @param {?} parent
      * @param {?} el
      * @param {?} node
      * @return {?}
      */
-    insertAfter(el /** TODO #9100 */, node) { }
+    insertAfter(parent, el, node) { }
     /**
      * @abstract
      * @param {?} el
      * @param {?} value
      * @return {?}
      */
-    setInnerHTML(el /** TODO #9100 */, value) { }
+    setInnerHTML(el, value) { }
     /**
      * @abstract
      * @param {?} el
@@ -319,7 +322,7 @@ export class DomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setText(el /** TODO #9100 */, value) { }
+    setText(el, value) { }
     /**
      * @abstract
      * @param {?} el
@@ -332,7 +335,7 @@ export class DomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setValue(el /** TODO #9100 */, value) { }
+    setValue(el, value) { }
     /**
      * @abstract
      * @param {?} el
@@ -345,7 +348,7 @@ export class DomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setChecked(el /** TODO #9100 */, value) { }
+    setChecked(el, value) { }
     /**
      * @abstract
      * @param {?} text
@@ -364,7 +367,7 @@ export class DomAdapter {
      * @param {?=} doc
      * @return {?}
      */
-    createElement(tagName /** TODO #9100 */, doc) { }
+    createElement(tagName, doc) { }
     /**
      * @abstract
      * @param {?} ns
@@ -431,14 +434,14 @@ export class DomAdapter {
      * @param {?} name
      * @return {?}
      */
-    getElementsByClassName(element /** TODO #9100 */, name) { }
+    getElementsByClassName(element, name) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
-    getElementsByTagName(element /** TODO #9100 */, name) { }
+    getElementsByTagName(element, name) { }
     /**
      * @abstract
      * @param {?} element
@@ -451,21 +454,21 @@ export class DomAdapter {
      * @param {?} className
      * @return {?}
      */
-    addClass(element /** TODO #9100 */, className) { }
+    addClass(element, className) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} className
      * @return {?}
      */
-    removeClass(element /** TODO #9100 */, className) { }
+    removeClass(element, className) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} className
      * @return {?}
      */
-    hasClass(element /** TODO #9100 */, className) { }
+    hasClass(element, className) { }
     /**
      * @abstract
      * @param {?} element
@@ -473,21 +476,21 @@ export class DomAdapter {
      * @param {?} styleValue
      * @return {?}
      */
-    setStyle(element /** TODO #9100 */, styleName, styleValue) { }
+    setStyle(element, styleName, styleValue) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} styleName
      * @return {?}
      */
-    removeStyle(element /** TODO #9100 */, styleName) { }
+    removeStyle(element, styleName) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} styleName
      * @return {?}
      */
-    getStyle(element /** TODO #9100 */, styleName) { }
+    getStyle(element, styleName) { }
     /**
      * @abstract
      * @param {?} element
@@ -495,7 +498,7 @@ export class DomAdapter {
      * @param {?=} styleValue
      * @return {?}
      */
-    hasStyle(element /** TODO #9100 */, styleName, styleValue) { }
+    hasStyle(element, styleName, styleValue) { }
     /**
      * @abstract
      * @param {?} element
@@ -514,7 +517,7 @@ export class DomAdapter {
      * @param {?} attribute
      * @return {?}
      */
-    hasAttribute(element /** TODO #9100 */, attribute) { }
+    hasAttribute(element, attribute) { }
     /**
      * @abstract
      * @param {?} element
@@ -522,14 +525,14 @@ export class DomAdapter {
      * @param {?} attribute
      * @return {?}
      */
-    hasAttributeNS(element /** TODO #9100 */, ns, attribute) { }
+    hasAttributeNS(element, ns, attribute) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    getAttribute(element /** TODO #9100 */, attribute) { }
+    getAttribute(element, attribute) { }
     /**
      * @abstract
      * @param {?} element
@@ -537,7 +540,7 @@ export class DomAdapter {
      * @param {?} attribute
      * @return {?}
      */
-    getAttributeNS(element /** TODO #9100 */, ns, attribute) { }
+    getAttributeNS(element, ns, attribute) { }
     /**
      * @abstract
      * @param {?} element
@@ -545,7 +548,7 @@ export class DomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setAttribute(element /** TODO #9100 */, name, value) { }
+    setAttribute(element, name, value) { }
     /**
      * @abstract
      * @param {?} element
@@ -554,14 +557,14 @@ export class DomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setAttributeNS(element /** TODO #9100 */, ns, name, value) { }
+    setAttributeNS(element, ns, name, value) { }
     /**
      * @abstract
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    removeAttribute(element /** TODO #9100 */, attribute) { }
+    removeAttribute(element, attribute) { }
     /**
      * @abstract
      * @param {?} element
@@ -569,7 +572,7 @@ export class DomAdapter {
      * @param {?} attribute
      * @return {?}
      */
-    removeAttributeNS(element /** TODO #9100 */, ns, attribute) { }
+    removeAttributeNS(element, ns, attribute) { }
     /**
      * @abstract
      * @param {?} el
@@ -606,7 +609,7 @@ export class DomAdapter {
      * @param {?} selector
      * @return {?}
      */
-    elementMatches(n /** TODO #9100 */, selector) { }
+    elementMatches(n, selector) { }
     /**
      * @abstract
      * @param {?} el
@@ -674,7 +677,7 @@ export class DomAdapter {
      * @param {?} href
      * @return {?}
      */
-    resolveAndSetHref(element /** TODO #9100 */, baseUrl, href) { }
+    resolveAndSetHref(element, baseUrl, href) { }
     /**
      * @abstract
      * @return {?}
@@ -725,7 +728,7 @@ export class DomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setData(element /** TODO #9100 */, name, value) { }
+    setData(element, name, value) { }
     /**
      * @abstract
      * @param {?} element
@@ -738,7 +741,7 @@ export class DomAdapter {
      * @param {?} name
      * @return {?}
      */
-    getData(element /** TODO #9100 */, name) { }
+    getData(element, name) { }
     /**
      * @abstract
      * @param {?} name

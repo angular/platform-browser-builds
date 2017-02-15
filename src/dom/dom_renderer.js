@@ -360,7 +360,7 @@ export class DomRenderer {
         else {
             // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
             if (propertyName[propertyName.length - 1] === '$') {
-                const /** @type {?} */ attrNode = (createAttrNode(propertyName).cloneNode(true));
+                const /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
                 attrNode.value = propertyValue;
                 renderElement.setAttributeNode(attrNode);
             }
@@ -550,19 +550,249 @@ let /** @type {?} */ attrCache;
  * @param {?} name
  * @return {?}
  */
-function createAttrNode(name) {
+function createAttributeNode(name) {
     if (!attrCache) {
         attrCache = new Map();
     }
     if (attrCache.has(name)) {
         return attrCache.get(name);
     }
-    else {
-        const /** @type {?} */ div = document.createElement('div');
-        div.innerHTML = `<div ${name}>`;
-        const /** @type {?} */ attr = div.firstChild.attributes[0];
-        attrCache.set(name, attr);
-        return attr;
+    const /** @type {?} */ div = document.createElement('div');
+    div.innerHTML = `<div ${name}>`;
+    const /** @type {?} */ attr = div.firstChild.attributes[0];
+    attrCache.set(name, attr);
+    return attr;
+}
+export class DomRendererV2 {
+    /**
+     * @param {?} eventManager
+     */
+    constructor(eventManager) {
+        this.eventManager = eventManager;
     }
+    ;
+    /**
+     * @param {?} name
+     * @param {?=} namespace
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    createElement(name, namespace, debugInfo) {
+        if (namespace) {
+            return document.createElementNS(NAMESPACE_URIS[namespace], name);
+        }
+        return document.createElement(name);
+    }
+    /**
+     * @param {?} value
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    createComment(value, debugInfo) { return document.createComment(value); }
+    /**
+     * @param {?} value
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    createText(value, debugInfo) { return document.createTextNode(value); }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    appendChild(parent, newChild) { parent.appendChild(newChild); }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    insertBefore(parent, newChild, refChild) {
+        if (parent) {
+            parent.insertBefore(newChild, refChild);
+        }
+    }
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    removeChild(parent, oldChild) { parent.removeChild(oldChild); }
+    /**
+     * @param {?} selectorOrNode
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    selectRootElement(selectorOrNode, debugInfo) {
+        let /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
+            selectorOrNode;
+        el.textContent = '';
+        return el;
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    parentNode(node) { return node.parentNode; }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    nextSibling(node) { return node.nextSibling; }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @param {?=} namespace
+     * @return {?}
+     */
+    setAttribute(el, name, value, namespace) {
+        if (namespace) {
+            el.setAttributeNS(NAMESPACE_URIS[namespace], namespace + ':' + name, value);
+        }
+        else {
+            el.setAttribute(name, value);
+        }
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    removeAttribute(el, name, namespace) {
+        if (namespace) {
+            el.removeAttributeNS(NAMESPACE_URIS[namespace], name);
+        }
+        else {
+            el.removeAttribute(name);
+        }
+    }
+    /**
+     * @param {?} el
+     * @param {?} propertyName
+     * @param {?} propertyValue
+     * @return {?}
+     */
+    setBindingDebugInfo(el, propertyName, propertyValue) {
+        if (el.nodeType === Node.COMMENT_NODE) {
+            const /** @type {?} */ m = el.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+            const /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+            obj[propertyName] = propertyValue;
+            el.nodeValue = TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2));
+        }
+        else {
+            // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
+            if (propertyName[propertyName.length - 1] === '$') {
+                const /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
+                attrNode.value = propertyValue;
+                el.setAttributeNode(attrNode);
+            }
+            else {
+                this.setAttribute(el, propertyName, propertyValue);
+            }
+        }
+    }
+    /**
+     * @param {?} el
+     * @param {?} propertyName
+     * @return {?}
+     */
+    removeBindingDebugInfo(el, propertyName) {
+        if (el.nodeType === Node.COMMENT_NODE) {
+            const /** @type {?} */ m = el.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+            const /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+            delete obj[propertyName];
+            el.nodeValue = TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2));
+        }
+        else {
+            // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
+            if (propertyName[propertyName.length - 1] === '$') {
+                const /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
+                attrNode.value = '';
+                el.setAttributeNode(attrNode);
+            }
+            else {
+                this.removeAttribute(el, propertyName);
+            }
+        }
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    addClass(el, name) { el.classList.add(name); }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    removeClass(el, name) { el.classList.remove(name); }
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} value
+     * @param {?} hasVendorPrefix
+     * @param {?} hasImportant
+     * @return {?}
+     */
+    setStyle(el, style, value, hasVendorPrefix, hasImportant) {
+        el.style[style] = value;
+    }
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} hasVendorPrefix
+     * @return {?}
+     */
+    removeStyle(el, style, hasVendorPrefix) {
+        // IE requires '' instead of null
+        // see https://github.com/angular/angular/issues/7916
+        el.style[style] = '';
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    setProperty(el, name, value) { el[name] = value; }
+    /**
+     * @param {?} node
+     * @param {?} value
+     * @return {?}
+     */
+    setText(node, value) { node.nodeValue = value; }
+    /**
+     * @param {?} target
+     * @param {?} event
+     * @param {?} callback
+     * @return {?}
+     */
+    listen(target, event, callback) {
+        if (typeof target === 'string') {
+            return (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
+        }
+        return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
+    }
+}
+DomRendererV2.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+DomRendererV2.ctorParameters = () => [
+    { type: EventManager, },
+];
+function DomRendererV2_tsickle_Closure_declarations() {
+    /** @type {?} */
+    DomRendererV2.decorators;
+    /**
+     * @nocollapse
+     * @type {?}
+     */
+    DomRendererV2.ctorParameters;
+    /** @type {?} */
+    DomRendererV2.prototype.eventManager;
 }
 //# sourceMappingURL=dom_renderer.js.map

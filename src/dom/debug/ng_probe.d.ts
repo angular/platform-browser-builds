@@ -22,6 +22,7 @@ export declare class NgProbeToken {
     constructor(name: string, token: any);
 }
 export declare function _createConditionalRootRenderer(rootRenderer: any, extraTokens: NgProbeToken[], coreTokens: core.NgProbeToken[]): any;
+export declare function _createDebugRendererV2(renderer: core.RendererV2): core.RendererV2;
 /**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
