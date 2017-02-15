@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.7-e9ba7aa
+ * @license Angular v4.0.0-beta.7-4e7752a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3536,7 +3536,11 @@
          * @param {?} oldChild
          * @return {?}
          */
-        DomRendererV2.prototype.removeChild = function (parent, oldChild) { parent.removeChild(oldChild); };
+        DomRendererV2.prototype.removeChild = function (parent, oldChild) {
+            if (parent) {
+                parent.removeChild(oldChild);
+            }
+        };
         /**
          * @param {?} selectorOrNode
          * @param {?=} debugInfo
@@ -5139,7 +5143,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.7-e9ba7aa');
+    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.7-4e7752a');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;

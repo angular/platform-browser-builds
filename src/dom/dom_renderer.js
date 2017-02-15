@@ -630,7 +630,11 @@ var DomRendererV2 = (function () {
      * @param {?} oldChild
      * @return {?}
      */
-    DomRendererV2.prototype.removeChild = function (parent, oldChild) { parent.removeChild(oldChild); };
+    DomRendererV2.prototype.removeChild = function (parent, oldChild) {
+        if (parent) {
+            parent.removeChild(oldChild);
+        }
+    };
     /**
      * @param {?} selectorOrNode
      * @param {?=} debugInfo
