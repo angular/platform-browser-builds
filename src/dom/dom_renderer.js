@@ -359,14 +359,8 @@ export class DomRenderer {
         }
         else {
             // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
-            if (propertyName[propertyName.length - 1] === '$') {
-                const /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
-                attrNode.value = propertyValue;
-                renderElement.setAttributeNode(attrNode);
-            }
-            else {
-                this.setElementAttribute(renderElement, propertyName, propertyValue);
-            }
+            propertyName = propertyName.replace(/\$/g, '_');
+            this.setElementAttribute(renderElement, propertyName, propertyValue);
         }
     }
     /**
@@ -563,21 +557,92 @@ function createAttributeNode(name) {
     attrCache.set(name, attr);
     return attr;
 }
-export class DomRendererV2 {
+export class DomRendererFactoryV2 {
+    /**
+     * @param {?} eventManager
+     * @param {?} sharedStylesHost
+     */
+    constructor(eventManager, sharedStylesHost) {
+        this.eventManager = eventManager;
+        this.sharedStylesHost = sharedStylesHost;
+        this.rendererByCompId = new Map();
+        this.defaultRenderer = new DefaultDomRendererV2(eventManager);
+    }
+    ;
+    /**
+     * @param {?} element
+     * @param {?} type
+     * @return {?}
+     */
+    createRenderer(element, type) {
+        if (!element || !type) {
+            return this.defaultRenderer;
+        }
+        switch (type.encapsulation) {
+            case ViewEncapsulation.Emulated: {
+                let /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
+                if (!renderer) {
+                    renderer = new EmulatedEncapsulationDomRendererV2(this.eventManager, this.sharedStylesHost, type);
+                    this.rendererByCompId.set(type.id, renderer);
+                }
+                ((renderer)).applyToHost(element);
+                return renderer;
+            }
+            case ViewEncapsulation.Native:
+                return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
+            default: {
+                if (!this.rendererByCompId.has(type.id)) {
+                    const /** @type {?} */ styles = flattenStyles(type.id, type.styles, []);
+                    this.sharedStylesHost.addStyles(styles);
+                    this.rendererByCompId.set(type.id, this.defaultRenderer);
+                }
+                return this.defaultRenderer;
+            }
+        }
+    }
+}
+DomRendererFactoryV2.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+DomRendererFactoryV2.ctorParameters = () => [
+    { type: EventManager, },
+    { type: DomSharedStylesHost, },
+];
+function DomRendererFactoryV2_tsickle_Closure_declarations() {
+    /** @type {?} */
+    DomRendererFactoryV2.decorators;
+    /**
+     * @nocollapse
+     * @type {?}
+     */
+    DomRendererFactoryV2.ctorParameters;
+    /** @type {?} */
+    DomRendererFactoryV2.prototype.rendererByCompId;
+    /** @type {?} */
+    DomRendererFactoryV2.prototype.defaultRenderer;
+    /** @type {?} */
+    DomRendererFactoryV2.prototype.eventManager;
+    /** @type {?} */
+    DomRendererFactoryV2.prototype.sharedStylesHost;
+}
+class DefaultDomRendererV2 {
     /**
      * @param {?} eventManager
      */
     constructor(eventManager) {
         this.eventManager = eventManager;
     }
-    ;
+    /**
+     * @return {?}
+     */
+    destroy() { }
     /**
      * @param {?} name
      * @param {?=} namespace
-     * @param {?=} debugInfo
      * @return {?}
      */
-    createElement(name, namespace, debugInfo) {
+    createElement(name, namespace) {
         if (namespace) {
             return document.createElementNS(NAMESPACE_URIS[namespace], name);
         }
@@ -585,16 +650,14 @@ export class DomRendererV2 {
     }
     /**
      * @param {?} value
-     * @param {?=} debugInfo
      * @return {?}
      */
-    createComment(value, debugInfo) { return document.createComment(value); }
+    createComment(value) { return document.createComment(value); }
     /**
      * @param {?} value
-     * @param {?=} debugInfo
      * @return {?}
      */
-    createText(value, debugInfo) { return document.createTextNode(value); }
+    createText(value) { return document.createTextNode(value); }
     /**
      * @param {?} parent
      * @param {?} newChild
@@ -624,10 +687,9 @@ export class DomRendererV2 {
     }
     /**
      * @param {?} selectorOrNode
-     * @param {?=} debugInfo
      * @return {?}
      */
-    selectRootElement(selectorOrNode, debugInfo) {
+    selectRootElement(selectorOrNode) {
         let /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
             selectorOrNode;
         el.textContent = '';
@@ -670,55 +732,6 @@ export class DomRendererV2 {
         }
         else {
             el.removeAttribute(name);
-        }
-    }
-    /**
-     * @param {?} el
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */
-    setBindingDebugInfo(el, propertyName, propertyValue) {
-        if (el.nodeType === Node.COMMENT_NODE) {
-            const /** @type {?} */ m = el.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
-            const /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
-            obj[propertyName] = propertyValue;
-            el.nodeValue = TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2));
-        }
-        else {
-            // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
-            if (propertyName[propertyName.length - 1] === '$') {
-                const /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
-                attrNode.value = propertyValue;
-                el.setAttributeNode(attrNode);
-            }
-            else {
-                this.setAttribute(el, propertyName, propertyValue);
-            }
-        }
-    }
-    /**
-     * @param {?} el
-     * @param {?} propertyName
-     * @return {?}
-     */
-    removeBindingDebugInfo(el, propertyName) {
-        if (el.nodeType === Node.COMMENT_NODE) {
-            const /** @type {?} */ m = el.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
-            const /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
-            delete obj[propertyName];
-            el.nodeValue = TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2));
-        }
-        else {
-            // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
-            if (propertyName[propertyName.length - 1] === '$') {
-                const /** @type {?} */ attrNode = (createAttributeNode(propertyName).cloneNode(true));
-                attrNode.value = '';
-                el.setAttributeNode(attrNode);
-            }
-            else {
-                this.removeAttribute(el, propertyName);
-            }
         }
     }
     /**
@@ -767,7 +780,7 @@ export class DomRendererV2 {
      * @param {?} value
      * @return {?}
      */
-    setText(node, value) { node.nodeValue = value; }
+    setValue(node, value) { node.nodeValue = value; }
     /**
      * @param {?} target
      * @param {?} event
@@ -781,22 +794,121 @@ export class DomRendererV2 {
         return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
     }
 }
-DomRendererV2.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-DomRendererV2.ctorParameters = () => [
-    { type: EventManager, },
-];
-function DomRendererV2_tsickle_Closure_declarations() {
+function DefaultDomRendererV2_tsickle_Closure_declarations() {
     /** @type {?} */
-    DomRendererV2.decorators;
+    DefaultDomRendererV2.prototype.destroyNode;
+    /** @type {?} */
+    DefaultDomRendererV2.prototype.eventManager;
+}
+class EmulatedEncapsulationDomRendererV2 extends DefaultDomRendererV2 {
     /**
-     * @nocollapse
-     * @type {?}
+     * @param {?} eventManager
+     * @param {?} sharedStylesHost
+     * @param {?} component
      */
-    DomRendererV2.ctorParameters;
+    constructor(eventManager, sharedStylesHost, component) {
+        super(eventManager);
+        this.component = component;
+        const styles = flattenStyles(component.id, component.styles, []);
+        sharedStylesHost.addStyles(styles);
+        this.contentAttr = shimContentAttribute(component.id);
+        this.hostAttr = shimHostAttribute(component.id);
+    }
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    applyToHost(element) { super.setAttribute(element, this.hostAttr, ''); }
+    /**
+     * @param {?} parent
+     * @param {?} name
+     * @return {?}
+     */
+    createElement(parent, name) {
+        const /** @type {?} */ el = super.createElement(parent, name);
+        super.setAttribute(el, this.contentAttr, '');
+        return el;
+    }
+}
+function EmulatedEncapsulationDomRendererV2_tsickle_Closure_declarations() {
     /** @type {?} */
-    DomRendererV2.prototype.eventManager;
+    EmulatedEncapsulationDomRendererV2.prototype.contentAttr;
+    /** @type {?} */
+    EmulatedEncapsulationDomRendererV2.prototype.hostAttr;
+    /** @type {?} */
+    EmulatedEncapsulationDomRendererV2.prototype.component;
+}
+class ShadowDomRenderer extends DefaultDomRendererV2 {
+    /**
+     * @param {?} eventManager
+     * @param {?} sharedStylesHost
+     * @param {?} hostEl
+     * @param {?} component
+     */
+    constructor(eventManager, sharedStylesHost, hostEl, component) {
+        super(eventManager);
+        this.sharedStylesHost = sharedStylesHost;
+        this.hostEl = hostEl;
+        this.component = component;
+        this.shadowRoot = hostEl.createShadowRoot();
+        this.sharedStylesHost.addHost(this.shadowRoot);
+        const styles = flattenStyles(component.id, component.styles, []);
+        for (let i = 0; i < styles.length; i++) {
+            const styleEl = document.createElement('style');
+            styleEl.textContent = styles[i];
+            this.shadowRoot.appendChild(styleEl);
+        }
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    nodeOrShadowRoot(node) { return node === this.hostEl ? this.shadowRoot : node; }
+    /**
+     * @return {?}
+     */
+    destroy() { this.sharedStylesHost.removeHost(this.shadowRoot); }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    appendChild(parent, newChild) {
+        return super.appendChild(this.nodeOrShadowRoot(parent), newChild);
+    }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    insertBefore(parent, newChild, refChild) {
+        return super.insertBefore(this.nodeOrShadowRoot(parent), newChild, refChild);
+    }
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    removeChild(parent, oldChild) {
+        return super.removeChild(this.nodeOrShadowRoot(parent), oldChild);
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    parentNode(node) {
+        return this.nodeOrShadowRoot(super.parentNode(this.nodeOrShadowRoot(node)));
+    }
+}
+function ShadowDomRenderer_tsickle_Closure_declarations() {
+    /** @type {?} */
+    ShadowDomRenderer.prototype.shadowRoot;
+    /** @type {?} */
+    ShadowDomRenderer.prototype.sharedStylesHost;
+    /** @type {?} */
+    ShadowDomRenderer.prototype.hostEl;
+    /** @type {?} */
+    ShadowDomRenderer.prototype.component;
 }
 //# sourceMappingURL=dom_renderer.js.map

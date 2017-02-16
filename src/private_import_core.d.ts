@@ -12,8 +12,6 @@ export declare type DirectRenderer = typeof r._DirectRenderer;
 export declare const ReflectionCapabilities: typeof r.ReflectionCapabilities;
 export declare type DebugDomRootRenderer = typeof r._DebugDomRootRenderer;
 export declare const DebugDomRootRenderer: typeof r.DebugDomRootRenderer;
-export declare type DebugDomRendererV2 = typeof r._DebugDomRendererV2;
-export declare const DebugDomRendererV2: typeof r.DebugDomRendererV2;
 export declare const reflector: typeof r.reflector;
 export declare type NoOpAnimationPlayer = typeof r._NoOpAnimationPlayer;
 export declare const NoOpAnimationPlayer: typeof r.NoOpAnimationPlayer;
