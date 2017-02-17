@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.4.7-7c87c52
+ * @license Angular v2.4.7-612950b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2965,7 +2965,6 @@
             var /** @type {?} */ nodesParent;
             if (this.componentProto.encapsulation === core.ViewEncapsulation.Native) {
                 nodesParent = ((hostElement)).createShadowRoot();
-                this._rootRenderer.sharedStylesHost.addHost(nodesParent);
                 for (var /** @type {?} */ i = 0; i < this._styles.length; i++) {
                     var /** @type {?} */ styleEl = document.createElement('style');
                     styleEl.textContent = this._styles[i];
@@ -4673,7 +4672,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('2.4.7-7c87c52');
+    var /** @type {?} */ VERSION = new core.Version('2.4.7-612950b');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
