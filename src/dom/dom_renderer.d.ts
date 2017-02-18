@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentRenderTypeV2, RenderComponentType, Renderer, RendererFactoryV2, RendererV2, RootRenderer } from '@angular/core';
+import { RenderComponentType, Renderer, RendererFactoryV2, RendererTypeV2, RendererV2, RootRenderer } from '@angular/core';
 import { AnimationKeyframe, AnimationPlayer, AnimationStyles, DirectRenderer, RenderDebugInfo } from '../private_import_core';
 import { AnimationDriver } from './animation_driver';
 import { EventManager } from './events/event_manager';
@@ -70,5 +70,5 @@ export declare class DomRendererFactoryV2 implements RendererFactoryV2 {
     private rendererByCompId;
     private defaultRenderer;
     constructor(eventManager: EventManager, sharedStylesHost: DomSharedStylesHost);
-    createRenderer(element: any, type: ComponentRenderTypeV2): RendererV2;
+    createRenderer(element: any, type: RendererTypeV2): RendererV2;
 }

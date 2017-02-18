@@ -217,6 +217,7 @@ var DomRenderer = (function () {
         var /** @type {?} */ nodesParent;
         if (this.componentProto.encapsulation === ViewEncapsulation.Native) {
             nodesParent = ((hostElement)).createShadowRoot();
+            this._rootRenderer.sharedStylesHost.addHost(nodesParent);
             for (var /** @type {?} */ i = 0; i < this._styles.length; i++) {
                 var /** @type {?} */ styleEl = document.createElement('style');
                 styleEl.textContent = this._styles[i];
@@ -707,6 +708,9 @@ var DefaultDomRendererV2 = (function () {
     DefaultDomRendererV2.prototype.selectRootElement = function (selectorOrNode) {
         var /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
             selectorOrNode;
+        if (!el) {
+            throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
+        }
         el.textContent = '';
         return el;
     };
@@ -770,7 +774,12 @@ var DefaultDomRendererV2 = (function () {
      * @return {?}
      */
     DefaultDomRendererV2.prototype.setStyle = function (el, style, value, hasVendorPrefix, hasImportant) {
-        el.style[style] = value;
+        if (hasVendorPrefix || hasImportant) {
+            el.style.setProperty(style, value, hasImportant ? 'important' : '');
+        }
+        else {
+            el.style[style] = value;
+        }
     };
     /**
      * @param {?} el
@@ -779,9 +788,14 @@ var DefaultDomRendererV2 = (function () {
      * @return {?}
      */
     DefaultDomRendererV2.prototype.removeStyle = function (el, style, hasVendorPrefix) {
-        // IE requires '' instead of null
-        // see https://github.com/angular/angular/issues/7916
-        el.style[style] = '';
+        if (hasVendorPrefix) {
+            el.style.removeProperty(style);
+        }
+        else {
+            // IE requires '' instead of null
+            // see https://github.com/angular/angular/issues/7916
+            el.style[style] = '';
+        }
     };
     /**
      * @param {?} el
