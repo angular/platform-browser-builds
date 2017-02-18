@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { global } from '../../facade/lang';
-import { AngularTools } from './common_tools';
-const /** @type {?} */ context = (global);
+import { getDOM } from '../../dom/dom_adapter';
+import { AngularProfiler } from './common_tools';
+const /** @type {?} */ PROFILER_GLOBAL_NAME = 'ng.profiler';
 /**
  * Enabled Angular debug tools that are accessible via your browser's
  * developer console.
@@ -24,7 +24,7 @@ const /** @type {?} */ context = (global);
  * @return {?}
  */
 export function enableDebugTools(ref) {
-    ((Object)).assign(context.ng, new AngularTools(ref));
+    getDOM().setGlobalVar(PROFILER_GLOBAL_NAME, new AngularProfiler(ref));
     return ref;
 }
 /**
@@ -34,8 +34,6 @@ export function enableDebugTools(ref) {
  * @return {?}
  */
 export function disableDebugTools() {
-    if (context.ng) {
-        delete context.ng.profiler;
-    }
+    getDOM().setGlobalVar(PROFILER_GLOBAL_NAME, null);
 }
 //# sourceMappingURL=tools.js.map

@@ -207,6 +207,7 @@ export class DomRenderer {
         let /** @type {?} */ nodesParent;
         if (this.componentProto.encapsulation === ViewEncapsulation.Native) {
             nodesParent = ((hostElement)).createShadowRoot();
+            this._rootRenderer.sharedStylesHost.addHost(nodesParent);
             for (let /** @type {?} */ i = 0; i < this._styles.length; i++) {
                 const /** @type {?} */ styleEl = document.createElement('style');
                 styleEl.textContent = this._styles[i];
@@ -692,6 +693,9 @@ class DefaultDomRendererV2 {
     selectRootElement(selectorOrNode) {
         let /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
             selectorOrNode;
+        if (!el) {
+            throw new Error(`The selector "${selectorOrNode}" did not match any elements`);
+        }
         el.textContent = '';
         return el;
     }
@@ -755,7 +759,12 @@ class DefaultDomRendererV2 {
      * @return {?}
      */
     setStyle(el, style, value, hasVendorPrefix, hasImportant) {
-        el.style[style] = value;
+        if (hasVendorPrefix || hasImportant) {
+            el.style.setProperty(style, value, hasImportant ? 'important' : '');
+        }
+        else {
+            el.style[style] = value;
+        }
     }
     /**
      * @param {?} el
@@ -764,9 +773,14 @@ class DefaultDomRendererV2 {
      * @return {?}
      */
     removeStyle(el, style, hasVendorPrefix) {
-        // IE requires '' instead of null
-        // see https://github.com/angular/angular/issues/7916
-        el.style[style] = '';
+        if (hasVendorPrefix) {
+            el.style.removeProperty(style);
+        }
+        else {
+            // IE requires '' instead of null
+            // see https://github.com/angular/angular/issues/7916
+            el.style[style] = '';
+        }
     }
     /**
      * @param {?} el

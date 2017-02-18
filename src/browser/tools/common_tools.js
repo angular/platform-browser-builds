@@ -26,20 +26,6 @@ function ChangeDetectionPerfRecord_tsickle_Closure_declarations() {
     ChangeDetectionPerfRecord.prototype.numTicks;
 }
 /**
- * Entry point for all Angular debug tools. This object corresponds to the `ng`
- * global variable accessible in the dev console.
- */
-export class AngularTools {
-    /**
-     * @param {?} ref
-     */
-    constructor(ref) { this.profiler = new AngularProfiler(ref); }
-}
-function AngularTools_tsickle_Closure_declarations() {
-    /** @type {?} */
-    AngularTools.prototype.profiler;
-}
-/**
  * Entry point for all Angular profiling-related debug tools. This object
  * corresponds to the `ng.profiler` in the dev console.
  */
