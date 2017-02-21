@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-2ddd1c3
+ * @license Angular v4.0.0-beta.8-bb0460b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2967,7 +2967,8 @@
     var /** @type {?} */ NAMESPACE_URIS = {
         'xlink': 'http://www.w3.org/1999/xlink',
         'svg': 'http://www.w3.org/2000/svg',
-        'xhtml': 'http://www.w3.org/1999/xhtml'
+        'xhtml': 'http://www.w3.org/1999/xhtml',
+        'xml': 'http://www.w3.org/XML/1998/namespace'
     };
     var /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
     var /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
@@ -5201,7 +5202,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.8-2ddd1c3');
+    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.8-bb0460b');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
