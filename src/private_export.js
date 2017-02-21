@@ -26,6 +26,7 @@ export const /** @type {?} */ __platform_browser_private__ = {
     setRootDomAdapter: dom_adapter.setRootDomAdapter,
     DomRootRenderer_: dom_renderer.DomRootRenderer_,
     DomRootRenderer: dom_renderer.DomRootRenderer,
+    DomRendererFactoryV2: dom_renderer.DomRendererFactoryV2,
     NAMESPACE_URIS: dom_renderer.NAMESPACE_URIS,
     shimContentAttribute: dom_renderer.shimContentAttribute,
     shimHostAttribute: dom_renderer.shimHostAttribute,

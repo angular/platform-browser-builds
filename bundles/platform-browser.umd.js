@@ -5179,6 +5179,7 @@
         setRootDomAdapter: setRootDomAdapter,
         DomRootRenderer_: DomRootRenderer_,
         DomRootRenderer: DomRootRenderer,
+        DomRendererFactoryV2: DomRendererFactoryV2,
         NAMESPACE_URIS: NAMESPACE_URIS,
         shimContentAttribute: shimContentAttribute,
         shimHostAttribute: shimHostAttribute,
