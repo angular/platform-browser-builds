@@ -102,7 +102,7 @@ var BrowserDetection = (function () {
 }());
 export { BrowserDetection };
 BrowserDetection.setup();
-export function dispatchEvent(element /** TODO #9100 */, eventType /** TODO #9100 */) {
+export function dispatchEvent(element, eventType) {
     getDOM().dispatchEvent(element, getDOM().createEvent(eventType));
 }
 export function el(html) {

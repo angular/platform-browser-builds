@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-1bdf706
+ * @license Angular v4.0.0-beta.8-601fd3e
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -5179,6 +5179,7 @@
         setRootDomAdapter: setRootDomAdapter,
         DomRootRenderer_: DomRootRenderer_,
         DomRootRenderer: DomRootRenderer,
+        DomRendererFactoryV2: DomRendererFactoryV2,
         NAMESPACE_URIS: NAMESPACE_URIS,
         shimContentAttribute: shimContentAttribute,
         shimHostAttribute: shimHostAttribute,
@@ -5200,7 +5201,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.8-1bdf706');
+    var /** @type {?} */ VERSION = new core.Version('4.0.0-beta.8-601fd3e');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;

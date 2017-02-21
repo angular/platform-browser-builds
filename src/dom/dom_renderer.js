@@ -553,24 +553,6 @@ export function splitNamespace(name) {
     var /** @type {?} */ match = name.match(NS_PREFIX_RE);
     return [match[1], match[2]];
 }
-var /** @type {?} */ attrCache;
-/**
- * @param {?} name
- * @return {?}
- */
-function createAttributeNode(name) {
-    if (!attrCache) {
-        attrCache = new Map();
-    }
-    if (attrCache.has(name)) {
-        return attrCache.get(name);
-    }
-    var /** @type {?} */ div = document.createElement('div');
-    div.innerHTML = "<div " + name + ">";
-    var /** @type {?} */ attr = div.firstChild.attributes[0];
-    attrCache.set(name, attr);
-    return attr;
-}
 var DomRendererFactoryV2 = (function () {
     /**
      * @param {?} eventManager

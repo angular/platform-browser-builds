@@ -30,8 +30,8 @@ export declare const __platform_browser_private__: {
     setRootDomAdapter: typeof dom_adapter.setRootDomAdapter;
     _DomRootRenderer?: dom_renderer.DomRootRenderer;
     DomRootRenderer: typeof dom_renderer.DomRootRenderer;
-    _DomRootRenderer_?: dom_renderer.DomRootRenderer;
     DomRootRenderer_: typeof dom_renderer.DomRootRenderer_;
+    DomRendererFactoryV2: typeof dom_renderer.DomRendererFactoryV2;
     NAMESPACE_URIS: typeof dom_renderer.NAMESPACE_URIS;
     shimContentAttribute: typeof dom_renderer.shimContentAttribute;
     shimHostAttribute: typeof dom_renderer.shimHostAttribute;
