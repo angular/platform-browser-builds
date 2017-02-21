@@ -2967,7 +2967,8 @@
     var /** @type {?} */ NAMESPACE_URIS = {
         'xlink': 'http://www.w3.org/1999/xlink',
         'svg': 'http://www.w3.org/2000/svg',
-        'xhtml': 'http://www.w3.org/1999/xhtml'
+        'xhtml': 'http://www.w3.org/1999/xhtml',
+        'xml': 'http://www.w3.org/XML/1998/namespace'
     };
     var /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
     var /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
