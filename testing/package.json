@@ -1,1 +1,1 @@
-{"main": "../bundles/platform-browser-testing.umd.js"}
+{"typings": "../typings/testing/testing.d.ts", "main": "../bundles/platform-browser-testing.umd.js", "module": "../@angular/platform-browser/testing.es5.js", "es2015": "../@angular/platform-browser/testing.js"}
