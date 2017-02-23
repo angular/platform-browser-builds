@@ -1,4 +1,4 @@
-import { ErrorHandler, PlatformRef, Provider } from '@angular/core';
+import { ErrorHandler, ModuleWithProviders, PlatformRef, Provider } from '@angular/core';
 import { AnimationDriver } from '../src/dom/animation_driver';
 export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Provider[];
 /**
@@ -23,4 +23,14 @@ export declare function _resolveDefaultAnimationDriver(): AnimationDriver;
  */
 export declare class BrowserModule {
     constructor(parentModule: BrowserModule);
+    /**
+     * Configures a browser-based application to transition from a server-rendered app, if
+     * one is present on the page. The specified parameters must include an application id,
+     * which must match between the client and server applications.
+     *
+     * @experimental
+     */
+    static withServerTransition(params: {
+        appId: string;
+    }): ModuleWithProviders;
 }

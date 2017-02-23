@@ -1,10 +1,10 @@
 /**
- * @license Angular v4.0.0-beta.8-88755b0
+ * @license Angular v4.0.0-beta.8-88bc143
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { PlatformLocation, CommonModule } from '@angular/common';
-import { PLATFORM_INITIALIZER, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, ApplicationModule, Testability, RendererFactoryV2, RootRenderer, NgModule, SkipSelf, Optional, ɵNoOpAnimationPlayer, AUTO_STYLE, Injectable, Inject, InjectionToken, setTestabilityGetter, APP_ID, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
+import { PLATFORM_INITIALIZER, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, RootRenderer, NgModule, SkipSelf, Optional, ɵNoOpAnimationPlayer, AUTO_STYLE, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
 import * as core from '@angular/core';
 
 /**
@@ -2459,6 +2459,34 @@ Meta.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 
+/**
+ * An id that identifies a particular application being bootstrapped, that should
+ * match across the client/server boundary.
+ */
+const /** @type {?} */ TRANSITION_ID = new InjectionToken('TRANSITION_ID');
+/**
+ * @param {?} transitionId
+ * @param {?} document
+ * @return {?}
+ */
+function bootstrapListenerFactory(transitionId, document) {
+    const /** @type {?} */ factory = () => {
+        const /** @type {?} */ dom = getDOM();
+        const /** @type {?} */ styles = Array.prototype.slice.apply(dom.querySelectorAll(document, `style[ng-transition]`));
+        styles.filter(el => dom.getAttribute(el, 'ng-transition') === transitionId)
+            .forEach(el => dom.remove(el));
+    };
+    return factory;
+}
+const /** @type {?} */ SERVER_TRANSITION_PROVIDERS = [
+    {
+        provide: APP_INITIALIZER,
+        useFactory: bootstrapListenerFactory,
+        deps: [TRANSITION_ID, DOCUMENT],
+        multi: true
+    },
+];
+
 class BrowserGetTestability {
     /**
      * @return {?}
@@ -4697,6 +4725,25 @@ class BrowserModule {
             throw new Error(`BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.`);
         }
     }
+    /**
+     * Configures a browser-based application to transition from a server-rendered app, if
+     * one is present on the page. The specified parameters must include an application id,
+     * which must match between the client and server applications.
+     *
+     * \@experimental
+     * @param {?} params
+     * @return {?}
+     */
+    static withServerTransition(params) {
+        return {
+            ngModule: BrowserModule,
+            providers: [
+                { provide: APP_ID, useValue: params.appId },
+                { provide: TRANSITION_ID, useExisting: APP_ID },
+                SERVER_TRANSITION_PROVIDERS,
+            ],
+        };
+    }
 }
 BrowserModule.decorators = [
     { type: NgModule, args: [{
@@ -4884,6 +4931,6 @@ class By {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-88755b0');
+const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-88bc143');
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, AnimationDriver, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, DomRootRenderer as ɵDomRootRenderer, DomRootRenderer_ as ɵDomRootRenderer_, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, isNamespaced as ɵisNamespaced, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, splitNamespace as ɵsplitNamespace, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, WebAnimationsDriver as ɵWebAnimationsDriver, _document as ɵb, _resolveDefaultAnimationDriver as ɵc, errorHandler as ɵa, GenericBrowserDomAdapter as ɵg, _createConditionalRootRenderer as ɵd, EventManagerPlugin as ɵe, DomSanitizerImpl as ɵf };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, AnimationDriver, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, DomRootRenderer as ɵDomRootRenderer, DomRootRenderer_ as ɵDomRootRenderer_, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, isNamespaced as ɵisNamespaced, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, splitNamespace as ɵsplitNamespace, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, WebAnimationsDriver as ɵWebAnimationsDriver, _document as ɵb, _resolveDefaultAnimationDriver as ɵc, errorHandler as ɵa, GenericBrowserDomAdapter as ɵi, SERVER_TRANSITION_PROVIDERS as ɵh, bootstrapListenerFactory as ɵg, _createConditionalRootRenderer as ɵd, EventManagerPlugin as ɵe, DomSanitizerImpl as ɵf };

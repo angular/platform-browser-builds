@@ -17,7 +17,7 @@
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.ɵf = exports.ɵe = exports.ɵd = exports.ɵg = exports.ɵa = exports.ɵc = exports.ɵb = exports.ɵWebAnimationsDriver = exports.ɵSharedStylesHost = exports.ɵDomSharedStylesHost = exports.ɵKeyEventsPlugin = exports.ɵHammerGesturesPlugin = exports.ɵDomEventsPlugin = exports.ɵsplitNamespace = exports.ɵshimHostAttribute = exports.ɵshimContentAttribute = exports.ɵisNamespaced = exports.ɵflattenStyles = exports.ɵNAMESPACE_URIS = exports.ɵDomRootRenderer_ = exports.ɵDomRootRenderer = exports.ɵDomRendererFactoryV2 = exports.ɵsetRootDomAdapter = exports.ɵgetDOM = exports.ɵDomAdapter = exports.ɵELEMENT_PROBE_PROVIDERS = exports.ɵBrowserGetTestability = exports.ɵBrowserPlatformLocation = exports.ɵBrowserDomAdapter = exports.ɵinitDomAdapter = exports.ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS = exports.ɵBROWSER_SANITIZATION_PROVIDERS = exports.VERSION = exports.DomSanitizer = exports.HammerGestureConfig = exports.HAMMER_GESTURE_CONFIG = exports.EventManager = exports.EVENT_MANAGER_PLUGINS = exports.DOCUMENT = exports.NgProbeToken = exports.By = exports.AnimationDriver = exports.enableDebugTools = exports.disableDebugTools = exports.Title = exports.Meta = exports.platformBrowser = exports.BrowserModule = undefined;
+    exports.ɵf = exports.ɵe = exports.ɵd = exports.ɵg = exports.ɵh = exports.ɵi = exports.ɵa = exports.ɵc = exports.ɵb = exports.ɵWebAnimationsDriver = exports.ɵSharedStylesHost = exports.ɵDomSharedStylesHost = exports.ɵKeyEventsPlugin = exports.ɵHammerGesturesPlugin = exports.ɵDomEventsPlugin = exports.ɵsplitNamespace = exports.ɵshimHostAttribute = exports.ɵshimContentAttribute = exports.ɵisNamespaced = exports.ɵflattenStyles = exports.ɵNAMESPACE_URIS = exports.ɵDomRootRenderer_ = exports.ɵDomRootRenderer = exports.ɵDomRendererFactoryV2 = exports.ɵsetRootDomAdapter = exports.ɵgetDOM = exports.ɵDomAdapter = exports.ɵELEMENT_PROBE_PROVIDERS = exports.ɵBrowserGetTestability = exports.ɵTRANSITION_ID = exports.ɵBrowserPlatformLocation = exports.ɵBrowserDomAdapter = exports.ɵinitDomAdapter = exports.ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS = exports.ɵBROWSER_SANITIZATION_PROVIDERS = exports.VERSION = exports.DomSanitizer = exports.HammerGestureConfig = exports.HAMMER_GESTURE_CONFIG = exports.EventManager = exports.EVENT_MANAGER_PLUGINS = exports.DOCUMENT = exports.NgProbeToken = exports.By = exports.AnimationDriver = exports.enableDebugTools = exports.disableDebugTools = exports.Title = exports.Meta = exports.platformBrowser = exports.BrowserModule = undefined;
 
     var core = _interopRequireWildcard(_core);
 
@@ -2164,6 +2164,35 @@
     Meta.ctorParameters = function () {
         return [{ type: undefined, decorators: [{ type: _core.Inject, args: [DOCUMENT] }] }];
     };
+
+    /**
+     * An id that identifies a particular application being bootstrapped, that should
+     * match across the client/server boundary.
+     */
+    var /** @type {?} */TRANSITION_ID = new _core.InjectionToken('TRANSITION_ID');
+    /**
+     * @param {?} transitionId
+     * @param {?} document
+     * @return {?}
+     */
+    function bootstrapListenerFactory(transitionId, document) {
+        var /** @type {?} */factory = function factory() {
+            var /** @type {?} */dom = getDOM();
+            var /** @type {?} */styles = Array.prototype.slice.apply(dom.querySelectorAll(document, 'style[ng-transition]'));
+            styles.filter(function (el) {
+                return dom.getAttribute(el, 'ng-transition') === transitionId;
+            }).forEach(function (el) {
+                return dom.remove(el);
+            });
+        };
+        return factory;
+    }
+    var /** @type {?} */SERVER_TRANSITION_PROVIDERS = [{
+        provide: _core.APP_INITIALIZER,
+        useFactory: bootstrapListenerFactory,
+        deps: [TRANSITION_ID, DOCUMENT],
+        multi: true
+    }];
 
     var BrowserGetTestability = function () {
         function BrowserGetTestability() {
@@ -4551,17 +4580,40 @@
      * \@stable
      */
 
-    var BrowserModule =
-    /**
-     * @param {?} parentModule
-     */
-    function BrowserModule(parentModule) {
-        _classCallCheck(this, BrowserModule);
+    var BrowserModule = function () {
+        /**
+         * @param {?} parentModule
+         */
+        function BrowserModule(parentModule) {
+            _classCallCheck(this, BrowserModule);
 
-        if (parentModule) {
-            throw new Error('BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.');
+            if (parentModule) {
+                throw new Error('BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.');
+            }
         }
-    };
+        /**
+         * Configures a browser-based application to transition from a server-rendered app, if
+         * one is present on the page. The specified parameters must include an application id,
+         * which must match between the client and server applications.
+         *
+         * \@experimental
+         * @param {?} params
+         * @return {?}
+         */
+
+
+        _createClass(BrowserModule, null, [{
+            key: 'withServerTransition',
+            value: function withServerTransition(params) {
+                return {
+                    ngModule: BrowserModule,
+                    providers: [{ provide: _core.APP_ID, useValue: params.appId }, { provide: TRANSITION_ID, useExisting: _core.APP_ID }, SERVER_TRANSITION_PROVIDERS]
+                };
+            }
+        }]);
+
+        return BrowserModule;
+    }();
 
     BrowserModule.decorators = [{ type: _core.NgModule, args: [{
             providers: [BROWSER_SANITIZATION_PROVIDERS, { provide: _core.ErrorHandler, useFactory: errorHandler, deps: [] }, { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true }, { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true }, { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true }, { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig }, { provide: DomRootRenderer, useClass: DomRootRenderer_ }, { provide: _core.RootRenderer, useExisting: DomRootRenderer }, DomRendererFactoryV2, { provide: _core.RendererFactoryV2, useExisting: DomRendererFactoryV2 }, { provide: SharedStylesHost, useExisting: DomSharedStylesHost }, { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver }, DomSharedStylesHost, _core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS, Meta, Title],
@@ -4752,6 +4804,7 @@
     exports.ɵinitDomAdapter = initDomAdapter;
     exports.ɵBrowserDomAdapter = BrowserDomAdapter;
     exports.ɵBrowserPlatformLocation = BrowserPlatformLocation;
+    exports.ɵTRANSITION_ID = TRANSITION_ID;
     exports.ɵBrowserGetTestability = BrowserGetTestability;
     exports.ɵELEMENT_PROBE_PROVIDERS = ELEMENT_PROBE_PROVIDERS;
     exports.ɵDomAdapter = DomAdapter;
@@ -4775,7 +4828,9 @@
     exports.ɵb = _document;
     exports.ɵc = _resolveDefaultAnimationDriver;
     exports.ɵa = errorHandler;
-    exports.ɵg = GenericBrowserDomAdapter;
+    exports.ɵi = GenericBrowserDomAdapter;
+    exports.ɵh = SERVER_TRANSITION_PROVIDERS;
+    exports.ɵg = bootstrapListenerFactory;
     exports.ɵd = _createConditionalRootRenderer;
     exports.ɵe = EventManagerPlugin;
     exports.ɵf = DomSanitizerImpl;
