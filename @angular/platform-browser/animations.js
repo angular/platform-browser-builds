@@ -330,6 +330,7 @@ class AnimationRenderer {
      */
     appendChild(parent, newChild) {
         this._engine.onInsert(newChild, () => this.delegate.appendChild(parent, newChild));
+        this._queueFlush();
     }
     /**
      * @param {?} parent
@@ -339,6 +340,7 @@ class AnimationRenderer {
      */
     insertBefore(parent, newChild, refChild) {
         this._engine.onInsert(newChild, () => this.delegate.insertBefore(parent, newChild, refChild));
+        this._queueFlush();
     }
     /**
      * @param {?} parent
@@ -1436,8 +1438,21 @@ class DomAnimationEngine {
      * @return {?}
      */
     onRemove(element, domFn) {
-        element[MARKED_FOR_REMOVAL] = true;
-        this._queuedRemovals.set(element, domFn);
+        let /** @type {?} */ lookupRef = this._elementTriggerStates.get(element);
+        if (lookupRef) {
+            const /** @type {?} */ possibleTriggers = Object.keys(lookupRef);
+            const /** @type {?} */ hasRemoval = possibleTriggers.some(triggerName => {
+                const /** @type {?} */ oldValue = lookupRef[triggerName];
+                const /** @type {?} */ instruction = this._triggers[triggerName].matchTransition(oldValue, 'void');
+                return !!instruction;
+            });
+            if (hasRemoval) {
+                element[MARKED_FOR_REMOVAL] = true;
+                this._queuedRemovals.set(element, domFn);
+                return;
+            }
+        }
+        domFn();
     }
     /**
      * @param {?} element
@@ -1935,7 +1950,8 @@ class WebAnimationsPlayer {
             }
         }
         this._player = this._triggerWebAnimation(this.element, keyframes, this.options);
-        this._finalKeyframe = _copyKeyframeStyles(keyframes[keyframes.length - 1]);
+        this._finalKeyframe =
+            keyframes.length ? _copyKeyframeStyles(keyframes[keyframes.length - 1]) : {};
         // this is required so that the player doesn't start to animate right away
         this._resetDomPlayerState();
         this._player.addEventListener('finish', () => this._onFinish());
@@ -2253,12 +2269,7 @@ class NoopAnimationEngine extends AnimationEngine {
         }
         const /** @type {?} */ tuple = ({ triggerName: eventName, eventPhase, callback });
         listeners.push(tuple);
-        return () => {
-            const /** @type {?} */ index = listeners.indexOf(tuple);
-            if (index >= 0) {
-                listeners.splice(index, 1);
-            }
-        };
+        return () => tuple.doRemove = true;
     }
     /**
      * @return {?}
@@ -2306,6 +2317,16 @@ class NoopAnimationEngine extends AnimationEngine {
                         newValue: DEFAULT_STATE_VALUE
                     }));
                 });
+            }
+        });
+        // remove all the listeners after everything is complete
+        Array.from(this._listeners.keys()).forEach(element => {
+            const /** @type {?} */ listenersToKeep = this._listeners.get(element).filter(l => !l.doRemove);
+            if (listenersToKeep.length) {
+                this._listeners.set(element, listenersToKeep);
+            }
+            else {
+                this._listeners.delete(element);
             }
         });
         onStartCallbacks.forEach(fn => fn());
