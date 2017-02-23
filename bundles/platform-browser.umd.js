@@ -4534,7 +4534,7 @@
         return SafeResourceUrlImpl;
     }(SafeValueImpl);
 
-    var /** @type {?} */INTERNAL_BROWSER_PLATFORM_PROVIDERS = [{ provide: _core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true }, { provide: _common.PlatformLocation, useClass: BrowserPlatformLocation }, { provide: DOCUMENT, useFactory: _document, deps: [] }];
+    var /** @type {?} */INTERNAL_BROWSER_PLATFORM_PROVIDERS = [{ provide: _core.PLATFORM_ID, useValue: _common.ɵPLATFORM_BROWSER_ID }, { provide: _core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true }, { provide: _common.PlatformLocation, useClass: BrowserPlatformLocation }, { provide: DOCUMENT, useFactory: _document, deps: [] }];
     /**
      * @security Replacing built-in sanitization providers exposes the application to XSS risks.
      * Attacker-controlled data introduced by an unsanitized provider could expose your

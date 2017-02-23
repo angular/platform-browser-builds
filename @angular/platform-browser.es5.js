@@ -13,12 +13,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * @license Angular v4.0.0-beta.8-88bc143
+ * @license Angular v4.0.0-beta.8-a1d4769
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { PlatformLocation, CommonModule } from '@angular/common';
-import { PLATFORM_INITIALIZER, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, RootRenderer, NgModule, SkipSelf, Optional, ɵNoOpAnimationPlayer, AUTO_STYLE, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
+import { PlatformLocation, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, RootRenderer, NgModule, SkipSelf, Optional, ɵNoOpAnimationPlayer, AUTO_STYLE, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
 import * as core from '@angular/core';
 
 /**
@@ -6602,7 +6602,7 @@ var SafeResourceUrlImpl = function (_SafeValueImpl5) {
     return SafeResourceUrlImpl;
 }(SafeValueImpl);
 
-var /** @type {?} */INTERNAL_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true }, { provide: PlatformLocation, useClass: BrowserPlatformLocation }, { provide: DOCUMENT, useFactory: _document, deps: [] }];
+var /** @type {?} */INTERNAL_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID }, { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true }, { provide: PlatformLocation, useClass: BrowserPlatformLocation }, { provide: DOCUMENT, useFactory: _document, deps: [] }];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
@@ -6885,6 +6885,6 @@ var By = function () {
  */
 
 
-var /** @type {?} */VERSION = new Version('4.0.0-beta.8-88bc143');
+var /** @type {?} */VERSION = new Version('4.0.0-beta.8-a1d4769');
 
 export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, AnimationDriver, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, DomRootRenderer as ɵDomRootRenderer, DomRootRenderer_ as ɵDomRootRenderer_, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, isNamespaced as ɵisNamespaced, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, splitNamespace as ɵsplitNamespace, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, WebAnimationsDriver as ɵWebAnimationsDriver, _document as ɵb, _resolveDefaultAnimationDriver as ɵc, errorHandler as ɵa, GenericBrowserDomAdapter as ɵi, SERVER_TRANSITION_PROVIDERS as ɵh, bootstrapListenerFactory as ɵg, _createConditionalRootRenderer as ɵd, EventManagerPlugin as ɵe, DomSanitizerImpl as ɵf };
