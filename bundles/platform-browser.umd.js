@@ -2686,7 +2686,10 @@
         function DomRootRenderer_(_document, _eventManager, sharedStylesHost, animationDriver, appId) {
             _classCallCheck(this, DomRootRenderer_);
 
-            return _possibleConstructorReturn(this, (DomRootRenderer_.__proto__ || Object.getPrototypeOf(DomRootRenderer_)).call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId));
+            var _this15 = _possibleConstructorReturn(this, (DomRootRenderer_.__proto__ || Object.getPrototypeOf(DomRootRenderer_)).call(this, _document, _eventManager, sharedStylesHost, animationDriver, appId));
+
+            throw new Error('RootRenderer is no longer supported. Please use the `RendererFactoryV2` instead!');
+            return _this15;
         }
 
         return DomRootRenderer_;

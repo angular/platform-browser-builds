@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-187f7b6
+ * @license Angular v4.0.0-beta.8-4b54c0e
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2878,6 +2878,7 @@ class DomRootRenderer_ extends DomRootRenderer {
      */
     constructor(_document, _eventManager, sharedStylesHost, animationDriver, appId) {
         super(_document, _eventManager, sharedStylesHost, animationDriver, appId);
+        throw new Error('RootRenderer is no longer supported. Please use the `RendererFactoryV2` instead!');
     }
 }
 DomRootRenderer_.decorators = [
@@ -4932,6 +4933,6 @@ class By {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-187f7b6');
+const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-4b54c0e');
 
 export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, AnimationDriver, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, DomRootRenderer as ɵDomRootRenderer, DomRootRenderer_ as ɵDomRootRenderer_, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, isNamespaced as ɵisNamespaced, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, splitNamespace as ɵsplitNamespace, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, WebAnimationsDriver as ɵWebAnimationsDriver, _document as ɵb, _resolveDefaultAnimationDriver as ɵc, errorHandler as ɵa, GenericBrowserDomAdapter as ɵi, SERVER_TRANSITION_PROVIDERS as ɵh, bootstrapListenerFactory as ɵg, _createConditionalRootRenderer as ɵd, EventManagerPlugin as ɵe, DomSanitizerImpl as ɵf };
