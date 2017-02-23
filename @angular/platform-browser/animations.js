@@ -1,6 +1,62 @@
-import { Injectable, RendererFactoryV2, NgModule } from '@angular/core';
+import { Injectable, NgZone, RendererFactoryV2, NgModule } from '@angular/core';
 import { ɵDomRendererFactoryV2, BrowserModule } from '@angular/platform-browser';
 import { NoOpAnimationPlayer, ɵAnimationGroupPlayer, sequence, AUTO_STYLE } from '@angular/animations';
+
+/**
+ * @abstract
+ */
+class AnimationEngine {
+    /**
+     * @abstract
+     * @param {?} trigger
+     * @return {?}
+     */
+    registerTrigger(trigger) { }
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} domFn
+     * @return {?}
+     */
+    onInsert(element, domFn) { }
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} domFn
+     * @return {?}
+     */
+    onRemove(element, domFn) { }
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} property
+     * @param {?} value
+     * @return {?}
+     */
+    setProperty(element, property, value) { }
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} eventPhase
+     * @param {?} callback
+     * @return {?}
+     */
+    listen(element, eventName, eventPhase, callback) { }
+    /**
+     * @abstract
+     * @return {?}
+     */
+    flush() { }
+    /**
+     * @return {?}
+     */
+    get activePlayers() { throw new Error('...'); }
+    /**
+     * @return {?}
+     */
+    get queuedPlayers() { throw new Error('...'); }
+}
 
 /**
  * \@experimental Animation support is experimental.
@@ -23,6 +79,27 @@ class AnimationStyleNormalizer {
      * @return {?}
      */
     normalizeStyleValue(userProvidedProperty, normalizedProperty, value, errors) { }
+}
+/**
+ * \@experimental Animation support is experimental.
+ */
+class NoOpAnimationStyleNormalizer {
+    /**
+     * @param {?} propertyName
+     * @param {?} errors
+     * @return {?}
+     */
+    normalizePropertyName(propertyName, errors) { return propertyName; }
+    /**
+     * @param {?} userProvidedProperty
+     * @param {?} normalizedProperty
+     * @param {?} value
+     * @param {?} errors
+     * @return {?}
+     */
+    normalizeStyleValue(userProvidedProperty, normalizedProperty, value, errors) {
+        return (value);
+    }
 }
 
 class WebAnimationsStyleNormalizer extends AnimationStyleNormalizer {
@@ -92,6 +169,255 @@ class NoOpAnimationDriver {
 class AnimationDriver {
 }
 AnimationDriver.NOOP = new NoOpAnimationDriver();
+
+class AnimationRendererFactory {
+    /**
+     * @param {?} delegate
+     * @param {?} _engine
+     * @param {?} _zone
+     */
+    constructor(delegate, _engine, _zone) {
+        this.delegate = delegate;
+        this._engine = _engine;
+        this._zone = _zone;
+    }
+    /**
+     * @param {?} hostElement
+     * @param {?} type
+     * @return {?}
+     */
+    createRenderer(hostElement, type) {
+        let /** @type {?} */ delegate = this.delegate.createRenderer(hostElement, type);
+        if (!hostElement || !type)
+            return delegate;
+        let /** @type {?} */ animationRenderer = ((type.data['__animationRenderer__']));
+        if (animationRenderer && delegate == animationRenderer.delegate) {
+            return animationRenderer;
+        }
+        const /** @type {?} */ animationTriggers = (type.data['animation']);
+        animationRenderer = ((type.data))['__animationRenderer__'] =
+            new AnimationRenderer(delegate, this._engine, this._zone, animationTriggers);
+        return animationRenderer;
+    }
+}
+AnimationRendererFactory.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+AnimationRendererFactory.ctorParameters = () => [
+    { type: RendererFactoryV2, },
+    { type: AnimationEngine, },
+    { type: NgZone, },
+];
+class AnimationRenderer {
+    /**
+     * @param {?} delegate
+     * @param {?} _engine
+     * @param {?} _zone
+     * @param {?=} _triggers
+     */
+    constructor(delegate, _engine, _zone, _triggers = null) {
+        this.delegate = delegate;
+        this._engine = _engine;
+        this._zone = _zone;
+        this.destroyNode = null;
+        this._flushPromise = null;
+        this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
+        if (_triggers) {
+            _triggers.forEach(trigger => _engine.registerTrigger(trigger));
+        }
+    }
+    /**
+     * @return {?}
+     */
+    destroy() { this.delegate.destroy(); }
+    /**
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    createElement(name, namespace) {
+        return this.delegate.createElement(name, namespace);
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    createComment(value) { return this.delegate.createComment(value); }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    createText(value) { return this.delegate.createText(value); }
+    /**
+     * @param {?} selectorOrNode
+     * @return {?}
+     */
+    selectRootElement(selectorOrNode) {
+        return this.delegate.selectRootElement(selectorOrNode);
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    parentNode(node) { return this.delegate.parentNode(node); }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    nextSibling(node) { return this.delegate.nextSibling(node); }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @param {?=} namespace
+     * @return {?}
+     */
+    setAttribute(el, name, value, namespace) {
+        this.delegate.setAttribute(el, name, value, namespace);
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    removeAttribute(el, name, namespace) {
+        this.delegate.removeAttribute(el, name, namespace);
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    addClass(el, name) { this.delegate.addClass(el, name); }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    removeClass(el, name) { this.delegate.removeClass(el, name); }
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} value
+     * @param {?} hasVendorPrefix
+     * @param {?} hasImportant
+     * @return {?}
+     */
+    setStyle(el, style, value, hasVendorPrefix, hasImportant) {
+        this.delegate.setStyle(el, style, value, hasVendorPrefix, hasImportant);
+    }
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} hasVendorPrefix
+     * @return {?}
+     */
+    removeStyle(el, style, hasVendorPrefix) {
+        this.delegate.removeStyle(el, style, hasVendorPrefix);
+    }
+    /**
+     * @param {?} node
+     * @param {?} value
+     * @return {?}
+     */
+    setValue(node, value) { this.delegate.setValue(node, value); }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    appendChild(parent, newChild) {
+        this._engine.onInsert(newChild, () => this.delegate.appendChild(parent, newChild));
+    }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    insertBefore(parent, newChild, refChild) {
+        this._engine.onInsert(newChild, () => this.delegate.insertBefore(parent, newChild, refChild));
+    }
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    removeChild(parent, oldChild) {
+        this._engine.onRemove(oldChild, () => this.delegate.removeChild(parent, oldChild));
+        this._queueFlush();
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    setProperty(el, name, value) {
+        if (name.charAt(0) == '@') {
+            this._engine.setProperty(el, name.substr(1), value);
+            this._queueFlush();
+        }
+        else {
+            this.delegate.setProperty(el, name, value);
+        }
+    }
+    /**
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
+    listen(target, eventName, callback) {
+        if (eventName.charAt(0) == '@') {
+            const /** @type {?} */ element = resolveElementFromTarget(target);
+            const [name, phase] = parseTriggerCallbackName(eventName.substr(1));
+            return this._engine.listen(element, name, phase, (event) => this._zone.run(() => callback(event)));
+        }
+        return this.delegate.listen(target, eventName, callback);
+    }
+    /**
+     * @return {?}
+     */
+    _queueFlush() {
+        if (!this._flushPromise) {
+            this._zone.runOutsideAngular(() => {
+                this._flushPromise = Promise.resolve(null).then(() => {
+                    this._flushPromise = null;
+                    this._engine.flush();
+                });
+            });
+        }
+    }
+}
+/**
+ * @param {?} target
+ * @return {?}
+ */
+function resolveElementFromTarget(target) {
+    switch (target) {
+        case 'body':
+            return document.body;
+        case 'document':
+            return document;
+        case 'window':
+            return window;
+        default:
+            return target;
+    }
+}
+/**
+ * @param {?} triggerName
+ * @return {?}
+ */
+function parseTriggerCallbackName(triggerName) {
+    const /** @type {?} */ dotIndex = triggerName.indexOf('.');
+    const /** @type {?} */ trigger = triggerName.substring(0, dotIndex);
+    const /** @type {?} */ phase = triggerName.substr(dotIndex + 1);
+    return [trigger, phase];
+}
 
 const /** @type {?} */ ONE_SECOND = 1000;
 /**
@@ -163,6 +489,30 @@ function copyStyles(styles, readPrototype, destination = {}) {
         Object.keys(styles).forEach(prop => destination[prop] = styles[prop]);
     }
     return destination;
+}
+/**
+ * @param {?} element
+ * @param {?} styles
+ * @return {?}
+ */
+function setStyles(element, styles) {
+    if (element['style']) {
+        Object.keys(styles).forEach(prop => element.style[prop] = styles[prop]);
+    }
+}
+/**
+ * @param {?} element
+ * @param {?} styles
+ * @return {?}
+ */
+function eraseStyles(element, styles) {
+    if (element['style']) {
+        Object.keys(styles).forEach(prop => {
+            // IE requires '' instead of null
+            // see https://github.com/angular/angular/issues/7916
+            element.style[prop] = '';
+        });
+    }
 }
 
 /**
@@ -1029,7 +1379,7 @@ class AnimationTriggerVisitor {
 
 const /** @type {?} */ MARKED_FOR_ANIMATION = 'ng-animate';
 const /** @type {?} */ MARKED_FOR_REMOVAL = '$$ngRemove';
-class AnimationEngine {
+class DomAnimationEngine {
     /**
      * @param {?} _driver
      * @param {?} _normalizer
@@ -1045,8 +1395,6 @@ class AnimationEngine {
         this._elementTriggerStates = new Map();
         this._triggers = {};
         this._triggerListeners = new Map();
-        this._flushId = 0;
-        this._awaitingFlush = false;
     }
     /**
      * @return {?}
@@ -1298,15 +1646,6 @@ class AnimationEngine {
         player.init();
         element.classList.add(MARKED_FOR_ANIMATION);
         player.onDone(() => { element.classList.remove(MARKED_FOR_ANIMATION); });
-        if (!this._awaitingFlush) {
-            const /** @type {?} */ flushId = this._flushId;
-            AnimationEngine.raf(() => {
-                if (flushId == this._flushId) {
-                    this._awaitingFlush = false;
-                    this.flush();
-                }
-            });
-        }
     }
     /**
      * @return {?}
@@ -1349,7 +1688,6 @@ class AnimationEngine {
      * @return {?}
      */
     flush() {
-        this._flushId++;
         this._flushQueuedAnimations();
         let /** @type {?} */ flushAgain = false;
         this._queuedRemovals.forEach((callback, element) => {
@@ -1405,7 +1743,6 @@ class AnimationEngine {
         }
     }
 }
-AnimationEngine.raf = (fn) => { return requestAnimationFrame(fn); };
 /**
  * @param {?} map
  * @param {?} key
@@ -1436,26 +1773,6 @@ function deleteFromArrayMap(map, key, value) {
             }
         }
     }
-}
-/**
- * @param {?} element
- * @param {?} styles
- * @return {?}
- */
-function setStyles(element, styles) {
-    Object.keys(styles).forEach(prop => { element.style[prop] = styles[prop]; });
-}
-/**
- * @param {?} element
- * @param {?} styles
- * @return {?}
- */
-function eraseStyles(element, styles) {
-    Object.keys(styles).forEach(prop => {
-        // IE requires '' instead of null
-        // see https://github.com/angular/angular/issues/7916
-        element.style[prop] = '';
-    });
 }
 /**
  * @param {?} players
@@ -1535,234 +1852,6 @@ function copyAnimationEvent(e) {
  */
 function makeAnimationEvent(element, triggerName, fromState, toState, phaseName, totalTime) {
     return ({ element, triggerName, fromState, toState, phaseName, totalTime });
-}
-
-class AnimationRendererFactory {
-    /**
-     * @param {?} delegate
-     * @param {?} _engine
-     */
-    constructor(delegate, _engine) {
-        this.delegate = delegate;
-        this._engine = _engine;
-    }
-    /**
-     * @param {?} hostElement
-     * @param {?} type
-     * @return {?}
-     */
-    createRenderer(hostElement, type) {
-        let /** @type {?} */ delegate = this.delegate.createRenderer(hostElement, type);
-        if (!hostElement || !type)
-            return delegate;
-        let /** @type {?} */ animationRenderer = ((type.data['__animationRenderer__']));
-        if (animationRenderer && delegate == animationRenderer.delegate) {
-            return animationRenderer;
-        }
-        const /** @type {?} */ animationTriggers = (type.data['animation']);
-        animationRenderer = ((type.data))['__animationRenderer__'] =
-            new AnimationRenderer(delegate, this._engine, animationTriggers);
-        return animationRenderer;
-    }
-}
-AnimationRendererFactory.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-AnimationRendererFactory.ctorParameters = () => [
-    { type: RendererFactoryV2, },
-    { type: AnimationEngine, },
-];
-class AnimationRenderer {
-    /**
-     * @param {?} delegate
-     * @param {?} _engine
-     * @param {?=} _triggers
-     */
-    constructor(delegate, _engine, _triggers = null) {
-        this.delegate = delegate;
-        this._engine = _engine;
-        this.destroyNode = null;
-        this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
-        if (_triggers) {
-            _triggers.forEach(trigger => _engine.registerTrigger(trigger));
-        }
-    }
-    /**
-     * @return {?}
-     */
-    destroy() { this.delegate.destroy(); }
-    /**
-     * @param {?} name
-     * @param {?=} namespace
-     * @return {?}
-     */
-    createElement(name, namespace) {
-        return this.delegate.createElement(name, namespace);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    createComment(value) { return this.delegate.createComment(value); }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    createText(value) { return this.delegate.createText(value); }
-    /**
-     * @param {?} selectorOrNode
-     * @return {?}
-     */
-    selectRootElement(selectorOrNode) {
-        return this.delegate.selectRootElement(selectorOrNode);
-    }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    parentNode(node) { return this.delegate.parentNode(node); }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    nextSibling(node) { return this.delegate.nextSibling(node); }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @param {?=} namespace
-     * @return {?}
-     */
-    setAttribute(el, name, value, namespace) {
-        this.delegate.setAttribute(el, name, value, namespace);
-    }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?=} namespace
-     * @return {?}
-     */
-    removeAttribute(el, name, namespace) {
-        this.delegate.removeAttribute(el, name, namespace);
-    }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @return {?}
-     */
-    addClass(el, name) { this.delegate.addClass(el, name); }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @return {?}
-     */
-    removeClass(el, name) { this.delegate.removeClass(el, name); }
-    /**
-     * @param {?} el
-     * @param {?} style
-     * @param {?} value
-     * @param {?} hasVendorPrefix
-     * @param {?} hasImportant
-     * @return {?}
-     */
-    setStyle(el, style, value, hasVendorPrefix, hasImportant) {
-        this.delegate.setStyle(el, style, value, hasVendorPrefix, hasImportant);
-    }
-    /**
-     * @param {?} el
-     * @param {?} style
-     * @param {?} hasVendorPrefix
-     * @return {?}
-     */
-    removeStyle(el, style, hasVendorPrefix) {
-        this.delegate.removeStyle(el, style, hasVendorPrefix);
-    }
-    /**
-     * @param {?} node
-     * @param {?} value
-     * @return {?}
-     */
-    setValue(node, value) { this.delegate.setValue(node, value); }
-    /**
-     * @param {?} parent
-     * @param {?} newChild
-     * @return {?}
-     */
-    appendChild(parent, newChild) {
-        this._engine.onInsert(newChild, () => this.delegate.appendChild(parent, newChild));
-    }
-    /**
-     * @param {?} parent
-     * @param {?} newChild
-     * @param {?} refChild
-     * @return {?}
-     */
-    insertBefore(parent, newChild, refChild) {
-        this._engine.onInsert(newChild, () => this.delegate.insertBefore(parent, newChild, refChild));
-    }
-    /**
-     * @param {?} parent
-     * @param {?} oldChild
-     * @return {?}
-     */
-    removeChild(parent, oldChild) {
-        this._engine.onRemove(oldChild, () => this.delegate.removeChild(parent, oldChild));
-    }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setProperty(el, name, value) {
-        if (name.charAt(0) == '@') {
-            this._engine.setProperty(el, name.substr(1), value);
-        }
-        else {
-            this.delegate.setProperty(el, name, value);
-        }
-    }
-    /**
-     * @param {?} target
-     * @param {?} eventName
-     * @param {?} callback
-     * @return {?}
-     */
-    listen(target, eventName, callback) {
-        if (eventName.charAt(0) == '@') {
-            const /** @type {?} */ element = resolveElementFromTarget(target);
-            const [name, phase] = parseTriggerCallbackName(eventName.substr(1));
-            return this._engine.listen(element, name, phase, callback);
-        }
-        return this.delegate.listen(target, eventName, callback);
-    }
-}
-/**
- * @param {?} target
- * @return {?}
- */
-function resolveElementFromTarget(target) {
-    switch (target) {
-        case 'body':
-            return document.body;
-        case 'document':
-            return document;
-        case 'window':
-            return window;
-        default:
-            return target;
-    }
-}
-/**
- * @param {?} triggerName
- * @return {?}
- */
-function parseTriggerCallbackName(triggerName) {
-    const /** @type {?} */ dotIndex = triggerName.indexOf('.');
-    const /** @type {?} */ trigger = triggerName.substring(0, dotIndex);
-    const /** @type {?} */ phase = triggerName.substr(dotIndex + 1);
-    return [trigger, phase];
 }
 
 class WebAnimationsPlayer {
@@ -2024,7 +2113,7 @@ function supportsWebAnimations() {
     return typeof Element !== 'undefined' && typeof ((Element)).prototype['animate'] === 'function';
 }
 
-class InjectableAnimationEngine extends AnimationEngine {
+class InjectableAnimationEngine extends DomAnimationEngine {
     /**
      * @param {?} driver
      * @param {?} normalizer
@@ -2059,10 +2148,11 @@ function instantiateDefaultStyleNormalizer() {
 /**
  * @param {?} renderer
  * @param {?} engine
+ * @param {?} zone
  * @return {?}
  */
-function instantiateRendererFactory(renderer, engine) {
-    return new AnimationRendererFactory(renderer, engine);
+function instantiateRendererFactory(renderer, engine, zone) {
+    return new AnimationRendererFactory(renderer, engine, zone);
 }
 /**
  * \@experimental Animation support is experimental.
@@ -2078,13 +2168,210 @@ BrowserAnimationModule.decorators = [
                     { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
                         provide: RendererFactoryV2,
                         useFactory: instantiateRendererFactory,
-                        deps: [ɵDomRendererFactoryV2, AnimationEngine]
+                        deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
                     }
                 ]
             },] },
 ];
 /** @nocollapse */
 BrowserAnimationModule.ctorParameters = () => [];
+
+const /** @type {?} */ DEFAULT_STATE_VALUE = 'void';
+const /** @type {?} */ DEFAULT_STATE_STYLES = '*';
+class NoopAnimationEngine extends AnimationEngine {
+    constructor() {
+        super(...arguments);
+        this._listeners = new Map();
+        this._changes = [];
+        this._flaggedRemovals = new Set();
+        this._onDoneFns = [];
+        this._triggerStyles = {};
+    }
+    /**
+     * @param {?} trigger
+     * @return {?}
+     */
+    registerTrigger(trigger) {
+        const /** @type {?} */ stateMap = {};
+        trigger.definitions.forEach(def => {
+            if (def.type === 0 /* State */) {
+                const /** @type {?} */ stateDef = (def);
+                stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
+            }
+        });
+        this._triggerStyles[trigger.name] = stateMap;
+    }
+    /**
+     * @param {?} element
+     * @param {?} domFn
+     * @return {?}
+     */
+    onInsert(element, domFn) { domFn(); }
+    /**
+     * @param {?} element
+     * @param {?} domFn
+     * @return {?}
+     */
+    onRemove(element, domFn) {
+        domFn();
+        this._flaggedRemovals.add(element);
+    }
+    /**
+     * @param {?} element
+     * @param {?} property
+     * @param {?} value
+     * @return {?}
+     */
+    setProperty(element, property, value) {
+        const /** @type {?} */ storageProp = makeStorageProp(property);
+        const /** @type {?} */ oldValue = element[storageProp] || DEFAULT_STATE_VALUE;
+        this._changes.push(/** @type {?} */ ({ element, oldValue, newValue: value, triggerName: property }));
+        const /** @type {?} */ triggerStateStyles = this._triggerStyles[property] || {};
+        const /** @type {?} */ fromStateStyles = triggerStateStyles[oldValue] || triggerStateStyles[DEFAULT_STATE_STYLES];
+        if (fromStateStyles) {
+            eraseStyles(element, fromStateStyles);
+        }
+        element[storageProp] = value;
+        this._onDoneFns.push(() => {
+            const /** @type {?} */ toStateStyles = triggerStateStyles[value] || triggerStateStyles[DEFAULT_STATE_STYLES];
+            if (toStateStyles) {
+                setStyles(element, toStateStyles);
+            }
+        });
+    }
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} eventPhase
+     * @param {?} callback
+     * @return {?}
+     */
+    listen(element, eventName, eventPhase, callback) {
+        let /** @type {?} */ listeners = this._listeners.get(element);
+        if (!listeners) {
+            this._listeners.set(element, listeners = []);
+        }
+        const /** @type {?} */ tuple = ({ triggerName: eventName, eventPhase, callback });
+        listeners.push(tuple);
+        return () => {
+            const /** @type {?} */ index = listeners.indexOf(tuple);
+            if (index >= 0) {
+                listeners.splice(index, 1);
+            }
+        };
+    }
+    /**
+     * @return {?}
+     */
+    flush() {
+        const /** @type {?} */ onStartCallbacks = [];
+        const /** @type {?} */ onDoneCallbacks = [];
+        /**
+         * @param {?} listener
+         * @param {?} data
+         * @return {?}
+         */
+        function handleListener(listener, data) {
+            const /** @type {?} */ phase = listener.eventPhase;
+            const /** @type {?} */ event = makeAnimationEvent$1(data.element, data.triggerName, data.oldValue, data.newValue, phase, 0);
+            if (phase == 'start') {
+                onStartCallbacks.push(() => listener.callback(event));
+            }
+            else if (phase == 'done') {
+                onDoneCallbacks.push(() => listener.callback(event));
+            }
+        }
+        this._changes.forEach(change => {
+            const /** @type {?} */ element = change.element;
+            const /** @type {?} */ listeners = this._listeners.get(element);
+            if (listeners) {
+                listeners.forEach(listener => {
+                    if (listener.triggerName == change.triggerName) {
+                        handleListener(listener, change);
+                    }
+                });
+            }
+        });
+        // upon removal ALL the animation triggers need to get fired
+        this._flaggedRemovals.forEach(element => {
+            const /** @type {?} */ listeners = this._listeners.get(element);
+            if (listeners) {
+                listeners.forEach(listener => {
+                    const /** @type {?} */ triggerName = listener.triggerName;
+                    const /** @type {?} */ storageProp = makeStorageProp(triggerName);
+                    handleListener(listener, /** @type {?} */ ({
+                        element: element,
+                        triggerName: triggerName,
+                        oldValue: element[storageProp] || DEFAULT_STATE_VALUE,
+                        newValue: DEFAULT_STATE_VALUE
+                    }));
+                });
+            }
+        });
+        onStartCallbacks.forEach(fn => fn());
+        onDoneCallbacks.forEach(fn => fn());
+        this._flaggedRemovals.clear();
+        this._changes = [];
+        this._onDoneFns.forEach(doneFn => doneFn());
+        this._onDoneFns = [];
+    }
+    /**
+     * @return {?}
+     */
+    get activePlayers() { return []; }
+    /**
+     * @return {?}
+     */
+    get queuedPlayers() { return []; }
+}
+/**
+ * @param {?} element
+ * @param {?} triggerName
+ * @param {?} fromState
+ * @param {?} toState
+ * @param {?} phaseName
+ * @param {?} totalTime
+ * @return {?}
+ */
+function makeAnimationEvent$1(element, triggerName, fromState, toState, phaseName, totalTime) {
+    return ({ element, triggerName, fromState, toState, phaseName, totalTime });
+}
+/**
+ * @param {?} property
+ * @return {?}
+ */
+function makeStorageProp(property) {
+    return '_@_' + property;
+}
+
+/**
+ * @param {?} renderer
+ * @param {?} engine
+ * @param {?} zone
+ * @return {?}
+ */
+function instantiateRendererFactory$1(renderer, engine, zone) {
+    return new AnimationRendererFactory(renderer, engine, zone);
+}
+/**
+ * \@experimental Animation support is experimental.
+ */
+class NoopBrowserAnimationModule {
+}
+NoopBrowserAnimationModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [BrowserModule],
+                providers: [
+                    { provide: AnimationEngine, useClass: NoopAnimationEngine }, {
+                        provide: RendererFactoryV2,
+                        useFactory: instantiateRendererFactory$1,
+                        deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
+                    }
+                ]
+            },] },
+];
+/** @nocollapse */
+NoopBrowserAnimationModule.ctorParameters = () => [];
 
 class Animation {
     /**
@@ -2122,9 +2409,9 @@ class Animation {
         // within core then the code below will interact with Renderer.transition(...))
         const /** @type {?} */ driver = injector.get(AnimationDriver);
         const /** @type {?} */ normalizer = injector.get(AnimationStyleNormalizer);
-        const /** @type {?} */ engine = new AnimationEngine(driver, normalizer);
+        const /** @type {?} */ engine = new DomAnimationEngine(driver, normalizer);
         return engine.animateTimeline(element, instructions);
     }
 }
 
-export { BrowserAnimationModule, AnimationDriver, Animation as ɵAnimation, AnimationStyleNormalizer as ɵAnimationStyleNormalizer, AnimationEngine as ɵAnimationEngine, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb, WebAnimationsStyleNormalizer as ɵe };
+export { BrowserAnimationModule, NoopBrowserAnimationModule, AnimationDriver, AnimationEngine as ɵAnimationEngine, Animation as ɵAnimation, AnimationStyleNormalizer as ɵAnimationStyleNormalizer, NoOpAnimationStyleNormalizer as ɵNoOpAnimationStyleNormalizer, NoOpAnimationDriver as ɵNoOpAnimationDriver, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, DomAnimationEngine as ɵDomAnimationEngine, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb, WebAnimationsStyleNormalizer as ɵf, instantiateRendererFactory$1 as ɵe, NoopAnimationEngine as ɵg };

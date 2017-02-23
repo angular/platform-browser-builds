@@ -21,7 +21,7 @@ export interface TriggerListenerTuple {
     phase: string;
     callback: (event: any) => any;
 }
-export declare class AnimationEngine {
+export declare class DomAnimationEngine {
     private _driver;
     private _normalizer;
     private _flaggedInserts;
@@ -32,9 +32,6 @@ export declare class AnimationEngine {
     private _elementTriggerStates;
     private _triggers;
     private _triggerListeners;
-    private _flushId;
-    private _awaitingFlush;
-    static raf: (fn: () => any) => any;
     constructor(_driver: AnimationDriver, _normalizer: AnimationStyleNormalizer);
     readonly queuedPlayers: AnimationPlayer[];
     readonly activePlayers: AnimationPlayer[];

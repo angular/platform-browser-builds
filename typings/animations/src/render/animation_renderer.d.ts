@@ -6,19 +6,22 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { RendererFactoryV2, RendererTypeV2, RendererV2 } from '@angular/core';
-import { AnimationEngine } from './animation_engine';
+import { NgZone, RendererFactoryV2, RendererTypeV2, RendererV2 } from '@angular/core';
+import { AnimationEngine } from '../animation_engine';
 export declare class AnimationRendererFactory implements RendererFactoryV2 {
     private delegate;
     private _engine;
-    constructor(delegate: RendererFactoryV2, _engine: AnimationEngine);
+    private _zone;
+    constructor(delegate: RendererFactoryV2, _engine: AnimationEngine, _zone: NgZone);
     createRenderer(hostElement: any, type: RendererTypeV2): RendererV2;
 }
 export declare class AnimationRenderer implements RendererV2 {
     delegate: RendererV2;
     private _engine;
+    private _zone;
     destroyNode: (node: any) => (void | any);
-    constructor(delegate: RendererV2, _engine: AnimationEngine, _triggers?: AnimationTriggerMetadata[]);
+    private _flushPromise;
+    constructor(delegate: RendererV2, _engine: AnimationEngine, _zone: NgZone, _triggers?: AnimationTriggerMetadata[]);
     destroy(): void;
     createElement(name: string, namespace?: string): any;
     createComment(value: string): any;
@@ -38,4 +41,5 @@ export declare class AnimationRenderer implements RendererV2 {
     removeChild(parent: any, oldChild: any): void;
     setProperty(el: any, name: string, value: any): void;
     listen(target: 'window' | 'document' | 'body' | any, eventName: string, callback: (event: any) => any): () => void;
+    private _queueFlush();
 }
