@@ -13,7 +13,7 @@ export declare class NoopAnimationEngine extends AnimationEngine {
     private _flaggedRemovals;
     private _onDoneFns;
     private _triggerStyles;
-    registerTrigger(trigger: AnimationTriggerMetadata): void;
+    registerTrigger(trigger: AnimationTriggerMetadata, name?: string): void;
     onInsert(element: any, domFn: () => any): void;
     onRemove(element: any, domFn: () => any): void;
     setProperty(element: any, property: string, value: any): void;

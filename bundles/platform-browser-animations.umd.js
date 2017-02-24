@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-5094aef
+ * @license Angular v4.0.0-beta.8-436a179
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -130,7 +130,7 @@
 
         _createClass(AnimationEngine, [{
             key: 'registerTrigger',
-            value: function registerTrigger(trigger) {}
+            value: function registerTrigger(trigger, name) {}
         }, {
             key: 'onInsert',
             value: function onInsert(element, domFn) {}
@@ -310,14 +310,20 @@
         _createClass(AnimationRendererFactory, [{
             key: 'createRenderer',
             value: function createRenderer(hostElement, type) {
+                var _this2 = this;
+
                 var /** @type {?} */delegate = this.delegate.createRenderer(hostElement, type);
-                if (!hostElement || !type) return delegate;
-                var /** @type {?} */animationRenderer = type.data['__animationRenderer__'];
-                if (animationRenderer && delegate == animationRenderer.delegate) {
-                    return animationRenderer;
+                if (!hostElement || !type || !type.data || !type.data['animation']) return delegate;
+                var /** @type {?} */animationRenderer = delegate.data['animationRenderer'];
+                if (!animationRenderer) {
+                    var /** @type {?} */namespaceId = type.id;
+                    var /** @type {?} */animationTriggers = type.data['animation'];
+                    animationTriggers.forEach(function (trigger) {
+                        return _this2._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name));
+                    });
+                    animationRenderer = new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
+                    delegate.data['animationRenderer'] = animationRenderer;
                 }
-                var /** @type {?} */animationTriggers = type.data['animation'];
-                animationRenderer = type.data['__animationRenderer__'] = new AnimationRenderer(delegate, this._engine, this._zone, animationTriggers);
                 return animationRenderer;
             }
         }]);
@@ -336,26 +342,20 @@
          * @param {?} delegate
          * @param {?} _engine
          * @param {?} _zone
-         * @param {?=} _triggers
+         * @param {?} _namespaceId
          */
-        function AnimationRenderer(delegate, _engine, _zone) {
-            var _triggers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-
+        function AnimationRenderer(delegate, _engine, _zone, _namespaceId) {
             _classCallCheck(this, AnimationRenderer);
 
             this.delegate = delegate;
             this._engine = _engine;
             this._zone = _zone;
+            this._namespaceId = _namespaceId;
             this.destroyNode = null;
             this._flushPromise = null;
             this.destroyNode = this.delegate.destroyNode ? function (n) {
                 return delegate.destroyNode(n);
             } : null;
-            if (_triggers) {
-                _triggers.forEach(function (trigger) {
-                    return _engine.registerTrigger(trigger);
-                });
-            }
         }
         /**
          * @return {?}
@@ -435,30 +435,30 @@
         }, {
             key: 'appendChild',
             value: function appendChild(parent, newChild) {
-                var _this2 = this;
+                var _this3 = this;
 
                 this._engine.onInsert(newChild, function () {
-                    return _this2.delegate.appendChild(parent, newChild);
+                    return _this3.delegate.appendChild(parent, newChild);
                 });
                 this._queueFlush();
             }
         }, {
             key: 'insertBefore',
             value: function insertBefore(parent, newChild, refChild) {
-                var _this3 = this;
+                var _this4 = this;
 
                 this._engine.onInsert(newChild, function () {
-                    return _this3.delegate.insertBefore(parent, newChild, refChild);
+                    return _this4.delegate.insertBefore(parent, newChild, refChild);
                 });
                 this._queueFlush();
             }
         }, {
             key: 'removeChild',
             value: function removeChild(parent, oldChild) {
-                var _this4 = this;
+                var _this5 = this;
 
                 this._engine.onRemove(oldChild, function () {
-                    return _this4.delegate.removeChild(parent, oldChild);
+                    return _this5.delegate.removeChild(parent, oldChild);
                 });
                 this._queueFlush();
             }
@@ -466,7 +466,7 @@
             key: 'setProperty',
             value: function setProperty(el, name, value) {
                 if (name.charAt(0) == '@') {
-                    this._engine.setProperty(el, name.substr(1), value);
+                    this._engine.setProperty(el, namespaceify(this._namespaceId, name.substr(1)), value);
                     this._queueFlush();
                 } else {
                     this.delegate.setProperty(el, name, value);
@@ -475,7 +475,7 @@
         }, {
             key: 'listen',
             value: function listen(target, eventName, callback) {
-                var _this5 = this;
+                var _this6 = this;
 
                 if (eventName.charAt(0) == '@') {
                     var /** @type {?} */element = resolveElementFromTarget(target);
@@ -485,8 +485,12 @@
                         name = _parseTriggerCallback2[0],
                         phase = _parseTriggerCallback2[1];
 
-                    return this._engine.listen(element, name, phase, function (event) {
-                        return _this5._zone.run(function () {
+                    return this._engine.listen(element, namespaceify(this._namespaceId, name), phase, function (event) {
+                        var /** @type {?} */e = event;
+                        if (e.triggerName) {
+                            e.triggerName = deNamespaceify(_this6._namespaceId, e.triggerName);
+                        }
+                        _this6._zone.run(function () {
                             return callback(event);
                         });
                     });
@@ -496,16 +500,21 @@
         }, {
             key: '_queueFlush',
             value: function _queueFlush() {
-                var _this6 = this;
+                var _this7 = this;
 
                 if (!this._flushPromise) {
                     this._zone.runOutsideAngular(function () {
-                        _this6._flushPromise = Promise.resolve(null).then(function () {
-                            _this6._flushPromise = null;
-                            _this6._engine.flush();
+                        _this7._flushPromise = Promise.resolve(null).then(function () {
+                            _this7._flushPromise = null;
+                            _this7._engine.flush();
                         });
                     });
                 }
+            }
+        }, {
+            key: 'data',
+            get: function get() {
+                return this.delegate.data;
             }
         }]);
 
@@ -537,6 +546,22 @@
         var /** @type {?} */trigger = triggerName.substring(0, dotIndex);
         var /** @type {?} */phase = triggerName.substr(dotIndex + 1);
         return [trigger, phase];
+    }
+    /**
+     * @param {?} namespaceId
+     * @param {?} value
+     * @return {?}
+     */
+    function namespaceify(namespaceId, value) {
+        return namespaceId + '#' + value;
+    }
+    /**
+     * @param {?} namespaceId
+     * @param {?} value
+     * @return {?}
+     */
+    function deNamespaceify(namespaceId, value) {
+        return value.replace(namespaceId + '#', '');
     }
 
     var /** @type {?} */ONE_SECOND = 1000;
@@ -895,7 +920,7 @@
         }, {
             key: 'visitSequence',
             value: function visitSequence(ast, context) {
-                var _this7 = this;
+                var _this8 = this;
 
                 var /** @type {?} */subContextCount = context.subContextCount;
                 if (context.previousNode.type == 6 /* Style */) {
@@ -903,7 +928,7 @@
                         context.currentTimeline.snapshotCurrentStyles();
                     }
                 ast.steps.forEach(function (s) {
-                    return visitAnimationNode(_this7, s, context);
+                    return visitAnimationNode(_this8, s, context);
                 });
                 // this means that some animation function within the sequence
                 // ended up creating a sub timeline (which means the current
@@ -916,13 +941,13 @@
         }, {
             key: 'visitGroup',
             value: function visitGroup(ast, context) {
-                var _this8 = this;
+                var _this9 = this;
 
                 var /** @type {?} */innerTimelines = [];
                 var /** @type {?} */furthestTime = context.currentTimeline.currentTime;
                 ast.steps.forEach(function (s) {
                     var /** @type {?} */innerContext = context.createSubContext();
-                    visitAnimationNode(_this8, s, innerContext);
+                    visitAnimationNode(_this9, s, innerContext);
                     furthestTime = Math.max(furthestTime, innerContext.currentTimeline.currentTime);
                     innerTimelines.push(innerContext.currentTimeline);
                 });
@@ -1084,21 +1109,21 @@
         }, {
             key: 'setStyles',
             value: function setStyles(styles) {
-                var _this9 = this;
+                var _this10 = this;
 
                 Object.keys(styles).forEach(function (prop) {
                     if (prop !== 'offset') {
                         var /** @type {?} */val = styles[prop];
-                        _this9._currentKeyframe[prop] = val;
-                        if (prop !== 'easing' && !_this9._localTimelineStyles[prop]) {
-                            _this9._backFill[prop] = _this9._globalTimelineStyles[prop] || _animations.AUTO_STYLE;
+                        _this10._currentKeyframe[prop] = val;
+                        if (prop !== 'easing' && !_this10._localTimelineStyles[prop]) {
+                            _this10._backFill[prop] = _this10._globalTimelineStyles[prop] || _animations.AUTO_STYLE;
                         }
-                        _this9._updateStyle(prop, val);
+                        _this10._updateStyle(prop, val);
                     }
                 });
                 Object.keys(this._localTimelineStyles).forEach(function (prop) {
-                    if (!_this9._currentKeyframe.hasOwnProperty(prop)) {
-                        _this9._currentKeyframe[prop] = _this9._localTimelineStyles[prop];
+                    if (!_this10._currentKeyframe.hasOwnProperty(prop)) {
+                        _this10._currentKeyframe[prop] = _this10._localTimelineStyles[prop];
                     }
                 });
             }
@@ -1115,20 +1140,20 @@
         }, {
             key: 'mergeTimelineCollectedStyles',
             value: function mergeTimelineCollectedStyles(timeline) {
-                var _this10 = this;
+                var _this11 = this;
 
                 Object.keys(timeline._styleSummary).forEach(function (prop) {
-                    var /** @type {?} */details0 = _this10._styleSummary[prop];
+                    var /** @type {?} */details0 = _this11._styleSummary[prop];
                     var /** @type {?} */details1 = timeline._styleSummary[prop];
                     if (!details0 || details1.time > details0.time) {
-                        _this10._updateStyle(prop, details1.value);
+                        _this11._updateStyle(prop, details1.value);
                     }
                 });
             }
         }, {
             key: 'buildKeyframes',
             value: function buildKeyframes() {
-                var _this11 = this;
+                var _this12 = this;
 
                 var /** @type {?} */finalKeyframes = [];
                 // special case for when there are only start/destination
@@ -1144,7 +1169,7 @@
                 } else {
                     this._keyframes.forEach(function (keyframe, time) {
                         var /** @type {?} */finalKeyframe = copyStyles(keyframe, true);
-                        finalKeyframe['offset'] = time / _this11.duration;
+                        finalKeyframe['offset'] = time / _this12.duration;
                         finalKeyframes.push(finalKeyframe);
                     });
                 }
@@ -1270,22 +1295,22 @@
         }, {
             key: 'visitSequence',
             value: function visitSequence(ast, context) {
-                var _this12 = this;
+                var _this13 = this;
 
                 ast.steps.forEach(function (step) {
-                    return visitAnimationNode(_this12, step, context);
+                    return visitAnimationNode(_this13, step, context);
                 });
             }
         }, {
             key: 'visitGroup',
             value: function visitGroup(ast, context) {
-                var _this13 = this;
+                var _this14 = this;
 
                 var /** @type {?} */currentTime = context.currentTime;
                 var /** @type {?} */furthestTime = 0;
                 ast.steps.forEach(function (step) {
                     context.currentTime = currentTime;
-                    visitAnimationNode(_this13, step, context);
+                    visitAnimationNode(_this14, step, context);
                     furthestTime = Math.max(furthestTime, context.currentTime);
                 });
                 context.currentTime = furthestTime;
@@ -1338,7 +1363,7 @@
         }, {
             key: 'visitKeyframeSequence',
             value: function visitKeyframeSequence(ast, context) {
-                var _this14 = this;
+                var _this15 = this;
 
                 var /** @type {?} */totalKeyframesWithOffsets = 0;
                 var /** @type {?} */offsets = [];
@@ -1378,7 +1403,7 @@
                     var /** @type {?} */durationUpToThisFrame = offset * animateDuration;
                     context.currentTime = currentTime + context.currentAnimateTimings.delay + durationUpToThisFrame;
                     context.currentAnimateTimings.duration = durationUpToThisFrame;
-                    _this14.visitStyle(step, context);
+                    _this15.visitStyle(step, context);
                 });
             }
         }]);
@@ -1414,7 +1439,7 @@
          * @param {?} _transitionAsts
          */
         function AnimationTrigger(name, states, _transitionAsts) {
-            var _this15 = this;
+            var _this16 = this;
 
             _classCallCheck(this, AnimationTrigger);
 
@@ -1423,7 +1448,7 @@
             this.transitionFactories = [];
             this.states = {};
             Object.keys(states).forEach(function (stateName) {
-                _this15.states[stateName] = copyStyles(states[stateName], false);
+                _this16.states[stateName] = copyStyles(states[stateName], false);
             });
             var errors = [];
             _transitionAsts.forEach(function (ast) {
@@ -1432,7 +1457,7 @@
                 if (sequenceErrors.length) {
                     errors.push.apply(errors, _toConsumableArray(sequenceErrors));
                 } else {
-                    _this15.transitionFactories.push(new AnimationTransitionFactory(_this15.name, ast, exprs, states));
+                    _this16.transitionFactories.push(new AnimationTransitionFactory(_this16.name, ast, exprs, states));
                 }
             });
             if (errors.length) {
@@ -1484,11 +1509,11 @@
         _createClass(AnimationTriggerVisitor, [{
             key: 'buildTrigger',
             value: function buildTrigger(name, definitions) {
-                var _this16 = this;
+                var _this17 = this;
 
                 var /** @type {?} */context = new AnimationTriggerContext();
                 definitions.forEach(function (def) {
-                    return visitAnimationNode(_this16, def, context);
+                    return visitAnimationNode(_this17, def, context);
                 });
                 return new AnimationTrigger(name, context.states, context.transitions);
             }
@@ -1552,7 +1577,9 @@
         _createClass(DomAnimationEngine, [{
             key: 'registerTrigger',
             value: function registerTrigger(trigger) {
-                var /** @type {?} */name = trigger.name;
+                var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+                name = name || trigger.name;
                 if (this._triggers[name]) {
                     throw new Error('The provided animation trigger "' + name + '" has already been registered!');
                 }
@@ -1567,14 +1594,14 @@
         }, {
             key: 'onRemove',
             value: function onRemove(element, domFn) {
-                var _this17 = this;
+                var _this18 = this;
 
                 var /** @type {?} */lookupRef = this._elementTriggerStates.get(element);
                 if (lookupRef) {
                     var /** @type {?} */possibleTriggers = Object.keys(lookupRef);
                     var /** @type {?} */hasRemoval = possibleTriggers.some(function (triggerName) {
                         var /** @type {?} */oldValue = lookupRef[triggerName];
-                        var /** @type {?} */instruction = _this17._triggers[triggerName].matchTransition(oldValue, 'void');
+                        var /** @type {?} */instruction = _this18._triggers[triggerName].matchTransition(oldValue, 'void');
                         return !!instruction;
                     });
                     if (hasRemoval) {
@@ -1634,7 +1661,7 @@
         }, {
             key: '_onRemovalTransition',
             value: function _onRemovalTransition(element) {
-                var _this18 = this;
+                var _this19 = this;
 
                 // when a parent animation is set to trigger a removal we want to
                 // find all of the children that are currently animating and clear
@@ -1643,13 +1670,13 @@
 
                 var _loop = function _loop(i) {
                     var /** @type {?} */elm = elms[i];
-                    var /** @type {?} */activePlayers = _this18._activeElementAnimations.get(elm);
+                    var /** @type {?} */activePlayers = _this19._activeElementAnimations.get(elm);
                     if (activePlayers) {
                         activePlayers.forEach(function (player) {
                             return player.destroy();
                         });
                     }
-                    var /** @type {?} */activeTransitions = _this18._activeTransitionAnimations.get(elm);
+                    var /** @type {?} */activeTransitions = _this19._activeTransitionAnimations.get(elm);
                     if (activeTransitions) {
                         Object.keys(activeTransitions).forEach(function (triggerName) {
                             var /** @type {?} */player = activeTransitions[triggerName];
@@ -1670,7 +1697,7 @@
         }, {
             key: 'animateTransition',
             value: function animateTransition(element, instruction) {
-                var _this19 = this;
+                var _this20 = this;
 
                 var /** @type {?} */triggerName = instruction.triggerName;
                 var /** @type {?} */previousPlayers = void 0;
@@ -1692,7 +1719,7 @@
                 var /** @type {?} */totalTime = 0;
                 var /** @type {?} */players = instruction.timelines.map(function (timelineInstruction) {
                     totalTime = Math.max(totalTime, timelineInstruction.totalTime);
-                    return _this19._buildPlayer(element, timelineInstruction, previousPlayers);
+                    return _this20._buildPlayer(element, timelineInstruction, previousPlayers);
                 });
                 previousPlayers.forEach(function (previousPlayer) {
                     return previousPlayer.destroy();
@@ -1700,14 +1727,14 @@
                 var /** @type {?} */player = optimizeGroupPlayer(players);
                 player.onDone(function () {
                     player.destroy();
-                    var /** @type {?} */elmTransitionMap = _this19._activeTransitionAnimations.get(element);
+                    var /** @type {?} */elmTransitionMap = _this20._activeTransitionAnimations.get(element);
                     if (elmTransitionMap) {
                         delete elmTransitionMap[triggerName];
                         if (Object.keys(elmTransitionMap).length == 0) {
-                            _this19._activeTransitionAnimations.delete(element);
+                            _this20._activeTransitionAnimations.delete(element);
                         }
                     }
-                    deleteFromArrayMap(_this19._activeElementAnimations, element, player);
+                    deleteFromArrayMap(_this20._activeElementAnimations, element, player);
                     setStyles(element, instruction.toStyles);
                 });
                 var /** @type {?} */elmTransitionMap = getOrSetAsInMap(this._activeTransitionAnimations, element, {});
@@ -1719,17 +1746,17 @@
         }, {
             key: 'animateTimeline',
             value: function animateTimeline(element, instructions) {
-                var _this20 = this;
+                var _this21 = this;
 
                 var previousPlayers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
                 var /** @type {?} */players = instructions.map(function (instruction) {
-                    var /** @type {?} */player = _this20._buildPlayer(element, instruction, previousPlayers);
+                    var /** @type {?} */player = _this21._buildPlayer(element, instruction, previousPlayers);
                     player.onDestroy(function () {
-                        deleteFromArrayMap(_this20._activeElementAnimations, element, player);
+                        deleteFromArrayMap(_this21._activeElementAnimations, element, player);
                     });
                     player.init();
-                    _this20._markPlayerAsActive(element, player);
+                    _this21._markPlayerAsActive(element, player);
                     return player;
                 });
                 return optimizeGroupPlayer(players);
@@ -1742,7 +1769,7 @@
         }, {
             key: '_normalizeKeyframes',
             value: function _normalizeKeyframes(keyframes) {
-                var _this21 = this;
+                var _this22 = this;
 
                 var /** @type {?} */errors = [];
                 var /** @type {?} */normalizedKeyframes = [];
@@ -1752,8 +1779,8 @@
                         var /** @type {?} */normalizedProp = prop;
                         var /** @type {?} */normalizedValue = kf[prop];
                         if (prop != 'offset') {
-                            normalizedProp = _this21._normalizer.normalizePropertyName(prop, errors);
-                            normalizedValue = _this21._normalizer.normalizeStyleValue(prop, normalizedProp, kf[prop], errors);
+                            normalizedProp = _this22._normalizer.normalizePropertyName(prop, errors);
+                            normalizedValue = _this22._normalizer.normalizeStyleValue(prop, normalizedProp, kf[prop], errors);
                         }
                         normalizedKeyframe[normalizedProp] = normalizedValue;
                     });
@@ -1785,10 +1812,10 @@
         }, {
             key: '_flushQueuedAnimations',
             value: function _flushQueuedAnimations() {
-                var _this22 = this;
+                var _this23 = this;
 
                 var _loop2 = function _loop2() {
-                    var _queuedTransitionAnim = _this22._queuedTransitionAnimations.shift(),
+                    var _queuedTransitionAnim = _this23._queuedTransitionAnimations.shift(),
                         player = _queuedTransitionAnim.player,
                         element = _queuedTransitionAnim.element,
                         triggerName = _queuedTransitionAnim.triggerName,
@@ -1803,11 +1830,11 @@
                     }
                     // if a removal exists for the given element then we need cancel
                     // all the queued players so that a proper removal animation can go
-                    if (_this22._queuedRemovals.has(element)) {
+                    if (_this23._queuedRemovals.has(element)) {
                         player.destroy();
                         return 'continue';
                     }
-                    var /** @type {?} */listeners = _this22._triggerListeners.get(element);
+                    var /** @type {?} */listeners = _this23._triggerListeners.get(element);
                     if (listeners) {
                         listeners.forEach(function (tuple) {
                             if (tuple.triggerName == triggerName) {
@@ -1815,7 +1842,7 @@
                             }
                         });
                     }
-                    _this22._markPlayerAsActive(element, player);
+                    _this23._markPlayerAsActive(element, player);
                     // in the event that an animation throws an error then we do
                     // not want to re-run animations on any previous animations
                     // if they have already been kicked off beforehand
@@ -1838,14 +1865,14 @@
         }, {
             key: 'flush',
             value: function flush() {
-                var _this23 = this;
+                var _this24 = this;
 
                 this._flushQueuedAnimations();
                 var /** @type {?} */flushAgain = false;
                 this._queuedRemovals.forEach(function (callback, element) {
                     // an item that was inserted/removed in the same flush means
                     // that an animation should not happen anyway
-                    if (_this23._flaggedInserts.has(element)) return;
+                    if (_this24._flaggedInserts.has(element)) return;
                     var /** @type {?} */parent = element;
                     var /** @type {?} */players = [];
                     while (parent = parent.parentNode) {
@@ -1854,7 +1881,7 @@
                             callback();
                             return;
                         }
-                        var /** @type {?} */match = _this23._activeElementAnimations.get(parent);
+                        var /** @type {?} */match = _this24._activeElementAnimations.get(parent);
                         if (match) {
                             players.push.apply(players, _toConsumableArray(match));
                             break;
@@ -1867,13 +1894,13 @@
                     // those players to facilitate the callback after done
                     if (players.length == 0) {
                         // this means that the element has valid state triggers
-                        var /** @type {?} */stateDetails = _this23._elementTriggerStates.get(element);
+                        var /** @type {?} */stateDetails = _this24._elementTriggerStates.get(element);
                         if (stateDetails) {
                             Object.keys(stateDetails).forEach(function (triggerName) {
                                 var /** @type {?} */oldValue = stateDetails[triggerName];
-                                var /** @type {?} */instruction = _this23._triggers[triggerName].matchTransition(oldValue, 'void');
+                                var /** @type {?} */instruction = _this24._triggers[triggerName].matchTransition(oldValue, 'void');
                                 if (instruction) {
-                                    players.push(_this23.animateTransition(element, instruction));
+                                    players.push(_this24.animateTransition(element, instruction));
                                     flushAgain = true;
                                 }
                             });
@@ -2032,7 +2059,7 @@
          * @param {?=} previousPlayers
          */
         function WebAnimationsPlayer(element, keyframes, options) {
-            var _this24 = this;
+            var _this25 = this;
 
             var previousPlayers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
 
@@ -2057,7 +2084,7 @@
             previousPlayers.forEach(function (player) {
                 var styles = player._captureStyles();
                 Object.keys(styles).forEach(function (prop) {
-                    return _this24.previousStyles[prop] = styles[prop];
+                    return _this25.previousStyles[prop] = styles[prop];
                 });
             });
         }
@@ -2080,7 +2107,7 @@
         }, {
             key: 'init',
             value: function init() {
-                var _this25 = this;
+                var _this26 = this;
 
                 if (this._initialized) return;
                 this._initialized = true;
@@ -2089,7 +2116,7 @@
                     Object.keys(styles).forEach(function (prop, index) {
                         var /** @type {?} */value = styles[prop];
                         if (value == _animations.AUTO_STYLE) {
-                            value = _computeStyle(_this25.element, prop);
+                            value = _computeStyle(_this26.element, prop);
                         }
                         if (value != undefined) {
                             formattedKeyframe[prop] = value;
@@ -2105,13 +2132,13 @@
                         if (startingKeyframe[prop] != null) {
                             missingStyleProps.push(prop);
                         }
-                        startingKeyframe[prop] = _this25.previousStyles[prop];
+                        startingKeyframe[prop] = _this26.previousStyles[prop];
                     });
                     if (missingStyleProps.length) {
                         var i;
 
                         (function () {
-                            var /** @type {?} */self = _this25;
+                            var /** @type {?} */self = _this26;
                             // tslint:disable-next-line
 
                             var _loop3 = function _loop3() {
@@ -2132,7 +2159,7 @@
                 // this is required so that the player doesn't start to animate right away
                 this._resetDomPlayerState();
                 this._player.addEventListener('finish', function () {
-                    return _this25._onFinish();
+                    return _this26._onFinish();
                 });
             }
         }, {
@@ -2235,13 +2262,13 @@
         }, {
             key: '_captureStyles',
             value: function _captureStyles() {
-                var _this26 = this;
+                var _this27 = this;
 
                 var /** @type {?} */styles = {};
                 if (this.hasStarted()) {
                     Object.keys(this._finalKeyframe).forEach(function (prop) {
                         if (prop != 'offset') {
-                            styles[prop] = _this26._finished ? _this26._finalKeyframe[prop] : _computeStyle(_this26.element, prop);
+                            styles[prop] = _this27._finished ? _this27._finalKeyframe[prop] : _computeStyle(_this27.element, prop);
                         }
                     });
                 }
@@ -2387,17 +2414,18 @@
         function NoopAnimationEngine() {
             _classCallCheck(this, NoopAnimationEngine);
 
-            var _this28 = _possibleConstructorReturn(this, (NoopAnimationEngine.__proto__ || Object.getPrototypeOf(NoopAnimationEngine)).apply(this, arguments));
+            var _this29 = _possibleConstructorReturn(this, (NoopAnimationEngine.__proto__ || Object.getPrototypeOf(NoopAnimationEngine)).apply(this, arguments));
 
-            _this28._listeners = new Map();
-            _this28._changes = [];
-            _this28._flaggedRemovals = new Set();
-            _this28._onDoneFns = [];
-            _this28._triggerStyles = {};
-            return _this28;
+            _this29._listeners = new Map();
+            _this29._changes = [];
+            _this29._flaggedRemovals = new Set();
+            _this29._onDoneFns = [];
+            _this29._triggerStyles = {};
+            return _this29;
         }
         /**
          * @param {?} trigger
+         * @param {?=} name
          * @return {?}
          */
 
@@ -2405,6 +2433,8 @@
         _createClass(NoopAnimationEngine, [{
             key: 'registerTrigger',
             value: function registerTrigger(trigger) {
+                var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
                 var /** @type {?} */stateMap = {};
                 trigger.definitions.forEach(function (def) {
                     if (def.type === 0 /* State */) {
@@ -2412,7 +2442,8 @@
                             stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
                         }
                 });
-                this._triggerStyles[trigger.name] = stateMap;
+                name = name || trigger.name;
+                this._triggerStyles[name] = stateMap;
             }
         }, {
             key: 'onInsert',
@@ -2460,7 +2491,7 @@
         }, {
             key: 'flush',
             value: function flush() {
-                var _this29 = this;
+                var _this30 = this;
 
                 var /** @type {?} */onStartCallbacks = [];
                 var /** @type {?} */onDoneCallbacks = [];
@@ -2484,7 +2515,7 @@
                 }
                 this._changes.forEach(function (change) {
                     var /** @type {?} */element = change.element;
-                    var /** @type {?} */listeners = _this29._listeners.get(element);
+                    var /** @type {?} */listeners = _this30._listeners.get(element);
                     if (listeners) {
                         listeners.forEach(function (listener) {
                             if (listener.triggerName == change.triggerName) {
@@ -2495,7 +2526,7 @@
                 });
                 // upon removal ALL the animation triggers need to get fired
                 this._flaggedRemovals.forEach(function (element) {
-                    var /** @type {?} */listeners = _this29._listeners.get(element);
+                    var /** @type {?} */listeners = _this30._listeners.get(element);
                     if (listeners) {
                         listeners.forEach(function (listener) {
                             var /** @type {?} */triggerName = listener.triggerName;
@@ -2511,13 +2542,13 @@
                 });
                 // remove all the listeners after everything is complete
                 Array.from(this._listeners.keys()).forEach(function (element) {
-                    var /** @type {?} */listenersToKeep = _this29._listeners.get(element).filter(function (l) {
+                    var /** @type {?} */listenersToKeep = _this30._listeners.get(element).filter(function (l) {
                         return !l.doRemove;
                     });
                     if (listenersToKeep.length) {
-                        _this29._listeners.set(element, listenersToKeep);
+                        _this30._listeners.set(element, listenersToKeep);
                     } else {
-                        _this29._listeners.delete(element);
+                        _this30._listeners.delete(element);
                     }
                 });
                 onStartCallbacks.forEach(function (fn) {

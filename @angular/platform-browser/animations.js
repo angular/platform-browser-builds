@@ -9,9 +9,10 @@ class AnimationEngine {
     /**
      * @abstract
      * @param {?} trigger
+     * @param {?=} name
      * @return {?}
      */
-    registerTrigger(trigger) { }
+    registerTrigger(trigger, name) { }
     /**
      * @abstract
      * @param {?} element
@@ -188,15 +189,16 @@ class AnimationRendererFactory {
      */
     createRenderer(hostElement, type) {
         let /** @type {?} */ delegate = this.delegate.createRenderer(hostElement, type);
-        if (!hostElement || !type)
+        if (!hostElement || !type || !type.data || !type.data['animation'])
             return delegate;
-        let /** @type {?} */ animationRenderer = ((type.data['__animationRenderer__']));
-        if (animationRenderer && delegate == animationRenderer.delegate) {
-            return animationRenderer;
+        let /** @type {?} */ animationRenderer = delegate.data['animationRenderer'];
+        if (!animationRenderer) {
+            const /** @type {?} */ namespaceId = type.id;
+            const /** @type {?} */ animationTriggers = (type.data['animation']);
+            animationTriggers.forEach(trigger => this._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name)));
+            animationRenderer = new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
+            delegate.data['animationRenderer'] = animationRenderer;
         }
-        const /** @type {?} */ animationTriggers = (type.data['animation']);
-        animationRenderer = ((type.data))['__animationRenderer__'] =
-            new AnimationRenderer(delegate, this._engine, this._zone, animationTriggers);
         return animationRenderer;
     }
 }
@@ -214,19 +216,21 @@ class AnimationRenderer {
      * @param {?} delegate
      * @param {?} _engine
      * @param {?} _zone
-     * @param {?=} _triggers
+     * @param {?} _namespaceId
      */
-    constructor(delegate, _engine, _zone, _triggers = null) {
+    constructor(delegate, _engine, _zone, _namespaceId) {
         this.delegate = delegate;
         this._engine = _engine;
         this._zone = _zone;
+        this._namespaceId = _namespaceId;
         this.destroyNode = null;
         this._flushPromise = null;
         this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
-        if (_triggers) {
-            _triggers.forEach(trigger => _engine.registerTrigger(trigger));
-        }
     }
+    /**
+     * @return {?}
+     */
+    get data() { return this.delegate.data; }
     /**
      * @return {?}
      */
@@ -359,7 +363,7 @@ class AnimationRenderer {
      */
     setProperty(el, name, value) {
         if (name.charAt(0) == '@') {
-            this._engine.setProperty(el, name.substr(1), value);
+            this._engine.setProperty(el, namespaceify(this._namespaceId, name.substr(1)), value);
             this._queueFlush();
         }
         else {
@@ -376,7 +380,13 @@ class AnimationRenderer {
         if (eventName.charAt(0) == '@') {
             const /** @type {?} */ element = resolveElementFromTarget(target);
             const [name, phase] = parseTriggerCallbackName(eventName.substr(1));
-            return this._engine.listen(element, name, phase, (event) => this._zone.run(() => callback(event)));
+            return this._engine.listen(element, namespaceify(this._namespaceId, name), phase, (event) => {
+                const /** @type {?} */ e = (event);
+                if (e.triggerName) {
+                    e.triggerName = deNamespaceify(this._namespaceId, e.triggerName);
+                }
+                this._zone.run(() => callback(event));
+            });
         }
         return this.delegate.listen(target, eventName, callback);
     }
@@ -419,6 +429,22 @@ function parseTriggerCallbackName(triggerName) {
     const /** @type {?} */ trigger = triggerName.substring(0, dotIndex);
     const /** @type {?} */ phase = triggerName.substr(dotIndex + 1);
     return [trigger, phase];
+}
+/**
+ * @param {?} namespaceId
+ * @param {?} value
+ * @return {?}
+ */
+function namespaceify(namespaceId, value) {
+    return `${namespaceId}#${value}`;
+}
+/**
+ * @param {?} namespaceId
+ * @param {?} value
+ * @return {?}
+ */
+function deNamespaceify(namespaceId, value) {
+    return value.replace(namespaceId + '#', '');
 }
 
 const /** @type {?} */ ONE_SECOND = 1000;
@@ -1414,10 +1440,11 @@ class DomAnimationEngine {
     }
     /**
      * @param {?} trigger
+     * @param {?=} name
      * @return {?}
      */
-    registerTrigger(trigger) {
-        const /** @type {?} */ name = trigger.name;
+    registerTrigger(trigger, name = null) {
+        name = name || trigger.name;
         if (this._triggers[name]) {
             throw new Error(`The provided animation trigger "${name}" has already been registered!`);
         }
@@ -2205,9 +2232,10 @@ class NoopAnimationEngine extends AnimationEngine {
     }
     /**
      * @param {?} trigger
+     * @param {?=} name
      * @return {?}
      */
-    registerTrigger(trigger) {
+    registerTrigger(trigger, name = null) {
         const /** @type {?} */ stateMap = {};
         trigger.definitions.forEach(def => {
             if (def.type === 0 /* State */) {
@@ -2215,7 +2243,8 @@ class NoopAnimationEngine extends AnimationEngine {
                 stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
             }
         });
-        this._triggerStyles[trigger.name] = stateMap;
+        name = name || trigger.name;
+        this._triggerStyles[name] = stateMap;
     }
     /**
      * @param {?} element

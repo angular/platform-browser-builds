@@ -3113,6 +3113,7 @@
             _classCallCheck(this, DefaultDomRendererV2);
 
             this.eventManager = eventManager;
+            this.data = Object.create(null);
         }
         /**
          * @return {?}
@@ -4784,7 +4785,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */VERSION = new _core.Version('4.0.0-beta.8-5094aef');
+    var /** @type {?} */VERSION = new _core.Version('4.0.0-beta.8-436a179');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;

@@ -1,11 +1,3 @@
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { NgZone, RendererFactoryV2, RendererTypeV2, RendererV2 } from '@angular/core';
 import { AnimationEngine } from '../animation_engine';
 export declare class AnimationRendererFactory implements RendererFactoryV2 {
@@ -19,9 +11,13 @@ export declare class AnimationRenderer implements RendererV2 {
     delegate: RendererV2;
     private _engine;
     private _zone;
+    private _namespaceId;
     destroyNode: (node: any) => (void | any);
     private _flushPromise;
-    constructor(delegate: RendererV2, _engine: AnimationEngine, _zone: NgZone, _triggers?: AnimationTriggerMetadata[]);
+    constructor(delegate: RendererV2, _engine: AnimationEngine, _zone: NgZone, _namespaceId: string);
+    readonly data: {
+        [key: string]: any;
+    };
     destroy(): void;
     createElement(name: string, namespace?: string): any;
     createComment(value: string): any;
