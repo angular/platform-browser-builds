@@ -9,7 +9,7 @@ import { AnimationPlayer } from '@angular/animations';
 /**
  * @experimental
  */
-export declare class NoOpAnimationDriver implements AnimationDriver {
+export declare class NoopAnimationDriver implements AnimationDriver {
     animate(element: any, keyframes: {
         [key: string]: string | number;
     }[], duration: number, delay: number, easing: string, previousPlayers?: any[]): AnimationPlayer;

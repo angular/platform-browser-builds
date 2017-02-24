@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AnimationPlayer, NoOpAnimationPlayer } from '@angular/animations';
+import { AnimationPlayer, NoopAnimationPlayer } from '@angular/animations';
 import { AnimationDriver } from '../src/render/animation_driver';
 /**
  * @experimental Animation support is experimental.
@@ -19,7 +19,7 @@ export declare class MockAnimationDriver implements AnimationDriver {
 /**
  * @experimental Animation support is experimental.
  */
-export declare class MockAnimationPlayer extends NoOpAnimationPlayer {
+export declare class MockAnimationPlayer extends NoopAnimationPlayer {
     element: any;
     keyframes: {
         [key: string]: string | number;

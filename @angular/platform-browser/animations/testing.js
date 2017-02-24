@@ -1,4 +1,4 @@
-import { AUTO_STYLE, NoOpAnimationPlayer } from '@angular/animations';
+import { AUTO_STYLE, NoopAnimationPlayer } from '@angular/animations';
 
 /**
  * @experimental Animation support is experimental.
@@ -14,7 +14,7 @@ MockAnimationDriver.log = [];
 /**
  * @experimental Animation support is experimental.
  */
-class MockAnimationPlayer extends NoOpAnimationPlayer {
+class MockAnimationPlayer extends NoopAnimationPlayer {
     constructor(element, keyframes, duration, delay, easing, previousPlayers) {
         super();
         this.element = element;

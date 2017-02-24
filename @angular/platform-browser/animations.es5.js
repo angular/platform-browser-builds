@@ -1,6 +1,6 @@
 import { Injectable, NgZone, RendererFactoryV2, NgModule } from '@angular/core';
 import { ɵDomRendererFactoryV2, BrowserModule } from '@angular/platform-browser';
-import { NoOpAnimationPlayer, ɵAnimationGroupPlayer, sequence, AUTO_STYLE } from '@angular/animations';
+import { NoopAnimationPlayer, ɵAnimationGroupPlayer, sequence, AUTO_STYLE } from '@angular/animations';
 
 /**
  * @abstract
@@ -87,7 +87,7 @@ class AnimationStyleNormalizer {
 /**
  * \@experimental Animation support is experimental.
  */
-class NoOpAnimationStyleNormalizer {
+class NoopAnimationStyleNormalizer {
     /**
      * @param {?} propertyName
      * @param {?} errors
@@ -162,16 +162,16 @@ function dashCaseToCamelCase(input) {
 /**
  * @experimental
  */
-class NoOpAnimationDriver {
+class NoopAnimationDriver {
     animate(element, keyframes, duration, delay, easing, previousPlayers = []) {
-        return new NoOpAnimationPlayer();
+        return new NoopAnimationPlayer();
     }
 }
 /**
  * @experimental
  */
 class AnimationDriver {}
-AnimationDriver.NOOP = new NoOpAnimationDriver();
+AnimationDriver.NOOP = new NoopAnimationDriver();
 
 class AnimationRendererFactory {
     /**
@@ -1796,7 +1796,7 @@ function deleteFromArrayMap(map, key, value) {
 function optimizeGroupPlayer(players) {
     switch (players.length) {
         case 0:
-            return new NoOpAnimationPlayer();
+            return new NoopAnimationPlayer();
         case 1:
             return players[0];
         default:
@@ -2161,7 +2161,7 @@ function instantiateSupportedAnimationDriver() {
     if (supportsWebAnimations()) {
         return new WebAnimationsDriver();
     }
-    return new NoOpAnimationDriver();
+    return new NoopAnimationDriver();
 }
 /**
  * @return {?}
@@ -2435,4 +2435,4 @@ class Animation {
     }
 }
 
-export { BrowserAnimationModule, NoopBrowserAnimationModule, AnimationDriver, AnimationEngine as ɵAnimationEngine, Animation as ɵAnimation, AnimationStyleNormalizer as ɵAnimationStyleNormalizer, NoOpAnimationStyleNormalizer as ɵNoOpAnimationStyleNormalizer, NoOpAnimationDriver as ɵNoOpAnimationDriver, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, DomAnimationEngine as ɵDomAnimationEngine, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb, WebAnimationsStyleNormalizer as ɵf, instantiateRendererFactory$1 as ɵe, NoopAnimationEngine as ɵg };
+export { BrowserAnimationModule, NoopBrowserAnimationModule, AnimationDriver, AnimationEngine as ɵAnimationEngine, Animation as ɵAnimation, AnimationStyleNormalizer as ɵAnimationStyleNormalizer, NoopAnimationStyleNormalizer as ɵNoopAnimationStyleNormalizer, NoopAnimationDriver as ɵNoopAnimationDriver, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, DomAnimationEngine as ɵDomAnimationEngine, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb, WebAnimationsStyleNormalizer as ɵf, instantiateRendererFactory$1 as ɵe, NoopAnimationEngine as ɵg };

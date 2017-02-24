@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-1f3198c
+ * @license Angular v4.0.0-beta.8-32c2fd5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -23,7 +23,7 @@
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.ɵg = exports.ɵe = exports.ɵf = exports.ɵb = exports.ɵd = exports.ɵc = exports.ɵa = exports.ɵDomAnimationEngine = exports.ɵAnimationRendererFactory = exports.ɵAnimationRenderer = exports.ɵNoOpAnimationDriver = exports.ɵNoOpAnimationStyleNormalizer = exports.ɵAnimationStyleNormalizer = exports.ɵAnimation = exports.ɵAnimationEngine = exports.AnimationDriver = exports.NoopBrowserAnimationModule = exports.BrowserAnimationModule = undefined;
+    exports.ɵg = exports.ɵe = exports.ɵf = exports.ɵb = exports.ɵd = exports.ɵc = exports.ɵa = exports.ɵDomAnimationEngine = exports.ɵAnimationRendererFactory = exports.ɵAnimationRenderer = exports.ɵNoopAnimationDriver = exports.ɵNoopAnimationStyleNormalizer = exports.ɵAnimationStyleNormalizer = exports.ɵAnimation = exports.ɵAnimationEngine = exports.AnimationDriver = exports.NoopBrowserAnimationModule = exports.BrowserAnimationModule = undefined;
 
     function _toConsumableArray(arr) {
         if (Array.isArray(arr)) {
@@ -177,12 +177,12 @@
         return AnimationStyleNormalizer;
     }();
 
-    var NoOpAnimationStyleNormalizer = function () {
-        function NoOpAnimationStyleNormalizer() {
-            _classCallCheck(this, NoOpAnimationStyleNormalizer);
+    var NoopAnimationStyleNormalizer = function () {
+        function NoopAnimationStyleNormalizer() {
+            _classCallCheck(this, NoopAnimationStyleNormalizer);
         }
 
-        _createClass(NoOpAnimationStyleNormalizer, [{
+        _createClass(NoopAnimationStyleNormalizer, [{
             key: 'normalizePropertyName',
             value: function normalizePropertyName(propertyName, errors) {
                 return propertyName;
@@ -194,7 +194,7 @@
             }
         }]);
 
-        return NoOpAnimationStyleNormalizer;
+        return NoopAnimationStyleNormalizer;
     }();
 
     var WebAnimationsStyleNormalizer = function (_AnimationStyleNormal) {
@@ -264,28 +264,28 @@
      * @experimental
      */
 
-    var NoOpAnimationDriver = function () {
-        function NoOpAnimationDriver() {
-            _classCallCheck(this, NoOpAnimationDriver);
+    var NoopAnimationDriver = function () {
+        function NoopAnimationDriver() {
+            _classCallCheck(this, NoopAnimationDriver);
         }
 
-        _createClass(NoOpAnimationDriver, [{
+        _createClass(NoopAnimationDriver, [{
             key: 'animate',
             value: function animate(element, keyframes, duration, delay, easing) {
                 var previousPlayers = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : [];
 
-                return new _animations.NoOpAnimationPlayer();
+                return new _animations.NoopAnimationPlayer();
             }
         }]);
 
-        return NoOpAnimationDriver;
+        return NoopAnimationDriver;
     }();
 
     var AnimationDriver = function AnimationDriver() {
         _classCallCheck(this, AnimationDriver);
     };
 
-    AnimationDriver.NOOP = new NoOpAnimationDriver();
+    AnimationDriver.NOOP = new NoopAnimationDriver();
 
     var AnimationRendererFactory = function () {
         /**
@@ -1951,7 +1951,7 @@
     function optimizeGroupPlayer(players) {
         switch (players.length) {
             case 0:
-                return new _animations.NoOpAnimationPlayer();
+                return new _animations.NoopAnimationPlayer();
             case 1:
                 return players[0];
             default:
@@ -2340,7 +2340,7 @@
         if (supportsWebAnimations()) {
             return new WebAnimationsDriver();
         }
-        return new NoOpAnimationDriver();
+        return new NoopAnimationDriver();
     }
     /**
      * @return {?}
@@ -2652,8 +2652,8 @@
     exports.ɵAnimationEngine = AnimationEngine;
     exports.ɵAnimation = Animation;
     exports.ɵAnimationStyleNormalizer = AnimationStyleNormalizer;
-    exports.ɵNoOpAnimationStyleNormalizer = NoOpAnimationStyleNormalizer;
-    exports.ɵNoOpAnimationDriver = NoOpAnimationDriver;
+    exports.ɵNoopAnimationStyleNormalizer = NoopAnimationStyleNormalizer;
+    exports.ɵNoopAnimationDriver = NoopAnimationDriver;
     exports.ɵAnimationRenderer = AnimationRenderer;
     exports.ɵAnimationRendererFactory = AnimationRendererFactory;
     exports.ɵDomAnimationEngine = DomAnimationEngine;

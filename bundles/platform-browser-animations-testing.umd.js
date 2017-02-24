@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-1f3198c
+ * @license Angular v4.0.0-beta.8-32c2fd5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -120,8 +120,8 @@
      * @experimental Animation support is experimental.
      */
 
-    var MockAnimationPlayer = function (_NoOpAnimationPlayer) {
-        _inherits(MockAnimationPlayer, _NoOpAnimationPlayer);
+    var MockAnimationPlayer = function (_NoopAnimationPlayer) {
+        _inherits(MockAnimationPlayer, _NoopAnimationPlayer);
 
         function MockAnimationPlayer(element, keyframes, duration, delay, easing, previousPlayers) {
             _classCallCheck(this, MockAnimationPlayer);
@@ -185,7 +185,7 @@
         }]);
 
         return MockAnimationPlayer;
-    }(_animations.NoOpAnimationPlayer);
+    }(_animations.NoopAnimationPlayer);
 
     exports.MockAnimationDriver = MockAnimationDriver;
     exports.MockAnimationPlayer = MockAnimationPlayer;
