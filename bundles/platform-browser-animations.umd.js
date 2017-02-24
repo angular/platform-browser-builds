@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-32c2fd5
+ * @license Angular v4.0.0-beta.8-93ddd38
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -23,7 +23,7 @@
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.ɵg = exports.ɵe = exports.ɵf = exports.ɵb = exports.ɵd = exports.ɵc = exports.ɵa = exports.ɵDomAnimationEngine = exports.ɵAnimationRendererFactory = exports.ɵAnimationRenderer = exports.ɵNoopAnimationDriver = exports.ɵNoopAnimationStyleNormalizer = exports.ɵAnimationStyleNormalizer = exports.ɵAnimation = exports.ɵAnimationEngine = exports.AnimationDriver = exports.NoopBrowserAnimationModule = exports.BrowserAnimationModule = undefined;
+    exports.ɵg = exports.ɵe = exports.ɵf = exports.ɵb = exports.ɵd = exports.ɵc = exports.ɵa = exports.ɵDomAnimationEngine = exports.ɵAnimationRendererFactory = exports.ɵAnimationRenderer = exports.ɵNoopAnimationDriver = exports.ɵNoopAnimationStyleNormalizer = exports.ɵAnimationStyleNormalizer = exports.ɵAnimation = exports.ɵAnimationEngine = exports.AnimationDriver = exports.NoopAnimationsModule = exports.BrowserAnimationsModule = undefined;
 
     function _toConsumableArray(arr) {
         if (Array.isArray(arr)) {
@@ -2361,11 +2361,11 @@
      * \@experimental Animation support is experimental.
      */
 
-    var BrowserAnimationModule = function BrowserAnimationModule() {
-        _classCallCheck(this, BrowserAnimationModule);
+    var BrowserAnimationsModule = function BrowserAnimationsModule() {
+        _classCallCheck(this, BrowserAnimationsModule);
     };
 
-    BrowserAnimationModule.decorators = [{ type: _core.NgModule, args: [{
+    BrowserAnimationsModule.decorators = [{ type: _core.NgModule, args: [{
             imports: [_platformBrowser.BrowserModule],
             providers: [{ provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver }, { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer }, { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
                 provide: _core.RendererFactoryV2,
@@ -2374,7 +2374,7 @@
             }]
         }] }];
     /** @nocollapse */
-    BrowserAnimationModule.ctorParameters = function () {
+    BrowserAnimationsModule.ctorParameters = function () {
         return [];
     };
 
@@ -2581,11 +2581,11 @@
      * \@experimental Animation support is experimental.
      */
 
-    var NoopBrowserAnimationModule = function NoopBrowserAnimationModule() {
-        _classCallCheck(this, NoopBrowserAnimationModule);
+    var NoopAnimationsModule = function NoopAnimationsModule() {
+        _classCallCheck(this, NoopAnimationsModule);
     };
 
-    NoopBrowserAnimationModule.decorators = [{ type: _core.NgModule, args: [{
+    NoopAnimationsModule.decorators = [{ type: _core.NgModule, args: [{
             imports: [_platformBrowser.BrowserModule],
             providers: [{ provide: AnimationEngine, useClass: NoopAnimationEngine }, {
                 provide: _core.RendererFactoryV2,
@@ -2594,7 +2594,7 @@
             }]
         }] }];
     /** @nocollapse */
-    NoopBrowserAnimationModule.ctorParameters = function () {
+    NoopAnimationsModule.ctorParameters = function () {
         return [];
     };
 
@@ -2646,8 +2646,8 @@
         return Animation;
     }();
 
-    exports.BrowserAnimationModule = BrowserAnimationModule;
-    exports.NoopBrowserAnimationModule = NoopBrowserAnimationModule;
+    exports.BrowserAnimationsModule = BrowserAnimationsModule;
+    exports.NoopAnimationsModule = NoopAnimationsModule;
     exports.AnimationDriver = AnimationDriver;
     exports.ɵAnimationEngine = AnimationEngine;
     exports.ɵAnimation = Animation;

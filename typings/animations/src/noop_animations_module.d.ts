@@ -13,5 +13,5 @@ export declare function instantiateRendererFactory(renderer: ɵDomRendererFactor
 /**
  * @experimental Animation support is experimental.
  */
-export declare class NoopBrowserAnimationModule {
+export declare class NoopAnimationsModule {
 }

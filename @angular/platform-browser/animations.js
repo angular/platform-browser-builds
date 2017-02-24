@@ -2173,9 +2173,9 @@ function instantiateRendererFactory(renderer, engine, zone) {
 /**
  * \@experimental Animation support is experimental.
  */
-class BrowserAnimationModule {
+class BrowserAnimationsModule {
 }
-BrowserAnimationModule.decorators = [
+BrowserAnimationsModule.decorators = [
     { type: NgModule, args: [{
                 imports: [BrowserModule],
                 providers: [
@@ -2190,7 +2190,7 @@ BrowserAnimationModule.decorators = [
             },] },
 ];
 /** @nocollapse */
-BrowserAnimationModule.ctorParameters = () => [];
+BrowserAnimationsModule.ctorParameters = () => [];
 
 const /** @type {?} */ DEFAULT_STATE_VALUE = 'void';
 const /** @type {?} */ DEFAULT_STATE_STYLES = '*';
@@ -2377,9 +2377,9 @@ function instantiateRendererFactory$1(renderer, engine, zone) {
 /**
  * \@experimental Animation support is experimental.
  */
-class NoopBrowserAnimationModule {
+class NoopAnimationsModule {
 }
-NoopBrowserAnimationModule.decorators = [
+NoopAnimationsModule.decorators = [
     { type: NgModule, args: [{
                 imports: [BrowserModule],
                 providers: [
@@ -2392,7 +2392,7 @@ NoopBrowserAnimationModule.decorators = [
             },] },
 ];
 /** @nocollapse */
-NoopBrowserAnimationModule.ctorParameters = () => [];
+NoopAnimationsModule.ctorParameters = () => [];
 
 class Animation {
     /**
@@ -2435,4 +2435,4 @@ class Animation {
     }
 }
 
-export { BrowserAnimationModule, NoopBrowserAnimationModule, AnimationDriver, AnimationEngine as ɵAnimationEngine, Animation as ɵAnimation, AnimationStyleNormalizer as ɵAnimationStyleNormalizer, NoopAnimationStyleNormalizer as ɵNoopAnimationStyleNormalizer, NoopAnimationDriver as ɵNoopAnimationDriver, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, DomAnimationEngine as ɵDomAnimationEngine, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb, WebAnimationsStyleNormalizer as ɵf, instantiateRendererFactory$1 as ɵe, NoopAnimationEngine as ɵg };
+export { BrowserAnimationsModule, NoopAnimationsModule, AnimationDriver, AnimationEngine as ɵAnimationEngine, Animation as ɵAnimation, AnimationStyleNormalizer as ɵAnimationStyleNormalizer, NoopAnimationStyleNormalizer as ɵNoopAnimationStyleNormalizer, NoopAnimationDriver as ɵNoopAnimationDriver, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, DomAnimationEngine as ɵDomAnimationEngine, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb, WebAnimationsStyleNormalizer as ɵf, instantiateRendererFactory$1 as ɵe, NoopAnimationEngine as ɵg };

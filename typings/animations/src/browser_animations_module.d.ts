@@ -22,5 +22,5 @@ export declare function instantiateRendererFactory(renderer: ɵDomRendererFactor
 /**
  * @experimental Animation support is experimental.
  */
-export declare class BrowserAnimationModule {
+export declare class BrowserAnimationsModule {
 }
