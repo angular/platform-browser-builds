@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-932a02f
+ * @license Angular v4.0.0-beta.8-9186068
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -23,7 +23,7 @@
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.ɵg = exports.ɵe = exports.ɵf = exports.ɵb = exports.ɵd = exports.ɵc = exports.ɵa = exports.ɵDomAnimationEngine = exports.ɵAnimationRendererFactory = exports.ɵAnimationRenderer = exports.ɵNoopAnimationDriver = exports.ɵNoopAnimationStyleNormalizer = exports.ɵAnimationStyleNormalizer = exports.ɵAnimation = exports.ɵAnimationEngine = exports.AnimationDriver = exports.NoopAnimationsModule = exports.BrowserAnimationsModule = undefined;
+    exports.ɵh = exports.ɵb = exports.ɵd = exports.ɵc = exports.ɵa = exports.ɵf = exports.ɵe = exports.ɵg = exports.ɵDomAnimationEngine = exports.ɵAnimationRendererFactory = exports.ɵAnimationRenderer = exports.ɵNoopAnimationDriver = exports.ɵNoopAnimationStyleNormalizer = exports.ɵAnimationStyleNormalizer = exports.ɵAnimation = exports.ɵAnimationEngine = exports.AnimationDriver = exports.NoopAnimationsModule = exports.BrowserAnimationsModule = undefined;
 
     function _toConsumableArray(arr) {
         if (Array.isArray(arr)) {
@@ -314,17 +314,12 @@
 
                 var /** @type {?} */delegate = this.delegate.createRenderer(hostElement, type);
                 if (!hostElement || !type || !type.data || !type.data['animation']) return delegate;
-                var /** @type {?} */animationRenderer = delegate.data['animationRenderer'];
-                if (!animationRenderer) {
-                    var /** @type {?} */namespaceId = type.id;
-                    var /** @type {?} */animationTriggers = type.data['animation'];
-                    animationTriggers.forEach(function (trigger) {
-                        return _this2._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name));
-                    });
-                    animationRenderer = new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
-                    delegate.data['animationRenderer'] = animationRenderer;
-                }
-                return animationRenderer;
+                var /** @type {?} */namespaceId = type.id;
+                var /** @type {?} */animationTriggers = type.data['animation'];
+                animationTriggers.forEach(function (trigger) {
+                    return _this2._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name));
+                });
+                return new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
             }
         }]);
 
@@ -2051,6 +2046,200 @@
         return { element: element, triggerName: triggerName, fromState: fromState, toState: toState, phaseName: phaseName, totalTime: totalTime };
     }
 
+    var /** @type {?} */DEFAULT_STATE_VALUE = 'void';
+    var /** @type {?} */DEFAULT_STATE_STYLES = '*';
+
+    var NoopAnimationEngine = function (_AnimationEngine) {
+        _inherits(NoopAnimationEngine, _AnimationEngine);
+
+        function NoopAnimationEngine() {
+            _classCallCheck(this, NoopAnimationEngine);
+
+            var _this25 = _possibleConstructorReturn(this, (NoopAnimationEngine.__proto__ || Object.getPrototypeOf(NoopAnimationEngine)).apply(this, arguments));
+
+            _this25._listeners = new Map();
+            _this25._changes = [];
+            _this25._flaggedRemovals = new Set();
+            _this25._onDoneFns = [];
+            _this25._triggerStyles = {};
+            return _this25;
+        }
+        /**
+         * @param {?} trigger
+         * @param {?=} name
+         * @return {?}
+         */
+
+
+        _createClass(NoopAnimationEngine, [{
+            key: 'registerTrigger',
+            value: function registerTrigger(trigger) {
+                var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+                var /** @type {?} */stateMap = {};
+                trigger.definitions.forEach(function (def) {
+                    if (def.type === 0 /* State */) {
+                            var /** @type {?} */stateDef = def;
+                            stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
+                        }
+                });
+                name = name || trigger.name;
+                this._triggerStyles[name] = stateMap;
+            }
+        }, {
+            key: 'onInsert',
+            value: function onInsert(element, domFn) {
+                domFn();
+            }
+        }, {
+            key: 'onRemove',
+            value: function onRemove(element, domFn) {
+                domFn();
+                this._flaggedRemovals.add(element);
+            }
+        }, {
+            key: 'setProperty',
+            value: function setProperty(element, property, value) {
+                var /** @type {?} */storageProp = makeStorageProp(property);
+                var /** @type {?} */oldValue = element[storageProp] || DEFAULT_STATE_VALUE;
+                this._changes.push( /** @type {?} */{ element: element, oldValue: oldValue, newValue: value, triggerName: property });
+                var /** @type {?} */triggerStateStyles = this._triggerStyles[property] || {};
+                var /** @type {?} */fromStateStyles = triggerStateStyles[oldValue] || triggerStateStyles[DEFAULT_STATE_STYLES];
+                if (fromStateStyles) {
+                    eraseStyles(element, fromStateStyles);
+                }
+                element[storageProp] = value;
+                this._onDoneFns.push(function () {
+                    var /** @type {?} */toStateStyles = triggerStateStyles[value] || triggerStateStyles[DEFAULT_STATE_STYLES];
+                    if (toStateStyles) {
+                        setStyles(element, toStateStyles);
+                    }
+                });
+            }
+        }, {
+            key: 'listen',
+            value: function listen(element, eventName, eventPhase, callback) {
+                var /** @type {?} */listeners = this._listeners.get(element);
+                if (!listeners) {
+                    this._listeners.set(element, listeners = []);
+                }
+                var /** @type {?} */tuple = { triggerName: eventName, eventPhase: eventPhase, callback: callback };
+                listeners.push(tuple);
+                return function () {
+                    return tuple.doRemove = true;
+                };
+            }
+        }, {
+            key: 'flush',
+            value: function flush() {
+                var _this26 = this;
+
+                var /** @type {?} */onStartCallbacks = [];
+                var /** @type {?} */onDoneCallbacks = [];
+                /**
+                 * @param {?} listener
+                 * @param {?} data
+                 * @return {?}
+                 */
+                function handleListener(listener, data) {
+                    var /** @type {?} */phase = listener.eventPhase;
+                    var /** @type {?} */event = makeAnimationEvent$1(data.element, data.triggerName, data.oldValue, data.newValue, phase, 0);
+                    if (phase == 'start') {
+                        onStartCallbacks.push(function () {
+                            return listener.callback(event);
+                        });
+                    } else if (phase == 'done') {
+                        onDoneCallbacks.push(function () {
+                            return listener.callback(event);
+                        });
+                    }
+                }
+                this._changes.forEach(function (change) {
+                    var /** @type {?} */element = change.element;
+                    var /** @type {?} */listeners = _this26._listeners.get(element);
+                    if (listeners) {
+                        listeners.forEach(function (listener) {
+                            if (listener.triggerName == change.triggerName) {
+                                handleListener(listener, change);
+                            }
+                        });
+                    }
+                });
+                // upon removal ALL the animation triggers need to get fired
+                this._flaggedRemovals.forEach(function (element) {
+                    var /** @type {?} */listeners = _this26._listeners.get(element);
+                    if (listeners) {
+                        listeners.forEach(function (listener) {
+                            var /** @type {?} */triggerName = listener.triggerName;
+                            var /** @type {?} */storageProp = makeStorageProp(triggerName);
+                            handleListener(listener, /** @type {?} */{
+                                element: element,
+                                triggerName: triggerName,
+                                oldValue: element[storageProp] || DEFAULT_STATE_VALUE,
+                                newValue: DEFAULT_STATE_VALUE
+                            });
+                        });
+                    }
+                });
+                // remove all the listeners after everything is complete
+                Array.from(this._listeners.keys()).forEach(function (element) {
+                    var /** @type {?} */listenersToKeep = _this26._listeners.get(element).filter(function (l) {
+                        return !l.doRemove;
+                    });
+                    if (listenersToKeep.length) {
+                        _this26._listeners.set(element, listenersToKeep);
+                    } else {
+                        _this26._listeners.delete(element);
+                    }
+                });
+                onStartCallbacks.forEach(function (fn) {
+                    return fn();
+                });
+                onDoneCallbacks.forEach(function (fn) {
+                    return fn();
+                });
+                this._flaggedRemovals.clear();
+                this._changes = [];
+                this._onDoneFns.forEach(function (doneFn) {
+                    return doneFn();
+                });
+                this._onDoneFns = [];
+            }
+        }, {
+            key: 'activePlayers',
+            get: function get() {
+                return [];
+            }
+        }, {
+            key: 'queuedPlayers',
+            get: function get() {
+                return [];
+            }
+        }]);
+
+        return NoopAnimationEngine;
+    }(AnimationEngine);
+
+    /**
+     * @param {?} element
+     * @param {?} triggerName
+     * @param {?} fromState
+     * @param {?} toState
+     * @param {?} phaseName
+     * @param {?} totalTime
+     * @return {?}
+     */
+    function makeAnimationEvent$1(element, triggerName, fromState, toState, phaseName, totalTime) {
+        return { element: element, triggerName: triggerName, fromState: fromState, toState: toState, phaseName: phaseName, totalTime: totalTime };
+    }
+    /**
+     * @param {?} property
+     * @return {?}
+     */
+    function makeStorageProp(property) {
+        return '_@_' + property;
+    }
+
     var WebAnimationsPlayer = function () {
         /**
          * @param {?} element
@@ -2059,7 +2248,7 @@
          * @param {?=} previousPlayers
          */
         function WebAnimationsPlayer(element, keyframes, options) {
-            var _this25 = this;
+            var _this27 = this;
 
             var previousPlayers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
 
@@ -2084,7 +2273,7 @@
             previousPlayers.forEach(function (player) {
                 var styles = player._captureStyles();
                 Object.keys(styles).forEach(function (prop) {
-                    return _this25.previousStyles[prop] = styles[prop];
+                    return _this27.previousStyles[prop] = styles[prop];
                 });
             });
         }
@@ -2107,7 +2296,7 @@
         }, {
             key: 'init',
             value: function init() {
-                var _this26 = this;
+                var _this28 = this;
 
                 if (this._initialized) return;
                 this._initialized = true;
@@ -2116,7 +2305,7 @@
                     Object.keys(styles).forEach(function (prop, index) {
                         var /** @type {?} */value = styles[prop];
                         if (value == _animations.AUTO_STYLE) {
-                            value = _computeStyle(_this26.element, prop);
+                            value = _computeStyle(_this28.element, prop);
                         }
                         if (value != undefined) {
                             formattedKeyframe[prop] = value;
@@ -2132,13 +2321,13 @@
                         if (startingKeyframe[prop] != null) {
                             missingStyleProps.push(prop);
                         }
-                        startingKeyframe[prop] = _this26.previousStyles[prop];
+                        startingKeyframe[prop] = _this28.previousStyles[prop];
                     });
                     if (missingStyleProps.length) {
                         var i;
 
                         (function () {
-                            var /** @type {?} */self = _this26;
+                            var /** @type {?} */self = _this28;
                             // tslint:disable-next-line
 
                             var _loop3 = function _loop3() {
@@ -2159,7 +2348,7 @@
                 // this is required so that the player doesn't start to animate right away
                 this._resetDomPlayerState();
                 this._player.addEventListener('finish', function () {
-                    return _this26._onFinish();
+                    return _this28._onFinish();
                 });
             }
         }, {
@@ -2262,13 +2451,13 @@
         }, {
             key: '_captureStyles',
             value: function _captureStyles() {
-                var _this27 = this;
+                var _this29 = this;
 
                 var /** @type {?} */styles = {};
                 if (this.hasStarted()) {
                     Object.keys(this._finalKeyframe).forEach(function (prop) {
                         if (prop != 'offset') {
-                            styles[prop] = _this27._finished ? _this27._finalKeyframe[prop] : _computeStyle(_this27.element, prop);
+                            styles[prop] = _this29._finished ? _this29._finalKeyframe[prop] : _computeStyle(_this29.element, prop);
                         }
                     });
                 }
@@ -2385,6 +2574,25 @@
         return new AnimationRendererFactory(renderer, engine, zone);
     }
     /**
+     * Separate providers from the actual module so that we can do a local modification in Google3 to
+     * include them in the BrowserModule.
+     */
+    var /** @type {?} */BROWSER_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver }, { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer }, { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
+        provide: _core.RendererFactoryV2,
+        useFactory: instantiateRendererFactory,
+        deps: [_platformBrowser.ɵDomRendererFactoryV2, AnimationEngine, _core.NgZone]
+    }];
+    /**
+     * Separate providers from the actual module so that we can do a local modification in Google3 to
+     * include them in the BrowserTestingModule.
+     */
+    var /** @type {?} */BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationEngine, useClass: NoopAnimationEngine }, {
+        provide: _core.RendererFactoryV2,
+        useFactory: instantiateRendererFactory,
+        deps: [_platformBrowser.ɵDomRendererFactoryV2, AnimationEngine, _core.NgZone]
+    }];
+
+    /**
      * \@experimental Animation support is experimental.
      */
 
@@ -2394,220 +2602,12 @@
 
     BrowserAnimationsModule.decorators = [{ type: _core.NgModule, args: [{
             imports: [_platformBrowser.BrowserModule],
-            providers: [{ provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver }, { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer }, { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
-                provide: _core.RendererFactoryV2,
-                useFactory: instantiateRendererFactory,
-                deps: [_platformBrowser.ɵDomRendererFactoryV2, AnimationEngine, _core.NgZone]
-            }]
+            providers: BROWSER_ANIMATIONS_PROVIDERS
         }] }];
     /** @nocollapse */
     BrowserAnimationsModule.ctorParameters = function () {
         return [];
     };
-
-    var /** @type {?} */DEFAULT_STATE_VALUE = 'void';
-    var /** @type {?} */DEFAULT_STATE_STYLES = '*';
-
-    var NoopAnimationEngine = function (_AnimationEngine) {
-        _inherits(NoopAnimationEngine, _AnimationEngine);
-
-        function NoopAnimationEngine() {
-            _classCallCheck(this, NoopAnimationEngine);
-
-            var _this29 = _possibleConstructorReturn(this, (NoopAnimationEngine.__proto__ || Object.getPrototypeOf(NoopAnimationEngine)).apply(this, arguments));
-
-            _this29._listeners = new Map();
-            _this29._changes = [];
-            _this29._flaggedRemovals = new Set();
-            _this29._onDoneFns = [];
-            _this29._triggerStyles = {};
-            return _this29;
-        }
-        /**
-         * @param {?} trigger
-         * @param {?=} name
-         * @return {?}
-         */
-
-
-        _createClass(NoopAnimationEngine, [{
-            key: 'registerTrigger',
-            value: function registerTrigger(trigger) {
-                var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-                var /** @type {?} */stateMap = {};
-                trigger.definitions.forEach(function (def) {
-                    if (def.type === 0 /* State */) {
-                            var /** @type {?} */stateDef = def;
-                            stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
-                        }
-                });
-                name = name || trigger.name;
-                this._triggerStyles[name] = stateMap;
-            }
-        }, {
-            key: 'onInsert',
-            value: function onInsert(element, domFn) {
-                domFn();
-            }
-        }, {
-            key: 'onRemove',
-            value: function onRemove(element, domFn) {
-                domFn();
-                this._flaggedRemovals.add(element);
-            }
-        }, {
-            key: 'setProperty',
-            value: function setProperty(element, property, value) {
-                var /** @type {?} */storageProp = makeStorageProp(property);
-                var /** @type {?} */oldValue = element[storageProp] || DEFAULT_STATE_VALUE;
-                this._changes.push( /** @type {?} */{ element: element, oldValue: oldValue, newValue: value, triggerName: property });
-                var /** @type {?} */triggerStateStyles = this._triggerStyles[property] || {};
-                var /** @type {?} */fromStateStyles = triggerStateStyles[oldValue] || triggerStateStyles[DEFAULT_STATE_STYLES];
-                if (fromStateStyles) {
-                    eraseStyles(element, fromStateStyles);
-                }
-                element[storageProp] = value;
-                this._onDoneFns.push(function () {
-                    var /** @type {?} */toStateStyles = triggerStateStyles[value] || triggerStateStyles[DEFAULT_STATE_STYLES];
-                    if (toStateStyles) {
-                        setStyles(element, toStateStyles);
-                    }
-                });
-            }
-        }, {
-            key: 'listen',
-            value: function listen(element, eventName, eventPhase, callback) {
-                var /** @type {?} */listeners = this._listeners.get(element);
-                if (!listeners) {
-                    this._listeners.set(element, listeners = []);
-                }
-                var /** @type {?} */tuple = { triggerName: eventName, eventPhase: eventPhase, callback: callback };
-                listeners.push(tuple);
-                return function () {
-                    return tuple.doRemove = true;
-                };
-            }
-        }, {
-            key: 'flush',
-            value: function flush() {
-                var _this30 = this;
-
-                var /** @type {?} */onStartCallbacks = [];
-                var /** @type {?} */onDoneCallbacks = [];
-                /**
-                 * @param {?} listener
-                 * @param {?} data
-                 * @return {?}
-                 */
-                function handleListener(listener, data) {
-                    var /** @type {?} */phase = listener.eventPhase;
-                    var /** @type {?} */event = makeAnimationEvent$1(data.element, data.triggerName, data.oldValue, data.newValue, phase, 0);
-                    if (phase == 'start') {
-                        onStartCallbacks.push(function () {
-                            return listener.callback(event);
-                        });
-                    } else if (phase == 'done') {
-                        onDoneCallbacks.push(function () {
-                            return listener.callback(event);
-                        });
-                    }
-                }
-                this._changes.forEach(function (change) {
-                    var /** @type {?} */element = change.element;
-                    var /** @type {?} */listeners = _this30._listeners.get(element);
-                    if (listeners) {
-                        listeners.forEach(function (listener) {
-                            if (listener.triggerName == change.triggerName) {
-                                handleListener(listener, change);
-                            }
-                        });
-                    }
-                });
-                // upon removal ALL the animation triggers need to get fired
-                this._flaggedRemovals.forEach(function (element) {
-                    var /** @type {?} */listeners = _this30._listeners.get(element);
-                    if (listeners) {
-                        listeners.forEach(function (listener) {
-                            var /** @type {?} */triggerName = listener.triggerName;
-                            var /** @type {?} */storageProp = makeStorageProp(triggerName);
-                            handleListener(listener, /** @type {?} */{
-                                element: element,
-                                triggerName: triggerName,
-                                oldValue: element[storageProp] || DEFAULT_STATE_VALUE,
-                                newValue: DEFAULT_STATE_VALUE
-                            });
-                        });
-                    }
-                });
-                // remove all the listeners after everything is complete
-                Array.from(this._listeners.keys()).forEach(function (element) {
-                    var /** @type {?} */listenersToKeep = _this30._listeners.get(element).filter(function (l) {
-                        return !l.doRemove;
-                    });
-                    if (listenersToKeep.length) {
-                        _this30._listeners.set(element, listenersToKeep);
-                    } else {
-                        _this30._listeners.delete(element);
-                    }
-                });
-                onStartCallbacks.forEach(function (fn) {
-                    return fn();
-                });
-                onDoneCallbacks.forEach(function (fn) {
-                    return fn();
-                });
-                this._flaggedRemovals.clear();
-                this._changes = [];
-                this._onDoneFns.forEach(function (doneFn) {
-                    return doneFn();
-                });
-                this._onDoneFns = [];
-            }
-        }, {
-            key: 'activePlayers',
-            get: function get() {
-                return [];
-            }
-        }, {
-            key: 'queuedPlayers',
-            get: function get() {
-                return [];
-            }
-        }]);
-
-        return NoopAnimationEngine;
-    }(AnimationEngine);
-
-    /**
-     * @param {?} element
-     * @param {?} triggerName
-     * @param {?} fromState
-     * @param {?} toState
-     * @param {?} phaseName
-     * @param {?} totalTime
-     * @return {?}
-     */
-    function makeAnimationEvent$1(element, triggerName, fromState, toState, phaseName, totalTime) {
-        return { element: element, triggerName: triggerName, fromState: fromState, toState: toState, phaseName: phaseName, totalTime: totalTime };
-    }
-    /**
-     * @param {?} property
-     * @return {?}
-     */
-    function makeStorageProp(property) {
-        return '_@_' + property;
-    }
-
-    /**
-     * @param {?} renderer
-     * @param {?} engine
-     * @param {?} zone
-     * @return {?}
-     */
-    function instantiateRendererFactory$1(renderer, engine, zone) {
-        return new AnimationRendererFactory(renderer, engine, zone);
-    }
     /**
      * \@experimental Animation support is experimental.
      */
@@ -2618,11 +2618,7 @@
 
     NoopAnimationsModule.decorators = [{ type: _core.NgModule, args: [{
             imports: [_platformBrowser.BrowserModule],
-            providers: [{ provide: AnimationEngine, useClass: NoopAnimationEngine }, {
-                provide: _core.RendererFactoryV2,
-                useFactory: instantiateRendererFactory$1,
-                deps: [_platformBrowser.ɵDomRendererFactoryV2, AnimationEngine, _core.NgZone]
-            }]
+            providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS
         }] }];
     /** @nocollapse */
     NoopAnimationsModule.ctorParameters = function () {
@@ -2688,11 +2684,12 @@
     exports.ɵAnimationRenderer = AnimationRenderer;
     exports.ɵAnimationRendererFactory = AnimationRendererFactory;
     exports.ɵDomAnimationEngine = DomAnimationEngine;
+    exports.ɵg = WebAnimationsStyleNormalizer;
+    exports.ɵe = BROWSER_ANIMATIONS_PROVIDERS;
+    exports.ɵf = BROWSER_NOOP_ANIMATIONS_PROVIDERS;
     exports.ɵa = InjectableAnimationEngine;
     exports.ɵc = instantiateDefaultStyleNormalizer;
     exports.ɵd = instantiateRendererFactory;
     exports.ɵb = instantiateSupportedAnimationDriver;
-    exports.ɵf = WebAnimationsStyleNormalizer;
-    exports.ɵe = instantiateRendererFactory$1;
-    exports.ɵg = NoopAnimationEngine;
+    exports.ɵh = NoopAnimationEngine;
 });

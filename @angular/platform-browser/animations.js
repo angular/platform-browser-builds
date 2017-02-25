@@ -1,5 +1,5 @@
-import { Injectable, NgZone, RendererFactoryV2, NgModule } from '@angular/core';
-import { ɵDomRendererFactoryV2, BrowserModule } from '@angular/platform-browser';
+import { NgModule, Injectable, NgZone, RendererFactoryV2 } from '@angular/core';
+import { BrowserModule, ɵDomRendererFactoryV2 } from '@angular/platform-browser';
 import { NoopAnimationPlayer, ɵAnimationGroupPlayer, sequence, AUTO_STYLE } from '@angular/animations';
 
 /**
@@ -191,15 +191,10 @@ class AnimationRendererFactory {
         let /** @type {?} */ delegate = this.delegate.createRenderer(hostElement, type);
         if (!hostElement || !type || !type.data || !type.data['animation'])
             return delegate;
-        let /** @type {?} */ animationRenderer = delegate.data['animationRenderer'];
-        if (!animationRenderer) {
-            const /** @type {?} */ namespaceId = type.id;
-            const /** @type {?} */ animationTriggers = (type.data['animation']);
-            animationTriggers.forEach(trigger => this._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name)));
-            animationRenderer = new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
-            delegate.data['animationRenderer'] = animationRenderer;
-        }
-        return animationRenderer;
+        const /** @type {?} */ namespaceId = type.id;
+        const /** @type {?} */ animationTriggers = (type.data['animation']);
+        animationTriggers.forEach(trigger => this._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name)));
+        return new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
     }
 }
 AnimationRendererFactory.decorators = [
@@ -1896,6 +1891,181 @@ function makeAnimationEvent(element, triggerName, fromState, toState, phaseName,
     return ({ element, triggerName, fromState, toState, phaseName, totalTime });
 }
 
+const /** @type {?} */ DEFAULT_STATE_VALUE = 'void';
+const /** @type {?} */ DEFAULT_STATE_STYLES = '*';
+class NoopAnimationEngine extends AnimationEngine {
+    constructor() {
+        super(...arguments);
+        this._listeners = new Map();
+        this._changes = [];
+        this._flaggedRemovals = new Set();
+        this._onDoneFns = [];
+        this._triggerStyles = {};
+    }
+    /**
+     * @param {?} trigger
+     * @param {?=} name
+     * @return {?}
+     */
+    registerTrigger(trigger, name = null) {
+        const /** @type {?} */ stateMap = {};
+        trigger.definitions.forEach(def => {
+            if (def.type === 0 /* State */) {
+                const /** @type {?} */ stateDef = (def);
+                stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
+            }
+        });
+        name = name || trigger.name;
+        this._triggerStyles[name] = stateMap;
+    }
+    /**
+     * @param {?} element
+     * @param {?} domFn
+     * @return {?}
+     */
+    onInsert(element, domFn) { domFn(); }
+    /**
+     * @param {?} element
+     * @param {?} domFn
+     * @return {?}
+     */
+    onRemove(element, domFn) {
+        domFn();
+        this._flaggedRemovals.add(element);
+    }
+    /**
+     * @param {?} element
+     * @param {?} property
+     * @param {?} value
+     * @return {?}
+     */
+    setProperty(element, property, value) {
+        const /** @type {?} */ storageProp = makeStorageProp(property);
+        const /** @type {?} */ oldValue = element[storageProp] || DEFAULT_STATE_VALUE;
+        this._changes.push(/** @type {?} */ ({ element, oldValue, newValue: value, triggerName: property }));
+        const /** @type {?} */ triggerStateStyles = this._triggerStyles[property] || {};
+        const /** @type {?} */ fromStateStyles = triggerStateStyles[oldValue] || triggerStateStyles[DEFAULT_STATE_STYLES];
+        if (fromStateStyles) {
+            eraseStyles(element, fromStateStyles);
+        }
+        element[storageProp] = value;
+        this._onDoneFns.push(() => {
+            const /** @type {?} */ toStateStyles = triggerStateStyles[value] || triggerStateStyles[DEFAULT_STATE_STYLES];
+            if (toStateStyles) {
+                setStyles(element, toStateStyles);
+            }
+        });
+    }
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} eventPhase
+     * @param {?} callback
+     * @return {?}
+     */
+    listen(element, eventName, eventPhase, callback) {
+        let /** @type {?} */ listeners = this._listeners.get(element);
+        if (!listeners) {
+            this._listeners.set(element, listeners = []);
+        }
+        const /** @type {?} */ tuple = ({ triggerName: eventName, eventPhase, callback });
+        listeners.push(tuple);
+        return () => tuple.doRemove = true;
+    }
+    /**
+     * @return {?}
+     */
+    flush() {
+        const /** @type {?} */ onStartCallbacks = [];
+        const /** @type {?} */ onDoneCallbacks = [];
+        /**
+         * @param {?} listener
+         * @param {?} data
+         * @return {?}
+         */
+        function handleListener(listener, data) {
+            const /** @type {?} */ phase = listener.eventPhase;
+            const /** @type {?} */ event = makeAnimationEvent$1(data.element, data.triggerName, data.oldValue, data.newValue, phase, 0);
+            if (phase == 'start') {
+                onStartCallbacks.push(() => listener.callback(event));
+            }
+            else if (phase == 'done') {
+                onDoneCallbacks.push(() => listener.callback(event));
+            }
+        }
+        this._changes.forEach(change => {
+            const /** @type {?} */ element = change.element;
+            const /** @type {?} */ listeners = this._listeners.get(element);
+            if (listeners) {
+                listeners.forEach(listener => {
+                    if (listener.triggerName == change.triggerName) {
+                        handleListener(listener, change);
+                    }
+                });
+            }
+        });
+        // upon removal ALL the animation triggers need to get fired
+        this._flaggedRemovals.forEach(element => {
+            const /** @type {?} */ listeners = this._listeners.get(element);
+            if (listeners) {
+                listeners.forEach(listener => {
+                    const /** @type {?} */ triggerName = listener.triggerName;
+                    const /** @type {?} */ storageProp = makeStorageProp(triggerName);
+                    handleListener(listener, /** @type {?} */ ({
+                        element: element,
+                        triggerName: triggerName,
+                        oldValue: element[storageProp] || DEFAULT_STATE_VALUE,
+                        newValue: DEFAULT_STATE_VALUE
+                    }));
+                });
+            }
+        });
+        // remove all the listeners after everything is complete
+        Array.from(this._listeners.keys()).forEach(element => {
+            const /** @type {?} */ listenersToKeep = this._listeners.get(element).filter(l => !l.doRemove);
+            if (listenersToKeep.length) {
+                this._listeners.set(element, listenersToKeep);
+            }
+            else {
+                this._listeners.delete(element);
+            }
+        });
+        onStartCallbacks.forEach(fn => fn());
+        onDoneCallbacks.forEach(fn => fn());
+        this._flaggedRemovals.clear();
+        this._changes = [];
+        this._onDoneFns.forEach(doneFn => doneFn());
+        this._onDoneFns = [];
+    }
+    /**
+     * @return {?}
+     */
+    get activePlayers() { return []; }
+    /**
+     * @return {?}
+     */
+    get queuedPlayers() { return []; }
+}
+/**
+ * @param {?} element
+ * @param {?} triggerName
+ * @param {?} fromState
+ * @param {?} toState
+ * @param {?} phaseName
+ * @param {?} totalTime
+ * @return {?}
+ */
+function makeAnimationEvent$1(element, triggerName, fromState, toState, phaseName, totalTime) {
+    return ({ element, triggerName, fromState, toState, phaseName, totalTime });
+}
+/**
+ * @param {?} property
+ * @return {?}
+ */
+function makeStorageProp(property) {
+    return '_@_' + property;
+}
+
 class WebAnimationsPlayer {
     /**
      * @param {?} element
@@ -2198,6 +2368,31 @@ function instantiateRendererFactory(renderer, engine, zone) {
     return new AnimationRendererFactory(renderer, engine, zone);
 }
 /**
+ * Separate providers from the actual module so that we can do a local modification in Google3 to
+ * include them in the BrowserModule.
+ */
+const /** @type {?} */ BROWSER_ANIMATIONS_PROVIDERS = [
+    { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
+    { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
+    { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
+        provide: RendererFactoryV2,
+        useFactory: instantiateRendererFactory,
+        deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
+    }
+];
+/**
+ * Separate providers from the actual module so that we can do a local modification in Google3 to
+ * include them in the BrowserTestingModule.
+ */
+const /** @type {?} */ BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
+    { provide: AnimationEngine, useClass: NoopAnimationEngine }, {
+        provide: RendererFactoryV2,
+        useFactory: instantiateRendererFactory,
+        deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
+    }
+];
+
+/**
  * \@experimental Animation support is experimental.
  */
 class BrowserAnimationsModule {
@@ -2205,204 +2400,11 @@ class BrowserAnimationsModule {
 BrowserAnimationsModule.decorators = [
     { type: NgModule, args: [{
                 imports: [BrowserModule],
-                providers: [
-                    { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
-                    { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
-                    { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
-                        provide: RendererFactoryV2,
-                        useFactory: instantiateRendererFactory,
-                        deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
-                    }
-                ]
+                providers: BROWSER_ANIMATIONS_PROVIDERS,
             },] },
 ];
 /** @nocollapse */
 BrowserAnimationsModule.ctorParameters = () => [];
-
-const /** @type {?} */ DEFAULT_STATE_VALUE = 'void';
-const /** @type {?} */ DEFAULT_STATE_STYLES = '*';
-class NoopAnimationEngine extends AnimationEngine {
-    constructor() {
-        super(...arguments);
-        this._listeners = new Map();
-        this._changes = [];
-        this._flaggedRemovals = new Set();
-        this._onDoneFns = [];
-        this._triggerStyles = {};
-    }
-    /**
-     * @param {?} trigger
-     * @param {?=} name
-     * @return {?}
-     */
-    registerTrigger(trigger, name = null) {
-        const /** @type {?} */ stateMap = {};
-        trigger.definitions.forEach(def => {
-            if (def.type === 0 /* State */) {
-                const /** @type {?} */ stateDef = (def);
-                stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
-            }
-        });
-        name = name || trigger.name;
-        this._triggerStyles[name] = stateMap;
-    }
-    /**
-     * @param {?} element
-     * @param {?} domFn
-     * @return {?}
-     */
-    onInsert(element, domFn) { domFn(); }
-    /**
-     * @param {?} element
-     * @param {?} domFn
-     * @return {?}
-     */
-    onRemove(element, domFn) {
-        domFn();
-        this._flaggedRemovals.add(element);
-    }
-    /**
-     * @param {?} element
-     * @param {?} property
-     * @param {?} value
-     * @return {?}
-     */
-    setProperty(element, property, value) {
-        const /** @type {?} */ storageProp = makeStorageProp(property);
-        const /** @type {?} */ oldValue = element[storageProp] || DEFAULT_STATE_VALUE;
-        this._changes.push(/** @type {?} */ ({ element, oldValue, newValue: value, triggerName: property }));
-        const /** @type {?} */ triggerStateStyles = this._triggerStyles[property] || {};
-        const /** @type {?} */ fromStateStyles = triggerStateStyles[oldValue] || triggerStateStyles[DEFAULT_STATE_STYLES];
-        if (fromStateStyles) {
-            eraseStyles(element, fromStateStyles);
-        }
-        element[storageProp] = value;
-        this._onDoneFns.push(() => {
-            const /** @type {?} */ toStateStyles = triggerStateStyles[value] || triggerStateStyles[DEFAULT_STATE_STYLES];
-            if (toStateStyles) {
-                setStyles(element, toStateStyles);
-            }
-        });
-    }
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} eventPhase
-     * @param {?} callback
-     * @return {?}
-     */
-    listen(element, eventName, eventPhase, callback) {
-        let /** @type {?} */ listeners = this._listeners.get(element);
-        if (!listeners) {
-            this._listeners.set(element, listeners = []);
-        }
-        const /** @type {?} */ tuple = ({ triggerName: eventName, eventPhase, callback });
-        listeners.push(tuple);
-        return () => tuple.doRemove = true;
-    }
-    /**
-     * @return {?}
-     */
-    flush() {
-        const /** @type {?} */ onStartCallbacks = [];
-        const /** @type {?} */ onDoneCallbacks = [];
-        /**
-         * @param {?} listener
-         * @param {?} data
-         * @return {?}
-         */
-        function handleListener(listener, data) {
-            const /** @type {?} */ phase = listener.eventPhase;
-            const /** @type {?} */ event = makeAnimationEvent$1(data.element, data.triggerName, data.oldValue, data.newValue, phase, 0);
-            if (phase == 'start') {
-                onStartCallbacks.push(() => listener.callback(event));
-            }
-            else if (phase == 'done') {
-                onDoneCallbacks.push(() => listener.callback(event));
-            }
-        }
-        this._changes.forEach(change => {
-            const /** @type {?} */ element = change.element;
-            const /** @type {?} */ listeners = this._listeners.get(element);
-            if (listeners) {
-                listeners.forEach(listener => {
-                    if (listener.triggerName == change.triggerName) {
-                        handleListener(listener, change);
-                    }
-                });
-            }
-        });
-        // upon removal ALL the animation triggers need to get fired
-        this._flaggedRemovals.forEach(element => {
-            const /** @type {?} */ listeners = this._listeners.get(element);
-            if (listeners) {
-                listeners.forEach(listener => {
-                    const /** @type {?} */ triggerName = listener.triggerName;
-                    const /** @type {?} */ storageProp = makeStorageProp(triggerName);
-                    handleListener(listener, /** @type {?} */ ({
-                        element: element,
-                        triggerName: triggerName,
-                        oldValue: element[storageProp] || DEFAULT_STATE_VALUE,
-                        newValue: DEFAULT_STATE_VALUE
-                    }));
-                });
-            }
-        });
-        // remove all the listeners after everything is complete
-        Array.from(this._listeners.keys()).forEach(element => {
-            const /** @type {?} */ listenersToKeep = this._listeners.get(element).filter(l => !l.doRemove);
-            if (listenersToKeep.length) {
-                this._listeners.set(element, listenersToKeep);
-            }
-            else {
-                this._listeners.delete(element);
-            }
-        });
-        onStartCallbacks.forEach(fn => fn());
-        onDoneCallbacks.forEach(fn => fn());
-        this._flaggedRemovals.clear();
-        this._changes = [];
-        this._onDoneFns.forEach(doneFn => doneFn());
-        this._onDoneFns = [];
-    }
-    /**
-     * @return {?}
-     */
-    get activePlayers() { return []; }
-    /**
-     * @return {?}
-     */
-    get queuedPlayers() { return []; }
-}
-/**
- * @param {?} element
- * @param {?} triggerName
- * @param {?} fromState
- * @param {?} toState
- * @param {?} phaseName
- * @param {?} totalTime
- * @return {?}
- */
-function makeAnimationEvent$1(element, triggerName, fromState, toState, phaseName, totalTime) {
-    return ({ element, triggerName, fromState, toState, phaseName, totalTime });
-}
-/**
- * @param {?} property
- * @return {?}
- */
-function makeStorageProp(property) {
-    return '_@_' + property;
-}
-
-/**
- * @param {?} renderer
- * @param {?} engine
- * @param {?} zone
- * @return {?}
- */
-function instantiateRendererFactory$1(renderer, engine, zone) {
-    return new AnimationRendererFactory(renderer, engine, zone);
-}
 /**
  * \@experimental Animation support is experimental.
  */
@@ -2411,13 +2413,7 @@ class NoopAnimationsModule {
 NoopAnimationsModule.decorators = [
     { type: NgModule, args: [{
                 imports: [BrowserModule],
-                providers: [
-                    { provide: AnimationEngine, useClass: NoopAnimationEngine }, {
-                        provide: RendererFactoryV2,
-                        useFactory: instantiateRendererFactory$1,
-                        deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
-                    }
-                ]
+                providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             },] },
 ];
 /** @nocollapse */
@@ -2464,4 +2460,4 @@ class Animation {
     }
 }
 
-export { BrowserAnimationsModule, NoopAnimationsModule, AnimationDriver, AnimationEngine as ɵAnimationEngine, Animation as ɵAnimation, AnimationStyleNormalizer as ɵAnimationStyleNormalizer, NoopAnimationStyleNormalizer as ɵNoopAnimationStyleNormalizer, NoopAnimationDriver as ɵNoopAnimationDriver, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, DomAnimationEngine as ɵDomAnimationEngine, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb, WebAnimationsStyleNormalizer as ɵf, instantiateRendererFactory$1 as ɵe, NoopAnimationEngine as ɵg };
+export { BrowserAnimationsModule, NoopAnimationsModule, AnimationDriver, AnimationEngine as ɵAnimationEngine, Animation as ɵAnimation, AnimationStyleNormalizer as ɵAnimationStyleNormalizer, NoopAnimationStyleNormalizer as ɵNoopAnimationStyleNormalizer, NoopAnimationDriver as ɵNoopAnimationDriver, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, DomAnimationEngine as ɵDomAnimationEngine, WebAnimationsStyleNormalizer as ɵg, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb, NoopAnimationEngine as ɵh };

@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { NgZone } from '@angular/core';
+import { NgZone, Provider } from '@angular/core';
 import { ɵDomRendererFactoryV2 } from '@angular/platform-browser';
 import { AnimationEngine } from './animation_engine';
 import { AnimationStyleNormalizer } from './dsl/style_normalization/animation_style_normalizer';
@@ -20,7 +20,12 @@ export declare function instantiateSupportedAnimationDriver(): NoopAnimationDriv
 export declare function instantiateDefaultStyleNormalizer(): WebAnimationsStyleNormalizer;
 export declare function instantiateRendererFactory(renderer: ɵDomRendererFactoryV2, engine: AnimationEngine, zone: NgZone): AnimationRendererFactory;
 /**
- * @experimental Animation support is experimental.
+ * Separate providers from the actual module so that we can do a local modification in Google3 to
+ * include them in the BrowserModule.
  */
-export declare class BrowserAnimationsModule {
-}
+export declare const BROWSER_ANIMATIONS_PROVIDERS: Provider[];
+/**
+ * Separate providers from the actual module so that we can do a local modification in Google3 to
+ * include them in the BrowserTestingModule.
+ */
+export declare const BROWSER_NOOP_ANIMATIONS_PROVIDERS: Provider[];
