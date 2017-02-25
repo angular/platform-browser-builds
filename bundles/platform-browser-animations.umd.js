@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-9186068
+ * @license Angular v4.0.0-beta.8-2602b03
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1561,7 +1561,7 @@
             this._activeTransitionAnimations = new Map();
             this._activeElementAnimations = new Map();
             this._elementTriggerStates = new Map();
-            this._triggers = {};
+            this._triggers = Object.create(null);
             this._triggerListeners = new Map();
         }
         /**
@@ -1576,7 +1576,7 @@
 
                 name = name || trigger.name;
                 if (this._triggers[name]) {
-                    throw new Error('The provided animation trigger "' + name + '" has already been registered!');
+                    return;
                 }
                 this._triggers[name] = buildTrigger(name, trigger.definitions);
             }
@@ -2061,7 +2061,7 @@
             _this25._changes = [];
             _this25._flaggedRemovals = new Set();
             _this25._onDoneFns = [];
-            _this25._triggerStyles = {};
+            _this25._triggerStyles = Object.create(null);
             return _this25;
         }
         /**
@@ -2076,6 +2076,10 @@
             value: function registerTrigger(trigger) {
                 var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
+                name = name || trigger.name;
+                if (this._triggerStyles[name]) {
+                    return;
+                }
                 var /** @type {?} */stateMap = {};
                 trigger.definitions.forEach(function (def) {
                     if (def.type === 0 /* State */) {
@@ -2083,7 +2087,6 @@
                             stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
                         }
                 });
-                name = name || trigger.name;
                 this._triggerStyles[name] = stateMap;
             }
         }, {

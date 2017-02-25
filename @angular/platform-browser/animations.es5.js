@@ -1420,7 +1420,7 @@ class DomAnimationEngine {
         this._activeTransitionAnimations = new Map();
         this._activeElementAnimations = new Map();
         this._elementTriggerStates = new Map();
-        this._triggers = {};
+        this._triggers = Object.create(null);
         this._triggerListeners = new Map();
     }
     /**
@@ -1445,7 +1445,7 @@ class DomAnimationEngine {
     registerTrigger(trigger, name = null) {
         name = name || trigger.name;
         if (this._triggers[name]) {
-            throw new Error(`The provided animation trigger "${name}" has already been registered!`);
+            return;
         }
         this._triggers[name] = buildTrigger(name, trigger.definitions);
     }
@@ -1903,7 +1903,7 @@ class NoopAnimationEngine extends AnimationEngine {
         this._changes = [];
         this._flaggedRemovals = new Set();
         this._onDoneFns = [];
-        this._triggerStyles = {};
+        this._triggerStyles = Object.create(null);
     }
     /**
      * @param {?} trigger
@@ -1911,6 +1911,10 @@ class NoopAnimationEngine extends AnimationEngine {
      * @return {?}
      */
     registerTrigger(trigger, name = null) {
+        name = name || trigger.name;
+        if (this._triggerStyles[name]) {
+            return;
+        }
         const /** @type {?} */stateMap = {};
         trigger.definitions.forEach(def => {
             if (def.type === 0 /* State */) {
@@ -1918,7 +1922,6 @@ class NoopAnimationEngine extends AnimationEngine {
                     stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
                 }
         });
-        name = name || trigger.name;
         this._triggerStyles[name] = stateMap;
     }
     /**
