@@ -1,137 +1,11 @@
 /**
- * @license Angular v4.0.0-rc.1-e58cb7b
+ * @license Angular v4.0.0-rc.1-126fda2
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { PlatformLocation, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, RootRenderer, NgModule, SkipSelf, Optional, ɵNoOpAnimationPlayer, AUTO_STYLE, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
+import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, NgModule, SkipSelf, Optional, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
 import * as core from '@angular/core';
-
-/**
- * \@experimental
- */
-class NoOpAnimationDriver {
-    /**
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */
-    animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers = []) {
-        return new ɵNoOpAnimationPlayer();
-    }
-}
-/**
- * \@experimental
- * @abstract
- */
-class AnimationDriver {
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */
-    animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers) { }
-}
-AnimationDriver.NOOP = new NoOpAnimationDriver();
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-let /** @type {?} */ globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = (self);
-    }
-    else {
-        globalScope = (global);
-    }
-}
-else {
-    globalScope = (window);
-}
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-const /** @type {?} */ global$1 = globalScope;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-global$1.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-/**
- * @param {?} obj
- * @return {?}
- */
-function isPresent(obj) {
-    return obj != null;
-}
-/**
- * @param {?} obj
- * @return {?}
- */
-function isBlank(obj) {
-    return obj == null;
-}
-/**
- * @param {?} token
- * @return {?}
- */
-function stringify(token) {
-    if (typeof token === 'string') {
-        return token;
-    }
-    if (token == null) {
-        return '' + token;
-    }
-    if (token.overriddenName) {
-        return `${token.overriddenName}`;
-    }
-    if (token.name) {
-        return `${token.name}`;
-    }
-    const /** @type {?} */ res = token.toString();
-    const /** @type {?} */ newLineIndex = res.indexOf('\n');
-    return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
-}
-/**
- * @param {?} global
- * @param {?} path
- * @param {?} value
- * @return {?}
- */
-function setValueOnPath(global, path, value) {
-    const /** @type {?} */ parts = path.split('.');
-    let /** @type {?} */ obj = global;
-    while (parts.length > 1) {
-        const /** @type {?} */ name = parts.shift();
-        if (obj.hasOwnProperty(name) && obj[name] != null) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
 
 /**
  * @license
@@ -922,312 +796,71 @@ class DomAdapter {
     setCookie(name, value) { }
 }
 
-class WebAnimationsPlayer {
-    /**
-     * @param {?} element
-     * @param {?} keyframes
-     * @param {?} options
-     * @param {?=} previousPlayers
-     */
-    constructor(element, keyframes, options, previousPlayers = []) {
-        this.element = element;
-        this.keyframes = keyframes;
-        this.options = options;
-        this._onDoneFns = [];
-        this._onStartFns = [];
-        this._onDestroyFns = [];
-        this._initialized = false;
-        this._finished = false;
-        this._started = false;
-        this._destroyed = false;
-        this.parentPlayer = null;
-        this._duration = options['duration'];
-        this.previousStyles = {};
-        previousPlayers.forEach(player => {
-            let styles = player._captureStyles();
-            Object.keys(styles).forEach(prop => this.previousStyles[prop] = styles[prop]);
-        });
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+let /** @type {?} */ globalScope;
+if (typeof window === 'undefined') {
+    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
+        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
+        globalScope = (self);
     }
-    /**
-     * @return {?}
-     */
-    _onFinish() {
-        if (!this._finished) {
-            this._finished = true;
-            this._onDoneFns.forEach(fn => fn());
-            this._onDoneFns = [];
-        }
-    }
-    /**
-     * @return {?}
-     */
-    init() {
-        if (this._initialized)
-            return;
-        this._initialized = true;
-        const /** @type {?} */ keyframes = this.keyframes.map(styles => {
-            const /** @type {?} */ formattedKeyframe = {};
-            Object.keys(styles).forEach((prop, index) => {
-                let /** @type {?} */ value = styles[prop];
-                if (value == AUTO_STYLE) {
-                    value = _computeStyle(this.element, prop);
-                }
-                if (value != undefined) {
-                    formattedKeyframe[prop] = value;
-                }
-            });
-            return formattedKeyframe;
-        });
-        const /** @type {?} */ previousStyleProps = Object.keys(this.previousStyles);
-        if (previousStyleProps.length) {
-            let /** @type {?} */ startingKeyframe = keyframes[0];
-            let /** @type {?} */ missingStyleProps = [];
-            previousStyleProps.forEach(prop => {
-                if (!isPresent(startingKeyframe[prop])) {
-                    missingStyleProps.push(prop);
-                }
-                startingKeyframe[prop] = this.previousStyles[prop];
-            });
-            if (missingStyleProps.length) {
-                const /** @type {?} */ self = this;
-                // tslint:disable-next-line
-                for (var /** @type {?} */ i = 1; i < keyframes.length; i++) {
-                    let /** @type {?} */ kf = keyframes[i];
-                    // tslint:disable-next-line
-                    missingStyleProps.forEach(function (prop) {
-                        kf[prop] = _computeStyle(self.element, prop);
-                    });
-                }
-            }
-        }
-        this._player = this._triggerWebAnimation(this.element, keyframes, this.options);
-        this._finalKeyframe = _copyKeyframeStyles(keyframes[keyframes.length - 1]);
-        // this is required so that the player doesn't start to animate right away
-        this._resetDomPlayerState();
-        this._player.addEventListener('finish', () => this._onFinish());
-    }
-    /**
-     * \@internal
-     * @param {?} element
-     * @param {?} keyframes
-     * @param {?} options
-     * @return {?}
-     */
-    _triggerWebAnimation(element, keyframes, options) {
-        // jscompiler doesn't seem to know animate is a native property because it's not fully
-        // supported yet across common browsers (we polyfill it for Edge/Safari) [CL #143630929]
-        return (element['animate'](keyframes, options));
-    }
-    /**
-     * @return {?}
-     */
-    get domPlayer() { return this._player; }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    onStart(fn) { this._onStartFns.push(fn); }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    onDone(fn) { this._onDoneFns.push(fn); }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    onDestroy(fn) { this._onDestroyFns.push(fn); }
-    /**
-     * @return {?}
-     */
-    play() {
-        this.init();
-        if (!this.hasStarted()) {
-            this._onStartFns.forEach(fn => fn());
-            this._onStartFns = [];
-            this._started = true;
-        }
-        this._player.play();
-    }
-    /**
-     * @return {?}
-     */
-    pause() {
-        this.init();
-        this._player.pause();
-    }
-    /**
-     * @return {?}
-     */
-    finish() {
-        this.init();
-        this._onFinish();
-        this._player.finish();
-    }
-    /**
-     * @return {?}
-     */
-    reset() {
-        this._resetDomPlayerState();
-        this._destroyed = false;
-        this._finished = false;
-        this._started = false;
-    }
-    /**
-     * @return {?}
-     */
-    _resetDomPlayerState() {
-        if (this._player) {
-            this._player.cancel();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    restart() {
-        this.reset();
-        this.play();
-    }
-    /**
-     * @return {?}
-     */
-    hasStarted() { return this._started; }
-    /**
-     * @return {?}
-     */
-    destroy() {
-        if (!this._destroyed) {
-            this._resetDomPlayerState();
-            this._onFinish();
-            this._destroyed = true;
-            this._onDestroyFns.forEach(fn => fn());
-            this._onDestroyFns = [];
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get totalTime() { return this._duration; }
-    /**
-     * @param {?} p
-     * @return {?}
-     */
-    setPosition(p) { this._player.currentTime = p * this.totalTime; }
-    /**
-     * @return {?}
-     */
-    getPosition() { return this._player.currentTime / this.totalTime; }
-    /**
-     * @return {?}
-     */
-    _captureStyles() {
-        const /** @type {?} */ styles = {};
-        if (this.hasStarted()) {
-            Object.keys(this._finalKeyframe).forEach(prop => {
-                if (prop != 'offset') {
-                    styles[prop] =
-                        this._finished ? this._finalKeyframe[prop] : _computeStyle(this.element, prop);
-                }
-            });
-        }
-        return styles;
+    else {
+        globalScope = (global);
     }
 }
+else {
+    globalScope = (window);
+}
+// Need to declare a new variable for global here since TypeScript
+// exports the original value of the symbol.
+const /** @type {?} */ global$1 = globalScope;
+// TODO: remove calls to assert in production environment
+// Note: Can't just export this and import in in other files
+// as `assert` is a reserved keyword in Dart
+global$1.assert = function assert(condition) {
+    // TODO: to be fixed properly via #2830, noop for now
+};
 /**
- * @param {?} element
- * @param {?} prop
+ * @param {?} obj
  * @return {?}
  */
-function _computeStyle(element, prop) {
-    return getDOM().getComputedStyle(element)[prop];
+function isPresent(obj) {
+    return obj != null;
 }
 /**
- * @param {?} styles
+ * @param {?} obj
  * @return {?}
  */
-function _copyKeyframeStyles(styles) {
-    const /** @type {?} */ newStyles = {};
-    Object.keys(styles).forEach(prop => {
-        if (prop != 'offset') {
-            newStyles[prop] = styles[prop];
-        }
-    });
-    return newStyles;
+function isBlank(obj) {
+    return obj == null;
 }
-
-class WebAnimationsDriver {
-    /**
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */
-    animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers = []) {
-        let /** @type {?} */ formattedSteps = [];
-        let /** @type {?} */ startingStyleLookup = {};
-        if (isPresent(startingStyles)) {
-            startingStyleLookup = _populateStyles(startingStyles, {});
+/**
+ * @param {?} global
+ * @param {?} path
+ * @param {?} value
+ * @return {?}
+ */
+function setValueOnPath(global, path, value) {
+    const /** @type {?} */ parts = path.split('.');
+    let /** @type {?} */ obj = global;
+    while (parts.length > 1) {
+        const /** @type {?} */ name = parts.shift();
+        if (obj.hasOwnProperty(name) && obj[name] != null) {
+            obj = obj[name];
         }
-        keyframes.forEach((keyframe) => {
-            const /** @type {?} */ data = _populateStyles(keyframe.styles, startingStyleLookup);
-            data['offset'] = Math.max(0, Math.min(1, keyframe.offset));
-            formattedSteps.push(data);
-        });
-        // Styling passed into element.animate() must always be balanced.
-        // The special cases below can occur if only style() calls exist
-        // within an animation or when a style() calls are used prior
-        // to a group() animation being issued or if the renderer is
-        // invoked by the user directly.
-        if (formattedSteps.length == 0) {
-            formattedSteps = [startingStyleLookup, startingStyleLookup];
+        else {
+            obj = obj[name] = {};
         }
-        else if (formattedSteps.length == 1) {
-            const /** @type {?} */ start = startingStyleLookup;
-            const /** @type {?} */ end = formattedSteps[0];
-            end['offset'] = null;
-            formattedSteps = [start, end];
-        }
-        const /** @type {?} */ playerOptions = {
-            'duration': duration,
-            'delay': delay,
-            'fill': 'both' // we use `both` because it allows for styling at 0% to work with `delay`
-        };
-        // we check for this to avoid having a null|undefined value be present
-        // for the easing (which results in an error for certain browsers #9752)
-        if (easing) {
-            playerOptions['easing'] = easing;
-        }
-        // there may be a chance a NoOp player is returned depending
-        // on when the previous animation was cancelled
-        previousPlayers = previousPlayers.filter(filterWebAnimationPlayerFn);
-        return new WebAnimationsPlayer(element, formattedSteps, playerOptions, /** @type {?} */ (previousPlayers));
     }
-}
-/**
- * @param {?} styles
- * @param {?} defaultStyles
- * @return {?}
- */
-function _populateStyles(styles, defaultStyles) {
-    const /** @type {?} */ data = {};
-    styles.styles.forEach((entry) => { Object.keys(entry).forEach(prop => { data[prop] = entry[prop]; }); });
-    Object.keys(defaultStyles).forEach(prop => {
-        if (!isPresent(data[prop])) {
-            data[prop] = defaultStyles[prop];
-        }
-    });
-    return data;
-}
-/**
- * @param {?} player
- * @return {?}
- */
-function filterWebAnimationPlayerFn(player) {
-    return player instanceof WebAnimationsPlayer;
+    if (obj === undefined || obj === null) {
+        obj = {};
+    }
+    obj[parts.shift()] = value;
 }
 
 /**
@@ -2627,6 +2260,69 @@ class StringMapWrapper {
     }
 }
 
+const /** @type {?} */ CORE_TOKENS = {
+    'ApplicationRef': core.ApplicationRef,
+    'NgZone': core.NgZone,
+};
+const /** @type {?} */ INSPECT_GLOBAL_NAME = 'ng.probe';
+const /** @type {?} */ CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
+/**
+ * Returns a {\@link DebugElement} for the given native DOM element, or
+ * null if the given native element does not have an Angular view associated
+ * with it.
+ * @param {?} element
+ * @return {?}
+ */
+function inspectNativeElement(element) {
+    return core.getDebugNode(element);
+}
+/**
+ * Deprecated. Use the one from '\@angular/core'.
+ * @deprecated
+ */
+class NgProbeToken {
+    /**
+     * @param {?} name
+     * @param {?} token
+     */
+    constructor(name, token) {
+        this.name = name;
+        this.token = token;
+    }
+}
+/**
+ * @param {?} extraTokens
+ * @param {?} coreTokens
+ * @return {?}
+ */
+function _createNgProbe(extraTokens, coreTokens) {
+    const /** @type {?} */ tokens = (extraTokens || []).concat(coreTokens || []);
+    getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
+    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, StringMapWrapper.merge(CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
+    return () => inspectNativeElement;
+}
+/**
+ * @param {?} tokens
+ * @return {?}
+ */
+function _ngProbeTokensToMap(tokens) {
+    return tokens.reduce((prev, t) => (prev[t.name] = t.token, prev), {});
+}
+/**
+ * Providers which support debugging Angular applications (e.g. via `ng.probe`).
+ */
+const /** @type {?} */ ELEMENT_PROBE_PROVIDERS = [
+    {
+        provide: core.APP_INITIALIZER,
+        useFactory: _createNgProbe,
+        deps: [
+            [NgProbeToken, new core.Optional()],
+            [core.NgProbeToken, new core.Optional()],
+        ],
+        multi: true,
+    },
+];
+
 /**
  * @stable
  */
@@ -2834,438 +2530,6 @@ const /** @type {?} */ NAMESPACE_URIS = {
     'xhtml': 'http://www.w3.org/1999/xhtml',
     'xml': 'http://www.w3.org/XML/1998/namespace'
 };
-const /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
-const /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
-/**
- * @abstract
- */
-class DomRootRenderer {
-    /**
-     * @param {?} document
-     * @param {?} eventManager
-     * @param {?} sharedStylesHost
-     * @param {?} animationDriver
-     * @param {?} appId
-     */
-    constructor(document, eventManager, sharedStylesHost, animationDriver, appId) {
-        this.document = document;
-        this.eventManager = eventManager;
-        this.sharedStylesHost = sharedStylesHost;
-        this.animationDriver = animationDriver;
-        this.appId = appId;
-        this.registeredComponents = new Map();
-    }
-    /**
-     * @param {?} componentProto
-     * @return {?}
-     */
-    renderComponent(componentProto) {
-        let /** @type {?} */ renderer = this.registeredComponents.get(componentProto.id);
-        if (!renderer) {
-            renderer = new DomRenderer(this, componentProto, this.animationDriver, `${this.appId}-${componentProto.id}`);
-            this.registeredComponents.set(componentProto.id, renderer);
-        }
-        return renderer;
-    }
-}
-class DomRootRenderer_ extends DomRootRenderer {
-    /**
-     * @param {?} _document
-     * @param {?} _eventManager
-     * @param {?} sharedStylesHost
-     * @param {?} animationDriver
-     * @param {?} appId
-     */
-    constructor(_document, _eventManager, sharedStylesHost, animationDriver, appId) {
-        super(_document, _eventManager, sharedStylesHost, animationDriver, appId);
-        throw new Error('RootRenderer is no longer supported. Please use the `RendererFactoryV2` instead!');
-    }
-}
-DomRootRenderer_.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-DomRootRenderer_.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: EventManager, },
-    { type: DomSharedStylesHost, },
-    { type: AnimationDriver, },
-    { type: undefined, decorators: [{ type: Inject, args: [APP_ID,] },] },
-];
-const /** @type {?} */ DIRECT_DOM_RENDERER = {
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    remove(node) {
-        if (node.parentNode) {
-            node.parentNode.removeChild(node);
-        }
-    },
-    /**
-     * @param {?} node
-     * @param {?} parent
-     * @return {?}
-     */
-    appendChild(node, parent) { parent.appendChild(node); },
-    /**
-     * @param {?} node
-     * @param {?} refNode
-     * @return {?}
-     */
-    insertBefore(node, refNode) { refNode.parentNode.insertBefore(node, refNode); },
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    nextSibling(node) { return node.nextSibling; },
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    parentElement(node) { return (node.parentNode); }
-};
-class DomRenderer {
-    /**
-     * @param {?} _rootRenderer
-     * @param {?} componentProto
-     * @param {?} _animationDriver
-     * @param {?} styleShimId
-     */
-    constructor(_rootRenderer, componentProto, _animationDriver, styleShimId) {
-        this._rootRenderer = _rootRenderer;
-        this.componentProto = componentProto;
-        this._animationDriver = _animationDriver;
-        this.directRenderer = DIRECT_DOM_RENDERER;
-        this._styles = flattenStyles(styleShimId, componentProto.styles, []);
-        if (componentProto.encapsulation !== ViewEncapsulation.Native) {
-            this._rootRenderer.sharedStylesHost.addStyles(this._styles);
-        }
-        if (this.componentProto.encapsulation === ViewEncapsulation.Emulated) {
-            this._contentAttr = shimContentAttribute(styleShimId);
-            this._hostAttr = shimHostAttribute(styleShimId);
-        }
-        else {
-            this._contentAttr = null;
-            this._hostAttr = null;
-        }
-    }
-    /**
-     * @param {?} selectorOrNode
-     * @param {?} debugInfo
-     * @return {?}
-     */
-    selectRootElement(selectorOrNode, debugInfo) {
-        let /** @type {?} */ el;
-        if (typeof selectorOrNode === 'string') {
-            el = this._rootRenderer.document.querySelector(selectorOrNode);
-            if (!el) {
-                throw new Error(`The selector "${selectorOrNode}" did not match any elements`);
-            }
-        }
-        else {
-            el = selectorOrNode;
-        }
-        while (el.firstChild) {
-            el.removeChild(el.firstChild);
-        }
-        return el;
-    }
-    /**
-     * @param {?} parent
-     * @param {?} name
-     * @param {?} debugInfo
-     * @return {?}
-     */
-    createElement(parent, name, debugInfo) {
-        let /** @type {?} */ el;
-        if (isNamespaced(name)) {
-            const /** @type {?} */ nsAndName = splitNamespace(name);
-            el = document.createElementNS((NAMESPACE_URIS)[nsAndName[0]], nsAndName[1]);
-        }
-        else {
-            el = document.createElement(name);
-        }
-        if (this._contentAttr) {
-            el.setAttribute(this._contentAttr, '');
-        }
-        if (parent) {
-            parent.appendChild(el);
-        }
-        return el;
-    }
-    /**
-     * @param {?} hostElement
-     * @return {?}
-     */
-    createViewRoot(hostElement) {
-        let /** @type {?} */ nodesParent;
-        if (this.componentProto.encapsulation === ViewEncapsulation.Native) {
-            nodesParent = ((hostElement)).createShadowRoot();
-            this._rootRenderer.sharedStylesHost.addHost(nodesParent);
-            for (let /** @type {?} */ i = 0; i < this._styles.length; i++) {
-                const /** @type {?} */ styleEl = document.createElement('style');
-                styleEl.textContent = this._styles[i];
-                nodesParent.appendChild(styleEl);
-            }
-        }
-        else {
-            if (this._hostAttr) {
-                hostElement.setAttribute(this._hostAttr, '');
-            }
-            nodesParent = hostElement;
-        }
-        return nodesParent;
-    }
-    /**
-     * @param {?} parentElement
-     * @param {?} debugInfo
-     * @return {?}
-     */
-    createTemplateAnchor(parentElement, debugInfo) {
-        const /** @type {?} */ comment = document.createComment(TEMPLATE_COMMENT_TEXT);
-        if (parentElement) {
-            parentElement.appendChild(comment);
-        }
-        return comment;
-    }
-    /**
-     * @param {?} parentElement
-     * @param {?} value
-     * @param {?} debugInfo
-     * @return {?}
-     */
-    createText(parentElement, value, debugInfo) {
-        const /** @type {?} */ node = document.createTextNode(value);
-        if (parentElement) {
-            parentElement.appendChild(node);
-        }
-        return node;
-    }
-    /**
-     * @param {?} parentElement
-     * @param {?} nodes
-     * @return {?}
-     */
-    projectNodes(parentElement, nodes) {
-        if (!parentElement)
-            return;
-        appendNodes(parentElement, nodes);
-    }
-    /**
-     * @param {?} node
-     * @param {?} viewRootNodes
-     * @return {?}
-     */
-    attachViewAfter(node, viewRootNodes) { moveNodesAfterSibling(node, viewRootNodes); }
-    /**
-     * @param {?} viewRootNodes
-     * @return {?}
-     */
-    detachView(viewRootNodes) {
-        for (let /** @type {?} */ i = 0; i < viewRootNodes.length; i++) {
-            const /** @type {?} */ node = viewRootNodes[i];
-            if (node.parentNode) {
-                node.parentNode.removeChild(node);
-            }
-        }
-    }
-    /**
-     * @param {?} hostElement
-     * @param {?} viewAllNodes
-     * @return {?}
-     */
-    destroyView(hostElement, viewAllNodes) {
-        if (this.componentProto.encapsulation === ViewEncapsulation.Native && hostElement) {
-            this._rootRenderer.sharedStylesHost.removeHost(((hostElement)).shadowRoot);
-        }
-    }
-    /**
-     * @param {?} renderElement
-     * @param {?} name
-     * @param {?} callback
-     * @return {?}
-     */
-    listen(renderElement, name, callback) {
-        return this._rootRenderer.eventManager.addEventListener(renderElement, name, decoratePreventDefault(callback));
-    }
-    /**
-     * @param {?} target
-     * @param {?} name
-     * @param {?} callback
-     * @return {?}
-     */
-    listenGlobal(target, name, callback) {
-        return this._rootRenderer.eventManager.addGlobalEventListener(target, name, decoratePreventDefault(callback));
-    }
-    /**
-     * @param {?} renderElement
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */
-    setElementProperty(renderElement, propertyName, propertyValue) {
-        ((renderElement))[propertyName] = propertyValue;
-    }
-    /**
-     * @param {?} renderElement
-     * @param {?} attributeName
-     * @param {?} attributeValue
-     * @return {?}
-     */
-    setElementAttribute(renderElement, attributeName, attributeValue) {
-        let /** @type {?} */ attrNs;
-        let /** @type {?} */ attrNameWithoutNs = attributeName;
-        if (isNamespaced(attributeName)) {
-            const /** @type {?} */ nsAndName = splitNamespace(attributeName);
-            attrNameWithoutNs = nsAndName[1];
-            attributeName = nsAndName[0] + ':' + nsAndName[1];
-            attrNs = NAMESPACE_URIS[nsAndName[0]];
-        }
-        if (isPresent(attributeValue)) {
-            if (attrNs) {
-                renderElement.setAttributeNS(attrNs, attributeName, attributeValue);
-            }
-            else {
-                renderElement.setAttribute(attributeName, attributeValue);
-            }
-        }
-        else {
-            if (isPresent(attrNs)) {
-                renderElement.removeAttributeNS(attrNs, attrNameWithoutNs);
-            }
-            else {
-                renderElement.removeAttribute(attributeName);
-            }
-        }
-    }
-    /**
-     * @param {?} renderElement
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */
-    setBindingDebugInfo(renderElement, propertyName, propertyValue) {
-        if (renderElement.nodeType === Node.COMMENT_NODE) {
-            const /** @type {?} */ existingBindings = renderElement.nodeValue.replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
-            const /** @type {?} */ parsedBindings = JSON.parse(existingBindings[1]);
-            parsedBindings[propertyName] = propertyValue;
-            renderElement.nodeValue =
-                TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(parsedBindings, null, 2));
-        }
-        else {
-            // Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
-            propertyName = propertyName.replace(/\$/g, '_');
-            this.setElementAttribute(renderElement, propertyName, propertyValue);
-        }
-    }
-    /**
-     * @param {?} renderElement
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */
-    setElementClass(renderElement, className, isAdd) {
-        if (isAdd) {
-            renderElement.classList.add(className);
-        }
-        else {
-            renderElement.classList.remove(className);
-        }
-    }
-    /**
-     * @param {?} renderElement
-     * @param {?} styleName
-     * @param {?} styleValue
-     * @return {?}
-     */
-    setElementStyle(renderElement, styleName, styleValue) {
-        if (isPresent(styleValue)) {
-            ((renderElement.style))[styleName] = stringify(styleValue);
-        }
-        else {
-            // IE requires '' instead of null
-            // see https://github.com/angular/angular/issues/7916
-            ((renderElement.style))[styleName] = '';
-        }
-    }
-    /**
-     * @param {?} renderElement
-     * @param {?} methodName
-     * @param {?} args
-     * @return {?}
-     */
-    invokeElementMethod(renderElement, methodName, args) {
-        ((renderElement))[methodName].apply(renderElement, args);
-    }
-    /**
-     * @param {?} renderNode
-     * @param {?} text
-     * @return {?}
-     */
-    setText(renderNode, text) { renderNode.nodeValue = text; }
-    /**
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */
-    animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers = []) {
-        if (this._rootRenderer.document.body.contains(element)) {
-            return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
-        }
-        return new ɵNoOpAnimationPlayer();
-    }
-}
-/**
- * @param {?} sibling
- * @param {?} nodes
- * @return {?}
- */
-function moveNodesAfterSibling(sibling, nodes) {
-    const /** @type {?} */ parent = sibling.parentNode;
-    if (nodes.length > 0 && parent) {
-        const /** @type {?} */ nextSibling = sibling.nextSibling;
-        if (nextSibling) {
-            for (let /** @type {?} */ i = 0; i < nodes.length; i++) {
-                parent.insertBefore(nodes[i], nextSibling);
-            }
-        }
-        else {
-            for (let /** @type {?} */ i = 0; i < nodes.length; i++) {
-                parent.appendChild(nodes[i]);
-            }
-        }
-    }
-}
-/**
- * @param {?} parent
- * @param {?} nodes
- * @return {?}
- */
-function appendNodes(parent, nodes) {
-    for (let /** @type {?} */ i = 0; i < nodes.length; i++) {
-        parent.appendChild(nodes[i]);
-    }
-}
-/**
- * @param {?} eventHandler
- * @return {?}
- */
-function decoratePreventDefault(eventHandler) {
-    return (event) => {
-        const /** @type {?} */ allowDefaultBehavior = eventHandler(event);
-        if (allowDefaultBehavior === false) {
-            // TODO(tbosch): move preventDefault into event plugins...
-            event.preventDefault();
-            event.returnValue = false;
-        }
-    };
-}
 const /** @type {?} */ COMPONENT_REGEX = /%COMP%/g;
 const /** @type {?} */ COMPONENT_VARIABLE = '%COMP%';
 const /** @type {?} */ HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
@@ -3303,21 +2567,19 @@ function flattenStyles(compId, styles, target) {
     }
     return target;
 }
-const /** @type {?} */ NS_PREFIX_RE = /^:([^:]+):(.+)$/;
 /**
- * @param {?} name
+ * @param {?} eventHandler
  * @return {?}
  */
-function isNamespaced(name) {
-    return name[0] === ':';
-}
-/**
- * @param {?} name
- * @return {?}
- */
-function splitNamespace(name) {
-    const /** @type {?} */ match = name.match(NS_PREFIX_RE);
-    return [match[1], match[2]];
+function decoratePreventDefault(eventHandler) {
+    return (event) => {
+        const /** @type {?} */ allowDefaultBehavior = eventHandler(event);
+        if (allowDefaultBehavior === false) {
+            // TODO(tbosch): move preventDefault into event plugins...
+            event.preventDefault();
+            event.returnValue = false;
+        }
+    };
 }
 class DomRendererFactoryV2 {
     /**
@@ -3646,79 +2908,6 @@ class ShadowDomRenderer extends DefaultDomRendererV2 {
         return this.nodeOrShadowRoot(super.parentNode(this.nodeOrShadowRoot(node)));
     }
 }
-
-const /** @type {?} */ CORE_TOKENS = {
-    'ApplicationRef': core.ApplicationRef,
-    'NgZone': core.NgZone,
-};
-const /** @type {?} */ INSPECT_GLOBAL_NAME = 'ng.probe';
-const /** @type {?} */ CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
-/**
- * Returns a {\@link DebugElement} for the given native DOM element, or
- * null if the given native element does not have an Angular view associated
- * with it.
- * @param {?} element
- * @return {?}
- */
-function inspectNativeElement(element) {
-    return core.getDebugNode(element);
-}
-/**
- * Deprecated. Use the one from '\@angular/core'.
- * @deprecated
- */
-class NgProbeToken {
-    /**
-     * @param {?} name
-     * @param {?} token
-     */
-    constructor(name, token) {
-        this.name = name;
-        this.token = token;
-    }
-}
-/**
- * @param {?} rootRenderer
- * @param {?} extraTokens
- * @param {?} coreTokens
- * @return {?}
- */
-function _createConditionalRootRenderer(rootRenderer, extraTokens, coreTokens) {
-    return core.isDevMode() ?
-        _createRootRenderer(rootRenderer, (extraTokens || []).concat(coreTokens || [])) :
-        rootRenderer;
-}
-/**
- * @param {?} rootRenderer
- * @param {?} extraTokens
- * @return {?}
- */
-function _createRootRenderer(rootRenderer, extraTokens) {
-    getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, StringMapWrapper.merge(CORE_TOKENS, _ngProbeTokensToMap(extraTokens || [])));
-    return new core.ɵDebugDomRootRenderer(rootRenderer);
-}
-/**
- * @param {?} tokens
- * @return {?}
- */
-function _ngProbeTokensToMap(tokens) {
-    return tokens.reduce((prev, t) => (prev[t.name] = t.token, prev), {});
-}
-/**
- * Providers which support debugging Angular applications (e.g. via `ng.probe`).
- */
-const /** @type {?} */ ELEMENT_PROBE_PROVIDERS = [
-    {
-        provide: core.RootRenderer,
-        useFactory: _createConditionalRootRenderer,
-        deps: [
-            DomRootRenderer,
-            [NgProbeToken, new core.Optional()],
-            [core.NgProbeToken, new core.Optional()],
-        ],
-    },
-];
 
 class DomEventsPlugin extends EventManagerPlugin {
     /**
@@ -4706,15 +3895,6 @@ function _document() {
     return document;
 }
 /**
- * @return {?}
- */
-function _resolveDefaultAnimationDriver() {
-    if (getDOM().supportsWebAnimation()) {
-        return new WebAnimationsDriver();
-    }
-    return AnimationDriver.NOOP;
-}
-/**
  * The ng module for the browser.
  *
  * \@stable
@@ -4757,12 +3937,9 @@ BrowserModule.decorators = [
                     { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
                     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-                    { provide: DomRootRenderer, useClass: DomRootRenderer_ },
-                    { provide: RootRenderer, useExisting: DomRootRenderer },
                     DomRendererFactoryV2,
                     { provide: RendererFactoryV2, useExisting: DomRendererFactoryV2 },
                     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-                    { provide: AnimationDriver, useFactory: _resolveDefaultAnimationDriver },
                     DomSharedStylesHost,
                     Testability,
                     EventManager,
@@ -4934,6 +4111,6 @@ class By {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.1-e58cb7b');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.1-126fda2');
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, AnimationDriver, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, DomRootRenderer as ɵDomRootRenderer, DomRootRenderer_ as ɵDomRootRenderer_, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, isNamespaced as ɵisNamespaced, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, splitNamespace as ɵsplitNamespace, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, WebAnimationsDriver as ɵWebAnimationsDriver, _document as ɵb, _resolveDefaultAnimationDriver as ɵc, errorHandler as ɵa, GenericBrowserDomAdapter as ɵi, SERVER_TRANSITION_PROVIDERS as ɵh, bootstrapListenerFactory as ɵg, _createConditionalRootRenderer as ɵd, EventManagerPlugin as ɵe, DomSanitizerImpl as ɵf };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };

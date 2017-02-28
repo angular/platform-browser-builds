@@ -1,59 +1,8 @@
 var _get=function get(object,property,receiver){if(object===null)object=Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc===undefined){var parent=Object.getPrototypeOf(object);if(parent===null){return undefined;}else{return get(parent,property,receiver);}}else if("value"in desc){return desc.value;}else{var getter=desc.get;if(getter===undefined){return undefined;}return getter.call(receiver);}};var _slicedToArray=function(){function sliceIterator(arr,i){var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break;}}catch(err){_d=true;_e=err;}finally{try{if(!_n&&_i["return"])_i["return"]();}finally{if(_d)throw _e;}}return _arr;}return function(arr,i){if(Array.isArray(arr)){return arr;}else if(Symbol.iterator in Object(arr)){return sliceIterator(arr,i);}else{throw new TypeError("Invalid attempt to destructure non-iterable instance");}};}();var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}/**
- * @license Angular v4.0.0-rc.1-e58cb7b
+ * @license Angular v4.0.0-rc.1-126fda2
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
- */import{PlatformLocation,ɵPLATFORM_BROWSER_ID,CommonModule}from'@angular/common';import{PLATFORM_INITIALIZER,PLATFORM_ID,Sanitizer,platformCore,createPlatformFactory,ErrorHandler,APP_ID,ApplicationModule,Testability,RendererFactoryV2,RootRenderer,NgModule,SkipSelf,Optional,ɵNoOpAnimationPlayer,AUTO_STYLE,Injectable,Inject,InjectionToken,APP_INITIALIZER,setTestabilityGetter,ViewEncapsulation,NgZone,SecurityContext,isDevMode,ApplicationRef,Version}from'@angular/core';import*as core from'@angular/core';/**
- * \@experimental
- */var NoOpAnimationDriver=function(){function NoOpAnimationDriver(){_classCallCheck(this,NoOpAnimationDriver);}_createClass(NoOpAnimationDriver,[{key:'animate',/**
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */value:function animate(element,startingStyles,keyframes,duration,delay,easing){var previousPlayers=arguments.length>6&&arguments[6]!==undefined?arguments[6]:[];return new ɵNoOpAnimationPlayer();}}]);return NoOpAnimationDriver;}();/**
- * \@experimental
- * @abstract
- */var AnimationDriver=function(){function AnimationDriver(){_classCallCheck(this,AnimationDriver);}_createClass(AnimationDriver,[{key:'animate',/**
-     * @abstract
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */value:function animate(element,startingStyles,keyframes,duration,delay,easing,previousPlayers){}}]);return AnimationDriver;}();AnimationDriver.NOOP=new NoOpAnimationDriver();/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */var/** @type {?} */globalScope=void 0;if(typeof window==='undefined'){if(typeof WorkerGlobalScope!=='undefined'&&self instanceof WorkerGlobalScope){// TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-globalScope=self;}else{globalScope=global;}}else{globalScope=window;}// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var/** @type {?} */global$1=globalScope;// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-global$1.assert=function assert(condition){// TODO: to be fixed properly via #2830, noop for now
-};/**
- * @param {?} obj
- * @return {?}
- */function isPresent(obj){return obj!=null;}/**
- * @param {?} obj
- * @return {?}
- */function isBlank(obj){return obj==null;}/**
- * @param {?} token
- * @return {?}
- */function stringify(token){if(typeof token==='string'){return token;}if(token==null){return''+token;}if(token.overriddenName){return''+token.overriddenName;}if(token.name){return''+token.name;}var/** @type {?} */res=token.toString();var/** @type {?} */newLineIndex=res.indexOf('\n');return newLineIndex===-1?res:res.substring(0,newLineIndex);}/**
- * @param {?} global
- * @param {?} path
- * @param {?} value
- * @return {?}
- */function setValueOnPath(global,path,value){var/** @type {?} */parts=path.split('.');var/** @type {?} */obj=global;while(parts.length>1){var/** @type {?} */name=parts.shift();if(obj.hasOwnProperty(name)&&obj[name]!=null){obj=obj[name];}else{obj=obj[name]={};}}if(obj===undefined||obj===null){obj={};}obj[parts.shift()]=value;}/**
+ */import{PlatformLocation,ɵPLATFORM_BROWSER_ID,CommonModule}from'@angular/common';import{PLATFORM_INITIALIZER,PLATFORM_ID,Sanitizer,platformCore,createPlatformFactory,ErrorHandler,APP_ID,ApplicationModule,Testability,RendererFactoryV2,NgModule,SkipSelf,Optional,Injectable,Inject,InjectionToken,APP_INITIALIZER,setTestabilityGetter,ViewEncapsulation,NgZone,SecurityContext,isDevMode,ApplicationRef,Version}from'@angular/core';import*as core from'@angular/core';/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -589,102 +538,37 @@ global$1.assert=function assert(condition){// TODO: to be fixed properly via #28
      */},{key:'setCookie',value:function setCookie(name,value){}},{key:'attrToPropMap',get:function get(){return this._attrToPropMap;},/**
      * @param {?} value
      * @return {?}
-     */set:function set(value){this._attrToPropMap=value;}}]);return DomAdapter;}();var WebAnimationsPlayer=function(){/**
-     * @param {?} element
-     * @param {?} keyframes
-     * @param {?} options
-     * @param {?=} previousPlayers
-     */function WebAnimationsPlayer(element,keyframes,options){var _this=this;var previousPlayers=arguments.length>3&&arguments[3]!==undefined?arguments[3]:[];_classCallCheck(this,WebAnimationsPlayer);this.element=element;this.keyframes=keyframes;this.options=options;this._onDoneFns=[];this._onStartFns=[];this._onDestroyFns=[];this._initialized=false;this._finished=false;this._started=false;this._destroyed=false;this.parentPlayer=null;this._duration=options['duration'];this.previousStyles={};previousPlayers.forEach(function(player){var styles=player._captureStyles();Object.keys(styles).forEach(function(prop){return _this.previousStyles[prop]=styles[prop];});});}/**
-     * @return {?}
-     */_createClass(WebAnimationsPlayer,[{key:'_onFinish',value:function _onFinish(){if(!this._finished){this._finished=true;this._onDoneFns.forEach(function(fn){return fn();});this._onDoneFns=[];}}/**
-     * @return {?}
-     */},{key:'init',value:function init(){var _this2=this;if(this._initialized)return;this._initialized=true;var/** @type {?} */keyframes=this.keyframes.map(function(styles){var/** @type {?} */formattedKeyframe={};Object.keys(styles).forEach(function(prop,index){var/** @type {?} */value=styles[prop];if(value==AUTO_STYLE){value=_computeStyle(_this2.element,prop);}if(value!=undefined){formattedKeyframe[prop]=value;}});return formattedKeyframe;});var/** @type {?} */previousStyleProps=Object.keys(this.previousStyles);if(previousStyleProps.length){var/** @type {?} */startingKeyframe=keyframes[0];var/** @type {?} */missingStyleProps=[];previousStyleProps.forEach(function(prop){if(!isPresent(startingKeyframe[prop])){missingStyleProps.push(prop);}startingKeyframe[prop]=_this2.previousStyles[prop];});if(missingStyleProps.length){var i;(function(){var/** @type {?} */self=_this2;// tslint:disable-next-line
-var _loop=function _loop(){var/** @type {?} */kf=keyframes[i];// tslint:disable-next-line
-missingStyleProps.forEach(function(prop){kf[prop]=_computeStyle(self.element,prop);});};for(/** @type {?} */i=1;i<keyframes.length;i++){_loop();}})();}}this._player=this._triggerWebAnimation(this.element,keyframes,this.options);this._finalKeyframe=_copyKeyframeStyles(keyframes[keyframes.length-1]);// this is required so that the player doesn't start to animate right away
-this._resetDomPlayerState();this._player.addEventListener('finish',function(){return _this2._onFinish();});}/**
-     * \@internal
-     * @param {?} element
-     * @param {?} keyframes
-     * @param {?} options
-     * @return {?}
-     */},{key:'_triggerWebAnimation',value:function _triggerWebAnimation(element,keyframes,options){// jscompiler doesn't seem to know animate is a native property because it's not fully
-// supported yet across common browsers (we polyfill it for Edge/Safari) [CL #143630929]
-return element['animate'](keyframes,options);}/**
-     * @return {?}
-     */},{key:'onStart',/**
-     * @param {?} fn
-     * @return {?}
-     */value:function onStart(fn){this._onStartFns.push(fn);}/**
-     * @param {?} fn
-     * @return {?}
-     */},{key:'onDone',value:function onDone(fn){this._onDoneFns.push(fn);}/**
-     * @param {?} fn
-     * @return {?}
-     */},{key:'onDestroy',value:function onDestroy(fn){this._onDestroyFns.push(fn);}/**
-     * @return {?}
-     */},{key:'play',value:function play(){this.init();if(!this.hasStarted()){this._onStartFns.forEach(function(fn){return fn();});this._onStartFns=[];this._started=true;}this._player.play();}/**
-     * @return {?}
-     */},{key:'pause',value:function pause(){this.init();this._player.pause();}/**
-     * @return {?}
-     */},{key:'finish',value:function finish(){this.init();this._onFinish();this._player.finish();}/**
-     * @return {?}
-     */},{key:'reset',value:function reset(){this._resetDomPlayerState();this._destroyed=false;this._finished=false;this._started=false;}/**
-     * @return {?}
-     */},{key:'_resetDomPlayerState',value:function _resetDomPlayerState(){if(this._player){this._player.cancel();}}/**
-     * @return {?}
-     */},{key:'restart',value:function restart(){this.reset();this.play();}/**
-     * @return {?}
-     */},{key:'hasStarted',value:function hasStarted(){return this._started;}/**
-     * @return {?}
-     */},{key:'destroy',value:function destroy(){if(!this._destroyed){this._resetDomPlayerState();this._onFinish();this._destroyed=true;this._onDestroyFns.forEach(function(fn){return fn();});this._onDestroyFns=[];}}/**
-     * @return {?}
-     */},{key:'setPosition',/**
-     * @param {?} p
-     * @return {?}
-     */value:function setPosition(p){this._player.currentTime=p*this.totalTime;}/**
-     * @return {?}
-     */},{key:'getPosition',value:function getPosition(){return this._player.currentTime/this.totalTime;}/**
-     * @return {?}
-     */},{key:'_captureStyles',value:function _captureStyles(){var _this3=this;var/** @type {?} */styles={};if(this.hasStarted()){Object.keys(this._finalKeyframe).forEach(function(prop){if(prop!='offset'){styles[prop]=_this3._finished?_this3._finalKeyframe[prop]:_computeStyle(_this3.element,prop);}});}return styles;}},{key:'domPlayer',get:function get(){return this._player;}},{key:'totalTime',get:function get(){return this._duration;}}]);return WebAnimationsPlayer;}();/**
- * @param {?} element
- * @param {?} prop
+     */set:function set(value){this._attrToPropMap=value;}}]);return DomAdapter;}();/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */var/** @type {?} */globalScope=void 0;if(typeof window==='undefined'){if(typeof WorkerGlobalScope!=='undefined'&&self instanceof WorkerGlobalScope){// TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
+globalScope=self;}else{globalScope=global;}}else{globalScope=window;}// Need to declare a new variable for global here since TypeScript
+// exports the original value of the symbol.
+var/** @type {?} */global$1=globalScope;// TODO: remove calls to assert in production environment
+// Note: Can't just export this and import in in other files
+// as `assert` is a reserved keyword in Dart
+global$1.assert=function assert(condition){// TODO: to be fixed properly via #2830, noop for now
+};/**
+ * @param {?} obj
  * @return {?}
- */function _computeStyle(element,prop){return getDOM().getComputedStyle(element)[prop];}/**
- * @param {?} styles
+ */function isPresent(obj){return obj!=null;}/**
+ * @param {?} obj
  * @return {?}
- */function _copyKeyframeStyles(styles){var/** @type {?} */newStyles={};Object.keys(styles).forEach(function(prop){if(prop!='offset'){newStyles[prop]=styles[prop];}});return newStyles;}var WebAnimationsDriver=function(){function WebAnimationsDriver(){_classCallCheck(this,WebAnimationsDriver);}_createClass(WebAnimationsDriver,[{key:'animate',/**
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */value:function animate(element,startingStyles,keyframes,duration,delay,easing){var previousPlayers=arguments.length>6&&arguments[6]!==undefined?arguments[6]:[];var/** @type {?} */formattedSteps=[];var/** @type {?} */startingStyleLookup={};if(isPresent(startingStyles)){startingStyleLookup=_populateStyles(startingStyles,{});}keyframes.forEach(function(keyframe){var/** @type {?} */data=_populateStyles(keyframe.styles,startingStyleLookup);data['offset']=Math.max(0,Math.min(1,keyframe.offset));formattedSteps.push(data);});// Styling passed into element.animate() must always be balanced.
-// The special cases below can occur if only style() calls exist
-// within an animation or when a style() calls are used prior
-// to a group() animation being issued or if the renderer is
-// invoked by the user directly.
-if(formattedSteps.length==0){formattedSteps=[startingStyleLookup,startingStyleLookup];}else if(formattedSteps.length==1){var/** @type {?} */start=startingStyleLookup;var/** @type {?} */end=formattedSteps[0];end['offset']=null;formattedSteps=[start,end];}var/** @type {?} */playerOptions={'duration':duration,'delay':delay,'fill':'both'// we use `both` because it allows for styling at 0% to work with `delay`
-};// we check for this to avoid having a null|undefined value be present
-// for the easing (which results in an error for certain browsers #9752)
-if(easing){playerOptions['easing']=easing;}// there may be a chance a NoOp player is returned depending
-// on when the previous animation was cancelled
-previousPlayers=previousPlayers.filter(filterWebAnimationPlayerFn);return new WebAnimationsPlayer(element,formattedSteps,playerOptions,/** @type {?} */previousPlayers);}}]);return WebAnimationsDriver;}();/**
- * @param {?} styles
- * @param {?} defaultStyles
+ */function isBlank(obj){return obj==null;}/**
+ * @param {?} global
+ * @param {?} path
+ * @param {?} value
  * @return {?}
- */function _populateStyles(styles,defaultStyles){var/** @type {?} */data={};styles.styles.forEach(function(entry){Object.keys(entry).forEach(function(prop){data[prop]=entry[prop];});});Object.keys(defaultStyles).forEach(function(prop){if(!isPresent(data[prop])){data[prop]=defaultStyles[prop];}});return data;}/**
- * @param {?} player
- * @return {?}
- */function filterWebAnimationPlayerFn(player){return player instanceof WebAnimationsPlayer;}/**
+ */function setValueOnPath(global,path,value){var/** @type {?} */parts=path.split('.');var/** @type {?} */obj=global;while(parts.length>1){var/** @type {?} */name=parts.shift();if(obj.hasOwnProperty(name)&&obj[name]!=null){obj=obj[name];}else{obj=obj[name]={};}}if(obj===undefined||obj===null){obj={};}obj[parts.shift()]=value;}/**
  * Provides DOM operations in any browser environment.
  *
  * \@security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  * @abstract
- */var GenericBrowserDomAdapter=function(_DomAdapter){_inherits(GenericBrowserDomAdapter,_DomAdapter);function GenericBrowserDomAdapter(){_classCallCheck(this,GenericBrowserDomAdapter);var _this4=_possibleConstructorReturn(this,(GenericBrowserDomAdapter.__proto__||Object.getPrototypeOf(GenericBrowserDomAdapter)).call(this));_this4._animationPrefix=null;_this4._transitionEnd=null;try{var element=_this4.createElement('div',document);if(isPresent(_this4.getStyle(element,'animationName'))){_this4._animationPrefix='';}else{var domPrefixes=['Webkit','Moz','O','ms'];for(var i=0;i<domPrefixes.length;i++){if(isPresent(_this4.getStyle(element,domPrefixes[i]+'AnimationName'))){_this4._animationPrefix='-'+domPrefixes[i].toLowerCase()+'-';break;}}}var transEndEventNames={WebkitTransition:'webkitTransitionEnd',MozTransition:'transitionend',OTransition:'oTransitionEnd otransitionend',transition:'transitionend'};Object.keys(transEndEventNames).forEach(function(key){if(isPresent(_this4.getStyle(element,key))){_this4._transitionEnd=transEndEventNames[key];}});}catch(e){_this4._animationPrefix=null;_this4._transitionEnd=null;}return _this4;}/**
+ */var GenericBrowserDomAdapter=function(_DomAdapter){_inherits(GenericBrowserDomAdapter,_DomAdapter);function GenericBrowserDomAdapter(){_classCallCheck(this,GenericBrowserDomAdapter);var _this=_possibleConstructorReturn(this,(GenericBrowserDomAdapter.__proto__||Object.getPrototypeOf(GenericBrowserDomAdapter)).call(this));_this._animationPrefix=null;_this._transitionEnd=null;try{var element=_this.createElement('div',document);if(isPresent(_this.getStyle(element,'animationName'))){_this._animationPrefix='';}else{var domPrefixes=['Webkit','Moz','O','ms'];for(var i=0;i<domPrefixes.length;i++){if(isPresent(_this.getStyle(element,domPrefixes[i]+'AnimationName'))){_this._animationPrefix='-'+domPrefixes[i].toLowerCase()+'-';break;}}}var transEndEventNames={WebkitTransition:'webkitTransitionEnd',MozTransition:'transitionend',OTransition:'oTransitionEnd otransitionend',transition:'transitionend'};Object.keys(transEndEventNames).forEach(function(key){if(isPresent(_this.getStyle(element,key))){_this._transitionEnd=transEndEventNames[key];}});}catch(e){_this._animationPrefix=null;_this._transitionEnd=null;}return _this;}/**
      * @param {?} el
      * @return {?}
      */_createClass(GenericBrowserDomAdapter,[{key:'getDistributedNodes',value:function getDistributedNodes(el){return el.getDistributedNodes();}/**
@@ -1084,7 +968,7 @@ key=_chromeNumKeyPadMap[key];}}}return _keyMap[key]||key;}/**
      */},{key:'getData',value:function getData(element,name){return this.getAttribute(element,'data-'+name);}/**
      * @param {?} element
      * @return {?}
-     */},{key:'getComputedStyle',value:function(_getComputedStyle){function getComputedStyle(_x4){return _getComputedStyle.apply(this,arguments);}getComputedStyle.toString=function(){return _getComputedStyle.toString();};return getComputedStyle;}(function(element){return getComputedStyle(element);})/**
+     */},{key:'getComputedStyle',value:function(_getComputedStyle){function getComputedStyle(_x){return _getComputedStyle.apply(this,arguments);}getComputedStyle.toString=function(){return _getComputedStyle.toString();};return getComputedStyle;}(function(element){return getComputedStyle(element);})/**
      * @param {?} path
      * @param {?} value
      * @return {?}
@@ -1135,7 +1019,7 @@ var/** @type {?} */urlParsingNode=void 0;/**
  * {\@link Location}.
  */var BrowserPlatformLocation=function(_PlatformLocation){_inherits(BrowserPlatformLocation,_PlatformLocation);/**
      * @param {?} _doc
-     */function BrowserPlatformLocation(_doc){_classCallCheck(this,BrowserPlatformLocation);var _this6=_possibleConstructorReturn(this,(BrowserPlatformLocation.__proto__||Object.getPrototypeOf(BrowserPlatformLocation)).call(this));_this6._doc=_doc;_this6._init();return _this6;}/**
+     */function BrowserPlatformLocation(_doc){_classCallCheck(this,BrowserPlatformLocation);var _this3=_possibleConstructorReturn(this,(BrowserPlatformLocation.__proto__||Object.getPrototypeOf(BrowserPlatformLocation)).call(this));_this3._doc=_doc;_this3._init();return _this3;}/**
      * \@internal
      * @return {?}
      */_createClass(BrowserPlatformLocation,[{key:'_init',value:function _init(){this._location=getDOM().getLocation();this._history=getDOM().getHistory();}/**
@@ -1185,7 +1069,7 @@ var/** @type {?} */urlParsingNode=void 0;/**
      * @param {?} tags
      * @param {?=} forceCreation
      * @return {?}
-     */},{key:'addTags',value:function addTags(tags){var _this7=this;var forceCreation=arguments.length>1&&arguments[1]!==undefined?arguments[1]:false;if(!tags)return[];return tags.reduce(function(result,tag){if(tag){result.push(_this7._getOrCreateElement(tag,forceCreation));}return result;},[]);}/**
+     */},{key:'addTags',value:function addTags(tags){var _this4=this;var forceCreation=arguments.length>1&&arguments[1]!==undefined?arguments[1]:false;if(!tags)return[];return tags.reduce(function(result,tag){if(tag){result.push(_this4._getOrCreateElement(tag,forceCreation));}return result;},[]);}/**
      * @param {?} attrSelector
      * @return {?}
      */},{key:'getTag',value:function getTag(attrSelector){if(!attrSelector)return null;return this._dom.querySelector(this._doc,'meta['+attrSelector+']');}/**
@@ -1212,14 +1096,14 @@ if(elem&&this._containsAttributes(meta,elem))return elem;}var/** @type {?} */ele
      * @param {?} tag
      * @param {?} el
      * @return {?}
-     */},{key:'_setMetaElementAttributes',value:function _setMetaElementAttributes(tag,el){var _this8=this;Object.keys(tag).forEach(function(prop){return _this8._dom.setAttribute(el,prop,tag[prop]);});return el;}/**
+     */},{key:'_setMetaElementAttributes',value:function _setMetaElementAttributes(tag,el){var _this5=this;Object.keys(tag).forEach(function(prop){return _this5._dom.setAttribute(el,prop,tag[prop]);});return el;}/**
      * @param {?} tag
      * @return {?}
      */},{key:'_parseSelector',value:function _parseSelector(tag){var/** @type {?} */attr=tag.name?'name':'property';return attr+'="'+tag[attr]+'"';}/**
      * @param {?} tag
      * @param {?} elem
      * @return {?}
-     */},{key:'_containsAttributes',value:function _containsAttributes(tag,elem){var _this9=this;return Object.keys(tag).every(function(key){return _this9._dom.getAttribute(elem,key)===tag[key];});}}]);return Meta;}();Meta.decorators=[{type:Injectable}];/** @nocollapse */Meta.ctorParameters=function(){return[{type:undefined,decorators:[{type:Inject,args:[DOCUMENT]}]}];};/**
+     */},{key:'_containsAttributes',value:function _containsAttributes(tag,elem){var _this6=this;return Object.keys(tag).every(function(key){return _this6._dom.getAttribute(elem,key)===tag[key];});}}]);return Meta;}();Meta.decorators=[{type:Injectable}];/** @nocollapse */Meta.ctorParameters=function(){return[{type:undefined,decorators:[{type:Inject,args:[DOCUMENT]}]}];};/**
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
  */var/** @type {?} */TRANSITION_ID=new InjectionToken('TRANSITION_ID');/**
@@ -1264,14 +1148,35 @@ if(elem&&this._containsAttributes(meta,elem))return elem;}var/** @type {?} */ele
      * @param {?} m1
      * @param {?} m2
      * @return {?}
-     */},{key:'equals',value:function equals(m1,m2){var/** @type {?} */k1=Object.keys(m1);var/** @type {?} */k2=Object.keys(m2);if(k1.length!=k2.length){return false;}for(var/** @type {?} */i=0;i<k1.length;i++){var/** @type {?} */key=k1[i];if(m1[key]!==m2[key]){return false;}}return true;}}]);return StringMapWrapper;}();/**
+     */},{key:'equals',value:function equals(m1,m2){var/** @type {?} */k1=Object.keys(m1);var/** @type {?} */k2=Object.keys(m2);if(k1.length!=k2.length){return false;}for(var/** @type {?} */i=0;i<k1.length;i++){var/** @type {?} */key=k1[i];if(m1[key]!==m2[key]){return false;}}return true;}}]);return StringMapWrapper;}();var/** @type {?} */CORE_TOKENS={'ApplicationRef':core.ApplicationRef,'NgZone':core.NgZone};var/** @type {?} */INSPECT_GLOBAL_NAME='ng.probe';var/** @type {?} */CORE_TOKENS_GLOBAL_NAME='ng.coreTokens';/**
+ * Returns a {\@link DebugElement} for the given native DOM element, or
+ * null if the given native element does not have an Angular view associated
+ * with it.
+ * @param {?} element
+ * @return {?}
+ */function inspectNativeElement(element){return core.getDebugNode(element);}/**
+ * Deprecated. Use the one from '\@angular/core'.
+ * @deprecated
+ */var NgProbeToken=/**
+     * @param {?} name
+     * @param {?} token
+     */function NgProbeToken(name,token){_classCallCheck(this,NgProbeToken);this.name=name;this.token=token;};/**
+ * @param {?} extraTokens
+ * @param {?} coreTokens
+ * @return {?}
+ */function _createNgProbe(extraTokens,coreTokens){var/** @type {?} */tokens=(extraTokens||[]).concat(coreTokens||[]);getDOM().setGlobalVar(INSPECT_GLOBAL_NAME,inspectNativeElement);getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME,StringMapWrapper.merge(CORE_TOKENS,_ngProbeTokensToMap(tokens||[])));return function(){return inspectNativeElement;};}/**
+ * @param {?} tokens
+ * @return {?}
+ */function _ngProbeTokensToMap(tokens){return tokens.reduce(function(prev,t){return prev[t.name]=t.token,prev;},{});}/**
+ * Providers which support debugging Angular applications (e.g. via `ng.probe`).
+ */var/** @type {?} */ELEMENT_PROBE_PROVIDERS=[{provide:core.APP_INITIALIZER,useFactory:_createNgProbe,deps:[[NgProbeToken,new core.Optional()],[core.NgProbeToken,new core.Optional()]],multi:true}];/**
  * @stable
  */var/** @type {?} */EVENT_MANAGER_PLUGINS=new InjectionToken('EventManagerPlugins');/**
  * \@stable
  */var EventManager=function(){/**
      * @param {?} plugins
      * @param {?} _zone
-     */function EventManager(plugins,_zone){var _this10=this;_classCallCheck(this,EventManager);this._zone=_zone;this._eventNameToPlugin=new Map();plugins.forEach(function(p){return p.manager=_this10;});this._plugins=plugins.slice().reverse();}/**
+     */function EventManager(plugins,_zone){var _this7=this;_classCallCheck(this,EventManager);this._zone=_zone;this._eventNameToPlugin=new Map();plugins.forEach(function(p){return p.manager=_this7;});this._plugins=plugins.slice().reverse();}/**
      * @param {?} element
      * @param {?} eventName
      * @param {?} handler
@@ -1309,18 +1214,18 @@ if(elem&&this._containsAttributes(meta,elem))return elem;}var/** @type {?} */ele
      */},{key:'addGlobalEventListener',value:function addGlobalEventListener(element,eventName,handler){var/** @type {?} */target=getDOM().getGlobalEventTarget(this._doc,element);if(!target){throw new Error('Unsupported event target '+target+' for event '+eventName);}return this.addEventListener(target,eventName,handler);}}]);return EventManagerPlugin;}();var SharedStylesHost=function(){function SharedStylesHost(){_classCallCheck(this,SharedStylesHost);/** @internal */this._stylesSet=new Set();}/**
      * @param {?} styles
      * @return {?}
-     */_createClass(SharedStylesHost,[{key:'addStyles',value:function addStyles(styles){var _this11=this;var/** @type {?} */additions=new Set();styles.forEach(function(style){if(!_this11._stylesSet.has(style)){_this11._stylesSet.add(style);additions.add(style);}});this.onStylesAdded(additions);}/**
+     */_createClass(SharedStylesHost,[{key:'addStyles',value:function addStyles(styles){var _this8=this;var/** @type {?} */additions=new Set();styles.forEach(function(style){if(!_this8._stylesSet.has(style)){_this8._stylesSet.add(style);additions.add(style);}});this.onStylesAdded(additions);}/**
      * @param {?} additions
      * @return {?}
      */},{key:'onStylesAdded',value:function onStylesAdded(additions){}/**
      * @return {?}
      */},{key:'getAllStyles',value:function getAllStyles(){return Array.from(this._stylesSet);}}]);return SharedStylesHost;}();SharedStylesHost.decorators=[{type:Injectable}];/** @nocollapse */SharedStylesHost.ctorParameters=function(){return[];};var DomSharedStylesHost=function(_SharedStylesHost){_inherits(DomSharedStylesHost,_SharedStylesHost);/**
      * @param {?} _doc
-     */function DomSharedStylesHost(_doc){_classCallCheck(this,DomSharedStylesHost);var _this12=_possibleConstructorReturn(this,(DomSharedStylesHost.__proto__||Object.getPrototypeOf(DomSharedStylesHost)).call(this));_this12._doc=_doc;_this12._hostNodes=new Set();_this12._styleNodes=new Set();_this12._hostNodes.add(_doc.head);return _this12;}/**
+     */function DomSharedStylesHost(_doc){_classCallCheck(this,DomSharedStylesHost);var _this9=_possibleConstructorReturn(this,(DomSharedStylesHost.__proto__||Object.getPrototypeOf(DomSharedStylesHost)).call(this));_this9._doc=_doc;_this9._hostNodes=new Set();_this9._styleNodes=new Set();_this9._hostNodes.add(_doc.head);return _this9;}/**
      * @param {?} styles
      * @param {?} host
      * @return {?}
-     */_createClass(DomSharedStylesHost,[{key:'_addStylesToHost',value:function _addStylesToHost(styles,host){var _this13=this;styles.forEach(function(style){var/** @type {?} */styleEl=_this13._doc.createElement('style');styleEl.textContent=style;_this13._styleNodes.add(host.appendChild(styleEl));});}/**
+     */_createClass(DomSharedStylesHost,[{key:'_addStylesToHost',value:function _addStylesToHost(styles,host){var _this10=this;styles.forEach(function(style){var/** @type {?} */styleEl=_this10._doc.createElement('style');styleEl.textContent=style;_this10._styleNodes.add(host.appendChild(styleEl));});}/**
      * @param {?} hostNode
      * @return {?}
      */},{key:'addHost',value:function addHost(hostNode){this._addStylesToHost(this._stylesSet,hostNode);this._hostNodes.add(hostNode);}/**
@@ -1329,152 +1234,9 @@ if(elem&&this._containsAttributes(meta,elem))return elem;}var/** @type {?} */ele
      */},{key:'removeHost',value:function removeHost(hostNode){this._hostNodes.delete(hostNode);}/**
      * @param {?} additions
      * @return {?}
-     */},{key:'onStylesAdded',value:function onStylesAdded(additions){var _this14=this;this._hostNodes.forEach(function(hostNode){return _this14._addStylesToHost(additions,hostNode);});}/**
+     */},{key:'onStylesAdded',value:function onStylesAdded(additions){var _this11=this;this._hostNodes.forEach(function(hostNode){return _this11._addStylesToHost(additions,hostNode);});}/**
      * @return {?}
-     */},{key:'ngOnDestroy',value:function ngOnDestroy(){this._styleNodes.forEach(function(styleNode){return getDOM().remove(styleNode);});}}]);return DomSharedStylesHost;}(SharedStylesHost);DomSharedStylesHost.decorators=[{type:Injectable}];/** @nocollapse */DomSharedStylesHost.ctorParameters=function(){return[{type:undefined,decorators:[{type:Inject,args:[DOCUMENT]}]}];};var/** @type {?} */NAMESPACE_URIS={'xlink':'http://www.w3.org/1999/xlink','svg':'http://www.w3.org/2000/svg','xhtml':'http://www.w3.org/1999/xhtml','xml':'http://www.w3.org/XML/1998/namespace'};var/** @type {?} */TEMPLATE_COMMENT_TEXT='template bindings={}';var/** @type {?} */TEMPLATE_BINDINGS_EXP=/^template bindings=(.*)$/;/**
- * @abstract
- */var DomRootRenderer=function(){/**
-     * @param {?} document
-     * @param {?} eventManager
-     * @param {?} sharedStylesHost
-     * @param {?} animationDriver
-     * @param {?} appId
-     */function DomRootRenderer(document,eventManager,sharedStylesHost,animationDriver,appId){_classCallCheck(this,DomRootRenderer);this.document=document;this.eventManager=eventManager;this.sharedStylesHost=sharedStylesHost;this.animationDriver=animationDriver;this.appId=appId;this.registeredComponents=new Map();}/**
-     * @param {?} componentProto
-     * @return {?}
-     */_createClass(DomRootRenderer,[{key:'renderComponent',value:function renderComponent(componentProto){var/** @type {?} */renderer=this.registeredComponents.get(componentProto.id);if(!renderer){renderer=new DomRenderer(this,componentProto,this.animationDriver,this.appId+'-'+componentProto.id);this.registeredComponents.set(componentProto.id,renderer);}return renderer;}}]);return DomRootRenderer;}();var DomRootRenderer_=function(_DomRootRenderer){_inherits(DomRootRenderer_,_DomRootRenderer);/**
-     * @param {?} _document
-     * @param {?} _eventManager
-     * @param {?} sharedStylesHost
-     * @param {?} animationDriver
-     * @param {?} appId
-     */function DomRootRenderer_(_document,_eventManager,sharedStylesHost,animationDriver,appId){_classCallCheck(this,DomRootRenderer_);var _this15=_possibleConstructorReturn(this,(DomRootRenderer_.__proto__||Object.getPrototypeOf(DomRootRenderer_)).call(this,_document,_eventManager,sharedStylesHost,animationDriver,appId));throw new Error('RootRenderer is no longer supported. Please use the `RendererFactoryV2` instead!');return _this15;}return DomRootRenderer_;}(DomRootRenderer);DomRootRenderer_.decorators=[{type:Injectable}];/** @nocollapse */DomRootRenderer_.ctorParameters=function(){return[{type:undefined,decorators:[{type:Inject,args:[DOCUMENT]}]},{type:EventManager},{type:DomSharedStylesHost},{type:AnimationDriver},{type:undefined,decorators:[{type:Inject,args:[APP_ID]}]}];};var/** @type {?} */DIRECT_DOM_RENDERER={/**
-     * @param {?} node
-     * @return {?}
-     */remove:function remove(node){if(node.parentNode){node.parentNode.removeChild(node);}},/**
-     * @param {?} node
-     * @param {?} parent
-     * @return {?}
-     */appendChild:function appendChild(node,parent){parent.appendChild(node);},/**
-     * @param {?} node
-     * @param {?} refNode
-     * @return {?}
-     */insertBefore:function insertBefore(node,refNode){refNode.parentNode.insertBefore(node,refNode);},/**
-     * @param {?} node
-     * @return {?}
-     */nextSibling:function nextSibling(node){return node.nextSibling;},/**
-     * @param {?} node
-     * @return {?}
-     */parentElement:function parentElement(node){return node.parentNode;}};var DomRenderer=function(){/**
-     * @param {?} _rootRenderer
-     * @param {?} componentProto
-     * @param {?} _animationDriver
-     * @param {?} styleShimId
-     */function DomRenderer(_rootRenderer,componentProto,_animationDriver,styleShimId){_classCallCheck(this,DomRenderer);this._rootRenderer=_rootRenderer;this.componentProto=componentProto;this._animationDriver=_animationDriver;this.directRenderer=DIRECT_DOM_RENDERER;this._styles=flattenStyles(styleShimId,componentProto.styles,[]);if(componentProto.encapsulation!==ViewEncapsulation.Native){this._rootRenderer.sharedStylesHost.addStyles(this._styles);}if(this.componentProto.encapsulation===ViewEncapsulation.Emulated){this._contentAttr=shimContentAttribute(styleShimId);this._hostAttr=shimHostAttribute(styleShimId);}else{this._contentAttr=null;this._hostAttr=null;}}/**
-     * @param {?} selectorOrNode
-     * @param {?} debugInfo
-     * @return {?}
-     */_createClass(DomRenderer,[{key:'selectRootElement',value:function selectRootElement(selectorOrNode,debugInfo){var/** @type {?} */el=void 0;if(typeof selectorOrNode==='string'){el=this._rootRenderer.document.querySelector(selectorOrNode);if(!el){throw new Error('The selector "'+selectorOrNode+'" did not match any elements');}}else{el=selectorOrNode;}while(el.firstChild){el.removeChild(el.firstChild);}return el;}/**
-     * @param {?} parent
-     * @param {?} name
-     * @param {?} debugInfo
-     * @return {?}
-     */},{key:'createElement',value:function createElement(parent,name,debugInfo){var/** @type {?} */el=void 0;if(isNamespaced(name)){var/** @type {?} */nsAndName=splitNamespace(name);el=document.createElementNS(NAMESPACE_URIS[nsAndName[0]],nsAndName[1]);}else{el=document.createElement(name);}if(this._contentAttr){el.setAttribute(this._contentAttr,'');}if(parent){parent.appendChild(el);}return el;}/**
-     * @param {?} hostElement
-     * @return {?}
-     */},{key:'createViewRoot',value:function createViewRoot(hostElement){var/** @type {?} */nodesParent=void 0;if(this.componentProto.encapsulation===ViewEncapsulation.Native){nodesParent=hostElement.createShadowRoot();this._rootRenderer.sharedStylesHost.addHost(nodesParent);for(var/** @type {?} */i=0;i<this._styles.length;i++){var/** @type {?} */styleEl=document.createElement('style');styleEl.textContent=this._styles[i];nodesParent.appendChild(styleEl);}}else{if(this._hostAttr){hostElement.setAttribute(this._hostAttr,'');}nodesParent=hostElement;}return nodesParent;}/**
-     * @param {?} parentElement
-     * @param {?} debugInfo
-     * @return {?}
-     */},{key:'createTemplateAnchor',value:function createTemplateAnchor(parentElement,debugInfo){var/** @type {?} */comment=document.createComment(TEMPLATE_COMMENT_TEXT);if(parentElement){parentElement.appendChild(comment);}return comment;}/**
-     * @param {?} parentElement
-     * @param {?} value
-     * @param {?} debugInfo
-     * @return {?}
-     */},{key:'createText',value:function createText(parentElement,value,debugInfo){var/** @type {?} */node=document.createTextNode(value);if(parentElement){parentElement.appendChild(node);}return node;}/**
-     * @param {?} parentElement
-     * @param {?} nodes
-     * @return {?}
-     */},{key:'projectNodes',value:function projectNodes(parentElement,nodes){if(!parentElement)return;appendNodes(parentElement,nodes);}/**
-     * @param {?} node
-     * @param {?} viewRootNodes
-     * @return {?}
-     */},{key:'attachViewAfter',value:function attachViewAfter(node,viewRootNodes){moveNodesAfterSibling(node,viewRootNodes);}/**
-     * @param {?} viewRootNodes
-     * @return {?}
-     */},{key:'detachView',value:function detachView(viewRootNodes){for(var/** @type {?} */i=0;i<viewRootNodes.length;i++){var/** @type {?} */node=viewRootNodes[i];if(node.parentNode){node.parentNode.removeChild(node);}}}/**
-     * @param {?} hostElement
-     * @param {?} viewAllNodes
-     * @return {?}
-     */},{key:'destroyView',value:function destroyView(hostElement,viewAllNodes){if(this.componentProto.encapsulation===ViewEncapsulation.Native&&hostElement){this._rootRenderer.sharedStylesHost.removeHost(hostElement.shadowRoot);}}/**
-     * @param {?} renderElement
-     * @param {?} name
-     * @param {?} callback
-     * @return {?}
-     */},{key:'listen',value:function listen(renderElement,name,callback){return this._rootRenderer.eventManager.addEventListener(renderElement,name,decoratePreventDefault(callback));}/**
-     * @param {?} target
-     * @param {?} name
-     * @param {?} callback
-     * @return {?}
-     */},{key:'listenGlobal',value:function listenGlobal(target,name,callback){return this._rootRenderer.eventManager.addGlobalEventListener(target,name,decoratePreventDefault(callback));}/**
-     * @param {?} renderElement
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */},{key:'setElementProperty',value:function setElementProperty(renderElement,propertyName,propertyValue){renderElement[propertyName]=propertyValue;}/**
-     * @param {?} renderElement
-     * @param {?} attributeName
-     * @param {?} attributeValue
-     * @return {?}
-     */},{key:'setElementAttribute',value:function setElementAttribute(renderElement,attributeName,attributeValue){var/** @type {?} */attrNs=void 0;var/** @type {?} */attrNameWithoutNs=attributeName;if(isNamespaced(attributeName)){var/** @type {?} */nsAndName=splitNamespace(attributeName);attrNameWithoutNs=nsAndName[1];attributeName=nsAndName[0]+':'+nsAndName[1];attrNs=NAMESPACE_URIS[nsAndName[0]];}if(isPresent(attributeValue)){if(attrNs){renderElement.setAttributeNS(attrNs,attributeName,attributeValue);}else{renderElement.setAttribute(attributeName,attributeValue);}}else{if(isPresent(attrNs)){renderElement.removeAttributeNS(attrNs,attrNameWithoutNs);}else{renderElement.removeAttribute(attributeName);}}}/**
-     * @param {?} renderElement
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */},{key:'setBindingDebugInfo',value:function setBindingDebugInfo(renderElement,propertyName,propertyValue){if(renderElement.nodeType===Node.COMMENT_NODE){var/** @type {?} */existingBindings=renderElement.nodeValue.replace(/\n/g,'').match(TEMPLATE_BINDINGS_EXP);var/** @type {?} */parsedBindings=JSON.parse(existingBindings[1]);parsedBindings[propertyName]=propertyValue;renderElement.nodeValue=TEMPLATE_COMMENT_TEXT.replace('{}',JSON.stringify(parsedBindings,null,2));}else{// Attribute names with `$` (eg `x-y$`) are valid per spec, but unsupported by some browsers
-propertyName=propertyName.replace(/\$/g,'_');this.setElementAttribute(renderElement,propertyName,propertyValue);}}/**
-     * @param {?} renderElement
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */},{key:'setElementClass',value:function setElementClass(renderElement,className,isAdd){if(isAdd){renderElement.classList.add(className);}else{renderElement.classList.remove(className);}}/**
-     * @param {?} renderElement
-     * @param {?} styleName
-     * @param {?} styleValue
-     * @return {?}
-     */},{key:'setElementStyle',value:function setElementStyle(renderElement,styleName,styleValue){if(isPresent(styleValue)){renderElement.style[styleName]=stringify(styleValue);}else{// IE requires '' instead of null
-// see https://github.com/angular/angular/issues/7916
-renderElement.style[styleName]='';}}/**
-     * @param {?} renderElement
-     * @param {?} methodName
-     * @param {?} args
-     * @return {?}
-     */},{key:'invokeElementMethod',value:function invokeElementMethod(renderElement,methodName,args){renderElement[methodName].apply(renderElement,args);}/**
-     * @param {?} renderNode
-     * @param {?} text
-     * @return {?}
-     */},{key:'setText',value:function setText(renderNode,text){renderNode.nodeValue=text;}/**
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */},{key:'animate',value:function animate(element,startingStyles,keyframes,duration,delay,easing){var previousPlayers=arguments.length>6&&arguments[6]!==undefined?arguments[6]:[];if(this._rootRenderer.document.body.contains(element)){return this._animationDriver.animate(element,startingStyles,keyframes,duration,delay,easing,previousPlayers);}return new ɵNoOpAnimationPlayer();}}]);return DomRenderer;}();/**
- * @param {?} sibling
- * @param {?} nodes
- * @return {?}
- */function moveNodesAfterSibling(sibling,nodes){var/** @type {?} */parent=sibling.parentNode;if(nodes.length>0&&parent){var/** @type {?} */nextSibling=sibling.nextSibling;if(nextSibling){for(var/** @type {?} */i=0;i<nodes.length;i++){parent.insertBefore(nodes[i],nextSibling);}}else{for(var/** @type {?} */_i=0;_i<nodes.length;_i++){parent.appendChild(nodes[_i]);}}}}/**
- * @param {?} parent
- * @param {?} nodes
- * @return {?}
- */function appendNodes(parent,nodes){for(var/** @type {?} */i=0;i<nodes.length;i++){parent.appendChild(nodes[i]);}}/**
- * @param {?} eventHandler
- * @return {?}
- */function decoratePreventDefault(eventHandler){return function(event){var/** @type {?} */allowDefaultBehavior=eventHandler(event);if(allowDefaultBehavior===false){// TODO(tbosch): move preventDefault into event plugins...
-event.preventDefault();event.returnValue=false;}};}var/** @type {?} */COMPONENT_REGEX=/%COMP%/g;var/** @type {?} */COMPONENT_VARIABLE='%COMP%';var/** @type {?} */HOST_ATTR='_nghost-'+COMPONENT_VARIABLE;var/** @type {?} */CONTENT_ATTR='_ngcontent-'+COMPONENT_VARIABLE;/**
+     */},{key:'ngOnDestroy',value:function ngOnDestroy(){this._styleNodes.forEach(function(styleNode){return getDOM().remove(styleNode);});}}]);return DomSharedStylesHost;}(SharedStylesHost);DomSharedStylesHost.decorators=[{type:Injectable}];/** @nocollapse */DomSharedStylesHost.ctorParameters=function(){return[{type:undefined,decorators:[{type:Inject,args:[DOCUMENT]}]}];};var/** @type {?} */NAMESPACE_URIS={'xlink':'http://www.w3.org/1999/xlink','svg':'http://www.w3.org/2000/svg','xhtml':'http://www.w3.org/1999/xhtml','xml':'http://www.w3.org/XML/1998/namespace'};var/** @type {?} */COMPONENT_REGEX=/%COMP%/g;var/** @type {?} */COMPONENT_VARIABLE='%COMP%';var/** @type {?} */HOST_ATTR='_nghost-'+COMPONENT_VARIABLE;var/** @type {?} */CONTENT_ATTR='_ngcontent-'+COMPONENT_VARIABLE;/**
  * @param {?} componentShortId
  * @return {?}
  */function shimContentAttribute(componentShortId){return CONTENT_ATTR.replace(COMPONENT_REGEX,componentShortId);}/**
@@ -1485,13 +1247,11 @@ event.preventDefault();event.returnValue=false;}};}var/** @type {?} */COMPONENT_
  * @param {?} styles
  * @param {?} target
  * @return {?}
- */function flattenStyles(compId,styles,target){for(var/** @type {?} */i=0;i<styles.length;i++){var/** @type {?} */style=styles[i];if(Array.isArray(style)){flattenStyles(compId,style,target);}else{style=style.replace(COMPONENT_REGEX,compId);target.push(style);}}return target;}var/** @type {?} */NS_PREFIX_RE=/^:([^:]+):(.+)$/;/**
- * @param {?} name
+ */function flattenStyles(compId,styles,target){for(var/** @type {?} */i=0;i<styles.length;i++){var/** @type {?} */style=styles[i];if(Array.isArray(style)){flattenStyles(compId,style,target);}else{style=style.replace(COMPONENT_REGEX,compId);target.push(style);}}return target;}/**
+ * @param {?} eventHandler
  * @return {?}
- */function isNamespaced(name){return name[0]===':';}/**
- * @param {?} name
- * @return {?}
- */function splitNamespace(name){var/** @type {?} */match=name.match(NS_PREFIX_RE);return[match[1],match[2]];}var DomRendererFactoryV2=function(){/**
+ */function decoratePreventDefault(eventHandler){return function(event){var/** @type {?} */allowDefaultBehavior=eventHandler(event);if(allowDefaultBehavior===false){// TODO(tbosch): move preventDefault into event plugins...
+event.preventDefault();event.returnValue=false;}};}var DomRendererFactoryV2=function(){/**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
      */function DomRendererFactoryV2(eventManager,sharedStylesHost){_classCallCheck(this,DomRendererFactoryV2);this.eventManager=eventManager;this.sharedStylesHost=sharedStylesHost;this.rendererByCompId=new Map();this.defaultRenderer=new DefaultDomRendererV2(eventManager);}_createClass(DomRendererFactoryV2,[{key:'createRenderer',/**
@@ -1585,7 +1345,7 @@ el.style[style]='';}}/**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
      * @param {?} component
-     */function EmulatedEncapsulationDomRendererV2(eventManager,sharedStylesHost,component){_classCallCheck(this,EmulatedEncapsulationDomRendererV2);var _this16=_possibleConstructorReturn(this,(EmulatedEncapsulationDomRendererV2.__proto__||Object.getPrototypeOf(EmulatedEncapsulationDomRendererV2)).call(this,eventManager));_this16.component=component;var styles=flattenStyles(component.id,component.styles,[]);sharedStylesHost.addStyles(styles);_this16.contentAttr=shimContentAttribute(component.id);_this16.hostAttr=shimHostAttribute(component.id);return _this16;}/**
+     */function EmulatedEncapsulationDomRendererV2(eventManager,sharedStylesHost,component){_classCallCheck(this,EmulatedEncapsulationDomRendererV2);var _this12=_possibleConstructorReturn(this,(EmulatedEncapsulationDomRendererV2.__proto__||Object.getPrototypeOf(EmulatedEncapsulationDomRendererV2)).call(this,eventManager));_this12.component=component;var styles=flattenStyles(component.id,component.styles,[]);sharedStylesHost.addStyles(styles);_this12.contentAttr=shimContentAttribute(component.id);_this12.hostAttr=shimHostAttribute(component.id);return _this12;}/**
      * @param {?} element
      * @return {?}
      */_createClass(EmulatedEncapsulationDomRendererV2,[{key:'applyToHost',value:function applyToHost(element){_get(EmulatedEncapsulationDomRendererV2.prototype.__proto__||Object.getPrototypeOf(EmulatedEncapsulationDomRendererV2.prototype),'setAttribute',this).call(this,element,this.hostAttr,'');}/**
@@ -1597,7 +1357,7 @@ el.style[style]='';}}/**
      * @param {?} sharedStylesHost
      * @param {?} hostEl
      * @param {?} component
-     */function ShadowDomRenderer(eventManager,sharedStylesHost,hostEl,component){_classCallCheck(this,ShadowDomRenderer);var _this17=_possibleConstructorReturn(this,(ShadowDomRenderer.__proto__||Object.getPrototypeOf(ShadowDomRenderer)).call(this,eventManager));_this17.sharedStylesHost=sharedStylesHost;_this17.hostEl=hostEl;_this17.component=component;_this17.shadowRoot=hostEl.createShadowRoot();_this17.sharedStylesHost.addHost(_this17.shadowRoot);var styles=flattenStyles(component.id,component.styles,[]);for(var i=0;i<styles.length;i++){var styleEl=document.createElement('style');styleEl.textContent=styles[i];_this17.shadowRoot.appendChild(styleEl);}return _this17;}/**
+     */function ShadowDomRenderer(eventManager,sharedStylesHost,hostEl,component){_classCallCheck(this,ShadowDomRenderer);var _this13=_possibleConstructorReturn(this,(ShadowDomRenderer.__proto__||Object.getPrototypeOf(ShadowDomRenderer)).call(this,eventManager));_this13.sharedStylesHost=sharedStylesHost;_this13.hostEl=hostEl;_this13.component=component;_this13.shadowRoot=hostEl.createShadowRoot();_this13.sharedStylesHost.addHost(_this13.shadowRoot);var styles=flattenStyles(component.id,component.styles,[]);for(var i=0;i<styles.length;i++){var styleEl=document.createElement('style');styleEl.textContent=styles[i];_this13.shadowRoot.appendChild(styleEl);}return _this13;}/**
      * @param {?} node
      * @return {?}
      */_createClass(ShadowDomRenderer,[{key:'nodeOrShadowRoot',value:function nodeOrShadowRoot(node){return node===this.hostEl?this.shadowRoot:node;}/**
@@ -1618,33 +1378,7 @@ el.style[style]='';}}/**
      */},{key:'removeChild',value:function removeChild(parent,oldChild){return _get(ShadowDomRenderer.prototype.__proto__||Object.getPrototypeOf(ShadowDomRenderer.prototype),'removeChild',this).call(this,this.nodeOrShadowRoot(parent),oldChild);}/**
      * @param {?} node
      * @return {?}
-     */},{key:'parentNode',value:function parentNode(node){return this.nodeOrShadowRoot(_get(ShadowDomRenderer.prototype.__proto__||Object.getPrototypeOf(ShadowDomRenderer.prototype),'parentNode',this).call(this,this.nodeOrShadowRoot(node)));}}]);return ShadowDomRenderer;}(DefaultDomRendererV2);var/** @type {?} */CORE_TOKENS={'ApplicationRef':core.ApplicationRef,'NgZone':core.NgZone};var/** @type {?} */INSPECT_GLOBAL_NAME='ng.probe';var/** @type {?} */CORE_TOKENS_GLOBAL_NAME='ng.coreTokens';/**
- * Returns a {\@link DebugElement} for the given native DOM element, or
- * null if the given native element does not have an Angular view associated
- * with it.
- * @param {?} element
- * @return {?}
- */function inspectNativeElement(element){return core.getDebugNode(element);}/**
- * Deprecated. Use the one from '\@angular/core'.
- * @deprecated
- */var NgProbeToken=/**
-     * @param {?} name
-     * @param {?} token
-     */function NgProbeToken(name,token){_classCallCheck(this,NgProbeToken);this.name=name;this.token=token;};/**
- * @param {?} rootRenderer
- * @param {?} extraTokens
- * @param {?} coreTokens
- * @return {?}
- */function _createConditionalRootRenderer(rootRenderer,extraTokens,coreTokens){return core.isDevMode()?_createRootRenderer(rootRenderer,(extraTokens||[]).concat(coreTokens||[])):rootRenderer;}/**
- * @param {?} rootRenderer
- * @param {?} extraTokens
- * @return {?}
- */function _createRootRenderer(rootRenderer,extraTokens){getDOM().setGlobalVar(INSPECT_GLOBAL_NAME,inspectNativeElement);getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME,StringMapWrapper.merge(CORE_TOKENS,_ngProbeTokensToMap(extraTokens||[])));return new core.ɵDebugDomRootRenderer(rootRenderer);}/**
- * @param {?} tokens
- * @return {?}
- */function _ngProbeTokensToMap(tokens){return tokens.reduce(function(prev,t){return prev[t.name]=t.token,prev;},{});}/**
- * Providers which support debugging Angular applications (e.g. via `ng.probe`).
- */var/** @type {?} */ELEMENT_PROBE_PROVIDERS=[{provide:core.RootRenderer,useFactory:_createConditionalRootRenderer,deps:[DomRootRenderer,[NgProbeToken,new core.Optional()],[core.NgProbeToken,new core.Optional()]]}];var DomEventsPlugin=function(_EventManagerPlugin){_inherits(DomEventsPlugin,_EventManagerPlugin);/**
+     */},{key:'parentNode',value:function parentNode(node){return this.nodeOrShadowRoot(_get(ShadowDomRenderer.prototype.__proto__||Object.getPrototypeOf(ShadowDomRenderer.prototype),'parentNode',this).call(this,this.nodeOrShadowRoot(node)));}}]);return ShadowDomRenderer;}(DefaultDomRendererV2);var DomEventsPlugin=function(_EventManagerPlugin){_inherits(DomEventsPlugin,_EventManagerPlugin);/**
      * @param {?} doc
      */function DomEventsPlugin(doc){_classCallCheck(this,DomEventsPlugin);return _possibleConstructorReturn(this,(DomEventsPlugin.__proto__||Object.getPrototypeOf(DomEventsPlugin)).call(this,doc));}/**
      * @param {?} eventName
@@ -1673,7 +1407,7 @@ el.style[style]='';}}/**
      */_createClass(HammerGestureConfig,[{key:'buildHammer',value:function buildHammer(element){var/** @type {?} */mc=new Hammer(element);mc.get('pinch').set({enable:true});mc.get('rotate').set({enable:true});for(var/** @type {?} */eventName in this.overrides){mc.get(eventName).set(this.overrides[eventName]);}return mc;}}]);return HammerGestureConfig;}();HammerGestureConfig.decorators=[{type:Injectable}];/** @nocollapse */HammerGestureConfig.ctorParameters=function(){return[];};var HammerGesturesPlugin=function(_EventManagerPlugin2){_inherits(HammerGesturesPlugin,_EventManagerPlugin2);/**
      * @param {?} doc
      * @param {?} _config
-     */function HammerGesturesPlugin(doc,_config){_classCallCheck(this,HammerGesturesPlugin);var _this19=_possibleConstructorReturn(this,(HammerGesturesPlugin.__proto__||Object.getPrototypeOf(HammerGesturesPlugin)).call(this,doc));_this19._config=_config;return _this19;}/**
+     */function HammerGesturesPlugin(doc,_config){_classCallCheck(this,HammerGesturesPlugin);var _this15=_possibleConstructorReturn(this,(HammerGesturesPlugin.__proto__||Object.getPrototypeOf(HammerGesturesPlugin)).call(this,doc));_this15._config=_config;return _this15;}/**
      * @param {?} eventName
      * @return {?}
      */_createClass(HammerGesturesPlugin,[{key:'supports',value:function supports(eventName){if(!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase())&&!this.isCustomEvent(eventName)){return false;}if(!window.Hammer){throw new Error('Hammer.js is not loaded, can not bind '+eventName+' event');}return true;}/**
@@ -1681,8 +1415,8 @@ el.style[style]='';}}/**
      * @param {?} eventName
      * @param {?} handler
      * @return {?}
-     */},{key:'addEventListener',value:function addEventListener(element,eventName,handler){var _this20=this;var/** @type {?} */zone=this.manager.getZone();eventName=eventName.toLowerCase();return zone.runOutsideAngular(function(){// Creating the manager bind events, must be done outside of angular
-var/** @type {?} */mc=_this20._config.buildHammer(element);var/** @type {?} */callback=function callback(eventObj){zone.runGuarded(function(){handler(eventObj);});};mc.on(eventName,callback);return function(){return mc.off(eventName,callback);};});}/**
+     */},{key:'addEventListener',value:function addEventListener(element,eventName,handler){var _this16=this;var/** @type {?} */zone=this.manager.getZone();eventName=eventName.toLowerCase();return zone.runOutsideAngular(function(){// Creating the manager bind events, must be done outside of angular
+var/** @type {?} */mc=_this16._config.buildHammer(element);var/** @type {?} */callback=function callback(eventObj){zone.runGuarded(function(){handler(eventObj);});};mc.on(eventName,callback);return function(){return mc.off(eventName,callback);};});}/**
      * @param {?} eventName
      * @return {?}
      */},{key:'isCustomEvent',value:function isCustomEvent(eventName){return this._config.events.indexOf(eventName)>-1;}}]);return HammerGesturesPlugin;}(EventManagerPlugin);HammerGesturesPlugin.decorators=[{type:Injectable}];/** @nocollapse */HammerGesturesPlugin.ctorParameters=function(){return[{type:undefined,decorators:[{type:Inject,args:[DOCUMENT]}]},{type:HammerGestureConfig,decorators:[{type:Inject,args:[HAMMER_GESTURE_CONFIG]}]}];};var/** @type {?} */MODIFIER_KEYS=['alt','control','meta','shift'];var/** @type {?} */MODIFIER_KEY_GETTERS={'alt':function alt(event){return event.altKey;},'control':function control(event){return event.ctrlKey;},'meta':function meta(event){return event.metaKey;},'shift':function shift(event){return event.shiftKey;}};/**
@@ -1790,8 +1524,8 @@ this.sanitizedSomething=true;}if(DOM.firstChild(current)){current=DOM.firstChild
 if(DOM.isElementNode(current)){this.endElement(/** @type {?} */current);}if(DOM.nextSibling(current)){current=DOM.nextSibling(current);break;}current=DOM.parentElement(current);}}return this.buf.join('');}/**
      * @param {?} element
      * @return {?}
-     */},{key:'startElement',value:function startElement(element){var _this22=this;var/** @type {?} */tagName=DOM.nodeName(element).toLowerCase();if(!VALID_ELEMENTS.hasOwnProperty(tagName)){this.sanitizedSomething=true;return;}this.buf.push('<');this.buf.push(tagName);DOM.attributeMap(element).forEach(function(value,attrName){var/** @type {?} */lower=attrName.toLowerCase();if(!VALID_ATTRS.hasOwnProperty(lower)){_this22.sanitizedSomething=true;return;}// TODO(martinprobst): Special case image URIs for data:image/...
-if(URI_ATTRS[lower])value=sanitizeUrl(value);if(SRCSET_ATTRS[lower])value=sanitizeSrcset(value);_this22.buf.push(' ');_this22.buf.push(attrName);_this22.buf.push('="');_this22.buf.push(encodeEntities(value));_this22.buf.push('"');});this.buf.push('>');}/**
+     */},{key:'startElement',value:function startElement(element){var _this18=this;var/** @type {?} */tagName=DOM.nodeName(element).toLowerCase();if(!VALID_ELEMENTS.hasOwnProperty(tagName)){this.sanitizedSomething=true;return;}this.buf.push('<');this.buf.push(tagName);DOM.attributeMap(element).forEach(function(value,attrName){var/** @type {?} */lower=attrName.toLowerCase();if(!VALID_ATTRS.hasOwnProperty(lower)){_this18.sanitizedSomething=true;return;}// TODO(martinprobst): Special case image URIs for data:image/...
+if(URI_ATTRS[lower])value=sanitizeUrl(value);if(SRCSET_ATTRS[lower])value=sanitizeSrcset(value);_this18.buf.push(' ');_this18.buf.push(attrName);_this18.buf.push('="');_this18.buf.push(encodeEntities(value));_this18.buf.push('"');});this.buf.push('>');}/**
      * @param {?} current
      * @return {?}
      */},{key:'endElement',value:function endElement(current){var/** @type {?} */tagName=DOM.nodeName(current).toLowerCase();if(VALID_ELEMENTS.hasOwnProperty(tagName)&&!VOID_ELEMENTS.hasOwnProperty(tagName)){this.buf.push('</');this.buf.push(tagName);this.buf.push('>');}}/**
@@ -1961,7 +1695,7 @@ var/** @type {?} */urlMatch=value.match(URL_RE);if(urlMatch&&sanitizeUrl(urlMatc
      * @return {?}
      */},{key:'bypassSecurityTrustResourceUrl',value:function bypassSecurityTrustResourceUrl(value){}}]);return DomSanitizer;}();var DomSanitizerImpl=function(_DomSanitizer){_inherits(DomSanitizerImpl,_DomSanitizer);/**
      * @param {?} _doc
-     */function DomSanitizerImpl(_doc){_classCallCheck(this,DomSanitizerImpl);var _this23=_possibleConstructorReturn(this,(DomSanitizerImpl.__proto__||Object.getPrototypeOf(DomSanitizerImpl)).call(this));_this23._doc=_doc;return _this23;}/**
+     */function DomSanitizerImpl(_doc){_classCallCheck(this,DomSanitizerImpl);var _this19=_possibleConstructorReturn(this,(DomSanitizerImpl.__proto__||Object.getPrototypeOf(DomSanitizerImpl)).call(this));_this19._doc=_doc;return _this19;}/**
      * @param {?} ctx
      * @param {?} value
      * @return {?}
@@ -2019,8 +1753,6 @@ return value.changingThisBreaksApplicationSecurity;}this.checkNotSafeValue(value
  */function errorHandler(){return new ErrorHandler();}/**
  * @return {?}
  */function _document(){return document;}/**
- * @return {?}
- */function _resolveDefaultAnimationDriver(){if(getDOM().supportsWebAnimation()){return new WebAnimationsDriver();}return AnimationDriver.NOOP;}/**
  * The ng module for the browser.
  *
  * \@stable
@@ -2034,7 +1766,7 @@ return value.changingThisBreaksApplicationSecurity;}this.checkNotSafeValue(value
      * \@experimental
      * @param {?} params
      * @return {?}
-     */_createClass(BrowserModule,null,[{key:'withServerTransition',value:function withServerTransition(params){return{ngModule:BrowserModule,providers:[{provide:APP_ID,useValue:params.appId},{provide:TRANSITION_ID,useExisting:APP_ID},SERVER_TRANSITION_PROVIDERS]};}}]);return BrowserModule;}();BrowserModule.decorators=[{type:NgModule,args:[{providers:[BROWSER_SANITIZATION_PROVIDERS,{provide:ErrorHandler,useFactory:errorHandler,deps:[]},{provide:EVENT_MANAGER_PLUGINS,useClass:DomEventsPlugin,multi:true},{provide:EVENT_MANAGER_PLUGINS,useClass:KeyEventsPlugin,multi:true},{provide:EVENT_MANAGER_PLUGINS,useClass:HammerGesturesPlugin,multi:true},{provide:HAMMER_GESTURE_CONFIG,useClass:HammerGestureConfig},{provide:DomRootRenderer,useClass:DomRootRenderer_},{provide:RootRenderer,useExisting:DomRootRenderer},DomRendererFactoryV2,{provide:RendererFactoryV2,useExisting:DomRendererFactoryV2},{provide:SharedStylesHost,useExisting:DomSharedStylesHost},{provide:AnimationDriver,useFactory:_resolveDefaultAnimationDriver},DomSharedStylesHost,Testability,EventManager,ELEMENT_PROBE_PROVIDERS,Meta,Title],exports:[CommonModule,ApplicationModule]}]}];/** @nocollapse */BrowserModule.ctorParameters=function(){return[{type:BrowserModule,decorators:[{type:Optional},{type:SkipSelf}]}];};/**
+     */_createClass(BrowserModule,null,[{key:'withServerTransition',value:function withServerTransition(params){return{ngModule:BrowserModule,providers:[{provide:APP_ID,useValue:params.appId},{provide:TRANSITION_ID,useExisting:APP_ID},SERVER_TRANSITION_PROVIDERS]};}}]);return BrowserModule;}();BrowserModule.decorators=[{type:NgModule,args:[{providers:[BROWSER_SANITIZATION_PROVIDERS,{provide:ErrorHandler,useFactory:errorHandler,deps:[]},{provide:EVENT_MANAGER_PLUGINS,useClass:DomEventsPlugin,multi:true},{provide:EVENT_MANAGER_PLUGINS,useClass:KeyEventsPlugin,multi:true},{provide:EVENT_MANAGER_PLUGINS,useClass:HammerGesturesPlugin,multi:true},{provide:HAMMER_GESTURE_CONFIG,useClass:HammerGestureConfig},DomRendererFactoryV2,{provide:RendererFactoryV2,useExisting:DomRendererFactoryV2},{provide:SharedStylesHost,useExisting:DomSharedStylesHost},DomSharedStylesHost,Testability,EventManager,ELEMENT_PROBE_PROVIDERS,Meta,Title],exports:[CommonModule,ApplicationModule]}]}];/** @nocollapse */BrowserModule.ctorParameters=function(){return[{type:BrowserModule,decorators:[{type:Optional},{type:SkipSelf}]}];};/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -2120,4 +1852,4 @@ win.console.profileEnd(profileName);}var/** @type {?} */msPerTick=(end-start)/nu
      * @return {?}
      */},{key:'directive',value:function directive(type){return function(debugElement){return debugElement.providerTokens.indexOf(type)!==-1;};}}]);return By;}();/**
  * @stable
- */var/** @type {?} */VERSION=new Version('4.0.0-rc.1-e58cb7b');export{BrowserModule,platformBrowser,Meta,Title,disableDebugTools,enableDebugTools,AnimationDriver,By,NgProbeToken,DOCUMENT,EVENT_MANAGER_PLUGINS,EventManager,HAMMER_GESTURE_CONFIG,HammerGestureConfig,DomSanitizer,VERSION,BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS,INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS,initDomAdapter as ɵinitDomAdapter,BrowserDomAdapter as ɵBrowserDomAdapter,BrowserPlatformLocation as ɵBrowserPlatformLocation,TRANSITION_ID as ɵTRANSITION_ID,BrowserGetTestability as ɵBrowserGetTestability,ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS,DomAdapter as ɵDomAdapter,getDOM as ɵgetDOM,setRootDomAdapter as ɵsetRootDomAdapter,DomRendererFactoryV2 as ɵDomRendererFactoryV2,DomRootRenderer as ɵDomRootRenderer,DomRootRenderer_ as ɵDomRootRenderer_,NAMESPACE_URIS as ɵNAMESPACE_URIS,flattenStyles as ɵflattenStyles,isNamespaced as ɵisNamespaced,shimContentAttribute as ɵshimContentAttribute,shimHostAttribute as ɵshimHostAttribute,splitNamespace as ɵsplitNamespace,DomEventsPlugin as ɵDomEventsPlugin,HammerGesturesPlugin as ɵHammerGesturesPlugin,KeyEventsPlugin as ɵKeyEventsPlugin,DomSharedStylesHost as ɵDomSharedStylesHost,SharedStylesHost as ɵSharedStylesHost,WebAnimationsDriver as ɵWebAnimationsDriver,_document as ɵb,_resolveDefaultAnimationDriver as ɵc,errorHandler as ɵa,GenericBrowserDomAdapter as ɵi,SERVER_TRANSITION_PROVIDERS as ɵh,bootstrapListenerFactory as ɵg,_createConditionalRootRenderer as ɵd,EventManagerPlugin as ɵe,DomSanitizerImpl as ɵf};
+ */var/** @type {?} */VERSION=new Version('4.0.0-rc.1-126fda2');export{BrowserModule,platformBrowser,Meta,Title,disableDebugTools,enableDebugTools,By,NgProbeToken,DOCUMENT,EVENT_MANAGER_PLUGINS,EventManager,HAMMER_GESTURE_CONFIG,HammerGestureConfig,DomSanitizer,VERSION,BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS,INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS,initDomAdapter as ɵinitDomAdapter,BrowserDomAdapter as ɵBrowserDomAdapter,BrowserPlatformLocation as ɵBrowserPlatformLocation,TRANSITION_ID as ɵTRANSITION_ID,BrowserGetTestability as ɵBrowserGetTestability,ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS,DomAdapter as ɵDomAdapter,getDOM as ɵgetDOM,setRootDomAdapter as ɵsetRootDomAdapter,DomRendererFactoryV2 as ɵDomRendererFactoryV2,NAMESPACE_URIS as ɵNAMESPACE_URIS,flattenStyles as ɵflattenStyles,shimContentAttribute as ɵshimContentAttribute,shimHostAttribute as ɵshimHostAttribute,DomEventsPlugin as ɵDomEventsPlugin,HammerGesturesPlugin as ɵHammerGesturesPlugin,KeyEventsPlugin as ɵKeyEventsPlugin,DomSharedStylesHost as ɵDomSharedStylesHost,SharedStylesHost as ɵSharedStylesHost,_document as ɵb,errorHandler as ɵa,GenericBrowserDomAdapter as ɵh,SERVER_TRANSITION_PROVIDERS as ɵg,bootstrapListenerFactory as ɵf,_createNgProbe as ɵc,EventManagerPlugin as ɵd,DomSanitizerImpl as ɵe};

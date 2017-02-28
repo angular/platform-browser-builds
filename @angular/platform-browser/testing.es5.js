@@ -1,5 +1,5 @@
 import { PLATFORM_INITIALIZER, platformCore, createPlatformFactory, NgZone, APP_ID, NgModule } from '@angular/core';
-import { ɵBrowserDomAdapter, AnimationDriver, ɵELEMENT_PROBE_PROVIDERS, BrowserModule, ɵgetDOM } from '@angular/platform-browser';
+import { ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, BrowserModule, ɵgetDOM } from '@angular/platform-browser';
 
 /**
  * @license
@@ -104,7 +104,7 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
 class BrowserTestingModule {}
 BrowserTestingModule.decorators = [{ type: NgModule, args: [{
         exports: [BrowserModule],
-        providers: [{ provide: APP_ID, useValue: 'a' }, ɵELEMENT_PROBE_PROVIDERS, { provide: NgZone, useFactory: createNgZone }, { provide: AnimationDriver, useValue: AnimationDriver.NOOP }]
+        providers: [{ provide: APP_ID, useValue: 'a' }, ɵELEMENT_PROBE_PROVIDERS, { provide: NgZone, useFactory: createNgZone }]
     }] }];
 /** @nocollapse */
 BrowserTestingModule.ctorParameters = () => [];

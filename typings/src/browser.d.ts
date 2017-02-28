@@ -1,5 +1,4 @@
 import { ErrorHandler, ModuleWithProviders, PlatformRef, Provider } from '@angular/core';
-import { AnimationDriver } from '../src/dom/animation_driver';
 export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: Provider[];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -15,7 +14,6 @@ export declare const platformBrowser: (extraProviders?: Provider[]) => PlatformR
 export declare function initDomAdapter(): void;
 export declare function errorHandler(): ErrorHandler;
 export declare function _document(): any;
-export declare function _resolveDefaultAnimationDriver(): AnimationDriver;
 /**
  * The ng module for the browser.
  *

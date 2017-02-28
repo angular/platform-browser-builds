@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.1-e58cb7b
+ * @license Angular v4.0.0-rc.1-126fda2
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -184,7 +184,7 @@
 
     BrowserTestingModule.decorators = [{ type: _core.NgModule, args: [{
             exports: [_platformBrowser.BrowserModule],
-            providers: [{ provide: _core.APP_ID, useValue: 'a' }, _platformBrowser.ɵELEMENT_PROBE_PROVIDERS, { provide: _core.NgZone, useFactory: createNgZone }, { provide: _platformBrowser.AnimationDriver, useValue: _platformBrowser.AnimationDriver.NOOP }]
+            providers: [{ provide: _core.APP_ID, useValue: 'a' }, _platformBrowser.ɵELEMENT_PROBE_PROVIDERS, { provide: _core.NgZone, useFactory: createNgZone }]
         }] }];
     /** @nocollapse */
     BrowserTestingModule.ctorParameters = function () {
