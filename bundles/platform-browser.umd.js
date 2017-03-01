@@ -4009,7 +4009,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.1-47bdc2b');
+  var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.1-9402df9');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
