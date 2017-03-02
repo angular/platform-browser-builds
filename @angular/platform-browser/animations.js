@@ -490,7 +490,12 @@ function parseTimeExpression(exp, errors) {
  */
 function normalizeStyles(styles) {
     const /** @type {?} */ normalizedStyles = {};
-    styles.forEach(data => copyStyles(data, false, normalizedStyles));
+    if (Array.isArray(styles)) {
+        styles.forEach(data => copyStyles(data, false, normalizedStyles));
+    }
+    else {
+        copyStyles(styles, false, normalizedStyles);
+    }
     return normalizedStyles;
 }
 /**
@@ -869,7 +874,7 @@ class AnimationTimelineVisitor {
         const /** @type {?} */ limit = ast.steps.length - 1;
         const /** @type {?} */ firstKeyframe = ast.steps[0];
         let /** @type {?} */ offsetGap = 0;
-        const /** @type {?} */ containsOffsets = firstKeyframe.styles.find(styles => styles['offset'] >= 0);
+        const /** @type {?} */ containsOffsets = getOffset(firstKeyframe) != null;
         if (!containsOffsets) {
             offsetGap = MAX_KEYFRAME_OFFSET / limit;
         }
@@ -880,7 +885,8 @@ class AnimationTimelineVisitor {
         innerTimeline.easing = context.currentAnimateTimings.easing;
         ast.steps.forEach((step, i) => {
             const /** @type {?} */ normalizedStyles = normalizeStyles(step.styles);
-            const /** @type {?} */ offset = containsOffsets ? (normalizedStyles['offset']) :
+            const /** @type {?} */ offset = containsOffsets ?
+                (step.offset != null ? step.offset : parseFloat(/** @type {?} */ (normalizedStyles['offset']))) :
                 (i == limit ? MAX_KEYFRAME_OFFSET : i * offsetGap);
             innerTimeline.forwardTime(offset * duration);
             innerTimeline.setStyles(normalizedStyles);
@@ -1043,6 +1049,29 @@ class TimelineBuilder {
         return createTimelineInstruction(finalKeyframes, this.duration, this.startTime, this.easing);
     }
 }
+/**
+ * @param {?} ast
+ * @return {?}
+ */
+function getOffset(ast) {
+    let /** @type {?} */ offset = ast.offset;
+    if (offset == null) {
+        const /** @type {?} */ styles = ast.styles;
+        if (Array.isArray(styles)) {
+            for (let /** @type {?} */ i = 0; i < styles.length; i++) {
+                const /** @type {?} */ o = (styles[i]['offset']);
+                if (o != null) {
+                    offset = o;
+                    break;
+                }
+            }
+        }
+        else {
+            offset = (styles['offset']);
+        }
+    }
+    return offset;
+}
 
 /**
  * @param {?} triggerName
@@ -1078,7 +1107,10 @@ class AnimationTransitionFactory {
         this._triggerName = _triggerName;
         this.matchFns = matchFns;
         this._stateStyles = _stateStyles;
-        this._animationAst = ast.animation;
+        const normalizedAst = Array.isArray(ast.animation) ?
+            sequence(ast.animation) :
+            ast.animation;
+        this._animationAst = normalizedAst;
     }
     /**
      * @param {?} currentState
@@ -1110,7 +1142,8 @@ function oneOrMoreTransitionsMatch(matchFns, currentState, nextState) {
  * @return {?}
  */
 function validateAnimationSequence(ast) {
-    return new AnimationValidatorVisitor().validate(ast);
+    const /** @type {?} */ normalizedAst = Array.isArray(ast) ? sequence(/** @type {?} */ (ast)) : (ast);
+    return new AnimationValidatorVisitor().validate(normalizedAst);
 }
 class AnimationValidatorVisitor {
     /**
@@ -1127,13 +1160,17 @@ class AnimationValidatorVisitor {
      * @param {?} context
      * @return {?}
      */
-    visitState(ast, context) { }
+    visitState(ast, context) {
+        // these values are not visited in this AST
+    }
     /**
      * @param {?} ast
      * @param {?} context
      * @return {?}
      */
-    visitTransition(ast, context) { }
+    visitTransition(ast, context) {
+        // these values are not visited in this AST
+    }
     /**
      * @param {?} ast
      * @param {?} context
@@ -1373,31 +1410,41 @@ class AnimationTriggerVisitor {
      * @param {?} context
      * @return {?}
      */
-    visitSequence(ast, context) { }
+    visitSequence(ast, context) {
+        // these values are not visited in this AST
+    }
     /**
      * @param {?} ast
      * @param {?} context
      * @return {?}
      */
-    visitGroup(ast, context) { }
+    visitGroup(ast, context) {
+        // these values are not visited in this AST
+    }
     /**
      * @param {?} ast
      * @param {?} context
      * @return {?}
      */
-    visitAnimate(ast, context) { }
+    visitAnimate(ast, context) {
+        // these values are not visited in this AST
+    }
     /**
      * @param {?} ast
      * @param {?} context
      * @return {?}
      */
-    visitStyle(ast, context) { }
+    visitStyle(ast, context) {
+        // these values are not visited in this AST
+    }
     /**
      * @param {?} ast
      * @param {?} context
      * @return {?}
      */
-    visitKeyframeSequence(ast, context) { }
+    visitKeyframeSequence(ast, context) {
+        // these values are not visited in this AST
+    }
 }
 
 const /** @type {?} */ MARKED_FOR_ANIMATION = 'ng-animate';

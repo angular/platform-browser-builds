@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.1-3168ef7
+ * @license Angular v4.0.0-rc.1-9560ad8
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -606,9 +606,13 @@
      */
     function normalizeStyles(styles) {
         var /** @type {?} */normalizedStyles = {};
-        styles.forEach(function (data) {
-            return copyStyles(data, false, normalizedStyles);
-        });
+        if (Array.isArray(styles)) {
+            styles.forEach(function (data) {
+                return copyStyles(data, false, normalizedStyles);
+            });
+        } else {
+            copyStyles(styles, false, normalizedStyles);
+        }
         return normalizedStyles;
     }
     /**
@@ -1001,9 +1005,7 @@
                 var /** @type {?} */limit = ast.steps.length - 1;
                 var /** @type {?} */firstKeyframe = ast.steps[0];
                 var /** @type {?} */offsetGap = 0;
-                var /** @type {?} */containsOffsets = firstKeyframe.styles.find(function (styles) {
-                    return styles['offset'] >= 0;
-                });
+                var /** @type {?} */containsOffsets = getOffset(firstKeyframe) != null;
                 if (!containsOffsets) {
                     offsetGap = MAX_KEYFRAME_OFFSET / limit;
                 }
@@ -1014,7 +1016,7 @@
                 innerTimeline.easing = context.currentAnimateTimings.easing;
                 ast.steps.forEach(function (step, i) {
                     var /** @type {?} */normalizedStyles = normalizeStyles(step.styles);
-                    var /** @type {?} */offset = containsOffsets ? normalizedStyles['offset'] : i == limit ? MAX_KEYFRAME_OFFSET : i * offsetGap;
+                    var /** @type {?} */offset = containsOffsets ? step.offset != null ? step.offset : parseFloat( /** @type {?} */normalizedStyles['offset']) : i == limit ? MAX_KEYFRAME_OFFSET : i * offsetGap;
                     innerTimeline.forwardTime(offset * duration);
                     innerTimeline.setStyles(normalizedStyles);
                 });
@@ -1190,6 +1192,29 @@
     }();
 
     /**
+     * @param {?} ast
+     * @return {?}
+     */
+    function getOffset(ast) {
+        var /** @type {?} */offset = ast.offset;
+        if (offset == null) {
+            var /** @type {?} */styles = ast.styles;
+            if (Array.isArray(styles)) {
+                for (var /** @type {?} */i = 0; i < styles.length; i++) {
+                    var /** @type {?} */o = styles[i]['offset'];
+                    if (o != null) {
+                        offset = o;
+                        break;
+                    }
+                }
+            } else {
+                offset = styles['offset'];
+            }
+        }
+        return offset;
+    }
+
+    /**
      * @param {?} triggerName
      * @param {?} fromState
      * @param {?} toState
@@ -1225,7 +1250,8 @@
             this._triggerName = _triggerName;
             this.matchFns = matchFns;
             this._stateStyles = _stateStyles;
-            this._animationAst = ast.animation;
+            var normalizedAst = Array.isArray(ast.animation) ? (0, _animations.sequence)(ast.animation) : ast.animation;
+            this._animationAst = normalizedAst;
         }
         /**
          * @param {?} currentState
@@ -1266,7 +1292,8 @@
      * @return {?}
      */
     function validateAnimationSequence(ast) {
-        return new AnimationValidatorVisitor().validate(ast);
+        var /** @type {?} */normalizedAst = Array.isArray(ast) ? (0, _animations.sequence)( /** @type {?} */ast) : ast;
+        return new AnimationValidatorVisitor().validate(normalizedAst);
     }
 
     var AnimationValidatorVisitor = function () {
@@ -1284,9 +1311,25 @@
         }, {
             key: 'visitState',
             value: function visitState(ast, context) {}
+            // these values are not visited in this AST
+
+            /**
+             * @param {?} ast
+             * @param {?} context
+             * @return {?}
+             */
+
         }, {
             key: 'visitTransition',
             value: function visitTransition(ast, context) {}
+            // these values are not visited in this AST
+
+            /**
+             * @param {?} ast
+             * @param {?} context
+             * @return {?}
+             */
+
         }, {
             key: 'visitSequence',
             value: function visitSequence(ast, context) {
@@ -1525,18 +1568,52 @@
         }, {
             key: 'visitSequence',
             value: function visitSequence(ast, context) {}
+            // these values are not visited in this AST
+
+            /**
+             * @param {?} ast
+             * @param {?} context
+             * @return {?}
+             */
+
         }, {
             key: 'visitGroup',
             value: function visitGroup(ast, context) {}
+            // these values are not visited in this AST
+
+            /**
+             * @param {?} ast
+             * @param {?} context
+             * @return {?}
+             */
+
         }, {
             key: 'visitAnimate',
             value: function visitAnimate(ast, context) {}
+            // these values are not visited in this AST
+
+            /**
+             * @param {?} ast
+             * @param {?} context
+             * @return {?}
+             */
+
         }, {
             key: 'visitStyle',
             value: function visitStyle(ast, context) {}
+            // these values are not visited in this AST
+
+            /**
+             * @param {?} ast
+             * @param {?} context
+             * @return {?}
+             */
+
         }, {
             key: 'visitKeyframeSequence',
-            value: function visitKeyframeSequence(ast, context) {}
+            value: function visitKeyframeSequence(ast, context) {
+                // these values are not visited in this AST
+            }
         }]);
 
         return AnimationTriggerVisitor;
