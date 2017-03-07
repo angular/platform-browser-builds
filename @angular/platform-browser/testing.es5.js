@@ -2,36 +2,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-import { PLATFORM_INITIALIZER, platformCore, createPlatformFactory, NgZone, APP_ID, NgModule } from '@angular/core';
+import { PLATFORM_INITIALIZER, platformCore, createPlatformFactory, NgZone, APP_ID, NgModule, ɵglobal } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, BrowserModule, ɵgetDOM } from '@angular/platform-browser';
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var globalScope = void 0;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = self;
-    } else {
-        globalScope = global;
-    }
-} else {
-    globalScope = window;
-}
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var _global = globalScope;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-_global.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
 
 var browserDetection = void 0;
 
@@ -100,7 +72,7 @@ var BrowserDetection = function () {
     }, {
         key: 'supportsNativeIntlApi',
         get: function get() {
-            return !!_global.Intl && _global.Intl !== _global.IntlPolyfill;
+            return !!ɵglobal.Intl && ɵglobal.Intl !== ɵglobal.IntlPolyfill;
         }
     }, {
         key: 'isChromeDesktop',

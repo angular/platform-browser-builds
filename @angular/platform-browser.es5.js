@@ -13,12 +13,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * @license Angular v4.0.0-rc.2-207298c
+ * @license Angular v4.0.0-rc.2-b7e76cc
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { PlatformLocation, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, NgModule, SkipSelf, Optional, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
+import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, NgModule, SkipSelf, Optional, ɵglobal, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
 import * as core from '@angular/core';
 
 /**
@@ -1166,78 +1166,13 @@ var DomAdapter = function () {
 }();
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-var /** @type {?} */globalScope = void 0;
-if (typeof window === 'undefined') {
-  if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-    // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-    globalScope = self;
-  } else {
-    globalScope = global;
-  }
-} else {
-  globalScope = window;
-}
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var /** @type {?} */global$1 = globalScope;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-global$1.assert = function assert(condition) {
-  // TODO: to be fixed properly via #2830, noop for now
-};
-/**
- * @param {?} obj
- * @return {?}
- */
-function isPresent(obj) {
-  return obj != null;
-}
-/**
- * @param {?} obj
- * @return {?}
- */
-function isBlank(obj) {
-  return obj == null;
-}
-/**
- * @param {?} global
- * @param {?} path
- * @param {?} value
- * @return {?}
- */
-function setValueOnPath(global, path, value) {
-  var /** @type {?} */parts = path.split('.');
-  var /** @type {?} */obj = global;
-  while (parts.length > 1) {
-    var /** @type {?} */name = parts.shift();
-    if (obj.hasOwnProperty(name) && obj[name] != null) {
-      obj = obj[name];
-    } else {
-      obj = obj[name] = {};
-    }
-  }
-  if (obj === undefined || obj === null) {
-    obj = {};
-  }
-  obj[parts.shift()] = value;
-}
-
-/**
  * Provides DOM operations in any browser environment.
  *
  * \@security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  * @abstract
  */
+
 
 var GenericBrowserDomAdapter = function (_DomAdapter) {
   _inherits(GenericBrowserDomAdapter, _DomAdapter);
@@ -1251,12 +1186,12 @@ var GenericBrowserDomAdapter = function (_DomAdapter) {
     _this._transitionEnd = null;
     try {
       var element = _this.createElement('div', document);
-      if (isPresent(_this.getStyle(element, 'animationName'))) {
+      if (_this.getStyle(element, 'animationName') != null) {
         _this._animationPrefix = '';
       } else {
         var domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
         for (var i = 0; i < domPrefixes.length; i++) {
-          if (isPresent(_this.getStyle(element, domPrefixes[i] + 'AnimationName'))) {
+          if (_this.getStyle(element, domPrefixes[i] + 'AnimationName') != null) {
             _this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
             break;
           }
@@ -1269,7 +1204,7 @@ var GenericBrowserDomAdapter = function (_DomAdapter) {
         transition: 'transitionend'
       };
       Object.keys(transEndEventNames).forEach(function (key) {
-        if (isPresent(_this.getStyle(element, key))) {
+        if (_this.getStyle(element, key) != null) {
           _this._transitionEnd = transEndEventNames[key];
         }
       });
@@ -1345,7 +1280,7 @@ var GenericBrowserDomAdapter = function (_DomAdapter) {
   }, {
     key: 'supportsAnimation',
     value: function supportsAnimation() {
-      return isPresent(this._animationPrefix) && isPresent(this._transitionEnd);
+      return this._animationPrefix != null && this._transitionEnd != null;
     }
   }]);
 
@@ -1628,7 +1563,7 @@ var BrowserDomAdapter = function (_GenericBrowserDomAda) {
   }, {
     key: 'isPrevented',
     value: function isPrevented(evt) {
-      return evt.defaultPrevented || isPresent(evt.returnValue) && !evt.returnValue;
+      return evt.defaultPrevented || evt.returnValue != null && !evt.returnValue;
     }
     /**
      * @param {?} el
@@ -2413,7 +2348,7 @@ var BrowserDomAdapter = function (_GenericBrowserDomAda) {
   }, {
     key: 'hasShadowRoot',
     value: function hasShadowRoot(node) {
-      return isPresent(node.shadowRoot) && node instanceof HTMLElement;
+      return node.shadowRoot != null && node instanceof HTMLElement;
     }
     /**
      * @param {?} node
@@ -2464,12 +2399,12 @@ var BrowserDomAdapter = function (_GenericBrowserDomAda) {
     key: 'getEventKey',
     value: function getEventKey(event) {
       var /** @type {?} */key = event.key;
-      if (isBlank(key)) {
+      if (key == null) {
         key = event.keyIdentifier;
         // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
         // Safari cf
         // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
-        if (isBlank(key)) {
+        if (key == null) {
           return 'Unidentified';
         }
         if (key.startsWith('U+')) {
@@ -2530,7 +2465,7 @@ var BrowserDomAdapter = function (_GenericBrowserDomAda) {
     key: 'getBaseHref',
     value: function getBaseHref(doc) {
       var /** @type {?} */href = getBaseElementHref();
-      return isBlank(href) ? null : relativePath(href);
+      return href == null ? null : relativePath(href);
     }
     /**
      * @return {?}
@@ -2602,7 +2537,7 @@ var BrowserDomAdapter = function (_GenericBrowserDomAda) {
   }, {
     key: 'setGlobalVar',
     value: function setGlobalVar(path, value) {
-      setValueOnPath(global$1, path, value);
+      setValueOnPath(ɵglobal, path, value);
     }
     /**
      * @return {?}
@@ -2739,6 +2674,28 @@ function parseCookieValue(cookieStr, name) {
   }
 
   return null;
+}
+/**
+ * @param {?} global
+ * @param {?} path
+ * @param {?} value
+ * @return {?}
+ */
+function setValueOnPath(global, path, value) {
+  var /** @type {?} */parts = path.split('.');
+  var /** @type {?} */obj = global;
+  while (parts.length > 1) {
+    var /** @type {?} */name = parts.shift();
+    if (obj.hasOwnProperty(name) && obj[name] != null) {
+      obj = obj[name];
+    } else {
+      obj = obj[name] = {};
+    }
+  }
+  if (obj === undefined || obj === null) {
+    obj = {};
+  }
+  obj[parts.shift()] = value;
 }
 
 /**
@@ -3164,7 +3121,7 @@ var BrowserGetTestability = function () {
      * @return {?}
      */
     value: function addToWindow(registry) {
-      global$1.getAngularTestability = function (elem) {
+      ɵglobal['getAngularTestability'] = function (elem) {
         var findInAncestors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
         var /** @type {?} */testability = registry.findTestabilityInTree(elem, findInAncestors);
@@ -3173,14 +3130,14 @@ var BrowserGetTestability = function () {
         }
         return testability;
       };
-      global$1.getAllAngularTestabilities = function () {
+      ɵglobal['getAllAngularTestabilities'] = function () {
         return registry.getAllTestabilities();
       };
-      global$1.getAllAngularRootElements = function () {
+      ɵglobal['getAllAngularRootElements'] = function () {
         return registry.getAllRootElements();
       };
       var /** @type {?} */whenAllStable = function whenAllStable(callback /** TODO #9100 */) {
-        var /** @type {?} */testabilities = global$1.getAllAngularTestabilities();
+        var /** @type {?} */testabilities = ɵglobal['getAllAngularTestabilities']();
         var /** @type {?} */count = testabilities.length;
         var /** @type {?} */didWork = false;
         var /** @type {?} */decrement = function decrement(didWork_ /** TODO #9100 */) {
@@ -3194,10 +3151,10 @@ var BrowserGetTestability = function () {
           testability.whenStable(decrement);
         });
       };
-      if (!global$1['frameworkStabilizers']) {
-        global$1['frameworkStabilizers'] = [];
+      if (!ɵglobal['frameworkStabilizers']) {
+        ɵglobal['frameworkStabilizers'] = [];
       }
-      global$1['frameworkStabilizers'].push(whenAllStable);
+      ɵglobal['frameworkStabilizers'].push(whenAllStable);
     }
     /**
      * @param {?} registry
@@ -3213,7 +3170,7 @@ var BrowserGetTestability = function () {
         return null;
       }
       var /** @type {?} */t = registry.getTestability(elem);
-      if (isPresent(t)) {
+      if (t != null) {
         return t;
       } else if (!findInAncestors) {
         return null;
@@ -3291,104 +3248,6 @@ Title.ctorParameters = function () {
   return [{ type: undefined, decorators: [{ type: Inject, args: [DOCUMENT] }] }];
 };
 
-/**
- * Wraps Javascript Objects
- */
-
-var StringMapWrapper = function () {
-  function StringMapWrapper() {
-    _classCallCheck(this, StringMapWrapper);
-  }
-
-  _createClass(StringMapWrapper, null, [{
-    key: 'merge',
-
-    /**
-     * @param {?} m1
-     * @param {?} m2
-     * @return {?}
-     */
-    value: function merge(m1, m2) {
-      var /** @type {?} */m = {};
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = Object.keys(m1)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var k = _step2.value;
-
-          m[k] = m1[k];
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = Object.keys(m2)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var _k = _step3.value;
-
-          m[_k] = m2[_k];
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return) {
-            _iterator3.return();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
-      }
-
-      return m;
-    }
-    /**
-     * @param {?} m1
-     * @param {?} m2
-     * @return {?}
-     */
-
-  }, {
-    key: 'equals',
-    value: function equals(m1, m2) {
-      var /** @type {?} */k1 = Object.keys(m1);
-      var /** @type {?} */k2 = Object.keys(m2);
-      if (k1.length != k2.length) {
-        return false;
-      }
-      for (var /** @type {?} */i = 0; i < k1.length; i++) {
-        var /** @type {?} */key = k1[i];
-        if (m1[key] !== m2[key]) {
-          return false;
-        }
-      }
-      return true;
-    }
-  }]);
-
-  return StringMapWrapper;
-}();
-
 var /** @type {?} */CORE_TOKENS = {
   'ApplicationRef': core.ApplicationRef,
   'NgZone': core.NgZone
@@ -3431,7 +3290,7 @@ function NgProbeToken(name, token) {
 function _createNgProbe(extraTokens, coreTokens) {
   var /** @type {?} */tokens = (extraTokens || []).concat(coreTokens || []);
   getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-  getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, StringMapWrapper.merge(CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
+  getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, core.ɵmerge(CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
   return function () {
     return inspectNativeElement;
   };
@@ -4095,6 +3954,7 @@ var DefaultDomRendererV2 = function () {
   }, {
     key: 'setProperty',
     value: function setProperty(el, name, value) {
+      checkNoSyntheticProp(name, 'property');
       el[name] = value;
     }
     /**
@@ -4118,6 +3978,7 @@ var DefaultDomRendererV2 = function () {
   }, {
     key: 'listen',
     value: function listen(target, event, callback) {
+      checkNoSyntheticProp(event, 'listener');
       if (typeof target === 'string') {
         return this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback));
       }
@@ -4127,6 +3988,18 @@ var DefaultDomRendererV2 = function () {
 
   return DefaultDomRendererV2;
 }();
+
+var /** @type {?} */AT_CHARCODE = '@'.charCodeAt(0);
+/**
+ * @param {?} name
+ * @param {?} nameKind
+ * @return {?}
+ */
+function checkNoSyntheticProp(name, nameKind) {
+  if (name.charCodeAt(0) === AT_CHARCODE) {
+    throw new Error('Found the synthetic ' + nameKind + ' ' + name + '. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.');
+  }
+}
 
 var EmulatedEncapsulationDomRendererV2 = function (_DefaultDomRendererV) {
   _inherits(EmulatedEncapsulationDomRendererV2, _DefaultDomRendererV);
@@ -4731,27 +4604,27 @@ function getInertElement() {
  */
 function tagSet(tags) {
   var /** @type {?} */res = {};
-  var _iteratorNormalCompletion4 = true;
-  var _didIteratorError4 = false;
-  var _iteratorError4 = undefined;
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
 
   try {
-    for (var _iterator4 = tags.split(',')[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-      var t = _step4.value;
+    for (var _iterator2 = tags.split(',')[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var t = _step2.value;
 
       res[t] = true;
     }
   } catch (err) {
-    _didIteratorError4 = true;
-    _iteratorError4 = err;
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion4 && _iterator4.return) {
-        _iterator4.return();
+      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+        _iterator2.return();
       }
     } finally {
-      if (_didIteratorError4) {
-        throw _iteratorError4;
+      if (_didIteratorError2) {
+        throw _iteratorError2;
       }
     }
   }
@@ -4769,29 +4642,29 @@ function merge() {
     sets[_key] = arguments[_key];
   }
 
-  var _iteratorNormalCompletion5 = true;
-  var _didIteratorError5 = false;
-  var _iteratorError5 = undefined;
+  var _iteratorNormalCompletion3 = true;
+  var _didIteratorError3 = false;
+  var _iteratorError3 = undefined;
 
   try {
-    for (var _iterator5 = sets[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-      var s = _step5.value;
+    for (var _iterator3 = sets[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+      var s = _step3.value;
 
       for (var /** @type {?} */v in s) {
         if (s.hasOwnProperty(v)) res[v] = true;
       }
     }
   } catch (err) {
-    _didIteratorError5 = true;
-    _iteratorError5 = err;
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion5 && _iterator5.return) {
-        _iterator5.return();
+      if (!_iteratorNormalCompletion3 && _iterator3.return) {
+        _iterator3.return();
       }
     } finally {
-      if (_didIteratorError5) {
-        throw _iteratorError5;
+      if (_didIteratorError3) {
+        throw _iteratorError3;
       }
     }
   }
@@ -4978,27 +4851,27 @@ function stripCustomNsAttrs(el) {
       DOM.removeAttribute(el, attrName);
     }
   });
-  var _iteratorNormalCompletion6 = true;
-  var _didIteratorError6 = false;
-  var _iteratorError6 = undefined;
+  var _iteratorNormalCompletion4 = true;
+  var _didIteratorError4 = false;
+  var _iteratorError4 = undefined;
 
   try {
-    for (var _iterator6 = DOM.childNodesAsList(el)[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-      var n = _step6.value;
+    for (var _iterator4 = DOM.childNodesAsList(el)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+      var n = _step4.value;
 
       if (DOM.isElementNode(n)) stripCustomNsAttrs( /** @type {?} */n);
     }
   } catch (err) {
-    _didIteratorError6 = true;
-    _iteratorError6 = err;
+    _didIteratorError4 = true;
+    _iteratorError4 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion6 && _iterator6.return) {
-        _iterator6.return();
+      if (!_iteratorNormalCompletion4 && _iterator4.return) {
+        _iterator4.return();
       }
     } finally {
-      if (_didIteratorError6) {
-        throw _iteratorError6;
+      if (_didIteratorError4) {
+        throw _iteratorError4;
       }
     }
   }
@@ -5036,27 +4909,27 @@ function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
     var /** @type {?} */safeHtml = sanitizer.sanitizeChildren(DOM.getTemplateContent(containerEl) || containerEl);
     // Clear out the body element.
     var /** @type {?} */parent = DOM.getTemplateContent(containerEl) || containerEl;
-    var _iteratorNormalCompletion7 = true;
-    var _didIteratorError7 = false;
-    var _iteratorError7 = undefined;
+    var _iteratorNormalCompletion5 = true;
+    var _didIteratorError5 = false;
+    var _iteratorError5 = undefined;
 
     try {
-      for (var _iterator7 = DOM.childNodesAsList(parent)[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-        var child = _step7.value;
+      for (var _iterator5 = DOM.childNodesAsList(parent)[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+        var child = _step5.value;
 
         DOM.removeChild(parent, child);
       }
     } catch (err) {
-      _didIteratorError7 = true;
-      _iteratorError7 = err;
+      _didIteratorError5 = true;
+      _iteratorError5 = err;
     } finally {
       try {
-        if (!_iteratorNormalCompletion7 && _iterator7.return) {
-          _iterator7.return();
+        if (!_iteratorNormalCompletion5 && _iterator5.return) {
+          _iterator5.return();
         }
       } finally {
-        if (_didIteratorError7) {
-          throw _iteratorError7;
+        if (_didIteratorError5) {
+          throw _iteratorError5;
         }
       }
     }
@@ -5654,9 +5527,6 @@ BrowserModule.ctorParameters = function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * JS version of browser APIs. This library can only run in the browser.
- */
 var /** @type {?} */win = typeof window !== 'undefined' && window || {};
 
 var ChangeDetectionPerfRecord =
@@ -5711,7 +5581,7 @@ var AngularProfiler = function () {
       var /** @type {?} */record = config && config['record'];
       var /** @type {?} */profileName = 'Change Detection';
       // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
-      var /** @type {?} */isProfilerAvailable = isPresent(win.console.profile);
+      var /** @type {?} */isProfilerAvailable = win.console.profile != null;
       if (record && isProfilerAvailable) {
         win.console.profile(profileName);
       }
@@ -5810,7 +5680,7 @@ var By = function () {
     key: 'css',
     value: function css(selector) {
       return function (debugElement) {
-        return isPresent(debugElement.nativeElement) ? getDOM().elementMatches(debugElement.nativeElement, selector) : false;
+        return debugElement.nativeElement != null ? getDOM().elementMatches(debugElement.nativeElement, selector) : false;
       };
     }
     /**
@@ -5840,6 +5710,6 @@ var By = function () {
  */
 
 
-var /** @type {?} */VERSION = new Version('4.0.0-rc.2-207298c');
+var /** @type {?} */VERSION = new Version('4.0.0-rc.2-b7e76cc');
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };

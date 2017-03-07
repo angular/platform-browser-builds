@@ -1,10 +1,10 @@
 /**
- * @license Angular v4.0.0-rc.2-207298c
+ * @license Angular v4.0.0-rc.2-b7e76cc
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { PlatformLocation, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, NgModule, SkipSelf, Optional, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
+import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, NgModule, SkipSelf, Optional, ɵglobal, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
 import * as core from '@angular/core';
 
 /**
@@ -797,73 +797,6 @@ class DomAdapter {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-let /** @type {?} */ globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = (self);
-    }
-    else {
-        globalScope = (global);
-    }
-}
-else {
-    globalScope = (window);
-}
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-const /** @type {?} */ global$1 = globalScope;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-global$1.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-/**
- * @param {?} obj
- * @return {?}
- */
-function isPresent(obj) {
-    return obj != null;
-}
-/**
- * @param {?} obj
- * @return {?}
- */
-function isBlank(obj) {
-    return obj == null;
-}
-/**
- * @param {?} global
- * @param {?} path
- * @param {?} value
- * @return {?}
- */
-function setValueOnPath(global, path, value) {
-    const /** @type {?} */ parts = path.split('.');
-    let /** @type {?} */ obj = global;
-    while (parts.length > 1) {
-        const /** @type {?} */ name = parts.shift();
-        if (obj.hasOwnProperty(name) && obj[name] != null) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
-
-/**
  * Provides DOM operations in any browser environment.
  *
  * \@security Tread carefully! Interacting with the DOM directly is dangerous and
@@ -877,13 +810,13 @@ class GenericBrowserDomAdapter extends DomAdapter {
         this._transitionEnd = null;
         try {
             const element = this.createElement('div', document);
-            if (isPresent(this.getStyle(element, 'animationName'))) {
+            if (this.getStyle(element, 'animationName') != null) {
                 this._animationPrefix = '';
             }
             else {
                 const domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
                 for (let i = 0; i < domPrefixes.length; i++) {
-                    if (isPresent(this.getStyle(element, domPrefixes[i] + 'AnimationName'))) {
+                    if (this.getStyle(element, domPrefixes[i] + 'AnimationName') != null) {
                         this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
                         break;
                     }
@@ -896,7 +829,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
                 transition: 'transitionend'
             };
             Object.keys(transEndEventNames).forEach((key) => {
-                if (isPresent(this.getStyle(element, key))) {
+                if (this.getStyle(element, key) != null) {
                     this._transitionEnd = transEndEventNames[key];
                 }
             });
@@ -942,7 +875,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
      * @return {?}
      */
     supportsAnimation() {
-        return isPresent(this._animationPrefix) && isPresent(this._transitionEnd);
+        return this._animationPrefix != null && this._transitionEnd != null;
     }
 }
 
@@ -1140,7 +1073,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     isPrevented(evt) {
-        return evt.defaultPrevented || isPresent(evt.returnValue) && !evt.returnValue;
+        return evt.defaultPrevented || evt.returnValue != null && !evt.returnValue;
     }
     /**
      * @param {?} el
@@ -1628,7 +1561,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     hasShadowRoot(node) {
-        return isPresent(node.shadowRoot) && node instanceof HTMLElement;
+        return node.shadowRoot != null && node instanceof HTMLElement;
     }
     /**
      * @param {?} node
@@ -1656,12 +1589,12 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     getEventKey(event) {
         let /** @type {?} */ key = event.key;
-        if (isBlank(key)) {
+        if (key == null) {
             key = event.keyIdentifier;
             // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
             // Safari cf
             // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
-            if (isBlank(key)) {
+            if (key == null) {
                 return 'Unidentified';
             }
             if (key.startsWith('U+')) {
@@ -1706,7 +1639,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     getBaseHref(doc) {
         const /** @type {?} */ href = getBaseElementHref();
-        return isBlank(href) ? null : relativePath(href);
+        return href == null ? null : relativePath(href);
     }
     /**
      * @return {?}
@@ -1743,7 +1676,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setGlobalVar(path, value) { setValueOnPath(global$1, path, value); }
+    setGlobalVar(path, value) { setValueOnPath(ɵglobal, path, value); }
     /**
      * @return {?}
      */
@@ -1821,6 +1754,29 @@ function parseCookieValue(cookieStr, name) {
         }
     }
     return null;
+}
+/**
+ * @param {?} global
+ * @param {?} path
+ * @param {?} value
+ * @return {?}
+ */
+function setValueOnPath(global, path, value) {
+    const /** @type {?} */ parts = path.split('.');
+    let /** @type {?} */ obj = global;
+    while (parts.length > 1) {
+        const /** @type {?} */ name = parts.shift();
+        if (obj.hasOwnProperty(name) && obj[name] != null) {
+            obj = obj[name];
+        }
+        else {
+            obj = obj[name] = {};
+        }
+    }
+    if (obj === undefined || obj === null) {
+        obj = {};
+    }
+    obj[parts.shift()] = value;
 }
 
 /**
@@ -2130,17 +2086,17 @@ class BrowserGetTestability {
      * @return {?}
      */
     addToWindow(registry) {
-        global$1.getAngularTestability = (elem, findInAncestors = true) => {
+        ɵglobal['getAngularTestability'] = (elem, findInAncestors = true) => {
             const /** @type {?} */ testability = registry.findTestabilityInTree(elem, findInAncestors);
             if (testability == null) {
                 throw new Error('Could not find testability for element.');
             }
             return testability;
         };
-        global$1.getAllAngularTestabilities = () => registry.getAllTestabilities();
-        global$1.getAllAngularRootElements = () => registry.getAllRootElements();
+        ɵglobal['getAllAngularTestabilities'] = () => registry.getAllTestabilities();
+        ɵglobal['getAllAngularRootElements'] = () => registry.getAllRootElements();
         const /** @type {?} */ whenAllStable = (callback /** TODO #9100 */) => {
-            const /** @type {?} */ testabilities = global$1.getAllAngularTestabilities();
+            const /** @type {?} */ testabilities = ɵglobal['getAllAngularTestabilities']();
             let /** @type {?} */ count = testabilities.length;
             let /** @type {?} */ didWork = false;
             const /** @type {?} */ decrement = function (didWork_ /** TODO #9100 */) {
@@ -2154,10 +2110,10 @@ class BrowserGetTestability {
                 testability.whenStable(decrement);
             });
         };
-        if (!global$1['frameworkStabilizers']) {
-            global$1['frameworkStabilizers'] = [];
+        if (!ɵglobal['frameworkStabilizers']) {
+            ɵglobal['frameworkStabilizers'] = [];
         }
-        global$1['frameworkStabilizers'].push(whenAllStable);
+        ɵglobal['frameworkStabilizers'].push(whenAllStable);
     }
     /**
      * @param {?} registry
@@ -2170,7 +2126,7 @@ class BrowserGetTestability {
             return null;
         }
         const /** @type {?} */ t = registry.getTestability(elem);
-        if (isPresent(t)) {
+        if (t != null) {
             return t;
         }
         else if (!findInAncestors) {
@@ -2220,46 +2176,6 @@ Title.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 
-/**
- * Wraps Javascript Objects
- */
-class StringMapWrapper {
-    /**
-     * @param {?} m1
-     * @param {?} m2
-     * @return {?}
-     */
-    static merge(m1, m2) {
-        const /** @type {?} */ m = {};
-        for (const /** @type {?} */ k of Object.keys(m1)) {
-            m[k] = m1[k];
-        }
-        for (const /** @type {?} */ k of Object.keys(m2)) {
-            m[k] = m2[k];
-        }
-        return m;
-    }
-    /**
-     * @param {?} m1
-     * @param {?} m2
-     * @return {?}
-     */
-    static equals(m1, m2) {
-        const /** @type {?} */ k1 = Object.keys(m1);
-        const /** @type {?} */ k2 = Object.keys(m2);
-        if (k1.length != k2.length) {
-            return false;
-        }
-        for (let /** @type {?} */ i = 0; i < k1.length; i++) {
-            const /** @type {?} */ key = k1[i];
-            if (m1[key] !== m2[key]) {
-                return false;
-            }
-        }
-        return true;
-    }
-}
-
 const /** @type {?} */ CORE_TOKENS = {
     'ApplicationRef': core.ApplicationRef,
     'NgZone': core.NgZone,
@@ -2298,7 +2214,7 @@ class NgProbeToken {
 function _createNgProbe(extraTokens, coreTokens) {
     const /** @type {?} */ tokens = (extraTokens || []).concat(coreTokens || []);
     getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, StringMapWrapper.merge(CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
+    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, core.ɵmerge(CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
     return () => inspectNativeElement;
 }
 /**
@@ -2795,7 +2711,10 @@ class DefaultDomRendererV2 {
      * @param {?} value
      * @return {?}
      */
-    setProperty(el, name, value) { el[name] = value; }
+    setProperty(el, name, value) {
+        checkNoSyntheticProp(name, 'property');
+        el[name] = value;
+    }
     /**
      * @param {?} node
      * @param {?} value
@@ -2809,10 +2728,22 @@ class DefaultDomRendererV2 {
      * @return {?}
      */
     listen(target, event, callback) {
+        checkNoSyntheticProp(event, 'listener');
         if (typeof target === 'string') {
             return (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
         }
         return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
+    }
+}
+const /** @type {?} */ AT_CHARCODE = '@'.charCodeAt(0);
+/**
+ * @param {?} name
+ * @param {?} nameKind
+ * @return {?}
+ */
+function checkNoSyntheticProp(name, nameKind) {
+    if (name.charCodeAt(0) === AT_CHARCODE) {
+        throw new Error(`Found the synthetic ${nameKind} ${name}. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.`);
     }
 }
 class EmulatedEncapsulationDomRendererV2 extends DefaultDomRendererV2 {
@@ -3962,9 +3893,6 @@ BrowserModule.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * JS version of browser APIs. This library can only run in the browser.
- */
 const /** @type {?} */ win = typeof window !== 'undefined' && window || ({});
 
 class ChangeDetectionPerfRecord {
@@ -4008,7 +3936,7 @@ class AngularProfiler {
         const /** @type {?} */ record = config && config['record'];
         const /** @type {?} */ profileName = 'Change Detection';
         // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
-        const /** @type {?} */ isProfilerAvailable = isPresent(win.console.profile);
+        const /** @type {?} */ isProfilerAvailable = win.console.profile != null;
         if (record && isProfilerAvailable) {
             win.console.profile(profileName);
         }
@@ -4089,7 +4017,7 @@ class By {
      */
     static css(selector) {
         return (debugElement) => {
-            return isPresent(debugElement.nativeElement) ?
+            return debugElement.nativeElement != null ?
                 getDOM().elementMatches(debugElement.nativeElement, selector) :
                 false;
         };
@@ -4111,6 +4039,6 @@ class By {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.2-207298c');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.2-b7e76cc');
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };

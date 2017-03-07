@@ -1,35 +1,5 @@
-import { PLATFORM_INITIALIZER, platformCore, createPlatformFactory, NgZone, APP_ID, NgModule } from '@angular/core';
+import { PLATFORM_INITIALIZER, platformCore, createPlatformFactory, NgZone, APP_ID, NgModule, ɵglobal } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, BrowserModule, ɵgetDOM } from '@angular/platform-browser';
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-let globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = self;
-    }
-    else {
-        globalScope = global;
-    }
-}
-else {
-    globalScope = window;
-}
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-const _global = globalScope;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-_global.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
 
 let browserDetection;
 class BrowserDetection {
@@ -63,7 +33,7 @@ class BrowserDetection {
     // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
     // 2) IE9/IE10: they use the polyfill, and so no discrepancies
     get supportsNativeIntlApi() {
-        return !!_global.Intl && _global.Intl !== _global.IntlPolyfill;
+        return !!ɵglobal.Intl && ɵglobal.Intl !== ɵglobal.IntlPolyfill;
     }
     get isChromeDesktop() {
         return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 &&

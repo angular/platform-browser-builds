@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.2-207298c
+ * @license Angular v4.0.0-rc.2-b7e76cc
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -48,34 +48,6 @@
             return Constructor;
         };
     }();
-
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    var globalScope = void 0;
-    if (typeof window === 'undefined') {
-        if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-            // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-            globalScope = self;
-        } else {
-            globalScope = global;
-        }
-    } else {
-        globalScope = window;
-    }
-    // Need to declare a new variable for global here since TypeScript
-    // exports the original value of the symbol.
-    var _global = globalScope;
-    // TODO: remove calls to assert in production environment
-    // Note: Can't just export this and import in in other files
-    // as `assert` is a reserved keyword in Dart
-    _global.assert = function assert(condition) {
-        // TODO: to be fixed properly via #2830, noop for now
-    };
 
     var browserDetection = void 0;
 
@@ -139,7 +111,7 @@
         }, {
             key: 'supportsNativeIntlApi',
             get: function get() {
-                return !!_global.Intl && _global.Intl !== _global.IntlPolyfill;
+                return !!_core.ɵglobal.Intl && _core.ɵglobal.Intl !== _core.ɵglobal.IntlPolyfill;
             }
         }, {
             key: 'isChromeDesktop',
