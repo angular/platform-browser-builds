@@ -3884,7 +3884,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.2-07122f0');
+  var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.2-1cff125');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
