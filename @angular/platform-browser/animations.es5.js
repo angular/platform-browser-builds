@@ -10,8 +10,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-import { NgModule, Injectable, NgZone, RendererFactoryV2 } from '@angular/core';
-import { BrowserModule, ɵDomRendererFactoryV2 } from '@angular/platform-browser';
+import { NgModule, Injectable, NgZone, RendererFactory2 } from '@angular/core';
+import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { NoopAnimationPlayer, ɵAnimationGroupPlayer, sequence, AUTO_STYLE } from '@angular/animations';
 
 /**
@@ -333,7 +333,7 @@ var AnimationRendererFactory = function () {
 AnimationRendererFactory.decorators = [{ type: Injectable }];
 /** @nocollapse */
 AnimationRendererFactory.ctorParameters = function () {
-    return [{ type: RendererFactoryV2 }, { type: AnimationEngine }, { type: NgZone }];
+    return [{ type: RendererFactory2 }, { type: AnimationEngine }, { type: NgZone }];
 };
 
 var AnimationRenderer = function () {
@@ -3172,18 +3172,18 @@ function instantiateRendererFactory(renderer, engine, zone) {
  * include them in the BrowserModule.
  */
 var /** @type {?} */BROWSER_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver }, { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer }, { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
-    provide: RendererFactoryV2,
+    provide: RendererFactory2,
     useFactory: instantiateRendererFactory,
-    deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
+    deps: [ɵDomRendererFactory2, AnimationEngine, NgZone]
 }];
 /**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
  */
 var /** @type {?} */BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationEngine, useClass: NoopAnimationEngine }, {
-    provide: RendererFactoryV2,
+    provide: RendererFactory2,
     useFactory: instantiateRendererFactory,
-    deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
+    deps: [ɵDomRendererFactory2, AnimationEngine, NgZone]
 }];
 
 /**

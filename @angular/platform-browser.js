@@ -1,10 +1,10 @@
 /**
- * @license Angular v4.0.0-rc.2-5df998d
+ * @license Angular v4.0.0-rc.2-ad3b44a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { PlatformLocation, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactoryV2, NgModule, SkipSelf, Optional, ɵglobal, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
+import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactory2, NgModule, SkipSelf, Optional, ɵglobal, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
 import * as core from '@angular/core';
 
 /**
@@ -2497,7 +2497,7 @@ function decoratePreventDefault(eventHandler) {
         }
     };
 }
-class DomRendererFactoryV2 {
+class DomRendererFactory2 {
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
@@ -2506,7 +2506,7 @@ class DomRendererFactoryV2 {
         this.eventManager = eventManager;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
-        this.defaultRenderer = new DefaultDomRendererV2(eventManager);
+        this.defaultRenderer = new DefaultDomRenderer2(eventManager);
     }
     ;
     /**
@@ -2522,7 +2522,8 @@ class DomRendererFactoryV2 {
             case ViewEncapsulation.Emulated: {
                 let /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
-                    renderer = new EmulatedEncapsulationDomRendererV2(this.eventManager, this.sharedStylesHost, type);
+                    renderer =
+                        new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
                 ((renderer)).applyToHost(element);
@@ -2541,15 +2542,15 @@ class DomRendererFactoryV2 {
         }
     }
 }
-DomRendererFactoryV2.decorators = [
+DomRendererFactory2.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-DomRendererFactoryV2.ctorParameters = () => [
+DomRendererFactory2.ctorParameters = () => [
     { type: EventManager, },
     { type: DomSharedStylesHost, },
 ];
-class DefaultDomRendererV2 {
+class DefaultDomRenderer2 {
     /**
      * @param {?} eventManager
      */
@@ -2746,7 +2747,7 @@ function checkNoSyntheticProp(name, nameKind) {
         throw new Error(`Found the synthetic ${nameKind} ${name}. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.`);
     }
 }
-class EmulatedEncapsulationDomRendererV2 extends DefaultDomRendererV2 {
+class EmulatedEncapsulationDomRenderer2 extends DefaultDomRenderer2 {
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
@@ -2776,7 +2777,7 @@ class EmulatedEncapsulationDomRendererV2 extends DefaultDomRendererV2 {
         return el;
     }
 }
-class ShadowDomRenderer extends DefaultDomRendererV2 {
+class ShadowDomRenderer extends DefaultDomRenderer2 {
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
@@ -3868,8 +3869,8 @@ BrowserModule.decorators = [
                     { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
                     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-                    DomRendererFactoryV2,
-                    { provide: RendererFactoryV2, useExisting: DomRendererFactoryV2 },
+                    DomRendererFactory2,
+                    { provide: RendererFactory2, useExisting: DomRendererFactory2 },
                     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
                     DomSharedStylesHost,
                     Testability,
@@ -4039,6 +4040,6 @@ class By {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.2-5df998d');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.2-ad3b44a');
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactoryV2 as ɵDomRendererFactoryV2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };

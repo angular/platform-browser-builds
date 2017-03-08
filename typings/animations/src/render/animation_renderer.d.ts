@@ -1,20 +1,20 @@
-import { NgZone, RendererFactoryV2, RendererTypeV2, RendererV2 } from '@angular/core';
+import { NgZone, Renderer2, RendererFactory2, RendererType2 } from '@angular/core';
 import { AnimationEngine } from '../animation_engine';
-export declare class AnimationRendererFactory implements RendererFactoryV2 {
+export declare class AnimationRendererFactory implements RendererFactory2 {
     private delegate;
     private _engine;
     private _zone;
-    constructor(delegate: RendererFactoryV2, _engine: AnimationEngine, _zone: NgZone);
-    createRenderer(hostElement: any, type: RendererTypeV2): RendererV2;
+    constructor(delegate: RendererFactory2, _engine: AnimationEngine, _zone: NgZone);
+    createRenderer(hostElement: any, type: RendererType2): Renderer2;
 }
-export declare class AnimationRenderer implements RendererV2 {
-    delegate: RendererV2;
+export declare class AnimationRenderer implements Renderer2 {
+    delegate: Renderer2;
     private _engine;
     private _zone;
     private _namespaceId;
     destroyNode: (node: any) => (void | any);
     private _flushPromise;
-    constructor(delegate: RendererV2, _engine: AnimationEngine, _zone: NgZone, _namespaceId: string);
+    constructor(delegate: Renderer2, _engine: AnimationEngine, _zone: NgZone, _namespaceId: string);
     readonly data: {
         [key: string]: any;
     };

@@ -1,5 +1,5 @@
-import { NgModule, Injectable, NgZone, RendererFactoryV2 } from '@angular/core';
-import { BrowserModule, ɵDomRendererFactoryV2 } from '@angular/platform-browser';
+import { NgModule, Injectable, NgZone, RendererFactory2 } from '@angular/core';
+import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { NoopAnimationPlayer, ɵAnimationGroupPlayer, sequence, AUTO_STYLE } from '@angular/animations';
 
 /**
@@ -202,7 +202,7 @@ AnimationRendererFactory.decorators = [
 ];
 /** @nocollapse */
 AnimationRendererFactory.ctorParameters = () => [
-    { type: RendererFactoryV2, },
+    { type: RendererFactory2, },
     { type: AnimationEngine, },
     { type: NgZone, },
 ];
@@ -2425,9 +2425,9 @@ const /** @type {?} */ BROWSER_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
     { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
     { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
-        provide: RendererFactoryV2,
+        provide: RendererFactory2,
         useFactory: instantiateRendererFactory,
-        deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
+        deps: [ɵDomRendererFactory2, AnimationEngine, NgZone]
     }
 ];
 /**
@@ -2436,9 +2436,9 @@ const /** @type {?} */ BROWSER_ANIMATIONS_PROVIDERS = [
  */
 const /** @type {?} */ BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
     { provide: AnimationEngine, useClass: NoopAnimationEngine }, {
-        provide: RendererFactoryV2,
+        provide: RendererFactory2,
         useFactory: instantiateRendererFactory,
-        deps: [ɵDomRendererFactoryV2, AnimationEngine, NgZone]
+        deps: [ɵDomRendererFactory2, AnimationEngine, NgZone]
     }
 ];
 

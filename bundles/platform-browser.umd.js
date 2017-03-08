@@ -17,7 +17,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.ɵe = exports.ɵd = exports.ɵc = exports.ɵf = exports.ɵg = exports.ɵh = exports.ɵa = exports.ɵb = exports.ɵSharedStylesHost = exports.ɵDomSharedStylesHost = exports.ɵKeyEventsPlugin = exports.ɵHammerGesturesPlugin = exports.ɵDomEventsPlugin = exports.ɵshimHostAttribute = exports.ɵshimContentAttribute = exports.ɵflattenStyles = exports.ɵNAMESPACE_URIS = exports.ɵDomRendererFactoryV2 = exports.ɵsetRootDomAdapter = exports.ɵgetDOM = exports.ɵDomAdapter = exports.ɵELEMENT_PROBE_PROVIDERS = exports.ɵBrowserGetTestability = exports.ɵTRANSITION_ID = exports.ɵBrowserPlatformLocation = exports.ɵsetValueOnPath = exports.ɵBrowserDomAdapter = exports.ɵinitDomAdapter = exports.ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS = exports.ɵBROWSER_SANITIZATION_PROVIDERS = exports.VERSION = exports.DomSanitizer = exports.HammerGestureConfig = exports.HAMMER_GESTURE_CONFIG = exports.EventManager = exports.EVENT_MANAGER_PLUGINS = exports.DOCUMENT = exports.NgProbeToken = exports.By = exports.enableDebugTools = exports.disableDebugTools = exports.Title = exports.Meta = exports.platformBrowser = exports.BrowserModule = undefined;
+  exports.ɵe = exports.ɵd = exports.ɵc = exports.ɵf = exports.ɵg = exports.ɵh = exports.ɵa = exports.ɵb = exports.ɵSharedStylesHost = exports.ɵDomSharedStylesHost = exports.ɵKeyEventsPlugin = exports.ɵHammerGesturesPlugin = exports.ɵDomEventsPlugin = exports.ɵshimHostAttribute = exports.ɵshimContentAttribute = exports.ɵflattenStyles = exports.ɵNAMESPACE_URIS = exports.ɵDomRendererFactory2 = exports.ɵsetRootDomAdapter = exports.ɵgetDOM = exports.ɵDomAdapter = exports.ɵELEMENT_PROBE_PROVIDERS = exports.ɵBrowserGetTestability = exports.ɵTRANSITION_ID = exports.ɵBrowserPlatformLocation = exports.ɵsetValueOnPath = exports.ɵBrowserDomAdapter = exports.ɵinitDomAdapter = exports.ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS = exports.ɵBROWSER_SANITIZATION_PROVIDERS = exports.VERSION = exports.DomSanitizer = exports.HammerGestureConfig = exports.HAMMER_GESTURE_CONFIG = exports.EventManager = exports.EVENT_MANAGER_PLUGINS = exports.DOCUMENT = exports.NgProbeToken = exports.By = exports.enableDebugTools = exports.disableDebugTools = exports.Title = exports.Meta = exports.platformBrowser = exports.BrowserModule = undefined;
 
   var core = _interopRequireWildcard(_core);
 
@@ -2217,21 +2217,21 @@
     };
   }
 
-  var DomRendererFactoryV2 = function () {
+  var DomRendererFactory2 = function () {
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
      */
-    function DomRendererFactoryV2(eventManager, sharedStylesHost) {
-      _classCallCheck(this, DomRendererFactoryV2);
+    function DomRendererFactory2(eventManager, sharedStylesHost) {
+      _classCallCheck(this, DomRendererFactory2);
 
       this.eventManager = eventManager;
       this.sharedStylesHost = sharedStylesHost;
       this.rendererByCompId = new Map();
-      this.defaultRenderer = new DefaultDomRendererV2(eventManager);
+      this.defaultRenderer = new DefaultDomRenderer2(eventManager);
     }
 
-    _createClass(DomRendererFactoryV2, [{
+    _createClass(DomRendererFactory2, [{
       key: 'createRenderer',
       value: function createRenderer(element, type) {
         if (!element || !type) {
@@ -2242,7 +2242,7 @@
             {
               var /** @type {?} */renderer = this.rendererByCompId.get(type.id);
               if (!renderer) {
-                renderer = new EmulatedEncapsulationDomRendererV2(this.eventManager, this.sharedStylesHost, type);
+                renderer = new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
                 this.rendererByCompId.set(type.id, renderer);
               }
               renderer.applyToHost(element);
@@ -2263,21 +2263,21 @@
       }
     }]);
 
-    return DomRendererFactoryV2;
+    return DomRendererFactory2;
   }();
 
-  DomRendererFactoryV2.decorators = [{ type: _core.Injectable }];
+  DomRendererFactory2.decorators = [{ type: _core.Injectable }];
   /** @nocollapse */
-  DomRendererFactoryV2.ctorParameters = function () {
+  DomRendererFactory2.ctorParameters = function () {
     return [{ type: EventManager }, { type: DomSharedStylesHost }];
   };
 
-  var DefaultDomRendererV2 = function () {
+  var DefaultDomRenderer2 = function () {
     /**
      * @param {?} eventManager
      */
-    function DefaultDomRendererV2(eventManager) {
-      _classCallCheck(this, DefaultDomRendererV2);
+    function DefaultDomRenderer2(eventManager) {
+      _classCallCheck(this, DefaultDomRenderer2);
 
       this.eventManager = eventManager;
       this.data = Object.create(null);
@@ -2287,7 +2287,7 @@
      */
 
 
-    _createClass(DefaultDomRendererV2, [{
+    _createClass(DefaultDomRenderer2, [{
       key: 'destroy',
       value: function destroy() {}
     }, {
@@ -2417,7 +2417,7 @@
       }
     }]);
 
-    return DefaultDomRendererV2;
+    return DefaultDomRenderer2;
   }();
 
   var /** @type {?} */AT_CHARCODE = '@'.charCodeAt(0);
@@ -2432,18 +2432,18 @@
     }
   }
 
-  var EmulatedEncapsulationDomRendererV2 = function (_DefaultDomRendererV) {
-    _inherits(EmulatedEncapsulationDomRendererV2, _DefaultDomRendererV);
+  var EmulatedEncapsulationDomRenderer2 = function (_DefaultDomRenderer) {
+    _inherits(EmulatedEncapsulationDomRenderer2, _DefaultDomRenderer);
 
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
      * @param {?} component
      */
-    function EmulatedEncapsulationDomRendererV2(eventManager, sharedStylesHost, component) {
-      _classCallCheck(this, EmulatedEncapsulationDomRendererV2);
+    function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component) {
+      _classCallCheck(this, EmulatedEncapsulationDomRenderer2);
 
-      var _this12 = _possibleConstructorReturn(this, (EmulatedEncapsulationDomRendererV2.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationDomRendererV2)).call(this, eventManager));
+      var _this12 = _possibleConstructorReturn(this, (EmulatedEncapsulationDomRenderer2.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationDomRenderer2)).call(this, eventManager));
 
       _this12.component = component;
       var styles = flattenStyles(component.id, component.styles, []);
@@ -2458,25 +2458,25 @@
      */
 
 
-    _createClass(EmulatedEncapsulationDomRendererV2, [{
+    _createClass(EmulatedEncapsulationDomRenderer2, [{
       key: 'applyToHost',
       value: function applyToHost(element) {
-        _get(EmulatedEncapsulationDomRendererV2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationDomRendererV2.prototype), 'setAttribute', this).call(this, element, this.hostAttr, '');
+        _get(EmulatedEncapsulationDomRenderer2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationDomRenderer2.prototype), 'setAttribute', this).call(this, element, this.hostAttr, '');
       }
     }, {
       key: 'createElement',
       value: function createElement(parent, name) {
-        var /** @type {?} */el = _get(EmulatedEncapsulationDomRendererV2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationDomRendererV2.prototype), 'createElement', this).call(this, parent, name);
-        _get(EmulatedEncapsulationDomRendererV2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationDomRendererV2.prototype), 'setAttribute', this).call(this, el, this.contentAttr, '');
+        var /** @type {?} */el = _get(EmulatedEncapsulationDomRenderer2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationDomRenderer2.prototype), 'createElement', this).call(this, parent, name);
+        _get(EmulatedEncapsulationDomRenderer2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationDomRenderer2.prototype), 'setAttribute', this).call(this, el, this.contentAttr, '');
         return el;
       }
     }]);
 
-    return EmulatedEncapsulationDomRendererV2;
-  }(DefaultDomRendererV2);
+    return EmulatedEncapsulationDomRenderer2;
+  }(DefaultDomRenderer2);
 
-  var ShadowDomRenderer = function (_DefaultDomRendererV2) {
-    _inherits(ShadowDomRenderer, _DefaultDomRendererV2);
+  var ShadowDomRenderer = function (_DefaultDomRenderer2) {
+    _inherits(ShadowDomRenderer, _DefaultDomRenderer2);
 
     /**
      * @param {?} eventManager
@@ -2541,7 +2541,7 @@
     }]);
 
     return ShadowDomRenderer;
-  }(DefaultDomRendererV2);
+  }(DefaultDomRenderer2);
 
   var DomEventsPlugin = function (_EventManagerPlugin) {
     _inherits(DomEventsPlugin, _EventManagerPlugin);
@@ -3722,7 +3722,7 @@
   }();
 
   BrowserModule.decorators = [{ type: _core.NgModule, args: [{
-      providers: [BROWSER_SANITIZATION_PROVIDERS, { provide: _core.ErrorHandler, useFactory: errorHandler, deps: [] }, { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true }, { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true }, { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true }, { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig }, DomRendererFactoryV2, { provide: _core.RendererFactoryV2, useExisting: DomRendererFactoryV2 }, { provide: SharedStylesHost, useExisting: DomSharedStylesHost }, DomSharedStylesHost, _core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS, Meta, Title],
+      providers: [BROWSER_SANITIZATION_PROVIDERS, { provide: _core.ErrorHandler, useFactory: errorHandler, deps: [] }, { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true }, { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true }, { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true }, { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig }, DomRendererFactory2, { provide: _core.RendererFactory2, useExisting: DomRendererFactory2 }, { provide: SharedStylesHost, useExisting: DomSharedStylesHost }, DomSharedStylesHost, _core.Testability, EventManager, ELEMENT_PROBE_PROVIDERS, Meta, Title],
       exports: [_common.CommonModule, _core.ApplicationModule]
     }] }];
   /** @nocollapse */
@@ -3884,7 +3884,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.2-5df998d');
+  var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.2-ad3b44a');
 
   exports.BrowserModule = BrowserModule;
   exports.platformBrowser = platformBrowser;
@@ -3913,7 +3913,7 @@
   exports.ɵDomAdapter = DomAdapter;
   exports.ɵgetDOM = getDOM;
   exports.ɵsetRootDomAdapter = setRootDomAdapter;
-  exports.ɵDomRendererFactoryV2 = DomRendererFactoryV2;
+  exports.ɵDomRendererFactory2 = DomRendererFactory2;
   exports.ɵNAMESPACE_URIS = NAMESPACE_URIS;
   exports.ɵflattenStyles = flattenStyles;
   exports.ɵshimContentAttribute = shimContentAttribute;

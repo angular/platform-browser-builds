@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { NgZone, Provider } from '@angular/core';
-import { ɵDomRendererFactoryV2 } from '@angular/platform-browser';
+import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationEngine } from './animation_engine';
 import { AnimationStyleNormalizer } from './dsl/style_normalization/animation_style_normalizer';
 import { WebAnimationsStyleNormalizer } from './dsl/style_normalization/web_animations_style_normalizer';
@@ -18,7 +18,7 @@ export declare class InjectableAnimationEngine extends DomAnimationEngine {
 }
 export declare function instantiateSupportedAnimationDriver(): NoopAnimationDriver;
 export declare function instantiateDefaultStyleNormalizer(): WebAnimationsStyleNormalizer;
-export declare function instantiateRendererFactory(renderer: ɵDomRendererFactoryV2, engine: AnimationEngine, zone: NgZone): AnimationRendererFactory;
+export declare function instantiateRendererFactory(renderer: ɵDomRendererFactory2, engine: AnimationEngine, zone: NgZone): AnimationRendererFactory;
 /**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserModule.

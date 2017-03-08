@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.2-5df998d
+ * @license Angular v4.0.0-rc.2-ad3b44a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -329,7 +329,7 @@
     AnimationRendererFactory.decorators = [{ type: _core.Injectable }];
     /** @nocollapse */
     AnimationRendererFactory.ctorParameters = function () {
-        return [{ type: _core.RendererFactoryV2 }, { type: AnimationEngine }, { type: _core.NgZone }];
+        return [{ type: _core.RendererFactory2 }, { type: AnimationEngine }, { type: _core.NgZone }];
     };
 
     var AnimationRenderer = function () {
@@ -2658,18 +2658,18 @@
      * include them in the BrowserModule.
      */
     var /** @type {?} */BROWSER_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver }, { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer }, { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
-        provide: _core.RendererFactoryV2,
+        provide: _core.RendererFactory2,
         useFactory: instantiateRendererFactory,
-        deps: [_platformBrowser.ɵDomRendererFactoryV2, AnimationEngine, _core.NgZone]
+        deps: [_platformBrowser.ɵDomRendererFactory2, AnimationEngine, _core.NgZone]
     }];
     /**
      * Separate providers from the actual module so that we can do a local modification in Google3 to
      * include them in the BrowserTestingModule.
      */
     var /** @type {?} */BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationEngine, useClass: NoopAnimationEngine }, {
-        provide: _core.RendererFactoryV2,
+        provide: _core.RendererFactory2,
         useFactory: instantiateRendererFactory,
-        deps: [_platformBrowser.ɵDomRendererFactoryV2, AnimationEngine, _core.NgZone]
+        deps: [_platformBrowser.ɵDomRendererFactory2, AnimationEngine, _core.NgZone]
     }];
 
     /**
