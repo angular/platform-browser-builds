@@ -1,168 +1,145 @@
 /**
- * @license Angular v4.0.0-rc.2-5ad5301
+ * @license Angular v4.0.0-rc.3-6c8638c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-    if (typeof define === "function" && define.amd) {
-        define('@angular/platform-browser/testing', ['exports', '@angular/core', '@angular/platform-browser'], factory);
-    } else if (typeof exports !== "undefined") {
-        factory(exports, require('@angular/core'), require('@angular/platform-browser'));
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory(mod.exports, global.ng.core, global.ng.platformBrowser);
-        global.ng = global.ng || {};
-        global.ng.platformBrowser = global.ng.platformBrowser || {};
-        global.ng.platformBrowser.testing = mod.exports;
-    }
-})(this, function (exports, _core, _platformBrowser) {
-    'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.testing = global.ng.platformBrowser.testing || {}),global.ng.core,global.ng.platformBrowser));
+}(this, function (exports,_angular_core,_angular_platformBrowser) { 'use strict';
 
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
-    exports.BrowserTestingModule = exports.platformBrowserTesting = undefined;
-
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
+    var browserDetection;
+    var BrowserDetection = (function () {
+        function BrowserDetection(ua) {
+            this._overrideUa = ua;
         }
-    }
-
-    var _createClass = function () {
-        function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
-                descriptor.enumerable = descriptor.enumerable || false;
-                descriptor.configurable = true;
-                if ("value" in descriptor) descriptor.writable = true;
-                Object.defineProperty(target, descriptor.key, descriptor);
-            }
-        }
-
-        return function (Constructor, protoProps, staticProps) {
-            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-            if (staticProps) defineProperties(Constructor, staticProps);
-            return Constructor;
-        };
-    }();
-
-    var browserDetection = void 0;
-
-    var BrowserDetection = function () {
-        _createClass(BrowserDetection, [{
-            key: '_ua',
-            get: function get() {
+        Object.defineProperty(BrowserDetection.prototype, "_ua", {
+            get: function () {
                 if (typeof this._overrideUa === 'string') {
                     return this._overrideUa;
                 }
-                return (0, _platformBrowser.ɵgetDOM)() ? (0, _platformBrowser.ɵgetDOM)().getUserAgent() : '';
-            }
-        }], [{
-            key: 'setup',
-            value: function setup() {
-                browserDetection = new BrowserDetection(null);
-            }
-        }]);
-
-        function BrowserDetection(ua) {
-            _classCallCheck(this, BrowserDetection);
-
-            this._overrideUa = ua;
-        }
-
-        _createClass(BrowserDetection, [{
-            key: 'isFirefox',
-            get: function get() {
-                return this._ua.indexOf('Firefox') > -1;
-            }
-        }, {
-            key: 'isAndroid',
-            get: function get() {
-                return this._ua.indexOf('Mozilla/5.0') > -1 && this._ua.indexOf('Android') > -1 && this._ua.indexOf('AppleWebKit') > -1 && this._ua.indexOf('Chrome') == -1 && this._ua.indexOf('IEMobile') == -1;
-            }
-        }, {
-            key: 'isEdge',
-            get: function get() {
-                return this._ua.indexOf('Edge') > -1;
-            }
-        }, {
-            key: 'isIE',
-            get: function get() {
-                return this._ua.indexOf('Trident') > -1;
-            }
-        }, {
-            key: 'isWebkit',
-            get: function get() {
-                return this._ua.indexOf('AppleWebKit') > -1 && this._ua.indexOf('Edge') == -1 && this._ua.indexOf('IEMobile') == -1;
-            }
-        }, {
-            key: 'isIOS7',
-            get: function get() {
-                return (this._ua.indexOf('iPhone OS 7') > -1 || this._ua.indexOf('iPad OS 7') > -1) && this._ua.indexOf('IEMobile') == -1;
-            }
-        }, {
-            key: 'isSlow',
-            get: function get() {
-                return this.isAndroid || this.isIE || this.isIOS7;
-            }
-        }, {
-            key: 'supportsNativeIntlApi',
-            get: function get() {
-                return !!_core.ɵglobal.Intl && _core.ɵglobal.Intl !== _core.ɵglobal.IntlPolyfill;
-            }
-        }, {
-            key: 'isChromeDesktop',
-            get: function get() {
-                return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 && this._ua.indexOf('Edge') == -1;
-            }
-        }, {
-            key: 'isOldChrome',
-            get: function get() {
-                return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 && this._ua.indexOf('Edge') == -1;
-            }
-        }]);
-
+                return _angular_platformBrowser.ɵgetDOM() ? _angular_platformBrowser.ɵgetDOM().getUserAgent() : '';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        BrowserDetection.setup = function () { browserDetection = new BrowserDetection(null); };
+        Object.defineProperty(BrowserDetection.prototype, "isFirefox", {
+            get: function () { return this._ua.indexOf('Firefox') > -1; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "isAndroid", {
+            get: function () {
+                return this._ua.indexOf('Mozilla/5.0') > -1 && this._ua.indexOf('Android') > -1 &&
+                    this._ua.indexOf('AppleWebKit') > -1 && this._ua.indexOf('Chrome') == -1 &&
+                    this._ua.indexOf('IEMobile') == -1;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "isEdge", {
+            get: function () { return this._ua.indexOf('Edge') > -1; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "isIE", {
+            get: function () { return this._ua.indexOf('Trident') > -1; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "isWebkit", {
+            get: function () {
+                return this._ua.indexOf('AppleWebKit') > -1 && this._ua.indexOf('Edge') == -1 &&
+                    this._ua.indexOf('IEMobile') == -1;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "isIOS7", {
+            get: function () {
+                return (this._ua.indexOf('iPhone OS 7') > -1 || this._ua.indexOf('iPad OS 7') > -1) &&
+                    this._ua.indexOf('IEMobile') == -1;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "isSlow", {
+            get: function () { return this.isAndroid || this.isIE || this.isIOS7; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "supportsNativeIntlApi", {
+            // The Intl API is only natively supported in Chrome, Firefox, IE11 and Edge.
+            // This detector is needed in tests to make the difference between:
+            // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
+            // 2) IE9/IE10: they use the polyfill, and so no discrepancies
+            get: function () {
+                return !!_angular_core.ɵglobal.Intl && _angular_core.ɵglobal.Intl !== _angular_core.ɵglobal.IntlPolyfill;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "isChromeDesktop", {
+            get: function () {
+                return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 &&
+                    this._ua.indexOf('Edge') == -1;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "isOldChrome", {
+            // "Old Chrome" means Chrome 3X, where there are some discrepancies in the Intl API.
+            // Android 4.4 and 5.X have such browsers by default (respectively 30 and 39).
+            get: function () {
+                return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
+                    this._ua.indexOf('Edge') == -1;
+            },
+            enumerable: true,
+            configurable: true
+        });
         return BrowserDetection;
-    }();
-
+    }());
     BrowserDetection.setup();
     function createNgZone() {
-        return new _core.NgZone({ enableLongStackTrace: true });
+        return new _angular_core.NgZone({ enableLongStackTrace: true });
     }
-
     function initBrowserTests() {
-        _platformBrowser.ɵBrowserDomAdapter.makeCurrent();
+        _angular_platformBrowser.ɵBrowserDomAdapter.makeCurrent();
         BrowserDetection.setup();
     }
-    var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: _core.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
+    var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: _angular_core.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
     /**
      * Platform for testing
      *
      * @stable
      */
-    var platformBrowserTesting = (0, _core.createPlatformFactory)(_core.platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
+    var platformBrowserTesting = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
     /**
      * NgModule for testing.
      *
      * @stable
      */
-
-    var BrowserTestingModule = function BrowserTestingModule() {
-        _classCallCheck(this, BrowserTestingModule);
-    };
-
-    BrowserTestingModule.decorators = [{ type: _core.NgModule, args: [{
-            exports: [_platformBrowser.BrowserModule],
-            providers: [{ provide: _core.APP_ID, useValue: 'a' }, _platformBrowser.ɵELEMENT_PROBE_PROVIDERS, { provide: _core.NgZone, useFactory: createNgZone }]
-        }] }];
+    var BrowserTestingModule = (function () {
+        function BrowserTestingModule() {
+        }
+        return BrowserTestingModule;
+    }());
+    BrowserTestingModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    exports: [_angular_platformBrowser.BrowserModule],
+                    providers: [
+                        { provide: _angular_core.APP_ID, useValue: 'a' },
+                        _angular_platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
+                        { provide: _angular_core.NgZone, useFactory: createNgZone },
+                    ]
+                },] },
+    ];
     /** @nocollapse */
-    BrowserTestingModule.ctorParameters = function () {
-        return [];
-    };
+    BrowserTestingModule.ctorParameters = function () { return []; };
 
     exports.platformBrowserTesting = platformBrowserTesting;
     exports.BrowserTestingModule = BrowserTestingModule;
-});
+
+}));

@@ -1,3 +1,8 @@
+/**
+ * @license Angular v4.0.0-rc.3-6c8638c
+ * (c) 2010-2017 Google, Inc. https://angular.io/
+ * License: MIT
+ */
 import { PLATFORM_INITIALIZER, platformCore, createPlatformFactory, NgZone, APP_ID, NgModule, ɵglobal } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, BrowserModule, ɵgetDOM } from '@angular/platform-browser';
 

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationPlayer, NoopAnimationPlayer } from '@angular/animations';
-import { AnimationDriver } from '../src/render/animation_driver';
+import { AnimationDriver } from '../../src/render/animation_driver';
 /**
  * @experimental Animation support is experimental.
  */
