@@ -1,4 +1,4 @@
-import { NgZone, Renderer2, RendererFactory2, RendererType2 } from '@angular/core';
+import { NgZone, Renderer2, RendererFactory2, RendererStyleFlags2, RendererType2 } from '@angular/core';
 import { AnimationEngine } from '../animation_engine';
 export declare class AnimationRendererFactory implements RendererFactory2 {
     private delegate;
@@ -29,8 +29,8 @@ export declare class AnimationRenderer implements Renderer2 {
     removeAttribute(el: any, name: string, namespace?: string): void;
     addClass(el: any, name: string): void;
     removeClass(el: any, name: string): void;
-    setStyle(el: any, style: string, value: any, hasVendorPrefix: boolean, hasImportant: boolean): void;
-    removeStyle(el: any, style: string, hasVendorPrefix: boolean): void;
+    setStyle(el: any, style: string, value: any, flags: RendererStyleFlags2): void;
+    removeStyle(el: any, style: string, flags: RendererStyleFlags2): void;
     setValue(node: any, value: string): void;
     appendChild(parent: any, newChild: any): void;
     insertBefore(parent: any, newChild: any, refChild: any): void;

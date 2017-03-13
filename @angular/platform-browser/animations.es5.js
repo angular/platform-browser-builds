@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.3-fa1920a
+ * @license Angular v4.0.0-rc.3-ff71eff
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -346,21 +346,20 @@ var AnimationRenderer = (function () {
      * @param {?} el
      * @param {?} style
      * @param {?} value
-     * @param {?} hasVendorPrefix
-     * @param {?} hasImportant
+     * @param {?} flags
      * @return {?}
      */
-    AnimationRenderer.prototype.setStyle = function (el, style, value, hasVendorPrefix, hasImportant) {
-        this.delegate.setStyle(el, style, value, hasVendorPrefix, hasImportant);
+    AnimationRenderer.prototype.setStyle = function (el, style, value, flags) {
+        this.delegate.setStyle(el, style, value, flags);
     };
     /**
      * @param {?} el
      * @param {?} style
-     * @param {?} hasVendorPrefix
+     * @param {?} flags
      * @return {?}
      */
-    AnimationRenderer.prototype.removeStyle = function (el, style, hasVendorPrefix) {
-        this.delegate.removeStyle(el, style, hasVendorPrefix);
+    AnimationRenderer.prototype.removeStyle = function (el, style, flags) {
+        this.delegate.removeStyle(el, style, flags);
     };
     /**
      * @param {?} node

@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-fa1920a
+ * @license Angular v4.0.0-rc.3-ff71eff
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2743,13 +2743,12 @@
          * @param {?} el
          * @param {?} style
          * @param {?} value
-         * @param {?} hasVendorPrefix
-         * @param {?} hasImportant
+         * @param {?} flags
          * @return {?}
          */
-        DefaultDomRenderer2.prototype.setStyle = function (el, style, value, hasVendorPrefix, hasImportant) {
-            if (hasVendorPrefix || hasImportant) {
-                el.style.setProperty(style, value, hasImportant ? 'important' : '');
+        DefaultDomRenderer2.prototype.setStyle = function (el, style, value, flags) {
+            if (flags & core.RendererStyleFlags2.DashCase) {
+                el.style.setProperty(style, value, !!(flags & core.RendererStyleFlags2.Important) ? 'important' : '');
             }
             else {
                 el.style[style] = value;
@@ -2758,11 +2757,11 @@
         /**
          * @param {?} el
          * @param {?} style
-         * @param {?} hasVendorPrefix
+         * @param {?} flags
          * @return {?}
          */
-        DefaultDomRenderer2.prototype.removeStyle = function (el, style, hasVendorPrefix) {
-            if (hasVendorPrefix) {
+        DefaultDomRenderer2.prototype.removeStyle = function (el, style, flags) {
+            if (flags & core.RendererStyleFlags2.DashCase) {
                 el.style.removeProperty(style);
             }
             else {
@@ -4163,7 +4162,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-rc.3-fa1920a');
+    var /** @type {?} */ VERSION = new core.Version('4.0.0-rc.3-ff71eff');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;

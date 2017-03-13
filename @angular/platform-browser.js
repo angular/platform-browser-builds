@@ -1,10 +1,10 @@
 /**
- * @license Angular v4.0.0-rc.3-fa1920a
+ * @license Angular v4.0.0-rc.3-ff71eff
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { PlatformLocation, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactory2, NgModule, SkipSelf, Optional, ɵglobal, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
+import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactory2, NgModule, SkipSelf, Optional, ɵglobal, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, RendererStyleFlags2, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
 import * as core from '@angular/core';
 
 /**
@@ -2678,13 +2678,12 @@ class DefaultDomRenderer2 {
      * @param {?} el
      * @param {?} style
      * @param {?} value
-     * @param {?} hasVendorPrefix
-     * @param {?} hasImportant
+     * @param {?} flags
      * @return {?}
      */
-    setStyle(el, style, value, hasVendorPrefix, hasImportant) {
-        if (hasVendorPrefix || hasImportant) {
-            el.style.setProperty(style, value, hasImportant ? 'important' : '');
+    setStyle(el, style, value, flags) {
+        if (flags & RendererStyleFlags2.DashCase) {
+            el.style.setProperty(style, value, !!(flags & RendererStyleFlags2.Important) ? 'important' : '');
         }
         else {
             el.style[style] = value;
@@ -2693,11 +2692,11 @@ class DefaultDomRenderer2 {
     /**
      * @param {?} el
      * @param {?} style
-     * @param {?} hasVendorPrefix
+     * @param {?} flags
      * @return {?}
      */
-    removeStyle(el, style, hasVendorPrefix) {
-        if (hasVendorPrefix) {
+    removeStyle(el, style, flags) {
+        if (flags & RendererStyleFlags2.DashCase) {
             el.style.removeProperty(style);
         }
         else {
@@ -4040,6 +4039,6 @@ class By {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-fa1920a');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-ff71eff');
 
 export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
