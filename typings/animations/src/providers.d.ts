@@ -5,20 +5,16 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { AnimationDriver, ɵAnimationEngine as AnimationEngine, ɵAnimationStyleNormalizer as AnimationStyleNormalizer, ɵDomAnimationEngine as DomAnimationEngine, ɵNoopAnimationDriver as NoopAnimationDriver, ɵWebAnimationsStyleNormalizer as WebAnimationsStyleNormalizer } from '@angular/animations/browser';
 import { NgZone, Provider } from '@angular/core';
-import { ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { AnimationEngine } from './animation_engine';
-import { AnimationStyleNormalizer } from './dsl/style_normalization/animation_style_normalizer';
-import { WebAnimationsStyleNormalizer } from './dsl/style_normalization/web_animations_style_normalizer';
-import { AnimationDriver, NoopAnimationDriver } from './render/animation_driver';
-import { AnimationRendererFactory } from './render/animation_renderer';
-import { DomAnimationEngine } from './render/dom_animation_engine';
+import { ɵDomRendererFactory2 as DomRendererFactory2 } from '@angular/platform-browser';
+import { AnimationRendererFactory } from './animation_renderer';
 export declare class InjectableAnimationEngine extends DomAnimationEngine {
     constructor(driver: AnimationDriver, normalizer: AnimationStyleNormalizer);
 }
 export declare function instantiateSupportedAnimationDriver(): NoopAnimationDriver;
 export declare function instantiateDefaultStyleNormalizer(): WebAnimationsStyleNormalizer;
-export declare function instantiateRendererFactory(renderer: ɵDomRendererFactory2, engine: AnimationEngine, zone: NgZone): AnimationRendererFactory;
+export declare function instantiateRendererFactory(renderer: DomRendererFactory2, engine: AnimationEngine, zone: NgZone): AnimationRendererFactory;
 /**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserModule.

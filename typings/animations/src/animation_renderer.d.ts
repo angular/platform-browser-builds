@@ -1,5 +1,5 @@
+import { ɵAnimationEngine as AnimationEngine } from '@angular/animations/browser';
 import { NgZone, Renderer2, RendererFactory2, RendererStyleFlags2, RendererType2 } from '@angular/core';
-import { AnimationEngine } from '../animation_engine';
 export declare class AnimationRendererFactory implements RendererFactory2 {
     private delegate;
     private _engine;
