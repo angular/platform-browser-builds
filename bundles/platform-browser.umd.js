@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-bf98d9d
+ * @license Angular v4.0.0-rc.3-6772c91
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1951,7 +1951,9 @@
     BrowserPlatformLocation.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     BrowserPlatformLocation.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
     ]; };
@@ -2098,7 +2100,9 @@
     Meta.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     Meta.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
     ]; };
@@ -2228,7 +2232,9 @@
     Title.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     Title.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
     ]; };
@@ -2363,7 +2369,9 @@
     EventManager.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     EventManager.ctorParameters = function () { return [
         { type: Array, decorators: [{ type: core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
         { type: core.NgZone, },
@@ -2410,7 +2418,9 @@
     }());
     var SharedStylesHost = (function () {
         function SharedStylesHost() {
-            /** @internal */
+            /**
+             * \@internal
+             */
             this._stylesSet = new Set();
         }
         /**
@@ -2442,7 +2452,9 @@
     SharedStylesHost.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     SharedStylesHost.ctorParameters = function () { return []; };
     var DomSharedStylesHost = (function (_super) {
         __extends(DomSharedStylesHost, _super);
@@ -2500,7 +2512,9 @@
     DomSharedStylesHost.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     DomSharedStylesHost.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
     ]; };
@@ -2610,7 +2624,9 @@
     DomRendererFactory2.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     DomRendererFactory2.ctorParameters = function () { return [
         { type: EventManager, },
         { type: DomSharedStylesHost, },
@@ -2939,7 +2955,9 @@
     DomEventsPlugin.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     DomEventsPlugin.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
     ]; };
@@ -3013,7 +3031,9 @@
     HammerGestureConfig.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     HammerGestureConfig.ctorParameters = function () { return []; };
     var HammerGesturesPlugin = (function (_super) {
         __extends(HammerGesturesPlugin, _super);
@@ -3069,7 +3089,9 @@
     HammerGesturesPlugin.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     HammerGesturesPlugin.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
         { type: HammerGestureConfig, decorators: [{ type: core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
@@ -3196,7 +3218,9 @@
     KeyEventsPlugin.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     KeyEventsPlugin.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
     ]; };
@@ -3822,7 +3846,9 @@
     DomSanitizerImpl.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     DomSanitizerImpl.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] },] },
     ]; };
@@ -4002,7 +4028,9 @@
                     exports: [_angular_common.CommonModule, core.ApplicationModule]
                 },] },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     BrowserModule.ctorParameters = function () { return [
         { type: BrowserModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
     ]; };
@@ -4162,7 +4190,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-rc.3-bf98d9d');
+    var /** @type {?} */ VERSION = new core.Version('4.0.0-rc.3-6772c91');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
