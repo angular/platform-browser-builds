@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.3-4f7d62a
+ * @license Angular v4.0.0-rc.3-5c0ea20
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1948,7 +1948,9 @@ var BrowserPlatformLocation = (function (_super) {
 BrowserPlatformLocation.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 BrowserPlatformLocation.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
@@ -2095,7 +2097,9 @@ var Meta = (function () {
 Meta.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 Meta.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
@@ -2225,7 +2229,9 @@ var Title = (function () {
 Title.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 Title.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
@@ -2360,7 +2366,9 @@ var EventManager = (function () {
 EventManager.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 EventManager.ctorParameters = function () { return [
     { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
     { type: NgZone, },
@@ -2407,7 +2415,9 @@ var EventManagerPlugin = (function () {
 }());
 var SharedStylesHost = (function () {
     function SharedStylesHost() {
-        /** @internal */
+        /**
+         * \@internal
+         */
         this._stylesSet = new Set();
     }
     /**
@@ -2439,7 +2449,9 @@ var SharedStylesHost = (function () {
 SharedStylesHost.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 SharedStylesHost.ctorParameters = function () { return []; };
 var DomSharedStylesHost = (function (_super) {
     __extends(DomSharedStylesHost, _super);
@@ -2497,7 +2509,9 @@ var DomSharedStylesHost = (function (_super) {
 DomSharedStylesHost.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 DomSharedStylesHost.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
@@ -2607,7 +2621,9 @@ var DomRendererFactory2 = (function () {
 DomRendererFactory2.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 DomRendererFactory2.ctorParameters = function () { return [
     { type: EventManager, },
     { type: DomSharedStylesHost, },
@@ -2936,7 +2952,9 @@ var DomEventsPlugin = (function (_super) {
 DomEventsPlugin.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 DomEventsPlugin.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
@@ -3010,7 +3028,9 @@ var HammerGestureConfig = (function () {
 HammerGestureConfig.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 HammerGestureConfig.ctorParameters = function () { return []; };
 var HammerGesturesPlugin = (function (_super) {
     __extends(HammerGesturesPlugin, _super);
@@ -3066,7 +3086,9 @@ var HammerGesturesPlugin = (function (_super) {
 HammerGesturesPlugin.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 HammerGesturesPlugin.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
@@ -3193,7 +3215,9 @@ var KeyEventsPlugin = (function (_super) {
 KeyEventsPlugin.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 KeyEventsPlugin.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
@@ -3819,7 +3843,9 @@ var DomSanitizerImpl = (function (_super) {
 DomSanitizerImpl.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 DomSanitizerImpl.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
@@ -3999,7 +4025,9 @@ BrowserModule.decorators = [
                 exports: [CommonModule, ApplicationModule]
             },] },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 BrowserModule.ctorParameters = function () { return [
     { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ]; };
@@ -4159,5 +4187,5 @@ var By = (function () {
 /**
  * @stable
  */
-var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-4f7d62a');
+var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-5c0ea20');
 export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };

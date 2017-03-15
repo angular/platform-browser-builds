@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-4f7d62a
+ * @license Angular v4.0.0-rc.3-5c0ea20
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -45,7 +45,9 @@
     AnimationRendererFactory.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     AnimationRendererFactory.ctorParameters = function () { return [
         { type: _angular_core.RendererFactory2, },
         { type: _angular_animations_browser.ɵAnimationEngine, },
@@ -309,7 +311,9 @@
     InjectableAnimationEngine.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     InjectableAnimationEngine.ctorParameters = function () { return [
         { type: _angular_animations_browser.AnimationDriver, },
         { type: _angular_animations_browser.ɵAnimationStyleNormalizer, },
@@ -376,7 +380,9 @@
                     providers: BROWSER_ANIMATIONS_PROVIDERS,
                 },] },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     BrowserAnimationsModule.ctorParameters = function () { return []; };
     /**
      * \@experimental Animation support is experimental.
@@ -392,7 +398,9 @@
                     providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
                 },] },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     NoopAnimationsModule.ctorParameters = function () { return []; };
 
     exports.BrowserAnimationsModule = BrowserAnimationsModule;
