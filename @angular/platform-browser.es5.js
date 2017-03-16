@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.3-992aa17
+ * @license Angular v4.0.0-rc.3-492153a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1833,9 +1833,9 @@ function setValueOnPath(global, path, value) {
  * Note: Document might not be available in the Application Context when Application and Rendering
  * Contexts are not the same (e.g. when running the application into a Web Worker).
  *
- * @stable
+ * \@stable
  */
-var /** @type {?} */ DOCUMENT = new InjectionToken('DocumentToken');
+var DOCUMENT = new InjectionToken('DocumentToken');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2318,9 +2318,9 @@ var /** @type {?} */ ELEMENT_PROBE_PROVIDERS = [
     },
 ];
 /**
- * @stable
+ * \@stable
  */
-var /** @type {?} */ EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
+var EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
  * \@stable
  */
@@ -3015,12 +3015,12 @@ var /** @type {?} */ EVENT_NAMES = {
     'tap': true,
 };
 /**
- * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
+ * A DI token that you can use to provide{\@link HammerGestureConfig} to Angular. Use it to configure
  * Hammer gestures.
  *
- * @experimental
+ * \@experimental
  */
-var /** @type {?} */ HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
+var HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
 /**
  * \@experimental
  */
@@ -3967,19 +3967,19 @@ var /** @type {?} */ INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
 /**
- * @security Replacing built-in sanitization providers exposes the application to XSS risks.
+ * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
- * @experimental
+ * \@experimental
  */
-var /** @type {?} */ BROWSER_SANITIZATION_PROVIDERS = [
+var BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl },
 ];
 /**
- * @stable
+ * \@stable
  */
-var /** @type {?} */ platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+var platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 /**
  * @return {?}
  */
@@ -4069,7 +4069,7 @@ BrowserModule.ctorParameters = function () { return [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var /** @type {?} */ win = typeof window !== 'undefined' && window || ({});
+var win = typeof window !== 'undefined' && window || {};
 var ChangeDetectionPerfRecord = (function () {
     /**
      * @param {?} msPerTick
@@ -4152,6 +4152,7 @@ var /** @type {?} */ PROFILER_GLOBAL_NAME = 'ng.profiler';
  *    then hit Enter.
  *
  * \@experimental All debugging apis are currently experimental.
+ * @template T
  * @param {?} ref
  * @return {?}
  */
@@ -4216,8 +4217,8 @@ var By = (function () {
     return By;
 }());
 /**
- * @stable
+ * \@stable
  */
-var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-992aa17');
+var VERSION = new Version('4.0.0-rc.3-492153a');
 export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
 //# sourceMappingURL=platform-browser.es5.js.map

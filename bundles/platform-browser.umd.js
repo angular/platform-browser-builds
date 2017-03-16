@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-992aa17
+ * @license Angular v4.0.0-rc.3-492153a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1836,9 +1836,9 @@
      * Note: Document might not be available in the Application Context when Application and Rendering
      * Contexts are not the same (e.g. when running the application into a Web Worker).
      *
-     * @stable
+     * \@stable
      */
-    var /** @type {?} */ DOCUMENT = new core.InjectionToken('DocumentToken');
+    var DOCUMENT = new core.InjectionToken('DocumentToken');
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -2321,9 +2321,9 @@
         },
     ];
     /**
-     * @stable
+     * \@stable
      */
-    var /** @type {?} */ EVENT_MANAGER_PLUGINS = new core.InjectionToken('EventManagerPlugins');
+    var EVENT_MANAGER_PLUGINS = new core.InjectionToken('EventManagerPlugins');
     /**
      * \@stable
      */
@@ -3018,12 +3018,12 @@
         'tap': true,
     };
     /**
-     * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
+     * A DI token that you can use to provide{\@link HammerGestureConfig} to Angular. Use it to configure
      * Hammer gestures.
      *
-     * @experimental
+     * \@experimental
      */
-    var /** @type {?} */ HAMMER_GESTURE_CONFIG = new core.InjectionToken('HammerGestureConfig');
+    var HAMMER_GESTURE_CONFIG = new core.InjectionToken('HammerGestureConfig');
     /**
      * \@experimental
      */
@@ -3970,19 +3970,19 @@
         { provide: DOCUMENT, useFactory: _document, deps: [] },
     ];
     /**
-     * @security Replacing built-in sanitization providers exposes the application to XSS risks.
+     * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
      * Attacker-controlled data introduced by an unsanitized provider could expose your
      * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
-     * @experimental
+     * \@experimental
      */
-    var /** @type {?} */ BROWSER_SANITIZATION_PROVIDERS = [
+    var BROWSER_SANITIZATION_PROVIDERS = [
         { provide: core.Sanitizer, useExisting: DomSanitizer },
         { provide: DomSanitizer, useClass: DomSanitizerImpl },
     ];
     /**
-     * @stable
+     * \@stable
      */
-    var /** @type {?} */ platformBrowser = core.createPlatformFactory(core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+    var platformBrowser = core.createPlatformFactory(core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
     /**
      * @return {?}
      */
@@ -4072,7 +4072,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var /** @type {?} */ win = typeof window !== 'undefined' && window || ({});
+    var win = typeof window !== 'undefined' && window || {};
     var ChangeDetectionPerfRecord = (function () {
         /**
          * @param {?} msPerTick
@@ -4155,6 +4155,7 @@
      *    then hit Enter.
      *
      * \@experimental All debugging apis are currently experimental.
+     * @template T
      * @param {?} ref
      * @return {?}
      */
@@ -4219,9 +4220,9 @@
         return By;
     }());
     /**
-     * @stable
+     * \@stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-rc.3-992aa17');
+    var VERSION = new core.Version('4.0.0-rc.3-492153a');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
