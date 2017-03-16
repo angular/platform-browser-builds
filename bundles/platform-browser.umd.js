@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-26d4ce2
+ * @license Angular v4.0.0-rc.3-a4076c7
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -118,6 +118,13 @@
         });
         ;
         ;
+        /**
+         * @abstract
+         * @param {?} nodeA
+         * @param {?} nodeB
+         * @return {?}
+         */
+        DomAdapter.prototype.contains = function (nodeA, nodeB) { };
         /**
          * @abstract
          * @param {?} templateHtml
@@ -938,6 +945,12 @@
         '\x60': '0',
         '\x90': 'NumLock'
     };
+    var /** @type {?} */ nodeContains;
+    if (core.ɵglobal['Node']) {
+        nodeContains = core.ɵglobal['Node'].prototype.contains || function (node) {
+            return !!(this.compareDocumentPosition(node) & 16);
+        };
+    }
     var BrowserDomAdapter = (function (_super) {
         __extends(BrowserDomAdapter, _super);
         function BrowserDomAdapter() {
@@ -1026,6 +1039,12 @@
             enumerable: true,
             configurable: true
         });
+        /**
+         * @param {?} nodeA
+         * @param {?} nodeB
+         * @return {?}
+         */
+        BrowserDomAdapter.prototype.contains = function (nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); };
         /**
          * @param {?} el
          * @param {?} selector
@@ -3407,11 +3426,12 @@
                     if (DOM.isElementNode(current)) {
                         this.endElement(/** @type {?} */ (current));
                     }
-                    if (DOM.nextSibling(current)) {
-                        current = DOM.nextSibling(current);
+                    var /** @type {?} */ next = checkClobberedElement(current, DOM.nextSibling(current));
+                    if (next) {
+                        current = next;
                         break;
                     }
-                    current = DOM.parentElement(current);
+                    current = checkClobberedElement(current, DOM.parentElement(current));
                 }
             }
             return this.buf.join('');
@@ -3464,9 +3484,20 @@
          * @param {?} chars
          * @return {?}
          */
-        SanitizingHtmlSerializer.prototype.chars = function (chars /** TODO #9100 */) { this.buf.push(encodeEntities(chars)); };
+        SanitizingHtmlSerializer.prototype.chars = function (chars) { this.buf.push(encodeEntities(chars)); };
         return SanitizingHtmlSerializer;
     }());
+    /**
+     * @param {?} node
+     * @param {?} nextNode
+     * @return {?}
+     */
+    function checkClobberedElement(node, nextNode) {
+        if (nextNode && DOM.contains(node, nextNode)) {
+            throw new Error("Failed to sanitize html because the element is clobbered: " + DOM.getOuterHTML(node));
+        }
+        return nextNode;
+    }
     // Regular Expressions for parsing tags and attributes
     var /** @type {?} */ SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
     // ! to ~ is the ASCII range.
@@ -4190,7 +4221,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-rc.3-26d4ce2');
+    var /** @type {?} */ VERSION = new core.Version('4.0.0-rc.3-a4076c7');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;

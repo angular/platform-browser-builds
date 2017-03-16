@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-26d4ce2
+ * @license Angular v4.0.0-rc.3-a4076c7
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -107,6 +107,13 @@ class DomAdapter {
      */
     set attrToPropMap(value) { this._attrToPropMap = value; }
     ;
+    /**
+     * @abstract
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    contains(nodeA, nodeB) { }
     /**
      * @abstract
      * @param {?} templateHtml
@@ -925,6 +932,12 @@ const /** @type {?} */ _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
+let /** @type {?} */ nodeContains;
+if (ɵglobal['Node']) {
+    nodeContains = ɵglobal['Node'].prototype.contains || function (node) {
+        return !!(this.compareDocumentPosition(node) & 16);
+    };
+}
 class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @param {?} templateHtml
@@ -1005,6 +1018,12 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     get attrToPropMap() { return _attrToPropMap; }
+    /**
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    contains(nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); }
     /**
      * @param {?} el
      * @param {?} selector
@@ -3320,11 +3339,12 @@ class SanitizingHtmlSerializer {
                 if (DOM.isElementNode(current)) {
                     this.endElement(/** @type {?} */ (current));
                 }
-                if (DOM.nextSibling(current)) {
-                    current = DOM.nextSibling(current);
+                let /** @type {?} */ next = checkClobberedElement(current, DOM.nextSibling(current));
+                if (next) {
+                    current = next;
                     break;
                 }
-                current = DOM.parentElement(current);
+                current = checkClobberedElement(current, DOM.parentElement(current));
             }
         }
         return this.buf.join('');
@@ -3376,7 +3396,18 @@ class SanitizingHtmlSerializer {
      * @param {?} chars
      * @return {?}
      */
-    chars(chars /** TODO #9100 */) { this.buf.push(encodeEntities(chars)); }
+    chars(chars) { this.buf.push(encodeEntities(chars)); }
+}
+/**
+ * @param {?} node
+ * @param {?} nextNode
+ * @return {?}
+ */
+function checkClobberedElement(node, nextNode) {
+    if (nextNode && DOM.contains(node, nextNode)) {
+        throw new Error(`Failed to sanitize html because the element is clobbered: ${DOM.getOuterHTML(node)}`);
+    }
+    return nextNode;
 }
 // Regular Expressions for parsing tags and attributes
 const /** @type {?} */ SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
@@ -4067,6 +4098,6 @@ class By {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-26d4ce2');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-a4076c7');
 
 export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
