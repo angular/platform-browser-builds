@@ -1,12 +1,12 @@
 /**
- * @license Angular v4.0.0-rc.3-013d806
+ * @license Angular v4.0.0-rc.3-923d0c5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser')) :
     typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.testing = global.ng.platformBrowser.testing || {}),global.ng.core,global.ng.platformBrowser,global._angular_animations_browser));
+    (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = global.ng.platformBrowser.animations || {}),global.ng.core,global.ng.platformBrowser,global.ng.animations.browser));
 }(this, function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser) { 'use strict';
 
     var __extends = (this && this.__extends) || function (d, b) {
