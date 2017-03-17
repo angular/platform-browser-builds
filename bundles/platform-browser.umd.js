@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-480a407
+ * @license Angular v4.0.0-rc.4-fcaca45
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -118,6 +118,13 @@
         });
         ;
         ;
+        /**
+         * @abstract
+         * @param {?} nodeA
+         * @param {?} nodeB
+         * @return {?}
+         */
+        DomAdapter.prototype.contains = function (nodeA, nodeB) { };
         /**
          * @abstract
          * @param {?} templateHtml
@@ -938,6 +945,12 @@
         '\x60': '0',
         '\x90': 'NumLock'
     };
+    var /** @type {?} */ nodeContains;
+    if (core.ɵglobal['Node']) {
+        nodeContains = core.ɵglobal['Node'].prototype.contains || function (node) {
+            return !!(this.compareDocumentPosition(node) & 16);
+        };
+    }
     var BrowserDomAdapter = (function (_super) {
         __extends(BrowserDomAdapter, _super);
         function BrowserDomAdapter() {
@@ -1026,6 +1039,12 @@
             enumerable: true,
             configurable: true
         });
+        /**
+         * @param {?} nodeA
+         * @param {?} nodeB
+         * @return {?}
+         */
+        BrowserDomAdapter.prototype.contains = function (nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); };
         /**
          * @param {?} el
          * @param {?} selector
@@ -1817,9 +1836,9 @@
      * Note: Document might not be available in the Application Context when Application and Rendering
      * Contexts are not the same (e.g. when running the application into a Web Worker).
      *
-     * @stable
+     * \@stable
      */
-    var /** @type {?} */ DOCUMENT = new core.InjectionToken('DocumentToken');
+    var DOCUMENT = new core.InjectionToken('DocumentToken');
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -2302,9 +2321,9 @@
         },
     ];
     /**
-     * @stable
+     * \@stable
      */
-    var /** @type {?} */ EVENT_MANAGER_PLUGINS = new core.InjectionToken('EventManagerPlugins');
+    var EVENT_MANAGER_PLUGINS = new core.InjectionToken('EventManagerPlugins');
     /**
      * \@stable
      */
@@ -2999,12 +3018,12 @@
         'tap': true,
     };
     /**
-     * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
+     * A DI token that you can use to provide{\@link HammerGestureConfig} to Angular. Use it to configure
      * Hammer gestures.
      *
-     * @experimental
+     * \@experimental
      */
-    var /** @type {?} */ HAMMER_GESTURE_CONFIG = new core.InjectionToken('HammerGestureConfig');
+    var HAMMER_GESTURE_CONFIG = new core.InjectionToken('HammerGestureConfig');
     /**
      * \@experimental
      */
@@ -3407,11 +3426,12 @@
                     if (DOM.isElementNode(current)) {
                         this.endElement(/** @type {?} */ (current));
                     }
-                    if (DOM.nextSibling(current)) {
-                        current = DOM.nextSibling(current);
+                    var /** @type {?} */ next = checkClobberedElement(current, DOM.nextSibling(current));
+                    if (next) {
+                        current = next;
                         break;
                     }
-                    current = DOM.parentElement(current);
+                    current = checkClobberedElement(current, DOM.parentElement(current));
                 }
             }
             return this.buf.join('');
@@ -3464,9 +3484,20 @@
          * @param {?} chars
          * @return {?}
          */
-        SanitizingHtmlSerializer.prototype.chars = function (chars /** TODO #9100 */) { this.buf.push(encodeEntities(chars)); };
+        SanitizingHtmlSerializer.prototype.chars = function (chars) { this.buf.push(encodeEntities(chars)); };
         return SanitizingHtmlSerializer;
     }());
+    /**
+     * @param {?} node
+     * @param {?} nextNode
+     * @return {?}
+     */
+    function checkClobberedElement(node, nextNode) {
+        if (nextNode && DOM.contains(node, nextNode)) {
+            throw new Error("Failed to sanitize html because the element is clobbered: " + DOM.getOuterHTML(node));
+        }
+        return nextNode;
+    }
     // Regular Expressions for parsing tags and attributes
     var /** @type {?} */ SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
     // ! to ~ is the ASCII range.
@@ -3939,19 +3970,19 @@
         { provide: DOCUMENT, useFactory: _document, deps: [] },
     ];
     /**
-     * @security Replacing built-in sanitization providers exposes the application to XSS risks.
+     * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
      * Attacker-controlled data introduced by an unsanitized provider could expose your
      * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
-     * @experimental
+     * \@experimental
      */
-    var /** @type {?} */ BROWSER_SANITIZATION_PROVIDERS = [
+    var BROWSER_SANITIZATION_PROVIDERS = [
         { provide: core.Sanitizer, useExisting: DomSanitizer },
         { provide: DomSanitizer, useClass: DomSanitizerImpl },
     ];
     /**
-     * @stable
+     * \@stable
      */
-    var /** @type {?} */ platformBrowser = core.createPlatformFactory(core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+    var platformBrowser = core.createPlatformFactory(core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
     /**
      * @return {?}
      */
@@ -4041,7 +4072,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var /** @type {?} */ win = typeof window !== 'undefined' && window || ({});
+    var win = typeof window !== 'undefined' && window || {};
     var ChangeDetectionPerfRecord = (function () {
         /**
          * @param {?} msPerTick
@@ -4124,6 +4155,7 @@
      *    then hit Enter.
      *
      * \@experimental All debugging apis are currently experimental.
+     * @template T
      * @param {?} ref
      * @return {?}
      */
@@ -4188,9 +4220,9 @@
         return By;
     }());
     /**
-     * @stable
+     * \@stable
      */
-    var /** @type {?} */ VERSION = new core.Version('4.0.0-rc.3-480a407');
+    var VERSION = new core.Version('4.0.0-rc.4-fcaca45');
 
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
@@ -4239,3 +4271,4 @@
     exports.ɵe = DomSanitizerImpl;
 
 }));
+//# sourceMappingURL=platform-browser.umd.js.map
