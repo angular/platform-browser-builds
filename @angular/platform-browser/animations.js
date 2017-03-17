@@ -1,12 +1,19 @@
 /**
- * @license Angular v4.0.0-rc.5-5c5c2ae
+ * @license Angular v4.0.0-rc.5-bcc29ff
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { NgModule, Injectable, NgZone, RendererFactory2 } from '@angular/core';
+import { Injectable, NgModule, NgZone, RendererFactory2 } from '@angular/core';
 import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { ɵDomAnimationEngine, ɵAnimationStyleNormalizer, AnimationDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵsupportsWebAnimations, ɵWebAnimationsStyleNormalizer, ɵAnimationEngine, ɵNoopAnimationEngine } from '@angular/animations/browser';
+import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵDomAnimationEngine, ɵNoopAnimationDriver, ɵNoopAnimationEngine, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 class AnimationRendererFactory {
     /**
      * @param {?} delegate
@@ -279,6 +286,13 @@ function deNamespaceify(namespaceId, value) {
     return value.replace(namespaceId + '#', '');
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 class InjectableAnimationEngine extends ɵDomAnimationEngine {
     /**
      * @param {?} driver
@@ -326,7 +340,7 @@ function instantiateRendererFactory(renderer, engine, zone) {
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserModule.
  */
-const /** @type {?} */ BROWSER_ANIMATIONS_PROVIDERS = [
+const BROWSER_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
     { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
     { provide: ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
@@ -339,7 +353,7 @@ const /** @type {?} */ BROWSER_ANIMATIONS_PROVIDERS = [
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
  */
-const /** @type {?} */ BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
+const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
     { provide: ɵAnimationEngine, useClass: ɵNoopAnimationEngine }, {
         provide: RendererFactory2,
         useFactory: instantiateRendererFactory,
@@ -347,6 +361,13 @@ const /** @type {?} */ BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
     }
 ];
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * \@experimental Animation support is experimental.
  */
@@ -377,6 +398,44 @@ NoopAnimationsModule.decorators = [
  * @nocollapse
  */
 NoopAnimationsModule.ctorParameters = () => [];
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all animation APIs of the animation browser package.
+ */
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the animation package.
+ */
+
+/**
+ * Generated bundle index. Do not edit.
+ */
 
 export { BrowserAnimationsModule, NoopAnimationsModule, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
 //# sourceMappingURL=animations.js.map

@@ -1,10 +1,10 @@
 /**
- * @license Angular v4.0.0-rc.5-5c5c2ae
+ * @license Angular v4.0.0-rc.5-bcc29ff
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { PlatformLocation, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { PLATFORM_INITIALIZER, PLATFORM_ID, Sanitizer, platformCore, createPlatformFactory, ErrorHandler, APP_ID, ApplicationModule, Testability, RendererFactory2, NgModule, SkipSelf, Optional, ɵglobal, Injectable, Inject, InjectionToken, APP_INITIALIZER, setTestabilityGetter, ViewEncapsulation, RendererStyleFlags2, NgZone, SecurityContext, isDevMode, ApplicationRef, Version } from '@angular/core';
+import { CommonModule, PlatformLocation, ɵPLATFORM_BROWSER_ID } from '@angular/common';
+import { APP_ID, APP_INITIALIZER, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal, ɵmerge } from '@angular/core';
 import * as core from '@angular/core';
 
 /**
@@ -14,13 +14,18 @@ import * as core from '@angular/core';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let /** @type {?} */ _DOM = null;
+let _DOM = null;
 /**
  * @return {?}
  */
 function getDOM() {
     return _DOM;
 }
+/**
+ * @param {?} adapter
+ * @return {?}
+ */
+
 /**
  * @param {?} adapter
  * @return {?}
@@ -804,6 +809,13 @@ class DomAdapter {
 }
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Provides DOM operations in any browser environment.
  *
  * \@security Tread carefully! Interacting with the DOM directly is dangerous and
@@ -886,15 +898,22 @@ class GenericBrowserDomAdapter extends DomAdapter {
     }
 }
 
-const /** @type {?} */ _attrToPropMap = {
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const _attrToPropMap = {
     'class': 'className',
     'innerHtml': 'innerHTML',
     'readonly': 'readOnly',
     'tabindex': 'tabIndex',
 };
-const /** @type {?} */ DOM_KEY_LOCATION_NUMPAD = 3;
+const DOM_KEY_LOCATION_NUMPAD = 3;
 // Map to convert some key or keyIdentifier values to what will be returned by getEventKey
-const /** @type {?} */ _keyMap = {
+const _keyMap = {
     // The following values are here for cross-browser compatibility and to match the W3C standard
     // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
     '\b': 'Backspace',
@@ -914,7 +933,7 @@ const /** @type {?} */ _keyMap = {
 // There is a bug in Chrome for numeric keypad keys:
 // https://code.google.com/p/chromium/issues/detail?id=155654
 // 1, 2, 3 ... are reported as A, B, C ...
-const /** @type {?} */ _chromeNumKeyPadMap = {
+const _chromeNumKeyPadMap = {
     'A': '1',
     'B': '2',
     'C': '3',
@@ -932,7 +951,7 @@ const /** @type {?} */ _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
-let /** @type {?} */ nodeContains;
+let nodeContains;
 if (ɵglobal['Node']) {
     nodeContains = ɵglobal['Node'].prototype.contains || function (node) {
         return !!(this.compareDocumentPosition(node) & 16);
@@ -1731,7 +1750,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
     }
 }
-let /** @type {?} */ baseElement = null;
+let baseElement = null;
 /**
  * @return {?}
  */
@@ -1745,7 +1764,7 @@ function getBaseElementHref() {
     return baseElement.getAttribute('href');
 }
 // based on urlUtils.js in AngularJS 1
-let /** @type {?} */ urlParsingNode;
+let urlParsingNode;
 /**
  * @param {?} url
  * @return {?}
@@ -1799,6 +1818,13 @@ function setValueOnPath(global, path, value) {
 }
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * A DI Token representing the main rendering context. In a browser this is the DOM Document.
  *
  * Note: Document might not be available in the Application Context when Application and Rendering
@@ -1820,6 +1846,13 @@ function supportsState() {
     return !!window.history.pushState;
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
  * This class should not be used directly by an application developer. Instead, use
@@ -1928,6 +1961,13 @@ BrowserPlatformLocation.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * A service that can be used to get and add meta tags.
  *
@@ -2072,10 +2112,17 @@ Meta.ctorParameters = () => [
 ];
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
  */
-const /** @type {?} */ TRANSITION_ID = new InjectionToken('TRANSITION_ID');
+const TRANSITION_ID = new InjectionToken('TRANSITION_ID');
 /**
  * @param {?} transitionId
  * @param {?} document
@@ -2090,7 +2137,7 @@ function bootstrapListenerFactory(transitionId, document) {
     };
     return factory;
 }
-const /** @type {?} */ SERVER_TRANSITION_PROVIDERS = [
+const SERVER_TRANSITION_PROVIDERS = [
     {
         provide: APP_INITIALIZER,
         useFactory: bootstrapListenerFactory,
@@ -2099,6 +2146,13 @@ const /** @type {?} */ SERVER_TRANSITION_PROVIDERS = [
     },
 ];
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 class BrowserGetTestability {
     /**
      * @return {?}
@@ -2163,6 +2217,13 @@ class BrowserGetTestability {
 }
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * A service that can be used to get and set the title of a current HTML document.
  *
  * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
@@ -2201,12 +2262,19 @@ Title.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 
-const /** @type {?} */ CORE_TOKENS = {
-    'ApplicationRef': core.ApplicationRef,
-    'NgZone': core.NgZone,
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const CORE_TOKENS = {
+    'ApplicationRef': ApplicationRef,
+    'NgZone': NgZone,
 };
-const /** @type {?} */ INSPECT_GLOBAL_NAME = 'ng.probe';
-const /** @type {?} */ CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
+const INSPECT_GLOBAL_NAME = 'ng.probe';
+const CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
 /**
  * Returns a {\@link DebugElement} for the given native DOM element, or
  * null if the given native element does not have an Angular view associated
@@ -2215,13 +2283,13 @@ const /** @type {?} */ CORE_TOKENS_GLOBAL_NAME = 'ng.coreTokens';
  * @return {?}
  */
 function inspectNativeElement(element) {
-    return core.getDebugNode(element);
+    return getDebugNode(element);
 }
 /**
  * Deprecated. Use the one from '\@angular/core'.
  * @deprecated
  */
-class NgProbeToken {
+class NgProbeToken$1 {
     /**
      * @param {?} name
      * @param {?} token
@@ -2239,7 +2307,7 @@ class NgProbeToken {
 function _createNgProbe(extraTokens, coreTokens) {
     const /** @type {?} */ tokens = (extraTokens || []).concat(coreTokens || []);
     getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, core.ɵmerge(CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
+    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, ɵmerge(CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
     return () => inspectNativeElement;
 }
 /**
@@ -2252,18 +2320,25 @@ function _ngProbeTokensToMap(tokens) {
 /**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
-const /** @type {?} */ ELEMENT_PROBE_PROVIDERS = [
+const ELEMENT_PROBE_PROVIDERS = [
     {
-        provide: core.APP_INITIALIZER,
+        provide: APP_INITIALIZER,
         useFactory: _createNgProbe,
         deps: [
-            [NgProbeToken, new core.Optional()],
-            [core.NgProbeToken, new core.Optional()],
+            [NgProbeToken$1, new Optional()],
+            [NgProbeToken, new Optional()],
         ],
         multi: true,
     },
 ];
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * \@stable
  */
@@ -2377,6 +2452,13 @@ class EventManagerPlugin {
     ;
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 class SharedStylesHost {
     constructor() {
         /**
@@ -2473,16 +2555,23 @@ DomSharedStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 
-const /** @type {?} */ NAMESPACE_URIS = {
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const NAMESPACE_URIS = {
     'xlink': 'http://www.w3.org/1999/xlink',
     'svg': 'http://www.w3.org/2000/svg',
     'xhtml': 'http://www.w3.org/1999/xhtml',
     'xml': 'http://www.w3.org/XML/1998/namespace'
 };
-const /** @type {?} */ COMPONENT_REGEX = /%COMP%/g;
-const /** @type {?} */ COMPONENT_VARIABLE = '%COMP%';
-const /** @type {?} */ HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
-const /** @type {?} */ CONTENT_ATTR = `_ngcontent-${COMPONENT_VARIABLE}`;
+const COMPONENT_REGEX = /%COMP%/g;
+const COMPONENT_VARIABLE = '%COMP%';
+const HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
+const CONTENT_ATTR = `_ngcontent-${COMPONENT_VARIABLE}`;
 /**
  * @param {?} componentShortId
  * @return {?}
@@ -2770,7 +2859,7 @@ class DefaultDomRenderer2 {
         return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
     }
 }
-const /** @type {?} */ AT_CHARCODE = '@'.charCodeAt(0);
+const AT_CHARCODE = '@'.charCodeAt(0);
 /**
  * @param {?} name
  * @param {?} nameKind
@@ -2875,6 +2964,13 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
     }
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 class DomEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
@@ -2906,7 +3002,14 @@ DomEventsPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 
-const /** @type {?} */ EVENT_NAMES = {
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const EVENT_NAMES = {
     // pan
     'pan': true,
     'panstart': true,
@@ -3037,8 +3140,15 @@ HammerGesturesPlugin.ctorParameters = () => [
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
 ];
 
-const /** @type {?} */ MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-const /** @type {?} */ MODIFIER_KEY_GETTERS = {
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
+const MODIFIER_KEY_GETTERS = {
     'alt': (event) => event.altKey,
     'control': (event) => event.ctrlKey,
     'meta': (event) => event.metaKey,
@@ -3163,6 +3273,13 @@ KeyEventsPlugin.ctorParameters = () => [
 ];
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * A pattern that recognizes a commonly useful subset of URLs that are safe.
  *
  * This regular expression matches a subset of URLs that will not cause script
@@ -3188,9 +3305,9 @@ KeyEventsPlugin.ctorParameters = () => [
  *
  * This regular expression was taken from the Closure sanitization library.
  */
-const /** @type {?} */ SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
+const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
 /** A pattern that matches safe data URLs. Only matches image, video and audio types. */
-const /** @type {?} */ DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
+const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
 /**
  * @param {?} url
  * @return {?}
@@ -3213,10 +3330,17 @@ function sanitizeSrcset(srcset) {
     return srcset.split(',').map((srcset) => sanitizeUrl(srcset.trim())).join(', ');
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
-let /** @type {?} */ inertElement = null;
+let inertElement = null;
 /** Lazily initialized to make sure the DOM adapter gets set before use. */
-let /** @type {?} */ DOM = null;
+let DOM = null;
 /**
  * Returns an HTML element that is guaranteed to not execute code when creating elements in it.
  * @return {?}
@@ -3270,26 +3394,26 @@ function merge(...sets) {
 // http://simon.html5.org/html-elements
 // Safe Void Elements - HTML5
 // http://dev.w3.org/html5/spec/Overview.html#void-elements
-const /** @type {?} */ VOID_ELEMENTS = tagSet('area,br,col,hr,img,wbr');
+const VOID_ELEMENTS = tagSet('area,br,col,hr,img,wbr');
 // Elements that you can, intentionally, leave open (and which close themselves)
 // http://dev.w3.org/html5/spec/Overview.html#optional-tags
-const /** @type {?} */ OPTIONAL_END_TAG_BLOCK_ELEMENTS = tagSet('colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr');
-const /** @type {?} */ OPTIONAL_END_TAG_INLINE_ELEMENTS = tagSet('rp,rt');
-const /** @type {?} */ OPTIONAL_END_TAG_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, OPTIONAL_END_TAG_BLOCK_ELEMENTS);
+const OPTIONAL_END_TAG_BLOCK_ELEMENTS = tagSet('colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr');
+const OPTIONAL_END_TAG_INLINE_ELEMENTS = tagSet('rp,rt');
+const OPTIONAL_END_TAG_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, OPTIONAL_END_TAG_BLOCK_ELEMENTS);
 // Safe Block Elements - HTML5
-const /** @type {?} */ BLOCK_ELEMENTS = merge(OPTIONAL_END_TAG_BLOCK_ELEMENTS, tagSet('address,article,' +
+const BLOCK_ELEMENTS = merge(OPTIONAL_END_TAG_BLOCK_ELEMENTS, tagSet('address,article,' +
     'aside,blockquote,caption,center,del,details,dialog,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,' +
     'h6,header,hgroup,hr,ins,main,map,menu,nav,ol,pre,section,summary,table,ul'));
 // Inline Elements - HTML5
-const /** @type {?} */ INLINE_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, tagSet('a,abbr,acronym,audio,b,' +
+const INLINE_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, tagSet('a,abbr,acronym,audio,b,' +
     'bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,picture,q,ruby,rp,rt,s,' +
     'samp,small,source,span,strike,strong,sub,sup,time,track,tt,u,var,video'));
-const /** @type {?} */ VALID_ELEMENTS = merge(VOID_ELEMENTS, BLOCK_ELEMENTS, INLINE_ELEMENTS, OPTIONAL_END_TAG_ELEMENTS);
+const VALID_ELEMENTS = merge(VOID_ELEMENTS, BLOCK_ELEMENTS, INLINE_ELEMENTS, OPTIONAL_END_TAG_ELEMENTS);
 // Attributes that have href and hence need to be sanitized
-const /** @type {?} */ URI_ATTRS = tagSet('background,cite,href,itemtype,longdesc,poster,src,xlink:href');
+const URI_ATTRS = tagSet('background,cite,href,itemtype,longdesc,poster,src,xlink:href');
 // Attributes that have special href set hence need to be sanitized
-const /** @type {?} */ SRCSET_ATTRS = tagSet('srcset');
-const /** @type {?} */ HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,' +
+const SRCSET_ATTRS = tagSet('srcset');
+const HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,' +
     'compact,controls,coords,datetime,default,dir,download,face,headers,height,hidden,hreflang,hspace,' +
     'ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,' +
     'scope,scrolling,shape,size,sizes,span,srclang,start,summary,tabindex,target,title,translate,type,usemap,' +
@@ -3300,7 +3424,7 @@ const /** @type {?} */ HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,ax
 // NB: Sanitization does not allow <form> elements or other active elements (<button> etc). Those
 // can be sanitized, but they increase security surface area without a legitimate use case, so they
 // are left out here.
-const /** @type {?} */ VALID_ATTRS = merge(URI_ATTRS, SRCSET_ATTRS, HTML_ATTRS);
+const VALID_ATTRS = merge(URI_ATTRS, SRCSET_ATTRS, HTML_ATTRS);
 /**
  * SanitizingHtmlSerializer serializes a DOM fragment, stripping out any unsafe elements and unsafe
  * attributes.
@@ -3410,9 +3534,9 @@ function checkClobberedElement(node, nextNode) {
     return nextNode;
 }
 // Regular Expressions for parsing tags and attributes
-const /** @type {?} */ SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+const SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
 // ! to ~ is the ASCII range.
-const /** @type {?} */ NON_ALPHANUMERIC_REGEXP = /([^\#-~ |!])/g;
+const NON_ALPHANUMERIC_REGEXP = /([^\#-~ |!])/g;
 /**
  * Escapes all potentially dangerous characters, so that the
  * resulting string can be safely inserted into attribute or
@@ -3500,6 +3624,13 @@ function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
 }
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Regular expression for safe style values.
  *
  * Quotes (" and ') are allowed, but a check must be done elsewhere to ensure they're balanced.
@@ -3513,13 +3644,13 @@ function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
  * This regular expression was taken from the Closure sanitization library, and augmented for
  * transformation values.
  */
-const /** @type {?} */ VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
-const /** @type {?} */ TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
-const /** @type {?} */ COLOR_FNS = '(?:rgb|hsl)a?';
-const /** @type {?} */ GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
-const /** @type {?} */ CSS3_FNS = '(?:calc|attr)';
-const /** @type {?} */ FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
-const /** @type {?} */ SAFE_STYLE_VALUE = new RegExp(`^(${VALUES}|` +
+const VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
+const TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
+const COLOR_FNS = '(?:rgb|hsl)a?';
+const GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
+const CSS3_FNS = '(?:calc|attr)';
+const FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
+const SAFE_STYLE_VALUE = new RegExp(`^(${VALUES}|` +
     `(?:${TRANSFORMATION_FNS}|${COLOR_FNS}|${GRADIENTS}|${CSS3_FNS})` +
     `${FN_ARGS})$`, 'g');
 /**
@@ -3540,7 +3671,7 @@ const /** @type {?} */ SAFE_STYLE_VALUE = new RegExp(`^(${VALUES}|` +
  * Given the common use case, low likelihood of attack vector, and low impact of an attack, this
  * code is permissive and allows URLs that sanitize otherwise.
  */
-const /** @type {?} */ URL_RE = /^url\(([^)]+)\)$/;
+const URL_RE = /^url\(([^)]+)\)$/;
 /**
  * Checks that quotes (" and ') are properly balanced inside a string. Assumes
  * that neither escape (\) nor any other character that could result in
@@ -3588,6 +3719,13 @@ function sanitizeStyle(value) {
     return 'unsafe';
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.
@@ -3843,7 +3981,14 @@ class SafeResourceUrlImpl extends SafeValueImpl {
     getTypeName() { return 'ResourceURL'; }
 }
 
-const /** @type {?} */ INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation },
@@ -3954,6 +4099,13 @@ BrowserModule.ctorParameters = () => [
  */
 const win = typeof window !== 'undefined' && window || {};
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 class ChangeDetectionPerfRecord {
     /**
      * @param {?} msPerTick
@@ -4020,7 +4172,14 @@ class AngularProfiler {
     }
 }
 
-const /** @type {?} */ PROFILER_GLOBAL_NAME = 'ng.profiler';
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const PROFILER_GLOBAL_NAME = 'ng.profiler';
 /**
  * Enabled Angular debug tools that are accessible via your browser's
  * developer console.
@@ -4051,6 +4210,13 @@ function disableDebugTools() {
     getDOM().setGlobalVar(PROFILER_GLOBAL_NAME, null);
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * Predicates for use with {\@link DebugElement}'s query functions.
  *
@@ -4097,9 +4263,56 @@ class By {
 }
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the common package.
+ */
+/**
  * \@stable
  */
-const VERSION = new Version('4.0.0-rc.5-5c5c2ae');
+const VERSION = new Version('4.0.0-rc.5-bcc29ff');
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the platform-browser package.
+ */
+
+// This file only reexports content of the `src` folder. Keep it that way.
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken$1 as NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, setValueOnPath as ɵsetValueOnPath, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, bootstrapListenerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
 //# sourceMappingURL=platform-browser.js.map
