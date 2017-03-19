@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.5-80075af
+ * @license Angular v4.0.0-rc.5-f634c62
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -15,7 +15,7 @@ var __extends = (undefined && undefined.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.5-80075af
+ * @license Angular v4.0.0-rc.5-f634c62
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -212,7 +212,15 @@ var AnimationRenderer = (function () {
      */
     AnimationRenderer.prototype.removeChild = function (parent, oldChild) {
         var _this = this;
-        this._engine.onRemove(oldChild, function () { return _this.delegate.removeChild(parent, oldChild); });
+        this._engine.onRemove(oldChild, function () {
+            // Note: if an component element has a leave animation, and the component
+            // a host leave animation, the view engine will call `removeChild` for the parent
+            // component renderer as well as for the child component renderer.
+            // Therefore, we need to check if we already removed the element.
+            if (_this.delegate.parentNode(oldChild)) {
+                _this.delegate.removeChild(parent, oldChild);
+            }
+        });
         this._queueFlush();
     };
     /**
