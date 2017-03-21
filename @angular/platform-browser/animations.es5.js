@@ -4,13 +4,20 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.5-d5a6e69
+ * @license Angular v4.0.0-rc.5-b7ba331
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { NgModule, Injectable, NgZone, RendererFactory2 } from '@angular/core';
+import { Injectable, NgModule, NgZone, RendererFactory2 } from '@angular/core';
 import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { ɵDomAnimationEngine, ɵAnimationStyleNormalizer, AnimationDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵsupportsWebAnimations, ɵWebAnimationsStyleNormalizer, ɵAnimationEngine, ɵNoopAnimationEngine } from '@angular/animations/browser';
+import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵDomAnimationEngine, ɵNoopAnimationDriver, ɵNoopAnimationEngine, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 var AnimationRendererFactory = (function () {
     /**
      * @param {?} delegate
@@ -197,7 +204,15 @@ var AnimationRenderer = (function () {
      */
     AnimationRenderer.prototype.removeChild = function (parent, oldChild) {
         var _this = this;
-        this._engine.onRemove(oldChild, function () { return _this.delegate.removeChild(parent, oldChild); });
+        this._engine.onRemove(oldChild, function () {
+            // Note: if an component element has a leave animation, and the component
+            // a host leave animation, the view engine will call `removeChild` for the parent
+            // component renderer as well as for the child component renderer.
+            // Therefore, we need to check if we already removed the element.
+            if (_this.delegate.parentNode(oldChild)) {
+                _this.delegate.removeChild(parent, oldChild);
+            }
+        });
         this._queueFlush();
     };
     /**
@@ -294,6 +309,13 @@ function namespaceify(namespaceId, value) {
 function deNamespaceify(namespaceId, value) {
     return value.replace(namespaceId + '#', '');
 }
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 var InjectableAnimationEngine = (function (_super) {
     __extends(InjectableAnimationEngine, _super);
     /**
@@ -343,7 +365,7 @@ function instantiateRendererFactory(renderer, engine, zone) {
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserModule.
  */
-var /** @type {?} */ BROWSER_ANIMATIONS_PROVIDERS = [
+var BROWSER_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
     { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
     { provide: ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
@@ -356,13 +378,20 @@ var /** @type {?} */ BROWSER_ANIMATIONS_PROVIDERS = [
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
  */
-var /** @type {?} */ BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
+var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
     { provide: ɵAnimationEngine, useClass: ɵNoopAnimationEngine }, {
         provide: RendererFactory2,
         useFactory: instantiateRendererFactory,
         deps: [ɵDomRendererFactory2, ɵAnimationEngine, NgZone]
     }
 ];
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * \@experimental Animation support is experimental.
  */
@@ -399,5 +428,39 @@ NoopAnimationsModule.decorators = [
  * @nocollapse
  */
 NoopAnimationsModule.ctorParameters = function () { return []; };
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all animation APIs of the animation browser package.
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the animation package.
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
 export { BrowserAnimationsModule, NoopAnimationsModule, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
 //# sourceMappingURL=animations.es5.js.map
