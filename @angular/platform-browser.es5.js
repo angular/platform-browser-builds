@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.6-08f2f08
+ * @license Angular v4.0.0-rc.6-92084f2
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2622,10 +2622,11 @@ DomSharedStylesHost.ctorParameters = function () { return [
  * found in the LICENSE file at https://angular.io/license
  */
 var NAMESPACE_URIS = {
-    'xlink': 'http://www.w3.org/1999/xlink',
     'svg': 'http://www.w3.org/2000/svg',
     'xhtml': 'http://www.w3.org/1999/xhtml',
-    'xml': 'http://www.w3.org/XML/1998/namespace'
+    'xlink': 'http://www.w3.org/1999/xlink',
+    'xml': 'http://www.w3.org/XML/1998/namespace',
+    'xmlns': 'http://www.w3.org/2000/xmlns/',
 };
 var COMPONENT_REGEX = /%COMP%/g;
 var COMPONENT_VARIABLE = '%COMP%';
@@ -2826,7 +2827,14 @@ var DefaultDomRenderer2 = (function () {
      */
     DefaultDomRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
         if (namespace) {
-            el.setAttributeNS(NAMESPACE_URIS[namespace], namespace + ':' + name, value);
+            name = namespace + ":" + name;
+            var /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
+            if (namespaceUri) {
+                el.setAttributeNS(namespaceUri, name, value);
+            }
+            else {
+                el.setAttribute(name, value);
+            }
         }
         else {
             el.setAttribute(name, value);
@@ -2840,7 +2848,13 @@ var DefaultDomRenderer2 = (function () {
      */
     DefaultDomRenderer2.prototype.removeAttribute = function (el, name, namespace) {
         if (namespace) {
-            el.removeAttributeNS(NAMESPACE_URIS[namespace], name);
+            var /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
+            if (namespaceUri) {
+                el.removeAttributeNS(namespaceUri, name);
+            }
+            else {
+                el.removeAttribute(namespace + ":" + name);
+            }
         }
         else {
             el.removeAttribute(name);
@@ -4402,7 +4416,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('4.0.0-rc.6-08f2f08');
+var VERSION = new Version('4.0.0-rc.6-92084f2');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
