@@ -1,0 +1,59 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { Animation, AnimationBuilder, AnimationMetadata, AnimationPlayer } from '@angular/animations';
+import { RendererFactory2 } from '@angular/core';
+import { AnimationRenderer } from './animation_renderer';
+export declare class BrowserAnimationBuilder extends AnimationBuilder {
+    private _nextAnimationId;
+    private _renderer;
+    constructor(rootRenderer: RendererFactory2);
+    build(animation: AnimationMetadata | AnimationMetadata): Animation;
+}
+export declare class NoopAnimationBuilder extends BrowserAnimationBuilder {
+    constructor();
+    build(animation: AnimationMetadata | AnimationMetadata): Animation;
+}
+export declare class BrowserAnimation extends Animation {
+    private _id;
+    private _renderer;
+    constructor(_id: string, _renderer: AnimationRenderer);
+    create(element: any, locals?: {
+        [key: string]: string | number;
+    }): AnimationPlayer;
+}
+export declare class NoopAnimation extends BrowserAnimation {
+    constructor();
+    create(element: any, locals?: {
+        [key: string]: string | number;
+    }): AnimationPlayer;
+}
+export declare class RendererAnimationPlayer implements AnimationPlayer {
+    id: string;
+    element: any;
+    private _renderer;
+    parentPlayer: AnimationPlayer;
+    constructor(id: string, element: any, locals: {
+        [key: string]: string | number;
+    }, _renderer: AnimationRenderer);
+    private _listen(eventName, callback);
+    private _command(command, ...args);
+    onDone(fn: () => void): void;
+    onStart(fn: () => void): void;
+    onDestroy(fn: () => void): void;
+    init(): void;
+    hasStarted(): boolean;
+    play(): void;
+    pause(): void;
+    restart(): void;
+    finish(): void;
+    destroy(): void;
+    reset(): void;
+    setPosition(p: number): void;
+    getPosition(): number;
+    totalTime: number;
+}
