@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-beta.0-f4b5784
+ * @license Angular v4.1.0-beta.1-c664486
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -15,7 +15,7 @@ var __extends = (undefined && undefined.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.1.0-beta.0-f4b5784
+ * @license Angular v4.1.0-beta.1-c664486
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -50,7 +50,8 @@ var BrowserAnimationBuilder = (function (_super) {
     BrowserAnimationBuilder.prototype.build = function (animation) {
         var /** @type {?} */ id = this._nextAnimationId.toString();
         this._nextAnimationId++;
-        issueAnimationCommand(this._renderer, null, id, 'register', [animation]);
+        var /** @type {?} */ entry = Array.isArray(animation) ? _angular_animations.sequence(animation) : animation;
+        issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
         return new BrowserAnimation(id, this._renderer);
     };
     return BrowserAnimationBuilder;
@@ -67,7 +68,7 @@ BrowserAnimationBuilder.ctorParameters = function () { return [
 var NoopAnimationBuilder = (function (_super) {
     __extends(NoopAnimationBuilder, _super);
     function NoopAnimationBuilder() {
-        return _super.call(this, null) || this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @param {?} animation
@@ -101,8 +102,7 @@ var BrowserAnimation = (function (_super) {
      * @return {?}
      */
     BrowserAnimation.prototype.create = function (element, locals) {
-        if (locals === void 0) { locals = {}; }
-        return new RendererAnimationPlayer(this._id, element, locals, this._renderer);
+        return new RendererAnimationPlayer(this._id, element, locals || {}, this._renderer);
     };
     return BrowserAnimation;
 }(_angular_animations.Animation));
@@ -161,17 +161,17 @@ var RendererAnimationPlayer = (function () {
      * @param {?} fn
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.onDone = function (fn) { this._listen('onDone', fn); };
+    RendererAnimationPlayer.prototype.onDone = function (fn) { this._listen('done', fn); };
     /**
      * @param {?} fn
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.onStart = function (fn) { this._listen('onStart', fn); };
+    RendererAnimationPlayer.prototype.onStart = function (fn) { this._listen('start', fn); };
     /**
      * @param {?} fn
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.onDestroy = function (fn) { this._listen('onDestroy', fn); };
+    RendererAnimationPlayer.prototype.onDestroy = function (fn) { this._listen('destroy', fn); };
     /**
      * @return {?}
      */
@@ -292,6 +292,7 @@ var AnimationRenderer = (function () {
      * @param {?} _namespaceId
      */
     function AnimationRenderer(delegate, _engine, _zone, _namespaceId) {
+        var _this = this;
         this.delegate = delegate;
         this._engine = _engine;
         this._zone = _zone;
@@ -299,6 +300,12 @@ var AnimationRenderer = (function () {
         this.destroyNode = null;
         this._flushPending = false;
         this.destroyNode = this.delegate.destroyNode ? function (n) { return delegate.destroyNode(n); } : null;
+        _zone.onMicrotaskEmpty.subscribe(function () {
+            if (_this._flushPending) {
+                _this._flushPending = false;
+                _this._engine.flush();
+            }
+        });
     }
     Object.defineProperty(AnimationRenderer.prototype, "data", {
         /**
@@ -479,16 +486,7 @@ var AnimationRenderer = (function () {
     /**
      * @return {?}
      */
-    AnimationRenderer.prototype._queueFlush = function () {
-        var _this = this;
-        if (!this._flushPending) {
-            this._flushPending = true;
-            Zone.current.scheduleMicroTask('AnimationRenderer queue flush', function () {
-                _this._flushPending = false;
-                _this._engine.flush();
-            });
-        }
-    };
+    AnimationRenderer.prototype._queueFlush = function () { this._flushPending = true; };
     return AnimationRenderer;
 }());
 /**
@@ -545,6 +543,27 @@ InjectableAnimationEngine.ctorParameters = function () { return [
     { type: _angular_animations_browser.AnimationDriver, },
     { type: _angular_animations_browser.ɵAnimationStyleNormalizer, },
 ]; };
+var InjectableNoopAnimationEngine = (function (_super) {
+    __extends(InjectableNoopAnimationEngine, _super);
+    /**
+     * @param {?} driver
+     * @param {?} normalizer
+     */
+    function InjectableNoopAnimationEngine(driver, normalizer) {
+        return _super.call(this, driver, normalizer) || this;
+    }
+    return InjectableNoopAnimationEngine;
+}(_angular_animations_browser.ɵNoopAnimationEngine));
+InjectableNoopAnimationEngine.decorators = [
+    { type: _angular_core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+InjectableNoopAnimationEngine.ctorParameters = function () { return [
+    { type: _angular_animations_browser.AnimationDriver, },
+    { type: _angular_animations_browser.ɵAnimationStyleNormalizer, },
+]; };
 /**
  * @return {?}
  */
@@ -588,8 +607,10 @@ var BROWSER_ANIMATIONS_PROVIDERS = [
  * include them in the BrowserTestingModule.
  */
 var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
+    { provide: _angular_animations_browser.AnimationDriver, useClass: _angular_animations_browser.ɵNoopAnimationDriver },
+    { provide: _angular_animations_browser.ɵAnimationStyleNormalizer, useClass: _angular_animations_browser.ɵNoopAnimationStyleNormalizer },
     { provide: _angular_animations.AnimationBuilder, useClass: NoopAnimationBuilder },
-    { provide: _angular_animations_browser.ɵAnimationEngine, useClass: _angular_animations_browser.ɵNoopAnimationEngine }, {
+    { provide: _angular_animations_browser.ɵAnimationEngine, useClass: InjectableNoopAnimationEngine }, {
         provide: _angular_core.RendererFactory2,
         useFactory: instantiateRendererFactory,
         deps: [_angular_platformBrowser.ɵDomRendererFactory2, _angular_animations_browser.ɵAnimationEngine, _angular_core.NgZone]
@@ -647,12 +668,13 @@ exports.ɵBrowserAnimation = BrowserAnimation;
 exports.ɵBrowserAnimationBuilder = BrowserAnimationBuilder;
 exports.ɵAnimationRenderer = AnimationRenderer;
 exports.ɵAnimationRendererFactory = AnimationRendererFactory;
-exports.ɵe = BROWSER_ANIMATIONS_PROVIDERS;
-exports.ɵf = BROWSER_NOOP_ANIMATIONS_PROVIDERS;
+exports.ɵf = BROWSER_ANIMATIONS_PROVIDERS;
+exports.ɵg = BROWSER_NOOP_ANIMATIONS_PROVIDERS;
 exports.ɵa = InjectableAnimationEngine;
-exports.ɵc = instantiateDefaultStyleNormalizer;
-exports.ɵd = instantiateRendererFactory;
-exports.ɵb = instantiateSupportedAnimationDriver;
+exports.ɵb = InjectableNoopAnimationEngine;
+exports.ɵd = instantiateDefaultStyleNormalizer;
+exports.ɵe = instantiateRendererFactory;
+exports.ɵc = instantiateSupportedAnimationDriver;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

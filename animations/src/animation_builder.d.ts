@@ -12,10 +12,9 @@ export declare class BrowserAnimationBuilder extends AnimationBuilder {
     private _nextAnimationId;
     private _renderer;
     constructor(rootRenderer: RendererFactory2);
-    build(animation: AnimationMetadata | AnimationMetadata): Animation;
+    build(animation: AnimationMetadata | AnimationMetadata[]): Animation;
 }
 export declare class NoopAnimationBuilder extends BrowserAnimationBuilder {
-    constructor();
     build(animation: AnimationMetadata | AnimationMetadata): Animation;
 }
 export declare class BrowserAnimation extends Animation {

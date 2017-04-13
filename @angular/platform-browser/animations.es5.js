@@ -4,14 +4,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.1.0-beta.0-f4b5784
+ * @license Angular v4.1.0-beta.1-c664486
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { Injectable, NgModule, NgZone, RendererFactory2 } from '@angular/core';
 import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { Animation, AnimationBuilder, NoopAnimationPlayer } from '@angular/animations';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵDomAnimationEngine, ɵNoopAnimationDriver, ɵNoopAnimationEngine, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { Animation, AnimationBuilder, NoopAnimationPlayer, sequence } from '@angular/animations';
+import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵDomAnimationEngine, ɵNoopAnimationDriver, ɵNoopAnimationEngine, ɵNoopAnimationStyleNormalizer, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43,7 +43,8 @@ var BrowserAnimationBuilder = (function (_super) {
     BrowserAnimationBuilder.prototype.build = function (animation) {
         var /** @type {?} */ id = this._nextAnimationId.toString();
         this._nextAnimationId++;
-        issueAnimationCommand(this._renderer, null, id, 'register', [animation]);
+        var /** @type {?} */ entry = Array.isArray(animation) ? sequence(animation) : animation;
+        issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
         return new BrowserAnimation(id, this._renderer);
     };
     return BrowserAnimationBuilder;
@@ -60,7 +61,7 @@ BrowserAnimationBuilder.ctorParameters = function () { return [
 var NoopAnimationBuilder = (function (_super) {
     __extends(NoopAnimationBuilder, _super);
     function NoopAnimationBuilder() {
-        return _super.call(this, null) || this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @param {?} animation
@@ -94,8 +95,7 @@ var BrowserAnimation = (function (_super) {
      * @return {?}
      */
     BrowserAnimation.prototype.create = function (element, locals) {
-        if (locals === void 0) { locals = {}; }
-        return new RendererAnimationPlayer(this._id, element, locals, this._renderer);
+        return new RendererAnimationPlayer(this._id, element, locals || {}, this._renderer);
     };
     return BrowserAnimation;
 }(Animation));
@@ -154,17 +154,17 @@ var RendererAnimationPlayer = (function () {
      * @param {?} fn
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.onDone = function (fn) { this._listen('onDone', fn); };
+    RendererAnimationPlayer.prototype.onDone = function (fn) { this._listen('done', fn); };
     /**
      * @param {?} fn
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.onStart = function (fn) { this._listen('onStart', fn); };
+    RendererAnimationPlayer.prototype.onStart = function (fn) { this._listen('start', fn); };
     /**
      * @param {?} fn
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.onDestroy = function (fn) { this._listen('onDestroy', fn); };
+    RendererAnimationPlayer.prototype.onDestroy = function (fn) { this._listen('destroy', fn); };
     /**
      * @return {?}
      */
@@ -285,6 +285,7 @@ var AnimationRenderer = (function () {
      * @param {?} _namespaceId
      */
     function AnimationRenderer(delegate, _engine, _zone, _namespaceId) {
+        var _this = this;
         this.delegate = delegate;
         this._engine = _engine;
         this._zone = _zone;
@@ -292,6 +293,12 @@ var AnimationRenderer = (function () {
         this.destroyNode = null;
         this._flushPending = false;
         this.destroyNode = this.delegate.destroyNode ? function (n) { return delegate.destroyNode(n); } : null;
+        _zone.onMicrotaskEmpty.subscribe(function () {
+            if (_this._flushPending) {
+                _this._flushPending = false;
+                _this._engine.flush();
+            }
+        });
     }
     Object.defineProperty(AnimationRenderer.prototype, "data", {
         /**
@@ -472,16 +479,7 @@ var AnimationRenderer = (function () {
     /**
      * @return {?}
      */
-    AnimationRenderer.prototype._queueFlush = function () {
-        var _this = this;
-        if (!this._flushPending) {
-            this._flushPending = true;
-            Zone.current.scheduleMicroTask('AnimationRenderer queue flush', function () {
-                _this._flushPending = false;
-                _this._engine.flush();
-            });
-        }
-    };
+    AnimationRenderer.prototype._queueFlush = function () { this._flushPending = true; };
     return AnimationRenderer;
 }());
 /**
@@ -538,6 +536,27 @@ InjectableAnimationEngine.ctorParameters = function () { return [
     { type: AnimationDriver, },
     { type: ɵAnimationStyleNormalizer, },
 ]; };
+var InjectableNoopAnimationEngine = (function (_super) {
+    __extends(InjectableNoopAnimationEngine, _super);
+    /**
+     * @param {?} driver
+     * @param {?} normalizer
+     */
+    function InjectableNoopAnimationEngine(driver, normalizer) {
+        return _super.call(this, driver, normalizer) || this;
+    }
+    return InjectableNoopAnimationEngine;
+}(ɵNoopAnimationEngine));
+InjectableNoopAnimationEngine.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+InjectableNoopAnimationEngine.ctorParameters = function () { return [
+    { type: AnimationDriver, },
+    { type: ɵAnimationStyleNormalizer, },
+]; };
 /**
  * @return {?}
  */
@@ -581,8 +600,10 @@ var BROWSER_ANIMATIONS_PROVIDERS = [
  * include them in the BrowserTestingModule.
  */
 var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
+    { provide: AnimationDriver, useClass: ɵNoopAnimationDriver },
+    { provide: ɵAnimationStyleNormalizer, useClass: ɵNoopAnimationStyleNormalizer },
     { provide: AnimationBuilder, useClass: NoopAnimationBuilder },
-    { provide: ɵAnimationEngine, useClass: ɵNoopAnimationEngine }, {
+    { provide: ɵAnimationEngine, useClass: InjectableNoopAnimationEngine }, {
         provide: RendererFactory2,
         useFactory: instantiateRendererFactory,
         deps: [ɵDomRendererFactory2, ɵAnimationEngine, NgZone]
@@ -665,5 +686,5 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { BrowserAnimationsModule, NoopAnimationsModule, NoopAnimation as ɵNoopAnimation, NoopAnimationBuilder as ɵNoopAnimationBuilder, BrowserAnimation as ɵBrowserAnimation, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
+export { BrowserAnimationsModule, NoopAnimationsModule, NoopAnimation as ɵNoopAnimation, NoopAnimationBuilder as ɵNoopAnimationBuilder, BrowserAnimation as ɵBrowserAnimation, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵf, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵg, InjectableAnimationEngine as ɵa, InjectableNoopAnimationEngine as ɵb, instantiateDefaultStyleNormalizer as ɵd, instantiateRendererFactory as ɵe, instantiateSupportedAnimationDriver as ɵc };
 //# sourceMappingURL=animations.es5.js.map
