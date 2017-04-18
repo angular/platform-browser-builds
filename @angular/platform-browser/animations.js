@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-beta.1-bccfaa4
+ * @license Angular v4.1.0-beta.1-5293794
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -244,7 +244,7 @@ class AnimationRenderer {
         if (!this._flushPromise) {
             this._zone.runOutsideAngular(() => {
                 this._flushPromise = Promise.resolve(null).then(() => {
-                    this._flushPromise = null;
+                    this._flushPromise = ((null));
                     this._engine.flush();
                 });
             });

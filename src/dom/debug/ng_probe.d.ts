@@ -11,7 +11,7 @@ import * as core from '@angular/core';
  * null if the given native element does not have an Angular view associated
  * with it.
  */
-export declare function inspectNativeElement(element: any): core.DebugNode;
+export declare function inspectNativeElement(element: any): core.DebugNode | null;
 /**
  * Deprecated. Use the one from '@angular/core'.
  * @deprecated

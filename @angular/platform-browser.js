@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-beta.1-bccfaa4
+ * @license Angular v4.1.0-beta.1-5293794
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -14,7 +14,7 @@ import * as core from '@angular/core';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let _DOM = null;
+let _DOM = ((null));
 /**
  * @return {?}
  */
@@ -44,7 +44,7 @@ function setRootDomAdapter(adapter) {
  */
 class DomAdapter {
     constructor() {
-        this.resourceLoaderType = null;
+        this.resourceLoaderType = ((null));
     }
     /**
      * @abstract
@@ -1437,7 +1437,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?=} styleValue
      * @return {?}
      */
-    hasStyle(element, styleName, styleValue = null) {
+    hasStyle(element, styleName, styleValue) {
         const /** @type {?} */ value = this.getStyle(element, styleName) || '';
         return styleValue ? value == styleValue : value.length > 0;
     }
@@ -1662,6 +1662,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         if (target === 'body') {
             return document.body;
         }
+        return null;
     }
     /**
      * @return {?}
@@ -1756,7 +1757,7 @@ let baseElement = null;
  */
 function getBaseElementHref() {
     if (!baseElement) {
-        baseElement = document.querySelector('base');
+        baseElement = ((document.querySelector('base')));
         if (!baseElement) {
             return null;
         }
@@ -1803,7 +1804,7 @@ function setValueOnPath(global, path, value) {
     const /** @type {?} */ parts = path.split('.');
     let /** @type {?} */ obj = global;
     while (parts.length > 1) {
-        const /** @type {?} */ name = parts.shift();
+        const /** @type {?} */ name = ((parts.shift()));
         if (obj.hasOwnProperty(name) && obj[name] != null) {
             obj = obj[name];
         }
@@ -1814,7 +1815,7 @@ function setValueOnPath(global, path, value) {
     if (obj === undefined || obj === null) {
         obj = {};
     }
-    obj[parts.shift()] = value;
+    obj[((parts.shift()))] = value;
 }
 
 /**
@@ -1882,7 +1883,7 @@ class BrowserPlatformLocation extends PlatformLocation {
     /**
      * @return {?}
      */
-    getBaseHrefFromDOM() { return getDOM().getBaseHref(this._doc); }
+    getBaseHrefFromDOM() { return ((getDOM().getBaseHref(this._doc))); }
     /**
      * @param {?} fn
      * @return {?}
@@ -2034,7 +2035,7 @@ class Meta {
         if (!tag)
             return null;
         selector = selector || this._parseSelector(tag);
-        const /** @type {?} */ meta = this.getTag(selector);
+        const /** @type {?} */ meta = ((this.getTag(selector)));
         if (meta) {
             return this._setMetaElementAttributes(tag, meta);
         }
@@ -2044,7 +2045,7 @@ class Meta {
      * @param {?} attrSelector
      * @return {?}
      */
-    removeTag(attrSelector) { this.removeTagElement(this.getTag(attrSelector)); }
+    removeTag(attrSelector) { this.removeTagElement(/** @type {?} */ ((this.getTag(attrSelector)))); }
     /**
      * @param {?} meta
      * @return {?}
@@ -2062,7 +2063,7 @@ class Meta {
     _getOrCreateElement(meta, forceCreation = false) {
         if (!forceCreation) {
             const /** @type {?} */ selector = this._parseSelector(meta);
-            const /** @type {?} */ elem = this.getTag(selector);
+            const /** @type {?} */ elem = ((this.getTag(selector)));
             // It's allowed to have multiple elements with the same name so it's not enough to
             // just check that element with the same name already present on the page. We also need to
             // check if element has tag attributes
@@ -3196,7 +3197,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
      * @return {?}
      */
     addEventListener(element, eventName, handler) {
-        const /** @type {?} */ parsedEvent = KeyEventsPlugin.parseEventName(eventName);
+        const /** @type {?} */ parsedEvent = ((KeyEventsPlugin.parseEventName(eventName)));
         const /** @type {?} */ outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
         return this.manager.getZone().runOutsideAngular(() => {
             return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
@@ -3212,7 +3213,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
         if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
             return null;
         }
-        const /** @type {?} */ key = KeyEventsPlugin._normalizeKey(parts.pop());
+        const /** @type {?} */ key = KeyEventsPlugin._normalizeKey(/** @type {?} */ ((parts.pop())));
         let /** @type {?} */ fullKey = '';
         MODIFIER_KEYS.forEach(modifierName => {
             const /** @type {?} */ index = parts.indexOf(modifierName);
@@ -3362,7 +3363,7 @@ function sanitizeSrcset(srcset) {
 /** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
 let inertElement = null;
 /** Lazily initialized to make sure the DOM adapter gets set before use. */
-let DOM = null;
+let DOM = ((null));
 /**
  * Returns an HTML element that is guaranteed to not execute code when creating elements in it.
  * @return {?}
@@ -3464,20 +3465,20 @@ class SanitizingHtmlSerializer {
         // This cannot use a TreeWalker, as it has to run on Angular's various DOM adapters.
         // However this code never accesses properties off of `document` before deleting its contents
         // again, so it shouldn't be vulnerable to DOM clobbering.
-        let /** @type {?} */ current = el.firstChild;
+        let /** @type {?} */ current = ((el.firstChild));
         while (current) {
             if (DOM.isElementNode(current)) {
                 this.startElement(/** @type {?} */ (current));
             }
             else if (DOM.isTextNode(current)) {
-                this.chars(DOM.nodeValue(current));
+                this.chars(/** @type {?} */ ((DOM.nodeValue(current))));
             }
             else {
                 // Strip non-element, non-text nodes.
                 this.sanitizedSomething = true;
             }
             if (DOM.firstChild(current)) {
-                current = DOM.firstChild(current);
+                current = ((DOM.firstChild(current)));
                 continue;
             }
             while (current) {
@@ -3485,12 +3486,12 @@ class SanitizingHtmlSerializer {
                 if (DOM.isElementNode(current)) {
                     this.endElement(/** @type {?} */ (current));
                 }
-                let /** @type {?} */ next = checkClobberedElement(current, DOM.nextSibling(current));
+                let /** @type {?} */ next = checkClobberedElement(current, /** @type {?} */ ((DOM.nextSibling(current))));
                 if (next) {
                     current = next;
                     break;
                 }
-                current = checkClobberedElement(current, DOM.parentElement(current));
+                current = checkClobberedElement(current, /** @type {?} */ ((DOM.parentElement(current))));
             }
         }
         return this.buf.join('');
@@ -3867,7 +3868,7 @@ class DomSanitizerImpl extends DomSanitizer {
             return null;
         switch (ctx) {
             case SecurityContext.NONE:
-                return value;
+                return (value);
             case SecurityContext.HTML:
                 if (value instanceof SafeHtmlImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -3877,7 +3878,7 @@ class DomSanitizerImpl extends DomSanitizer {
                 if (value instanceof SafeStyleImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'Style');
-                return sanitizeStyle(value);
+                return sanitizeStyle(/** @type {?} */ (value));
             case SecurityContext.SCRIPT:
                 if (value instanceof SafeScriptImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -4280,7 +4281,7 @@ class By {
      * @return {?}
      */
     static directive(type) {
-        return (debugElement) => debugElement.providerTokens.indexOf(type) !== -1;
+        return (debugElement) => ((debugElement.providerTokens)).indexOf(type) !== -1;
     }
 }
 
@@ -4307,7 +4308,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('4.1.0-beta.1-bccfaa4');
+const VERSION = new Version('4.1.0-beta.1-5293794');
 
 /**
  * @license

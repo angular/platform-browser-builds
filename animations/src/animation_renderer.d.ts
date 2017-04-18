@@ -12,7 +12,7 @@ export declare class AnimationRenderer implements Renderer2 {
     private _engine;
     private _zone;
     private _namespaceId;
-    destroyNode: (node: any) => (void | any);
+    destroyNode: ((node: any) => any) | null;
     private _flushPromise;
     constructor(delegate: Renderer2, _engine: AnimationEngine, _zone: NgZone, _namespaceId: string);
     readonly data: {
