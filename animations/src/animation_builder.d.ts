@@ -25,7 +25,7 @@ export declare class BrowserAnimation extends Animation {
         [key: string]: string | number;
     }): AnimationPlayer;
 }
-export declare class NoopAnimation extends BrowserAnimation {
+export declare class NoopAnimation extends Animation {
     constructor();
     create(element: any, locals?: {
         [key: string]: string | number;
@@ -35,7 +35,8 @@ export declare class RendererAnimationPlayer implements AnimationPlayer {
     id: string;
     element: any;
     private _renderer;
-    parentPlayer: AnimationPlayer;
+    parentPlayer: AnimationPlayer | null;
+    private _started;
     constructor(id: string, element: any, locals: {
         [key: string]: string | number;
     }, _renderer: AnimationRenderer);

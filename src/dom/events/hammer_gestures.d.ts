@@ -15,8 +15,8 @@ import { EventManagerPlugin } from './event_manager';
  */
 export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
 export interface HammerInstance {
-    on(eventName: string, callback: Function): void;
-    off(eventName: string, callback: Function): void;
+    on(eventName: string, callback?: Function): void;
+    off(eventName: string, callback?: Function): void;
 }
 /**
  * @experimental

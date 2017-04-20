@@ -11,7 +11,7 @@ import { PlatformRef, Provider } from '@angular/core';
  *
  * @stable
  */
-export declare const platformBrowserTesting: (extraProviders?: Provider[]) => PlatformRef;
+export declare const platformBrowserTesting: (extraProviders?: Provider[] | undefined) => PlatformRef;
 /**
  * NgModule for testing.
  *

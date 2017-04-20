@@ -1,9 +1,9 @@
 /**
- * @license Angular v4.1.0-beta.1-b46aba9
+ * @license Angular v4.1.0-beta.1-47acf3d
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, NgModule, NgZone, RendererFactory2 } from '@angular/core';
+import { Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { Animation, AnimationBuilder, NoopAnimationPlayer, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵDomAnimationEngine, ɵNoopAnimationDriver, ɵNoopAnimationEngine, ɵNoopAnimationStyleNormalizer, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
@@ -24,7 +24,7 @@ class BrowserAnimationBuilder extends AnimationBuilder {
         this._nextAnimationId = 0;
         const typeData = {
             id: '0',
-            encapsulation: null,
+            encapsulation: ViewEncapsulation.None,
             styles: [],
             data: { animation: [] }
         };
@@ -84,14 +84,14 @@ class BrowserAnimation extends Animation {
         return new RendererAnimationPlayer(this._id, element, locals || {}, this._renderer);
     }
 }
-class NoopAnimation extends BrowserAnimation {
-    constructor() { super(null, null); }
+class NoopAnimation extends Animation {
+    constructor() { super(); }
     /**
      * @param {?} element
      * @param {?=} locals
      * @return {?}
      */
-    create(element, locals = {}) {
+    create(element, locals) {
         return new NoopAnimationPlayer();
     }
 }
@@ -107,6 +107,7 @@ class RendererAnimationPlayer {
         this.element = element;
         this._renderer = _renderer;
         this.parentPlayer = null;
+        this._started = false;
         this.totalTime = 0;
         this._command('create', locals);
     }
@@ -148,11 +149,14 @@ class RendererAnimationPlayer {
     /**
      * @return {?}
      */
-    hasStarted() { return undefined; }
+    hasStarted() { return this._started; }
     /**
      * @return {?}
      */
-    play() { this._command('play'); }
+    play() {
+        this._command('play');
+        this._started = true;
+    }
     /**
      * @return {?}
      */
@@ -266,12 +270,7 @@ class AnimationRenderer {
         this.destroyNode = null;
         this._flushPending = false;
         this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
-        _zone.onMicrotaskEmpty.subscribe(() => {
-            if (this._flushPending) {
-                this._flushPending = false;
-                this._engine.flush();
-            }
-        });
+        _zone.onStable.subscribe(() => this._flush());
     }
     /**
      * @return {?}
@@ -446,7 +445,24 @@ class AnimationRenderer {
     /**
      * @return {?}
      */
-    _queueFlush() { this._flushPending = true; }
+    _flush() {
+        if (this._flushPending) {
+            this._flushPending = false;
+            this._engine.flush();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    _queueFlush() {
+        if (!this._flushPending) {
+            this._flushPending = true;
+            // this is here to kick off the onStable function incase
+            // an async operation was not used to run detectChanges
+            const /** @type {?} */ outerZone = (this._zone['outer']);
+            outerZone.scheduleMicroTask('animation onStable flush', () => { });
+        }
+    }
 }
 /**
  * @param {?} target

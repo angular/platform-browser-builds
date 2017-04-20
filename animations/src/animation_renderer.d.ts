@@ -13,7 +13,7 @@ export declare class AnimationRenderer implements Renderer2 {
     private _engine;
     private _zone;
     private _namespaceId;
-    destroyNode: (node: any) => (void | any);
+    destroyNode: ((node: any) => any) | null;
     private _flushPending;
     constructor(delegate: Renderer2, _engine: AnimationEngine, _zone: NgZone, _namespaceId: string);
     readonly data: {
@@ -38,5 +38,6 @@ export declare class AnimationRenderer implements Renderer2 {
     removeChild(parent: any, oldChild: any): void;
     setProperty(el: any, name: string, value: any): void;
     listen(target: 'window' | 'document' | 'body' | any, eventName: string, callback: (event: any) => any): () => void;
+    private _flush();
     private _queueFlush();
 }

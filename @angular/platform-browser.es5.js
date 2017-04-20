@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.1.0-beta.1-b46aba9
+ * @license Angular v4.1.0-beta.1-47acf3d
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -17,7 +17,7 @@ import { APP_ID, APP_INITIALIZER, ApplicationModule, ApplicationRef, ErrorHandle
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var _DOM = null;
+var _DOM = ((null));
 /**
  * @return {?}
  */
@@ -46,7 +46,7 @@ function setRootDomAdapter(adapter) {
  */
 var DomAdapter = (function () {
     function DomAdapter() {
-        this.resourceLoaderType = null;
+        this.resourceLoaderType = ((null));
     }
     /**
      * @abstract
@@ -1463,7 +1463,6 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
-        if (styleValue === void 0) { styleValue = null; }
         var /** @type {?} */ value = this.getStyle(element, styleName) || '';
         return styleValue ? value == styleValue : value.length > 0;
     };
@@ -1688,6 +1687,7 @@ var BrowserDomAdapter = (function (_super) {
         if (target === 'body') {
             return document.body;
         }
+        return null;
     };
     /**
      * @return {?}
@@ -1783,7 +1783,7 @@ var baseElement = null;
  */
 function getBaseElementHref() {
     if (!baseElement) {
-        baseElement = document.querySelector('base');
+        baseElement = ((document.querySelector('base')));
         if (!baseElement) {
             return null;
         }
@@ -1831,7 +1831,7 @@ function setValueOnPath(global, path, value) {
     var /** @type {?} */ parts = path.split('.');
     var /** @type {?} */ obj = global;
     while (parts.length > 1) {
-        var /** @type {?} */ name = parts.shift();
+        var /** @type {?} */ name = ((parts.shift()));
         if (obj.hasOwnProperty(name) && obj[name] != null) {
             obj = obj[name];
         }
@@ -1842,7 +1842,7 @@ function setValueOnPath(global, path, value) {
     if (obj === undefined || obj === null) {
         obj = {};
     }
-    obj[parts.shift()] = value;
+    obj[((parts.shift()))] = value;
 }
 /**
  * @license
@@ -1913,7 +1913,7 @@ var BrowserPlatformLocation = (function (_super) {
     /**
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(this._doc); };
+    BrowserPlatformLocation.prototype.getBaseHrefFromDOM = function () { return ((getDOM().getBaseHref(this._doc))); };
     /**
      * @param {?} fn
      * @return {?}
@@ -2080,7 +2080,7 @@ var Meta = (function () {
         if (!tag)
             return null;
         selector = selector || this._parseSelector(tag);
-        var /** @type {?} */ meta = this.getTag(selector);
+        var /** @type {?} */ meta = ((this.getTag(selector)));
         if (meta) {
             return this._setMetaElementAttributes(tag, meta);
         }
@@ -2090,7 +2090,7 @@ var Meta = (function () {
      * @param {?} attrSelector
      * @return {?}
      */
-    Meta.prototype.removeTag = function (attrSelector) { this.removeTagElement(this.getTag(attrSelector)); };
+    Meta.prototype.removeTag = function (attrSelector) { this.removeTagElement(/** @type {?} */ ((this.getTag(attrSelector)))); };
     /**
      * @param {?} meta
      * @return {?}
@@ -2109,7 +2109,7 @@ var Meta = (function () {
         if (forceCreation === void 0) { forceCreation = false; }
         if (!forceCreation) {
             var /** @type {?} */ selector = this._parseSelector(meta);
-            var /** @type {?} */ elem = this.getTag(selector);
+            var /** @type {?} */ elem = ((this.getTag(selector)));
             // It's allowed to have multiple elements with the same name so it's not enough to
             // just check that element with the same name already present on the page. We also need to
             // check if element has tag attributes
@@ -3273,7 +3273,7 @@ var KeyEventsPlugin = (function (_super) {
      * @return {?}
      */
     KeyEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        var /** @type {?} */ parsedEvent = KeyEventsPlugin.parseEventName(eventName);
+        var /** @type {?} */ parsedEvent = ((KeyEventsPlugin.parseEventName(eventName)));
         var /** @type {?} */ outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
         return this.manager.getZone().runOutsideAngular(function () {
             return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
@@ -3289,7 +3289,7 @@ var KeyEventsPlugin = (function (_super) {
         if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
             return null;
         }
-        var /** @type {?} */ key = KeyEventsPlugin._normalizeKey(parts.pop());
+        var /** @type {?} */ key = KeyEventsPlugin._normalizeKey(/** @type {?} */ ((parts.pop())));
         var /** @type {?} */ fullKey = '';
         MODIFIER_KEYS.forEach(function (modifierName) {
             var /** @type {?} */ index = parts.indexOf(modifierName);
@@ -3438,7 +3438,7 @@ function sanitizeSrcset(srcset) {
 /** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
 var inertElement = null;
 /** Lazily initialized to make sure the DOM adapter gets set before use. */
-var DOM = null;
+var DOM = ((null));
 /**
  * Returns an HTML element that is guaranteed to not execute code when creating elements in it.
  * @return {?}
@@ -3547,20 +3547,20 @@ var SanitizingHtmlSerializer = (function () {
         // This cannot use a TreeWalker, as it has to run on Angular's various DOM adapters.
         // However this code never accesses properties off of `document` before deleting its contents
         // again, so it shouldn't be vulnerable to DOM clobbering.
-        var /** @type {?} */ current = el.firstChild;
+        var /** @type {?} */ current = ((el.firstChild));
         while (current) {
             if (DOM.isElementNode(current)) {
                 this.startElement(/** @type {?} */ (current));
             }
             else if (DOM.isTextNode(current)) {
-                this.chars(DOM.nodeValue(current));
+                this.chars(/** @type {?} */ ((DOM.nodeValue(current))));
             }
             else {
                 // Strip non-element, non-text nodes.
                 this.sanitizedSomething = true;
             }
             if (DOM.firstChild(current)) {
-                current = DOM.firstChild(current);
+                current = ((DOM.firstChild(current)));
                 continue;
             }
             while (current) {
@@ -3568,12 +3568,12 @@ var SanitizingHtmlSerializer = (function () {
                 if (DOM.isElementNode(current)) {
                     this.endElement(/** @type {?} */ (current));
                 }
-                var /** @type {?} */ next = checkClobberedElement(current, DOM.nextSibling(current));
+                var /** @type {?} */ next = checkClobberedElement(current, /** @type {?} */ ((DOM.nextSibling(current))));
                 if (next) {
                     current = next;
                     break;
                 }
-                current = checkClobberedElement(current, DOM.parentElement(current));
+                current = checkClobberedElement(current, /** @type {?} */ ((DOM.parentElement(current))));
             }
         }
         return this.buf.join('');
@@ -3957,7 +3957,7 @@ var DomSanitizerImpl = (function (_super) {
             return null;
         switch (ctx) {
             case SecurityContext.NONE:
-                return value;
+                return (value);
             case SecurityContext.HTML:
                 if (value instanceof SafeHtmlImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -3967,7 +3967,7 @@ var DomSanitizerImpl = (function (_super) {
                 if (value instanceof SafeStyleImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'Style');
-                return sanitizeStyle(value);
+                return sanitizeStyle(/** @type {?} */ (value));
             case SecurityContext.SCRIPT:
                 if (value instanceof SafeScriptImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -4399,7 +4399,7 @@ var By = (function () {
      * @return {?}
      */
     By.directive = function (type) {
-        return function (debugElement) { return debugElement.providerTokens.indexOf(type) !== -1; };
+        return function (debugElement) { return ((debugElement.providerTokens)).indexOf(type) !== -1; };
     };
     return By;
 }());
@@ -4425,7 +4425,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('4.1.0-beta.1-b46aba9');
+var VERSION = new Version('4.1.0-beta.1-47acf3d');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
