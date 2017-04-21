@@ -1,12 +1,12 @@
 /**
- * @license Angular v4.1.0-beta.1-47acf3d
+ * @license Angular v4.1.0-beta.1-70384db
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { Animation, AnimationBuilder, NoopAnimationPlayer, sequence } from '@angular/animations';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵDomAnimationEngine, ɵNoopAnimationDriver, ɵNoopAnimationEngine, ɵNoopAnimationStyleNormalizer, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵDomAnimationEngine, ɵNoopAnimationDriver, ɵNoopAnimationEngine, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 
 /**
  * @license
@@ -270,7 +270,7 @@ class AnimationRenderer {
         this.destroyNode = null;
         this._flushPending = false;
         this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
-        _zone.onStable.subscribe(() => this._flush());
+        _zone.onMicrotaskEmpty.subscribe(() => this._flush());
     }
     /**
      * @return {?}
@@ -457,10 +457,6 @@ class AnimationRenderer {
     _queueFlush() {
         if (!this._flushPending) {
             this._flushPending = true;
-            // this is here to kick off the onStable function incase
-            // an async operation was not used to run detectChanges
-            const /** @type {?} */ outerZone = (this._zone['outer']);
-            outerZone.scheduleMicroTask('animation onStable flush', () => { });
         }
     }
 }
@@ -517,25 +513,7 @@ InjectableAnimationEngine.ctorParameters = () => [
     { type: AnimationDriver, },
     { type: ɵAnimationStyleNormalizer, },
 ];
-class InjectableNoopAnimationEngine extends ɵNoopAnimationEngine {
-    /**
-     * @param {?} driver
-     * @param {?} normalizer
-     */
-    constructor(driver, normalizer) {
-        super(driver, normalizer);
-    }
-}
-InjectableNoopAnimationEngine.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-InjectableNoopAnimationEngine.ctorParameters = () => [
-    { type: AnimationDriver, },
-    { type: ɵAnimationStyleNormalizer, },
-];
+
 /**
  * @return {?}
  */
@@ -565,7 +543,7 @@ function instantiateRendererFactory(renderer, engine, zone) {
  * include them in the BrowserModule.
  */
 const BROWSER_ANIMATIONS_PROVIDERS = [
-    { provide: AnimationBuilder, useClass: BrowserAnimationBuilder },
+    { provide: AnimationBuilder, useClass: NoopAnimationBuilder },
     { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
     { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
     { provide: ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
@@ -579,10 +557,14 @@ const BROWSER_ANIMATIONS_PROVIDERS = [
  * include them in the BrowserTestingModule.
  */
 const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
+    { provide: AnimationBuilder, useClass: BrowserAnimationBuilder },
     { provide: AnimationDriver, useClass: ɵNoopAnimationDriver },
-    { provide: ɵAnimationStyleNormalizer, useClass: ɵNoopAnimationStyleNormalizer },
-    { provide: AnimationBuilder, useClass: NoopAnimationBuilder },
-    { provide: ɵAnimationEngine, useClass: InjectableNoopAnimationEngine }, {
+    { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer }, {
+        provide: ɵAnimationEngine,
+        useClass: ɵNoopAnimationEngine,
+        deps: [AnimationDriver, ɵAnimationStyleNormalizer]
+    },
+    {
         provide: RendererFactory2,
         useFactory: instantiateRendererFactory,
         deps: [ɵDomRendererFactory2, ɵAnimationEngine, NgZone]
@@ -665,5 +647,5 @@ NoopAnimationsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserAnimationsModule, NoopAnimationsModule, NoopAnimation as ɵNoopAnimation, NoopAnimationBuilder as ɵNoopAnimationBuilder, BrowserAnimation as ɵBrowserAnimation, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵf, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵg, InjectableAnimationEngine as ɵa, InjectableNoopAnimationEngine as ɵb, instantiateDefaultStyleNormalizer as ɵd, instantiateRendererFactory as ɵe, instantiateSupportedAnimationDriver as ɵc };
+export { BrowserAnimationsModule, NoopAnimationsModule, NoopAnimation as ɵNoopAnimation, NoopAnimationBuilder as ɵNoopAnimationBuilder, BrowserAnimation as ɵBrowserAnimation, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
 //# sourceMappingURL=animations.js.map
