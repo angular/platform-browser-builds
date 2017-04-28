@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-rc.0-46b20be
+ * @license Angular v4.1.0-ed4eaf3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -15,7 +15,7 @@ var __extends = (undefined && undefined.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.1.0-rc.0-46b20be
+ * @license Angular v4.1.0-ed4eaf3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -274,6 +274,18 @@ var AnimationRendererFactory = (function () {
         animationTriggers.forEach(function (trigger) { return _this._engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger); });
         return new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
     };
+    /**
+     * @return {?}
+     */
+    AnimationRendererFactory.prototype.begin = function () { this.delegate.begin(); };
+    /**
+     * @return {?}
+     */
+    AnimationRendererFactory.prototype.end = function () {
+        var _this = this;
+        this._zone.runOutsideAngular(function () { return _this._engine.flush(); });
+        this.delegate.end();
+    };
     return AnimationRendererFactory;
 }());
 AnimationRendererFactory.decorators = [
@@ -295,15 +307,13 @@ var AnimationRenderer = (function () {
      * @param {?} _namespaceId
      */
     function AnimationRenderer(delegate, _engine, _zone, _namespaceId) {
-        var _this = this;
         this.delegate = delegate;
         this._engine = _engine;
         this._zone = _zone;
         this._namespaceId = _namespaceId;
         this.destroyNode = null;
-        this._flushPending = false;
+        this._animationCallbacksBuffer = [];
         this.destroyNode = this.delegate.destroyNode ? function (n) { return delegate.destroyNode(n); } : null;
-        _zone.onMicrotaskEmpty.subscribe(function () { return _this._flush(); });
     }
     Object.defineProperty(AnimationRenderer.prototype, "data", {
         /**
@@ -419,7 +429,6 @@ var AnimationRenderer = (function () {
     AnimationRenderer.prototype.appendChild = function (parent, newChild) {
         this.delegate.appendChild(parent, newChild);
         this._engine.onInsert(this._namespaceId, newChild, parent, false);
-        this._queueFlush();
     };
     /**
      * @param {?} parent
@@ -430,7 +439,6 @@ var AnimationRenderer = (function () {
     AnimationRenderer.prototype.insertBefore = function (parent, newChild, refChild) {
         this.delegate.insertBefore(parent, newChild, refChild);
         this._engine.onInsert(this._namespaceId, newChild, parent, true);
-        this._queueFlush();
     };
     /**
      * @param {?} parent
@@ -439,7 +447,6 @@ var AnimationRenderer = (function () {
      */
     AnimationRenderer.prototype.removeChild = function (parent, oldChild) {
         this._engine.onRemove(this._namespaceId, oldChild, this.delegate);
-        this._queueFlush();
     };
     /**
      * @param {?} el
@@ -450,10 +457,7 @@ var AnimationRenderer = (function () {
     AnimationRenderer.prototype.setProperty = function (el, name, value) {
         if (name.charAt(0) == '@') {
             name = name.substr(1);
-            var /** @type {?} */ doFlush = this._engine.setProperty(this._namespaceId, el, name, value);
-            if (doFlush) {
-                this._queueFlush();
-            }
+            this._engine.setProperty(this._namespaceId, el, name, value);
         }
         else {
             this.delegate.setProperty(el, name, value);
@@ -475,28 +479,31 @@ var AnimationRenderer = (function () {
                 _a = parseTriggerCallbackName(name), name = _a[0], phase = _a[1];
             }
             return this._engine.listen(this._namespaceId, element, name, phase, function (event) {
-                _this._zone.run(function () { return callback(event); });
+                _this._bufferMicrotaskIntoZone(callback, event);
             });
         }
         return this.delegate.listen(target, eventName, callback);
         var _a;
     };
     /**
+     * @param {?} fn
+     * @param {?} data
      * @return {?}
      */
-    AnimationRenderer.prototype._flush = function () {
-        if (this._flushPending) {
-            this._flushPending = false;
-            this._engine.flush();
+    AnimationRenderer.prototype._bufferMicrotaskIntoZone = function (fn, data) {
+        var _this = this;
+        if (this._animationCallbacksBuffer.length == 0) {
+            Promise.resolve(null).then(function () {
+                _this._zone.run(function () {
+                    _this._animationCallbacksBuffer.forEach(function (tuple) {
+                        var fn = tuple[0], data = tuple[1];
+                        fn(data);
+                    });
+                    _this._animationCallbacksBuffer = [];
+                });
+            });
         }
-    };
-    /**
-     * @return {?}
-     */
-    AnimationRenderer.prototype._queueFlush = function () {
-        if (!this._flushPending) {
-            this._flushPending = true;
-        }
+        this._animationCallbacksBuffer.push([fn, data]);
     };
     return AnimationRenderer;
 }());
