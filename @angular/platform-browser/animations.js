@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-8931e71
+ * @license Angular v4.1.0-1092292
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -38,6 +38,22 @@ class AnimationRendererFactory {
         const /** @type {?} */ animationTriggers = (type.data['animation']);
         animationTriggers.forEach(trigger => this._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name)));
         return new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
+    }
+    /**
+     * @return {?}
+     */
+    begin() {
+        if (this.delegate.begin) {
+            this.delegate.begin();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    end() {
+        if (this.delegate.end) {
+            this.delegate.end();
+        }
     }
 }
 AnimationRendererFactory.decorators = [

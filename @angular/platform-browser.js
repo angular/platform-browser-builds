@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-8931e71
+ * @license Angular v4.1.0-1092292
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2673,6 +2673,14 @@ class DomRendererFactory2 {
             }
         }
     }
+    /**
+     * @return {?}
+     */
+    begin() { }
+    /**
+     * @return {?}
+     */
+    end() { }
 }
 DomRendererFactory2.decorators = [
     { type: Injectable },
@@ -4308,7 +4316,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('4.1.0-8931e71');
+const VERSION = new Version('4.1.0-1092292');
 
 /**
  * @license

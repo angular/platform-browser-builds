@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-8931e71
+ * @license Angular v4.1.0-1092292
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -15,7 +15,7 @@ var __extends = (undefined && undefined.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.1.0-8931e71
+ * @license Angular v4.1.0-1092292
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -51,6 +51,22 @@ var AnimationRendererFactory = (function () {
         var /** @type {?} */ animationTriggers = (type.data['animation']);
         animationTriggers.forEach(function (trigger) { return _this._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name)); });
         return new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
+    };
+    /**
+     * @return {?}
+     */
+    AnimationRendererFactory.prototype.begin = function () {
+        if (this.delegate.begin) {
+            this.delegate.begin();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    AnimationRendererFactory.prototype.end = function () {
+        if (this.delegate.end) {
+            this.delegate.end();
+        }
     };
     return AnimationRendererFactory;
 }());

@@ -6,6 +6,8 @@ export declare class AnimationRendererFactory implements RendererFactory2 {
     private _zone;
     constructor(delegate: RendererFactory2, _engine: AnimationEngine, _zone: NgZone);
     createRenderer(hostElement: any, type: RendererType2): Renderer2;
+    begin(): void;
+    end(): void;
 }
 export declare class AnimationRenderer implements Renderer2 {
     delegate: Renderer2;
