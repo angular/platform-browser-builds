@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-a619991
+ * @license Angular v4.2.0-beta.0-61c2f47
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -15,7 +15,7 @@ var __extends = (undefined && undefined.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.1.0-a619991
+ * @license Angular v4.2.0-beta.0-61c2f47
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -65,25 +65,6 @@ BrowserAnimationBuilder.decorators = [
 BrowserAnimationBuilder.ctorParameters = function () { return [
     { type: _angular_core.RendererFactory2, },
 ]; };
-var NoopAnimationBuilder = (function (_super) {
-    __extends(NoopAnimationBuilder, _super);
-    function NoopAnimationBuilder() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @param {?} animation
-     * @return {?}
-     */
-    NoopAnimationBuilder.prototype.build = function (animation) { return new NoopAnimation(); };
-    return NoopAnimationBuilder;
-}(BrowserAnimationBuilder));
-NoopAnimationBuilder.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-NoopAnimationBuilder.ctorParameters = function () { return []; };
 var BrowserAnimation = (function (_super) {
     __extends(BrowserAnimation, _super);
     /**
@@ -98,44 +79,29 @@ var BrowserAnimation = (function (_super) {
     }
     /**
      * @param {?} element
-     * @param {?=} locals
+     * @param {?=} options
      * @return {?}
      */
-    BrowserAnimation.prototype.create = function (element, locals) {
-        return new RendererAnimationPlayer(this._id, element, locals || {}, this._renderer);
+    BrowserAnimation.prototype.create = function (element, options) {
+        return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
     };
     return BrowserAnimation;
-}(_angular_animations.Animation));
-var NoopAnimation = (function (_super) {
-    __extends(NoopAnimation, _super);
-    function NoopAnimation() {
-        return _super.call(this) || this;
-    }
-    /**
-     * @param {?} element
-     * @param {?=} locals
-     * @return {?}
-     */
-    NoopAnimation.prototype.create = function (element, locals) {
-        return new _angular_animations.NoopAnimationPlayer();
-    };
-    return NoopAnimation;
 }(_angular_animations.Animation));
 var RendererAnimationPlayer = (function () {
     /**
      * @param {?} id
      * @param {?} element
-     * @param {?} locals
+     * @param {?} options
      * @param {?} _renderer
      */
-    function RendererAnimationPlayer(id, element, locals, _renderer) {
+    function RendererAnimationPlayer(id, element, options, _renderer) {
         this.id = id;
         this.element = element;
         this._renderer = _renderer;
         this.parentPlayer = null;
         this._started = false;
         this.totalTime = 0;
-        this._command('create', locals);
+        this._command('create', options);
     }
     /**
      * @param {?} eventName
@@ -277,14 +243,20 @@ var AnimationRendererFactory = (function () {
     /**
      * @return {?}
      */
-    AnimationRendererFactory.prototype.begin = function () { this.delegate.begin(); };
+    AnimationRendererFactory.prototype.begin = function () {
+        if (this.delegate.begin) {
+            this.delegate.begin();
+        }
+    };
     /**
      * @return {?}
      */
     AnimationRendererFactory.prototype.end = function () {
         var _this = this;
         this._zone.runOutsideAngular(function () { return _this._engine.flush(); });
-        this.delegate.end();
+        if (this.delegate.end) {
+            this.delegate.end();
+        }
     };
     return AnimationRendererFactory;
 }());
@@ -550,7 +522,7 @@ var InjectableAnimationEngine = (function (_super) {
         return _super.call(this, driver, normalizer) || this;
     }
     return InjectableAnimationEngine;
-}(_angular_animations_browser.ɵDomAnimationEngine));
+}(_angular_animations_browser.ɵAnimationEngine));
 InjectableAnimationEngine.decorators = [
     { type: _angular_core.Injectable },
 ];
@@ -585,13 +557,8 @@ function instantiateDefaultStyleNormalizer() {
 function instantiateRendererFactory(renderer, engine, zone) {
     return new AnimationRendererFactory(renderer, engine, zone);
 }
-/**
- * Separate providers from the actual module so that we can do a local modification in Google3 to
- * include them in the BrowserModule.
- */
-var BROWSER_ANIMATIONS_PROVIDERS = [
-    { provide: _angular_animations.AnimationBuilder, useClass: NoopAnimationBuilder },
-    { provide: _angular_animations_browser.AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
+var SHARED_ANIMATION_PROVIDERS = [
+    { provide: _angular_animations.AnimationBuilder, useClass: BrowserAnimationBuilder },
     { provide: _angular_animations_browser.ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
     { provide: _angular_animations_browser.ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
         provide: _angular_core.RendererFactory2,
@@ -601,22 +568,16 @@ var BROWSER_ANIMATIONS_PROVIDERS = [
 ];
 /**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
+ * include them in the BrowserModule.
+ */
+var BROWSER_ANIMATIONS_PROVIDERS = [
+    { provide: _angular_animations_browser.AnimationDriver, useFactory: instantiateSupportedAnimationDriver }
+].concat(SHARED_ANIMATION_PROVIDERS);
+/**
+ * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
  */
-var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
-    { provide: _angular_animations.AnimationBuilder, useClass: BrowserAnimationBuilder },
-    { provide: _angular_animations_browser.AnimationDriver, useClass: _angular_animations_browser.ɵNoopAnimationDriver },
-    { provide: _angular_animations_browser.ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer }, {
-        provide: _angular_animations_browser.ɵAnimationEngine,
-        useClass: _angular_animations_browser.ɵNoopAnimationEngine,
-        deps: [_angular_animations_browser.AnimationDriver, _angular_animations_browser.ɵAnimationStyleNormalizer]
-    },
-    {
-        provide: _angular_core.RendererFactory2,
-        useFactory: instantiateRendererFactory,
-        deps: [_angular_platformBrowser.ɵDomRendererFactory2, _angular_animations_browser.ɵAnimationEngine, _angular_core.NgZone]
-    }
-];
+var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: _angular_animations_browser.AnimationDriver, useClass: _angular_animations_browser.ɵNoopAnimationDriver }].concat(SHARED_ANIMATION_PROVIDERS);
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -663,8 +624,6 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 
 exports.BrowserAnimationsModule = BrowserAnimationsModule;
 exports.NoopAnimationsModule = NoopAnimationsModule;
-exports.ɵNoopAnimation = NoopAnimation;
-exports.ɵNoopAnimationBuilder = NoopAnimationBuilder;
 exports.ɵBrowserAnimation = BrowserAnimation;
 exports.ɵBrowserAnimationBuilder = BrowserAnimationBuilder;
 exports.ɵAnimationRenderer = AnimationRenderer;

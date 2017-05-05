@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Animation, AnimationBuilder, AnimationMetadata, AnimationPlayer } from '@angular/animations';
+import { Animation, AnimationBuilder, AnimationMetadata, AnimationOptions, AnimationPlayer } from '@angular/animations';
 import { RendererFactory2 } from '@angular/core';
 import { AnimationRenderer } from './animation_renderer';
 export declare class BrowserAnimationBuilder extends AnimationBuilder {
@@ -14,22 +14,11 @@ export declare class BrowserAnimationBuilder extends AnimationBuilder {
     constructor(rootRenderer: RendererFactory2);
     build(animation: AnimationMetadata | AnimationMetadata[]): Animation;
 }
-export declare class NoopAnimationBuilder extends BrowserAnimationBuilder {
-    build(animation: AnimationMetadata | AnimationMetadata): Animation;
-}
 export declare class BrowserAnimation extends Animation {
     private _id;
     private _renderer;
     constructor(_id: string, _renderer: AnimationRenderer);
-    create(element: any, locals?: {
-        [key: string]: string | number;
-    }): AnimationPlayer;
-}
-export declare class NoopAnimation extends Animation {
-    constructor();
-    create(element: any, locals?: {
-        [key: string]: string | number;
-    }): AnimationPlayer;
+    create(element: any, options?: AnimationOptions): AnimationPlayer;
 }
 export declare class RendererAnimationPlayer implements AnimationPlayer {
     id: string;
@@ -37,9 +26,7 @@ export declare class RendererAnimationPlayer implements AnimationPlayer {
     private _renderer;
     parentPlayer: AnimationPlayer | null;
     private _started;
-    constructor(id: string, element: any, locals: {
-        [key: string]: string | number;
-    }, _renderer: AnimationRenderer);
+    constructor(id: string, element: any, options: AnimationOptions, _renderer: AnimationRenderer);
     private _listen(eventName, callback);
     private _command(command, ...args);
     onDone(fn: () => void): void;

@@ -1,11 +1,8 @@
-import { AnimationDriver, ɵAnimationEngine as AnimationEngine, ɵAnimationStyleNormalizer as AnimationStyleNormalizer, ɵDomAnimationEngine as DomAnimationEngine, ɵNoopAnimationDriver as NoopAnimationDriver, ɵNoopAnimationEngine as NoopAnimationEngine, ɵWebAnimationsStyleNormalizer as WebAnimationsStyleNormalizer } from '@angular/animations/browser';
+import { AnimationDriver, ɵAnimationEngine as AnimationEngine, ɵAnimationStyleNormalizer as AnimationStyleNormalizer, ɵNoopAnimationDriver as NoopAnimationDriver, ɵWebAnimationsStyleNormalizer as WebAnimationsStyleNormalizer } from '@angular/animations/browser';
 import { NgZone, Provider } from '@angular/core';
 import { ɵDomRendererFactory2 as DomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationRendererFactory } from './animation_renderer';
-export declare class InjectableAnimationEngine extends DomAnimationEngine {
-    constructor(driver: AnimationDriver, normalizer: AnimationStyleNormalizer);
-}
-export declare class InjectableNoopAnimationEngine extends NoopAnimationEngine {
+export declare class InjectableAnimationEngine extends AnimationEngine {
     constructor(driver: AnimationDriver, normalizer: AnimationStyleNormalizer);
 }
 export declare function instantiateSupportedAnimationDriver(): NoopAnimationDriver;
