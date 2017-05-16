@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.0-beta.1-af99cf2
+ * @license Angular v4.2.0-beta.1-9a7f5d5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2270,14 +2270,6 @@ Title.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var __assign = (undefined && undefined.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 const CORE_TOKENS = {
     'ApplicationRef': ApplicationRef,
     'NgZone': NgZone,
@@ -2316,7 +2308,7 @@ class NgProbeToken$1 {
 function _createNgProbe(extraTokens, coreTokens) {
     const /** @type {?} */ tokens = (extraTokens || []).concat(coreTokens || []);
     getDOM().setGlobalVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, __assign({}, CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
+    getDOM().setGlobalVar(CORE_TOKENS_GLOBAL_NAME, Object.assign({}, CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
     return () => inspectNativeElement;
 }
 /**
@@ -3337,7 +3329,9 @@ KeyEventsPlugin.ctorParameters = () => [
  * This regular expression was taken from the Closure sanitization library.
  */
 const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
-/** A pattern that matches safe data URLs. Only matches image, video and audio types. */
+/**
+ * A pattern that matches safe data URLs. Only matches image, video and audio types.
+ */
 const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
 /**
  * @param {?} url
@@ -3368,10 +3362,14 @@ function sanitizeSrcset(srcset) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below. */
+/**
+ * A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below.
+ */
 let inertElement = null;
-/** Lazily initialized to make sure the DOM adapter gets set before use. */
-let DOM = ((null));
+/**
+ * Lazily initialized to make sure the DOM adapter gets set before use.
+ */
+let DOM = null;
 /**
  * Returns an HTML element that is guaranteed to not execute code when creating elements in it.
  * @return {?}
@@ -4316,7 +4314,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('4.2.0-beta.1-af99cf2');
+const VERSION = new Version('4.2.0-beta.1-9a7f5d5');
 
 /**
  * @license
