@@ -1,11 +1,178 @@
 /**
- * @license Angular v4.2.0-beta.1-d761059
+ * @license Angular v4.2.0-beta.1-54a6e4f
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, NgModule, NgZone, RendererFactory2 } from '@angular/core';
+import { Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵDomAnimationEngine, ɵNoopAnimationDriver, ɵNoopAnimationEngine, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { Animation, AnimationBuilder, sequence } from '@angular/animations';
+import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+class BrowserAnimationBuilder extends AnimationBuilder {
+    /**
+     * @param {?} rootRenderer
+     */
+    constructor(rootRenderer) {
+        super();
+        this._nextAnimationId = 0;
+        const typeData = {
+            id: '0',
+            encapsulation: ViewEncapsulation.None,
+            styles: [],
+            data: { animation: [] }
+        };
+        this._renderer = rootRenderer.createRenderer(document.body, typeData);
+    }
+    /**
+     * @param {?} animation
+     * @return {?}
+     */
+    build(animation) {
+        const /** @type {?} */ id = this._nextAnimationId.toString();
+        this._nextAnimationId++;
+        const /** @type {?} */ entry = Array.isArray(animation) ? sequence(animation) : animation;
+        issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
+        return new BrowserAnimation(id, this._renderer);
+    }
+}
+BrowserAnimationBuilder.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+BrowserAnimationBuilder.ctorParameters = () => [
+    { type: RendererFactory2, },
+];
+class BrowserAnimation extends Animation {
+    /**
+     * @param {?} _id
+     * @param {?} _renderer
+     */
+    constructor(_id, _renderer) {
+        super();
+        this._id = _id;
+        this._renderer = _renderer;
+    }
+    /**
+     * @param {?} element
+     * @param {?=} options
+     * @return {?}
+     */
+    create(element, options) {
+        return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
+    }
+}
+class RendererAnimationPlayer {
+    /**
+     * @param {?} id
+     * @param {?} element
+     * @param {?} options
+     * @param {?} _renderer
+     */
+    constructor(id, element, options, _renderer) {
+        this.id = id;
+        this.element = element;
+        this._renderer = _renderer;
+        this.parentPlayer = null;
+        this._started = false;
+        this.totalTime = 0;
+        this._command('create', options);
+    }
+    /**
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
+    _listen(eventName, callback) {
+        return this._renderer.listen(this.element, `@@${this.id}:${eventName}`, callback);
+    }
+    /**
+     * @param {?} command
+     * @param {...?} args
+     * @return {?}
+     */
+    _command(command, ...args) {
+        return issueAnimationCommand(this._renderer, this.element, this.id, command, args);
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    onDone(fn) { this._listen('done', fn); }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    onStart(fn) { this._listen('start', fn); }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    onDestroy(fn) { this._listen('destroy', fn); }
+    /**
+     * @return {?}
+     */
+    init() { this._command('init'); }
+    /**
+     * @return {?}
+     */
+    hasStarted() { return this._started; }
+    /**
+     * @return {?}
+     */
+    play() {
+        this._command('play');
+        this._started = true;
+    }
+    /**
+     * @return {?}
+     */
+    pause() { this._command('pause'); }
+    /**
+     * @return {?}
+     */
+    restart() { this._command('restart'); }
+    /**
+     * @return {?}
+     */
+    finish() { this._command('finish'); }
+    /**
+     * @return {?}
+     */
+    destroy() { this._command('destroy'); }
+    /**
+     * @return {?}
+     */
+    reset() { this._command('reset'); }
+    /**
+     * @param {?} p
+     * @return {?}
+     */
+    setPosition(p) { this._command('setPosition', p); }
+    /**
+     * @return {?}
+     */
+    getPosition() { return 0; }
+}
+/**
+ * @param {?} renderer
+ * @param {?} element
+ * @param {?} id
+ * @param {?} command
+ * @param {?} args
+ * @return {?}
+ */
+function issueAnimationCommand(renderer, element, id, command, args) {
+    return renderer.setProperty(element, `@@${id}:${command}`, args);
+}
 
 /**
  * @license
@@ -24,6 +191,16 @@ class AnimationRendererFactory {
         this.delegate = delegate;
         this._engine = _engine;
         this._zone = _zone;
+        this._currentId = 0;
+        _engine.onRemovalComplete = (element, delegate) => {
+            // Note: if an component element has a leave animation, and the component
+            // a host leave animation, the view engine will call `removeChild` for the parent
+            // component renderer as well as for the child component renderer.
+            // Therefore, we need to check if we already removed the element.
+            if (delegate && delegate.parentNode(element)) {
+                delegate.removeChild(element.parentNode, element);
+            }
+        };
     }
     /**
      * @param {?} hostElement
@@ -34,9 +211,11 @@ class AnimationRendererFactory {
         let /** @type {?} */ delegate = this.delegate.createRenderer(hostElement, type);
         if (!hostElement || !type || !type.data || !type.data['animation'])
             return delegate;
-        const /** @type {?} */ namespaceId = type.id;
+        const /** @type {?} */ componentId = type.id;
+        const /** @type {?} */ namespaceId = type.id + '-' + this._currentId;
+        this._currentId++;
         const /** @type {?} */ animationTriggers = (type.data['animation']);
-        animationTriggers.forEach(trigger => this._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name)));
+        animationTriggers.forEach(trigger => this._engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
         return new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
     }
     /**
@@ -51,10 +230,15 @@ class AnimationRendererFactory {
      * @return {?}
      */
     end() {
+        this._zone.runOutsideAngular(() => this._engine.flush());
         if (this.delegate.end) {
             this.delegate.end();
         }
     }
+    /**
+     * @return {?}
+     */
+    whenRenderingDone() { return this._engine.whenRenderingDone(); }
 }
 AnimationRendererFactory.decorators = [
     { type: Injectable },
@@ -80,7 +264,7 @@ class AnimationRenderer {
         this._zone = _zone;
         this._namespaceId = _namespaceId;
         this.destroyNode = null;
-        this._flushPromise = null;
+        this._animationCallbacksBuffer = [];
         this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
     }
     /**
@@ -90,7 +274,10 @@ class AnimationRenderer {
     /**
      * @return {?}
      */
-    destroy() { this.delegate.destroy(); }
+    destroy() {
+        this._engine.destroy(this._namespaceId, this.delegate);
+        this.delegate.destroy();
+    }
     /**
      * @param {?} name
      * @param {?=} namespace
@@ -188,8 +375,8 @@ class AnimationRenderer {
      * @return {?}
      */
     appendChild(parent, newChild) {
-        this._engine.onInsert(newChild, () => this.delegate.appendChild(parent, newChild));
-        this._queueFlush();
+        this.delegate.appendChild(parent, newChild);
+        this._engine.onInsert(this._namespaceId, newChild, parent, false);
     }
     /**
      * @param {?} parent
@@ -198,8 +385,8 @@ class AnimationRenderer {
      * @return {?}
      */
     insertBefore(parent, newChild, refChild) {
-        this._engine.onInsert(newChild, () => this.delegate.insertBefore(parent, newChild, refChild));
-        this._queueFlush();
+        this.delegate.insertBefore(parent, newChild, refChild);
+        this._engine.onInsert(this._namespaceId, newChild, parent, true);
     }
     /**
      * @param {?} parent
@@ -207,16 +394,7 @@ class AnimationRenderer {
      * @return {?}
      */
     removeChild(parent, oldChild) {
-        this._engine.onRemove(oldChild, () => {
-            // Note: if an component element has a leave animation, and the component
-            // a host leave animation, the view engine will call `removeChild` for the parent
-            // component renderer as well as for the child component renderer.
-            // Therefore, we need to check if we already removed the element.
-            if (this.delegate.parentNode(oldChild)) {
-                this.delegate.removeChild(parent, oldChild);
-            }
-        });
-        this._queueFlush();
+        this._engine.onRemove(this._namespaceId, oldChild, this.delegate);
     }
     /**
      * @param {?} el
@@ -226,8 +404,8 @@ class AnimationRenderer {
      */
     setProperty(el, name, value) {
         if (name.charAt(0) == '@') {
-            this._engine.setProperty(el, namespaceify(this._namespaceId, name.substr(1)), value);
-            this._queueFlush();
+            name = name.substr(1);
+            this._engine.setProperty(this._namespaceId, el, name, value);
         }
         else {
             this.delegate.setProperty(el, name, value);
@@ -242,29 +420,35 @@ class AnimationRenderer {
     listen(target, eventName, callback) {
         if (eventName.charAt(0) == '@') {
             const /** @type {?} */ element = resolveElementFromTarget(target);
-            const [name, phase] = parseTriggerCallbackName(eventName.substr(1));
-            return this._engine.listen(element, namespaceify(this._namespaceId, name), phase, (event) => {
-                const /** @type {?} */ e = (event);
-                if (e.triggerName) {
-                    e.triggerName = deNamespaceify(this._namespaceId, e.triggerName);
-                }
-                this._zone.run(() => callback(event));
+            let /** @type {?} */ name = eventName.substr(1);
+            let /** @type {?} */ phase = '';
+            if (name.charAt(0) != '@') {
+                [name, phase] = parseTriggerCallbackName(name);
+            }
+            return this._engine.listen(this._namespaceId, element, name, phase, event => {
+                this._bufferMicrotaskIntoZone(callback, event);
             });
         }
         return this.delegate.listen(target, eventName, callback);
     }
     /**
+     * @param {?} fn
+     * @param {?} data
      * @return {?}
      */
-    _queueFlush() {
-        if (!this._flushPromise) {
-            this._zone.runOutsideAngular(() => {
-                this._flushPromise = Promise.resolve(null).then(() => {
-                    this._flushPromise = ((null));
-                    this._engine.flush();
+    _bufferMicrotaskIntoZone(fn, data) {
+        if (this._animationCallbacksBuffer.length == 0) {
+            Promise.resolve(null).then(() => {
+                this._zone.run(() => {
+                    this._animationCallbacksBuffer.forEach(tuple => {
+                        const [fn, data] = tuple;
+                        fn(data);
+                    });
+                    this._animationCallbacksBuffer = [];
                 });
             });
         }
+        this._animationCallbacksBuffer.push([fn, data]);
     }
 }
 /**
@@ -293,22 +477,6 @@ function parseTriggerCallbackName(triggerName) {
     const /** @type {?} */ phase = triggerName.substr(dotIndex + 1);
     return [trigger, phase];
 }
-/**
- * @param {?} namespaceId
- * @param {?} value
- * @return {?}
- */
-function namespaceify(namespaceId, value) {
-    return `${namespaceId}#${value}`;
-}
-/**
- * @param {?} namespaceId
- * @param {?} value
- * @return {?}
- */
-function deNamespaceify(namespaceId, value) {
-    return value.replace(namespaceId + '#', '');
-}
 
 /**
  * @license
@@ -317,7 +485,7 @@ function deNamespaceify(namespaceId, value) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-class InjectableAnimationEngine extends ɵDomAnimationEngine {
+class InjectableAnimationEngine extends ɵAnimationEngine {
     /**
      * @param {?} driver
      * @param {?} normalizer
@@ -360,12 +528,8 @@ function instantiateDefaultStyleNormalizer() {
 function instantiateRendererFactory(renderer, engine, zone) {
     return new AnimationRendererFactory(renderer, engine, zone);
 }
-/**
- * Separate providers from the actual module so that we can do a local modification in Google3 to
- * include them in the BrowserModule.
- */
-const BROWSER_ANIMATIONS_PROVIDERS = [
-    { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
+const SHARED_ANIMATION_PROVIDERS = [
+    { provide: AnimationBuilder, useClass: BrowserAnimationBuilder },
     { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
     { provide: ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
         provide: RendererFactory2,
@@ -375,15 +539,17 @@ const BROWSER_ANIMATIONS_PROVIDERS = [
 ];
 /**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
+ * include them in the BrowserModule.
+ */
+const BROWSER_ANIMATIONS_PROVIDERS = [
+    { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
+    ...SHARED_ANIMATION_PROVIDERS
+];
+/**
+ * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
  */
-const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
-    { provide: ɵAnimationEngine, useClass: ɵNoopAnimationEngine }, {
-        provide: RendererFactory2,
-        useFactory: instantiateRendererFactory,
-        deps: [ɵDomRendererFactory2, ɵAnimationEngine, NgZone]
-    }
-];
+const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useClass: ɵNoopAnimationDriver }, ...SHARED_ANIMATION_PROVIDERS];
 
 /**
  * @license
@@ -461,5 +627,5 @@ NoopAnimationsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserAnimationsModule, NoopAnimationsModule, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
+export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimation as ɵBrowserAnimation, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
 //# sourceMappingURL=animations.js.map
