@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "4.2.0-beta.1-f1a9e3c",
+  "version": "4.2.0-rc.0-3d382dc",
   "description": "Angular - library for using Angular in a web browser",
   "main": "./bundles/platform-browser.umd.js",
   "module": "./@angular/platform-browser.es5.js",
@@ -9,8 +9,8 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "4.2.0-beta.1-f1a9e3c",
-    "@angular/common": "4.2.0-beta.1-f1a9e3c"
+    "@angular/core": "4.2.0-rc.0-3d382dc",
+    "@angular/common": "4.2.0-rc.0-3d382dc"
   },
   "repository": {
     "type": "git",
