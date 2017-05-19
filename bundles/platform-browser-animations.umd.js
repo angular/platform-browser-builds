@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.0-beta.1-5d4f543
+ * @license Angular v4.2.0-beta.1-b10029c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -20,7 +20,7 @@ var __extends = (undefined && undefined.__extends) || (function () {
     };
 })();
 /**
- * @license Angular v4.2.0-beta.1-5d4f543
+ * @license Angular v4.2.0-beta.1-b10029c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -57,7 +57,7 @@ var BrowserAnimationBuilder = (function (_super) {
         this._nextAnimationId++;
         var /** @type {?} */ entry = Array.isArray(animation) ? _angular_animations.sequence(animation) : animation;
         issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
-        return new BrowserAnimation(id, this._renderer);
+        return new BrowserAnimationFactory(id, this._renderer);
     };
     return BrowserAnimationBuilder;
 }(_angular_animations.AnimationBuilder));
@@ -70,13 +70,13 @@ BrowserAnimationBuilder.decorators = [
 BrowserAnimationBuilder.ctorParameters = function () { return [
     { type: _angular_core.RendererFactory2, },
 ]; };
-var BrowserAnimation = (function (_super) {
-    __extends(BrowserAnimation, _super);
+var BrowserAnimationFactory = (function (_super) {
+    __extends(BrowserAnimationFactory, _super);
     /**
      * @param {?} _id
      * @param {?} _renderer
      */
-    function BrowserAnimation(_id, _renderer) {
+    function BrowserAnimationFactory(_id, _renderer) {
         var _this = _super.call(this) || this;
         _this._id = _id;
         _this._renderer = _renderer;
@@ -87,11 +87,11 @@ var BrowserAnimation = (function (_super) {
      * @param {?=} options
      * @return {?}
      */
-    BrowserAnimation.prototype.create = function (element, options) {
+    BrowserAnimationFactory.prototype.create = function (element, options) {
         return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
     };
-    return BrowserAnimation;
-}(_angular_animations.Animation));
+    return BrowserAnimationFactory;
+}(_angular_animations.AnimationFactory));
 var RendererAnimationPlayer = (function () {
     /**
      * @param {?} id
@@ -653,8 +653,8 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 
 exports.BrowserAnimationsModule = BrowserAnimationsModule;
 exports.NoopAnimationsModule = NoopAnimationsModule;
-exports.ɵBrowserAnimation = BrowserAnimation;
 exports.ɵBrowserAnimationBuilder = BrowserAnimationBuilder;
+exports.ɵBrowserAnimationFactory = BrowserAnimationFactory;
 exports.ɵAnimationRenderer = AnimationRenderer;
 exports.ɵAnimationRendererFactory = AnimationRendererFactory;
 exports.ɵe = BROWSER_ANIMATIONS_PROVIDERS;

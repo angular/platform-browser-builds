@@ -9,13 +9,13 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /**
- * @license Angular v4.2.0-beta.1-5d4f543
+ * @license Angular v4.2.0-beta.1-b10029c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { Animation, AnimationBuilder, sequence } from '@angular/animations';
+import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 /**
  * @license
@@ -50,7 +50,7 @@ var BrowserAnimationBuilder = (function (_super) {
         this._nextAnimationId++;
         var /** @type {?} */ entry = Array.isArray(animation) ? sequence(animation) : animation;
         issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
-        return new BrowserAnimation(id, this._renderer);
+        return new BrowserAnimationFactory(id, this._renderer);
     };
     return BrowserAnimationBuilder;
 }(AnimationBuilder));
@@ -63,13 +63,13 @@ BrowserAnimationBuilder.decorators = [
 BrowserAnimationBuilder.ctorParameters = function () { return [
     { type: RendererFactory2, },
 ]; };
-var BrowserAnimation = (function (_super) {
-    __extends(BrowserAnimation, _super);
+var BrowserAnimationFactory = (function (_super) {
+    __extends(BrowserAnimationFactory, _super);
     /**
      * @param {?} _id
      * @param {?} _renderer
      */
-    function BrowserAnimation(_id, _renderer) {
+    function BrowserAnimationFactory(_id, _renderer) {
         var _this = _super.call(this) || this;
         _this._id = _id;
         _this._renderer = _renderer;
@@ -80,11 +80,11 @@ var BrowserAnimation = (function (_super) {
      * @param {?=} options
      * @return {?}
      */
-    BrowserAnimation.prototype.create = function (element, options) {
+    BrowserAnimationFactory.prototype.create = function (element, options) {
         return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
     };
-    return BrowserAnimation;
-}(Animation));
+    return BrowserAnimationFactory;
+}(AnimationFactory));
 var RendererAnimationPlayer = (function () {
     /**
      * @param {?} id
@@ -677,5 +677,5 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimation as ɵBrowserAnimation, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
+export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
 //# sourceMappingURL=animations.es5.js.map

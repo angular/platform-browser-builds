@@ -1,11 +1,11 @@
 /**
- * @license Angular v4.2.0-beta.1-5d4f543
+ * @license Angular v4.2.0-beta.1-b10029c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { Animation, AnimationBuilder, sequence } from '@angular/animations';
+import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 
 /**
@@ -39,7 +39,7 @@ class BrowserAnimationBuilder extends AnimationBuilder {
         this._nextAnimationId++;
         const /** @type {?} */ entry = Array.isArray(animation) ? sequence(animation) : animation;
         issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
-        return new BrowserAnimation(id, this._renderer);
+        return new BrowserAnimationFactory(id, this._renderer);
     }
 }
 BrowserAnimationBuilder.decorators = [
@@ -51,7 +51,7 @@ BrowserAnimationBuilder.decorators = [
 BrowserAnimationBuilder.ctorParameters = () => [
     { type: RendererFactory2, },
 ];
-class BrowserAnimation extends Animation {
+class BrowserAnimationFactory extends AnimationFactory {
     /**
      * @param {?} _id
      * @param {?} _renderer
@@ -646,5 +646,5 @@ NoopAnimationsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimation as ɵBrowserAnimation, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
+export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
 //# sourceMappingURL=animations.js.map

@@ -5,16 +5,16 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Animation, AnimationBuilder, AnimationMetadata, AnimationOptions, AnimationPlayer } from '@angular/animations';
+import { AnimationBuilder, AnimationFactory, AnimationMetadata, AnimationOptions, AnimationPlayer } from '@angular/animations';
 import { RendererFactory2 } from '@angular/core';
 import { AnimationRenderer } from './animation_renderer';
 export declare class BrowserAnimationBuilder extends AnimationBuilder {
     private _nextAnimationId;
     private _renderer;
     constructor(rootRenderer: RendererFactory2);
-    build(animation: AnimationMetadata | AnimationMetadata[]): Animation;
+    build(animation: AnimationMetadata | AnimationMetadata[]): AnimationFactory;
 }
-export declare class BrowserAnimation extends Animation {
+export declare class BrowserAnimationFactory extends AnimationFactory {
     private _id;
     private _renderer;
     constructor(_id: string, _renderer: AnimationRenderer);
