@@ -5,20 +5,24 @@ export declare class AnimationRendererFactory implements RendererFactory2 {
     private _engine;
     private _zone;
     private _currentId;
+    private _currentFlushId;
+    private _animationCallbacksBuffer;
     constructor(delegate: RendererFactory2, _engine: AnimationEngine, _zone: NgZone);
     createRenderer(hostElement: any, type: RendererType2): Renderer2;
     begin(): void;
+    private _scheduleCountTask();
     end(): void;
     whenRenderingDone(): Promise<any>;
 }
 export declare class AnimationRenderer implements Renderer2 {
+    private _factory;
     delegate: Renderer2;
     private _engine;
     private _zone;
     private _namespaceId;
     destroyNode: ((node: any) => any) | null;
-    private _animationCallbacksBuffer;
-    constructor(delegate: Renderer2, _engine: AnimationEngine, _zone: NgZone, _namespaceId: string);
+    microtaskCount: number;
+    constructor(_factory: AnimationRendererFactory, delegate: Renderer2, _engine: AnimationEngine, _zone: NgZone, _namespaceId: string);
     readonly data: {
         [key: string]: any;
     };
@@ -41,5 +45,4 @@ export declare class AnimationRenderer implements Renderer2 {
     removeChild(parent: any, oldChild: any): void;
     setProperty(el: any, name: string, value: any): void;
     listen(target: 'window' | 'document' | 'body' | any, eventName: string, callback: (event: any) => any): () => void;
-    private _bufferMicrotaskIntoZone(fn, data);
 }

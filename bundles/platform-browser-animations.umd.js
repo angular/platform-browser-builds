@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.0-beta.1-eed67dd
+ * @license Angular v4.2.0-beta.1-6cb93c1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -20,7 +20,7 @@ var __extends = (undefined && undefined.__extends) || (function () {
     };
 })();
 /**
- * @license Angular v4.2.0-beta.1-eed67dd
+ * @license Angular v4.2.0-beta.1-6cb93c1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -218,6 +218,8 @@ var AnimationRendererFactory = (function () {
         this._engine = _engine;
         this._zone = _zone;
         this._currentId = 0;
+        this._currentFlushId = 1;
+        this._animationCallbacksBuffer = [];
         _engine.onRemovalComplete = function (element, delegate) {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
@@ -243,7 +245,7 @@ var AnimationRendererFactory = (function () {
         this._currentId++;
         var /** @type {?} */ animationTriggers = (type.data['animation']);
         animationTriggers.forEach(function (trigger) { return _this._engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger); });
-        return new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
+        return new AnimationRenderer(this, delegate, this._engine, this._zone, namespaceId);
     };
     /**
      * @return {?}
@@ -256,9 +258,44 @@ var AnimationRendererFactory = (function () {
     /**
      * @return {?}
      */
+    AnimationRendererFactory.prototype._scheduleCountTask = function () {
+        var _this = this;
+        Zone.current.scheduleMicroTask('incremenet the animation microtask', function () { _this._currentFlushId++; });
+    };
+    /**
+     * @param {?} count
+     * @param {?} fn
+     * @param {?} data
+     * @return {?}
+     */
+    AnimationRendererFactory.prototype.scheduleListenerCallback = function (count, fn, data) {
+        var _this = this;
+        if (count >= 0 && count < this._currentFlushId) {
+            this._zone.run(function () { return fn(data); });
+            return;
+        }
+        if (this._animationCallbacksBuffer.length == 0) {
+            Promise.resolve(null).then(function () {
+                _this._zone.run(function () {
+                    _this._animationCallbacksBuffer.forEach(function (tuple) {
+                        var fn = tuple[0], data = tuple[1];
+                        fn(data);
+                    });
+                    _this._animationCallbacksBuffer = [];
+                });
+            });
+        }
+        this._animationCallbacksBuffer.push([fn, data]);
+    };
+    /**
+     * @return {?}
+     */
     AnimationRendererFactory.prototype.end = function () {
         var _this = this;
-        this._zone.runOutsideAngular(function () { return _this._engine.flush(); });
+        this._zone.runOutsideAngular(function () {
+            _this._scheduleCountTask();
+            _this._engine.flush(_this._currentFlushId);
+        });
         if (this.delegate.end) {
             this.delegate.end();
         }
@@ -282,18 +319,20 @@ AnimationRendererFactory.ctorParameters = function () { return [
 ]; };
 var AnimationRenderer = (function () {
     /**
+     * @param {?} _factory
      * @param {?} delegate
      * @param {?} _engine
      * @param {?} _zone
      * @param {?} _namespaceId
      */
-    function AnimationRenderer(delegate, _engine, _zone, _namespaceId) {
+    function AnimationRenderer(_factory, delegate, _engine, _zone, _namespaceId) {
+        this._factory = _factory;
         this.delegate = delegate;
         this._engine = _engine;
         this._zone = _zone;
         this._namespaceId = _namespaceId;
         this.destroyNode = null;
-        this._animationCallbacksBuffer = [];
+        this.microtaskCount = 0;
         this.destroyNode = this.delegate.destroyNode ? function (n) { return delegate.destroyNode(n); } : null;
     }
     Object.defineProperty(AnimationRenderer.prototype, "data", {
@@ -460,31 +499,12 @@ var AnimationRenderer = (function () {
                 _a = parseTriggerCallbackName(name), name = _a[0], phase = _a[1];
             }
             return this._engine.listen(this._namespaceId, element, name, phase, function (event) {
-                _this._bufferMicrotaskIntoZone(callback, event);
+                var /** @type {?} */ countId = ((event))['_data'] || -1;
+                _this._factory.scheduleListenerCallback(countId, callback, event);
             });
         }
         return this.delegate.listen(target, eventName, callback);
         var _a;
-    };
-    /**
-     * @param {?} fn
-     * @param {?} data
-     * @return {?}
-     */
-    AnimationRenderer.prototype._bufferMicrotaskIntoZone = function (fn, data) {
-        var _this = this;
-        if (this._animationCallbacksBuffer.length == 0) {
-            Promise.resolve(null).then(function () {
-                _this._zone.run(function () {
-                    _this._animationCallbacksBuffer.forEach(function (tuple) {
-                        var fn = tuple[0], data = tuple[1];
-                        fn(data);
-                    });
-                    _this._animationCallbacksBuffer = [];
-                });
-            });
-        }
-        this._animationCallbacksBuffer.push([fn, data]);
     };
     return AnimationRenderer;
 }());

@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.0-beta.1-eed67dd
+ * @license Angular v4.2.0-beta.1-6cb93c1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -192,6 +192,8 @@ class AnimationRendererFactory {
         this._engine = _engine;
         this._zone = _zone;
         this._currentId = 0;
+        this._currentFlushId = 1;
+        this._animationCallbacksBuffer = [];
         _engine.onRemovalComplete = (element, delegate) => {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
@@ -216,7 +218,7 @@ class AnimationRendererFactory {
         this._currentId++;
         const /** @type {?} */ animationTriggers = (type.data['animation']);
         animationTriggers.forEach(trigger => this._engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
-        return new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
+        return new AnimationRenderer(this, delegate, this._engine, this._zone, namespaceId);
     }
     /**
      * @return {?}
@@ -229,8 +231,41 @@ class AnimationRendererFactory {
     /**
      * @return {?}
      */
+    _scheduleCountTask() {
+        Zone.current.scheduleMicroTask('incremenet the animation microtask', () => { this._currentFlushId++; });
+    }
+    /**
+     * @param {?} count
+     * @param {?} fn
+     * @param {?} data
+     * @return {?}
+     */
+    scheduleListenerCallback(count, fn, data) {
+        if (count >= 0 && count < this._currentFlushId) {
+            this._zone.run(() => fn(data));
+            return;
+        }
+        if (this._animationCallbacksBuffer.length == 0) {
+            Promise.resolve(null).then(() => {
+                this._zone.run(() => {
+                    this._animationCallbacksBuffer.forEach(tuple => {
+                        const [fn, data] = tuple;
+                        fn(data);
+                    });
+                    this._animationCallbacksBuffer = [];
+                });
+            });
+        }
+        this._animationCallbacksBuffer.push([fn, data]);
+    }
+    /**
+     * @return {?}
+     */
     end() {
-        this._zone.runOutsideAngular(() => this._engine.flush());
+        this._zone.runOutsideAngular(() => {
+            this._scheduleCountTask();
+            this._engine.flush(this._currentFlushId);
+        });
         if (this.delegate.end) {
             this.delegate.end();
         }
@@ -253,18 +288,20 @@ AnimationRendererFactory.ctorParameters = () => [
 ];
 class AnimationRenderer {
     /**
+     * @param {?} _factory
      * @param {?} delegate
      * @param {?} _engine
      * @param {?} _zone
      * @param {?} _namespaceId
      */
-    constructor(delegate, _engine, _zone, _namespaceId) {
+    constructor(_factory, delegate, _engine, _zone, _namespaceId) {
+        this._factory = _factory;
         this.delegate = delegate;
         this._engine = _engine;
         this._zone = _zone;
         this._namespaceId = _namespaceId;
         this.destroyNode = null;
-        this._animationCallbacksBuffer = [];
+        this.microtaskCount = 0;
         this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
     }
     /**
@@ -426,29 +463,11 @@ class AnimationRenderer {
                 [name, phase] = parseTriggerCallbackName(name);
             }
             return this._engine.listen(this._namespaceId, element, name, phase, event => {
-                this._bufferMicrotaskIntoZone(callback, event);
+                const /** @type {?} */ countId = ((event))['_data'] || -1;
+                this._factory.scheduleListenerCallback(countId, callback, event);
             });
         }
         return this.delegate.listen(target, eventName, callback);
-    }
-    /**
-     * @param {?} fn
-     * @param {?} data
-     * @return {?}
-     */
-    _bufferMicrotaskIntoZone(fn, data) {
-        if (this._animationCallbacksBuffer.length == 0) {
-            Promise.resolve(null).then(() => {
-                this._zone.run(() => {
-                    this._animationCallbacksBuffer.forEach(tuple => {
-                        const [fn, data] = tuple;
-                        fn(data);
-                    });
-                    this._animationCallbacksBuffer = [];
-                });
-            });
-        }
-        this._animationCallbacksBuffer.push([fn, data]);
     }
 }
 /**
