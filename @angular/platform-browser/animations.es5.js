@@ -1,15 +1,6 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.2.0-rc.0-1651a8f
+ * @license Angular v4.2.0-rc.0-fa809ec
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -25,7 +16,7 @@ import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopA
  * found in the LICENSE file at https://angular.io/license
  */
 var BrowserAnimationBuilder = (function (_super) {
-    __extends(BrowserAnimationBuilder, _super);
+    tslib_1.__extends(BrowserAnimationBuilder, _super);
     /**
      * @param {?} rootRenderer
      */
@@ -64,7 +55,7 @@ BrowserAnimationBuilder.ctorParameters = function () { return [
     { type: RendererFactory2, },
 ]; };
 var BrowserAnimationFactory = (function (_super) {
-    __extends(BrowserAnimationFactory, _super);
+    tslib_1.__extends(BrowserAnimationFactory, _super);
     /**
      * @param {?} _id
      * @param {?} _renderer
@@ -535,7 +526,7 @@ function parseTriggerCallbackName(triggerName) {
  * found in the LICENSE file at https://angular.io/license
  */
 var InjectableAnimationEngine = (function (_super) {
-    __extends(InjectableAnimationEngine, _super);
+    tslib_1.__extends(InjectableAnimationEngine, _super);
     /**
      * @param {?} driver
      * @param {?} normalizer

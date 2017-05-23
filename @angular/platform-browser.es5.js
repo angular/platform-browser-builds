@@ -1,15 +1,6 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.2.0-rc.0-1651a8f
+ * @license Angular v4.2.0-rc.0-fa809ec
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -834,7 +825,7 @@ var DomAdapter = (function () {
  * @abstract
  */
 var GenericBrowserDomAdapter = (function (_super) {
-    __extends(GenericBrowserDomAdapter, _super);
+    tslib_1.__extends(GenericBrowserDomAdapter, _super);
     function GenericBrowserDomAdapter() {
         var _this = _super.call(this) || this;
         _this._animationPrefix = null;
@@ -971,7 +962,7 @@ if (ɵglobal['Node']) {
     };
 }
 var BrowserDomAdapter = (function (_super) {
-    __extends(BrowserDomAdapter, _super);
+    tslib_1.__extends(BrowserDomAdapter, _super);
     function BrowserDomAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -1889,7 +1880,7 @@ function supportsState() {
  * {\@link Location}.
  */
 var BrowserPlatformLocation = (function (_super) {
-    __extends(BrowserPlatformLocation, _super);
+    tslib_1.__extends(BrowserPlatformLocation, _super);
     /**
      * @param {?} _doc
      */
@@ -2562,7 +2553,7 @@ SharedStylesHost.decorators = [
  */
 SharedStylesHost.ctorParameters = function () { return []; };
 var DomSharedStylesHost = (function (_super) {
-    __extends(DomSharedStylesHost, _super);
+    tslib_1.__extends(DomSharedStylesHost, _super);
     /**
      * @param {?} _doc
      */
@@ -2963,7 +2954,7 @@ function checkNoSyntheticProp(name, nameKind) {
     }
 }
 var EmulatedEncapsulationDomRenderer2 = (function (_super) {
-    __extends(EmulatedEncapsulationDomRenderer2, _super);
+    tslib_1.__extends(EmulatedEncapsulationDomRenderer2, _super);
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
@@ -2996,7 +2987,7 @@ var EmulatedEncapsulationDomRenderer2 = (function (_super) {
     return EmulatedEncapsulationDomRenderer2;
 }(DefaultDomRenderer2));
 var ShadowDomRenderer = (function (_super) {
-    __extends(ShadowDomRenderer, _super);
+    tslib_1.__extends(ShadowDomRenderer, _super);
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
@@ -3069,7 +3060,7 @@ var ShadowDomRenderer = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 var DomEventsPlugin = (function (_super) {
-    __extends(DomEventsPlugin, _super);
+    tslib_1.__extends(DomEventsPlugin, _super);
     /**
      * @param {?} doc
      */
@@ -3184,7 +3175,7 @@ HammerGestureConfig.decorators = [
  */
 HammerGestureConfig.ctorParameters = function () { return []; };
 var HammerGesturesPlugin = (function (_super) {
-    __extends(HammerGesturesPlugin, _super);
+    tslib_1.__extends(HammerGesturesPlugin, _super);
     /**
      * @param {?} doc
      * @param {?} _config
@@ -3262,7 +3253,7 @@ var MODIFIER_KEY_GETTERS = {
  * \@experimental
  */
 var KeyEventsPlugin = (function (_super) {
-    __extends(KeyEventsPlugin, _super);
+    tslib_1.__extends(KeyEventsPlugin, _super);
     /**
      * @param {?} doc
      */
@@ -3952,7 +3943,7 @@ var DomSanitizer = (function () {
     return DomSanitizer;
 }());
 var DomSanitizerImpl = (function (_super) {
-    __extends(DomSanitizerImpl, _super);
+    tslib_1.__extends(DomSanitizerImpl, _super);
     /**
      * @param {?} _doc
      */
@@ -4079,7 +4070,7 @@ var SafeValueImpl = (function () {
     return SafeValueImpl;
 }());
 var SafeHtmlImpl = (function (_super) {
-    __extends(SafeHtmlImpl, _super);
+    tslib_1.__extends(SafeHtmlImpl, _super);
     function SafeHtmlImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -4090,7 +4081,7 @@ var SafeHtmlImpl = (function (_super) {
     return SafeHtmlImpl;
 }(SafeValueImpl));
 var SafeStyleImpl = (function (_super) {
-    __extends(SafeStyleImpl, _super);
+    tslib_1.__extends(SafeStyleImpl, _super);
     function SafeStyleImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -4101,7 +4092,7 @@ var SafeStyleImpl = (function (_super) {
     return SafeStyleImpl;
 }(SafeValueImpl));
 var SafeScriptImpl = (function (_super) {
-    __extends(SafeScriptImpl, _super);
+    tslib_1.__extends(SafeScriptImpl, _super);
     function SafeScriptImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -4112,7 +4103,7 @@ var SafeScriptImpl = (function (_super) {
     return SafeScriptImpl;
 }(SafeValueImpl));
 var SafeUrlImpl = (function (_super) {
-    __extends(SafeUrlImpl, _super);
+    tslib_1.__extends(SafeUrlImpl, _super);
     function SafeUrlImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -4123,7 +4114,7 @@ var SafeUrlImpl = (function (_super) {
     return SafeUrlImpl;
 }(SafeValueImpl));
 var SafeResourceUrlImpl = (function (_super) {
-    __extends(SafeResourceUrlImpl, _super);
+    tslib_1.__extends(SafeResourceUrlImpl, _super);
     function SafeResourceUrlImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -4439,7 +4430,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('4.2.0-rc.0-1651a8f');
+var VERSION = new Version('4.2.0-rc.0-fa809ec');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
