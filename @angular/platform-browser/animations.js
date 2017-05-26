@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.0-rc.0-6949510
+ * @license Angular v4.2.0-rc.0-c0981b8
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -184,18 +184,17 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 class AnimationRendererFactory {
     /**
      * @param {?} delegate
-     * @param {?} engine
+     * @param {?} _engine
      * @param {?} _zone
      */
-    constructor(delegate, engine, _zone) {
+    constructor(delegate, _engine, _zone) {
         this.delegate = delegate;
-        this.engine = engine;
+        this._engine = _engine;
         this._zone = _zone;
         this._currentId = 0;
-        this._microtaskId = 1;
+        this._currentFlushId = 1;
         this._animationCallbacksBuffer = [];
-        this._rendererCache = new Map();
-        engine.onRemovalComplete = (element, delegate) => {
+        _engine.onRemovalComplete = (element, delegate) => {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
             // component renderer as well as for the child component renderer.
@@ -211,26 +210,15 @@ class AnimationRendererFactory {
      * @return {?}
      */
     createRenderer(hostElement, type) {
-        const /** @type {?} */ EMPTY_NAMESPACE_ID = '';
-        // cache the delegates to find out which cached delegate can
-        // be used by which cached renderer
-        const /** @type {?} */ delegate = this.delegate.createRenderer(hostElement, type);
-        if (!hostElement || !type || !type.data || !type.data['animation']) {
-            let /** @type {?} */ renderer = this._rendererCache.get(delegate);
-            if (!renderer) {
-                renderer = new BaseAnimationRenderer(EMPTY_NAMESPACE_ID, delegate, this.engine);
-                // only cache this result when the base renderer is used
-                this._rendererCache.set(delegate, renderer);
-            }
-            return renderer;
-        }
+        let /** @type {?} */ delegate = this.delegate.createRenderer(hostElement, type);
+        if (!hostElement || !type || !type.data || !type.data['animation'])
+            return delegate;
         const /** @type {?} */ componentId = type.id;
         const /** @type {?} */ namespaceId = type.id + '-' + this._currentId;
         this._currentId++;
-        this.engine.register(namespaceId, hostElement);
         const /** @type {?} */ animationTriggers = (type.data['animation']);
-        animationTriggers.forEach(trigger => this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
-        return new AnimationRenderer(this, namespaceId, delegate, this.engine);
+        animationTriggers.forEach(trigger => this._engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
+        return new AnimationRenderer(this, delegate, this._engine, this._zone, namespaceId);
     }
     /**
      * @return {?}
@@ -244,7 +232,7 @@ class AnimationRendererFactory {
      * @return {?}
      */
     _scheduleCountTask() {
-        Zone.current.scheduleMicroTask('incremenet the animation microtask', () => this._microtaskId++);
+        Zone.current.scheduleMicroTask('incremenet the animation microtask', () => { this._currentFlushId++; });
     }
     /**
      * @param {?} count
@@ -253,7 +241,7 @@ class AnimationRendererFactory {
      * @return {?}
      */
     scheduleListenerCallback(count, fn, data) {
-        if (count >= 0 && count < this._microtaskId) {
+        if (count >= 0 && count < this._currentFlushId) {
             this._zone.run(() => fn(data));
             return;
         }
@@ -276,7 +264,7 @@ class AnimationRendererFactory {
     end() {
         this._zone.runOutsideAngular(() => {
             this._scheduleCountTask();
-            this.engine.flush(this._microtaskId);
+            this._engine.flush(this._currentFlushId);
         });
         if (this.delegate.end) {
             this.delegate.end();
@@ -285,7 +273,7 @@ class AnimationRendererFactory {
     /**
      * @return {?}
      */
-    whenRenderingDone() { return this.engine.whenRenderingDone(); }
+    whenRenderingDone() { return this._engine.whenRenderingDone(); }
 }
 AnimationRendererFactory.decorators = [
     { type: Injectable },
@@ -298,16 +286,22 @@ AnimationRendererFactory.ctorParameters = () => [
     { type: ɵAnimationEngine, },
     { type: NgZone, },
 ];
-class BaseAnimationRenderer {
+class AnimationRenderer {
     /**
-     * @param {?} namespaceId
+     * @param {?} _factory
      * @param {?} delegate
-     * @param {?} engine
+     * @param {?} _engine
+     * @param {?} _zone
+     * @param {?} _namespaceId
      */
-    constructor(namespaceId, delegate, engine) {
-        this.namespaceId = namespaceId;
+    constructor(_factory, delegate, _engine, _zone, _namespaceId) {
+        this._factory = _factory;
         this.delegate = delegate;
-        this.engine = engine;
+        this._engine = _engine;
+        this._zone = _zone;
+        this._namespaceId = _namespaceId;
+        this.destroyNode = null;
+        this.microtaskCount = 0;
         this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
     }
     /**
@@ -318,7 +312,7 @@ class BaseAnimationRenderer {
      * @return {?}
      */
     destroy() {
-        this.engine.destroy(this.namespaceId, this.delegate);
+        this._engine.destroy(this._namespaceId, this.delegate);
         this.delegate.destroy();
     }
     /**
@@ -340,37 +334,12 @@ class BaseAnimationRenderer {
      */
     createText(value) { return this.delegate.createText(value); }
     /**
-     * @param {?} parent
-     * @param {?} newChild
-     * @return {?}
-     */
-    appendChild(parent, newChild) {
-        this.delegate.appendChild(parent, newChild);
-        this.engine.onInsert(this.namespaceId, newChild, parent, false);
-    }
-    /**
-     * @param {?} parent
-     * @param {?} newChild
-     * @param {?} refChild
-     * @return {?}
-     */
-    insertBefore(parent, newChild, refChild) {
-        this.delegate.insertBefore(parent, newChild, refChild);
-        this.engine.onInsert(this.namespaceId, newChild, parent, true);
-    }
-    /**
-     * @param {?} parent
-     * @param {?} oldChild
-     * @return {?}
-     */
-    removeChild(parent, oldChild) {
-        this.engine.onRemove(this.namespaceId, oldChild, this.delegate);
-    }
-    /**
      * @param {?} selectorOrNode
      * @return {?}
      */
-    selectRootElement(selectorOrNode) { return this.delegate.selectRootElement(selectorOrNode); }
+    selectRootElement(selectorOrNode) {
+        return this.delegate.selectRootElement(selectorOrNode);
+    }
     /**
      * @param {?} node
      * @return {?}
@@ -416,7 +385,7 @@ class BaseAnimationRenderer {
      * @param {?} el
      * @param {?} style
      * @param {?} value
-     * @param {?=} flags
+     * @param {?} flags
      * @return {?}
      */
     setStyle(el, style, value, flags) {
@@ -425,20 +394,11 @@ class BaseAnimationRenderer {
     /**
      * @param {?} el
      * @param {?} style
-     * @param {?=} flags
+     * @param {?} flags
      * @return {?}
      */
     removeStyle(el, style, flags) {
         this.delegate.removeStyle(el, style, flags);
-    }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setProperty(el, name, value) {
-        this.delegate.setProperty(el, name, value);
     }
     /**
      * @param {?} node
@@ -447,26 +407,31 @@ class BaseAnimationRenderer {
      */
     setValue(node, value) { this.delegate.setValue(node, value); }
     /**
-     * @param {?} target
-     * @param {?} eventName
-     * @param {?} callback
+     * @param {?} parent
+     * @param {?} newChild
      * @return {?}
      */
-    listen(target, eventName, callback) {
-        return this.delegate.listen(target, eventName, callback);
+    appendChild(parent, newChild) {
+        this.delegate.appendChild(parent, newChild);
+        this._engine.onInsert(this._namespaceId, newChild, parent, false);
     }
-}
-class AnimationRenderer extends BaseAnimationRenderer {
     /**
-     * @param {?} factory
-     * @param {?} namespaceId
-     * @param {?} delegate
-     * @param {?} engine
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
      */
-    constructor(factory, namespaceId, delegate, engine) {
-        super(namespaceId, delegate, engine);
-        this.factory = factory;
-        this.namespaceId = namespaceId;
+    insertBefore(parent, newChild, refChild) {
+        this.delegate.insertBefore(parent, newChild, refChild);
+        this._engine.onInsert(this._namespaceId, newChild, parent, true);
+    }
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    removeChild(parent, oldChild) {
+        this._engine.onRemove(this._namespaceId, oldChild, this.delegate);
     }
     /**
      * @param {?} el
@@ -477,7 +442,7 @@ class AnimationRenderer extends BaseAnimationRenderer {
     setProperty(el, name, value) {
         if (name.charAt(0) == '@') {
             name = name.substr(1);
-            this.engine.setProperty(this.namespaceId, el, name, value);
+            this._engine.setProperty(this._namespaceId, el, name, value);
         }
         else {
             this.delegate.setProperty(el, name, value);
@@ -497,9 +462,9 @@ class AnimationRenderer extends BaseAnimationRenderer {
             if (name.charAt(0) != '@') {
                 [name, phase] = parseTriggerCallbackName(name);
             }
-            return this.engine.listen(this.namespaceId, element, name, phase, event => {
+            return this._engine.listen(this._namespaceId, element, name, phase, event => {
                 const /** @type {?} */ countId = ((event))['_data'] || -1;
-                this.factory.scheduleListenerCallback(countId, callback, event);
+                this._factory.scheduleListenerCallback(countId, callback, event);
             });
         }
         return this.delegate.listen(target, eventName, callback);
@@ -681,5 +646,5 @@ NoopAnimationsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BaseAnimationRenderer as ɵa, BROWSER_ANIMATIONS_PROVIDERS as ɵf, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵg, InjectableAnimationEngine as ɵb, instantiateDefaultStyleNormalizer as ɵd, instantiateRendererFactory as ɵe, instantiateSupportedAnimationDriver as ɵc };
+export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
 //# sourceMappingURL=animations.js.map
