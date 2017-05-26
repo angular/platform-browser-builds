@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.2.0-rc.0-2538094
+ * @license Angular v4.2.0-rc.0-3ab86bd
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -194,17 +194,18 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 var AnimationRendererFactory = (function () {
     /**
      * @param {?} delegate
-     * @param {?} _engine
+     * @param {?} engine
      * @param {?} _zone
      */
-    function AnimationRendererFactory(delegate, _engine, _zone) {
+    function AnimationRendererFactory(delegate, engine, _zone) {
         this.delegate = delegate;
-        this._engine = _engine;
+        this.engine = engine;
         this._zone = _zone;
         this._currentId = 0;
-        this._currentFlushId = 1;
+        this._microtaskId = 1;
         this._animationCallbacksBuffer = [];
-        _engine.onRemovalComplete = function (element, delegate) {
+        this._rendererCache = new Map();
+        engine.onRemovalComplete = function (element, delegate) {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
             // component renderer as well as for the child component renderer.
@@ -221,15 +222,26 @@ var AnimationRendererFactory = (function () {
      */
     AnimationRendererFactory.prototype.createRenderer = function (hostElement, type) {
         var _this = this;
+        var /** @type {?} */ EMPTY_NAMESPACE_ID = '';
+        // cache the delegates to find out which cached delegate can
+        // be used by which cached renderer
         var /** @type {?} */ delegate = this.delegate.createRenderer(hostElement, type);
-        if (!hostElement || !type || !type.data || !type.data['animation'])
-            return delegate;
+        if (!hostElement || !type || !type.data || !type.data['animation']) {
+            var /** @type {?} */ renderer = this._rendererCache.get(delegate);
+            if (!renderer) {
+                renderer = new BaseAnimationRenderer(EMPTY_NAMESPACE_ID, delegate, this.engine);
+                // only cache this result when the base renderer is used
+                this._rendererCache.set(delegate, renderer);
+            }
+            return renderer;
+        }
         var /** @type {?} */ componentId = type.id;
         var /** @type {?} */ namespaceId = type.id + '-' + this._currentId;
         this._currentId++;
+        this.engine.register(namespaceId, hostElement);
         var /** @type {?} */ animationTriggers = (type.data['animation']);
-        animationTriggers.forEach(function (trigger) { return _this._engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger); });
-        return new AnimationRenderer(this, delegate, this._engine, this._zone, namespaceId);
+        animationTriggers.forEach(function (trigger) { return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger); });
+        return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     };
     /**
      * @return {?}
@@ -244,7 +256,7 @@ var AnimationRendererFactory = (function () {
      */
     AnimationRendererFactory.prototype._scheduleCountTask = function () {
         var _this = this;
-        Zone.current.scheduleMicroTask('incremenet the animation microtask', function () { _this._currentFlushId++; });
+        Zone.current.scheduleMicroTask('incremenet the animation microtask', function () { return _this._microtaskId++; });
     };
     /**
      * @param {?} count
@@ -254,7 +266,7 @@ var AnimationRendererFactory = (function () {
      */
     AnimationRendererFactory.prototype.scheduleListenerCallback = function (count, fn, data) {
         var _this = this;
-        if (count >= 0 && count < this._currentFlushId) {
+        if (count >= 0 && count < this._microtaskId) {
             this._zone.run(function () { return fn(data); });
             return;
         }
@@ -278,7 +290,7 @@ var AnimationRendererFactory = (function () {
         var _this = this;
         this._zone.runOutsideAngular(function () {
             _this._scheduleCountTask();
-            _this._engine.flush(_this._currentFlushId);
+            _this.engine.flush(_this._microtaskId);
         });
         if (this.delegate.end) {
             this.delegate.end();
@@ -287,7 +299,7 @@ var AnimationRendererFactory = (function () {
     /**
      * @return {?}
      */
-    AnimationRendererFactory.prototype.whenRenderingDone = function () { return this._engine.whenRenderingDone(); };
+    AnimationRendererFactory.prototype.whenRenderingDone = function () { return this.engine.whenRenderingDone(); };
     return AnimationRendererFactory;
 }());
 AnimationRendererFactory.decorators = [
@@ -301,25 +313,19 @@ AnimationRendererFactory.ctorParameters = function () { return [
     { type: ɵAnimationEngine, },
     { type: NgZone, },
 ]; };
-var AnimationRenderer = (function () {
+var BaseAnimationRenderer = (function () {
     /**
-     * @param {?} _factory
+     * @param {?} namespaceId
      * @param {?} delegate
-     * @param {?} _engine
-     * @param {?} _zone
-     * @param {?} _namespaceId
+     * @param {?} engine
      */
-    function AnimationRenderer(_factory, delegate, _engine, _zone, _namespaceId) {
-        this._factory = _factory;
+    function BaseAnimationRenderer(namespaceId, delegate, engine) {
+        this.namespaceId = namespaceId;
         this.delegate = delegate;
-        this._engine = _engine;
-        this._zone = _zone;
-        this._namespaceId = _namespaceId;
-        this.destroyNode = null;
-        this.microtaskCount = 0;
+        this.engine = engine;
         this.destroyNode = this.delegate.destroyNode ? function (n) { return delegate.destroyNode(n); } : null;
     }
-    Object.defineProperty(AnimationRenderer.prototype, "data", {
+    Object.defineProperty(BaseAnimationRenderer.prototype, "data", {
         /**
          * @return {?}
          */
@@ -330,8 +336,8 @@ var AnimationRenderer = (function () {
     /**
      * @return {?}
      */
-    AnimationRenderer.prototype.destroy = function () {
-        this._engine.destroy(this._namespaceId, this.delegate);
+    BaseAnimationRenderer.prototype.destroy = function () {
+        this.engine.destroy(this.namespaceId, this.delegate);
         this.delegate.destroy();
     };
     /**
@@ -339,36 +345,61 @@ var AnimationRenderer = (function () {
      * @param {?=} namespace
      * @return {?}
      */
-    AnimationRenderer.prototype.createElement = function (name, namespace) {
+    BaseAnimationRenderer.prototype.createElement = function (name, namespace) {
         return this.delegate.createElement(name, namespace);
     };
     /**
      * @param {?} value
      * @return {?}
      */
-    AnimationRenderer.prototype.createComment = function (value) { return this.delegate.createComment(value); };
+    BaseAnimationRenderer.prototype.createComment = function (value) { return this.delegate.createComment(value); };
     /**
      * @param {?} value
      * @return {?}
      */
-    AnimationRenderer.prototype.createText = function (value) { return this.delegate.createText(value); };
+    BaseAnimationRenderer.prototype.createText = function (value) { return this.delegate.createText(value); };
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    BaseAnimationRenderer.prototype.appendChild = function (parent, newChild) {
+        this.delegate.appendChild(parent, newChild);
+        this.engine.onInsert(this.namespaceId, newChild, parent, false);
+    };
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    BaseAnimationRenderer.prototype.insertBefore = function (parent, newChild, refChild) {
+        this.delegate.insertBefore(parent, newChild, refChild);
+        this.engine.onInsert(this.namespaceId, newChild, parent, true);
+    };
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    BaseAnimationRenderer.prototype.removeChild = function (parent, oldChild) {
+        this.engine.onRemove(this.namespaceId, oldChild, this.delegate);
+    };
     /**
      * @param {?} selectorOrNode
      * @return {?}
      */
-    AnimationRenderer.prototype.selectRootElement = function (selectorOrNode) {
-        return this.delegate.selectRootElement(selectorOrNode);
-    };
+    BaseAnimationRenderer.prototype.selectRootElement = function (selectorOrNode) { return this.delegate.selectRootElement(selectorOrNode); };
     /**
      * @param {?} node
      * @return {?}
      */
-    AnimationRenderer.prototype.parentNode = function (node) { return this.delegate.parentNode(node); };
+    BaseAnimationRenderer.prototype.parentNode = function (node) { return this.delegate.parentNode(node); };
     /**
      * @param {?} node
      * @return {?}
      */
-    AnimationRenderer.prototype.nextSibling = function (node) { return this.delegate.nextSibling(node); };
+    BaseAnimationRenderer.prototype.nextSibling = function (node) { return this.delegate.nextSibling(node); };
     /**
      * @param {?} el
      * @param {?} name
@@ -376,7 +407,7 @@ var AnimationRenderer = (function () {
      * @param {?=} namespace
      * @return {?}
      */
-    AnimationRenderer.prototype.setAttribute = function (el, name, value, namespace) {
+    BaseAnimationRenderer.prototype.setAttribute = function (el, name, value, namespace) {
         this.delegate.setAttribute(el, name, value, namespace);
     };
     /**
@@ -385,7 +416,7 @@ var AnimationRenderer = (function () {
      * @param {?=} namespace
      * @return {?}
      */
-    AnimationRenderer.prototype.removeAttribute = function (el, name, namespace) {
+    BaseAnimationRenderer.prototype.removeAttribute = function (el, name, namespace) {
         this.delegate.removeAttribute(el, name, namespace);
     };
     /**
@@ -393,65 +424,72 @@ var AnimationRenderer = (function () {
      * @param {?} name
      * @return {?}
      */
-    AnimationRenderer.prototype.addClass = function (el, name) { this.delegate.addClass(el, name); };
+    BaseAnimationRenderer.prototype.addClass = function (el, name) { this.delegate.addClass(el, name); };
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    AnimationRenderer.prototype.removeClass = function (el, name) { this.delegate.removeClass(el, name); };
+    BaseAnimationRenderer.prototype.removeClass = function (el, name) { this.delegate.removeClass(el, name); };
     /**
      * @param {?} el
      * @param {?} style
      * @param {?} value
-     * @param {?} flags
+     * @param {?=} flags
      * @return {?}
      */
-    AnimationRenderer.prototype.setStyle = function (el, style, value, flags) {
+    BaseAnimationRenderer.prototype.setStyle = function (el, style, value, flags) {
         this.delegate.setStyle(el, style, value, flags);
     };
     /**
      * @param {?} el
      * @param {?} style
-     * @param {?} flags
+     * @param {?=} flags
      * @return {?}
      */
-    AnimationRenderer.prototype.removeStyle = function (el, style, flags) {
+    BaseAnimationRenderer.prototype.removeStyle = function (el, style, flags) {
         this.delegate.removeStyle(el, style, flags);
+    };
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    BaseAnimationRenderer.prototype.setProperty = function (el, name, value) {
+        this.delegate.setProperty(el, name, value);
     };
     /**
      * @param {?} node
      * @param {?} value
      * @return {?}
      */
-    AnimationRenderer.prototype.setValue = function (node, value) { this.delegate.setValue(node, value); };
+    BaseAnimationRenderer.prototype.setValue = function (node, value) { this.delegate.setValue(node, value); };
     /**
-     * @param {?} parent
-     * @param {?} newChild
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} callback
      * @return {?}
      */
-    AnimationRenderer.prototype.appendChild = function (parent, newChild) {
-        this.delegate.appendChild(parent, newChild);
-        this._engine.onInsert(this._namespaceId, newChild, parent, false);
+    BaseAnimationRenderer.prototype.listen = function (target, eventName, callback) {
+        return this.delegate.listen(target, eventName, callback);
     };
+    return BaseAnimationRenderer;
+}());
+var AnimationRenderer = (function (_super) {
+    tslib_1.__extends(AnimationRenderer, _super);
     /**
-     * @param {?} parent
-     * @param {?} newChild
-     * @param {?} refChild
-     * @return {?}
+     * @param {?} factory
+     * @param {?} namespaceId
+     * @param {?} delegate
+     * @param {?} engine
      */
-    AnimationRenderer.prototype.insertBefore = function (parent, newChild, refChild) {
-        this.delegate.insertBefore(parent, newChild, refChild);
-        this._engine.onInsert(this._namespaceId, newChild, parent, true);
-    };
-    /**
-     * @param {?} parent
-     * @param {?} oldChild
-     * @return {?}
-     */
-    AnimationRenderer.prototype.removeChild = function (parent, oldChild) {
-        this._engine.onRemove(this._namespaceId, oldChild, this.delegate);
-    };
+    function AnimationRenderer(factory, namespaceId, delegate, engine) {
+        var _this = _super.call(this, namespaceId, delegate, engine) || this;
+        _this.factory = factory;
+        _this.namespaceId = namespaceId;
+        return _this;
+    }
     /**
      * @param {?} el
      * @param {?} name
@@ -461,7 +499,7 @@ var AnimationRenderer = (function () {
     AnimationRenderer.prototype.setProperty = function (el, name, value) {
         if (name.charAt(0) == '@') {
             name = name.substr(1);
-            this._engine.setProperty(this._namespaceId, el, name, value);
+            this.engine.setProperty(this.namespaceId, el, name, value);
         }
         else {
             this.delegate.setProperty(el, name, value);
@@ -482,16 +520,16 @@ var AnimationRenderer = (function () {
             if (name.charAt(0) != '@') {
                 _a = parseTriggerCallbackName(name), name = _a[0], phase = _a[1];
             }
-            return this._engine.listen(this._namespaceId, element, name, phase, function (event) {
+            return this.engine.listen(this.namespaceId, element, name, phase, function (event) {
                 var /** @type {?} */ countId = ((event))['_data'] || -1;
-                _this._factory.scheduleListenerCallback(countId, callback, event);
+                _this.factory.scheduleListenerCallback(countId, callback, event);
             });
         }
         return this.delegate.listen(target, eventName, callback);
         var _a;
     };
     return AnimationRenderer;
-}());
+}(BaseAnimationRenderer));
 /**
  * @param {?} target
  * @return {?}
@@ -668,5 +706,5 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
+export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BaseAnimationRenderer as ɵa, BROWSER_ANIMATIONS_PROVIDERS as ɵf, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵg, InjectableAnimationEngine as ɵb, instantiateDefaultStyleNormalizer as ɵd, instantiateRendererFactory as ɵe, instantiateSupportedAnimationDriver as ɵc };
 //# sourceMappingURL=animations.es5.js.map
