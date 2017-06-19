@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.2-3093c55
+ * @license Angular v4.2.2-4f37f86
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v4.2.2-3093c55
+ * @license Angular v4.2.2-4f37f86
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -4458,7 +4458,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('4.2.2-3093c55');
+var VERSION = new _angular_core.Version('4.2.2-4f37f86');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
