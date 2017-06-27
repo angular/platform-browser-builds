@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.4-ffbdf74
+ * @license Angular v4.2.4-7205d7a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -4315,7 +4315,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('4.2.4-ffbdf74');
+const VERSION = new Version('4.2.4-7205d7a');
 
 /**
  * @license
