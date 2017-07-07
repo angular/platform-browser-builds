@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.3.0-beta.1-c81ad9d
+ * @license Angular v4.3.0-beta.1-8e28382
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -477,7 +477,7 @@ class AnimationRenderer extends BaseAnimationRenderer {
     setProperty(el, name, value) {
         if (name.charAt(0) == '@') {
             name = name.substr(1);
-            this.engine.setProperty(this.namespaceId, el, name, value);
+            this.engine.process(this.namespaceId, el, name, value);
         }
         else {
             this.delegate.setProperty(el, name, value);
