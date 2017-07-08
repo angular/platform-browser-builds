@@ -1,9 +1,9 @@
 /**
- * @license Angular v4.2.5-670f2e5
+ * @license Angular v4.2.5-3e61bf7
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { CommonModule, PlatformLocation, ɵPLATFORM_BROWSER_ID } from '@angular/common';
+import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal } from '@angular/core';
 import * as core from '@angular/core';
 
@@ -1795,9 +1795,9 @@ function parseCookieValue(cookieStr, name) {
  * Note: Document might not be available in the Application Context when Application and Rendering
  * Contexts are not the same (e.g. when running the application into a Web Worker).
  *
- * \@stable
+ * \@deprecated, import from `\@angular/common` instead.
  */
-const DOCUMENT = new InjectionToken('DocumentToken');
+const DOCUMENT$1 = DOCUMENT;
 
 /**
  * @license
@@ -1923,7 +1923,7 @@ BrowserPlatformLocation.decorators = [
  * @nocollapse
  */
 BrowserPlatformLocation.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
 ];
 
 /**
@@ -2073,7 +2073,7 @@ Meta.decorators = [
  * @nocollapse
  */
 Meta.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
 ];
 
 /**
@@ -2110,7 +2110,7 @@ const SERVER_TRANSITION_PROVIDERS = [
     {
         provide: APP_INITIALIZER,
         useFactory: appInitializerFactory,
-        deps: [TRANSITION_ID, DOCUMENT, Injector],
+        deps: [TRANSITION_ID, DOCUMENT$1, Injector],
         multi: true
     },
 ];
@@ -2228,7 +2228,7 @@ Title.decorators = [
  * @nocollapse
  */
 Title.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
 ];
 
 /**
@@ -2554,7 +2554,7 @@ DomSharedStylesHost.decorators = [
  * @nocollapse
  */
 DomSharedStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
 ];
 
 /**
@@ -3023,7 +3023,7 @@ DomEventsPlugin.decorators = [
  * @nocollapse
  */
 DomEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
 ];
 
 /**
@@ -3160,7 +3160,7 @@ HammerGesturesPlugin.decorators = [
  * @nocollapse
  */
 HammerGesturesPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
 ];
 
@@ -3293,7 +3293,7 @@ KeyEventsPlugin.decorators = [
  * @nocollapse
  */
 KeyEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
 ];
 
 /**
@@ -3448,7 +3448,7 @@ const HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border
     'ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,' +
     'scope,scrolling,shape,size,sizes,span,srclang,start,summary,tabindex,target,title,translate,type,usemap,' +
     'valign,value,vspace,width');
-// NB: This currently conciously doesn't support SVG. SVG sanitization has had several security
+// NB: This currently consciously doesn't support SVG. SVG sanitization has had several security
 // issues in the past, so it seems safer to leave it out if possible. If support for binding SVG via
 // innerHTML is required, SVG attributes should be added here.
 // NB: Sanitization does not allow <form> elements or other active elements (<button> etc). Those
@@ -3954,7 +3954,7 @@ DomSanitizerImpl.decorators = [
  * @nocollapse
  */
 DomSanitizerImpl.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
 ];
 /**
  * @abstract
@@ -4022,7 +4022,7 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation },
-    { provide: DOCUMENT, useFactory: _document, deps: [] },
+    { provide: DOCUMENT$1, useFactory: _document, deps: [] },
 ];
 /**
  * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -4315,7 +4315,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('4.2.5-670f2e5');
+const VERSION = new Version('4.2.5-3e61bf7');
 
 /**
  * @license
@@ -4344,5 +4344,5 @@ const VERSION = new Version('4.2.5-670f2e5');
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken$1 as NgProbeToken, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, appInitializerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken$1 as NgProbeToken, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, appInitializerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
 //# sourceMappingURL=platform-browser.js.map
