@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.3.0-beta.1-9dd550f
+ * @license Angular v4.3.0-beta.1-c723d42
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3522,7 +3522,7 @@ var HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,c
     'ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,' +
     'scope,scrolling,shape,size,sizes,span,srclang,start,summary,tabindex,target,title,translate,type,usemap,' +
     'valign,value,vspace,width');
-// NB: This currently conciously doesn't support SVG. SVG sanitization has had several security
+// NB: This currently consciously doesn't support SVG. SVG sanitization has had several security
 // issues in the past, so it seems safer to leave it out if possible. If support for binding SVG via
 // innerHTML is required, SVG attributes should be added here.
 // NB: Sanitization does not allow <form> elements or other active elements (<button> etc). Those
@@ -4424,7 +4424,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('4.3.0-beta.1-9dd550f');
+var VERSION = new Version('4.3.0-beta.1-c723d42');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
