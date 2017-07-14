@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.3.0-rc.0-8e56c3c
+ * @license Angular v4.3.0-rc.0-01a2688
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -191,6 +191,8 @@ function issueAnimationCommand(renderer, element, id, command, args) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var ANIMATION_PREFIX = '@';
+var DISABLE_ANIMATIONS_FLAG = '@.disabled';
 var AnimationRendererFactory = (function () {
     /**
      * @param {?} delegate
@@ -457,7 +459,12 @@ var BaseAnimationRenderer = (function () {
      * @return {?}
      */
     BaseAnimationRenderer.prototype.setProperty = function (el, name, value) {
-        this.delegate.setProperty(el, name, value);
+        if (name.charAt(0) == ANIMATION_PREFIX && name == DISABLE_ANIMATIONS_FLAG) {
+            this.disableAnimations(el, !!value);
+        }
+        else {
+            this.delegate.setProperty(el, name, value);
+        }
     };
     /**
      * @param {?} node
@@ -473,6 +480,14 @@ var BaseAnimationRenderer = (function () {
      */
     BaseAnimationRenderer.prototype.listen = function (target, eventName, callback) {
         return this.delegate.listen(target, eventName, callback);
+    };
+    /**
+     * @param {?} element
+     * @param {?} value
+     * @return {?}
+     */
+    BaseAnimationRenderer.prototype.disableAnimations = function (element, value) {
+        this.engine.disableAnimations(element, value);
     };
     return BaseAnimationRenderer;
 }());
@@ -497,9 +512,13 @@ var AnimationRenderer = (function (_super) {
      * @return {?}
      */
     AnimationRenderer.prototype.setProperty = function (el, name, value) {
-        if (name.charAt(0) == '@') {
-            name = name.substr(1);
-            this.engine.process(this.namespaceId, el, name, value);
+        if (name.charAt(0) == ANIMATION_PREFIX) {
+            if (name.charAt(1) == '.' && name == DISABLE_ANIMATIONS_FLAG) {
+                this.disableAnimations(el, !!value);
+            }
+            else {
+                this.engine.process(this.namespaceId, el, name.substr(1), value);
+            }
         }
         else {
             this.delegate.setProperty(el, name, value);
@@ -513,11 +532,13 @@ var AnimationRenderer = (function (_super) {
      */
     AnimationRenderer.prototype.listen = function (target, eventName, callback) {
         var _this = this;
-        if (eventName.charAt(0) == '@') {
+        if (eventName.charAt(0) == ANIMATION_PREFIX) {
             var /** @type {?} */ element = resolveElementFromTarget(target);
             var /** @type {?} */ name = eventName.substr(1);
             var /** @type {?} */ phase = '';
-            if (name.charAt(0) != '@') {
+            // @listener.phase is for trigger animation callbacks
+            // @@listener is for animation builder callbacks
+            if (name.charAt(0) != ANIMATION_PREFIX) {
                 _a = parseTriggerCallbackName(name), name = _a[0], phase = _a[1];
             }
             return this.engine.listen(this.namespaceId, element, name, phase, function (event) {
