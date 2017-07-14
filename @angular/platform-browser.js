@@ -1,9 +1,9 @@
 /**
- * @license Angular v4.3.0-rc.0-3d85f72
+ * @license Angular v4.3.0-rc.0-dd04f09
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID } from '@angular/common';
+import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
 import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal } from '@angular/core';
 import * as core from '@angular/core';
 
@@ -1726,7 +1726,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} name
      * @return {?}
      */
-    getCookie(name) { return parseCookieValue(document.cookie, name); }
+    getCookie(name) { return ɵparseCookieValue(document.cookie, name); }
     /**
      * @param {?} name
      * @param {?} value
@@ -1764,22 +1764,6 @@ function relativePath(url) {
     urlParsingNode.setAttribute('href', url);
     return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
         '/' + urlParsingNode.pathname;
-}
-/**
- * @param {?} cookieStr
- * @param {?} name
- * @return {?}
- */
-function parseCookieValue(cookieStr, name) {
-    name = encodeURIComponent(name);
-    for (const /** @type {?} */ cookie of cookieStr.split(';')) {
-        const /** @type {?} */ eqIndex = cookie.indexOf('=');
-        const [cookieName, cookieValue] = eqIndex == -1 ? [cookie, ''] : [cookie.slice(0, eqIndex), cookie.slice(eqIndex + 1)];
-        if (cookieName.trim() === name) {
-            return decodeURIComponent(cookieValue);
-        }
-    }
-    return null;
 }
 
 /**
@@ -4315,7 +4299,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('4.3.0-rc.0-3d85f72');
+const VERSION = new Version('4.3.0-rc.0-dd04f09');
 
 /**
  * @license
