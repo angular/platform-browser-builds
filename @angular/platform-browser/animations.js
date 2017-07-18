@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.3.0-d22f8f5
+ * @license Angular v4.3.0-5db6f38
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -195,6 +195,7 @@ class AnimationRendererFactory {
         this._microtaskId = 1;
         this._animationCallbacksBuffer = [];
         this._rendererCache = new Map();
+        this._cdRecurDepth = 0;
         engine.onRemovalComplete = (element, delegate) => {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
@@ -236,6 +237,7 @@ class AnimationRendererFactory {
      * @return {?}
      */
     begin() {
+        this._cdRecurDepth++;
         if (this.delegate.begin) {
             this.delegate.begin();
         }
@@ -274,10 +276,15 @@ class AnimationRendererFactory {
      * @return {?}
      */
     end() {
-        this._zone.runOutsideAngular(() => {
-            this._scheduleCountTask();
-            this.engine.flush(this._microtaskId);
-        });
+        this._cdRecurDepth--;
+        // this is to prevent animations from running twice when an inner
+        // component does CD when a parent component insted has inserted it
+        if (this._cdRecurDepth == 0) {
+            this._zone.runOutsideAngular(() => {
+                this._scheduleCountTask();
+                this.engine.flush(this._microtaskId);
+            });
+        }
         if (this.delegate.end) {
             this.delegate.end();
         }
