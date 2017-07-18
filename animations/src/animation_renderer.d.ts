@@ -8,7 +8,6 @@ export declare class AnimationRendererFactory implements RendererFactory2 {
     private _microtaskId;
     private _animationCallbacksBuffer;
     private _rendererCache;
-    private _cdRecurDepth;
     constructor(delegate: RendererFactory2, engine: AnimationEngine, _zone: NgZone);
     createRenderer(hostElement: any, type: RendererType2): Renderer2;
     begin(): void;
