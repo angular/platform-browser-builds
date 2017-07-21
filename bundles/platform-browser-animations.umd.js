@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.0-abee785
+ * @license Angular v5.0.0-beta.0-b7a6f52
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,9 +36,13 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.0-abee785
+ * @license Angular v5.0.0-beta.0-b7a6f52
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
+ */
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * @license
@@ -55,13 +59,13 @@ var BrowserAnimationBuilder = (function (_super) {
     function BrowserAnimationBuilder(rootRenderer) {
         var _this = _super.call(this) || this;
         _this._nextAnimationId = 0;
-        var typeData = {
+        var /** @type {?} */ typeData = ({
             id: '0',
             encapsulation: _angular_core.ViewEncapsulation.None,
             styles: [],
             data: { animation: [] }
-        };
-        _this._renderer = rootRenderer.createRenderer(document.body, typeData);
+        });
+        _this._renderer = (rootRenderer.createRenderer(document.body, typeData));
         return _this;
     }
     /**
@@ -80,9 +84,7 @@ var BrowserAnimationBuilder = (function (_super) {
 BrowserAnimationBuilder.decorators = [
     { type: _angular_core.Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 BrowserAnimationBuilder.ctorParameters = function () { return [
     { type: _angular_core.RendererFactory2, },
 ]; };
@@ -217,11 +219,8 @@ function issueAnimationCommand(renderer, element, id, command, args) {
     return renderer.setProperty(element, "@@" + id + ":" + command, args);
 }
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 var ANIMATION_PREFIX = '@';
 var DISABLE_ANIMATIONS_FLAG = '@.disabled';
@@ -346,9 +345,7 @@ var AnimationRendererFactory = (function () {
 AnimationRendererFactory.decorators = [
     { type: _angular_core.Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 AnimationRendererFactory.ctorParameters = function () { return [
     { type: _angular_core.RendererFactory2, },
     { type: _angular_animations_browser.ɵAnimationEngine, },
@@ -364,7 +361,7 @@ var BaseAnimationRenderer = (function () {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? function (n) { return delegate.destroyNode(n); } : null;
+        this.destroyNode = this.delegate.destroyNode ? function (n) { return ((delegate.destroyNode))(n); } : null;
     }
     Object.defineProperty(BaseAnimationRenderer.prototype, "data", {
         /**
@@ -617,6 +614,10 @@ function parseTriggerCallbackName(triggerName) {
     return [trigger, phase];
 }
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -637,9 +638,7 @@ var InjectableAnimationEngine = (function (_super) {
 InjectableAnimationEngine.decorators = [
     { type: _angular_core.Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 InjectableAnimationEngine.ctorParameters = function () { return [
     { type: _angular_animations_browser.AnimationDriver, },
     { type: _angular_animations_browser.ɵAnimationStyleNormalizer, },
@@ -690,6 +689,10 @@ var BROWSER_ANIMATIONS_PROVIDERS = [
  */
 var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: _angular_animations_browser.AnimationDriver, useClass: _angular_animations_browser.ɵNoopAnimationDriver }].concat(SHARED_ANIMATION_PROVIDERS);
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -710,9 +713,7 @@ BrowserAnimationsModule.decorators = [
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 BrowserAnimationsModule.ctorParameters = function () { return []; };
 /**
  * \@experimental Animation support is experimental.
@@ -728,9 +729,7 @@ NoopAnimationsModule.decorators = [
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 NoopAnimationsModule.ctorParameters = function () { return []; };
 
 exports.BrowserAnimationsModule = BrowserAnimationsModule;

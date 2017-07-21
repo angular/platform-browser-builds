@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.0-abee785
+ * @license Angular v5.0.0-beta.0-b7a6f52
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,6 +8,10 @@ import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser'
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -22,13 +26,13 @@ class BrowserAnimationBuilder extends AnimationBuilder {
     constructor(rootRenderer) {
         super();
         this._nextAnimationId = 0;
-        const typeData = {
+        const /** @type {?} */ typeData = ({
             id: '0',
             encapsulation: ViewEncapsulation.None,
             styles: [],
             data: { animation: [] }
-        };
-        this._renderer = rootRenderer.createRenderer(document.body, typeData);
+        });
+        this._renderer = (rootRenderer.createRenderer(document.body, typeData));
     }
     /**
      * @param {?} animation
@@ -45,9 +49,7 @@ class BrowserAnimationBuilder extends AnimationBuilder {
 BrowserAnimationBuilder.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 BrowserAnimationBuilder.ctorParameters = () => [
     { type: RendererFactory2, },
 ];
@@ -175,11 +177,8 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 const ANIMATION_PREFIX = '@';
 const DISABLE_ANIMATIONS_FLAG = '@.disabled';
@@ -299,9 +298,7 @@ class AnimationRendererFactory {
 AnimationRendererFactory.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 AnimationRendererFactory.ctorParameters = () => [
     { type: RendererFactory2, },
     { type: ɵAnimationEngine, },
@@ -317,7 +314,7 @@ class BaseAnimationRenderer {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
+        this.destroyNode = this.delegate.destroyNode ? (n) => ((delegate.destroyNode))(n) : null;
     }
     /**
      * @return {?}
@@ -561,6 +558,10 @@ function parseTriggerCallbackName(triggerName) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -579,9 +580,7 @@ class InjectableAnimationEngine extends ɵAnimationEngine {
 InjectableAnimationEngine.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 InjectableAnimationEngine.ctorParameters = () => [
     { type: AnimationDriver, },
     { type: ɵAnimationStyleNormalizer, },
@@ -634,6 +633,10 @@ const BROWSER_ANIMATIONS_PROVIDERS = [
 const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useClass: ɵNoopAnimationDriver }, ...SHARED_ANIMATION_PROVIDERS];
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -651,9 +654,7 @@ BrowserAnimationsModule.decorators = [
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 BrowserAnimationsModule.ctorParameters = () => [];
 /**
  * \@experimental Animation support is experimental.
@@ -666,11 +667,13 @@ NoopAnimationsModule.decorators = [
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 NoopAnimationsModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -679,6 +682,10 @@ NoopAnimationsModule.ctorParameters = () => [];
  * found in the LICENSE file at https://angular.io/license
  */
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -693,6 +700,10 @@ NoopAnimationsModule.ctorParameters = () => [];
  */
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -705,6 +716,10 @@ NoopAnimationsModule.ctorParameters = () => [];
  * Entry point for all public APIs of the animation package.
  */
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */
