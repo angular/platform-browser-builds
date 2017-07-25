@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.0-6fc5940
+ * @license Angular v5.0.0-beta.0-6279e50
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2271,11 +2271,26 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Detect if Zone is present. If it is then bypass 'addEventListener' since Angular can do much more
+ * efficient bookkeeping than Zone can, because we have additional information. This speeds up
+ * addEventListener by 3x.
+ */
+const Zone = ɵglobal['Zone'];
+const __symbol__ = Zone && Zone['__symbol__'] || function (v) {
+    return v;
+};
+const ADD_EVENT_LISTENER = __symbol__('addEventListener');
+const REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 class DomEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
+     * @param {?} ngZone
      */
-    constructor(doc) { super(doc); }
+    constructor(doc, ngZone) {
+        super(doc);
+        this.ngZone = ngZone;
+    }
     /**
      * @param {?} eventName
      * @return {?}
@@ -2288,8 +2303,27 @@ class DomEventsPlugin extends EventManagerPlugin {
      * @return {?}
      */
     addEventListener(element, eventName, handler) {
-        element.addEventListener(eventName, /** @type {?} */ (handler), false);
-        return () => element.removeEventListener(eventName, /** @type {?} */ (handler), false);
+        /**
+         * This code is about to add a listener to the DOM. If Zone.js is present, than
+         * `addEventListener` has been patched. The patched code adds overhead in both
+         * memory and speed (3x slower) than native. For this reason if we detect that
+         * Zone.js is present we bypass zone and use native addEventListener instead.
+         * The result is faster registration but the zone will not be restored. We do
+         * manual zone restoration in element.ts renderEventHandlerClosure method.
+         *
+         * NOTE: it is possible that the element is from different iframe, and so we
+         * have to check before we execute the method.
+         */
+        const /** @type {?} */ self = this;
+        let /** @type {?} */ byPassZoneJS = element[ADD_EVENT_LISTENER];
+        let /** @type {?} */ callback = (handler);
+        if (byPassZoneJS) {
+            callback = function () {
+                return self.ngZone.runTask(/** @type {?} */ (handler), null, /** @type {?} */ (arguments), eventName);
+            };
+        }
+        element[byPassZoneJS ? ADD_EVENT_LISTENER : 'addEventListener'](eventName, callback, false);
+        return () => element[byPassZoneJS ? REMOVE_EVENT_LISTENER : 'removeEventListener'](eventName, /** @type {?} */ (callback), false);
     }
 }
 DomEventsPlugin.decorators = [
@@ -2298,6 +2332,7 @@ DomEventsPlugin.decorators = [
 /** @nocollapse */
 DomEventsPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: NgZone, },
 ];
 
 /**
@@ -3591,7 +3626,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.0-6fc5940');
+const VERSION = new Version('5.0.0-beta.0-6279e50');
 
 /**
  * @fileoverview added by tsickle

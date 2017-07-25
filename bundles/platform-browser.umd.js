@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.0-6fc5940
+ * @license Angular v5.0.0-beta.0-6279e50
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.0-6fc5940
+ * @license Angular v5.0.0-beta.0-6279e50
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2362,13 +2362,27 @@ var ShadowDomRenderer = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Detect if Zone is present. If it is then bypass 'addEventListener' since Angular can do much more
+ * efficient bookkeeping than Zone can, because we have additional information. This speeds up
+ * addEventListener by 3x.
+ */
+var Zone = _angular_core.ɵglobal['Zone'];
+var __symbol__ = Zone && Zone['__symbol__'] || function (v) {
+    return v;
+};
+var ADD_EVENT_LISTENER = __symbol__('addEventListener');
+var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 var DomEventsPlugin = (function (_super) {
     __extends(DomEventsPlugin, _super);
     /**
      * @param {?} doc
+     * @param {?} ngZone
      */
-    function DomEventsPlugin(doc) {
-        return _super.call(this, doc) || this;
+    function DomEventsPlugin(doc, ngZone) {
+        var _this = _super.call(this, doc) || this;
+        _this.ngZone = ngZone;
+        return _this;
     }
     /**
      * @param {?} eventName
@@ -2382,8 +2396,27 @@ var DomEventsPlugin = (function (_super) {
      * @return {?}
      */
     DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        element.addEventListener(eventName, /** @type {?} */ (handler), false);
-        return function () { return element.removeEventListener(eventName, /** @type {?} */ (handler), false); };
+        /**
+         * This code is about to add a listener to the DOM. If Zone.js is present, than
+         * `addEventListener` has been patched. The patched code adds overhead in both
+         * memory and speed (3x slower) than native. For this reason if we detect that
+         * Zone.js is present we bypass zone and use native addEventListener instead.
+         * The result is faster registration but the zone will not be restored. We do
+         * manual zone restoration in element.ts renderEventHandlerClosure method.
+         *
+         * NOTE: it is possible that the element is from different iframe, and so we
+         * have to check before we execute the method.
+         */
+        var /** @type {?} */ self = this;
+        var /** @type {?} */ byPassZoneJS = element[ADD_EVENT_LISTENER];
+        var /** @type {?} */ callback = (handler);
+        if (byPassZoneJS) {
+            callback = function () {
+                return self.ngZone.runTask(/** @type {?} */ (handler), null, /** @type {?} */ (arguments), eventName);
+            };
+        }
+        element[byPassZoneJS ? ADD_EVENT_LISTENER : 'addEventListener'](eventName, callback, false);
+        return function () { return element[byPassZoneJS ? REMOVE_EVENT_LISTENER : 'removeEventListener'](eventName, /** @type {?} */ (callback), false); };
     };
     return DomEventsPlugin;
 }(EventManagerPlugin));
@@ -2393,6 +2426,7 @@ DomEventsPlugin.decorators = [
 /** @nocollapse */
 DomEventsPlugin.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
+    { type: _angular_core.NgZone, },
 ]; };
 /**
  * @fileoverview added by tsickle
@@ -3732,7 +3766,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.0-6fc5940');
+var VERSION = new _angular_core.Version('5.0.0-beta.0-6279e50');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
