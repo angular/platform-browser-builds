@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.3.0-4ce29f3
+ * @license Angular v4.3.1-bcea196
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -181,6 +181,8 @@ function issueAnimationCommand(renderer, element, id, command, args) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+const ANIMATION_PREFIX = '@';
+const DISABLE_ANIMATIONS_FLAG = '@.disabled';
 class AnimationRendererFactory {
     /**
      * @param {?} delegate
@@ -195,6 +197,7 @@ class AnimationRendererFactory {
         this._microtaskId = 1;
         this._animationCallbacksBuffer = [];
         this._rendererCache = new Map();
+        this._cdRecurDepth = 0;
         engine.onRemovalComplete = (element, delegate) => {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
@@ -236,6 +239,7 @@ class AnimationRendererFactory {
      * @return {?}
      */
     begin() {
+        this._cdRecurDepth++;
         if (this.delegate.begin) {
             this.delegate.begin();
         }
@@ -274,10 +278,15 @@ class AnimationRendererFactory {
      * @return {?}
      */
     end() {
-        this._zone.runOutsideAngular(() => {
-            this._scheduleCountTask();
-            this.engine.flush(this._microtaskId);
-        });
+        this._cdRecurDepth--;
+        // this is to prevent animations from running twice when an inner
+        // component does CD when a parent component insted has inserted it
+        if (this._cdRecurDepth == 0) {
+            this._zone.runOutsideAngular(() => {
+                this._scheduleCountTask();
+                this.engine.flush(this._microtaskId);
+            });
+        }
         if (this.delegate.end) {
             this.delegate.end();
         }
@@ -438,7 +447,12 @@ class BaseAnimationRenderer {
      * @return {?}
      */
     setProperty(el, name, value) {
-        this.delegate.setProperty(el, name, value);
+        if (name.charAt(0) == ANIMATION_PREFIX && name == DISABLE_ANIMATIONS_FLAG) {
+            this.disableAnimations(el, !!value);
+        }
+        else {
+            this.delegate.setProperty(el, name, value);
+        }
     }
     /**
      * @param {?} node
@@ -454,6 +468,14 @@ class BaseAnimationRenderer {
      */
     listen(target, eventName, callback) {
         return this.delegate.listen(target, eventName, callback);
+    }
+    /**
+     * @param {?} element
+     * @param {?} value
+     * @return {?}
+     */
+    disableAnimations(element, value) {
+        this.engine.disableAnimations(element, value);
     }
 }
 class AnimationRenderer extends BaseAnimationRenderer {
@@ -475,9 +497,13 @@ class AnimationRenderer extends BaseAnimationRenderer {
      * @return {?}
      */
     setProperty(el, name, value) {
-        if (name.charAt(0) == '@') {
-            name = name.substr(1);
-            this.engine.process(this.namespaceId, el, name, value);
+        if (name.charAt(0) == ANIMATION_PREFIX) {
+            if (name.charAt(1) == '.' && name == DISABLE_ANIMATIONS_FLAG) {
+                this.disableAnimations(el, !!value);
+            }
+            else {
+                this.engine.process(this.namespaceId, el, name.substr(1), value);
+            }
         }
         else {
             this.delegate.setProperty(el, name, value);
@@ -490,11 +516,13 @@ class AnimationRenderer extends BaseAnimationRenderer {
      * @return {?}
      */
     listen(target, eventName, callback) {
-        if (eventName.charAt(0) == '@') {
+        if (eventName.charAt(0) == ANIMATION_PREFIX) {
             const /** @type {?} */ element = resolveElementFromTarget(target);
             let /** @type {?} */ name = eventName.substr(1);
             let /** @type {?} */ phase = '';
-            if (name.charAt(0) != '@') {
+            // @listener.phase is for trigger animation callbacks
+            // @@listener is for animation builder callbacks
+            if (name.charAt(0) != ANIMATION_PREFIX) {
                 [name, phase] = parseTriggerCallbackName(name);
             }
             return this.engine.listen(this.namespaceId, element, name, phase, event => {
@@ -619,7 +647,7 @@ class BrowserAnimationsModule {
 }
 BrowserAnimationsModule.decorators = [
     { type: NgModule, args: [{
-                imports: [BrowserModule],
+                exports: [BrowserModule],
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
             },] },
 ];
@@ -634,7 +662,7 @@ class NoopAnimationsModule {
 }
 NoopAnimationsModule.decorators = [
     { type: NgModule, args: [{
-                imports: [BrowserModule],
+                exports: [BrowserModule],
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             },] },
 ];
