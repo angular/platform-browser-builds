@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.2-685cc26
+ * @license Angular v5.0.0-beta.2-fcadbf4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.2-685cc26
+ * @license Angular v5.0.0-beta.2-fcadbf4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3462,7 +3462,7 @@ var SafeResourceUrlImpl = (function (_super) {
 var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: _angular_core.PLATFORM_ID, useValue: _angular_common.ɵPLATFORM_BROWSER_ID },
     { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation },
+    { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT$1] },
     { provide: DOCUMENT$1, useFactory: _document, deps: [] },
 ];
 /**
@@ -3473,7 +3473,7 @@ var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  */
 var BROWSER_SANITIZATION_PROVIDERS = [
     { provide: _angular_core.Sanitizer, useExisting: DomSanitizer },
-    { provide: DomSanitizer, useClass: DomSanitizerImpl },
+    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
 /**
  * \@stable
@@ -3766,7 +3766,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.2-685cc26');
+var VERSION = new _angular_core.Version('5.0.0-beta.2-fcadbf4');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
