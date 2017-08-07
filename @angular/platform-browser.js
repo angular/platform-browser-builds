@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.2-fcadbf4
+ * @license Angular v5.0.0-beta.2-f69561b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3324,7 +3324,7 @@ class SafeResourceUrlImpl extends SafeValueImpl {
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT$1] },
+    { provide: PlatformLocation, useClass: BrowserPlatformLocation },
     { provide: DOCUMENT$1, useFactory: _document, deps: [] },
 ];
 /**
@@ -3335,7 +3335,7 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  */
 const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
-    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
+    { provide: DomSanitizer, useClass: DomSanitizerImpl },
 ];
 /**
  * \@stable
@@ -3626,7 +3626,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.2-fcadbf4');
+const VERSION = new Version('5.0.0-beta.2-f69561b');
 
 /**
  * @fileoverview added by tsickle
