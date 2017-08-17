@@ -1,11 +1,11 @@
 import * as tslib_1 from "tslib";
 /**
- * @license Angular v5.0.0-beta.4-3a50098
+ * @license Angular v5.0.0-beta.4-0cc77b4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
-import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
+import { Inject, Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
+import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 /**
@@ -23,8 +23,9 @@ var BrowserAnimationBuilder = (function (_super) {
     tslib_1.__extends(BrowserAnimationBuilder, _super);
     /**
      * @param {?} rootRenderer
+     * @param {?} doc
      */
-    function BrowserAnimationBuilder(rootRenderer) {
+    function BrowserAnimationBuilder(rootRenderer, doc) {
         var _this = _super.call(this) || this;
         _this._nextAnimationId = 0;
         var /** @type {?} */ typeData = ({
@@ -33,7 +34,7 @@ var BrowserAnimationBuilder = (function (_super) {
             styles: [],
             data: { animation: [] }
         });
-        _this._renderer = (rootRenderer.createRenderer(document.body, typeData));
+        _this._renderer = (rootRenderer.createRenderer(doc.body, typeData));
         return _this;
     }
     /**
@@ -55,6 +56,7 @@ BrowserAnimationBuilder.decorators = [
 /** @nocollapse */
 BrowserAnimationBuilder.ctorParameters = function () { return [
     { type: RendererFactory2, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
 var BrowserAnimationFactory = (function (_super) {
     tslib_1.__extends(BrowserAnimationFactory, _super);
