@@ -1,10 +1,10 @@
 /**
- * @license Angular v5.0.0-beta.4-83713dd
+ * @license Angular v5.0.0-beta.4-a56468c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
-import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
+import { Inject, Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
+import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 
@@ -22,8 +22,9 @@ import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopA
 class BrowserAnimationBuilder extends AnimationBuilder {
     /**
      * @param {?} rootRenderer
+     * @param {?} doc
      */
-    constructor(rootRenderer) {
+    constructor(rootRenderer, doc) {
         super();
         this._nextAnimationId = 0;
         const /** @type {?} */ typeData = ({
@@ -32,7 +33,7 @@ class BrowserAnimationBuilder extends AnimationBuilder {
             styles: [],
             data: { animation: [] }
         });
-        this._renderer = (rootRenderer.createRenderer(document.body, typeData));
+        this._renderer = (rootRenderer.createRenderer(doc.body, typeData));
     }
     /**
      * @param {?} animation
@@ -52,6 +53,7 @@ BrowserAnimationBuilder.decorators = [
 /** @nocollapse */
 BrowserAnimationBuilder.ctorParameters = () => [
     { type: RendererFactory2, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 class BrowserAnimationFactory extends AnimationFactory {
     /**

@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.4-83713dd
+ * @license Angular v5.0.0-beta.4-a56468c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.4-83713dd
+ * @license Angular v5.0.0-beta.4-a56468c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -55,8 +55,9 @@ var BrowserAnimationBuilder = (function (_super) {
     __extends(BrowserAnimationBuilder, _super);
     /**
      * @param {?} rootRenderer
+     * @param {?} doc
      */
-    function BrowserAnimationBuilder(rootRenderer) {
+    function BrowserAnimationBuilder(rootRenderer, doc) {
         var _this = _super.call(this) || this;
         _this._nextAnimationId = 0;
         var /** @type {?} */ typeData = ({
@@ -65,7 +66,7 @@ var BrowserAnimationBuilder = (function (_super) {
             styles: [],
             data: { animation: [] }
         });
-        _this._renderer = (rootRenderer.createRenderer(document.body, typeData));
+        _this._renderer = (rootRenderer.createRenderer(doc.body, typeData));
         return _this;
     }
     /**
@@ -87,6 +88,7 @@ BrowserAnimationBuilder.decorators = [
 /** @nocollapse */
 BrowserAnimationBuilder.ctorParameters = function () { return [
     { type: _angular_core.RendererFactory2, },
+    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
 var BrowserAnimationFactory = (function (_super) {
     __extends(BrowserAnimationFactory, _super);

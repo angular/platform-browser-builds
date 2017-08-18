@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.4-83713dd
+ * @license Angular v5.0.0-beta.4-a56468c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.4-83713dd
+ * @license Angular v5.0.0-beta.4-a56468c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1646,29 +1646,12 @@ function inspectNativeElement(element) {
     return _angular_core.getDebugNode(element);
 }
 /**
- * Deprecated. Use the one from '\@angular/core'.
- * @deprecated
- */
-var NgProbeToken$1 = (function () {
-    /**
-     * @param {?} name
-     * @param {?} token
-     */
-    function NgProbeToken$1(name, token) {
-        this.name = name;
-        this.token = token;
-    }
-    return NgProbeToken$1;
-}());
-/**
- * @param {?} extraTokens
  * @param {?} coreTokens
  * @return {?}
  */
-function _createNgProbe(extraTokens, coreTokens) {
-    var /** @type {?} */ tokens = (extraTokens || []).concat(coreTokens || []);
+function _createNgProbe(coreTokens) {
     exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    exportNgVar(CORE_TOKENS_GLOBAL_NAME, Object.assign({}, CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
+    exportNgVar(CORE_TOKENS_GLOBAL_NAME, Object.assign({}, CORE_TOKENS, _ngProbeTokensToMap(coreTokens || [])));
     return function () { return inspectNativeElement; };
 }
 /**
@@ -1686,7 +1669,6 @@ var ELEMENT_PROBE_PROVIDERS = [
         provide: _angular_core.APP_INITIALIZER,
         useFactory: _createNgProbe,
         deps: [
-            [NgProbeToken$1, new _angular_core.Optional()],
             [_angular_core.NgProbeToken, new _angular_core.Optional()],
         ],
         multi: true,
@@ -3766,7 +3748,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.4-83713dd');
+var VERSION = new _angular_core.Version('5.0.0-beta.4-a56468c');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
@@ -3775,7 +3757,6 @@ exports.Title = Title;
 exports.disableDebugTools = disableDebugTools;
 exports.enableDebugTools = enableDebugTools;
 exports.By = By;
-exports.NgProbeToken = NgProbeToken$1;
 exports.DOCUMENT = DOCUMENT$1;
 exports.EVENT_MANAGER_PLUGINS = EVENT_MANAGER_PLUGINS;
 exports.EventManager = EventManager;
@@ -3813,11 +3794,11 @@ exports.ɵSharedStylesHost = SharedStylesHost;
 exports.ɵb = _document;
 exports.ɵa = errorHandler;
 exports.ɵh = GenericBrowserDomAdapter;
-exports.ɵg = SERVER_TRANSITION_PROVIDERS;
-exports.ɵf = appInitializerFactory;
-exports.ɵc = _createNgProbe;
-exports.ɵd = EventManagerPlugin;
-exports.ɵe = DomSanitizerImpl;
+exports.ɵf = SERVER_TRANSITION_PROVIDERS;
+exports.ɵe = appInitializerFactory;
+exports.ɵg = _createNgProbe;
+exports.ɵc = EventManagerPlugin;
+exports.ɵd = DomSanitizerImpl;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
