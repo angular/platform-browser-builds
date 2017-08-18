@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.4-56a5b02
+ * @license Angular v5.0.0-beta.4-a56468c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1570,28 +1570,12 @@ function inspectNativeElement(element) {
     return getDebugNode(element);
 }
 /**
- * Deprecated. Use the one from '\@angular/core'.
- * @deprecated
- */
-class NgProbeToken$1 {
-    /**
-     * @param {?} name
-     * @param {?} token
-     */
-    constructor(name, token) {
-        this.name = name;
-        this.token = token;
-    }
-}
-/**
- * @param {?} extraTokens
  * @param {?} coreTokens
  * @return {?}
  */
-function _createNgProbe(extraTokens, coreTokens) {
-    const /** @type {?} */ tokens = (extraTokens || []).concat(coreTokens || []);
+function _createNgProbe(coreTokens) {
     exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    exportNgVar(CORE_TOKENS_GLOBAL_NAME, Object.assign({}, CORE_TOKENS, _ngProbeTokensToMap(tokens || [])));
+    exportNgVar(CORE_TOKENS_GLOBAL_NAME, Object.assign({}, CORE_TOKENS, _ngProbeTokensToMap(coreTokens || [])));
     return () => inspectNativeElement;
 }
 /**
@@ -1609,7 +1593,6 @@ const ELEMENT_PROBE_PROVIDERS = [
         provide: APP_INITIALIZER,
         useFactory: _createNgProbe,
         deps: [
-            [NgProbeToken$1, new Optional()],
             [NgProbeToken, new Optional()],
         ],
         multi: true,
@@ -3626,7 +3609,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.4-56a5b02');
+const VERSION = new Version('5.0.0-beta.4-a56468c');
 
 /**
  * @fileoverview added by tsickle
@@ -3667,5 +3650,5 @@ const VERSION = new Version('5.0.0-beta.4-56a5b02');
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, NgProbeToken$1 as NgProbeToken, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl, SafeValue, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵg, appInitializerFactory as ɵf, _createNgProbe as ɵc, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl, SafeValue, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵf, appInitializerFactory as ɵe, _createNgProbe as ɵg, EventManagerPlugin as ɵc, DomSanitizerImpl as ɵd };
 //# sourceMappingURL=platform-browser.js.map
