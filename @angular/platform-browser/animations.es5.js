@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 /**
- * @license Angular v5.0.0-beta.4-e228f2c
+ * @license Angular v5.0.0-beta.4-55d151a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -520,7 +520,8 @@ var AnimationRenderer = (function (_super) {
     AnimationRenderer.prototype.setProperty = function (el, name, value) {
         if (name.charAt(0) == ANIMATION_PREFIX) {
             if (name.charAt(1) == '.' && name == DISABLE_ANIMATIONS_FLAG) {
-                this.disableAnimations(el, !!value);
+                value = value === undefined ? true : !!value;
+                this.disableAnimations(el, /** @type {?} */ (value));
             }
             else {
                 this.engine.process(this.namespaceId, el, name.substr(1), value);
