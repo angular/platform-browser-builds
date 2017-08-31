@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.5-3725535
+ * @license Angular v5.0.0-beta.5-e1dc9bf
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -343,7 +343,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     createMouseEvent(eventType) {
-        const /** @type {?} */ evt = document.createEvent('MouseEvent');
+        const /** @type {?} */ evt = this.getDefaultDocument().createEvent('MouseEvent');
         evt.initEvent(eventType, true, true);
         return evt;
     }
@@ -352,7 +352,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     createEvent(eventType) {
-        const /** @type {?} */ evt = document.createEvent('Event');
+        const /** @type {?} */ evt = this.getDefaultDocument().createEvent('Event');
         evt.initEvent(eventType, true, true);
         return evt;
     }
@@ -381,7 +381,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     getTemplateContent(el) {
-        return 'content' in el && el instanceof HTMLTemplateElement ? el.content : null;
+        return 'content' in el && this.isTemplateElement(el) ? ((el)).content : null;
     }
     /**
      * @param {?} el
@@ -551,13 +551,13 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} text
      * @return {?}
      */
-    createComment(text) { return document.createComment(text); }
+    createComment(text) { return this.getDefaultDocument().createComment(text); }
     /**
      * @param {?} html
      * @return {?}
      */
     createTemplate(html) {
-        const /** @type {?} */ t = document.createElement('template');
+        const /** @type {?} */ t = this.getDefaultDocument().createElement('template');
         t.innerHTML = html;
         return t;
     }
@@ -566,14 +566,18 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?=} doc
      * @return {?}
      */
-    createElement(tagName, doc = document) { return doc.createElement(tagName); }
+    createElement(tagName, doc) {
+        doc = doc || this.getDefaultDocument();
+        return doc.createElement(tagName);
+    }
     /**
      * @param {?} ns
      * @param {?} tagName
      * @param {?=} doc
      * @return {?}
      */
-    createElementNS(ns, tagName, doc = document) {
+    createElementNS(ns, tagName, doc) {
+        doc = doc || this.getDefaultDocument();
         return doc.createElementNS(ns, tagName);
     }
     /**
@@ -581,14 +585,18 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?=} doc
      * @return {?}
      */
-    createTextNode(text, doc = document) { return doc.createTextNode(text); }
+    createTextNode(text, doc) {
+        doc = doc || this.getDefaultDocument();
+        return doc.createTextNode(text);
+    }
     /**
      * @param {?} attrName
      * @param {?} attrValue
      * @param {?=} doc
      * @return {?}
      */
-    createScriptTag(attrName, attrValue, doc = document) {
+    createScriptTag(attrName, attrValue, doc) {
+        doc = doc || this.getDefaultDocument();
         const /** @type {?} */ el = (doc.createElement('SCRIPT'));
         el.setAttribute(attrName, attrValue);
         return el;
@@ -598,9 +606,10 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?=} doc
      * @return {?}
      */
-    createStyleElement(css, doc = document) {
+    createStyleElement(css, doc) {
+        doc = doc || this.getDefaultDocument();
         const /** @type {?} */ style = (doc.createElement('style'));
-        this.appendChild(style, this.createTextNode(css));
+        this.appendChild(style, this.createTextNode(css, doc));
         return style;
     }
     /**
@@ -712,7 +721,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         const /** @type {?} */ res = new Map();
         const /** @type {?} */ elAttrs = element.attributes;
         for (let /** @type {?} */ i = 0; i < elAttrs.length; i++) {
-            const /** @type {?} */ attrib = elAttrs[i];
+            const /** @type {?} */ attrib = elAttrs.item(i);
             res.set(attrib.name, attrib.value);
         }
         return res;
@@ -795,6 +804,10 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return document.implementation.createHTMLDocument('fakeTitle');
     }
     /**
+     * @return {?}
+     */
+    getDefaultDocument() { return document; }
+    /**
      * @param {?} el
      * @return {?}
      */
@@ -810,20 +823,20 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} doc
      * @return {?}
      */
-    getTitle(doc) { return document.title; }
+    getTitle(doc) { return doc.title; }
     /**
      * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    setTitle(doc, newTitle) { document.title = newTitle || ''; }
+    setTitle(doc, newTitle) { doc.title = newTitle || ''; }
     /**
      * @param {?} n
      * @param {?} selector
      * @return {?}
      */
     elementMatches(n, selector) {
-        if (n instanceof HTMLElement) {
+        if (this.isElementNode(n)) {
             return n.matches && n.matches(selector) ||
                 n.msMatchesSelector && n.msMatchesSelector(selector) ||
                 n.webkitMatchesSelector && n.webkitMatchesSelector(selector);
@@ -835,7 +848,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     isTemplateElement(el) {
-        return el instanceof HTMLElement && el.nodeName == 'TEMPLATE';
+        return this.isElementNode(el) && el.nodeName === 'TEMPLATE';
     }
     /**
      * @param {?} node
@@ -878,7 +891,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} el
      * @return {?}
      */
-    getHref(el) { return ((el)).href; }
+    getHref(el) { return ((el.getAttribute('href'))); }
     /**
      * @param {?} event
      * @return {?}
@@ -915,10 +928,10 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
             return window;
         }
         if (target === 'document') {
-            return document;
+            return doc;
         }
         if (target === 'body') {
-            return document.body;
+            return doc.body;
         }
         return null;
     }
@@ -1244,7 +1257,7 @@ class Meta {
     getTag(attrSelector) {
         if (!attrSelector)
             return null;
-        return this._dom.querySelector(this._doc, `meta[${attrSelector}]`);
+        return this._dom.querySelector(this._doc, `meta[${attrSelector}]`) || null;
     }
     /**
      * @param {?} attrSelector
@@ -3609,7 +3622,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.5-3725535');
+const VERSION = new Version('5.0.0-beta.5-e1dc9bf');
 
 /**
  * @fileoverview added by tsickle
