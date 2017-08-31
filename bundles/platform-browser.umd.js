@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.5-30d53a8
+ * @license Angular v5.0.0-beta.5-2f2d5f3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.5-30d53a8
+ * @license Angular v5.0.0-beta.5-2f2d5f3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -389,7 +389,7 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.createMouseEvent = function (eventType) {
-        var /** @type {?} */ evt = document.createEvent('MouseEvent');
+        var /** @type {?} */ evt = this.getDefaultDocument().createEvent('MouseEvent');
         evt.initEvent(eventType, true, true);
         return evt;
     };
@@ -398,7 +398,7 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.createEvent = function (eventType) {
-        var /** @type {?} */ evt = document.createEvent('Event');
+        var /** @type {?} */ evt = this.getDefaultDocument().createEvent('Event');
         evt.initEvent(eventType, true, true);
         return evt;
     };
@@ -427,7 +427,7 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.getTemplateContent = function (el) {
-        return 'content' in el && el instanceof HTMLTemplateElement ? el.content : null;
+        return 'content' in el && this.isTemplateElement(el) ? ((el)).content : null;
     };
     /**
      * @param {?} el
@@ -597,13 +597,13 @@ var BrowserDomAdapter = (function (_super) {
      * @param {?} text
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createComment = function (text) { return document.createComment(text); };
+    BrowserDomAdapter.prototype.createComment = function (text) { return this.getDefaultDocument().createComment(text); };
     /**
      * @param {?} html
      * @return {?}
      */
     BrowserDomAdapter.prototype.createTemplate = function (html) {
-        var /** @type {?} */ t = document.createElement('template');
+        var /** @type {?} */ t = this.getDefaultDocument().createElement('template');
         t.innerHTML = html;
         return t;
     };
@@ -613,7 +613,7 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
-        if (doc === void 0) { doc = document; }
+        doc = doc || this.getDefaultDocument();
         return doc.createElement(tagName);
     };
     /**
@@ -623,7 +623,7 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.createElementNS = function (ns, tagName, doc) {
-        if (doc === void 0) { doc = document; }
+        doc = doc || this.getDefaultDocument();
         return doc.createElementNS(ns, tagName);
     };
     /**
@@ -632,7 +632,7 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.createTextNode = function (text, doc) {
-        if (doc === void 0) { doc = document; }
+        doc = doc || this.getDefaultDocument();
         return doc.createTextNode(text);
     };
     /**
@@ -642,7 +642,7 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) {
-        if (doc === void 0) { doc = document; }
+        doc = doc || this.getDefaultDocument();
         var /** @type {?} */ el = (doc.createElement('SCRIPT'));
         el.setAttribute(attrName, attrValue);
         return el;
@@ -653,9 +653,9 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.createStyleElement = function (css, doc) {
-        if (doc === void 0) { doc = document; }
+        doc = doc || this.getDefaultDocument();
         var /** @type {?} */ style = (doc.createElement('style'));
-        this.appendChild(style, this.createTextNode(css));
+        this.appendChild(style, this.createTextNode(css, doc));
         return style;
     };
     /**
@@ -767,7 +767,7 @@ var BrowserDomAdapter = (function (_super) {
         var /** @type {?} */ res = new Map();
         var /** @type {?} */ elAttrs = element.attributes;
         for (var /** @type {?} */ i = 0; i < elAttrs.length; i++) {
-            var /** @type {?} */ attrib = elAttrs[i];
+            var /** @type {?} */ attrib = elAttrs.item(i);
             res.set(attrib.name, attrib.value);
         }
         return res;
@@ -850,6 +850,10 @@ var BrowserDomAdapter = (function (_super) {
         return document.implementation.createHTMLDocument('fakeTitle');
     };
     /**
+     * @return {?}
+     */
+    BrowserDomAdapter.prototype.getDefaultDocument = function () { return document; };
+    /**
      * @param {?} el
      * @return {?}
      */
@@ -865,20 +869,20 @@ var BrowserDomAdapter = (function (_super) {
      * @param {?} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getTitle = function (doc) { return document.title; };
+    BrowserDomAdapter.prototype.getTitle = function (doc) { return doc.title; };
     /**
      * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setTitle = function (doc, newTitle) { document.title = newTitle || ''; };
+    BrowserDomAdapter.prototype.setTitle = function (doc, newTitle) { doc.title = newTitle || ''; };
     /**
      * @param {?} n
      * @param {?} selector
      * @return {?}
      */
     BrowserDomAdapter.prototype.elementMatches = function (n, selector) {
-        if (n instanceof HTMLElement) {
+        if (this.isElementNode(n)) {
             return n.matches && n.matches(selector) ||
                 n.msMatchesSelector && n.msMatchesSelector(selector) ||
                 n.webkitMatchesSelector && n.webkitMatchesSelector(selector);
@@ -890,7 +894,7 @@ var BrowserDomAdapter = (function (_super) {
      * @return {?}
      */
     BrowserDomAdapter.prototype.isTemplateElement = function (el) {
-        return el instanceof HTMLElement && el.nodeName == 'TEMPLATE';
+        return this.isElementNode(el) && el.nodeName === 'TEMPLATE';
     };
     /**
      * @param {?} node
@@ -933,7 +937,7 @@ var BrowserDomAdapter = (function (_super) {
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getHref = function (el) { return ((el)).href; };
+    BrowserDomAdapter.prototype.getHref = function (el) { return ((el.getAttribute('href'))); };
     /**
      * @param {?} event
      * @return {?}
@@ -970,10 +974,10 @@ var BrowserDomAdapter = (function (_super) {
             return window;
         }
         if (target === 'document') {
-            return document;
+            return doc;
         }
         if (target === 'body') {
-            return document.body;
+            return doc.body;
         }
         return null;
     };
@@ -1318,7 +1322,7 @@ var Meta = (function () {
     Meta.prototype.getTag = function (attrSelector) {
         if (!attrSelector)
             return null;
-        return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]");
+        return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]") || null;
     };
     /**
      * @param {?} attrSelector
@@ -3748,7 +3752,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.5-30d53a8');
+var VERSION = new _angular_core.Version('5.0.0-beta.5-2f2d5f3');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
