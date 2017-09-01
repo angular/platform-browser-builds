@@ -1,12 +1,12 @@
 /**
- * @license Angular v5.0.0-beta.5-ee04217
+ * @license Angular v5.0.0-beta.5-fd701b0
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}),global.ng.common,global.ng.core));
+	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = {}),global.ng.common,global.ng.core));
 }(this, (function (exports,_angular_common,_angular_core) { 'use strict';
 
 /*! *****************************************************************************
@@ -35,8 +35,16 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
+var __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+};
+
 /**
- * @license Angular v5.0.0-beta.5-ee04217
+ * @license Angular v5.0.0-beta.5-fd701b0
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -55,6 +63,7 @@ function getDOM() {
  * @param {?} adapter
  * @return {?}
  */
+
 /**
  * @param {?} adapter
  * @return {?}
@@ -94,6 +103,7 @@ var DomAdapter = (function () {
     
     return DomAdapter;
 }());
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -190,6 +200,7 @@ var GenericBrowserDomAdapter = (function (_super) {
     };
     return GenericBrowserDomAdapter;
 }(DomAdapter));
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -292,7 +303,10 @@ var BrowserDomAdapter = (function (_super) {
      * @param {?} args
      * @return {?}
      */
-    BrowserDomAdapter.prototype.invoke = function (el, methodName, args) { ((el))[methodName].apply(((el)), args); };
+    BrowserDomAdapter.prototype.invoke = function (el, methodName, args) {
+        (_a = ((el)))[methodName].apply(_a, args);
+        var _a;
+    };
     /**
      * @param {?} error
      * @return {?}
@@ -1090,6 +1104,7 @@ function relativePath(url) {
     return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
         '/' + urlParsingNode.pathname;
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1110,6 +1125,7 @@ function relativePath(url) {
  * @deprecated import from `\@angular/common` instead.
  */
 var DOCUMENT$1 = _angular_common.DOCUMENT;
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1128,6 +1144,7 @@ var DOCUMENT$1 = _angular_common.DOCUMENT;
  */ function supportsState() {
     return !!window.history.pushState;
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1263,6 +1280,7 @@ BrowserPlatformLocation.decorators = [
 BrowserPlatformLocation.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1421,6 +1439,7 @@ Meta.decorators = [
 Meta.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1463,6 +1482,7 @@ var SERVER_TRANSITION_PROVIDERS = [
         multi: true
     },
 ];
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1540,6 +1560,7 @@ var BrowserGetTestability = (function () {
     };
     return BrowserGetTestability;
 }());
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1588,6 +1609,7 @@ Title.decorators = [
 Title.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1603,10 +1625,12 @@ Title.ctorParameters = function () { return [
  * @param {?} input
  * @return {?}
  */
+
 /**
  * @param {?} input
  * @return {?}
  */
+
 /**
  * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
  * `name` is `'probe'`.
@@ -1622,6 +1646,7 @@ function exportNgVar(name, value) {
     ng[name] = value;
 }
 var ng;
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1655,7 +1680,7 @@ function inspectNativeElement(element) {
  */
 function _createNgProbe(coreTokens) {
     exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    exportNgVar(CORE_TOKENS_GLOBAL_NAME, Object.assign({}, CORE_TOKENS, _ngProbeTokensToMap(coreTokens || [])));
+    exportNgVar(CORE_TOKENS_GLOBAL_NAME, __assign({}, CORE_TOKENS, _ngProbeTokensToMap(coreTokens || [])));
     return function () { return inspectNativeElement; };
 }
 /**
@@ -1678,6 +1703,7 @@ var ELEMENT_PROBE_PROVIDERS = [
         multi: true,
     },
 ];
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1788,6 +1814,7 @@ var EventManagerPlugin = (function () {
     
     return EventManagerPlugin;
 }());
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1897,6 +1924,7 @@ DomSharedStylesHost.decorators = [
 DomSharedStylesHost.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -2337,6 +2365,7 @@ var ShadowDomRenderer = (function (_super) {
     };
     return ShadowDomRenderer;
 }(DefaultDomRenderer2));
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -2414,6 +2443,7 @@ DomEventsPlugin.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
     { type: _angular_core.NgZone, },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -2472,6 +2502,7 @@ var HAMMER_GESTURE_CONFIG = new _angular_core.InjectionToken('HammerGestureConfi
 /**
  * @record
  */
+
 /**
  * \@experimental
  */
@@ -2559,6 +2590,7 @@ HammerGesturesPlugin.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
     { type: HammerGestureConfig, decorators: [{ type: _angular_core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -2696,6 +2728,7 @@ KeyEventsPlugin.decorators = [
 KeyEventsPlugin.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -2759,6 +2792,7 @@ function sanitizeSrcset(srcset) {
     srcset = String(srcset);
     return srcset.split(',').map(function (srcset) { return sanitizeUrl(srcset.trim()); }).join(', ');
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3054,10 +3088,10 @@ function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
         var /** @type {?} */ sanitizer = new SanitizingHtmlSerializer();
         var /** @type {?} */ safeHtml = sanitizer.sanitizeChildren(DOM.getTemplateContent(containerEl) || containerEl);
         // Clear out the body element.
-        var /** @type {?} */ parent = DOM.getTemplateContent(containerEl) || containerEl;
-        for (var _i = 0, _a = DOM.childNodesAsList(parent); _i < _a.length; _i++) {
+        var /** @type {?} */ parent_1 = DOM.getTemplateContent(containerEl) || containerEl;
+        for (var _i = 0, _a = DOM.childNodesAsList(parent_1); _i < _a.length; _i++) {
             var child = _a[_i];
-            DOM.removeChild(parent, child);
+            DOM.removeChild(parent_1, child);
         }
         if (_angular_core.isDevMode() && sanitizer.sanitizedSomething) {
             DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
@@ -3070,6 +3104,7 @@ function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
         throw e;
     }
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3169,6 +3204,7 @@ function sanitizeStyle(value) {
     }
     return 'unsafe';
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3434,6 +3470,7 @@ var SafeResourceUrlImpl = (function (_super) {
     SafeResourceUrlImpl.prototype.getTypeName = function () { return 'ResourceURL'; };
     return SafeResourceUrlImpl;
 }(SafeValueImpl));
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3545,6 +3582,7 @@ BrowserModule.decorators = [
 BrowserModule.ctorParameters = function () { return [
     { type: BrowserModule, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3557,6 +3595,7 @@ BrowserModule.ctorParameters = function () { return [
  * found in the LICENSE file at https://angular.io/license
  */
 var win = typeof window !== 'undefined' && window || ({});
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3637,6 +3676,7 @@ var AngularProfiler = (function () {
     };
     return AngularProfiler;
 }());
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3671,6 +3711,7 @@ function enableDebugTools(ref) {
 function disableDebugTools() {
     exportNgVar(PROFILER_GLOBAL_NAME, null);
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3718,10 +3759,11 @@ var By = (function () {
      * @return {?}
      */
     By.directive = function (type) {
-        return function (debugElement) { return ((debugElement.providerTokens)).indexOf(type) !== -1; };
+        return function (debugElement) { /** @type {?} */ return ((debugElement.providerTokens)).indexOf(type) !== -1; };
     };
     return By;
 }());
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3733,6 +3775,7 @@ var By = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -3752,7 +3795,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.5-ee04217');
+var VERSION = new _angular_core.Version('5.0.0-beta.5-fd701b0');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;

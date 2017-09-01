@@ -1,12 +1,12 @@
 /**
- * @license Angular v5.0.0-beta.5-ee04217
+ * @license Angular v5.0.0-beta.5-fd701b0
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations'), require('@angular/animations/browser')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/animations', '@angular/animations/browser'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = global.ng.platformBrowser.animations || {}),global.ng.core,global.ng.platformBrowser,global.ng.animations,global.ng.animations.browser));
+	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = {}),global.ng.core,global.ng.platformBrowser,global.ng.animations,global.ng.animations.browser));
 }(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations,_angular_animations_browser) { 'use strict';
 
 /*! *****************************************************************************
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.5-ee04217
+ * @license Angular v5.0.0-beta.5-fd701b0
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -220,6 +220,7 @@ var RendererAnimationPlayer = (function () {
 function issueAnimationCommand(renderer, element, id, command, args) {
     return renderer.setProperty(element, "@@" + id + ":" + command, args);
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -363,7 +364,7 @@ var BaseAnimationRenderer = (function () {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? function (n) { return ((delegate.destroyNode))(n); } : null;
+        this.destroyNode = this.delegate.destroyNode ? function (n) { /** @type {?} */ return ((delegate.destroyNode))(n); } : null;
     }
     Object.defineProperty(BaseAnimationRenderer.prototype, "data", {
         /**
@@ -573,14 +574,14 @@ var AnimationRenderer = (function (_super) {
         var _this = this;
         if (eventName.charAt(0) == ANIMATION_PREFIX) {
             var /** @type {?} */ element = resolveElementFromTarget(target);
-            var /** @type {?} */ name = eventName.substr(1);
+            var /** @type {?} */ name_1 = eventName.substr(1);
             var /** @type {?} */ phase = '';
             // @listener.phase is for trigger animation callbacks
             // @@listener is for animation builder callbacks
-            if (name.charAt(0) != ANIMATION_PREFIX) {
-                _a = parseTriggerCallbackName(name), name = _a[0], phase = _a[1];
+            if (name_1.charAt(0) != ANIMATION_PREFIX) {
+                _a = parseTriggerCallbackName(name_1), name_1 = _a[0], phase = _a[1];
             }
-            return this.engine.listen(this.namespaceId, element, name, phase, function (event) {
+            return this.engine.listen(this.namespaceId, element, name_1, phase, function (event) {
                 var /** @type {?} */ countId = ((event))['_data'] || -1;
                 _this.factory.scheduleListenerCallback(countId, callback, event);
             });
@@ -616,6 +617,7 @@ function parseTriggerCallbackName(triggerName) {
     var /** @type {?} */ phase = triggerName.substr(dotIndex + 1);
     return [trigger, phase];
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -691,6 +693,7 @@ var BROWSER_ANIMATIONS_PROVIDERS = [
  * include them in the BrowserTestingModule.
  */
 var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: _angular_animations_browser.AnimationDriver, useClass: _angular_animations_browser.ɵNoopAnimationDriver }].concat(SHARED_ANIMATION_PROVIDERS);
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
