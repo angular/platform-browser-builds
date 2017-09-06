@@ -12,4 +12,5 @@ export declare class DomEventsPlugin extends EventManagerPlugin {
     constructor(doc: any, ngZone: NgZone);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
+    removeEventListener(target: any, eventName: string, callback: Function): void;
 }

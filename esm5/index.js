@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.6-fa6b802
+ * @license Angular v5.0.0-beta.6-66f0ab0
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2337,7 +2337,8 @@ var ShadowDomRenderer = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * Detect if Zone is present. If it is then bypass 'addEventListener' since Angular can do much more
+ * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
+ * since Angular can do much more
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
  */
@@ -2347,6 +2348,62 @@ var __symbol__ = Zone && Zone['__symbol__'] || function (v) {
 };
 var ADD_EVENT_LISTENER = __symbol__('addEventListener');
 var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
+var symbolNames = {};
+var FALSE = 'FALSE';
+var ANGULAR = 'ANGULAR';
+var NATIVE_ADD_LISTENER = 'addEventListener';
+var NATIVE_REMOVE_LISTENER = 'removeEventListener';
+var blackListedEvents = Zone && Zone[__symbol__('BLACK_LISTED_EVENTS')];
+var blackListedMap;
+if (blackListedEvents) {
+    blackListedMap = {};
+    blackListedEvents.forEach(function (eventName) { blackListedMap[eventName] = eventName; });
+}
+var isBlackListedEvent = function (eventName) {
+    if (!blackListedMap) {
+        return false;
+    }
+    return blackListedMap.hasOwnProperty(eventName);
+};
+// a global listener to handle all dom event,
+// so we do not need to create a closure everytime
+var globalListener = function (event) {
+    var /** @type {?} */ symbolName = symbolNames[event.type];
+    if (!symbolName) {
+        return;
+    }
+    var /** @type {?} */ taskDatas = this[symbolName];
+    if (!taskDatas) {
+        return;
+    }
+    var /** @type {?} */ args = [event];
+    if (taskDatas.length === 1) {
+        // if taskDatas only have one element, just invoke it
+        var /** @type {?} */ taskData = taskDatas[0];
+        if (taskData.zone !== Zone.current) {
+            // only use Zone.run when Zone.current not equals to stored zone
+            return taskData.zone.run(taskData.handler, this, args);
+        }
+        else {
+            return taskData.handler.apply(this, args);
+        }
+    }
+    else {
+        // copy tasks as a snapshot to avoid event handlers remove
+        // itself or others
+        var /** @type {?} */ copiedTasks = taskDatas.slice();
+        for (var /** @type {?} */ i = 0; i < copiedTasks.length; i++) {
+            var /** @type {?} */ taskData = copiedTasks[i];
+            if (taskData.zone !== Zone.current) {
+                // only use Zone.run when Zone.current not equals to stored zone
+                taskData.zone.run(taskData.handler, this, args);
+            }
+            else {
+                taskData.handler.apply(this, args);
+            }
+        }
+    }
+};
 var DomEventsPlugin = (function (_super) {
     __extends(DomEventsPlugin, _super);
     /**
@@ -2370,27 +2427,90 @@ var DomEventsPlugin = (function (_super) {
      * @return {?}
      */
     DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
+        var _this = this;
         /**
          * This code is about to add a listener to the DOM. If Zone.js is present, than
          * `addEventListener` has been patched. The patched code adds overhead in both
          * memory and speed (3x slower) than native. For this reason if we detect that
-         * Zone.js is present we bypass zone and use native addEventListener instead.
-         * The result is faster registration but the zone will not be restored. We do
-         * manual zone restoration in element.ts renderEventHandlerClosure method.
+         * Zone.js is present we use a simple version of zone aware addEventListener instead.
+         * The result is faster registration and the zone will be restored.
+         * But ZoneSpec.onScheduleTask, ZoneSpec.onInvokeTask, ZoneSpec.onCancelTask
+         * will not be invoked
+         * We also do manual zone restoration in element.ts renderEventHandlerClosure method.
          *
          * NOTE: it is possible that the element is from different iframe, and so we
          * have to check before we execute the method.
          */
         var /** @type {?} */ self = this;
-        var /** @type {?} */ byPassZoneJS = element[ADD_EVENT_LISTENER];
+        var /** @type {?} */ zoneJsLoaded = element[ADD_EVENT_LISTENER];
         var /** @type {?} */ callback = (handler);
-        if (byPassZoneJS) {
-            callback = function () {
-                return self.ngZone.runTask(/** @type {?} */ (handler), null, /** @type {?} */ (arguments), eventName);
-            };
+        // if zonejs is loaded and current zone is not ngZone
+        // we keep Zone.current on target for later restoration.
+        if (zoneJsLoaded && (!NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
+            var /** @type {?} */ symbolName = symbolNames[eventName];
+            if (!symbolName) {
+                symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
+            }
+            var /** @type {?} */ taskDatas = ((element))[symbolName];
+            var /** @type {?} */ globalListenerRegistered = taskDatas && taskDatas.length > 0;
+            if (!taskDatas) {
+                taskDatas = ((element))[symbolName] = [];
+            }
+            var /** @type {?} */ zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
+            if (taskDatas.length === 0) {
+                taskDatas.push({ zone: zone, handler: callback });
+            }
+            else {
+                var /** @type {?} */ callbackRegistered = false;
+                for (var /** @type {?} */ i = 0; i < taskDatas.length; i++) {
+                    if (taskDatas[i].handler === callback) {
+                        callbackRegistered = true;
+                        break;
+                    }
+                }
+                if (!callbackRegistered) {
+                    taskDatas.push({ zone: zone, handler: callback });
+                }
+            }
+            if (!globalListenerRegistered) {
+                element[ADD_EVENT_LISTENER](eventName, globalListener, false);
+            }
         }
-        element[byPassZoneJS ? ADD_EVENT_LISTENER : 'addEventListener'](eventName, callback, false);
-        return function () { return element[byPassZoneJS ? REMOVE_EVENT_LISTENER : 'removeEventListener'](eventName, /** @type {?} */ (callback), false); };
+        else {
+            element[NATIVE_ADD_LISTENER](eventName, callback, false);
+        }
+        return function () { return _this.removeEventListener(element, eventName, callback); };
+    };
+    /**
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
+    DomEventsPlugin.prototype.removeEventListener = function (target, eventName, callback) {
+        var /** @type {?} */ underlyingRemove = target[REMOVE_EVENT_LISTENER];
+        // zone.js not loaded, use native removeEventListener
+        if (!underlyingRemove) {
+            return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
+        }
+        var /** @type {?} */ symbolName = symbolNames[eventName];
+        var /** @type {?} */ taskDatas = symbolName && target[symbolName];
+        if (!taskDatas) {
+            // addEventListener not using patched version
+            // just call native removeEventListener
+            return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
+        }
+        for (var /** @type {?} */ i = 0; i < taskDatas.length; i++) {
+            // remove listener from taskDatas if the callback equals
+            if (taskDatas[i].handler === callback) {
+                taskDatas.splice(i, 1);
+                break;
+            }
+        }
+        if (taskDatas.length === 0) {
+            // all listeners are removed, we can remove the globalListener from target
+            underlyingRemove.apply(target, [eventName, globalListener, false]);
+        }
     };
     return DomEventsPlugin;
 }(EventManagerPlugin));
@@ -3754,7 +3874,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.6-fa6b802');
+var VERSION = new Version('5.0.0-beta.6-66f0ab0');
 
 /**
  * @fileoverview added by tsickle
