@@ -25,11 +25,11 @@ export declare class Meta {
     private _doc;
     private _dom;
     constructor(_doc: any);
-    addTag(tag: MetaDefinition, forceCreation?: boolean): HTMLMetaElement;
+    addTag(tag: MetaDefinition, forceCreation?: boolean): HTMLMetaElement | null;
     addTags(tags: MetaDefinition[], forceCreation?: boolean): HTMLMetaElement[];
-    getTag(attrSelector: string): HTMLMetaElement;
+    getTag(attrSelector: string): HTMLMetaElement | null;
     getTags(attrSelector: string): HTMLMetaElement[];
-    updateTag(tag: MetaDefinition, selector?: string): HTMLMetaElement;
+    updateTag(tag: MetaDefinition, selector?: string): HTMLMetaElement | null;
     removeTag(attrSelector: string): void;
     removeTagElement(meta: HTMLMetaElement): void;
     private _getOrCreateElement(meta, forceCreation?);

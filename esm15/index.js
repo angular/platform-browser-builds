@@ -3,56 +3,14 @@
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = {}),global.ng.common,global.ng.core));
-}(this, (function (exports,_angular_common,_angular_core) { 'use strict';
+import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
+import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal } from '@angular/core';
 
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = Object.setPrototypeOf ||
-    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var __assign = Object.assign || function __assign(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-    }
-    return t;
-};
-
-/**
- * @license Angular v5.0.0-beta.6-f2945c6
- * (c) 2010-2017 Google, Inc. https://angular.io/
- * License: MIT
- */
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var _DOM = ((null));
+let _DOM = ((null));
 /**
  * @return {?}
  */
@@ -80,29 +38,24 @@ function setRootDomAdapter(adapter) {
  * can introduce XSS risks.
  * @abstract
  */
-var DomAdapter = (function () {
-    function DomAdapter() {
+class DomAdapter {
+    constructor() {
         this.resourceLoaderType = ((null));
     }
-    Object.defineProperty(DomAdapter.prototype, "attrToPropMap", {
-        /**
-         * Maps attribute names to their corresponding property names for cases
-         * where attribute name doesn't match property name.
-         * @return {?}
-         */
-        get: function () { return this._attrToPropMap; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._attrToPropMap = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    
-    return DomAdapter;
-}());
+    /**
+     * Maps attribute names to their corresponding property names for cases
+     * where attribute name doesn't match property name.
+     * @return {?}
+     */
+    get attrToPropMap() { return this._attrToPropMap; }
+    ;
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set attrToPropMap(value) { this._attrToPropMap = value; }
+    ;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -122,84 +75,81 @@ var DomAdapter = (function () {
  * can introduce XSS risks.
  * @abstract
  */
-var GenericBrowserDomAdapter = (function (_super) {
-    __extends(GenericBrowserDomAdapter, _super);
-    function GenericBrowserDomAdapter() {
-        var _this = _super.call(this) || this;
-        _this._animationPrefix = null;
-        _this._transitionEnd = null;
+class GenericBrowserDomAdapter extends DomAdapter {
+    constructor() {
+        super();
+        this._animationPrefix = null;
+        this._transitionEnd = null;
         try {
-            var /** @type {?} */ element_1 = _this.createElement('div', document);
-            if (_this.getStyle(element_1, 'animationName') != null) {
-                _this._animationPrefix = '';
+            const /** @type {?} */ element = this.createElement('div', document);
+            if (this.getStyle(element, 'animationName') != null) {
+                this._animationPrefix = '';
             }
             else {
-                var /** @type {?} */ domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-                for (var /** @type {?} */ i = 0; i < domPrefixes.length; i++) {
-                    if (_this.getStyle(element_1, domPrefixes[i] + 'AnimationName') != null) {
-                        _this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
+                const /** @type {?} */ domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
+                for (let /** @type {?} */ i = 0; i < domPrefixes.length; i++) {
+                    if (this.getStyle(element, domPrefixes[i] + 'AnimationName') != null) {
+                        this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
                         break;
                     }
                 }
             }
-            var /** @type {?} */ transEndEventNames_1 = {
+            const /** @type {?} */ transEndEventNames = {
                 WebkitTransition: 'webkitTransitionEnd',
                 MozTransition: 'transitionend',
                 OTransition: 'oTransitionEnd otransitionend',
                 transition: 'transitionend'
             };
-            Object.keys(transEndEventNames_1).forEach(function (key) {
-                if (_this.getStyle(element_1, key) != null) {
-                    _this._transitionEnd = transEndEventNames_1[key];
+            Object.keys(transEndEventNames).forEach((key) => {
+                if (this.getStyle(element, key) != null) {
+                    this._transitionEnd = transEndEventNames[key];
                 }
             });
         }
         catch (e) {
-            _this._animationPrefix = null;
-            _this._transitionEnd = null;
+            this._animationPrefix = null;
+            this._transitionEnd = null;
         }
-        return _this;
     }
     /**
      * @param {?} el
      * @return {?}
      */
-    GenericBrowserDomAdapter.prototype.getDistributedNodes = function (el) { return ((el)).getDistributedNodes(); };
+    getDistributedNodes(el) { return ((el)).getDistributedNodes(); }
     /**
      * @param {?} el
      * @param {?} baseUrl
      * @param {?} href
      * @return {?}
      */
-    GenericBrowserDomAdapter.prototype.resolveAndSetHref = function (el, baseUrl, href) {
+    resolveAndSetHref(el, baseUrl, href) {
         el.href = href == null ? baseUrl : baseUrl + '/../' + href;
-    };
+    }
     /**
      * @return {?}
      */
-    GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () { return true; };
+    supportsDOMEvents() { return true; }
     /**
      * @return {?}
      */
-    GenericBrowserDomAdapter.prototype.supportsNativeShadowDOM = function () {
+    supportsNativeShadowDOM() {
         return typeof ((document.body)).createShadowRoot === 'function';
-    };
+    }
     /**
      * @return {?}
      */
-    GenericBrowserDomAdapter.prototype.getAnimationPrefix = function () { return this._animationPrefix ? this._animationPrefix : ''; };
+    getAnimationPrefix() { return this._animationPrefix ? this._animationPrefix : ''; }
     /**
      * @return {?}
      */
-    GenericBrowserDomAdapter.prototype.getTransitionEnd = function () { return this._transitionEnd ? this._transitionEnd : ''; };
+    getTransitionEnd() { return this._transitionEnd ? this._transitionEnd : ''; }
     /**
      * @return {?}
      */
-    GenericBrowserDomAdapter.prototype.supportsAnimation = function () {
+    supportsAnimation() {
         return this._animationPrefix != null && this._transitionEnd != null;
-    };
-    return GenericBrowserDomAdapter;
-}(DomAdapter));
+    }
+}
 
 /**
  * @fileoverview added by tsickle
@@ -212,15 +162,15 @@ var GenericBrowserDomAdapter = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var _attrToPropMap = {
+const _attrToPropMap = {
     'class': 'className',
     'innerHtml': 'innerHTML',
     'readonly': 'readOnly',
     'tabindex': 'tabIndex',
 };
-var DOM_KEY_LOCATION_NUMPAD = 3;
+const DOM_KEY_LOCATION_NUMPAD = 3;
 // Map to convert some key or keyIdentifier values to what will be returned by getEventKey
-var _keyMap = {
+const _keyMap = {
     // The following values are here for cross-browser compatibility and to match the W3C standard
     // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
     '\b': 'Backspace',
@@ -240,7 +190,7 @@ var _keyMap = {
 // There is a bug in Chrome for numeric keypad keys:
 // https://code.google.com/p/chromium/issues/detail?id=155654
 // 1, 2, 3 ... are reported as A, B, C ...
-var _chromeNumKeyPadMap = {
+const _chromeNumKeyPadMap = {
     'A': '1',
     'B': '2',
     'C': '3',
@@ -258,60 +208,53 @@ var _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
-var nodeContains;
-if (_angular_core.ɵglobal['Node']) {
-    nodeContains = _angular_core.ɵglobal['Node'].prototype.contains || function (node) {
+let nodeContains;
+if (ɵglobal['Node']) {
+    nodeContains = ɵglobal['Node'].prototype.contains || function (node) {
         return !!(this.compareDocumentPosition(node) & 16);
     };
 }
-var BrowserDomAdapter = (function (_super) {
-    __extends(BrowserDomAdapter, _super);
-    function BrowserDomAdapter() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
+class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @param {?} templateHtml
      * @return {?}
      */
-    BrowserDomAdapter.prototype.parse = function (templateHtml) { throw new Error('parse not implemented'); };
+    parse(templateHtml) { throw new Error('parse not implemented'); }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.makeCurrent = function () { setRootDomAdapter(new BrowserDomAdapter()); };
+    static makeCurrent() { setRootDomAdapter(new BrowserDomAdapter()); }
     /**
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
-    BrowserDomAdapter.prototype.hasProperty = function (element, name) { return name in element; };
+    hasProperty(element, name) { return name in element; }
     /**
      * @param {?} el
      * @param {?} name
      * @param {?} value
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setProperty = function (el, name, value) { ((el))[name] = value; };
+    setProperty(el, name, value) { ((el))[name] = value; }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getProperty = function (el, name) { return ((el))[name]; };
+    getProperty(el, name) { return ((el))[name]; }
     /**
      * @param {?} el
      * @param {?} methodName
      * @param {?} args
      * @return {?}
      */
-    BrowserDomAdapter.prototype.invoke = function (el, methodName, args) {
-        (_a = ((el)))[methodName].apply(_a, args);
-        var _a;
-    };
+    invoke(el, methodName, args) { ((el))[methodName](...args); }
     /**
      * @param {?} error
      * @return {?}
      */
-    BrowserDomAdapter.prototype.logError = function (error) {
+    logError(error) {
         if (window.console) {
             if (console.error) {
                 console.error(error);
@@ -320,513 +263,509 @@ var BrowserDomAdapter = (function (_super) {
                 console.log(error);
             }
         }
-    };
+    }
     /**
      * @param {?} error
      * @return {?}
      */
-    BrowserDomAdapter.prototype.log = function (error) {
+    log(error) {
         if (window.console) {
             window.console.log && window.console.log(error);
         }
-    };
+    }
     /**
      * @param {?} error
      * @return {?}
      */
-    BrowserDomAdapter.prototype.logGroup = function (error) {
+    logGroup(error) {
         if (window.console) {
             window.console.group && window.console.group(error);
         }
-    };
+    }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.logGroupEnd = function () {
+    logGroupEnd() {
         if (window.console) {
             window.console.groupEnd && window.console.groupEnd();
         }
-    };
-    Object.defineProperty(BrowserDomAdapter.prototype, "attrToPropMap", {
-        /**
-         * @return {?}
-         */
-        get: function () { return _attrToPropMap; },
-        enumerable: true,
-        configurable: true
-    });
+    }
+    /**
+     * @return {?}
+     */
+    get attrToPropMap() { return _attrToPropMap; }
     /**
      * @param {?} nodeA
      * @param {?} nodeB
      * @return {?}
      */
-    BrowserDomAdapter.prototype.contains = function (nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); };
+    contains(nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); }
     /**
      * @param {?} el
      * @param {?} selector
      * @return {?}
      */
-    BrowserDomAdapter.prototype.querySelector = function (el, selector) { return el.querySelector(selector); };
+    querySelector(el, selector) { return el.querySelector(selector); }
     /**
      * @param {?} el
      * @param {?} selector
      * @return {?}
      */
-    BrowserDomAdapter.prototype.querySelectorAll = function (el, selector) { return el.querySelectorAll(selector); };
+    querySelectorAll(el, selector) { return el.querySelectorAll(selector); }
     /**
      * @param {?} el
      * @param {?} evt
      * @param {?} listener
      * @return {?}
      */
-    BrowserDomAdapter.prototype.on = function (el, evt, listener) { el.addEventListener(evt, listener, false); };
+    on(el, evt, listener) { el.addEventListener(evt, listener, false); }
     /**
      * @param {?} el
      * @param {?} evt
      * @param {?} listener
      * @return {?}
      */
-    BrowserDomAdapter.prototype.onAndCancel = function (el, evt, listener) {
+    onAndCancel(el, evt, listener) {
         el.addEventListener(evt, listener, false);
         // Needed to follow Dart's subscription semantic, until fix of
         // https://code.google.com/p/dart/issues/detail?id=17406
-        return function () { el.removeEventListener(evt, listener, false); };
-    };
+        return () => { el.removeEventListener(evt, listener, false); };
+    }
     /**
      * @param {?} el
      * @param {?} evt
      * @return {?}
      */
-    BrowserDomAdapter.prototype.dispatchEvent = function (el, evt) { el.dispatchEvent(evt); };
+    dispatchEvent(el, evt) { el.dispatchEvent(evt); }
     /**
      * @param {?} eventType
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createMouseEvent = function (eventType) {
-        var /** @type {?} */ evt = this.getDefaultDocument().createEvent('MouseEvent');
+    createMouseEvent(eventType) {
+        const /** @type {?} */ evt = this.getDefaultDocument().createEvent('MouseEvent');
         evt.initEvent(eventType, true, true);
         return evt;
-    };
+    }
     /**
      * @param {?} eventType
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createEvent = function (eventType) {
-        var /** @type {?} */ evt = this.getDefaultDocument().createEvent('Event');
+    createEvent(eventType) {
+        const /** @type {?} */ evt = this.getDefaultDocument().createEvent('Event');
         evt.initEvent(eventType, true, true);
         return evt;
-    };
+    }
     /**
      * @param {?} evt
      * @return {?}
      */
-    BrowserDomAdapter.prototype.preventDefault = function (evt) {
+    preventDefault(evt) {
         evt.preventDefault();
         evt.returnValue = false;
-    };
+    }
     /**
      * @param {?} evt
      * @return {?}
      */
-    BrowserDomAdapter.prototype.isPrevented = function (evt) {
+    isPrevented(evt) {
         return evt.defaultPrevented || evt.returnValue != null && !evt.returnValue;
-    };
+    }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getInnerHTML = function (el) { return el.innerHTML; };
+    getInnerHTML(el) { return el.innerHTML; }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getTemplateContent = function (el) {
+    getTemplateContent(el) {
         return 'content' in el && this.isTemplateElement(el) ? ((el)).content : null;
-    };
+    }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getOuterHTML = function (el) { return el.outerHTML; };
+    getOuterHTML(el) { return el.outerHTML; }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.nodeName = function (node) { return node.nodeName; };
+    nodeName(node) { return node.nodeName; }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.nodeValue = function (node) { return node.nodeValue; };
+    nodeValue(node) { return node.nodeValue; }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.type = function (node) { return node.type; };
+    type(node) { return node.type; }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.content = function (node) {
+    content(node) {
         if (this.hasProperty(node, 'content')) {
             return ((node)).content;
         }
         else {
             return node;
         }
-    };
+    }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.firstChild = function (el) { return el.firstChild; };
+    firstChild(el) { return el.firstChild; }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.nextSibling = function (el) { return el.nextSibling; };
+    nextSibling(el) { return el.nextSibling; }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.parentElement = function (el) { return el.parentNode; };
+    parentElement(el) { return el.parentNode; }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.childNodes = function (el) { return el.childNodes; };
+    childNodes(el) { return el.childNodes; }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.childNodesAsList = function (el) {
-        var /** @type {?} */ childNodes = el.childNodes;
-        var /** @type {?} */ res = new Array(childNodes.length);
-        for (var /** @type {?} */ i = 0; i < childNodes.length; i++) {
+    childNodesAsList(el) {
+        const /** @type {?} */ childNodes = el.childNodes;
+        const /** @type {?} */ res = new Array(childNodes.length);
+        for (let /** @type {?} */ i = 0; i < childNodes.length; i++) {
             res[i] = childNodes[i];
         }
         return res;
-    };
+    }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.clearNodes = function (el) {
+    clearNodes(el) {
         while (el.firstChild) {
             el.removeChild(el.firstChild);
         }
-    };
+    }
     /**
      * @param {?} el
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.appendChild = function (el, node) { el.appendChild(node); };
+    appendChild(el, node) { el.appendChild(node); }
     /**
      * @param {?} el
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.removeChild = function (el, node) { el.removeChild(node); };
+    removeChild(el, node) { el.removeChild(node); }
     /**
      * @param {?} el
      * @param {?} newChild
      * @param {?} oldChild
      * @return {?}
      */
-    BrowserDomAdapter.prototype.replaceChild = function (el, newChild, oldChild) { el.replaceChild(newChild, oldChild); };
+    replaceChild(el, newChild, oldChild) { el.replaceChild(newChild, oldChild); }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.remove = function (node) {
+    remove(node) {
         if (node.parentNode) {
             node.parentNode.removeChild(node);
         }
         return node;
-    };
+    }
     /**
      * @param {?} parent
      * @param {?} ref
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.insertBefore = function (parent, ref, node) { parent.insertBefore(node, ref); };
+    insertBefore(parent, ref, node) { parent.insertBefore(node, ref); }
     /**
      * @param {?} parent
      * @param {?} ref
      * @param {?} nodes
      * @return {?}
      */
-    BrowserDomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) {
-        nodes.forEach(function (n) { return parent.insertBefore(n, ref); });
-    };
+    insertAllBefore(parent, ref, nodes) {
+        nodes.forEach((n) => parent.insertBefore(n, ref));
+    }
     /**
      * @param {?} parent
      * @param {?} ref
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.insertAfter = function (parent, ref, node) { parent.insertBefore(node, ref.nextSibling); };
+    insertAfter(parent, ref, node) { parent.insertBefore(node, ref.nextSibling); }
     /**
      * @param {?} el
      * @param {?} value
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setInnerHTML = function (el, value) { el.innerHTML = value; };
+    setInnerHTML(el, value) { el.innerHTML = value; }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getText = function (el) { return el.textContent; };
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.setText = function (el, value) { el.textContent = value; };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.getValue = function (el) { return el.value; };
+    getText(el) { return el.textContent; }
     /**
      * @param {?} el
      * @param {?} value
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setValue = function (el, value) { el.value = value; };
+    setText(el, value) { el.textContent = value; }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getChecked = function (el) { return el.checked; };
+    getValue(el) { return el.value; }
     /**
      * @param {?} el
      * @param {?} value
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setChecked = function (el, value) { el.checked = value; };
+    setValue(el, value) { el.value = value; }
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    getChecked(el) { return el.checked; }
+    /**
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    setChecked(el, value) { el.checked = value; }
     /**
      * @param {?} text
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createComment = function (text) { return this.getDefaultDocument().createComment(text); };
+    createComment(text) { return this.getDefaultDocument().createComment(text); }
     /**
      * @param {?} html
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createTemplate = function (html) {
-        var /** @type {?} */ t = this.getDefaultDocument().createElement('template');
+    createTemplate(html) {
+        const /** @type {?} */ t = this.getDefaultDocument().createElement('template');
         t.innerHTML = html;
         return t;
-    };
+    }
     /**
      * @param {?} tagName
      * @param {?=} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
+    createElement(tagName, doc) {
         doc = doc || this.getDefaultDocument();
         return doc.createElement(tagName);
-    };
+    }
     /**
      * @param {?} ns
      * @param {?} tagName
      * @param {?=} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createElementNS = function (ns, tagName, doc) {
+    createElementNS(ns, tagName, doc) {
         doc = doc || this.getDefaultDocument();
         return doc.createElementNS(ns, tagName);
-    };
+    }
     /**
      * @param {?} text
      * @param {?=} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createTextNode = function (text, doc) {
+    createTextNode(text, doc) {
         doc = doc || this.getDefaultDocument();
         return doc.createTextNode(text);
-    };
+    }
     /**
      * @param {?} attrName
      * @param {?} attrValue
      * @param {?=} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) {
+    createScriptTag(attrName, attrValue, doc) {
         doc = doc || this.getDefaultDocument();
-        var /** @type {?} */ el = (doc.createElement('SCRIPT'));
+        const /** @type {?} */ el = (doc.createElement('SCRIPT'));
         el.setAttribute(attrName, attrValue);
         return el;
-    };
+    }
     /**
      * @param {?} css
      * @param {?=} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createStyleElement = function (css, doc) {
+    createStyleElement(css, doc) {
         doc = doc || this.getDefaultDocument();
-        var /** @type {?} */ style = (doc.createElement('style'));
+        const /** @type {?} */ style = (doc.createElement('style'));
         this.appendChild(style, this.createTextNode(css, doc));
         return style;
-    };
+    }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createShadowRoot = function (el) { return ((el)).createShadowRoot(); };
+    createShadowRoot(el) { return ((el)).createShadowRoot(); }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getShadowRoot = function (el) { return ((el)).shadowRoot; };
+    getShadowRoot(el) { return ((el)).shadowRoot; }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getHost = function (el) { return ((el)).host; };
+    getHost(el) { return ((el)).host; }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.clone = function (node) { return node.cloneNode(true); };
+    clone(node) { return node.cloneNode(true); }
     /**
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getElementsByClassName = function (element, name) {
+    getElementsByClassName(element, name) {
         return element.getElementsByClassName(name);
-    };
+    }
     /**
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getElementsByTagName = function (element, name) {
+    getElementsByTagName(element, name) {
         return element.getElementsByTagName(name);
-    };
+    }
     /**
      * @param {?} element
      * @return {?}
      */
-    BrowserDomAdapter.prototype.classList = function (element) { return Array.prototype.slice.call(element.classList, 0); };
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    BrowserDomAdapter.prototype.addClass = function (element, className) { element.classList.add(className); };
+    classList(element) { return Array.prototype.slice.call(element.classList, 0); }
     /**
      * @param {?} element
      * @param {?} className
      * @return {?}
      */
-    BrowserDomAdapter.prototype.removeClass = function (element, className) { element.classList.remove(className); };
+    addClass(element, className) { element.classList.add(className); }
     /**
      * @param {?} element
      * @param {?} className
      * @return {?}
      */
-    BrowserDomAdapter.prototype.hasClass = function (element, className) {
+    removeClass(element, className) { element.classList.remove(className); }
+    /**
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    hasClass(element, className) {
         return element.classList.contains(className);
-    };
+    }
     /**
      * @param {?} element
      * @param {?} styleName
      * @param {?} styleValue
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setStyle = function (element, styleName, styleValue) {
+    setStyle(element, styleName, styleValue) {
         element.style[styleName] = styleValue;
-    };
+    }
     /**
      * @param {?} element
      * @param {?} stylename
      * @return {?}
      */
-    BrowserDomAdapter.prototype.removeStyle = function (element, stylename) {
+    removeStyle(element, stylename) {
         // IE requires '' instead of null
         // see https://github.com/angular/angular/issues/7916
         element.style[stylename] = '';
-    };
+    }
     /**
      * @param {?} element
      * @param {?} stylename
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getStyle = function (element, stylename) { return element.style[stylename]; };
+    getStyle(element, stylename) { return element.style[stylename]; }
     /**
      * @param {?} element
      * @param {?} styleName
      * @param {?=} styleValue
      * @return {?}
      */
-    BrowserDomAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
-        var /** @type {?} */ value = this.getStyle(element, styleName) || '';
+    hasStyle(element, styleName, styleValue) {
+        const /** @type {?} */ value = this.getStyle(element, styleName) || '';
         return styleValue ? value == styleValue : value.length > 0;
-    };
+    }
     /**
      * @param {?} element
      * @return {?}
      */
-    BrowserDomAdapter.prototype.tagName = function (element) { return element.tagName; };
+    tagName(element) { return element.tagName; }
     /**
      * @param {?} element
      * @return {?}
      */
-    BrowserDomAdapter.prototype.attributeMap = function (element) {
-        var /** @type {?} */ res = new Map();
-        var /** @type {?} */ elAttrs = element.attributes;
-        for (var /** @type {?} */ i = 0; i < elAttrs.length; i++) {
-            var /** @type {?} */ attrib = elAttrs.item(i);
+    attributeMap(element) {
+        const /** @type {?} */ res = new Map();
+        const /** @type {?} */ elAttrs = element.attributes;
+        for (let /** @type {?} */ i = 0; i < elAttrs.length; i++) {
+            const /** @type {?} */ attrib = elAttrs.item(i);
             res.set(attrib.name, attrib.value);
         }
         return res;
-    };
+    }
     /**
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    BrowserDomAdapter.prototype.hasAttribute = function (element, attribute) {
+    hasAttribute(element, attribute) {
         return element.hasAttribute(attribute);
-    };
+    }
     /**
      * @param {?} element
      * @param {?} ns
      * @param {?} attribute
      * @return {?}
      */
-    BrowserDomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) {
+    hasAttributeNS(element, ns, attribute) {
         return element.hasAttributeNS(ns, attribute);
-    };
+    }
     /**
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getAttribute = function (element, attribute) {
+    getAttribute(element, attribute) {
         return element.getAttribute(attribute);
-    };
+    }
     /**
      * @param {?} element
      * @param {?} ns
      * @param {?} name
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getAttributeNS = function (element, ns, name) {
+    getAttributeNS(element, ns, name) {
         return element.getAttributeNS(ns, name);
-    };
+    }
     /**
      * @param {?} element
      * @param {?} name
      * @param {?} value
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setAttribute = function (element, name, value) { element.setAttribute(name, value); };
+    setAttribute(element, name, value) { element.setAttribute(name, value); }
     /**
      * @param {?} element
      * @param {?} ns
@@ -834,130 +773,130 @@ var BrowserDomAdapter = (function (_super) {
      * @param {?} value
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setAttributeNS = function (element, ns, name, value) {
+    setAttributeNS(element, ns, name, value) {
         element.setAttributeNS(ns, name, value);
-    };
+    }
     /**
      * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
-    BrowserDomAdapter.prototype.removeAttribute = function (element, attribute) { element.removeAttribute(attribute); };
+    removeAttribute(element, attribute) { element.removeAttribute(attribute); }
     /**
      * @param {?} element
      * @param {?} ns
      * @param {?} name
      * @return {?}
      */
-    BrowserDomAdapter.prototype.removeAttributeNS = function (element, ns, name) {
+    removeAttributeNS(element, ns, name) {
         element.removeAttributeNS(ns, name);
-    };
+    }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.templateAwareRoot = function (el) { return this.isTemplateElement(el) ? this.content(el) : el; };
+    templateAwareRoot(el) { return this.isTemplateElement(el) ? this.content(el) : el; }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.createHtmlDocument = function () {
+    createHtmlDocument() {
         return document.implementation.createHTMLDocument('fakeTitle');
-    };
+    }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getDefaultDocument = function () { return document; };
+    getDefaultDocument() { return document; }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getBoundingClientRect = function (el) {
+    getBoundingClientRect(el) {
         try {
             return el.getBoundingClientRect();
         }
         catch (e) {
             return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0 };
         }
-    };
+    }
     /**
      * @param {?} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getTitle = function (doc) { return doc.title; };
+    getTitle(doc) { return doc.title; }
     /**
      * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setTitle = function (doc, newTitle) { doc.title = newTitle || ''; };
+    setTitle(doc, newTitle) { doc.title = newTitle || ''; }
     /**
      * @param {?} n
      * @param {?} selector
      * @return {?}
      */
-    BrowserDomAdapter.prototype.elementMatches = function (n, selector) {
+    elementMatches(n, selector) {
         if (this.isElementNode(n)) {
             return n.matches && n.matches(selector) ||
                 n.msMatchesSelector && n.msMatchesSelector(selector) ||
                 n.webkitMatchesSelector && n.webkitMatchesSelector(selector);
         }
         return false;
-    };
+    }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.isTemplateElement = function (el) {
+    isTemplateElement(el) {
         return this.isElementNode(el) && el.nodeName === 'TEMPLATE';
-    };
+    }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.isTextNode = function (node) { return node.nodeType === Node.TEXT_NODE; };
+    isTextNode(node) { return node.nodeType === Node.TEXT_NODE; }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.isCommentNode = function (node) { return node.nodeType === Node.COMMENT_NODE; };
+    isCommentNode(node) { return node.nodeType === Node.COMMENT_NODE; }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.isElementNode = function (node) { return node.nodeType === Node.ELEMENT_NODE; };
+    isElementNode(node) { return node.nodeType === Node.ELEMENT_NODE; }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.hasShadowRoot = function (node) {
+    hasShadowRoot(node) {
         return node.shadowRoot != null && node instanceof HTMLElement;
-    };
+    }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.isShadowRoot = function (node) { return node instanceof DocumentFragment; };
+    isShadowRoot(node) { return node instanceof DocumentFragment; }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.importIntoDoc = function (node) { return document.importNode(this.templateAwareRoot(node), true); };
+    importIntoDoc(node) { return document.importNode(this.templateAwareRoot(node), true); }
     /**
      * @param {?} node
      * @return {?}
      */
-    BrowserDomAdapter.prototype.adoptNode = function (node) { return document.adoptNode(node); };
+    adoptNode(node) { return document.adoptNode(node); }
     /**
      * @param {?} el
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getHref = function (el) { return ((el.getAttribute('href'))); };
+    getHref(el) { return ((el.getAttribute('href'))); }
     /**
      * @param {?} event
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getEventKey = function (event) {
-        var /** @type {?} */ key = event.key;
+    getEventKey(event) {
+        let /** @type {?} */ key = event.key;
         if (key == null) {
             key = event.keyIdentifier;
             // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
@@ -977,13 +916,13 @@ var BrowserDomAdapter = (function (_super) {
             }
         }
         return _keyMap[key] || key;
-    };
+    }
     /**
      * @param {?} doc
      * @param {?} target
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
+    getGlobalEventTarget(doc, target) {
         if (target === 'window') {
             return window;
         }
@@ -994,90 +933,89 @@ var BrowserDomAdapter = (function (_super) {
             return doc.body;
         }
         return null;
-    };
+    }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getHistory = function () { return window.history; };
+    getHistory() { return window.history; }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getLocation = function () { return window.location; };
+    getLocation() { return window.location; }
     /**
      * @param {?} doc
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getBaseHref = function (doc) {
-        var /** @type {?} */ href = getBaseElementHref();
+    getBaseHref(doc) {
+        const /** @type {?} */ href = getBaseElementHref();
         return href == null ? null : relativePath(href);
-    };
+    }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.resetBaseElement = function () { baseElement = null; };
+    resetBaseElement() { baseElement = null; }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getUserAgent = function () { return window.navigator.userAgent; };
+    getUserAgent() { return window.navigator.userAgent; }
     /**
      * @param {?} element
      * @param {?} name
      * @param {?} value
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setData = function (element, name, value) {
+    setData(element, name, value) {
         this.setAttribute(element, 'data-' + name, value);
-    };
+    }
     /**
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getData = function (element, name) {
+    getData(element, name) {
         return this.getAttribute(element, 'data-' + name);
-    };
+    }
     /**
      * @param {?} element
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getComputedStyle = function (element) { return getComputedStyle(element); };
+    getComputedStyle(element) { return getComputedStyle(element); }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.supportsWebAnimation = function () {
+    supportsWebAnimation() {
         return typeof ((Element)).prototype['animate'] === 'function';
-    };
+    }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.performanceNow = function () {
+    performanceNow() {
         // performance.now() is not available in all browsers, see
         // http://caniuse.com/#search=performance.now
         return window.performance && window.performance.now ? window.performance.now() :
             new Date().getTime();
-    };
+    }
     /**
      * @return {?}
      */
-    BrowserDomAdapter.prototype.supportsCookies = function () { return true; };
+    supportsCookies() { return true; }
     /**
      * @param {?} name
      * @return {?}
      */
-    BrowserDomAdapter.prototype.getCookie = function (name) { return _angular_common.ɵparseCookieValue(document.cookie, name); };
+    getCookie(name) { return ɵparseCookieValue(document.cookie, name); }
     /**
      * @param {?} name
      * @param {?} value
      * @return {?}
      */
-    BrowserDomAdapter.prototype.setCookie = function (name, value) {
+    setCookie(name, value) {
         // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
         // not clear other cookies.
         document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
-    };
-    return BrowserDomAdapter;
-}(GenericBrowserDomAdapter));
-var baseElement = null;
+    }
+}
+let baseElement = null;
 /**
  * @return {?}
  */
@@ -1091,7 +1029,7 @@ function getBaseElementHref() {
     return baseElement.getAttribute('href');
 }
 // based on urlUtils.js in AngularJS 1
-var urlParsingNode;
+let urlParsingNode;
 /**
  * @param {?} url
  * @return {?}
@@ -1124,7 +1062,7 @@ function relativePath(url) {
  *
  * @deprecated import from `\@angular/common` instead.
  */
-var DOCUMENT$1 = _angular_common.DOCUMENT;
+const DOCUMENT$1 = DOCUMENT;
 
 /**
  * @fileoverview added by tsickle
@@ -1161,125 +1099,106 @@ var DOCUMENT$1 = _angular_common.DOCUMENT;
  * This class should not be used directly by an application developer. Instead, use
  * {\@link Location}.
  */
-var BrowserPlatformLocation = (function (_super) {
-    __extends(BrowserPlatformLocation, _super);
+class BrowserPlatformLocation extends PlatformLocation {
     /**
      * @param {?} _doc
      */
-    function BrowserPlatformLocation(_doc) {
-        var _this = _super.call(this) || this;
-        _this._doc = _doc;
-        _this._init();
-        return _this;
+    constructor(_doc) {
+        super();
+        this._doc = _doc;
+        this._init();
     }
     /**
      * \@internal
      * @return {?}
      */
-    BrowserPlatformLocation.prototype._init = function () {
+    _init() {
         this._location = getDOM().getLocation();
         this._history = getDOM().getHistory();
-    };
-    Object.defineProperty(BrowserPlatformLocation.prototype, "location", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location; },
-        enumerable: true,
-        configurable: true
-    });
+    }
     /**
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.getBaseHrefFromDOM = function () { return ((getDOM().getBaseHref(this._doc))); };
+    get location() { return this._location; }
+    /**
+     * @return {?}
+     */
+    getBaseHrefFromDOM() { return ((getDOM().getBaseHref(this._doc))); }
     /**
      * @param {?} fn
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.onPopState = function (fn) {
+    onPopState(fn) {
         getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('popstate', fn, false);
-    };
+    }
     /**
      * @param {?} fn
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.onHashChange = function (fn) {
+    onHashChange(fn) {
         getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('hashchange', fn, false);
-    };
-    Object.defineProperty(BrowserPlatformLocation.prototype, "pathname", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location.pathname; },
-        /**
-         * @param {?} newPath
-         * @return {?}
-         */
-        set: function (newPath) { this._location.pathname = newPath; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "search", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location.search; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "hash", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._location.hash; },
-        enumerable: true,
-        configurable: true
-    });
+    }
+    /**
+     * @return {?}
+     */
+    get pathname() { return this._location.pathname; }
+    /**
+     * @return {?}
+     */
+    get search() { return this._location.search; }
+    /**
+     * @return {?}
+     */
+    get hash() { return this._location.hash; }
+    /**
+     * @param {?} newPath
+     * @return {?}
+     */
+    set pathname(newPath) { this._location.pathname = newPath; }
     /**
      * @param {?} state
      * @param {?} title
      * @param {?} url
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.pushState = function (state, title, url) {
+    pushState(state, title, url) {
         if (supportsState()) {
             this._history.pushState(state, title, url);
         }
         else {
             this._location.hash = url;
         }
-    };
+    }
     /**
      * @param {?} state
      * @param {?} title
      * @param {?} url
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.replaceState = function (state, title, url) {
+    replaceState(state, title, url) {
         if (supportsState()) {
             this._history.replaceState(state, title, url);
         }
         else {
             this._location.hash = url;
         }
-    };
+    }
     /**
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
+    forward() { this._history.forward(); }
     /**
      * @return {?}
      */
-    BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
-    return BrowserPlatformLocation;
-}(_angular_common.PlatformLocation));
+    back() { this._history.back(); }
+}
 BrowserPlatformLocation.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-BrowserPlatformLocation.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
-]; };
+BrowserPlatformLocation.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -1297,11 +1216,11 @@ BrowserPlatformLocation.ctorParameters = function () { return [
  *
  * \@experimental
  */
-var Meta = (function () {
+class Meta {
     /**
      * @param {?} _doc
      */
-    function Meta(_doc) {
+    constructor(_doc) {
         this._doc = _doc;
         this._dom = getDOM();
     }
@@ -1310,135 +1229,128 @@ var Meta = (function () {
      * @param {?=} forceCreation
      * @return {?}
      */
-    Meta.prototype.addTag = function (tag, forceCreation) {
-        if (forceCreation === void 0) { forceCreation = false; }
+    addTag(tag, forceCreation = false) {
         if (!tag)
             return null;
         return this._getOrCreateElement(tag, forceCreation);
-    };
+    }
     /**
      * @param {?} tags
      * @param {?=} forceCreation
      * @return {?}
      */
-    Meta.prototype.addTags = function (tags, forceCreation) {
-        var _this = this;
-        if (forceCreation === void 0) { forceCreation = false; }
+    addTags(tags, forceCreation = false) {
         if (!tags)
             return [];
-        return tags.reduce(function (result, tag) {
+        return tags.reduce((result, tag) => {
             if (tag) {
-                result.push(_this._getOrCreateElement(tag, forceCreation));
+                result.push(this._getOrCreateElement(tag, forceCreation));
             }
             return result;
         }, []);
-    };
+    }
     /**
      * @param {?} attrSelector
      * @return {?}
      */
-    Meta.prototype.getTag = function (attrSelector) {
+    getTag(attrSelector) {
         if (!attrSelector)
             return null;
-        return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]") || null;
-    };
+        return this._dom.querySelector(this._doc, `meta[${attrSelector}]`) || null;
+    }
     /**
      * @param {?} attrSelector
      * @return {?}
      */
-    Meta.prototype.getTags = function (attrSelector) {
+    getTags(attrSelector) {
         if (!attrSelector)
             return [];
-        var /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._doc, "meta[" + attrSelector + "]");
+        const /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
         return list ? [].slice.call(list) : [];
-    };
+    }
     /**
      * @param {?} tag
      * @param {?=} selector
      * @return {?}
      */
-    Meta.prototype.updateTag = function (tag, selector) {
+    updateTag(tag, selector) {
         if (!tag)
             return null;
         selector = selector || this._parseSelector(tag);
-        var /** @type {?} */ meta = ((this.getTag(selector)));
+        const /** @type {?} */ meta = ((this.getTag(selector)));
         if (meta) {
             return this._setMetaElementAttributes(tag, meta);
         }
         return this._getOrCreateElement(tag, true);
-    };
+    }
     /**
      * @param {?} attrSelector
      * @return {?}
      */
-    Meta.prototype.removeTag = function (attrSelector) { this.removeTagElement(/** @type {?} */ ((this.getTag(attrSelector)))); };
+    removeTag(attrSelector) { this.removeTagElement(/** @type {?} */ ((this.getTag(attrSelector)))); }
     /**
      * @param {?} meta
      * @return {?}
      */
-    Meta.prototype.removeTagElement = function (meta) {
+    removeTagElement(meta) {
         if (meta) {
             this._dom.remove(meta);
         }
-    };
+    }
     /**
      * @param {?} meta
      * @param {?=} forceCreation
      * @return {?}
      */
-    Meta.prototype._getOrCreateElement = function (meta, forceCreation) {
-        if (forceCreation === void 0) { forceCreation = false; }
+    _getOrCreateElement(meta, forceCreation = false) {
         if (!forceCreation) {
-            var /** @type {?} */ selector = this._parseSelector(meta);
-            var /** @type {?} */ elem = ((this.getTag(selector)));
+            const /** @type {?} */ selector = this._parseSelector(meta);
+            const /** @type {?} */ elem = ((this.getTag(selector)));
             // It's allowed to have multiple elements with the same name so it's not enough to
             // just check that element with the same name already present on the page. We also need to
             // check if element has tag attributes
             if (elem && this._containsAttributes(meta, elem))
                 return elem;
         }
-        var /** @type {?} */ element = (this._dom.createElement('meta'));
+        const /** @type {?} */ element = (this._dom.createElement('meta'));
         this._setMetaElementAttributes(meta, element);
-        var /** @type {?} */ head = this._dom.getElementsByTagName(this._doc, 'head')[0];
+        const /** @type {?} */ head = this._dom.getElementsByTagName(this._doc, 'head')[0];
         this._dom.appendChild(head, element);
         return element;
-    };
+    }
     /**
      * @param {?} tag
      * @param {?} el
      * @return {?}
      */
-    Meta.prototype._setMetaElementAttributes = function (tag, el) {
-        var _this = this;
-        Object.keys(tag).forEach(function (prop) { return _this._dom.setAttribute(el, prop, tag[prop]); });
+    _setMetaElementAttributes(tag, el) {
+        Object.keys(tag).forEach((prop) => this._dom.setAttribute(el, prop, tag[prop]));
         return el;
-    };
+    }
     /**
      * @param {?} tag
      * @return {?}
      */
-    Meta.prototype._parseSelector = function (tag) {
-        var /** @type {?} */ attr = tag.name ? 'name' : 'property';
-        return attr + "=\"" + tag[attr] + "\"";
-    };
+    _parseSelector(tag) {
+        const /** @type {?} */ attr = tag.name ? 'name' : 'property';
+        return `${attr}="${tag[attr]}"`;
+    }
     /**
      * @param {?} tag
      * @param {?} elem
      * @return {?}
      */
-    Meta.prototype._containsAttributes = function (tag, elem) {
-        var _this = this;
-        return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
-    };
-    return Meta;
-}());
+    _containsAttributes(tag, elem) {
+        return Object.keys(tag).every((key) => this._dom.getAttribute(elem, key) === tag[key]);
+    }
+}
 Meta.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-Meta.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
-]; };
+Meta.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -1455,7 +1367,7 @@ Meta.ctorParameters = function () { return [
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
  */
-var TRANSITION_ID = new _angular_core.InjectionToken('TRANSITION_ID');
+const TRANSITION_ID = new InjectionToken('TRANSITION_ID');
 /**
  * @param {?} transitionId
  * @param {?} document
@@ -1463,22 +1375,22 @@ var TRANSITION_ID = new _angular_core.InjectionToken('TRANSITION_ID');
  * @return {?}
  */
 function appInitializerFactory(transitionId, document, injector) {
-    return function () {
+    return () => {
         // Wait for all application initializers to be completed before removing the styles set by
         // the server.
-        injector.get(_angular_core.ApplicationInitStatus).donePromise.then(function () {
-            var /** @type {?} */ dom = getDOM();
-            var /** @type {?} */ styles = Array.prototype.slice.apply(dom.querySelectorAll(document, "style[ng-transition]"));
-            styles.filter(function (el) { return dom.getAttribute(el, 'ng-transition') === transitionId; })
-                .forEach(function (el) { return dom.remove(el); });
+        injector.get(ApplicationInitStatus).donePromise.then(() => {
+            const /** @type {?} */ dom = getDOM();
+            const /** @type {?} */ styles = Array.prototype.slice.apply(dom.querySelectorAll(document, `style[ng-transition]`));
+            styles.filter(el => dom.getAttribute(el, 'ng-transition') === transitionId)
+                .forEach(el => dom.remove(el));
         });
     };
 }
-var SERVER_TRANSITION_PROVIDERS = [
+const SERVER_TRANSITION_PROVIDERS = [
     {
-        provide: _angular_core.APP_INITIALIZER,
+        provide: APP_INITIALIZER,
         useFactory: appInitializerFactory,
-        deps: [TRANSITION_ID, DOCUMENT$1, _angular_core.Injector],
+        deps: [TRANSITION_ID, DOCUMENT$1, Injector],
         multi: true
     },
 ];
@@ -1494,33 +1406,30 @@ var SERVER_TRANSITION_PROVIDERS = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var BrowserGetTestability = (function () {
-    function BrowserGetTestability() {
-    }
+class BrowserGetTestability {
     /**
      * @return {?}
      */
-    BrowserGetTestability.init = function () { _angular_core.setTestabilityGetter(new BrowserGetTestability()); };
+    static init() { setTestabilityGetter(new BrowserGetTestability()); }
     /**
      * @param {?} registry
      * @return {?}
      */
-    BrowserGetTestability.prototype.addToWindow = function (registry) {
-        _angular_core.ɵglobal['getAngularTestability'] = function (elem, findInAncestors) {
-            if (findInAncestors === void 0) { findInAncestors = true; }
-            var /** @type {?} */ testability = registry.findTestabilityInTree(elem, findInAncestors);
+    addToWindow(registry) {
+        ɵglobal['getAngularTestability'] = (elem, findInAncestors = true) => {
+            const /** @type {?} */ testability = registry.findTestabilityInTree(elem, findInAncestors);
             if (testability == null) {
                 throw new Error('Could not find testability for element.');
             }
             return testability;
         };
-        _angular_core.ɵglobal['getAllAngularTestabilities'] = function () { return registry.getAllTestabilities(); };
-        _angular_core.ɵglobal['getAllAngularRootElements'] = function () { return registry.getAllRootElements(); };
-        var /** @type {?} */ whenAllStable = function (callback /** TODO #9100 */) {
-            var /** @type {?} */ testabilities = _angular_core.ɵglobal['getAllAngularTestabilities']();
-            var /** @type {?} */ count = testabilities.length;
-            var /** @type {?} */ didWork = false;
-            var /** @type {?} */ decrement = function (didWork_ /** TODO #9100 */) {
+        ɵglobal['getAllAngularTestabilities'] = () => registry.getAllTestabilities();
+        ɵglobal['getAllAngularRootElements'] = () => registry.getAllRootElements();
+        const /** @type {?} */ whenAllStable = (callback /** TODO #9100 */) => {
+            const /** @type {?} */ testabilities = ɵglobal['getAllAngularTestabilities']();
+            let /** @type {?} */ count = testabilities.length;
+            let /** @type {?} */ didWork = false;
+            const /** @type {?} */ decrement = function (didWork_ /** TODO #9100 */) {
                 didWork = didWork || didWork_;
                 count--;
                 if (count == 0) {
@@ -1531,22 +1440,22 @@ var BrowserGetTestability = (function () {
                 testability.whenStable(decrement);
             });
         };
-        if (!_angular_core.ɵglobal['frameworkStabilizers']) {
-            _angular_core.ɵglobal['frameworkStabilizers'] = [];
+        if (!ɵglobal['frameworkStabilizers']) {
+            ɵglobal['frameworkStabilizers'] = [];
         }
-        _angular_core.ɵglobal['frameworkStabilizers'].push(whenAllStable);
-    };
+        ɵglobal['frameworkStabilizers'].push(whenAllStable);
+    }
     /**
      * @param {?} registry
      * @param {?} elem
      * @param {?} findInAncestors
      * @return {?}
      */
-    BrowserGetTestability.prototype.findTestabilityInTree = function (registry, elem, findInAncestors) {
+    findTestabilityInTree(registry, elem, findInAncestors) {
         if (elem == null) {
             return null;
         }
-        var /** @type {?} */ t = registry.getTestability(elem);
+        const /** @type {?} */ t = registry.getTestability(elem);
         if (t != null) {
             return t;
         }
@@ -1557,9 +1466,8 @@ var BrowserGetTestability = (function () {
             return this.findTestabilityInTree(registry, getDOM().getHost(elem), true);
         }
         return this.findTestabilityInTree(registry, getDOM().parentElement(elem), true);
-    };
-    return BrowserGetTestability;
-}());
+    }
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1582,33 +1490,32 @@ var BrowserGetTestability = (function () {
  *
  * \@experimental
  */
-var Title = (function () {
+class Title {
     /**
      * @param {?} _doc
      */
-    function Title(_doc) {
+    constructor(_doc) {
         this._doc = _doc;
     }
     /**
      * Get the title of the current HTML document.
      * @return {?}
      */
-    Title.prototype.getTitle = function () { return getDOM().getTitle(this._doc); };
+    getTitle() { return getDOM().getTitle(this._doc); }
     /**
      * Set the title of the current HTML document.
      * @param {?} newTitle
      * @return {?}
      */
-    Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
-    return Title;
-}());
+    setTitle(newTitle) { getDOM().setTitle(this._doc, newTitle); }
+}
 Title.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-Title.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
-]; };
+Title.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -1641,11 +1548,11 @@ Title.ctorParameters = function () { return [
  */
 function exportNgVar(name, value) {
     if (!ng) {
-        _angular_core.ɵglobal['ng'] = ng = ((_angular_core.ɵglobal['ng'])) || {};
+        ɵglobal['ng'] = ng = ((ɵglobal['ng'])) || {};
     }
     ng[name] = value;
 }
-var ng;
+let ng;
 
 /**
  * @fileoverview added by tsickle
@@ -1658,12 +1565,12 @@ var ng;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var CORE_TOKENS = {
-    'ApplicationRef': _angular_core.ApplicationRef,
-    'NgZone': _angular_core.NgZone,
+const CORE_TOKENS = {
+    'ApplicationRef': ApplicationRef,
+    'NgZone': NgZone,
 };
-var INSPECT_GLOBAL_NAME = 'probe';
-var CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
+const INSPECT_GLOBAL_NAME = 'probe';
+const CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
 /**
  * Returns a {\@link DebugElement} for the given native DOM element, or
  * null if the given native element does not have an Angular view associated
@@ -1672,7 +1579,7 @@ var CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
  * @return {?}
  */
 function inspectNativeElement(element) {
-    return _angular_core.getDebugNode(element);
+    return getDebugNode(element);
 }
 /**
  * @param {?} coreTokens
@@ -1680,25 +1587,25 @@ function inspectNativeElement(element) {
  */
 function _createNgProbe(coreTokens) {
     exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    exportNgVar(CORE_TOKENS_GLOBAL_NAME, __assign({}, CORE_TOKENS, _ngProbeTokensToMap(coreTokens || [])));
-    return function () { return inspectNativeElement; };
+    exportNgVar(CORE_TOKENS_GLOBAL_NAME, Object.assign({}, CORE_TOKENS, _ngProbeTokensToMap(coreTokens || [])));
+    return () => inspectNativeElement;
 }
 /**
  * @param {?} tokens
  * @return {?}
  */
 function _ngProbeTokensToMap(tokens) {
-    return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
+    return tokens.reduce((prev, t) => (prev[t.name] = t.token, prev), {});
 }
 /**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
-var ELEMENT_PROBE_PROVIDERS = [
+const ELEMENT_PROBE_PROVIDERS = [
     {
-        provide: _angular_core.APP_INITIALIZER,
+        provide: APP_INITIALIZER,
         useFactory: _createNgProbe,
         deps: [
-            [_angular_core.NgProbeToken, new _angular_core.Optional()],
+            [NgProbeToken, new Optional()],
         ],
         multi: true,
     },
@@ -1718,20 +1625,19 @@ var ELEMENT_PROBE_PROVIDERS = [
 /**
  * \@stable
  */
-var EVENT_MANAGER_PLUGINS = new _angular_core.InjectionToken('EventManagerPlugins');
+const EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
  * \@stable
  */
-var EventManager = (function () {
+class EventManager {
     /**
      * @param {?} plugins
      * @param {?} _zone
      */
-    function EventManager(plugins, _zone) {
-        var _this = this;
+    constructor(plugins, _zone) {
         this._zone = _zone;
         this._eventNameToPlugin = new Map();
-        plugins.forEach(function (p) { return p.manager = _this; });
+        plugins.forEach(p => p.manager = this);
         this._plugins = plugins.slice().reverse();
     }
     /**
@@ -1740,62 +1646,61 @@ var EventManager = (function () {
      * @param {?} handler
      * @return {?}
      */
-    EventManager.prototype.addEventListener = function (element, eventName, handler) {
-        var /** @type {?} */ plugin = this._findPluginFor(eventName);
+    addEventListener(element, eventName, handler) {
+        const /** @type {?} */ plugin = this._findPluginFor(eventName);
         return plugin.addEventListener(element, eventName, handler);
-    };
+    }
     /**
      * @param {?} target
      * @param {?} eventName
      * @param {?} handler
      * @return {?}
      */
-    EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
-        var /** @type {?} */ plugin = this._findPluginFor(eventName);
+    addGlobalEventListener(target, eventName, handler) {
+        const /** @type {?} */ plugin = this._findPluginFor(eventName);
         return plugin.addGlobalEventListener(target, eventName, handler);
-    };
+    }
     /**
      * @return {?}
      */
-    EventManager.prototype.getZone = function () { return this._zone; };
+    getZone() { return this._zone; }
     /**
      * \@internal
      * @param {?} eventName
      * @return {?}
      */
-    EventManager.prototype._findPluginFor = function (eventName) {
-        var /** @type {?} */ plugin = this._eventNameToPlugin.get(eventName);
+    _findPluginFor(eventName) {
+        const /** @type {?} */ plugin = this._eventNameToPlugin.get(eventName);
         if (plugin) {
             return plugin;
         }
-        var /** @type {?} */ plugins = this._plugins;
-        for (var /** @type {?} */ i = 0; i < plugins.length; i++) {
-            var /** @type {?} */ plugin_1 = plugins[i];
-            if (plugin_1.supports(eventName)) {
-                this._eventNameToPlugin.set(eventName, plugin_1);
-                return plugin_1;
+        const /** @type {?} */ plugins = this._plugins;
+        for (let /** @type {?} */ i = 0; i < plugins.length; i++) {
+            const /** @type {?} */ plugin = plugins[i];
+            if (plugin.supports(eventName)) {
+                this._eventNameToPlugin.set(eventName, plugin);
+                return plugin;
             }
         }
-        throw new Error("No event manager plugin found for event " + eventName);
-    };
-    return EventManager;
-}());
+        throw new Error(`No event manager plugin found for event ${eventName}`);
+    }
+}
 EventManager.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-EventManager.ctorParameters = function () { return [
-    { type: Array, decorators: [{ type: _angular_core.Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-    { type: _angular_core.NgZone, },
-]; };
+EventManager.ctorParameters = () => [
+    { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
+    { type: NgZone, },
+];
 /**
  * @abstract
  */
-var EventManagerPlugin = (function () {
+class EventManagerPlugin {
     /**
      * @param {?} _doc
      */
-    function EventManagerPlugin(_doc) {
+    constructor(_doc) {
         this._doc = _doc;
     }
     /**
@@ -1804,16 +1709,15 @@ var EventManagerPlugin = (function () {
      * @param {?} handler
      * @return {?}
      */
-    EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-        var /** @type {?} */ target = getDOM().getGlobalEventTarget(this._doc, element);
+    addGlobalEventListener(element, eventName, handler) {
+        const /** @type {?} */ target = getDOM().getGlobalEventTarget(this._doc, element);
         if (!target) {
-            throw new Error("Unsupported event target " + target + " for event " + eventName);
+            throw new Error(`Unsupported event target ${target} for event ${eventName}`);
         }
         return this.addEventListener(target, eventName, handler);
-    };
-    
-    return EventManagerPlugin;
-}());
+    }
+    ;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1826,8 +1730,8 @@ var EventManagerPlugin = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var SharedStylesHost = (function () {
-    function SharedStylesHost() {
+class SharedStylesHost {
+    constructor() {
         /**
          * \@internal
          */
@@ -1837,93 +1741,86 @@ var SharedStylesHost = (function () {
      * @param {?} styles
      * @return {?}
      */
-    SharedStylesHost.prototype.addStyles = function (styles) {
-        var _this = this;
-        var /** @type {?} */ additions = new Set();
-        styles.forEach(function (style) {
-            if (!_this._stylesSet.has(style)) {
-                _this._stylesSet.add(style);
+    addStyles(styles) {
+        const /** @type {?} */ additions = new Set();
+        styles.forEach(style => {
+            if (!this._stylesSet.has(style)) {
+                this._stylesSet.add(style);
                 additions.add(style);
             }
         });
         this.onStylesAdded(additions);
-    };
+    }
     /**
      * @param {?} additions
      * @return {?}
      */
-    SharedStylesHost.prototype.onStylesAdded = function (additions) { };
+    onStylesAdded(additions) { }
     /**
      * @return {?}
      */
-    SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
-    return SharedStylesHost;
-}());
+    getAllStyles() { return Array.from(this._stylesSet); }
+}
 SharedStylesHost.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-SharedStylesHost.ctorParameters = function () { return []; };
-var DomSharedStylesHost = (function (_super) {
-    __extends(DomSharedStylesHost, _super);
+SharedStylesHost.ctorParameters = () => [];
+class DomSharedStylesHost extends SharedStylesHost {
     /**
      * @param {?} _doc
      */
-    function DomSharedStylesHost(_doc) {
-        var _this = _super.call(this) || this;
-        _this._doc = _doc;
-        _this._hostNodes = new Set();
-        _this._styleNodes = new Set();
-        _this._hostNodes.add(_doc.head);
-        return _this;
+    constructor(_doc) {
+        super();
+        this._doc = _doc;
+        this._hostNodes = new Set();
+        this._styleNodes = new Set();
+        this._hostNodes.add(_doc.head);
     }
     /**
      * @param {?} styles
      * @param {?} host
      * @return {?}
      */
-    DomSharedStylesHost.prototype._addStylesToHost = function (styles, host) {
-        var _this = this;
-        styles.forEach(function (style) {
-            var /** @type {?} */ styleEl = _this._doc.createElement('style');
+    _addStylesToHost(styles, host) {
+        styles.forEach((style) => {
+            const /** @type {?} */ styleEl = this._doc.createElement('style');
             styleEl.textContent = style;
-            _this._styleNodes.add(host.appendChild(styleEl));
+            this._styleNodes.add(host.appendChild(styleEl));
         });
-    };
+    }
     /**
      * @param {?} hostNode
      * @return {?}
      */
-    DomSharedStylesHost.prototype.addHost = function (hostNode) {
+    addHost(hostNode) {
         this._addStylesToHost(this._stylesSet, hostNode);
         this._hostNodes.add(hostNode);
-    };
+    }
     /**
      * @param {?} hostNode
      * @return {?}
      */
-    DomSharedStylesHost.prototype.removeHost = function (hostNode) { this._hostNodes.delete(hostNode); };
+    removeHost(hostNode) { this._hostNodes.delete(hostNode); }
     /**
      * @param {?} additions
      * @return {?}
      */
-    DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
-        var _this = this;
-        this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
-    };
+    onStylesAdded(additions) {
+        this._hostNodes.forEach(hostNode => this._addStylesToHost(additions, hostNode));
+    }
     /**
      * @return {?}
      */
-    DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
-    return DomSharedStylesHost;
-}(SharedStylesHost));
+    ngOnDestroy() { this._styleNodes.forEach(styleNode => getDOM().remove(styleNode)); }
+}
 DomSharedStylesHost.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-DomSharedStylesHost.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
-]; };
+DomSharedStylesHost.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -1936,17 +1833,17 @@ DomSharedStylesHost.ctorParameters = function () { return [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var NAMESPACE_URIS = {
+const NAMESPACE_URIS = {
     'svg': 'http://www.w3.org/2000/svg',
     'xhtml': 'http://www.w3.org/1999/xhtml',
     'xlink': 'http://www.w3.org/1999/xlink',
     'xml': 'http://www.w3.org/XML/1998/namespace',
     'xmlns': 'http://www.w3.org/2000/xmlns/',
 };
-var COMPONENT_REGEX = /%COMP%/g;
-var COMPONENT_VARIABLE = '%COMP%';
-var HOST_ATTR = "_nghost-" + COMPONENT_VARIABLE;
-var CONTENT_ATTR = "_ngcontent-" + COMPONENT_VARIABLE;
+const COMPONENT_REGEX = /%COMP%/g;
+const COMPONENT_VARIABLE = '%COMP%';
+const HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
+const CONTENT_ATTR = `_ngcontent-${COMPONENT_VARIABLE}`;
 /**
  * @param {?} componentShortId
  * @return {?}
@@ -1968,8 +1865,8 @@ function shimHostAttribute(componentShortId) {
  * @return {?}
  */
 function flattenStyles(compId, styles, target) {
-    for (var /** @type {?} */ i = 0; i < styles.length; i++) {
-        var /** @type {?} */ style = styles[i];
+    for (let /** @type {?} */ i = 0; i < styles.length; i++) {
+        let /** @type {?} */ style = styles[i];
         if (Array.isArray(style)) {
             flattenStyles(compId, style, target);
         }
@@ -1985,8 +1882,8 @@ function flattenStyles(compId, styles, target) {
  * @return {?}
  */
 function decoratePreventDefault(eventHandler) {
-    return function (event) {
-        var /** @type {?} */ allowDefaultBehavior = eventHandler(event);
+    return (event) => {
+        const /** @type {?} */ allowDefaultBehavior = eventHandler(event);
         if (allowDefaultBehavior === false) {
             // TODO(tbosch): move preventDefault into event plugins...
             event.preventDefault();
@@ -1994,30 +1891,30 @@ function decoratePreventDefault(eventHandler) {
         }
     };
 }
-var DomRendererFactory2 = (function () {
+class DomRendererFactory2 {
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
      */
-    function DomRendererFactory2(eventManager, sharedStylesHost) {
+    constructor(eventManager, sharedStylesHost) {
         this.eventManager = eventManager;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
         this.defaultRenderer = new DefaultDomRenderer2(eventManager);
     }
-    
+    ;
     /**
      * @param {?} element
      * @param {?} type
      * @return {?}
      */
-    DomRendererFactory2.prototype.createRenderer = function (element, type) {
+    createRenderer(element, type) {
         if (!element || !type) {
             return this.defaultRenderer;
         }
         switch (type.encapsulation) {
-            case _angular_core.ViewEncapsulation.Emulated: {
-                var /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
+            case ViewEncapsulation.Emulated: {
+                let /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
                     renderer =
                         new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
@@ -2026,119 +1923,118 @@ var DomRendererFactory2 = (function () {
                 ((renderer)).applyToHost(element);
                 return renderer;
             }
-            case _angular_core.ViewEncapsulation.Native:
+            case ViewEncapsulation.Native:
                 return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
-                    var /** @type {?} */ styles = flattenStyles(type.id, type.styles, []);
+                    const /** @type {?} */ styles = flattenStyles(type.id, type.styles, []);
                     this.sharedStylesHost.addStyles(styles);
                     this.rendererByCompId.set(type.id, this.defaultRenderer);
                 }
                 return this.defaultRenderer;
             }
         }
-    };
+    }
     /**
      * @return {?}
      */
-    DomRendererFactory2.prototype.begin = function () { };
+    begin() { }
     /**
      * @return {?}
      */
-    DomRendererFactory2.prototype.end = function () { };
-    return DomRendererFactory2;
-}());
+    end() { }
+}
 DomRendererFactory2.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-DomRendererFactory2.ctorParameters = function () { return [
+DomRendererFactory2.ctorParameters = () => [
     { type: EventManager, },
     { type: DomSharedStylesHost, },
-]; };
-var DefaultDomRenderer2 = (function () {
+];
+class DefaultDomRenderer2 {
     /**
      * @param {?} eventManager
      */
-    function DefaultDomRenderer2(eventManager) {
+    constructor(eventManager) {
         this.eventManager = eventManager;
         this.data = Object.create(null);
     }
     /**
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.destroy = function () { };
+    destroy() { }
     /**
      * @param {?} name
      * @param {?=} namespace
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.createElement = function (name, namespace) {
+    createElement(name, namespace) {
         if (namespace) {
             return document.createElementNS(NAMESPACE_URIS[namespace], name);
         }
         return document.createElement(name);
-    };
+    }
     /**
      * @param {?} value
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.createComment = function (value) { return document.createComment(value); };
+    createComment(value) { return document.createComment(value); }
     /**
      * @param {?} value
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.createText = function (value) { return document.createTextNode(value); };
+    createText(value) { return document.createTextNode(value); }
     /**
      * @param {?} parent
      * @param {?} newChild
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
+    appendChild(parent, newChild) { parent.appendChild(newChild); }
     /**
      * @param {?} parent
      * @param {?} newChild
      * @param {?} refChild
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
+    insertBefore(parent, newChild, refChild) {
         if (parent) {
             parent.insertBefore(newChild, refChild);
         }
-    };
+    }
     /**
      * @param {?} parent
      * @param {?} oldChild
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.removeChild = function (parent, oldChild) {
+    removeChild(parent, oldChild) {
         if (parent) {
             parent.removeChild(oldChild);
         }
-    };
+    }
     /**
      * @param {?} selectorOrNode
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.selectRootElement = function (selectorOrNode) {
-        var /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
+    selectRootElement(selectorOrNode) {
+        let /** @type {?} */ el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
             selectorOrNode;
         if (!el) {
-            throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
+            throw new Error(`The selector "${selectorOrNode}" did not match any elements`);
         }
         el.textContent = '';
         return el;
-    };
+    }
     /**
      * @param {?} node
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
+    parentNode(node) { return node.parentNode; }
     /**
      * @param {?} node
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
+    nextSibling(node) { return node.nextSibling; }
     /**
      * @param {?} el
      * @param {?} name
@@ -2146,10 +2042,10 @@ var DefaultDomRenderer2 = (function () {
      * @param {?=} namespace
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
+    setAttribute(el, name, value, namespace) {
         if (namespace) {
-            name = namespace + ":" + name;
-            var /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
+            name = `${namespace}:${name}`;
+            const /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
             if (namespaceUri) {
                 el.setAttributeNS(namespaceUri, name, value);
             }
@@ -2160,39 +2056,39 @@ var DefaultDomRenderer2 = (function () {
         else {
             el.setAttribute(name, value);
         }
-    };
+    }
     /**
      * @param {?} el
      * @param {?} name
      * @param {?=} namespace
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.removeAttribute = function (el, name, namespace) {
+    removeAttribute(el, name, namespace) {
         if (namespace) {
-            var /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
+            const /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
             if (namespaceUri) {
                 el.removeAttributeNS(namespaceUri, name);
             }
             else {
-                el.removeAttribute(namespace + ":" + name);
+                el.removeAttribute(`${namespace}:${name}`);
             }
         }
         else {
             el.removeAttribute(name);
         }
-    };
+    }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.addClass = function (el, name) { el.classList.add(name); };
+    addClass(el, name) { el.classList.add(name); }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
+    removeClass(el, name) { el.classList.remove(name); }
     /**
      * @param {?} el
      * @param {?} style
@@ -2200,22 +2096,22 @@ var DefaultDomRenderer2 = (function () {
      * @param {?} flags
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.setStyle = function (el, style, value, flags) {
-        if (flags & _angular_core.RendererStyleFlags2.DashCase) {
-            el.style.setProperty(style, value, !!(flags & _angular_core.RendererStyleFlags2.Important) ? 'important' : '');
+    setStyle(el, style, value, flags) {
+        if (flags & RendererStyleFlags2.DashCase) {
+            el.style.setProperty(style, value, !!(flags & RendererStyleFlags2.Important) ? 'important' : '');
         }
         else {
             el.style[style] = value;
         }
-    };
+    }
     /**
      * @param {?} el
      * @param {?} style
      * @param {?} flags
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.removeStyle = function (el, style, flags) {
-        if (flags & _angular_core.RendererStyleFlags2.DashCase) {
+    removeStyle(el, style, flags) {
+        if (flags & RendererStyleFlags2.DashCase) {
             el.style.removeProperty(style);
         }
         else {
@@ -2223,39 +2119,38 @@ var DefaultDomRenderer2 = (function () {
             // see https://github.com/angular/angular/issues/7916
             el.style[style] = '';
         }
-    };
+    }
     /**
      * @param {?} el
      * @param {?} name
      * @param {?} value
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.setProperty = function (el, name, value) {
+    setProperty(el, name, value) {
         checkNoSyntheticProp(name, 'property');
         el[name] = value;
-    };
+    }
     /**
      * @param {?} node
      * @param {?} value
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.setValue = function (node, value) { node.nodeValue = value; };
+    setValue(node, value) { node.nodeValue = value; }
     /**
      * @param {?} target
      * @param {?} event
      * @param {?} callback
      * @return {?}
      */
-    DefaultDomRenderer2.prototype.listen = function (target, event, callback) {
+    listen(target, event, callback) {
         checkNoSyntheticProp(event, 'listener');
         if (typeof target === 'string') {
             return (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
         }
         return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
-    };
-    return DefaultDomRenderer2;
-}());
-var AT_CHARCODE = '@'.charCodeAt(0);
+    }
+}
+const AT_CHARCODE = '@'.charCodeAt(0);
 /**
  * @param {?} name
  * @param {?} nameKind
@@ -2263,108 +2158,102 @@ var AT_CHARCODE = '@'.charCodeAt(0);
  */
 function checkNoSyntheticProp(name, nameKind) {
     if (name.charCodeAt(0) === AT_CHARCODE) {
-        throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
+        throw new Error(`Found the synthetic ${nameKind} ${name}. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.`);
     }
 }
-var EmulatedEncapsulationDomRenderer2 = (function (_super) {
-    __extends(EmulatedEncapsulationDomRenderer2, _super);
+class EmulatedEncapsulationDomRenderer2 extends DefaultDomRenderer2 {
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
      * @param {?} component
      */
-    function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component) {
-        var _this = _super.call(this, eventManager) || this;
-        _this.component = component;
-        var /** @type {?} */ styles = flattenStyles(component.id, component.styles, []);
+    constructor(eventManager, sharedStylesHost, component) {
+        super(eventManager);
+        this.component = component;
+        const /** @type {?} */ styles = flattenStyles(component.id, component.styles, []);
         sharedStylesHost.addStyles(styles);
-        _this.contentAttr = shimContentAttribute(component.id);
-        _this.hostAttr = shimHostAttribute(component.id);
-        return _this;
+        this.contentAttr = shimContentAttribute(component.id);
+        this.hostAttr = shimHostAttribute(component.id);
     }
     /**
      * @param {?} element
      * @return {?}
      */
-    EmulatedEncapsulationDomRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
+    applyToHost(element) { super.setAttribute(element, this.hostAttr, ''); }
     /**
      * @param {?} parent
      * @param {?} name
      * @return {?}
      */
-    EmulatedEncapsulationDomRenderer2.prototype.createElement = function (parent, name) {
-        var /** @type {?} */ el = _super.prototype.createElement.call(this, parent, name);
-        _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
+    createElement(parent, name) {
+        const /** @type {?} */ el = super.createElement(parent, name);
+        super.setAttribute(el, this.contentAttr, '');
         return el;
-    };
-    return EmulatedEncapsulationDomRenderer2;
-}(DefaultDomRenderer2));
-var ShadowDomRenderer = (function (_super) {
-    __extends(ShadowDomRenderer, _super);
+    }
+}
+class ShadowDomRenderer extends DefaultDomRenderer2 {
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
      * @param {?} hostEl
      * @param {?} component
      */
-    function ShadowDomRenderer(eventManager, sharedStylesHost, hostEl, component) {
-        var _this = _super.call(this, eventManager) || this;
-        _this.sharedStylesHost = sharedStylesHost;
-        _this.hostEl = hostEl;
-        _this.component = component;
-        _this.shadowRoot = ((hostEl)).createShadowRoot();
-        _this.sharedStylesHost.addHost(_this.shadowRoot);
-        var /** @type {?} */ styles = flattenStyles(component.id, component.styles, []);
-        for (var /** @type {?} */ i = 0; i < styles.length; i++) {
-            var /** @type {?} */ styleEl = document.createElement('style');
+    constructor(eventManager, sharedStylesHost, hostEl, component) {
+        super(eventManager);
+        this.sharedStylesHost = sharedStylesHost;
+        this.hostEl = hostEl;
+        this.component = component;
+        this.shadowRoot = ((hostEl)).createShadowRoot();
+        this.sharedStylesHost.addHost(this.shadowRoot);
+        const /** @type {?} */ styles = flattenStyles(component.id, component.styles, []);
+        for (let /** @type {?} */ i = 0; i < styles.length; i++) {
+            const /** @type {?} */ styleEl = document.createElement('style');
             styleEl.textContent = styles[i];
-            _this.shadowRoot.appendChild(styleEl);
+            this.shadowRoot.appendChild(styleEl);
         }
-        return _this;
     }
     /**
      * @param {?} node
      * @return {?}
      */
-    ShadowDomRenderer.prototype.nodeOrShadowRoot = function (node) { return node === this.hostEl ? this.shadowRoot : node; };
+    nodeOrShadowRoot(node) { return node === this.hostEl ? this.shadowRoot : node; }
     /**
      * @return {?}
      */
-    ShadowDomRenderer.prototype.destroy = function () { this.sharedStylesHost.removeHost(this.shadowRoot); };
+    destroy() { this.sharedStylesHost.removeHost(this.shadowRoot); }
     /**
      * @param {?} parent
      * @param {?} newChild
      * @return {?}
      */
-    ShadowDomRenderer.prototype.appendChild = function (parent, newChild) {
-        return _super.prototype.appendChild.call(this, this.nodeOrShadowRoot(parent), newChild);
-    };
+    appendChild(parent, newChild) {
+        return super.appendChild(this.nodeOrShadowRoot(parent), newChild);
+    }
     /**
      * @param {?} parent
      * @param {?} newChild
      * @param {?} refChild
      * @return {?}
      */
-    ShadowDomRenderer.prototype.insertBefore = function (parent, newChild, refChild) {
-        return _super.prototype.insertBefore.call(this, this.nodeOrShadowRoot(parent), newChild, refChild);
-    };
+    insertBefore(parent, newChild, refChild) {
+        return super.insertBefore(this.nodeOrShadowRoot(parent), newChild, refChild);
+    }
     /**
      * @param {?} parent
      * @param {?} oldChild
      * @return {?}
      */
-    ShadowDomRenderer.prototype.removeChild = function (parent, oldChild) {
-        return _super.prototype.removeChild.call(this, this.nodeOrShadowRoot(parent), oldChild);
-    };
+    removeChild(parent, oldChild) {
+        return super.removeChild(this.nodeOrShadowRoot(parent), oldChild);
+    }
     /**
      * @param {?} node
      * @return {?}
      */
-    ShadowDomRenderer.prototype.parentNode = function (node) {
-        return this.nodeOrShadowRoot(_super.prototype.parentNode.call(this, this.nodeOrShadowRoot(node)));
-    };
-    return ShadowDomRenderer;
-}(DefaultDomRenderer2));
+    parentNode(node) {
+        return this.nodeOrShadowRoot(super.parentNode(this.nodeOrShadowRoot(node)));
+    }
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2383,24 +2272,24 @@ var ShadowDomRenderer = (function (_super) {
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
  */
-var Zone = _angular_core.ɵglobal['Zone'];
-var __symbol__ = Zone && Zone['__symbol__'] || function (v) {
+const Zone = ɵglobal['Zone'];
+const __symbol__ = Zone && Zone['__symbol__'] || function (v) {
     return v;
 };
-var ADD_EVENT_LISTENER = __symbol__('addEventListener');
-var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
-var symbolNames = {};
-var FALSE = 'FALSE';
-var ANGULAR = 'ANGULAR';
-var NATIVE_ADD_LISTENER = 'addEventListener';
-var NATIVE_REMOVE_LISTENER = 'removeEventListener';
-var blackListedEvents = Zone && Zone[__symbol__('BLACK_LISTED_EVENTS')];
-var blackListedMap;
+const ADD_EVENT_LISTENER = __symbol__('addEventListener');
+const REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
+const symbolNames = {};
+const FALSE = 'FALSE';
+const ANGULAR = 'ANGULAR';
+const NATIVE_ADD_LISTENER = 'addEventListener';
+const NATIVE_REMOVE_LISTENER = 'removeEventListener';
+const blackListedEvents = Zone && Zone[__symbol__('BLACK_LISTED_EVENTS')];
+let blackListedMap;
 if (blackListedEvents) {
     blackListedMap = {};
-    blackListedEvents.forEach(function (eventName) { blackListedMap[eventName] = eventName; });
+    blackListedEvents.forEach(eventName => { blackListedMap[eventName] = eventName; });
 }
-var isBlackListedEvent = function (eventName) {
+const isBlackListedEvent = function (eventName) {
     if (!blackListedMap) {
         return false;
     }
@@ -2408,19 +2297,19 @@ var isBlackListedEvent = function (eventName) {
 };
 // a global listener to handle all dom event,
 // so we do not need to create a closure everytime
-var globalListener = function (event) {
-    var /** @type {?} */ symbolName = symbolNames[event.type];
+const globalListener = function (event) {
+    const /** @type {?} */ symbolName = symbolNames[event.type];
     if (!symbolName) {
         return;
     }
-    var /** @type {?} */ taskDatas = this[symbolName];
+    const /** @type {?} */ taskDatas = this[symbolName];
     if (!taskDatas) {
         return;
     }
-    var /** @type {?} */ args = [event];
+    const /** @type {?} */ args = [event];
     if (taskDatas.length === 1) {
         // if taskDatas only have one element, just invoke it
-        var /** @type {?} */ taskData = taskDatas[0];
+        const /** @type {?} */ taskData = taskDatas[0];
         if (taskData.zone !== Zone.current) {
             // only use Zone.run when Zone.current not equals to stored zone
             return taskData.zone.run(taskData.handler, this, args);
@@ -2432,9 +2321,9 @@ var globalListener = function (event) {
     else {
         // copy tasks as a snapshot to avoid event handlers remove
         // itself or others
-        var /** @type {?} */ copiedTasks = taskDatas.slice();
-        for (var /** @type {?} */ i = 0; i < copiedTasks.length; i++) {
-            var /** @type {?} */ taskData = copiedTasks[i];
+        const /** @type {?} */ copiedTasks = taskDatas.slice();
+        for (let /** @type {?} */ i = 0; i < copiedTasks.length; i++) {
+            const /** @type {?} */ taskData = copiedTasks[i];
             if (taskData.zone !== Zone.current) {
                 // only use Zone.run when Zone.current not equals to stored zone
                 taskData.zone.run(taskData.handler, this, args);
@@ -2445,30 +2334,27 @@ var globalListener = function (event) {
         }
     }
 };
-var DomEventsPlugin = (function (_super) {
-    __extends(DomEventsPlugin, _super);
+class DomEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
      * @param {?} ngZone
      */
-    function DomEventsPlugin(doc, ngZone) {
-        var _this = _super.call(this, doc) || this;
-        _this.ngZone = ngZone;
-        return _this;
+    constructor(doc, ngZone) {
+        super(doc);
+        this.ngZone = ngZone;
     }
     /**
      * @param {?} eventName
      * @return {?}
      */
-    DomEventsPlugin.prototype.supports = function (eventName) { return true; };
+    supports(eventName) { return true; }
     /**
      * @param {?} element
      * @param {?} eventName
      * @param {?} handler
      * @return {?}
      */
-    DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        var _this = this;
+    addEventListener(element, eventName, handler) {
         /**
          * This code is about to add a listener to the DOM. If Zone.js is present, than
          * `addEventListener` has been patched. The patched code adds overhead in both
@@ -2482,28 +2368,28 @@ var DomEventsPlugin = (function (_super) {
          * NOTE: it is possible that the element is from different iframe, and so we
          * have to check before we execute the method.
          */
-        var /** @type {?} */ self = this;
-        var /** @type {?} */ zoneJsLoaded = element[ADD_EVENT_LISTENER];
-        var /** @type {?} */ callback = (handler);
+        const /** @type {?} */ self = this;
+        const /** @type {?} */ zoneJsLoaded = element[ADD_EVENT_LISTENER];
+        let /** @type {?} */ callback = (handler);
         // if zonejs is loaded and current zone is not ngZone
         // we keep Zone.current on target for later restoration.
-        if (zoneJsLoaded && (!_angular_core.NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
-            var /** @type {?} */ symbolName = symbolNames[eventName];
+        if (zoneJsLoaded && (!NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
+            let /** @type {?} */ symbolName = symbolNames[eventName];
             if (!symbolName) {
                 symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
             }
-            var /** @type {?} */ taskDatas = ((element))[symbolName];
-            var /** @type {?} */ globalListenerRegistered = taskDatas && taskDatas.length > 0;
+            let /** @type {?} */ taskDatas = ((element))[symbolName];
+            const /** @type {?} */ globalListenerRegistered = taskDatas && taskDatas.length > 0;
             if (!taskDatas) {
                 taskDatas = ((element))[symbolName] = [];
             }
-            var /** @type {?} */ zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
+            const /** @type {?} */ zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
             if (taskDatas.length === 0) {
                 taskDatas.push({ zone: zone, handler: callback });
             }
             else {
-                var /** @type {?} */ callbackRegistered = false;
-                for (var /** @type {?} */ i = 0; i < taskDatas.length; i++) {
+                let /** @type {?} */ callbackRegistered = false;
+                for (let /** @type {?} */ i = 0; i < taskDatas.length; i++) {
                     if (taskDatas[i].handler === callback) {
                         callbackRegistered = true;
                         break;
@@ -2520,28 +2406,28 @@ var DomEventsPlugin = (function (_super) {
         else {
             element[NATIVE_ADD_LISTENER](eventName, callback, false);
         }
-        return function () { return _this.removeEventListener(element, eventName, callback); };
-    };
+        return () => this.removeEventListener(element, eventName, callback);
+    }
     /**
      * @param {?} target
      * @param {?} eventName
      * @param {?} callback
      * @return {?}
      */
-    DomEventsPlugin.prototype.removeEventListener = function (target, eventName, callback) {
-        var /** @type {?} */ underlyingRemove = target[REMOVE_EVENT_LISTENER];
+    removeEventListener(target, eventName, callback) {
+        let /** @type {?} */ underlyingRemove = target[REMOVE_EVENT_LISTENER];
         // zone.js not loaded, use native removeEventListener
         if (!underlyingRemove) {
             return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
-        var /** @type {?} */ symbolName = symbolNames[eventName];
-        var /** @type {?} */ taskDatas = symbolName && target[symbolName];
+        let /** @type {?} */ symbolName = symbolNames[eventName];
+        let /** @type {?} */ taskDatas = symbolName && target[symbolName];
         if (!taskDatas) {
             // addEventListener not using patched version
             // just call native removeEventListener
             return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
-        for (var /** @type {?} */ i = 0; i < taskDatas.length; i++) {
+        for (let /** @type {?} */ i = 0; i < taskDatas.length; i++) {
             // remove listener from taskDatas if the callback equals
             if (taskDatas[i].handler === callback) {
                 taskDatas.splice(i, 1);
@@ -2552,17 +2438,16 @@ var DomEventsPlugin = (function (_super) {
             // all listeners are removed, we can remove the globalListener from target
             underlyingRemove.apply(target, [eventName, globalListener, false]);
         }
-    };
-    return DomEventsPlugin;
-}(EventManagerPlugin));
+    }
+}
 DomEventsPlugin.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-DomEventsPlugin.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
-    { type: _angular_core.NgZone, },
-]; };
+DomEventsPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: NgZone, },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -2575,7 +2460,7 @@ DomEventsPlugin.ctorParameters = function () { return [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var EVENT_NAMES = {
+const EVENT_NAMES = {
     // pan
     'pan': true,
     'panstart': true,
@@ -2618,7 +2503,7 @@ var EVENT_NAMES = {
  *
  * \@experimental
  */
-var HAMMER_GESTURE_CONFIG = new _angular_core.InjectionToken('HammerGestureConfig');
+const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
 /**
  * @record
  */
@@ -2626,8 +2511,8 @@ var HAMMER_GESTURE_CONFIG = new _angular_core.InjectionToken('HammerGestureConfi
 /**
  * \@experimental
  */
-var HammerGestureConfig = (function () {
-    function HammerGestureConfig() {
+class HammerGestureConfig {
+    constructor() {
         this.events = [];
         this.overrides = {};
     }
@@ -2635,81 +2520,76 @@ var HammerGestureConfig = (function () {
      * @param {?} element
      * @return {?}
      */
-    HammerGestureConfig.prototype.buildHammer = function (element) {
-        var /** @type {?} */ mc = new Hammer(element);
+    buildHammer(element) {
+        const /** @type {?} */ mc = new Hammer(element);
         mc.get('pinch').set({ enable: true });
         mc.get('rotate').set({ enable: true });
-        for (var /** @type {?} */ eventName in this.overrides) {
+        for (const /** @type {?} */ eventName in this.overrides) {
             mc.get(eventName).set(this.overrides[eventName]);
         }
         return mc;
-    };
-    return HammerGestureConfig;
-}());
+    }
+}
 HammerGestureConfig.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-HammerGestureConfig.ctorParameters = function () { return []; };
-var HammerGesturesPlugin = (function (_super) {
-    __extends(HammerGesturesPlugin, _super);
+HammerGestureConfig.ctorParameters = () => [];
+class HammerGesturesPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
      * @param {?} _config
      */
-    function HammerGesturesPlugin(doc, _config) {
-        var _this = _super.call(this, doc) || this;
-        _this._config = _config;
-        return _this;
+    constructor(doc, _config) {
+        super(doc);
+        this._config = _config;
     }
     /**
      * @param {?} eventName
      * @return {?}
      */
-    HammerGesturesPlugin.prototype.supports = function (eventName) {
+    supports(eventName) {
         if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
             return false;
         }
         if (!((window)).Hammer) {
-            throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
+            throw new Error(`Hammer.js is not loaded, can not bind ${eventName} event`);
         }
         return true;
-    };
+    }
     /**
      * @param {?} element
      * @param {?} eventName
      * @param {?} handler
      * @return {?}
      */
-    HammerGesturesPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        var _this = this;
-        var /** @type {?} */ zone = this.manager.getZone();
+    addEventListener(element, eventName, handler) {
+        const /** @type {?} */ zone = this.manager.getZone();
         eventName = eventName.toLowerCase();
-        return zone.runOutsideAngular(function () {
+        return zone.runOutsideAngular(() => {
             // Creating the manager bind events, must be done outside of angular
-            var /** @type {?} */ mc = _this._config.buildHammer(element);
-            var /** @type {?} */ callback = function (eventObj) {
+            const /** @type {?} */ mc = this._config.buildHammer(element);
+            const /** @type {?} */ callback = function (eventObj) {
                 zone.runGuarded(function () { handler(eventObj); });
             };
             mc.on(eventName, callback);
-            return function () { return mc.off(eventName, callback); };
+            return () => mc.off(eventName, callback);
         });
-    };
+    }
     /**
      * @param {?} eventName
      * @return {?}
      */
-    HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
-    return HammerGesturesPlugin;
-}(EventManagerPlugin));
+    isCustomEvent(eventName) { return this._config.events.indexOf(eventName) > -1; }
+}
 HammerGesturesPlugin.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-HammerGesturesPlugin.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
-    { type: HammerGestureConfig, decorators: [{ type: _angular_core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
-]; };
+HammerGesturesPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -2722,56 +2602,53 @@ HammerGesturesPlugin.ctorParameters = function () { return [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-var MODIFIER_KEY_GETTERS = {
-    'alt': function (event) { return event.altKey; },
-    'control': function (event) { return event.ctrlKey; },
-    'meta': function (event) { return event.metaKey; },
-    'shift': function (event) { return event.shiftKey; }
+const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
+const MODIFIER_KEY_GETTERS = {
+    'alt': (event) => event.altKey,
+    'control': (event) => event.ctrlKey,
+    'meta': (event) => event.metaKey,
+    'shift': (event) => event.shiftKey
 };
 /**
  * \@experimental
  */
-var KeyEventsPlugin = (function (_super) {
-    __extends(KeyEventsPlugin, _super);
+class KeyEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
      */
-    function KeyEventsPlugin(doc) {
-        return _super.call(this, doc) || this;
-    }
+    constructor(doc) { super(doc); }
     /**
      * @param {?} eventName
      * @return {?}
      */
-    KeyEventsPlugin.prototype.supports = function (eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; };
+    supports(eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; }
     /**
      * @param {?} element
      * @param {?} eventName
      * @param {?} handler
      * @return {?}
      */
-    KeyEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
-        var /** @type {?} */ parsedEvent = ((KeyEventsPlugin.parseEventName(eventName)));
-        var /** @type {?} */ outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
-        return this.manager.getZone().runOutsideAngular(function () {
+    addEventListener(element, eventName, handler) {
+        const /** @type {?} */ parsedEvent = ((KeyEventsPlugin.parseEventName(eventName)));
+        const /** @type {?} */ outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
+        return this.manager.getZone().runOutsideAngular(() => {
             return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
         });
-    };
+    }
     /**
      * @param {?} eventName
      * @return {?}
      */
-    KeyEventsPlugin.parseEventName = function (eventName) {
-        var /** @type {?} */ parts = eventName.toLowerCase().split('.');
-        var /** @type {?} */ domEventName = parts.shift();
+    static parseEventName(eventName) {
+        const /** @type {?} */ parts = eventName.toLowerCase().split('.');
+        const /** @type {?} */ domEventName = parts.shift();
         if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
             return null;
         }
-        var /** @type {?} */ key = KeyEventsPlugin._normalizeKey(/** @type {?} */ ((parts.pop())));
-        var /** @type {?} */ fullKey = '';
-        MODIFIER_KEYS.forEach(function (modifierName) {
-            var /** @type {?} */ index = parts.indexOf(modifierName);
+        const /** @type {?} */ key = KeyEventsPlugin._normalizeKey(/** @type {?} */ ((parts.pop())));
+        let /** @type {?} */ fullKey = '';
+        MODIFIER_KEYS.forEach(modifierName => {
+            const /** @type {?} */ index = parts.indexOf(modifierName);
             if (index > -1) {
                 parts.splice(index, 1);
                 fullKey += modifierName + '.';
@@ -2782,18 +2659,18 @@ var KeyEventsPlugin = (function (_super) {
             // returning null instead of throwing to let another plugin process the event
             return null;
         }
-        var /** @type {?} */ result = {};
+        const /** @type {?} */ result = {};
         result['domEventName'] = domEventName;
         result['fullKey'] = fullKey;
         return result;
-    };
+    }
     /**
      * @param {?} event
      * @return {?}
      */
-    KeyEventsPlugin.getEventFullKey = function (event) {
-        var /** @type {?} */ fullKey = '';
-        var /** @type {?} */ key = getDOM().getEventKey(event);
+    static getEventFullKey(event) {
+        let /** @type {?} */ fullKey = '';
+        let /** @type {?} */ key = getDOM().getEventKey(event);
         key = key.toLowerCase();
         if (key === ' ') {
             key = 'space'; // for readability
@@ -2801,9 +2678,9 @@ var KeyEventsPlugin = (function (_super) {
         else if (key === '.') {
             key = 'dot'; // because '.' is used as a separator in event names
         }
-        MODIFIER_KEYS.forEach(function (modifierName) {
+        MODIFIER_KEYS.forEach(modifierName => {
             if (modifierName != key) {
-                var /** @type {?} */ modifierGetter = MODIFIER_KEY_GETTERS[modifierName];
+                const /** @type {?} */ modifierGetter = MODIFIER_KEY_GETTERS[modifierName];
                 if (modifierGetter(event)) {
                     fullKey += modifierName + '.';
                 }
@@ -2811,26 +2688,26 @@ var KeyEventsPlugin = (function (_super) {
         });
         fullKey += key;
         return fullKey;
-    };
+    }
     /**
      * @param {?} fullKey
      * @param {?} handler
      * @param {?} zone
      * @return {?}
      */
-    KeyEventsPlugin.eventCallback = function (fullKey, handler, zone) {
-        return function (event /** TODO #9100 */) {
+    static eventCallback(fullKey, handler, zone) {
+        return (event /** TODO #9100 */) => {
             if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
-                zone.runGuarded(function () { return handler(event); });
+                zone.runGuarded(() => handler(event));
             }
         };
-    };
+    }
     /**
      * \@internal
      * @param {?} keyName
      * @return {?}
      */
-    KeyEventsPlugin._normalizeKey = function (keyName) {
+    static _normalizeKey(keyName) {
         // TODO: switch to a Map if the mapping grows too much
         switch (keyName) {
             case 'esc':
@@ -2838,16 +2715,15 @@ var KeyEventsPlugin = (function (_super) {
             default:
                 return keyName;
         }
-    };
-    return KeyEventsPlugin;
-}(EventManagerPlugin));
+    }
+}
 KeyEventsPlugin.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-KeyEventsPlugin.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
-]; };
+KeyEventsPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -2886,11 +2762,11 @@ KeyEventsPlugin.ctorParameters = function () { return [
  *
  * This regular expression was taken from the Closure sanitization library.
  */
-var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
+const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
 /**
  * A pattern that matches safe data URLs. Only matches image, video and audio types.
  */
-var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
+const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
 /**
  * @param {?} url
  * @return {?}
@@ -2899,8 +2775,8 @@ function sanitizeUrl(url) {
     url = String(url);
     if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
         return url;
-    if (_angular_core.isDevMode()) {
-        getDOM().log("WARNING: sanitizing unsafe URL value " + url + " (see http://g.co/ng/security#xss)");
+    if (isDevMode()) {
+        getDOM().log(`WARNING: sanitizing unsafe URL value ${url} (see http://g.co/ng/security#xss)`);
     }
     return 'unsafe:' + url;
 }
@@ -2910,7 +2786,7 @@ function sanitizeUrl(url) {
  */
 function sanitizeSrcset(srcset) {
     srcset = String(srcset);
-    return srcset.split(',').map(function (srcset) { return sanitizeUrl(srcset.trim()); }).join(', ');
+    return srcset.split(',').map((srcset) => sanitizeUrl(srcset.trim())).join(', ');
 }
 
 /**
@@ -2927,11 +2803,11 @@ function sanitizeSrcset(srcset) {
 /**
  * A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below.
  */
-var inertElement = null;
+let inertElement = null;
 /**
  * Lazily initialized to make sure the DOM adapter gets set before use.
  */
-var DOM = ((null));
+let DOM = ((null));
 /**
  * Returns an HTML element that is guaranteed to not execute code when creating elements in it.
  * @return {?}
@@ -2941,15 +2817,15 @@ function getInertElement() {
         return inertElement;
     DOM = getDOM();
     // Prefer using <template> element if supported.
-    var /** @type {?} */ templateEl = DOM.createElement('template');
+    const /** @type {?} */ templateEl = DOM.createElement('template');
     if ('content' in templateEl)
         return templateEl;
-    var /** @type {?} */ doc = DOM.createHtmlDocument();
+    const /** @type {?} */ doc = DOM.createHtmlDocument();
     inertElement = DOM.querySelector(doc, 'body');
     if (inertElement == null) {
         // usually there should be only one body element in the document, but IE doesn't have any, so we
         // need to create one.
-        var /** @type {?} */ html = DOM.createElement('html', doc);
+        const /** @type {?} */ html = DOM.createElement('html', doc);
         inertElement = DOM.createElement('body', doc);
         DOM.appendChild(html, inertElement);
         DOM.appendChild(doc, html);
@@ -2961,26 +2837,19 @@ function getInertElement() {
  * @return {?}
  */
 function tagSet(tags) {
-    var /** @type {?} */ res = {};
-    for (var _i = 0, _a = tags.split(','); _i < _a.length; _i++) {
-        var t = _a[_i];
+    const /** @type {?} */ res = {};
+    for (const /** @type {?} */ t of tags.split(','))
         res[t] = true;
-    }
     return res;
 }
 /**
  * @param {...?} sets
  * @return {?}
  */
-function merge() {
-    var sets = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        sets[_i] = arguments[_i];
-    }
-    var /** @type {?} */ res = {};
-    for (var _a = 0, sets_1 = sets; _a < sets_1.length; _a++) {
-        var s = sets_1[_a];
-        for (var /** @type {?} */ v in s) {
+function merge(...sets) {
+    const /** @type {?} */ res = {};
+    for (const /** @type {?} */ s of sets) {
+        for (const /** @type {?} */ v in s) {
             if (s.hasOwnProperty(v))
                 res[v] = true;
         }
@@ -2992,26 +2861,26 @@ function merge() {
 // http://simon.html5.org/html-elements
 // Safe Void Elements - HTML5
 // http://dev.w3.org/html5/spec/Overview.html#void-elements
-var VOID_ELEMENTS = tagSet('area,br,col,hr,img,wbr');
+const VOID_ELEMENTS = tagSet('area,br,col,hr,img,wbr');
 // Elements that you can, intentionally, leave open (and which close themselves)
 // http://dev.w3.org/html5/spec/Overview.html#optional-tags
-var OPTIONAL_END_TAG_BLOCK_ELEMENTS = tagSet('colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr');
-var OPTIONAL_END_TAG_INLINE_ELEMENTS = tagSet('rp,rt');
-var OPTIONAL_END_TAG_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, OPTIONAL_END_TAG_BLOCK_ELEMENTS);
+const OPTIONAL_END_TAG_BLOCK_ELEMENTS = tagSet('colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr');
+const OPTIONAL_END_TAG_INLINE_ELEMENTS = tagSet('rp,rt');
+const OPTIONAL_END_TAG_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, OPTIONAL_END_TAG_BLOCK_ELEMENTS);
 // Safe Block Elements - HTML5
-var BLOCK_ELEMENTS = merge(OPTIONAL_END_TAG_BLOCK_ELEMENTS, tagSet('address,article,' +
+const BLOCK_ELEMENTS = merge(OPTIONAL_END_TAG_BLOCK_ELEMENTS, tagSet('address,article,' +
     'aside,blockquote,caption,center,del,details,dialog,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,' +
     'h6,header,hgroup,hr,ins,main,map,menu,nav,ol,pre,section,summary,table,ul'));
 // Inline Elements - HTML5
-var INLINE_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, tagSet('a,abbr,acronym,audio,b,' +
+const INLINE_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, tagSet('a,abbr,acronym,audio,b,' +
     'bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,picture,q,ruby,rp,rt,s,' +
     'samp,small,source,span,strike,strong,sub,sup,time,track,tt,u,var,video'));
-var VALID_ELEMENTS = merge(VOID_ELEMENTS, BLOCK_ELEMENTS, INLINE_ELEMENTS, OPTIONAL_END_TAG_ELEMENTS);
+const VALID_ELEMENTS = merge(VOID_ELEMENTS, BLOCK_ELEMENTS, INLINE_ELEMENTS, OPTIONAL_END_TAG_ELEMENTS);
 // Attributes that have href and hence need to be sanitized
-var URI_ATTRS = tagSet('background,cite,href,itemtype,longdesc,poster,src,xlink:href');
+const URI_ATTRS = tagSet('background,cite,href,itemtype,longdesc,poster,src,xlink:href');
 // Attributes that have special href set hence need to be sanitized
-var SRCSET_ATTRS = tagSet('srcset');
-var HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,' +
+const SRCSET_ATTRS = tagSet('srcset');
+const HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,' +
     'compact,controls,coords,datetime,default,dir,download,face,headers,height,hidden,hreflang,hspace,' +
     'ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,' +
     'scope,scrolling,shape,size,sizes,span,srclang,start,summary,tabindex,target,title,translate,type,usemap,' +
@@ -3022,13 +2891,13 @@ var HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,c
 // NB: Sanitization does not allow <form> elements or other active elements (<button> etc). Those
 // can be sanitized, but they increase security surface area without a legitimate use case, so they
 // are left out here.
-var VALID_ATTRS = merge(URI_ATTRS, SRCSET_ATTRS, HTML_ATTRS);
+const VALID_ATTRS = merge(URI_ATTRS, SRCSET_ATTRS, HTML_ATTRS);
 /**
  * SanitizingHtmlSerializer serializes a DOM fragment, stripping out any unsafe elements and unsafe
  * attributes.
  */
-var SanitizingHtmlSerializer = (function () {
-    function SanitizingHtmlSerializer() {
+class SanitizingHtmlSerializer {
+    constructor() {
         this.sanitizedSomething = false;
         this.buf = [];
     }
@@ -3036,11 +2905,11 @@ var SanitizingHtmlSerializer = (function () {
      * @param {?} el
      * @return {?}
      */
-    SanitizingHtmlSerializer.prototype.sanitizeChildren = function (el) {
+    sanitizeChildren(el) {
         // This cannot use a TreeWalker, as it has to run on Angular's various DOM adapters.
         // However this code never accesses properties off of `document` before deleting its contents
         // again, so it shouldn't be vulnerable to DOM clobbering.
-        var /** @type {?} */ current = ((el.firstChild));
+        let /** @type {?} */ current = ((el.firstChild));
         while (current) {
             if (DOM.isElementNode(current)) {
                 this.startElement(/** @type {?} */ (current));
@@ -3061,7 +2930,7 @@ var SanitizingHtmlSerializer = (function () {
                 if (DOM.isElementNode(current)) {
                     this.endElement(/** @type {?} */ (current));
                 }
-                var /** @type {?} */ next = checkClobberedElement(current, /** @type {?} */ ((DOM.nextSibling(current))));
+                let /** @type {?} */ next = checkClobberedElement(current, /** @type {?} */ ((DOM.nextSibling(current))));
                 if (next) {
                     current = next;
                     break;
@@ -3070,24 +2939,23 @@ var SanitizingHtmlSerializer = (function () {
             }
         }
         return this.buf.join('');
-    };
+    }
     /**
      * @param {?} element
      * @return {?}
      */
-    SanitizingHtmlSerializer.prototype.startElement = function (element) {
-        var _this = this;
-        var /** @type {?} */ tagName = DOM.nodeName(element).toLowerCase();
+    startElement(element) {
+        const /** @type {?} */ tagName = DOM.nodeName(element).toLowerCase();
         if (!VALID_ELEMENTS.hasOwnProperty(tagName)) {
             this.sanitizedSomething = true;
             return;
         }
         this.buf.push('<');
         this.buf.push(tagName);
-        DOM.attributeMap(element).forEach(function (value, attrName) {
-            var /** @type {?} */ lower = attrName.toLowerCase();
+        DOM.attributeMap(element).forEach((value, attrName) => {
+            const /** @type {?} */ lower = attrName.toLowerCase();
             if (!VALID_ATTRS.hasOwnProperty(lower)) {
-                _this.sanitizedSomething = true;
+                this.sanitizedSomething = true;
                 return;
             }
             // TODO(martinprobst): Special case image URIs for data:image/...
@@ -3095,33 +2963,32 @@ var SanitizingHtmlSerializer = (function () {
                 value = sanitizeUrl(value);
             if (SRCSET_ATTRS[lower])
                 value = sanitizeSrcset(value);
-            _this.buf.push(' ');
-            _this.buf.push(attrName);
-            _this.buf.push('="');
-            _this.buf.push(encodeEntities(value));
-            _this.buf.push('"');
+            this.buf.push(' ');
+            this.buf.push(attrName);
+            this.buf.push('="');
+            this.buf.push(encodeEntities(value));
+            this.buf.push('"');
         });
         this.buf.push('>');
-    };
+    }
     /**
      * @param {?} current
      * @return {?}
      */
-    SanitizingHtmlSerializer.prototype.endElement = function (current) {
-        var /** @type {?} */ tagName = DOM.nodeName(current).toLowerCase();
+    endElement(current) {
+        const /** @type {?} */ tagName = DOM.nodeName(current).toLowerCase();
         if (VALID_ELEMENTS.hasOwnProperty(tagName) && !VOID_ELEMENTS.hasOwnProperty(tagName)) {
             this.buf.push('</');
             this.buf.push(tagName);
             this.buf.push('>');
         }
-    };
+    }
     /**
      * @param {?} chars
      * @return {?}
      */
-    SanitizingHtmlSerializer.prototype.chars = function (chars) { this.buf.push(encodeEntities(chars)); };
-    return SanitizingHtmlSerializer;
-}());
+    chars(chars) { this.buf.push(encodeEntities(chars)); }
+}
 /**
  * @param {?} node
  * @param {?} nextNode
@@ -3129,14 +2996,14 @@ var SanitizingHtmlSerializer = (function () {
  */
 function checkClobberedElement(node, nextNode) {
     if (nextNode && DOM.contains(node, nextNode)) {
-        throw new Error("Failed to sanitize html because the element is clobbered: " + DOM.getOuterHTML(node));
+        throw new Error(`Failed to sanitize html because the element is clobbered: ${DOM.getOuterHTML(node)}`);
     }
     return nextNode;
 }
 // Regular Expressions for parsing tags and attributes
-var SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+const SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
 // ! to ~ is the ASCII range.
-var NON_ALPHANUMERIC_REGEXP = /([^\#-~ |!])/g;
+const NON_ALPHANUMERIC_REGEXP = /([^\#-~ |!])/g;
 /**
  * Escapes all potentially dangerous characters, so that the
  * resulting string can be safely inserted into attribute or
@@ -3147,8 +3014,8 @@ var NON_ALPHANUMERIC_REGEXP = /([^\#-~ |!])/g;
 function encodeEntities(value) {
     return value.replace(/&/g, '&amp;')
         .replace(SURROGATE_PAIR_REGEXP, function (match) {
-        var /** @type {?} */ hi = match.charCodeAt(0);
-        var /** @type {?} */ low = match.charCodeAt(1);
+        const /** @type {?} */ hi = match.charCodeAt(0);
+        const /** @type {?} */ low = match.charCodeAt(1);
         return '&#' + (((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000) + ';';
     })
         .replace(NON_ALPHANUMERIC_REGEXP, function (match) { return '&#' + match.charCodeAt(0) + ';'; })
@@ -3165,13 +3032,12 @@ function encodeEntities(value) {
  * @return {?}
  */
 function stripCustomNsAttrs(el) {
-    DOM.attributeMap(el).forEach(function (_, attrName) {
+    DOM.attributeMap(el).forEach((_, attrName) => {
         if (attrName === 'xmlns:ns1' || attrName.indexOf('ns1:') === 0) {
             DOM.removeAttribute(el, attrName);
         }
     });
-    for (var _i = 0, _a = DOM.childNodesAsList(el); _i < _a.length; _i++) {
-        var n = _a[_i];
+    for (const /** @type {?} */ n of DOM.childNodesAsList(el)) {
         if (DOM.isElementNode(n))
             stripCustomNsAttrs(/** @type {?} */ (n));
     }
@@ -3185,13 +3051,13 @@ function stripCustomNsAttrs(el) {
  */
 function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
     try {
-        var /** @type {?} */ containerEl = getInertElement();
+        const /** @type {?} */ containerEl = getInertElement();
         // Make sure unsafeHtml is actually a string (TypeScript types are not enforced at runtime).
-        var /** @type {?} */ unsafeHtml = unsafeHtmlInput ? String(unsafeHtmlInput) : '';
+        let /** @type {?} */ unsafeHtml = unsafeHtmlInput ? String(unsafeHtmlInput) : '';
         // mXSS protection. Repeatedly parse the document to make sure it stabilizes, so that a browser
         // trying to auto-correct incorrect HTML cannot cause formerly inert HTML to become dangerous.
-        var /** @type {?} */ mXSSAttempts = 5;
-        var /** @type {?} */ parsedHtml = unsafeHtml;
+        let /** @type {?} */ mXSSAttempts = 5;
+        let /** @type {?} */ parsedHtml = unsafeHtml;
         do {
             if (mXSSAttempts === 0) {
                 throw new Error('Failed to sanitize html because the input is unstable');
@@ -3205,15 +3071,14 @@ function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
             }
             parsedHtml = DOM.getInnerHTML(containerEl);
         } while (unsafeHtml !== parsedHtml);
-        var /** @type {?} */ sanitizer = new SanitizingHtmlSerializer();
-        var /** @type {?} */ safeHtml = sanitizer.sanitizeChildren(DOM.getTemplateContent(containerEl) || containerEl);
+        const /** @type {?} */ sanitizer = new SanitizingHtmlSerializer();
+        const /** @type {?} */ safeHtml = sanitizer.sanitizeChildren(DOM.getTemplateContent(containerEl) || containerEl);
         // Clear out the body element.
-        var /** @type {?} */ parent_1 = DOM.getTemplateContent(containerEl) || containerEl;
-        for (var _i = 0, _a = DOM.childNodesAsList(parent_1); _i < _a.length; _i++) {
-            var child = _a[_i];
-            DOM.removeChild(parent_1, child);
+        const /** @type {?} */ parent = DOM.getTemplateContent(containerEl) || containerEl;
+        for (const /** @type {?} */ child of DOM.childNodesAsList(parent)) {
+            DOM.removeChild(parent, child);
         }
-        if (_angular_core.isDevMode() && sanitizer.sanitizedSomething) {
+        if (isDevMode() && sanitizer.sanitizedSomething) {
             DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
         }
         return safeHtml;
@@ -3250,15 +3115,15 @@ function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
  * This regular expression was taken from the Closure sanitization library, and augmented for
  * transformation values.
  */
-var VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
-var TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
-var COLOR_FNS = '(?:rgb|hsl)a?';
-var GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
-var CSS3_FNS = '(?:calc|attr)';
-var FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
-var SAFE_STYLE_VALUE = new RegExp("^(" + VALUES + "|" +
-    ("(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + "|" + GRADIENTS + "|" + CSS3_FNS + ")") +
-    (FN_ARGS + ")$"), 'g');
+const VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
+const TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
+const COLOR_FNS = '(?:rgb|hsl)a?';
+const GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
+const CSS3_FNS = '(?:calc|attr)';
+const FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
+const SAFE_STYLE_VALUE = new RegExp(`^(${VALUES}|` +
+    `(?:${TRANSFORMATION_FNS}|${COLOR_FNS}|${GRADIENTS}|${CSS3_FNS})` +
+    `${FN_ARGS})$`, 'g');
 /**
  * Matches a `url(...)` value with an arbitrary argument as long as it does
  * not contain parentheses.
@@ -3277,7 +3142,7 @@ var SAFE_STYLE_VALUE = new RegExp("^(" + VALUES + "|" +
  * Given the common use case, low likelihood of attack vector, and low impact of an attack, this
  * code is permissive and allows URLs that sanitize otherwise.
  */
-var URL_RE = /^url\(([^)]+)\)$/;
+const URL_RE = /^url\(([^)]+)\)$/;
 /**
  * Checks that quotes (" and ') are properly balanced inside a string. Assumes
  * that neither escape (\) nor any other character that could result in
@@ -3289,10 +3154,10 @@ var URL_RE = /^url\(([^)]+)\)$/;
  * @return {?}
  */
 function hasBalancedQuotes(value) {
-    var /** @type {?} */ outsideSingle = true;
-    var /** @type {?} */ outsideDouble = true;
-    for (var /** @type {?} */ i = 0; i < value.length; i++) {
-        var /** @type {?} */ c = value.charAt(i);
+    let /** @type {?} */ outsideSingle = true;
+    let /** @type {?} */ outsideDouble = true;
+    for (let /** @type {?} */ i = 0; i < value.length; i++) {
+        const /** @type {?} */ c = value.charAt(i);
         if (c === '\'' && outsideDouble) {
             outsideSingle = !outsideSingle;
         }
@@ -3314,13 +3179,13 @@ function sanitizeStyle(value) {
         return '';
     // Single url(...) values are supported, but only for URLs that sanitize cleanly. See above for
     // reasoning behind this.
-    var /** @type {?} */ urlMatch = value.match(URL_RE);
+    const /** @type {?} */ urlMatch = value.match(URL_RE);
     if ((urlMatch && sanitizeUrl(urlMatch[1]) === urlMatch[1]) ||
         value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
         return value; // Safe style values.
     }
-    if (_angular_core.isDevMode()) {
-        getDOM().log("WARNING: sanitizing unsafe style value " + value + " (see http://g.co/ng/security#xss).");
+    if (isDevMode()) {
+        getDOM().log(`WARNING: sanitizing unsafe style value ${value} (see http://g.co/ng/security#xss).`);
     }
     return 'unsafe';
 }
@@ -3410,186 +3275,154 @@ function SafeResourceUrl() { }
  * \@stable
  * @abstract
  */
-var DomSanitizer = (function () {
-    function DomSanitizer() {
-    }
-    return DomSanitizer;
-}());
-var DomSanitizerImpl = (function (_super) {
-    __extends(DomSanitizerImpl, _super);
+class DomSanitizer {
+}
+class DomSanitizerImpl extends DomSanitizer {
     /**
      * @param {?} _doc
      */
-    function DomSanitizerImpl(_doc) {
-        var _this = _super.call(this) || this;
-        _this._doc = _doc;
-        return _this;
+    constructor(_doc) {
+        super();
+        this._doc = _doc;
     }
     /**
      * @param {?} ctx
      * @param {?} value
      * @return {?}
      */
-    DomSanitizerImpl.prototype.sanitize = function (ctx, value) {
+    sanitize(ctx, value) {
         if (value == null)
             return null;
         switch (ctx) {
-            case _angular_core.SecurityContext.NONE:
+            case SecurityContext.NONE:
                 return (value);
-            case _angular_core.SecurityContext.HTML:
+            case SecurityContext.HTML:
                 if (value instanceof SafeHtmlImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'HTML');
                 return sanitizeHtml(this._doc, String(value));
-            case _angular_core.SecurityContext.STYLE:
+            case SecurityContext.STYLE:
                 if (value instanceof SafeStyleImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'Style');
                 return sanitizeStyle(/** @type {?} */ (value));
-            case _angular_core.SecurityContext.SCRIPT:
+            case SecurityContext.SCRIPT:
                 if (value instanceof SafeScriptImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'Script');
                 throw new Error('unsafe value used in a script context');
-            case _angular_core.SecurityContext.URL:
+            case SecurityContext.URL:
                 if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
                     // Allow resource URLs in URL contexts, they are strictly more trusted.
                     return value.changingThisBreaksApplicationSecurity;
                 }
                 this.checkNotSafeValue(value, 'URL');
                 return sanitizeUrl(String(value));
-            case _angular_core.SecurityContext.RESOURCE_URL:
+            case SecurityContext.RESOURCE_URL:
                 if (value instanceof SafeResourceUrlImpl) {
                     return value.changingThisBreaksApplicationSecurity;
                 }
                 this.checkNotSafeValue(value, 'ResourceURL');
                 throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
             default:
-                throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
+                throw new Error(`Unexpected SecurityContext ${ctx} (see http://g.co/ng/security#xss)`);
         }
-    };
+    }
     /**
      * @param {?} value
      * @param {?} expectedType
      * @return {?}
      */
-    DomSanitizerImpl.prototype.checkNotSafeValue = function (value, expectedType) {
+    checkNotSafeValue(value, expectedType) {
         if (value instanceof SafeValueImpl) {
-            throw new Error("Required a safe " + expectedType + ", got a " + value.getTypeName() + " " +
-                "(see http://g.co/ng/security#xss)");
+            throw new Error(`Required a safe ${expectedType}, got a ${value.getTypeName()} ` +
+                `(see http://g.co/ng/security#xss)`);
         }
-    };
+    }
     /**
      * @param {?} value
      * @return {?}
      */
-    DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
+    bypassSecurityTrustHtml(value) { return new SafeHtmlImpl(value); }
     /**
      * @param {?} value
      * @return {?}
      */
-    DomSanitizerImpl.prototype.bypassSecurityTrustStyle = function (value) { return new SafeStyleImpl(value); };
+    bypassSecurityTrustStyle(value) { return new SafeStyleImpl(value); }
     /**
      * @param {?} value
      * @return {?}
      */
-    DomSanitizerImpl.prototype.bypassSecurityTrustScript = function (value) { return new SafeScriptImpl(value); };
+    bypassSecurityTrustScript(value) { return new SafeScriptImpl(value); }
     /**
      * @param {?} value
      * @return {?}
      */
-    DomSanitizerImpl.prototype.bypassSecurityTrustUrl = function (value) { return new SafeUrlImpl(value); };
+    bypassSecurityTrustUrl(value) { return new SafeUrlImpl(value); }
     /**
      * @param {?} value
      * @return {?}
      */
-    DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
+    bypassSecurityTrustResourceUrl(value) {
         return new SafeResourceUrlImpl(value);
-    };
-    return DomSanitizerImpl;
-}(DomSanitizer));
+    }
+}
 DomSanitizerImpl.decorators = [
-    { type: _angular_core.Injectable },
+    { type: Injectable },
 ];
 /** @nocollapse */
-DomSanitizerImpl.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
-]; };
+DomSanitizerImpl.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+];
 /**
  * @abstract
  */
-var SafeValueImpl = (function () {
+class SafeValueImpl {
     /**
      * @param {?} changingThisBreaksApplicationSecurity
      */
-    function SafeValueImpl(changingThisBreaksApplicationSecurity) {
+    constructor(changingThisBreaksApplicationSecurity) {
         this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
         // empty
     }
     /**
      * @return {?}
      */
-    SafeValueImpl.prototype.toString = function () {
-        return "SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity +
-            " (see http://g.co/ng/security#xss)";
-    };
-    return SafeValueImpl;
-}());
-var SafeHtmlImpl = (function (_super) {
-    __extends(SafeHtmlImpl, _super);
-    function SafeHtmlImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    toString() {
+        return `SafeValue must use [property]=binding: ${this.changingThisBreaksApplicationSecurity}` +
+            ` (see http://g.co/ng/security#xss)`;
     }
+}
+class SafeHtmlImpl extends SafeValueImpl {
     /**
      * @return {?}
      */
-    SafeHtmlImpl.prototype.getTypeName = function () { return 'HTML'; };
-    return SafeHtmlImpl;
-}(SafeValueImpl));
-var SafeStyleImpl = (function (_super) {
-    __extends(SafeStyleImpl, _super);
-    function SafeStyleImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
+    getTypeName() { return 'HTML'; }
+}
+class SafeStyleImpl extends SafeValueImpl {
     /**
      * @return {?}
      */
-    SafeStyleImpl.prototype.getTypeName = function () { return 'Style'; };
-    return SafeStyleImpl;
-}(SafeValueImpl));
-var SafeScriptImpl = (function (_super) {
-    __extends(SafeScriptImpl, _super);
-    function SafeScriptImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
+    getTypeName() { return 'Style'; }
+}
+class SafeScriptImpl extends SafeValueImpl {
     /**
      * @return {?}
      */
-    SafeScriptImpl.prototype.getTypeName = function () { return 'Script'; };
-    return SafeScriptImpl;
-}(SafeValueImpl));
-var SafeUrlImpl = (function (_super) {
-    __extends(SafeUrlImpl, _super);
-    function SafeUrlImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
+    getTypeName() { return 'Script'; }
+}
+class SafeUrlImpl extends SafeValueImpl {
     /**
      * @return {?}
      */
-    SafeUrlImpl.prototype.getTypeName = function () { return 'URL'; };
-    return SafeUrlImpl;
-}(SafeValueImpl));
-var SafeResourceUrlImpl = (function (_super) {
-    __extends(SafeResourceUrlImpl, _super);
-    function SafeResourceUrlImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
+    getTypeName() { return 'URL'; }
+}
+class SafeResourceUrlImpl extends SafeValueImpl {
     /**
      * @return {?}
      */
-    SafeResourceUrlImpl.prototype.getTypeName = function () { return 'ResourceURL'; };
-    return SafeResourceUrlImpl;
-}(SafeValueImpl));
+    getTypeName() { return 'ResourceURL'; }
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3602,10 +3435,10 @@ var SafeResourceUrlImpl = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: _angular_core.PLATFORM_ID, useValue: _angular_common.ɵPLATFORM_BROWSER_ID },
-    { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: _angular_common.PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT$1] },
+const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
+    { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
+    { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+    { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT$1] },
     { provide: DOCUMENT$1, useFactory: _document, deps: [] },
 ];
 /**
@@ -3614,14 +3447,14 @@ var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
  * \@experimental
  */
-var BROWSER_SANITIZATION_PROVIDERS = [
-    { provide: _angular_core.Sanitizer, useExisting: DomSanitizer },
+const BROWSER_SANITIZATION_PROVIDERS = [
+    { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
 /**
  * \@stable
  */
-var platformBrowser = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 /**
  * @return {?}
  */
@@ -3633,7 +3466,7 @@ function initDomAdapter() {
  * @return {?}
  */
 function errorHandler() {
-    return new _angular_core.ErrorHandler();
+    return new ErrorHandler();
 }
 /**
  * @return {?}
@@ -3646,13 +3479,13 @@ function _document() {
  *
  * \@stable
  */
-var BrowserModule = (function () {
+class BrowserModule {
     /**
      * @param {?} parentModule
      */
-    function BrowserModule(parentModule) {
+    constructor(parentModule) {
         if (parentModule) {
-            throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
+            throw new Error(`BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.`);
         }
     }
     /**
@@ -3664,44 +3497,43 @@ var BrowserModule = (function () {
      * @param {?} params
      * @return {?}
      */
-    BrowserModule.withServerTransition = function (params) {
+    static withServerTransition(params) {
         return {
             ngModule: BrowserModule,
             providers: [
-                { provide: _angular_core.APP_ID, useValue: params.appId },
-                { provide: TRANSITION_ID, useExisting: _angular_core.APP_ID },
+                { provide: APP_ID, useValue: params.appId },
+                { provide: TRANSITION_ID, useExisting: APP_ID },
                 SERVER_TRANSITION_PROVIDERS,
             ],
         };
-    };
-    return BrowserModule;
-}());
+    }
+}
 BrowserModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
+    { type: NgModule, args: [{
                 providers: [
                     BROWSER_SANITIZATION_PROVIDERS,
-                    { provide: _angular_core.ErrorHandler, useFactory: errorHandler, deps: [] },
+                    { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
                     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
                     DomRendererFactory2,
-                    { provide: _angular_core.RendererFactory2, useExisting: DomRendererFactory2 },
+                    { provide: RendererFactory2, useExisting: DomRendererFactory2 },
                     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
                     DomSharedStylesHost,
-                    _angular_core.Testability,
+                    Testability,
                     EventManager,
                     ELEMENT_PROBE_PROVIDERS,
                     Meta,
                     Title,
                 ],
-                exports: [_angular_common.CommonModule, _angular_core.ApplicationModule]
+                exports: [CommonModule, ApplicationModule]
             },] },
 ];
 /** @nocollapse */
-BrowserModule.ctorParameters = function () { return [
-    { type: BrowserModule, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
-]; };
+BrowserModule.ctorParameters = () => [
+    { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -3714,7 +3546,7 @@ BrowserModule.ctorParameters = function () { return [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var win = typeof window !== 'undefined' && window || ({});
+const win = typeof window !== 'undefined' && window || ({});
 
 /**
  * @fileoverview added by tsickle
@@ -3727,28 +3559,25 @@ var win = typeof window !== 'undefined' && window || ({});
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ChangeDetectionPerfRecord = (function () {
+class ChangeDetectionPerfRecord {
     /**
      * @param {?} msPerTick
      * @param {?} numTicks
      */
-    function ChangeDetectionPerfRecord(msPerTick, numTicks) {
+    constructor(msPerTick, numTicks) {
         this.msPerTick = msPerTick;
         this.numTicks = numTicks;
     }
-    return ChangeDetectionPerfRecord;
-}());
+}
 /**
  * Entry point for all Angular profiling-related debug tools. This object
  * corresponds to the `ng.profiler` in the dev console.
  */
-var AngularProfiler = (function () {
+class AngularProfiler {
     /**
      * @param {?} ref
      */
-    function AngularProfiler(ref) {
-        this.appRef = ref.injector.get(_angular_core.ApplicationRef);
-    }
+    constructor(ref) { this.appRef = ref.injector.get(ApplicationRef); }
     /**
      * Exercises change detection in a loop and then prints the average amount of
      * time in milliseconds how long a single round of change detection takes for
@@ -3767,21 +3596,21 @@ var AngularProfiler = (function () {
      * @param {?} config
      * @return {?}
      */
-    AngularProfiler.prototype.timeChangeDetection = function (config) {
-        var /** @type {?} */ record = config && config['record'];
-        var /** @type {?} */ profileName = 'Change Detection';
+    timeChangeDetection(config) {
+        const /** @type {?} */ record = config && config['record'];
+        const /** @type {?} */ profileName = 'Change Detection';
         // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
-        var /** @type {?} */ isProfilerAvailable = win.console.profile != null;
+        const /** @type {?} */ isProfilerAvailable = win.console.profile != null;
         if (record && isProfilerAvailable) {
             win.console.profile(profileName);
         }
-        var /** @type {?} */ start = getDOM().performanceNow();
-        var /** @type {?} */ numTicks = 0;
+        const /** @type {?} */ start = getDOM().performanceNow();
+        let /** @type {?} */ numTicks = 0;
         while (numTicks < 5 || (getDOM().performanceNow() - start) < 500) {
             this.appRef.tick();
             numTicks++;
         }
-        var /** @type {?} */ end = getDOM().performanceNow();
+        const /** @type {?} */ end = getDOM().performanceNow();
         if (record && isProfilerAvailable) {
             // need to cast to <any> because type checker thinks there's no argument
             // while in fact there is:
@@ -3789,19 +3618,18 @@ var AngularProfiler = (function () {
             // https://developer.mozilla.org/en-US/docs/Web/API/Console/profileEnd
             ((win.console.profileEnd))(profileName);
         }
-        var /** @type {?} */ msPerTick = (end - start) / numTicks;
-        win.console.log("ran " + numTicks + " change detection cycles");
-        win.console.log(msPerTick.toFixed(2) + " ms per check");
+        const /** @type {?} */ msPerTick = (end - start) / numTicks;
+        win.console.log(`ran ${numTicks} change detection cycles`);
+        win.console.log(`${msPerTick.toFixed(2)} ms per check`);
         return new ChangeDetectionPerfRecord(msPerTick, numTicks);
-    };
-    return AngularProfiler;
-}());
+    }
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var PROFILER_GLOBAL_NAME = 'profiler';
+const PROFILER_GLOBAL_NAME = 'profiler';
 /**
  * Enabled Angular debug tools that are accessible via your browser's
  * developer console.
@@ -3841,9 +3669,7 @@ function disableDebugTools() {
  *
  * \@experimental All debugging apis are currently experimental.
  */
-var By = (function () {
-    function By() {
-    }
+class By {
     /**
      * Match all elements.
      *
@@ -3852,7 +3678,7 @@ var By = (function () {
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
      * @return {?}
      */
-    By.all = function () { return function (debugElement) { return true; }; };
+    static all() { return (debugElement) => true; }
     /**
      * Match elements by the given CSS selector.
      *
@@ -3862,13 +3688,13 @@ var By = (function () {
      * @param {?} selector
      * @return {?}
      */
-    By.css = function (selector) {
-        return function (debugElement) {
+    static css(selector) {
+        return (debugElement) => {
             return debugElement.nativeElement != null ?
                 getDOM().elementMatches(debugElement.nativeElement, selector) :
                 false;
         };
-    };
+    }
     /**
      * Match elements that have the given directive present.
      *
@@ -3878,11 +3704,10 @@ var By = (function () {
      * @param {?} type
      * @return {?}
      */
-    By.directive = function (type) {
-        return function (debugElement) { /** @type {?} */ return ((debugElement.providerTokens)).indexOf(type) !== -1; };
-    };
-    return By;
-}());
+    static directive(type) {
+        return (debugElement) => ((debugElement.providerTokens)).indexOf(type) !== -1;
+    }
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3915,59 +3740,46 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.6-f2945c6');
+const VERSION = new Version('5.0.0-beta.6-f2945c6');
 
-exports.BrowserModule = BrowserModule;
-exports.platformBrowser = platformBrowser;
-exports.Meta = Meta;
-exports.Title = Title;
-exports.disableDebugTools = disableDebugTools;
-exports.enableDebugTools = enableDebugTools;
-exports.By = By;
-exports.DOCUMENT = DOCUMENT$1;
-exports.EVENT_MANAGER_PLUGINS = EVENT_MANAGER_PLUGINS;
-exports.EventManager = EventManager;
-exports.HAMMER_GESTURE_CONFIG = HAMMER_GESTURE_CONFIG;
-exports.HammerGestureConfig = HammerGestureConfig;
-exports.DomSanitizer = DomSanitizer;
-exports.SafeHtml = SafeHtml;
-exports.SafeResourceUrl = SafeResourceUrl;
-exports.SafeScript = SafeScript;
-exports.SafeStyle = SafeStyle;
-exports.SafeUrl = SafeUrl;
-exports.SafeValue = SafeValue;
-exports.VERSION = VERSION;
-exports.ɵBROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
-exports.ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS = INTERNAL_BROWSER_PLATFORM_PROVIDERS;
-exports.ɵinitDomAdapter = initDomAdapter;
-exports.ɵBrowserDomAdapter = BrowserDomAdapter;
-exports.ɵBrowserPlatformLocation = BrowserPlatformLocation;
-exports.ɵTRANSITION_ID = TRANSITION_ID;
-exports.ɵBrowserGetTestability = BrowserGetTestability;
-exports.ɵELEMENT_PROBE_PROVIDERS = ELEMENT_PROBE_PROVIDERS;
-exports.ɵDomAdapter = DomAdapter;
-exports.ɵgetDOM = getDOM;
-exports.ɵsetRootDomAdapter = setRootDomAdapter;
-exports.ɵDomRendererFactory2 = DomRendererFactory2;
-exports.ɵNAMESPACE_URIS = NAMESPACE_URIS;
-exports.ɵflattenStyles = flattenStyles;
-exports.ɵshimContentAttribute = shimContentAttribute;
-exports.ɵshimHostAttribute = shimHostAttribute;
-exports.ɵDomEventsPlugin = DomEventsPlugin;
-exports.ɵHammerGesturesPlugin = HammerGesturesPlugin;
-exports.ɵKeyEventsPlugin = KeyEventsPlugin;
-exports.ɵDomSharedStylesHost = DomSharedStylesHost;
-exports.ɵSharedStylesHost = SharedStylesHost;
-exports.ɵb = _document;
-exports.ɵa = errorHandler;
-exports.ɵh = GenericBrowserDomAdapter;
-exports.ɵf = SERVER_TRANSITION_PROVIDERS;
-exports.ɵe = appInitializerFactory;
-exports.ɵg = _createNgProbe;
-exports.ɵc = EventManagerPlugin;
-exports.ɵd = DomSanitizerImpl;
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
-Object.defineProperty(exports, '__esModule', { value: true });
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of this package.
+ */
 
-})));
-//# sourceMappingURL=platform-browser.umd.js.map
+// This file only reexports content of the `src` folder. Keep it that way.
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl, SafeValue, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵf, appInitializerFactory as ɵe, _createNgProbe as ɵg, EventManagerPlugin as ɵc, DomSanitizerImpl as ɵd };
+//# sourceMappingURL=index.js.map
