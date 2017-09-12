@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.6-112e777
+ * @license Angular v5.0.0-beta.6-ca5aeba
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -27,13 +27,13 @@ class BrowserAnimationBuilder extends AnimationBuilder {
     constructor(rootRenderer, doc) {
         super();
         this._nextAnimationId = 0;
-        const /** @type {?} */ typeData = ({
+        const /** @type {?} */ typeData = /** @type {?} */ ({
             id: '0',
             encapsulation: ViewEncapsulation.None,
             styles: [],
             data: { animation: [] }
         });
-        this._renderer = (rootRenderer.createRenderer(doc.body, typeData));
+        this._renderer = /** @type {?} */ (rootRenderer.createRenderer(doc.body, typeData));
     }
     /**
      * @param {?} animation
@@ -232,7 +232,7 @@ class AnimationRendererFactory {
         const /** @type {?} */ namespaceId = type.id + '-' + this._currentId;
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
-        const /** @type {?} */ animationTriggers = (type.data['animation']);
+        const /** @type {?} */ animationTriggers = /** @type {?} */ (type.data['animation']);
         animationTriggers.forEach(trigger => this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     }
@@ -316,7 +316,7 @@ class BaseAnimationRenderer {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? (n) => ((delegate.destroyNode))(n) : null;
+        this.destroyNode = this.delegate.destroyNode ? (n) => /** @type {?} */ ((delegate.destroyNode))(n) : null;
     }
     /**
      * @return {?}
@@ -526,7 +526,7 @@ class AnimationRenderer extends BaseAnimationRenderer {
                 [name, phase] = parseTriggerCallbackName(name);
             }
             return this.engine.listen(this.namespaceId, element, name, phase, event => {
-                const /** @type {?} */ countId = ((event))['_data'] || -1;
+                const /** @type {?} */ countId = (/** @type {?} */ (event))['_data'] || -1;
                 this.factory.scheduleListenerCallback(countId, callback, event);
             });
         }

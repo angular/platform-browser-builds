@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.6-112e777
+ * @license Angular v5.0.0-beta.6-ca5aeba
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -10,7 +10,7 @@ import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, Appl
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-let _DOM = ((null));
+let _DOM = /** @type {?} */ ((null));
 /**
  * @return {?}
  */
@@ -40,7 +40,7 @@ function setRootDomAdapter(adapter) {
  */
 class DomAdapter {
     constructor() {
-        this.resourceLoaderType = ((null));
+        this.resourceLoaderType = /** @type {?} */ ((null));
     }
     /**
      * Maps attribute names to their corresponding property names for cases
@@ -106,7 +106,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
                 }
             });
         }
-        catch (e) {
+        catch (/** @type {?} */ e) {
             this._animationPrefix = null;
             this._transitionEnd = null;
         }
@@ -115,7 +115,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
      * @param {?} el
      * @return {?}
      */
-    getDistributedNodes(el) { return ((el)).getDistributedNodes(); }
+    getDistributedNodes(el) { return (/** @type {?} */ (el)).getDistributedNodes(); }
     /**
      * @param {?} el
      * @param {?} baseUrl
@@ -133,7 +133,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
      * @return {?}
      */
     supportsNativeShadowDOM() {
-        return typeof ((document.body)).createShadowRoot === 'function';
+        return typeof (/** @type {?} */ (document.body)).createShadowRoot === 'function';
     }
     /**
      * @return {?}
@@ -214,6 +214,12 @@ if (ɵglobal['Node']) {
         return !!(this.compareDocumentPosition(node) & 16);
     };
 }
+/**
+ * A `DomAdapter` powered by full browser DOM APIs.
+ *
+ * \@security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
+ */
 class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @param {?} templateHtml
@@ -236,20 +242,20 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setProperty(el, name, value) { ((el))[name] = value; }
+    setProperty(el, name, value) { (/** @type {?} */ (el))[name] = value; }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    getProperty(el, name) { return ((el))[name]; }
+    getProperty(el, name) { return (/** @type {?} */ (el))[name]; }
     /**
      * @param {?} el
      * @param {?} methodName
      * @param {?} args
      * @return {?}
      */
-    invoke(el, methodName, args) { ((el))[methodName](...args); }
+    invoke(el, methodName, args) { (/** @type {?} */ (el))[methodName](...args); }
     /**
      * @param {?} error
      * @return {?}
@@ -380,7 +386,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     getTemplateContent(el) {
-        return 'content' in el && this.isTemplateElement(el) ? ((el)).content : null;
+        return 'content' in el && this.isTemplateElement(el) ? (/** @type {?} */ (el)).content : null;
     }
     /**
      * @param {?} el
@@ -408,7 +414,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     content(node) {
         if (this.hasProperty(node, 'content')) {
-            return ((node)).content;
+            return (/** @type {?} */ (node)).content;
         }
         else {
             return node;
@@ -596,7 +602,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     createScriptTag(attrName, attrValue, doc) {
         doc = doc || this.getDefaultDocument();
-        const /** @type {?} */ el = (doc.createElement('SCRIPT'));
+        const /** @type {?} */ el = /** @type {?} */ (doc.createElement('SCRIPT'));
         el.setAttribute(attrName, attrValue);
         return el;
     }
@@ -607,7 +613,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     createStyleElement(css, doc) {
         doc = doc || this.getDefaultDocument();
-        const /** @type {?} */ style = (doc.createElement('style'));
+        const /** @type {?} */ style = /** @type {?} */ (doc.createElement('style'));
         this.appendChild(style, this.createTextNode(css, doc));
         return style;
     }
@@ -615,17 +621,17 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} el
      * @return {?}
      */
-    createShadowRoot(el) { return ((el)).createShadowRoot(); }
+    createShadowRoot(el) { return (/** @type {?} */ (el)).createShadowRoot(); }
     /**
      * @param {?} el
      * @return {?}
      */
-    getShadowRoot(el) { return ((el)).shadowRoot; }
+    getShadowRoot(el) { return (/** @type {?} */ (el)).shadowRoot; }
     /**
      * @param {?} el
      * @return {?}
      */
-    getHost(el) { return ((el)).host; }
+    getHost(el) { return (/** @type {?} */ (el)).host; }
     /**
      * @param {?} node
      * @return {?}
@@ -814,7 +820,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         try {
             return el.getBoundingClientRect();
         }
-        catch (e) {
+        catch (/** @type {?} */ e) {
             return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0 };
         }
     }
@@ -890,7 +896,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} el
      * @return {?}
      */
-    getHref(el) { return ((el.getAttribute('href'))); }
+    getHref(el) { return /** @type {?} */ ((el.getAttribute('href'))); }
     /**
      * @param {?} event
      * @return {?}
@@ -911,7 +917,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
                     // There is a bug in Chrome for numeric keypad keys:
                     // https://code.google.com/p/chromium/issues/detail?id=155654
                     // 1, 2, 3 ... are reported as A, B, C ...
-                    key = ((_chromeNumKeyPadMap))[key];
+                    key = (/** @type {?} */ (_chromeNumKeyPadMap))[key];
                 }
             }
         }
@@ -984,7 +990,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     supportsWebAnimation() {
-        return typeof ((Element)).prototype['animate'] === 'function';
+        return typeof (/** @type {?} */ (Element)).prototype['animate'] === 'function';
     }
     /**
      * @return {?}
@@ -1021,7 +1027,7 @@ let baseElement = null;
  */
 function getBaseElementHref() {
     if (!baseElement) {
-        baseElement = ((document.querySelector('base')));
+        baseElement = /** @type {?} */ ((document.querySelector('base')));
         if (!baseElement) {
             return null;
         }
@@ -1069,17 +1075,9 @@ const DOCUMENT$1 = DOCUMENT;
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  * @return {?}
  */
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */ function supportsState() {
+function supportsState() {
     return !!window.history.pushState;
 }
 
@@ -1123,7 +1121,7 @@ class BrowserPlatformLocation extends PlatformLocation {
     /**
      * @return {?}
      */
-    getBaseHrefFromDOM() { return ((getDOM().getBaseHref(this._doc))); }
+    getBaseHrefFromDOM() { return /** @type {?} */ ((getDOM().getBaseHref(this._doc))); }
     /**
      * @param {?} fn
      * @return {?}
@@ -1265,7 +1263,7 @@ class Meta {
     getTags(attrSelector) {
         if (!attrSelector)
             return [];
-        const /** @type {?} */ list /*NodeList*/ = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
+        const /** @type {?} */ list = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
         return list ? [].slice.call(list) : [];
     }
     /**
@@ -1277,7 +1275,7 @@ class Meta {
         if (!tag)
             return null;
         selector = selector || this._parseSelector(tag);
-        const /** @type {?} */ meta = ((this.getTag(selector)));
+        const /** @type {?} */ meta = /** @type {?} */ ((this.getTag(selector)));
         if (meta) {
             return this._setMetaElementAttributes(tag, meta);
         }
@@ -1305,14 +1303,14 @@ class Meta {
     _getOrCreateElement(meta, forceCreation = false) {
         if (!forceCreation) {
             const /** @type {?} */ selector = this._parseSelector(meta);
-            const /** @type {?} */ elem = ((this.getTag(selector)));
+            const /** @type {?} */ elem = /** @type {?} */ ((this.getTag(selector)));
             // It's allowed to have multiple elements with the same name so it's not enough to
             // just check that element with the same name already present on the page. We also need to
             // check if element has tag attributes
             if (elem && this._containsAttributes(meta, elem))
                 return elem;
         }
-        const /** @type {?} */ element = (this._dom.createElement('meta'));
+        const /** @type {?} */ element = /** @type {?} */ (this._dom.createElement('meta'));
         this._setMetaElementAttributes(meta, element);
         const /** @type {?} */ head = this._dom.getElementsByTagName(this._doc, 'head')[0];
         this._dom.appendChild(head, element);
@@ -1548,7 +1546,7 @@ Title.ctorParameters = () => [
  */
 function exportNgVar(name, value) {
     if (!ng) {
-        ɵglobal['ng'] = ng = ((ɵglobal['ng'])) || {};
+        ɵglobal['ng'] = ng = (/** @type {?} */ (ɵglobal['ng'])) || {};
     }
     ng[name] = value;
 }
@@ -1920,7 +1918,7 @@ class DomRendererFactory2 {
                         new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
-                ((renderer)).applyToHost(element);
+                (/** @type {?} */ (renderer)).applyToHost(element);
                 return renderer;
             }
             case ViewEncapsulation.Native:
@@ -2145,9 +2143,9 @@ class DefaultDomRenderer2 {
     listen(target, event, callback) {
         checkNoSyntheticProp(event, 'listener');
         if (typeof target === 'string') {
-            return (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
+            return /** @type {?} */ (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
         }
-        return ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
+        return /** @type {?} */ ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
     }
 }
 const AT_CHARCODE = '@'.charCodeAt(0);
@@ -2203,7 +2201,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         this.sharedStylesHost = sharedStylesHost;
         this.hostEl = hostEl;
         this.component = component;
-        this.shadowRoot = ((hostEl)).createShadowRoot();
+        this.shadowRoot = (/** @type {?} */ (hostEl)).createShadowRoot();
         this.sharedStylesHost.addHost(this.shadowRoot);
         const /** @type {?} */ styles = flattenStyles(component.id, component.styles, []);
         for (let /** @type {?} */ i = 0; i < styles.length; i++) {
@@ -2370,7 +2368,7 @@ class DomEventsPlugin extends EventManagerPlugin {
          */
         const /** @type {?} */ self = this;
         const /** @type {?} */ zoneJsLoaded = element[ADD_EVENT_LISTENER];
-        let /** @type {?} */ callback = (handler);
+        let /** @type {?} */ callback = /** @type {?} */ (handler);
         // if zonejs is loaded and current zone is not ngZone
         // we keep Zone.current on target for later restoration.
         if (zoneJsLoaded && (!NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
@@ -2378,10 +2376,10 @@ class DomEventsPlugin extends EventManagerPlugin {
             if (!symbolName) {
                 symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
             }
-            let /** @type {?} */ taskDatas = ((element))[symbolName];
+            let /** @type {?} */ taskDatas = (/** @type {?} */ (element))[symbolName];
             const /** @type {?} */ globalListenerRegistered = taskDatas && taskDatas.length > 0;
             if (!taskDatas) {
-                taskDatas = ((element))[symbolName] = [];
+                taskDatas = (/** @type {?} */ (element))[symbolName] = [];
             }
             const /** @type {?} */ zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
             if (taskDatas.length === 0) {
@@ -2552,7 +2550,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
         if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
             return false;
         }
-        if (!((window)).Hammer) {
+        if (!(/** @type {?} */ (window)).Hammer) {
             throw new Error(`Hammer.js is not loaded, can not bind ${eventName} event`);
         }
         return true;
@@ -2629,7 +2627,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
      * @return {?}
      */
     addEventListener(element, eventName, handler) {
-        const /** @type {?} */ parsedEvent = ((KeyEventsPlugin.parseEventName(eventName)));
+        const /** @type {?} */ parsedEvent = /** @type {?} */ ((KeyEventsPlugin.parseEventName(eventName)));
         const /** @type {?} */ outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
         return this.manager.getZone().runOutsideAngular(() => {
             return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
@@ -2807,7 +2805,7 @@ let inertElement = null;
 /**
  * Lazily initialized to make sure the DOM adapter gets set before use.
  */
-let DOM = ((null));
+let DOM = /** @type {?} */ ((null));
 /**
  * Returns an HTML element that is guaranteed to not execute code when creating elements in it.
  * @return {?}
@@ -2909,7 +2907,7 @@ class SanitizingHtmlSerializer {
         // This cannot use a TreeWalker, as it has to run on Angular's various DOM adapters.
         // However this code never accesses properties off of `document` before deleting its contents
         // again, so it shouldn't be vulnerable to DOM clobbering.
-        let /** @type {?} */ current = ((el.firstChild));
+        let /** @type {?} */ current = /** @type {?} */ ((el.firstChild));
         while (current) {
             if (DOM.isElementNode(current)) {
                 this.startElement(/** @type {?} */ (current));
@@ -2922,7 +2920,7 @@ class SanitizingHtmlSerializer {
                 this.sanitizedSomething = true;
             }
             if (DOM.firstChild(current)) {
-                current = ((DOM.firstChild(current)));
+                current = /** @type {?} */ ((DOM.firstChild(current)));
                 continue;
             }
             while (current) {
@@ -3083,7 +3081,7 @@ function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
         }
         return safeHtml;
     }
-    catch (e) {
+    catch (/** @type {?} */ e) {
         // In case anything goes wrong, clear out inertElement to reset the entire DOM structure.
         inertElement = null;
         throw e;
@@ -3207,42 +3205,42 @@ function sanitizeStyle(value) {
  * \@stable
  * @record
  */
-function SafeValue() { }
+
 /**
  * Marker interface for a value that's safe to use as HTML.
  *
  * \@stable
  * @record
  */
-function SafeHtml() { }
+
 /**
  * Marker interface for a value that's safe to use as style (CSS).
  *
  * \@stable
  * @record
  */
-function SafeStyle() { }
+
 /**
  * Marker interface for a value that's safe to use as JavaScript.
  *
  * \@stable
  * @record
  */
-function SafeScript() { }
+
 /**
  * Marker interface for a value that's safe to use as a URL linking to a document.
  *
  * \@stable
  * @record
  */
-function SafeUrl() { }
+
 /**
  * Marker interface for a value that's safe to use as a URL to load executable code from.
  *
  * \@stable
  * @record
  */
-function SafeResourceUrl() { }
+
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.
@@ -3295,7 +3293,7 @@ class DomSanitizerImpl extends DomSanitizer {
             return null;
         switch (ctx) {
             case SecurityContext.NONE:
-                return (value);
+                return /** @type {?} */ (value);
             case SecurityContext.HTML:
                 if (value instanceof SafeHtmlImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -3382,8 +3380,8 @@ class SafeValueImpl {
      * @param {?} changingThisBreaksApplicationSecurity
      */
     constructor(changingThisBreaksApplicationSecurity) {
-        this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
         // empty
+        this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
     }
     /**
      * @return {?}
@@ -3546,7 +3544,7 @@ BrowserModule.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const win = typeof window !== 'undefined' && window || ({});
+const win = typeof window !== 'undefined' && window || /** @type {?} */ ({});
 
 /**
  * @fileoverview added by tsickle
@@ -3616,7 +3614,7 @@ class AngularProfiler {
             // while in fact there is:
             //
             // https://developer.mozilla.org/en-US/docs/Web/API/Console/profileEnd
-            ((win.console.profileEnd))(profileName);
+            (/** @type {?} */ (win.console.profileEnd))(profileName);
         }
         const /** @type {?} */ msPerTick = (end - start) / numTicks;
         win.console.log(`ran ${numTicks} change detection cycles`);
@@ -3705,7 +3703,7 @@ class By {
      * @return {?}
      */
     static directive(type) {
-        return (debugElement) => ((debugElement.providerTokens)).indexOf(type) !== -1;
+        return (debugElement) => /** @type {?} */ ((debugElement.providerTokens)).indexOf(type) !== -1;
     }
 }
 
@@ -3740,7 +3738,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.6-112e777');
+const VERSION = new Version('5.0.0-beta.6-ca5aeba');
 
 /**
  * @fileoverview added by tsickle
@@ -3781,5 +3779,5 @@ const VERSION = new Version('5.0.0-beta.6-112e777');
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl, SafeValue, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵf, appInitializerFactory as ɵe, _createNgProbe as ɵg, EventManagerPlugin as ɵc, DomSanitizerImpl as ɵd };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵf, appInitializerFactory as ɵe, _createNgProbe as ɵg, EventManagerPlugin as ɵc, DomSanitizerImpl as ɵd };
 //# sourceMappingURL=index.js.map
