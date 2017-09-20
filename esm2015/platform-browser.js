@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-5751865
+ * @license Angular v5.0.0-beta.7-b14c2d1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1111,13 +1111,9 @@ class BrowserPlatformLocation extends PlatformLocation {
      * @return {?}
      */
     _init() {
-        this._location = getDOM().getLocation();
+        (/** @type {?} */ (this)).location = getDOM().getLocation();
         this._history = getDOM().getHistory();
     }
-    /**
-     * @return {?}
-     */
-    get location() { return this._location; }
     /**
      * @return {?}
      */
@@ -1139,20 +1135,20 @@ class BrowserPlatformLocation extends PlatformLocation {
     /**
      * @return {?}
      */
-    get pathname() { return this._location.pathname; }
+    get pathname() { return this.location.pathname; }
     /**
      * @return {?}
      */
-    get search() { return this._location.search; }
+    get search() { return this.location.search; }
     /**
      * @return {?}
      */
-    get hash() { return this._location.hash; }
+    get hash() { return this.location.hash; }
     /**
      * @param {?} newPath
      * @return {?}
      */
-    set pathname(newPath) { this._location.pathname = newPath; }
+    set pathname(newPath) { this.location.pathname = newPath; }
     /**
      * @param {?} state
      * @param {?} title
@@ -1164,7 +1160,7 @@ class BrowserPlatformLocation extends PlatformLocation {
             this._history.pushState(state, title, url);
         }
         else {
-            this._location.hash = url;
+            this.location.hash = url;
         }
     }
     /**
@@ -1178,7 +1174,7 @@ class BrowserPlatformLocation extends PlatformLocation {
             this._history.replaceState(state, title, url);
         }
         else {
-            this._location.hash = url;
+            this.location.hash = url;
         }
     }
     /**
@@ -3738,7 +3734,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-5751865');
+const VERSION = new Version('5.0.0-beta.7-b14c2d1');
 
 /**
  * @fileoverview added by tsickle

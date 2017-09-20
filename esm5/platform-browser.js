@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-5751865
+ * @license Angular v5.0.0-beta.7-b14c2d1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1660,17 +1660,9 @@ var BrowserPlatformLocation = (function (_super) {
      * @return {?}
      */
     function () {
-        this._location = getDOM().getLocation();
+        (/** @type {?} */ (this)).location = getDOM().getLocation();
         this._history = getDOM().getHistory();
     };
-    Object.defineProperty(BrowserPlatformLocation.prototype, "location", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._location; },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -1704,12 +1696,12 @@ var BrowserPlatformLocation = (function (_super) {
         get: /**
          * @return {?}
          */
-        function () { return this._location.pathname; },
+        function () { return this.location.pathname; },
         set: /**
          * @param {?} newPath
          * @return {?}
          */
-        function (newPath) { this._location.pathname = newPath; },
+        function (newPath) { this.location.pathname = newPath; },
         enumerable: true,
         configurable: true
     });
@@ -1717,7 +1709,7 @@ var BrowserPlatformLocation = (function (_super) {
         get: /**
          * @return {?}
          */
-        function () { return this._location.search; },
+        function () { return this.location.search; },
         enumerable: true,
         configurable: true
     });
@@ -1725,7 +1717,7 @@ var BrowserPlatformLocation = (function (_super) {
         get: /**
          * @return {?}
          */
-        function () { return this._location.hash; },
+        function () { return this.location.hash; },
         enumerable: true,
         configurable: true
     });
@@ -1746,7 +1738,7 @@ var BrowserPlatformLocation = (function (_super) {
             this._history.pushState(state, title, url);
         }
         else {
-            this._location.hash = url;
+            this.location.hash = url;
         }
     };
     /**
@@ -1766,7 +1758,7 @@ var BrowserPlatformLocation = (function (_super) {
             this._history.replaceState(state, title, url);
         }
         else {
-            this._location.hash = url;
+            this.location.hash = url;
         }
     };
     /**
@@ -4875,7 +4867,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.7-5751865');
+var VERSION = new Version('5.0.0-beta.7-b14c2d1');
 
 /**
  * @fileoverview added by tsickle
