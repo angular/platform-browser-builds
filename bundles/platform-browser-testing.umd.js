@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-4c73b52
+ * @license Angular v5.0.0-beta.7-6e1896b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -10,7 +10,7 @@
 }(this, (function (exports,_angular_core,_angular_platformBrowser) { 'use strict';
 
 /**
- * @license Angular v5.0.0-beta.7-4c73b52
+ * @license Angular v5.0.0-beta.7-6e1896b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -210,6 +210,7 @@ var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: _angular_core.PLATFORM_INITIA
  * \@stable
  */
 var platformBrowserTesting = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
+var ɵ0 = createNgZone;
 /**
  * NgModule for testing.
  *
@@ -224,7 +225,7 @@ var BrowserTestingModule = (function () {
                     providers: [
                         { provide: _angular_core.APP_ID, useValue: 'a' },
                         _angular_platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
-                        { provide: _angular_core.NgZone, useFactory: createNgZone },
+                        { provide: _angular_core.NgZone, useFactory: ɵ0 },
                     ]
                 },] },
     ];

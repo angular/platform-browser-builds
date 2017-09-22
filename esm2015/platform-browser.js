@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-4c73b52
+ * @license Angular v5.0.0-beta.7-6e1896b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2267,9 +2267,10 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * addEventListener by 3x.
  */
 const Zone = ɵglobal['Zone'];
-const __symbol__ = Zone && Zone['__symbol__'] || function (v) {
+const ɵ0 = function (v) {
     return v;
 };
+const __symbol__ = Zone && Zone['__symbol__'] || ɵ0;
 const ADD_EVENT_LISTENER = __symbol__('addEventListener');
 const REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 const symbolNames = {};
@@ -2597,11 +2598,15 @@ HammerGesturesPlugin.ctorParameters = () => [
  * found in the LICENSE file at https://angular.io/license
  */
 const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
+const ɵ0$1 = (event) => event.altKey;
+const ɵ1$1 = (event) => event.ctrlKey;
+const ɵ2$1 = (event) => event.metaKey;
+const ɵ3 = (event) => event.shiftKey;
 const MODIFIER_KEY_GETTERS = {
-    'alt': (event) => event.altKey,
-    'control': (event) => event.ctrlKey,
-    'meta': (event) => event.metaKey,
-    'shift': (event) => event.shiftKey
+    'alt': ɵ0$1,
+    'control': ɵ1$1,
+    'meta': ɵ2$1,
+    'shift': ɵ3
 };
 /**
  * \@experimental
@@ -3659,6 +3664,193 @@ function disableDebugTools() {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @param {?} text
+ * @return {?}
+ */
+function escapeHtml(text) {
+    const /** @type {?} */ escapedText = {
+        '&': '&a;',
+        '"': '&q;',
+        '\'': '&s;',
+        '<': '&l;',
+        '>': '&g;',
+    };
+    return text.replace(/[&"'<>]/g, s => escapedText[s]);
+}
+/**
+ * @param {?} text
+ * @return {?}
+ */
+function unescapeHtml(text) {
+    const /** @type {?} */ unescapedText = {
+        '&a;': '&',
+        '&q;': '"',
+        '&s;': '\'',
+        '&l;': '<',
+        '&g;': '>',
+    };
+    return text.replace(/&[^;]+;/g, s => unescapedText[s]);
+}
+/**
+ * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
+ *
+ * Example:
+ *
+ * ```
+ * const COUNTER_KEY = makeStateKey<number>('counter');
+ * let value = 10;
+ *
+ * transferState.set(COUNTER_KEY, value);
+ * ```
+ *
+ * \@experimental
+ * @template T
+ * @param {?} key
+ * @return {?}
+ */
+function makeStateKey(key) {
+    return /** @type {?} */ (key);
+}
+/**
+ * A key value store that is transferred from the application on the server side to the application
+ * on the client side.
+ *
+ * `TransferState` will be available as an injectable token. To use it import
+ * `ServerTransferStateModule` on the server and `BrowserTransferStateModule` on the client.
+ *
+ * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
+ * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
+ * non-lossy manner.
+ *
+ * \@experimental
+ */
+class TransferState {
+    constructor() {
+        this.store = {};
+        this.onSerializeCallbacks = {};
+    }
+    /**
+     * \@internal
+     * @param {?} initState
+     * @return {?}
+     */
+    static init(initState) {
+        const /** @type {?} */ transferState = new TransferState();
+        transferState.store = initState;
+        return transferState;
+    }
+    /**
+     * Get the value corresponding to a key. Return `defaultValue` if key is not found.
+     * @template T
+     * @param {?} key
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    get(key, defaultValue) { return /** @type {?} */ (this.store[key]) || defaultValue; }
+    /**
+     * Set the value corresponding to a key.
+     * @template T
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    set(key, value) { this.store[key] = value; }
+    /**
+     * Remove a key from the store.
+     * @template T
+     * @param {?} key
+     * @return {?}
+     */
+    remove(key) { delete this.store[key]; }
+    /**
+     * Test whether a key exists in the store.
+     * @template T
+     * @param {?} key
+     * @return {?}
+     */
+    hasKey(key) { return this.store.hasOwnProperty(key); }
+    /**
+     * Register a callback to provide the value for a key when `toJson` is called.
+     * @template T
+     * @param {?} key
+     * @param {?} callback
+     * @return {?}
+     */
+    onSerialize(key, callback) {
+        this.onSerializeCallbacks[key] = callback;
+    }
+    /**
+     * Serialize the current state of the store to JSON.
+     * @return {?}
+     */
+    toJson() {
+        // Call the onSerialize callbacks and put those values into the store.
+        for (const /** @type {?} */ key in this.onSerializeCallbacks) {
+            if (this.onSerializeCallbacks.hasOwnProperty(key)) {
+                try {
+                    this.store[key] = this.onSerializeCallbacks[key]();
+                }
+                catch (/** @type {?} */ e) {
+                    console.warn('Exception in onSerialize callback: ', e);
+                }
+            }
+        }
+        return JSON.stringify(this.store);
+    }
+}
+TransferState.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+TransferState.ctorParameters = () => [];
+/**
+ * @param {?} doc
+ * @param {?} appId
+ * @return {?}
+ */
+function initTransferState(doc, appId) {
+    // Locate the script tag with the JSON data transferred from the server.
+    // The id of the script tag is set to the Angular appId + 'state'.
+    const /** @type {?} */ script = doc.getElementById(appId + '-state');
+    let /** @type {?} */ initialState = {};
+    if (script && script.textContent) {
+        try {
+            initialState = JSON.parse(unescapeHtml(script.textContent));
+        }
+        catch (/** @type {?} */ e) {
+            console.warn('Exception while restoring TransferState for app ' + appId, e);
+        }
+    }
+    return TransferState.init(initialState);
+}
+/**
+ * NgModule to install on the client side while using the `TransferState` to transfer state from
+ * server to client.
+ *
+ * \@experimental
+ */
+class BrowserTransferStateModule {
+}
+BrowserTransferStateModule.decorators = [
+    { type: NgModule, args: [{
+                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
+            },] },
+];
+/** @nocollapse */
+BrowserTransferStateModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Predicates for use with {\@link DebugElement}'s query functions.
  *
  * \@experimental All debugging apis are currently experimental.
@@ -3734,7 +3926,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-4c73b52');
+const VERSION = new Version('5.0.0-beta.7-6e1896b');
 
 /**
  * @fileoverview added by tsickle
@@ -3775,5 +3967,5 @@ const VERSION = new Version('5.0.0-beta.7-4c73b52');
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵf, appInitializerFactory as ɵe, _createNgProbe as ɵg, EventManagerPlugin as ɵc, DomSanitizerImpl as ɵd };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵi, SERVER_TRANSITION_PROVIDERS as ɵg, appInitializerFactory as ɵf, initTransferState as ɵc, _createNgProbe as ɵh, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
 //# sourceMappingURL=platform-browser.js.map
