@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-9bbf009
+ * @license Angular v5.0.0-beta.7-0f5c70d
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -44,7 +44,7 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v5.0.0-beta.7-9bbf009
+ * @license Angular v5.0.0-beta.7-0f5c70d
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -103,8 +103,6 @@ var DomAdapter = (function () {
         enumerable: true,
         configurable: true
     });
-    
-    
     return DomAdapter;
 }());
 
@@ -2449,7 +2447,6 @@ var EventManagerPlugin = (function () {
         }
         return this.addEventListener(target, eventName, handler);
     };
-    
     return EventManagerPlugin;
 }());
 
@@ -2667,7 +2664,6 @@ var DomRendererFactory2 = (function () {
         this.rendererByCompId = new Map();
         this.defaultRenderer = new DefaultDomRenderer2(eventManager);
     }
-    
     /**
      * @param {?} element
      * @param {?} type
@@ -5165,7 +5161,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.7-9bbf009');
+var VERSION = new _angular_core.Version('5.0.0-beta.7-0f5c70d');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
