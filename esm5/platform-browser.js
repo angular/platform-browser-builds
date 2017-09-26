@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-b21a1d1
+ * @license Angular v5.0.0-beta.7-8a0e458
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3124,16 +3124,17 @@ var ShadowDomRenderer = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ɵ0 = function (v) {
-    return v;
-};
 /**
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
  * since Angular can do much more
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
  */
-var __symbol__ = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))['__symbol__'] || ɵ0;
+var Zone = ɵglobal['Zone'];
+var ɵ0 = function (v) {
+    return v;
+};
+var __symbol__ = Zone && Zone['__symbol__'] || ɵ0;
 var ADD_EVENT_LISTENER = __symbol__('addEventListener');
 var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 var symbolNames = {};
@@ -3141,7 +3142,7 @@ var FALSE = 'FALSE';
 var ANGULAR = 'ANGULAR';
 var NATIVE_ADD_LISTENER = 'addEventListener';
 var NATIVE_REMOVE_LISTENER = 'removeEventListener';
-var blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
+var blackListedEvents = Zone && Zone[__symbol__('BLACK_LISTED_EVENTS')];
 var blackListedMap;
 if (blackListedEvents) {
     blackListedMap = {};
@@ -5119,7 +5120,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.7-b21a1d1');
+var VERSION = new Version('5.0.0-beta.7-8a0e458');
 
 /**
  * @fileoverview added by tsickle
