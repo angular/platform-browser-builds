@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-8a0e458
+ * @license Angular v5.0.0-beta.7-627f048
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -44,7 +44,7 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v5.0.0-beta.7-8a0e458
+ * @license Angular v5.0.0-beta.7-627f048
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2256,12 +2256,15 @@ var Title = (function () {
  * @return {?}
  */
 function exportNgVar(name, value) {
-    if (!ng) {
-        _angular_core.ɵglobal['ng'] = ng = (/** @type {?} */ (_angular_core.ɵglobal['ng'])) || {};
+    if (typeof goog === 'undefined' || goog.DEBUG) {
+        // Note: we can't export `ng` when using closure enhanced optimization as:
+        // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
+        // - we can't declare a closure extern as the namespace `ng` is already used within Google
+        //   for typings for angularJS (via `goog.provide('ng....')`).
+        var /** @type {?} */ ng = _angular_core.ɵglobal['ng'] = (/** @type {?} */ (_angular_core.ɵglobal['ng'])) || {};
+        ng[name] = value;
     }
-    ng[name] = value;
 }
-var ng;
 
 /**
  * @fileoverview added by tsickle
@@ -3165,17 +3168,16 @@ var ShadowDomRenderer = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var ɵ0 = function (v) {
+    return v;
+};
 /**
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
  * since Angular can do much more
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
  */
-var Zone = _angular_core.ɵglobal['Zone'];
-var ɵ0 = function (v) {
-    return v;
-};
-var __symbol__ = Zone && Zone['__symbol__'] || ɵ0;
+var __symbol__ = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))['__symbol__'] || ɵ0;
 var ADD_EVENT_LISTENER = __symbol__('addEventListener');
 var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 var symbolNames = {};
@@ -3183,7 +3185,7 @@ var FALSE = 'FALSE';
 var ANGULAR = 'ANGULAR';
 var NATIVE_ADD_LISTENER = 'addEventListener';
 var NATIVE_REMOVE_LISTENER = 'removeEventListener';
-var blackListedEvents = Zone && Zone[__symbol__('BLACK_LISTED_EVENTS')];
+var blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
 var blackListedMap;
 if (blackListedEvents) {
     blackListedMap = {};
@@ -5161,7 +5163,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.7-8a0e458');
+var VERSION = new _angular_core.Version('5.0.0-beta.7-627f048');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;

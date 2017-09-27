@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-8a0e458
+ * @license Angular v5.0.0-beta.7-627f048
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1539,12 +1539,15 @@ Title.ctorParameters = () => [
  * @return {?}
  */
 function exportNgVar(name, value) {
-    if (!ng) {
-        ɵglobal['ng'] = ng = (/** @type {?} */ (ɵglobal['ng'])) || {};
+    if (typeof goog === 'undefined' || goog.DEBUG) {
+        // Note: we can't export `ng` when using closure enhanced optimization as:
+        // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
+        // - we can't declare a closure extern as the namespace `ng` is already used within Google
+        //   for typings for angularJS (via `goog.provide('ng....')`).
+        const /** @type {?} */ ng = ɵglobal['ng'] = (/** @type {?} */ (ɵglobal['ng'])) || {};
+        ng[name] = value;
     }
-    ng[name] = value;
 }
-let ng;
 
 /**
  * @fileoverview added by tsickle
@@ -2256,17 +2259,16 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+const ɵ0 = function (v) {
+    return v;
+};
 /**
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
  * since Angular can do much more
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
  */
-const Zone = ɵglobal['Zone'];
-const ɵ0 = function (v) {
-    return v;
-};
-const __symbol__ = Zone && Zone['__symbol__'] || ɵ0;
+const __symbol__ = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))['__symbol__'] || ɵ0;
 const ADD_EVENT_LISTENER = __symbol__('addEventListener');
 const REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 const symbolNames = {};
@@ -2274,7 +2276,7 @@ const FALSE = 'FALSE';
 const ANGULAR = 'ANGULAR';
 const NATIVE_ADD_LISTENER = 'addEventListener';
 const NATIVE_REMOVE_LISTENER = 'removeEventListener';
-const blackListedEvents = Zone && Zone[__symbol__('BLACK_LISTED_EVENTS')];
+const blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
 let blackListedMap;
 if (blackListedEvents) {
     blackListedMap = {};
@@ -3922,7 +3924,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-8a0e458');
+const VERSION = new Version('5.0.0-beta.7-627f048');
 
 /**
  * @fileoverview added by tsickle
