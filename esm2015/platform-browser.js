@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-c1b029a
+ * @license Angular v5.0.0-beta.7-2b84b86
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1111,6 +1111,8 @@ class BrowserPlatformLocation extends PlatformLocation {
     _init() {
         (/** @type {?} */ (this)).location = getDOM().getLocation();
         this._history = getDOM().getHistory();
+        (/** @type {?} */ (this)).hash = this.location.hash;
+        (/** @type {?} */ (this)).search = this.location.search;
     }
     /**
      * @return {?}
@@ -1134,14 +1136,6 @@ class BrowserPlatformLocation extends PlatformLocation {
      * @return {?}
      */
     get pathname() { return this.location.pathname; }
-    /**
-     * @return {?}
-     */
-    get search() { return this.location.search; }
-    /**
-     * @return {?}
-     */
-    get hash() { return this.location.hash; }
     /**
      * @param {?} newPath
      * @return {?}
@@ -3924,7 +3918,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-c1b029a');
+const VERSION = new Version('5.0.0-beta.7-2b84b86');
 
 /**
  * @fileoverview added by tsickle

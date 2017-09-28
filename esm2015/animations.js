@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-c1b029a
+ * @license Angular v5.0.0-beta.7-2b84b86
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -317,11 +317,8 @@ class BaseAnimationRenderer {
         this.delegate = delegate;
         this.engine = engine;
         this.destroyNode = this.delegate.destroyNode ? (n) => /** @type {?} */ ((delegate.destroyNode))(n) : null;
+        this.data = delegate.data;
     }
-    /**
-     * @return {?}
-     */
-    get data() { return this.delegate.data; }
     /**
      * @return {?}
      */
