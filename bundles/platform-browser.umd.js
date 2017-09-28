@@ -1,11 +1,11 @@
 /**
- * @license Angular v5.0.0-beta.7-5406a49
+ * @license Angular v5.0.0-beta.7-82e4923
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/platform-browser', ['exports', '@angular/common', '@angular/core'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = {}),global.ng.common,global.ng.core));
 }(this, (function (exports,_angular_common,_angular_core) { 'use strict';
 
@@ -44,7 +44,7 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v5.0.0-beta.7-5406a49
+ * @license Angular v5.0.0-beta.7-82e4923
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -5163,7 +5163,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.7-5406a49');
+var VERSION = new _angular_core.Version('5.0.0-beta.7-82e4923');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
