@@ -14,14 +14,14 @@ import { LocationChangeListener, PlatformLocation } from '@angular/common';
 export declare class BrowserPlatformLocation extends PlatformLocation {
     private _doc;
     readonly location: Location;
-    readonly search: string;
-    readonly hash: string;
     private _history;
     constructor(_doc: any);
     getBaseHrefFromDOM(): string;
     onPopState(fn: LocationChangeListener): void;
     onHashChange(fn: LocationChangeListener): void;
     pathname: string;
+    readonly search: string;
+    readonly hash: string;
     pushState(state: any, title: string, url: string): void;
     replaceState(state: any, title: string, url: string): void;
     forward(): void;

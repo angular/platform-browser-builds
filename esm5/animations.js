@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-bed8ac7
+ * @license Angular v5.0.0-beta.7-14e8e88
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -398,8 +398,15 @@ var BaseAnimationRenderer = (function () {
         this.delegate = delegate;
         this.engine = engine;
         this.destroyNode = this.delegate.destroyNode ? function (n) { return /** @type {?} */ ((delegate.destroyNode))(n); } : null;
-        this.data = delegate.data;
     }
+    Object.defineProperty(BaseAnimationRenderer.prototype, "data", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this.delegate.data; },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */

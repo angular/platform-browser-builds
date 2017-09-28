@@ -20,10 +20,10 @@ export declare class BaseAnimationRenderer implements Renderer2 {
     protected namespaceId: string;
     delegate: Renderer2;
     engine: AnimationEngine;
+    constructor(namespaceId: string, delegate: Renderer2, engine: AnimationEngine);
     readonly data: {
         [key: string]: any;
     };
-    constructor(namespaceId: string, delegate: Renderer2, engine: AnimationEngine);
     destroyNode: ((n: any) => void) | null;
     destroy(): void;
     createElement(name: string, namespace?: string | null | undefined): any;
