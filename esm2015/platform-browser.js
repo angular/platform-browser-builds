@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-d442b68
+ * @license Angular v5.0.0-rc.0-0038712
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1539,7 +1539,7 @@ Title.ctorParameters = () => [
  * @return {?}
  */
 function exportNgVar(name, value) {
-    if (typeof goog === 'undefined' || goog.DEBUG) {
+    if (typeof COMPILED === 'undefined' || !COMPILED) {
         // Note: we can't export `ng` when using closure enhanced optimization as:
         // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
         // - we can't declare a closure extern as the namespace `ng` is already used within Google
@@ -3924,7 +3924,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-d442b68');
+const VERSION = new Version('5.0.0-rc.0-0038712');
 
 /**
  * @fileoverview added by tsickle
