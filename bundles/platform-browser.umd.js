@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-25843fe
+ * @license Angular v5.0.0-678d1cf
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -44,7 +44,7 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v5.0.0-25843fe
+ * @license Angular v5.0.0-678d1cf
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3169,7 +3169,7 @@ var ShadowDomRenderer = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 var ɵ0 = function (v) {
-    return v;
+    return '__zone_symbol__' + v;
 };
 /**
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
@@ -5163,7 +5163,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-25843fe');
+var VERSION = new _angular_core.Version('5.0.0-678d1cf');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
