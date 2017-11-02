@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.1.0-beta.0-613a9e3
+ * @license Angular v5.1.0-beta.0-a28d616
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2260,7 +2260,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * found in the LICENSE file at https://angular.io/license
  */
 const ɵ0 = function (v) {
-    return v;
+    return '__zone_symbol__' + v;
 };
 /**
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
@@ -3924,7 +3924,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.1.0-beta.0-613a9e3');
+const VERSION = new Version('5.1.0-beta.0-a28d616');
 
 /**
  * @fileoverview added by tsickle
