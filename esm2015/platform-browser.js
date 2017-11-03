@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-e4cd3b0
+ * @license Angular v5.0.0-7083791
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2276,6 +2276,8 @@ const FALSE = 'FALSE';
 const ANGULAR = 'ANGULAR';
 const NATIVE_ADD_LISTENER = 'addEventListener';
 const NATIVE_REMOVE_LISTENER = 'removeEventListener';
+// use the same symbol string which is used in zone.js
+const stopSymbol = '__zone_symbol__propagationStopped';
 const blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
 let blackListedMap;
 if (blackListedEvents) {
@@ -2316,6 +2318,9 @@ const globalListener = function (event) {
         // itself or others
         const /** @type {?} */ copiedTasks = taskDatas.slice();
         for (let /** @type {?} */ i = 0; i < copiedTasks.length; i++) {
+            if ((/** @type {?} */ (event))[stopSymbol] === true) {
+                break;
+            }
             const /** @type {?} */ taskData = copiedTasks[i];
             if (taskData.zone !== Zone.current) {
                 // only use Zone.run when Zone.current not equals to stored zone
@@ -2335,6 +2340,26 @@ class DomEventsPlugin extends EventManagerPlugin {
     constructor(doc, ngZone) {
         super(doc);
         this.ngZone = ngZone;
+        this.patchEvent();
+    }
+    /**
+     * @return {?}
+     */
+    patchEvent() {
+        if (!Event || !Event.prototype) {
+            return;
+        }
+        const /** @type {?} */ symbol = '__zone_symbol__stopImmediatePropagation';
+        if ((/** @type {?} */ (Event.prototype))[symbol]) {
+            // already patched by zone.js
+            return;
+        }
+        (/** @type {?} */ (Event.prototype))[symbol] = Event.prototype.stopImmediatePropagation;
+        Event.prototype.stopImmediatePropagation = function () {
+            if (this) {
+                this[stopSymbol] = true;
+            }
+        };
     }
     /**
      * @param {?} eventName
@@ -3924,7 +3949,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-e4cd3b0');
+const VERSION = new Version('5.0.0-7083791');
 
 /**
  * @fileoverview added by tsickle
