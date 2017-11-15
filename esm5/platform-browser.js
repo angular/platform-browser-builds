@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.1.0-beta.0-d47b2a6
+ * @license Angular v5.1.0-beta.0-043e408
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3144,8 +3144,6 @@ var FALSE = 'FALSE';
 var ANGULAR = 'ANGULAR';
 var NATIVE_ADD_LISTENER = 'addEventListener';
 var NATIVE_REMOVE_LISTENER = 'removeEventListener';
-// use the same symbol string which is used in zone.js
-var stopSymbol = '__zone_symbol__propagationStopped';
 var blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
 var blackListedMap;
 if (blackListedEvents) {
@@ -3186,9 +3184,6 @@ var globalListener = function (event) {
         // itself or others
         var /** @type {?} */ copiedTasks = taskDatas.slice();
         for (var /** @type {?} */ i = 0; i < copiedTasks.length; i++) {
-            if ((/** @type {?} */ (event))[stopSymbol] === true) {
-                break;
-            }
             var /** @type {?} */ taskData = copiedTasks[i];
             if (taskData.zone !== Zone.current) {
                 // only use Zone.run when Zone.current not equals to stored zone
@@ -3205,31 +3200,8 @@ var DomEventsPlugin = (function (_super) {
     function DomEventsPlugin(doc, ngZone) {
         var _this = _super.call(this, doc) || this;
         _this.ngZone = ngZone;
-        _this.patchEvent();
         return _this;
     }
-    /**
-     * @return {?}
-     */
-    DomEventsPlugin.prototype.patchEvent = /**
-     * @return {?}
-     */
-    function () {
-        if (!Event || !Event.prototype) {
-            return;
-        }
-        var /** @type {?} */ symbol = '__zone_symbol__stopImmediatePropagation';
-        if ((/** @type {?} */ (Event.prototype))[symbol]) {
-            // already patched by zone.js
-            return;
-        }
-        (/** @type {?} */ (Event.prototype))[symbol] = Event.prototype.stopImmediatePropagation;
-        Event.prototype.stopImmediatePropagation = function () {
-            if (this) {
-                this[stopSymbol] = true;
-            }
-        };
-    };
     // This plugin should come last in the list of plugins, because it accepts all
     // events.
     /**
@@ -5150,7 +5122,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.1.0-beta.0-d47b2a6');
+var VERSION = new Version('5.1.0-beta.0-043e408');
 
 /**
  * @fileoverview added by tsickle
