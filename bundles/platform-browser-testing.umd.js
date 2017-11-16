@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.1.0-beta.0-f8658cd
+ * @license Angular v5.1.0-beta.0-336041a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -10,7 +10,7 @@
 }(this, (function (exports,_angular_core,_angular_platformBrowser) { 'use strict';
 
 /**
- * @license Angular v5.1.0-beta.0-f8658cd
+ * @license Angular v5.1.0-beta.0-336041a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -26,7 +26,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 var browserDetection;
-var BrowserDetection = (function () {
+var BrowserDetection = /** @class */ (function () {
     function BrowserDetection(ua) {
         this._overrideUa = ua;
     }
@@ -216,7 +216,7 @@ var ɵ0 = createNgZone;
  *
  * \@stable
  */
-var BrowserTestingModule = (function () {
+var BrowserTestingModule = /** @class */ (function () {
     function BrowserTestingModule() {
     }
     BrowserTestingModule.decorators = [
