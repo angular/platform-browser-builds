@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.1.0-beta.1-1861e41
+ * @license Angular v5.1.0-beta.1-365712e
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2290,6 +2290,9 @@ const FALSE = 'FALSE';
 const ANGULAR = 'ANGULAR';
 const NATIVE_ADD_LISTENER = 'addEventListener';
 const NATIVE_REMOVE_LISTENER = 'removeEventListener';
+// use the same symbol string which is used in zone.js
+const stopSymbol = '__zone_symbol__propagationStopped';
+const stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
 const blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
 let blackListedMap;
 if (blackListedEvents) {
@@ -2330,6 +2333,11 @@ const globalListener = function (event) {
         // itself or others
         const /** @type {?} */ copiedTasks = taskDatas.slice();
         for (let /** @type {?} */ i = 0; i < copiedTasks.length; i++) {
+            // if other listener call event.stopImmediatePropagation
+            // just break
+            if ((/** @type {?} */ (event))[stopSymbol] === true) {
+                break;
+            }
             const /** @type {?} */ taskData = copiedTasks[i];
             if (taskData.zone !== Zone.current) {
                 // only use Zone.run when Zone.current not equals to stored zone
@@ -2349,6 +2357,30 @@ class DomEventsPlugin extends EventManagerPlugin {
     constructor(doc, ngZone) {
         super(doc);
         this.ngZone = ngZone;
+        this.patchEvent();
+    }
+    /**
+     * @return {?}
+     */
+    patchEvent() {
+        if (!Event || !Event.prototype) {
+            return;
+        }
+        if ((/** @type {?} */ (Event.prototype))[stopMethodSymbol]) {
+            // already patched by zone.js
+            return;
+        }
+        const /** @type {?} */ delegate = (/** @type {?} */ (Event.prototype))[stopMethodSymbol] =
+            Event.prototype.stopImmediatePropagation;
+        Event.prototype.stopImmediatePropagation = function () {
+            if (this) {
+                this[stopSymbol] = true;
+            }
+            // should call native delegate in case
+            // in some enviroment part of the application
+            // will not use the patched Event
+            delegate && delegate.apply(this, arguments);
+        };
     }
     /**
      * @param {?} eventName
@@ -3952,7 +3984,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.1.0-beta.1-1861e41');
+const VERSION = new Version('5.1.0-beta.1-365712e');
 
 /**
  * @fileoverview added by tsickle
