@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.1.0-beta.2-c2b3792
+ * @license Angular v5.1.0-beta.2-65a2cb8
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2412,37 +2412,50 @@ class DomEventsPlugin extends EventManagerPlugin {
         let /** @type {?} */ callback = /** @type {?} */ (handler);
         // if zonejs is loaded and current zone is not ngZone
         // we keep Zone.current on target for later restoration.
-        if (zoneJsLoaded && (!NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
-            let /** @type {?} */ symbolName = symbolNames[eventName];
-            if (!symbolName) {
-                symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
-            }
-            let /** @type {?} */ taskDatas = (/** @type {?} */ (element))[symbolName];
-            const /** @type {?} */ globalListenerRegistered = taskDatas && taskDatas.length > 0;
-            if (!taskDatas) {
-                taskDatas = (/** @type {?} */ (element))[symbolName] = [];
-            }
-            const /** @type {?} */ zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
-            if (taskDatas.length === 0) {
-                taskDatas.push({ zone: zone, handler: callback });
-            }
-            else {
-                let /** @type {?} */ callbackRegistered = false;
-                for (let /** @type {?} */ i = 0; i < taskDatas.length; i++) {
-                    if (taskDatas[i].handler === callback) {
-                        callbackRegistered = true;
-                        break;
-                    }
+        if (zoneJsLoaded) {
+            if (!NgZone.isInAngularZone() || isBlackListedEvent(eventName)) {
+                let /** @type {?} */ symbolName = symbolNames[eventName];
+                if (!symbolName) {
+                    symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
                 }
-                if (!callbackRegistered) {
+                let /** @type {?} */ taskDatas = (/** @type {?} */ (element))[symbolName];
+                const /** @type {?} */ globalListenerRegistered = taskDatas && taskDatas.length > 0;
+                if (!taskDatas) {
+                    taskDatas = (/** @type {?} */ (element))[symbolName] = [];
+                }
+                const /** @type {?} */ zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
+                if (taskDatas.length === 0) {
                     taskDatas.push({ zone: zone, handler: callback });
                 }
+                else {
+                    let /** @type {?} */ callbackRegistered = false;
+                    for (let /** @type {?} */ i = 0; i < taskDatas.length; i++) {
+                        if (taskDatas[i].handler === callback) {
+                            callbackRegistered = true;
+                            break;
+                        }
+                    }
+                    if (!callbackRegistered) {
+                        taskDatas.push({ zone: zone, handler: callback });
+                    }
+                }
+                if (!globalListenerRegistered) {
+                    element[ADD_EVENT_LISTENER](eventName, globalListener, false);
+                }
             }
-            if (!globalListenerRegistered) {
-                element[ADD_EVENT_LISTENER](eventName, globalListener, false);
+            else {
+                // if zone.js loaded and we are in angular zone, we don't need to
+                // use zone.js patched addEventListener
+                const /** @type {?} */ wrappedCallback = function () {
+                    return self.ngZone.run(callback, this, /** @type {?} */ (arguments));
+                };
+                zoneJsLoaded.apply(element, [eventName, wrappedCallback, false]);
+                // we just use the underlying removeEventListener
+                return () => element[REMOVE_EVENT_LISTENER].apply(element, [eventName, wrappedCallback, false]);
             }
         }
         else {
+            // use zone.js patched addEventListener or native addEventListener if zone.js not loaded
             element[NATIVE_ADD_LISTENER](eventName, callback, false);
         }
         return () => this.removeEventListener(element, eventName, callback);
@@ -2459,6 +2472,7 @@ class DomEventsPlugin extends EventManagerPlugin {
         if (!underlyingRemove) {
             return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
+        // if zone.js loaded and wrappedCallback not exists, the callback was added in different zone
         let /** @type {?} */ symbolName = symbolNames[eventName];
         let /** @type {?} */ taskDatas = symbolName && target[symbolName];
         if (!taskDatas) {
@@ -3995,7 +4009,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.1.0-beta.2-c2b3792');
+const VERSION = new Version('5.1.0-beta.2-65a2cb8');
 
 /**
  * @fileoverview added by tsickle
