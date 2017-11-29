@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.1.0-beta.2-65a2cb8
+ * @license Angular v5.1.0-beta.2-ba850b3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3294,52 +3294,37 @@ var DomEventsPlugin = /** @class */ (function (_super) {
         var /** @type {?} */ callback = /** @type {?} */ (handler);
         // if zonejs is loaded and current zone is not ngZone
         // we keep Zone.current on target for later restoration.
-        if (zoneJsLoaded) {
-            if (!NgZone.isInAngularZone() || isBlackListedEvent(eventName)) {
-                var /** @type {?} */ symbolName = symbolNames[eventName];
-                if (!symbolName) {
-                    symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
-                }
-                var /** @type {?} */ taskDatas = (/** @type {?} */ (element))[symbolName];
-                var /** @type {?} */ globalListenerRegistered = taskDatas && taskDatas.length > 0;
-                if (!taskDatas) {
-                    taskDatas = (/** @type {?} */ (element))[symbolName] = [];
-                }
-                var /** @type {?} */ zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
-                if (taskDatas.length === 0) {
-                    taskDatas.push({ zone: zone, handler: callback });
-                }
-                else {
-                    var /** @type {?} */ callbackRegistered = false;
-                    for (var /** @type {?} */ i = 0; i < taskDatas.length; i++) {
-                        if (taskDatas[i].handler === callback) {
-                            callbackRegistered = true;
-                            break;
-                        }
-                    }
-                    if (!callbackRegistered) {
-                        taskDatas.push({ zone: zone, handler: callback });
-                    }
-                }
-                if (!globalListenerRegistered) {
-                    element[ADD_EVENT_LISTENER](eventName, globalListener, false);
-                }
+        if (zoneJsLoaded && (!NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
+            var /** @type {?} */ symbolName = symbolNames[eventName];
+            if (!symbolName) {
+                symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
+            }
+            var /** @type {?} */ taskDatas = (/** @type {?} */ (element))[symbolName];
+            var /** @type {?} */ globalListenerRegistered = taskDatas && taskDatas.length > 0;
+            if (!taskDatas) {
+                taskDatas = (/** @type {?} */ (element))[symbolName] = [];
+            }
+            var /** @type {?} */ zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
+            if (taskDatas.length === 0) {
+                taskDatas.push({ zone: zone, handler: callback });
             }
             else {
-                // if zone.js loaded and we are in angular zone, we don't need to
-                // use zone.js patched addEventListener
-                var /** @type {?} */ wrappedCallback_1 = function () {
-                    return self.ngZone.run(callback, this, /** @type {?} */ (arguments));
-                };
-                zoneJsLoaded.apply(element, [eventName, wrappedCallback_1, false]);
-                // we just use the underlying removeEventListener
-                return function () {
-                    return element[REMOVE_EVENT_LISTENER].apply(element, [eventName, wrappedCallback_1, false]);
-                };
+                var /** @type {?} */ callbackRegistered = false;
+                for (var /** @type {?} */ i = 0; i < taskDatas.length; i++) {
+                    if (taskDatas[i].handler === callback) {
+                        callbackRegistered = true;
+                        break;
+                    }
+                }
+                if (!callbackRegistered) {
+                    taskDatas.push({ zone: zone, handler: callback });
+                }
+            }
+            if (!globalListenerRegistered) {
+                element[ADD_EVENT_LISTENER](eventName, globalListener, false);
             }
         }
         else {
-            // use zone.js patched addEventListener or native addEventListener if zone.js not loaded
             element[NATIVE_ADD_LISTENER](eventName, callback, false);
         }
         return function () { return _this.removeEventListener(element, eventName, callback); };
@@ -3362,7 +3347,6 @@ var DomEventsPlugin = /** @class */ (function (_super) {
         if (!underlyingRemove) {
             return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
-        // if zone.js loaded and wrappedCallback not exists, the callback was added in different zone
         var /** @type {?} */ symbolName = symbolNames[eventName];
         var /** @type {?} */ taskDatas = symbolName && target[symbolName];
         if (!taskDatas) {
@@ -5212,7 +5196,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.1.0-beta.2-65a2cb8');
+var VERSION = new Version('5.1.0-beta.2-ba850b3');
 
 /**
  * @fileoverview added by tsickle
