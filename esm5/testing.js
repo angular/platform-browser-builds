@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-3215c4b
+ * @license Angular v5.1.0-5a0076f
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -18,7 +18,7 @@ import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM
  * found in the LICENSE file at https://angular.io/license
  */
 var browserDetection;
-var BrowserDetection = (function () {
+var BrowserDetection = /** @class */ (function () {
     function BrowserDetection(ua) {
         this._overrideUa = ua;
     }
@@ -202,12 +202,13 @@ var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useValu
  * \@stable
  */
 var platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
+var ɵ0 = createNgZone;
 /**
  * NgModule for testing.
  *
  * \@stable
  */
-var BrowserTestingModule = (function () {
+var BrowserTestingModule = /** @class */ (function () {
     function BrowserTestingModule() {
     }
     BrowserTestingModule.decorators = [
@@ -216,7 +217,7 @@ var BrowserTestingModule = (function () {
                     providers: [
                         { provide: APP_ID, useValue: 'a' },
                         ɵELEMENT_PROBE_PROVIDERS,
-                        { provide: NgZone, useFactory: createNgZone },
+                        { provide: NgZone, useFactory: ɵ0 },
                     ]
                 },] },
     ];
@@ -268,4 +269,4 @@ var BrowserTestingModule = (function () {
  */
 
 export { platformBrowserTesting, BrowserTestingModule, createNgZone as ɵa };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=testing.js.map

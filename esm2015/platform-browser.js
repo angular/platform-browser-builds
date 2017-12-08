@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-3215c4b
+ * @license Angular v5.1.0-5a0076f
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9,6 +9,13 @@ import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, Appl
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 let _DOM = /** @type {?} */ ((null));
 /**
@@ -48,13 +55,11 @@ class DomAdapter {
      * @return {?}
      */
     get attrToPropMap() { return this._attrToPropMap; }
-    ;
     /**
      * @param {?} value
      * @return {?}
      */
     set attrToPropMap(value) { this._attrToPropMap = value; }
-    ;
 }
 
 /**
@@ -1075,6 +1080,13 @@ const DOCUMENT$1 = DOCUMENT;
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @return {?}
  */
 function supportsState() {
@@ -1111,13 +1123,9 @@ class BrowserPlatformLocation extends PlatformLocation {
      * @return {?}
      */
     _init() {
-        this._location = getDOM().getLocation();
+        (/** @type {?} */ (this)).location = getDOM().getLocation();
         this._history = getDOM().getHistory();
     }
-    /**
-     * @return {?}
-     */
-    get location() { return this._location; }
     /**
      * @return {?}
      */
@@ -1139,20 +1147,20 @@ class BrowserPlatformLocation extends PlatformLocation {
     /**
      * @return {?}
      */
-    get pathname() { return this._location.pathname; }
+    get pathname() { return this.location.pathname; }
     /**
      * @return {?}
      */
-    get search() { return this._location.search; }
+    get search() { return this.location.search; }
     /**
      * @return {?}
      */
-    get hash() { return this._location.hash; }
+    get hash() { return this.location.hash; }
     /**
      * @param {?} newPath
      * @return {?}
      */
-    set pathname(newPath) { this._location.pathname = newPath; }
+    set pathname(newPath) { this.location.pathname = newPath; }
     /**
      * @param {?} state
      * @param {?} title
@@ -1164,7 +1172,7 @@ class BrowserPlatformLocation extends PlatformLocation {
             this._history.pushState(state, title, url);
         }
         else {
-            this._location.hash = url;
+            this.location.hash = url;
         }
     }
     /**
@@ -1178,7 +1186,7 @@ class BrowserPlatformLocation extends PlatformLocation {
             this._history.replaceState(state, title, url);
         }
         else {
-            this._location.hash = url;
+            this.location.hash = url;
         }
     }
     /**
@@ -1545,12 +1553,15 @@ Title.ctorParameters = () => [
  * @return {?}
  */
 function exportNgVar(name, value) {
-    if (!ng) {
-        ɵglobal['ng'] = ng = (/** @type {?} */ (ɵglobal['ng'])) || {};
+    if (typeof COMPILED === 'undefined' || !COMPILED) {
+        // Note: we can't export `ng` when using closure enhanced optimization as:
+        // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
+        // - we can't declare a closure extern as the namespace `ng` is already used within Google
+        //   for typings for angularJS (via `goog.provide('ng....')`).
+        const /** @type {?} */ ng = ɵglobal['ng'] = (/** @type {?} */ (ɵglobal['ng'])) || {};
+        ng[name] = value;
     }
-    ng[name] = value;
 }
-let ng;
 
 /**
  * @fileoverview added by tsickle
@@ -1714,7 +1725,6 @@ class EventManagerPlugin {
         }
         return this.addEventListener(target, eventName, handler);
     }
-    ;
 }
 
 /**
@@ -1900,7 +1910,6 @@ class DomRendererFactory2 {
         this.rendererByCompId = new Map();
         this.defaultRenderer = new DefaultDomRenderer2(eventManager);
     }
-    ;
     /**
      * @param {?} element
      * @param {?} type
@@ -2264,16 +2273,16 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+const ɵ0 = function (v) {
+    return '__zone_symbol__' + v;
+};
 /**
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
  * since Angular can do much more
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
  */
-const Zone = ɵglobal['Zone'];
-const __symbol__ = Zone && Zone['__symbol__'] || function (v) {
-    return v;
-};
+const __symbol__ = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))['__symbol__'] || ɵ0;
 const ADD_EVENT_LISTENER = __symbol__('addEventListener');
 const REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 const symbolNames = {};
@@ -2281,7 +2290,10 @@ const FALSE = 'FALSE';
 const ANGULAR = 'ANGULAR';
 const NATIVE_ADD_LISTENER = 'addEventListener';
 const NATIVE_REMOVE_LISTENER = 'removeEventListener';
-const blackListedEvents = Zone && Zone[__symbol__('BLACK_LISTED_EVENTS')];
+// use the same symbol string which is used in zone.js
+const stopSymbol = '__zone_symbol__propagationStopped';
+const stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
+const blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
 let blackListedMap;
 if (blackListedEvents) {
     blackListedMap = {};
@@ -2321,6 +2333,11 @@ const globalListener = function (event) {
         // itself or others
         const /** @type {?} */ copiedTasks = taskDatas.slice();
         for (let /** @type {?} */ i = 0; i < copiedTasks.length; i++) {
+            // if other listener call event.stopImmediatePropagation
+            // just break
+            if ((/** @type {?} */ (event))[stopSymbol] === true) {
+                break;
+            }
             const /** @type {?} */ taskData = copiedTasks[i];
             if (taskData.zone !== Zone.current) {
                 // only use Zone.run when Zone.current not equals to stored zone
@@ -2340,6 +2357,30 @@ class DomEventsPlugin extends EventManagerPlugin {
     constructor(doc, ngZone) {
         super(doc);
         this.ngZone = ngZone;
+        this.patchEvent();
+    }
+    /**
+     * @return {?}
+     */
+    patchEvent() {
+        if (!Event || !Event.prototype) {
+            return;
+        }
+        if ((/** @type {?} */ (Event.prototype))[stopMethodSymbol]) {
+            // already patched by zone.js
+            return;
+        }
+        const /** @type {?} */ delegate = (/** @type {?} */ (Event.prototype))[stopMethodSymbol] =
+            Event.prototype.stopImmediatePropagation;
+        Event.prototype.stopImmediatePropagation = function () {
+            if (this) {
+                this[stopSymbol] = true;
+            }
+            // should call native delegate in case
+            // in some enviroment part of the application
+            // will not use the patched Event
+            delegate && delegate.apply(this, arguments);
+        };
     }
     /**
      * @param {?} eventName
@@ -2425,16 +2466,27 @@ class DomEventsPlugin extends EventManagerPlugin {
             // just call native removeEventListener
             return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
+        // fix issue 20532, should be able to remove
+        // listener which was added inside of ngZone
+        let /** @type {?} */ found = false;
         for (let /** @type {?} */ i = 0; i < taskDatas.length; i++) {
             // remove listener from taskDatas if the callback equals
             if (taskDatas[i].handler === callback) {
+                found = true;
                 taskDatas.splice(i, 1);
                 break;
             }
         }
-        if (taskDatas.length === 0) {
-            // all listeners are removed, we can remove the globalListener from target
-            underlyingRemove.apply(target, [eventName, globalListener, false]);
+        if (found) {
+            if (taskDatas.length === 0) {
+                // all listeners are removed, we can remove the globalListener from target
+                underlyingRemove.apply(target, [eventName, globalListener, false]);
+            }
+        }
+        else {
+            // not found in taskDatas, the callback may be added inside of ngZone
+            // use native remove listener to remove the calback
+            target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
     }
 }
@@ -2601,11 +2653,15 @@ HammerGesturesPlugin.ctorParameters = () => [
  * found in the LICENSE file at https://angular.io/license
  */
 const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
+const ɵ0$1 = (event) => event.altKey;
+const ɵ1$1 = (event) => event.ctrlKey;
+const ɵ2$1 = (event) => event.metaKey;
+const ɵ3 = (event) => event.shiftKey;
 const MODIFIER_KEY_GETTERS = {
-    'alt': (event) => event.altKey,
-    'control': (event) => event.ctrlKey,
-    'meta': (event) => event.metaKey,
-    'shift': (event) => event.shiftKey
+    'alt': ɵ0$1,
+    'control': ɵ1$1,
+    'meta': ɵ2$1,
+    'shift': ɵ3
 };
 /**
  * \@experimental
@@ -3627,6 +3683,13 @@ class AngularProfiler {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 const PROFILER_GLOBAL_NAME = 'profiler';
 /**
  * Enabled Angular debug tools that are accessible via your browser's
@@ -3661,6 +3724,200 @@ function disableDebugTools() {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @param {?} text
+ * @return {?}
+ */
+function escapeHtml(text) {
+    const /** @type {?} */ escapedText = {
+        '&': '&a;',
+        '"': '&q;',
+        '\'': '&s;',
+        '<': '&l;',
+        '>': '&g;',
+    };
+    return text.replace(/[&"'<>]/g, s => escapedText[s]);
+}
+/**
+ * @param {?} text
+ * @return {?}
+ */
+function unescapeHtml(text) {
+    const /** @type {?} */ unescapedText = {
+        '&a;': '&',
+        '&q;': '"',
+        '&s;': '\'',
+        '&l;': '<',
+        '&g;': '>',
+    };
+    return text.replace(/&[^;]+;/g, s => unescapedText[s]);
+}
+/**
+ * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
+ *
+ * Example:
+ *
+ * ```
+ * const COUNTER_KEY = makeStateKey<number>('counter');
+ * let value = 10;
+ *
+ * transferState.set(COUNTER_KEY, value);
+ * ```
+ *
+ * \@experimental
+ * @template T
+ * @param {?} key
+ * @return {?}
+ */
+function makeStateKey(key) {
+    return /** @type {?} */ (key);
+}
+/**
+ * A key value store that is transferred from the application on the server side to the application
+ * on the client side.
+ *
+ * `TransferState` will be available as an injectable token. To use it import
+ * `ServerTransferStateModule` on the server and `BrowserTransferStateModule` on the client.
+ *
+ * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
+ * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
+ * non-lossy manner.
+ *
+ * \@experimental
+ */
+class TransferState {
+    constructor() {
+        this.store = {};
+        this.onSerializeCallbacks = {};
+    }
+    /**
+     * \@internal
+     * @param {?} initState
+     * @return {?}
+     */
+    static init(initState) {
+        const /** @type {?} */ transferState = new TransferState();
+        transferState.store = initState;
+        return transferState;
+    }
+    /**
+     * Get the value corresponding to a key. Return `defaultValue` if key is not found.
+     * @template T
+     * @param {?} key
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    get(key, defaultValue) { return /** @type {?} */ (this.store[key]) || defaultValue; }
+    /**
+     * Set the value corresponding to a key.
+     * @template T
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    set(key, value) { this.store[key] = value; }
+    /**
+     * Remove a key from the store.
+     * @template T
+     * @param {?} key
+     * @return {?}
+     */
+    remove(key) { delete this.store[key]; }
+    /**
+     * Test whether a key exists in the store.
+     * @template T
+     * @param {?} key
+     * @return {?}
+     */
+    hasKey(key) { return this.store.hasOwnProperty(key); }
+    /**
+     * Register a callback to provide the value for a key when `toJson` is called.
+     * @template T
+     * @param {?} key
+     * @param {?} callback
+     * @return {?}
+     */
+    onSerialize(key, callback) {
+        this.onSerializeCallbacks[key] = callback;
+    }
+    /**
+     * Serialize the current state of the store to JSON.
+     * @return {?}
+     */
+    toJson() {
+        // Call the onSerialize callbacks and put those values into the store.
+        for (const /** @type {?} */ key in this.onSerializeCallbacks) {
+            if (this.onSerializeCallbacks.hasOwnProperty(key)) {
+                try {
+                    this.store[key] = this.onSerializeCallbacks[key]();
+                }
+                catch (/** @type {?} */ e) {
+                    console.warn('Exception in onSerialize callback: ', e);
+                }
+            }
+        }
+        return JSON.stringify(this.store);
+    }
+}
+TransferState.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+TransferState.ctorParameters = () => [];
+/**
+ * @param {?} doc
+ * @param {?} appId
+ * @return {?}
+ */
+function initTransferState(doc, appId) {
+    // Locate the script tag with the JSON data transferred from the server.
+    // The id of the script tag is set to the Angular appId + 'state'.
+    const /** @type {?} */ script = doc.getElementById(appId + '-state');
+    let /** @type {?} */ initialState = {};
+    if (script && script.textContent) {
+        try {
+            initialState = JSON.parse(unescapeHtml(script.textContent));
+        }
+        catch (/** @type {?} */ e) {
+            console.warn('Exception while restoring TransferState for app ' + appId, e);
+        }
+    }
+    return TransferState.init(initialState);
+}
+/**
+ * NgModule to install on the client side while using the `TransferState` to transfer state from
+ * server to client.
+ *
+ * \@experimental
+ */
+class BrowserTransferStateModule {
+}
+BrowserTransferStateModule.decorators = [
+    { type: NgModule, args: [{
+                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
+            },] },
+];
+/** @nocollapse */
+BrowserTransferStateModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 /**
  * Predicates for use with {\@link DebugElement}'s query functions.
@@ -3738,7 +3995,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-3215c4b');
+const VERSION = new Version('5.1.0-5a0076f');
 
 /**
  * @fileoverview added by tsickle
@@ -3779,5 +4036,5 @@ const VERSION = new Version('5.0.0-beta.7-3215c4b');
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵh, SERVER_TRANSITION_PROVIDERS as ɵf, appInitializerFactory as ɵe, _createNgProbe as ɵg, EventManagerPlugin as ɵc, DomSanitizerImpl as ɵd };
-//# sourceMappingURL=index.js.map
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵi, SERVER_TRANSITION_PROVIDERS as ɵg, appInitializerFactory as ɵf, initTransferState as ɵc, _createNgProbe as ɵh, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
+//# sourceMappingURL=platform-browser.js.map

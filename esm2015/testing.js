@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-3215c4b
+ * @license Angular v5.1.0-5a0076f
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -149,6 +149,7 @@ const _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useVa
  * \@stable
  */
 const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
+const ɵ0 = createNgZone;
 /**
  * NgModule for testing.
  *
@@ -162,7 +163,7 @@ BrowserTestingModule.decorators = [
                 providers: [
                     { provide: APP_ID, useValue: 'a' },
                     ɵELEMENT_PROBE_PROVIDERS,
-                    { provide: NgZone, useFactory: createNgZone },
+                    { provide: NgZone, useFactory: ɵ0 },
                 ]
             },] },
 ];
@@ -212,4 +213,4 @@ BrowserTestingModule.ctorParameters = () => [];
  */
 
 export { platformBrowserTesting, BrowserTestingModule, createNgZone as ɵa };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=testing.js.map
