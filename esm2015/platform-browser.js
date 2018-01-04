@@ -1,6 +1,6 @@
 /**
- * @license Angular v5.1.3-5efb751
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v5.1.3-d3c0425
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
@@ -3995,7 +3995,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.1.3-5efb751');
+const VERSION = new Version('5.1.3-d3c0425');
 
 /**
  * @fileoverview added by tsickle
