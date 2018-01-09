@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.1.3-39f81b2
+ * @license Angular v5.1.3-84f6b14
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -44,7 +44,7 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v5.1.3-39f81b2
+ * @license Angular v5.1.3-84f6b14
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -5237,7 +5237,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.1.3-39f81b2');
+var VERSION = new _angular_core.Version('5.1.3-84f6b14');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
