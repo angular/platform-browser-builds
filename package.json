@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "5.2.0-908129e",
+  "version": "5.2.0-fc3e7e0",
   "description": "Angular - library for using Angular in a web browser",
   "main": "./bundles/platform-browser.umd.js",
   "module": "./esm5/platform-browser.js",
@@ -12,8 +12,8 @@
     "tslib": "^1.7.1"
   },
   "peerDependencies": {
-    "@angular/core": "5.2.0-908129e",
-    "@angular/common": "5.2.0-908129e"
+    "@angular/core": "5.2.0-fc3e7e0",
+    "@angular/common": "5.2.0-fc3e7e0"
   },
   "repository": {
     "type": "git",
