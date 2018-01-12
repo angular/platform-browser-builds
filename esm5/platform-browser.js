@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.0-cffa0fe
+ * @license Angular v5.2.0-bb62458
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -5191,7 +5191,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.2.0-cffa0fe');
+var VERSION = new Version('5.2.0-bb62458');
 
 /**
  * @fileoverview added by tsickle
