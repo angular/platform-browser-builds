@@ -1,34 +1,32 @@
 /**
- * @license Angular v4.2.2-a6c99f0
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v5.2.0-2717a3e
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
-import { BrowserModule, ɵDomRendererFactory2 } from '@angular/platform-browser';
+import { Inject, Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
+import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 class BrowserAnimationBuilder extends AnimationBuilder {
     /**
      * @param {?} rootRenderer
+     * @param {?} doc
      */
-    constructor(rootRenderer) {
+    constructor(rootRenderer, doc) {
         super();
         this._nextAnimationId = 0;
-        const typeData = {
+        const /** @type {?} */ typeData = /** @type {?} */ ({
             id: '0',
             encapsulation: ViewEncapsulation.None,
             styles: [],
             data: { animation: [] }
-        };
-        this._renderer = rootRenderer.createRenderer(document.body, typeData);
+        });
+        this._renderer = /** @type {?} */ (rootRenderer.createRenderer(doc.body, typeData));
     }
     /**
      * @param {?} animation
@@ -45,11 +43,10 @@ class BrowserAnimationBuilder extends AnimationBuilder {
 BrowserAnimationBuilder.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 BrowserAnimationBuilder.ctorParameters = () => [
     { type: RendererFactory2, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 class BrowserAnimationFactory extends AnimationFactory {
     /**
@@ -175,12 +172,11 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
+const ANIMATION_PREFIX = '@';
+const DISABLE_ANIMATIONS_FLAG = '@.disabled';
 class AnimationRendererFactory {
     /**
      * @param {?} delegate
@@ -195,6 +191,7 @@ class AnimationRendererFactory {
         this._microtaskId = 1;
         this._animationCallbacksBuffer = [];
         this._rendererCache = new Map();
+        this._cdRecurDepth = 0;
         engine.onRemovalComplete = (element, delegate) => {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
@@ -228,7 +225,7 @@ class AnimationRendererFactory {
         const /** @type {?} */ namespaceId = type.id + '-' + this._currentId;
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
-        const /** @type {?} */ animationTriggers = (type.data['animation']);
+        const /** @type {?} */ animationTriggers = /** @type {?} */ (type.data['animation']);
         animationTriggers.forEach(trigger => this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     }
@@ -236,6 +233,7 @@ class AnimationRendererFactory {
      * @return {?}
      */
     begin() {
+        this._cdRecurDepth++;
         if (this.delegate.begin) {
             this.delegate.begin();
         }
@@ -274,10 +272,15 @@ class AnimationRendererFactory {
      * @return {?}
      */
     end() {
-        this._zone.runOutsideAngular(() => {
-            this._scheduleCountTask();
-            this.engine.flush(this._microtaskId);
-        });
+        this._cdRecurDepth--;
+        // this is to prevent animations from running twice when an inner
+        // component does CD when a parent component insted has inserted it
+        if (this._cdRecurDepth == 0) {
+            this._zone.runOutsideAngular(() => {
+                this._scheduleCountTask();
+                this.engine.flush(this._microtaskId);
+            });
+        }
         if (this.delegate.end) {
             this.delegate.end();
         }
@@ -290,9 +293,7 @@ class AnimationRendererFactory {
 AnimationRendererFactory.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 AnimationRendererFactory.ctorParameters = () => [
     { type: RendererFactory2, },
     { type: ɵAnimationEngine, },
@@ -308,7 +309,7 @@ class BaseAnimationRenderer {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
+        this.destroyNode = this.delegate.destroyNode ? (n) => /** @type {?} */ ((delegate.destroyNode))(n) : null;
     }
     /**
      * @return {?}
@@ -438,7 +439,12 @@ class BaseAnimationRenderer {
      * @return {?}
      */
     setProperty(el, name, value) {
-        this.delegate.setProperty(el, name, value);
+        if (name.charAt(0) == ANIMATION_PREFIX && name == DISABLE_ANIMATIONS_FLAG) {
+            this.disableAnimations(el, !!value);
+        }
+        else {
+            this.delegate.setProperty(el, name, value);
+        }
     }
     /**
      * @param {?} node
@@ -454,6 +460,14 @@ class BaseAnimationRenderer {
      */
     listen(target, eventName, callback) {
         return this.delegate.listen(target, eventName, callback);
+    }
+    /**
+     * @param {?} element
+     * @param {?} value
+     * @return {?}
+     */
+    disableAnimations(element, value) {
+        this.engine.disableAnimations(element, value);
     }
 }
 class AnimationRenderer extends BaseAnimationRenderer {
@@ -475,9 +489,14 @@ class AnimationRenderer extends BaseAnimationRenderer {
      * @return {?}
      */
     setProperty(el, name, value) {
-        if (name.charAt(0) == '@') {
-            name = name.substr(1);
-            this.engine.setProperty(this.namespaceId, el, name, value);
+        if (name.charAt(0) == ANIMATION_PREFIX) {
+            if (name.charAt(1) == '.' && name == DISABLE_ANIMATIONS_FLAG) {
+                value = value === undefined ? true : !!value;
+                this.disableAnimations(el, /** @type {?} */ (value));
+            }
+            else {
+                this.engine.process(this.namespaceId, el, name.substr(1), value);
+            }
         }
         else {
             this.delegate.setProperty(el, name, value);
@@ -490,15 +509,17 @@ class AnimationRenderer extends BaseAnimationRenderer {
      * @return {?}
      */
     listen(target, eventName, callback) {
-        if (eventName.charAt(0) == '@') {
+        if (eventName.charAt(0) == ANIMATION_PREFIX) {
             const /** @type {?} */ element = resolveElementFromTarget(target);
             let /** @type {?} */ name = eventName.substr(1);
             let /** @type {?} */ phase = '';
-            if (name.charAt(0) != '@') {
+            // @listener.phase is for trigger animation callbacks
+            // @@listener is for animation builder callbacks
+            if (name.charAt(0) != ANIMATION_PREFIX) {
                 [name, phase] = parseTriggerCallbackName(name);
             }
             return this.engine.listen(this.namespaceId, element, name, phase, event => {
-                const /** @type {?} */ countId = ((event))['_data'] || -1;
+                const /** @type {?} */ countId = (/** @type {?} */ (event))['_data'] || -1;
                 this.factory.scheduleListenerCallback(countId, callback, event);
             });
         }
@@ -533,6 +554,10 @@ function parseTriggerCallbackName(triggerName) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -551,9 +576,7 @@ class InjectableAnimationEngine extends ɵAnimationEngine {
 InjectableAnimationEngine.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 InjectableAnimationEngine.ctorParameters = () => [
     { type: AnimationDriver, },
     { type: ɵAnimationStyleNormalizer, },
@@ -606,11 +629,8 @@ const BROWSER_ANIMATIONS_PROVIDERS = [
 const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useClass: ɵNoopAnimationDriver }, ...SHARED_ANIMATION_PROVIDERS];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * \@experimental Animation support is experimental.
@@ -619,13 +639,11 @@ class BrowserAnimationsModule {
 }
 BrowserAnimationsModule.decorators = [
     { type: NgModule, args: [{
-                imports: [BrowserModule],
+                exports: [BrowserModule],
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 BrowserAnimationsModule.ctorParameters = () => [];
 /**
  * \@experimental Animation support is experimental.
@@ -634,16 +652,23 @@ class NoopAnimationsModule {
 }
 NoopAnimationsModule.decorators = [
     { type: NgModule, args: [{
-                imports: [BrowserModule],
+                exports: [BrowserModule],
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 NoopAnimationsModule.ctorParameters = () => [];
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -651,6 +676,10 @@ NoopAnimationsModule.ctorParameters = () => [];
  * found in the LICENSE file at https://angular.io/license
  */
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -661,22 +690,13 @@ NoopAnimationsModule.ctorParameters = () => [];
 /**
  * @module
  * @description
- * Entry point for all animation APIs of the animation browser package.
+ * Entry point for all public APIs of this package.
  */
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the animation package.
- */
-
 /**
  * Generated bundle index. Do not edit.
  */
