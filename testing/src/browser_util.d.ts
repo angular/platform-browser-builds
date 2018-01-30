@@ -11,7 +11,7 @@ export declare class BrowserDetection {
     private _overrideUa;
     private readonly _ua;
     static setup(): void;
-    constructor(ua: string);
+    constructor(ua: string | null);
     readonly isFirefox: boolean;
     readonly isAndroid: boolean;
     readonly isEdge: boolean;
