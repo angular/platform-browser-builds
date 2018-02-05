@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.3-102d06b
+ * @license Angular v5.2.3-ce51ea9
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -192,6 +192,7 @@ class AnimationRendererFactory {
         this._animationCallbacksBuffer = [];
         this._rendererCache = new Map();
         this._cdRecurDepth = 0;
+        this.promise = Promise.resolve(0);
         engine.onRemovalComplete = (element, delegate) => {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
@@ -242,7 +243,8 @@ class AnimationRendererFactory {
      * @return {?}
      */
     _scheduleCountTask() {
-        Zone.current.scheduleMicroTask('incremenet the animation microtask', () => this._microtaskId++);
+        // always use promise to schedule microtask instead of use Zone
+        this.promise.then(() => { this._microtaskId++; });
     }
     /**
      * @param {?} count
