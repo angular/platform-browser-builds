@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-beta.3-16d1700
+ * @license Angular v6.0.0-beta.3-6435ecd
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -44,7 +44,7 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v6.0.0-beta.3-16d1700
+ * @license Angular v6.0.0-beta.3-6435ecd
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -5111,7 +5111,9 @@ var TransferState = /** @class */ (function () {
      * @param {?} defaultValue
      * @return {?}
      */
-    function (key, defaultValue) { return /** @type {?} */ (this.store[key]) || defaultValue; };
+    function (key, defaultValue) {
+        return this.store[key] !== undefined ? /** @type {?} */ (this.store[key]) : defaultValue;
+    };
     /**
      * Set the value corresponding to a key.
      */
@@ -5385,7 +5387,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.3-16d1700');
+var VERSION = new _angular_core.Version('6.0.0-beta.3-6435ecd');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;

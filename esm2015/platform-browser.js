@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-beta.3-16d1700
+ * @license Angular v6.0.0-beta.3-6435ecd
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3933,7 +3933,9 @@ class TransferState {
      * @param {?} defaultValue
      * @return {?}
      */
-    get(key, defaultValue) { return /** @type {?} */ (this.store[key]) || defaultValue; }
+    get(key, defaultValue) {
+        return this.store[key] !== undefined ? /** @type {?} */ (this.store[key]) : defaultValue;
+    }
     /**
      * Set the value corresponding to a key.
      * @template T
@@ -4108,7 +4110,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('6.0.0-beta.3-16d1700');
+const VERSION = new Version('6.0.0-beta.3-6435ecd');
 
 /**
  * @fileoverview added by tsickle
