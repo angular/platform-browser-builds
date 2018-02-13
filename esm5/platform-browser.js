@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.4-e576b69
+ * @license Angular v5.2.4-da6ab91
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -5070,7 +5070,9 @@ var TransferState = /** @class */ (function () {
      * @param {?} defaultValue
      * @return {?}
      */
-    function (key, defaultValue) { return /** @type {?} */ (this.store[key]) || defaultValue; };
+    function (key, defaultValue) {
+        return this.store[key] !== undefined ? /** @type {?} */ (this.store[key]) : defaultValue;
+    };
     /**
      * Set the value corresponding to a key.
      */
@@ -5344,7 +5346,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.2.4-e576b69');
+var VERSION = new Version('5.2.4-da6ab91');
 
 /**
  * @fileoverview added by tsickle
