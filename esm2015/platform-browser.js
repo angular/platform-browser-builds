@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.5-106b435
+ * @license Angular v5.2.5-0b8b06e
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2571,7 +2571,7 @@ class HammerGestureConfig {
      * @return {?}
      */
     buildHammer(element) {
-        const /** @type {?} */ mc = new Hammer(element);
+        const /** @type {?} */ mc = new Hammer(element, this.options);
         mc.get('pinch').set({ enable: true });
         mc.get('rotate').set({ enable: true });
         for (const /** @type {?} */ eventName in this.overrides) {
@@ -4110,7 +4110,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.2.5-106b435');
+const VERSION = new Version('5.2.5-0b8b06e');
 
 /**
  * @fileoverview added by tsickle
