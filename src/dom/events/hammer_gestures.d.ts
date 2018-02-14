@@ -26,6 +26,16 @@ export declare class HammerGestureConfig {
     overrides: {
         [key: string]: Object;
     };
+    options?: {
+        cssProps?: any;
+        domEvents?: boolean;
+        enable?: boolean | ((manager: any) => boolean);
+        preset?: any[];
+        touchAction?: string;
+        recognizers?: any[];
+        inputClass?: any;
+        inputTarget?: EventTarget;
+    };
     buildHammer(element: HTMLElement): HammerInstance;
 }
 export declare class HammerGesturesPlugin extends EventManagerPlugin {
