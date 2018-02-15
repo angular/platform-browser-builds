@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.0.0-beta.4-5dd2b51
+ * @license Angular v6.0.0-beta.4-ba9cd5b
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
-import { APP_ID, APP_INITIALIZER, APP_ROOT_SCOPE, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal } from '@angular/core';
+import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -3684,7 +3684,6 @@ BrowserModule.decorators = [
     { type: NgModule, args: [{
                 providers: [
                     BROWSER_SANITIZATION_PROVIDERS,
-                    { provide: APP_ROOT_SCOPE, useValue: true },
                     { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                     { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
@@ -4111,7 +4110,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('6.0.0-beta.4-5dd2b51');
+const VERSION = new Version('6.0.0-beta.4-ba9cd5b');
 
 /**
  * @fileoverview added by tsickle
