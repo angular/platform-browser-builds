@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.0.0-beta.4-f628797
+ * @license Angular v6.0.0-beta.4-f755db7
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
-import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal } from '@angular/core';
+import { APP_ID, APP_INITIALIZER, APP_ROOT_SCOPE, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal } from '@angular/core';
 import { __assign, __extends } from 'tslib';
 
 /**
@@ -4771,6 +4771,7 @@ var BrowserModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     providers: [
                         BROWSER_SANITIZATION_PROVIDERS,
+                        { provide: APP_ROOT_SCOPE, useValue: true },
                         { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
@@ -5346,7 +5347,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('6.0.0-beta.4-f628797');
+var VERSION = new Version('6.0.0-beta.4-f755db7');
 
 /**
  * @fileoverview added by tsickle

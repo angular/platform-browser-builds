@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-beta.4-f628797
+ * @license Angular v6.0.0-beta.4-f755db7
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -44,7 +44,7 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v6.0.0-beta.4-f628797
+ * @license Angular v6.0.0-beta.4-f755db7
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -4812,6 +4812,7 @@ var BrowserModule = /** @class */ (function () {
         { type: _angular_core.NgModule, args: [{
                     providers: [
                         BROWSER_SANITIZATION_PROVIDERS,
+                        { provide: _angular_core.APP_ROOT_SCOPE, useValue: true },
                         { provide: _angular_core.ErrorHandler, useFactory: errorHandler, deps: [] },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
@@ -5387,7 +5388,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.4-f628797');
+var VERSION = new _angular_core.Version('6.0.0-beta.4-f755db7');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
