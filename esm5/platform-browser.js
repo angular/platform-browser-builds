@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.0.0-beta.4-ac2b04a
+ * @license Angular v6.0.0-beta.4-c30d329
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
-import { APP_ID, APP_INITIALIZER, APP_ROOT_SCOPE, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal } from '@angular/core';
+import { APP_ID, APP_INITIALIZER, APP_ROOT_SCOPE, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵConsole, ɵglobal } from '@angular/core';
 import { __assign, __extends } from 'tslib';
 
 /**
@@ -3481,9 +3481,10 @@ var HammerGestureConfig = /** @class */ (function () {
 }());
 var HammerGesturesPlugin = /** @class */ (function (_super) {
     __extends(HammerGesturesPlugin, _super);
-    function HammerGesturesPlugin(doc, _config) {
+    function HammerGesturesPlugin(doc, _config, console) {
         var _this = _super.call(this, doc) || this;
         _this._config = _config;
+        _this.console = console;
         return _this;
     }
     /**
@@ -3499,7 +3500,8 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
             return false;
         }
         if (!(/** @type {?} */ (window)).Hammer) {
-            throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
+            this.console.warn("Hammer.js is not loaded, can not bind '" + eventName + "' event.");
+            return false;
         }
         return true;
     };
@@ -3545,6 +3547,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
     HammerGesturesPlugin.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
         { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+        { type: ɵConsole, },
     ]; };
     return HammerGesturesPlugin;
 }(EventManagerPlugin));
@@ -5347,7 +5350,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('6.0.0-beta.4-ac2b04a');
+var VERSION = new Version('6.0.0-beta.4-c30d329');
 
 /**
  * @fileoverview added by tsickle

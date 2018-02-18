@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-beta.4-ac2b04a
+ * @license Angular v6.0.0-beta.4-c30d329
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -44,7 +44,7 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v6.0.0-beta.4-ac2b04a
+ * @license Angular v6.0.0-beta.4-c30d329
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3522,9 +3522,10 @@ var HammerGestureConfig = /** @class */ (function () {
 }());
 var HammerGesturesPlugin = /** @class */ (function (_super) {
     __extends(HammerGesturesPlugin, _super);
-    function HammerGesturesPlugin(doc, _config) {
+    function HammerGesturesPlugin(doc, _config, console) {
         var _this = _super.call(this, doc) || this;
         _this._config = _config;
+        _this.console = console;
         return _this;
     }
     /**
@@ -3540,7 +3541,8 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
             return false;
         }
         if (!(/** @type {?} */ (window)).Hammer) {
-            throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
+            this.console.warn("Hammer.js is not loaded, can not bind '" + eventName + "' event.");
+            return false;
         }
         return true;
     };
@@ -3586,6 +3588,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
     HammerGesturesPlugin.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
         { type: HammerGestureConfig, decorators: [{ type: _angular_core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+        { type: _angular_core.ɵConsole, },
     ]; };
     return HammerGesturesPlugin;
 }(EventManagerPlugin));
@@ -5388,7 +5391,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.4-ac2b04a');
+var VERSION = new _angular_core.Version('6.0.0-beta.4-c30d329');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;

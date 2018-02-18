@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.0.0-beta.4-ac2b04a
+ * @license Angular v6.0.0-beta.4-c30d329
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
-import { APP_ID, APP_INITIALIZER, APP_ROOT_SCOPE, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵglobal } from '@angular/core';
+import { APP_ID, APP_INITIALIZER, APP_ROOT_SCOPE, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, isDevMode, platformCore, setTestabilityGetter, ɵConsole, ɵglobal } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -2589,10 +2589,12 @@ class HammerGesturesPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
      * @param {?} _config
+     * @param {?} console
      */
-    constructor(doc, _config) {
+    constructor(doc, _config, console) {
         super(doc);
         this._config = _config;
+        this.console = console;
     }
     /**
      * @param {?} eventName
@@ -2603,7 +2605,8 @@ class HammerGesturesPlugin extends EventManagerPlugin {
             return false;
         }
         if (!(/** @type {?} */ (window)).Hammer) {
-            throw new Error(`Hammer.js is not loaded, can not bind ${eventName} event`);
+            this.console.warn(`Hammer.js is not loaded, can not bind '${eventName}' event.`);
+            return false;
         }
         return true;
     }
@@ -2639,6 +2642,7 @@ HammerGesturesPlugin.decorators = [
 HammerGesturesPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+    { type: ɵConsole, },
 ];
 
 /**
@@ -4111,7 +4115,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('6.0.0-beta.4-ac2b04a');
+const VERSION = new Version('6.0.0-beta.4-c30d329');
 
 /**
  * @fileoverview added by tsickle
