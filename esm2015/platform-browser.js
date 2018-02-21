@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.5-dfdade2
+ * @license Angular v5.2.5-612cfec
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -4110,7 +4110,7 @@ class By {
 /**
  * \@stable
  */
-const VERSION = new Version('5.2.5-dfdade2');
+const VERSION = new Version('5.2.5-612cfec');
 
 /**
  * @fileoverview added by tsickle
