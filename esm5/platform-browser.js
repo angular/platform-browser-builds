@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.5-ee91de9
+ * @license Angular v5.2.6-7c3b95b
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3464,7 +3464,7 @@ var HammerGestureConfig = /** @class */ (function () {
      * @return {?}
      */
     function (element) {
-        var /** @type {?} */ mc = new Hammer(element, this.options);
+        var /** @type {?} */ mc = new Hammer(element);
         mc.get('pinch').set({ enable: true });
         mc.get('rotate').set({ enable: true });
         for (var /** @type {?} */ eventName in this.overrides) {
@@ -5346,7 +5346,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.2.5-ee91de9');
+var VERSION = new Version('5.2.6-7c3b95b');
 
 /**
  * @fileoverview added by tsickle
