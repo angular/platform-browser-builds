@@ -1,12 +1,12 @@
 /**
- * @license Angular v6.0.0-beta.5-9eecb0b
+ * @license Angular v6.0.0-beta.5-b2f366b
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { Inject, Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 
 /**
  * @fileoverview added by tsickle
@@ -587,10 +587,7 @@ InjectableAnimationEngine.ctorParameters = () => [
  * @return {?}
  */
 function instantiateSupportedAnimationDriver() {
-    if (ɵsupportsWebAnimations()) {
-        return new ɵWebAnimationsDriver();
-    }
-    return new ɵNoopAnimationDriver();
+    return ɵsupportsWebAnimations() ? new ɵWebAnimationsDriver() : new ɵCssKeyframesDriver();
 }
 /**
  * @return {?}

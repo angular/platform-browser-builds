@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-beta.5-9eecb0b
+ * @license Angular v6.0.0-beta.5-b2f366b
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v6.0.0-beta.5-9eecb0b
+ * @license Angular v6.0.0-beta.5-b2f366b
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -815,10 +815,7 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
  * @return {?}
  */
 function instantiateSupportedAnimationDriver() {
-    if (_angular_animations_browser.ɵsupportsWebAnimations()) {
-        return new _angular_animations_browser.ɵWebAnimationsDriver();
-    }
-    return new _angular_animations_browser.ɵNoopAnimationDriver();
+    return _angular_animations_browser.ɵsupportsWebAnimations() ? new _angular_animations_browser.ɵWebAnimationsDriver() : new _angular_animations_browser.ɵCssKeyframesDriver();
 }
 /**
  * @return {?}
