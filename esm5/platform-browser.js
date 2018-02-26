@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-beta.5-c593d69
+ * @license Angular v6.0.0-beta.5-25a4304
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -5350,7 +5350,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('6.0.0-beta.5-c593d69');
+var VERSION = new Version('6.0.0-beta.5-25a4304');
 
 /**
  * @fileoverview added by tsickle
