@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "6.0.0-beta.6-ba8df8a",
+  "version": "6.0.0-beta.6-d7e5d45",
   "description": "Angular - library for using Angular in a web browser",
   "main": "./bundles/platform-browser.umd.js",
   "module": "./esm5/platform-browser.js",
@@ -12,14 +12,14 @@
     "tslib": "^1.7.1"
   },
   "peerDependencies": {
-    "@angular/core": "6.0.0-beta.6-ba8df8a",
-    "@angular/common": "6.0.0-beta.6-ba8df8a"
+    "@angular/core": "6.0.0-beta.6-d7e5d45",
+    "@angular/common": "6.0.0-beta.6-d7e5d45"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/angular/angular.git"
   },
   "ng-update": {
-    "packageGroup": ["core", "compiler", "common", "animations", "platform-browser", "platform-browser-dynamic", "forms", "http", "platform-server", "platform-webworker", "platform-webworker-dynamic", "upgrade", "router", "compiler-cli", "language-service", "benchpress", "service-worker"]
+    "packageGroup": ["/core", "/compiler", "/common", "/animations", "/platform-browser", "/platform-browser-dynamic", "/forms", "/http", "/platform-server", "/platform-webworker", "/platform-webworker-dynamic", "/upgrade", "/router", "/compiler-cli", "/language-service", "/benchpress", "/service-worker"]
   }
 }
