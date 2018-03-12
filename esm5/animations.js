@@ -1,70 +1,59 @@
 /**
- * @license Angular v5.0.0-beta.6-f2945c6
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-63cad11
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { Inject, Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { __extends } from 'tslib';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var BrowserAnimationBuilder = (function (_super) {
+var BrowserAnimationBuilder = /** @class */ (function (_super) {
     __extends(BrowserAnimationBuilder, _super);
-    /**
-     * @param {?} rootRenderer
-     * @param {?} doc
-     */
     function BrowserAnimationBuilder(rootRenderer, doc) {
         var _this = _super.call(this) || this;
         _this._nextAnimationId = 0;
-        var /** @type {?} */ typeData = ({
+        var /** @type {?} */ typeData = /** @type {?} */ ({
             id: '0',
             encapsulation: ViewEncapsulation.None,
             styles: [],
             data: { animation: [] }
         });
-        _this._renderer = (rootRenderer.createRenderer(doc.body, typeData));
+        _this._renderer = /** @type {?} */ (rootRenderer.createRenderer(doc.body, typeData));
         return _this;
     }
     /**
      * @param {?} animation
      * @return {?}
      */
-    BrowserAnimationBuilder.prototype.build = function (animation) {
+    BrowserAnimationBuilder.prototype.build = /**
+     * @param {?} animation
+     * @return {?}
+     */
+    function (animation) {
         var /** @type {?} */ id = this._nextAnimationId.toString();
         this._nextAnimationId++;
         var /** @type {?} */ entry = Array.isArray(animation) ? sequence(animation) : animation;
         issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
         return new BrowserAnimationFactory(id, this._renderer);
     };
+    BrowserAnimationBuilder.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    BrowserAnimationBuilder.ctorParameters = function () { return [
+        { type: RendererFactory2, },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    ]; };
     return BrowserAnimationBuilder;
 }(AnimationBuilder));
-BrowserAnimationBuilder.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-BrowserAnimationBuilder.ctorParameters = function () { return [
-    { type: RendererFactory2, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-]; };
-var BrowserAnimationFactory = (function (_super) {
+var BrowserAnimationFactory = /** @class */ (function (_super) {
     __extends(BrowserAnimationFactory, _super);
-    /**
-     * @param {?} _id
-     * @param {?} _renderer
-     */
     function BrowserAnimationFactory(_id, _renderer) {
         var _this = _super.call(this) || this;
         _this._id = _id;
@@ -76,18 +65,17 @@ var BrowserAnimationFactory = (function (_super) {
      * @param {?=} options
      * @return {?}
      */
-    BrowserAnimationFactory.prototype.create = function (element, options) {
+    BrowserAnimationFactory.prototype.create = /**
+     * @param {?} element
+     * @param {?=} options
+     * @return {?}
+     */
+    function (element, options) {
         return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
     };
     return BrowserAnimationFactory;
 }(AnimationFactory));
-var RendererAnimationPlayer = (function () {
-    /**
-     * @param {?} id
-     * @param {?} element
-     * @param {?} options
-     * @param {?} _renderer
-     */
+var RendererAnimationPlayer = /** @class */ (function () {
     function RendererAnimationPlayer(id, element, options, _renderer) {
         this.id = id;
         this.element = element;
@@ -102,7 +90,12 @@ var RendererAnimationPlayer = (function () {
      * @param {?} callback
      * @return {?}
      */
-    RendererAnimationPlayer.prototype._listen = function (eventName, callback) {
+    RendererAnimationPlayer.prototype._listen = /**
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
+    function (eventName, callback) {
         return this._renderer.listen(this.element, "@@" + this.id + ":" + eventName, callback);
     };
     /**
@@ -110,7 +103,12 @@ var RendererAnimationPlayer = (function () {
      * @param {...?} args
      * @return {?}
      */
-    RendererAnimationPlayer.prototype._command = function (command) {
+    RendererAnimationPlayer.prototype._command = /**
+     * @param {?} command
+     * @param {...?} args
+     * @return {?}
+     */
+    function (command) {
         var args = [];
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
@@ -121,61 +119,104 @@ var RendererAnimationPlayer = (function () {
      * @param {?} fn
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.onDone = function (fn) { this._listen('done', fn); };
+    RendererAnimationPlayer.prototype.onDone = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) { this._listen('done', fn); };
     /**
      * @param {?} fn
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.onStart = function (fn) { this._listen('start', fn); };
+    RendererAnimationPlayer.prototype.onStart = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) { this._listen('start', fn); };
     /**
      * @param {?} fn
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.onDestroy = function (fn) { this._listen('destroy', fn); };
+    RendererAnimationPlayer.prototype.onDestroy = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) { this._listen('destroy', fn); };
     /**
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.init = function () { this._command('init'); };
+    RendererAnimationPlayer.prototype.init = /**
+     * @return {?}
+     */
+    function () { this._command('init'); };
     /**
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.hasStarted = function () { return this._started; };
+    RendererAnimationPlayer.prototype.hasStarted = /**
+     * @return {?}
+     */
+    function () { return this._started; };
     /**
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.play = function () {
+    RendererAnimationPlayer.prototype.play = /**
+     * @return {?}
+     */
+    function () {
         this._command('play');
         this._started = true;
     };
     /**
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.pause = function () { this._command('pause'); };
+    RendererAnimationPlayer.prototype.pause = /**
+     * @return {?}
+     */
+    function () { this._command('pause'); };
     /**
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.restart = function () { this._command('restart'); };
+    RendererAnimationPlayer.prototype.restart = /**
+     * @return {?}
+     */
+    function () { this._command('restart'); };
     /**
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.finish = function () { this._command('finish'); };
+    RendererAnimationPlayer.prototype.finish = /**
+     * @return {?}
+     */
+    function () { this._command('finish'); };
     /**
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.destroy = function () { this._command('destroy'); };
+    RendererAnimationPlayer.prototype.destroy = /**
+     * @return {?}
+     */
+    function () { this._command('destroy'); };
     /**
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.reset = function () { this._command('reset'); };
+    RendererAnimationPlayer.prototype.reset = /**
+     * @return {?}
+     */
+    function () { this._command('reset'); };
     /**
      * @param {?} p
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.setPosition = function (p) { this._command('setPosition', p); };
+    RendererAnimationPlayer.prototype.setPosition = /**
+     * @param {?} p
+     * @return {?}
+     */
+    function (p) { this._command('setPosition', p); };
     /**
      * @return {?}
      */
-    RendererAnimationPlayer.prototype.getPosition = function () { return 0; };
+    RendererAnimationPlayer.prototype.getPosition = /**
+     * @return {?}
+     */
+    function () { return 0; };
     return RendererAnimationPlayer;
 }());
 /**
@@ -196,12 +237,7 @@ function issueAnimationCommand(renderer, element, id, command, args) {
  */
 var ANIMATION_PREFIX = '@';
 var DISABLE_ANIMATIONS_FLAG = '@.disabled';
-var AnimationRendererFactory = (function () {
-    /**
-     * @param {?} delegate
-     * @param {?} engine
-     * @param {?} _zone
-     */
+var AnimationRendererFactory = /** @class */ (function () {
     function AnimationRendererFactory(delegate, engine, _zone) {
         this.delegate = delegate;
         this.engine = engine;
@@ -211,6 +247,7 @@ var AnimationRendererFactory = (function () {
         this._animationCallbacksBuffer = [];
         this._rendererCache = new Map();
         this._cdRecurDepth = 0;
+        this.promise = Promise.resolve(0);
         engine.onRemovalComplete = function (element, delegate) {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
@@ -226,7 +263,12 @@ var AnimationRendererFactory = (function () {
      * @param {?} type
      * @return {?}
      */
-    AnimationRendererFactory.prototype.createRenderer = function (hostElement, type) {
+    AnimationRendererFactory.prototype.createRenderer = /**
+     * @param {?} hostElement
+     * @param {?} type
+     * @return {?}
+     */
+    function (hostElement, type) {
         var _this = this;
         var /** @type {?} */ EMPTY_NAMESPACE_ID = '';
         // cache the delegates to find out which cached delegate can
@@ -245,14 +287,19 @@ var AnimationRendererFactory = (function () {
         var /** @type {?} */ namespaceId = type.id + '-' + this._currentId;
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
-        var /** @type {?} */ animationTriggers = (type.data['animation']);
-        animationTriggers.forEach(function (trigger) { return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger); });
+        var /** @type {?} */ animationTriggers = /** @type {?} */ (type.data['animation']);
+        animationTriggers.forEach(function (trigger) {
+            return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger);
+        });
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     };
     /**
      * @return {?}
      */
-    AnimationRendererFactory.prototype.begin = function () {
+    AnimationRendererFactory.prototype.begin = /**
+     * @return {?}
+     */
+    function () {
         this._cdRecurDepth++;
         if (this.delegate.begin) {
             this.delegate.begin();
@@ -261,17 +308,28 @@ var AnimationRendererFactory = (function () {
     /**
      * @return {?}
      */
-    AnimationRendererFactory.prototype._scheduleCountTask = function () {
+    AnimationRendererFactory.prototype._scheduleCountTask = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
-        Zone.current.scheduleMicroTask('incremenet the animation microtask', function () { return _this._microtaskId++; });
+        // always use promise to schedule microtask instead of use Zone
+        this.promise.then(function () { _this._microtaskId++; });
     };
+    /* @internal */
     /**
      * @param {?} count
      * @param {?} fn
      * @param {?} data
      * @return {?}
      */
-    AnimationRendererFactory.prototype.scheduleListenerCallback = function (count, fn, data) {
+    AnimationRendererFactory.prototype.scheduleListenerCallback = /**
+     * @param {?} count
+     * @param {?} fn
+     * @param {?} data
+     * @return {?}
+     */
+    function (count, fn, data) {
         var _this = this;
         if (count >= 0 && count < this._microtaskId) {
             this._zone.run(function () { return fn(data); });
@@ -293,7 +351,10 @@ var AnimationRendererFactory = (function () {
     /**
      * @return {?}
      */
-    AnimationRendererFactory.prototype.end = function () {
+    AnimationRendererFactory.prototype.end = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this._cdRecurDepth--;
         // this is to prevent animations from running twice when an inner
@@ -311,42 +372,43 @@ var AnimationRendererFactory = (function () {
     /**
      * @return {?}
      */
-    AnimationRendererFactory.prototype.whenRenderingDone = function () { return this.engine.whenRenderingDone(); };
+    AnimationRendererFactory.prototype.whenRenderingDone = /**
+     * @return {?}
+     */
+    function () { return this.engine.whenRenderingDone(); };
+    AnimationRendererFactory.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    AnimationRendererFactory.ctorParameters = function () { return [
+        { type: RendererFactory2, },
+        { type: ɵAnimationEngine, },
+        { type: NgZone, },
+    ]; };
     return AnimationRendererFactory;
 }());
-AnimationRendererFactory.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-AnimationRendererFactory.ctorParameters = function () { return [
-    { type: RendererFactory2, },
-    { type: ɵAnimationEngine, },
-    { type: NgZone, },
-]; };
-var BaseAnimationRenderer = (function () {
-    /**
-     * @param {?} namespaceId
-     * @param {?} delegate
-     * @param {?} engine
-     */
+var BaseAnimationRenderer = /** @class */ (function () {
     function BaseAnimationRenderer(namespaceId, delegate, engine) {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? function (n) { /** @type {?} */ return ((delegate.destroyNode))(n); } : null;
+        this.destroyNode = this.delegate.destroyNode ? function (n) { return ((delegate.destroyNode))(n); } : null;
     }
     Object.defineProperty(BaseAnimationRenderer.prototype, "data", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return this.delegate.data; },
+        function () { return this.delegate.data; },
         enumerable: true,
         configurable: true
     });
     /**
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.destroy = function () {
+    BaseAnimationRenderer.prototype.destroy = /**
+     * @return {?}
+     */
+    function () {
         this.engine.destroy(this.namespaceId, this.delegate);
         this.delegate.destroy();
     };
@@ -355,25 +417,43 @@ var BaseAnimationRenderer = (function () {
      * @param {?=} namespace
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.createElement = function (name, namespace) {
+    BaseAnimationRenderer.prototype.createElement = /**
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    function (name, namespace) {
         return this.delegate.createElement(name, namespace);
     };
     /**
      * @param {?} value
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.createComment = function (value) { return this.delegate.createComment(value); };
+    BaseAnimationRenderer.prototype.createComment = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) { return this.delegate.createComment(value); };
     /**
      * @param {?} value
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.createText = function (value) { return this.delegate.createText(value); };
+    BaseAnimationRenderer.prototype.createText = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) { return this.delegate.createText(value); };
     /**
      * @param {?} parent
      * @param {?} newChild
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.appendChild = function (parent, newChild) {
+    BaseAnimationRenderer.prototype.appendChild = /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    function (parent, newChild) {
         this.delegate.appendChild(parent, newChild);
         this.engine.onInsert(this.namespaceId, newChild, parent, false);
     };
@@ -383,7 +463,13 @@ var BaseAnimationRenderer = (function () {
      * @param {?} refChild
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.insertBefore = function (parent, newChild, refChild) {
+    BaseAnimationRenderer.prototype.insertBefore = /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    function (parent, newChild, refChild) {
         this.delegate.insertBefore(parent, newChild, refChild);
         this.engine.onInsert(this.namespaceId, newChild, parent, true);
     };
@@ -392,24 +478,41 @@ var BaseAnimationRenderer = (function () {
      * @param {?} oldChild
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.removeChild = function (parent, oldChild) {
+    BaseAnimationRenderer.prototype.removeChild = /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    function (parent, oldChild) {
         this.engine.onRemove(this.namespaceId, oldChild, this.delegate);
     };
     /**
      * @param {?} selectorOrNode
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.selectRootElement = function (selectorOrNode) { return this.delegate.selectRootElement(selectorOrNode); };
+    BaseAnimationRenderer.prototype.selectRootElement = /**
+     * @param {?} selectorOrNode
+     * @return {?}
+     */
+    function (selectorOrNode) { return this.delegate.selectRootElement(selectorOrNode); };
     /**
      * @param {?} node
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.parentNode = function (node) { return this.delegate.parentNode(node); };
+    BaseAnimationRenderer.prototype.parentNode = /**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) { return this.delegate.parentNode(node); };
     /**
      * @param {?} node
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.nextSibling = function (node) { return this.delegate.nextSibling(node); };
+    BaseAnimationRenderer.prototype.nextSibling = /**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) { return this.delegate.nextSibling(node); };
     /**
      * @param {?} el
      * @param {?} name
@@ -417,7 +520,14 @@ var BaseAnimationRenderer = (function () {
      * @param {?=} namespace
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.setAttribute = function (el, name, value, namespace) {
+    BaseAnimationRenderer.prototype.setAttribute = /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @param {?=} namespace
+     * @return {?}
+     */
+    function (el, name, value, namespace) {
         this.delegate.setAttribute(el, name, value, namespace);
     };
     /**
@@ -426,7 +536,13 @@ var BaseAnimationRenderer = (function () {
      * @param {?=} namespace
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.removeAttribute = function (el, name, namespace) {
+    BaseAnimationRenderer.prototype.removeAttribute = /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    function (el, name, namespace) {
         this.delegate.removeAttribute(el, name, namespace);
     };
     /**
@@ -434,13 +550,23 @@ var BaseAnimationRenderer = (function () {
      * @param {?} name
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.addClass = function (el, name) { this.delegate.addClass(el, name); };
+    BaseAnimationRenderer.prototype.addClass = /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    function (el, name) { this.delegate.addClass(el, name); };
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.removeClass = function (el, name) { this.delegate.removeClass(el, name); };
+    BaseAnimationRenderer.prototype.removeClass = /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    function (el, name) { this.delegate.removeClass(el, name); };
     /**
      * @param {?} el
      * @param {?} style
@@ -448,7 +574,14 @@ var BaseAnimationRenderer = (function () {
      * @param {?=} flags
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.setStyle = function (el, style, value, flags) {
+    BaseAnimationRenderer.prototype.setStyle = /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} value
+     * @param {?=} flags
+     * @return {?}
+     */
+    function (el, style, value, flags) {
         this.delegate.setStyle(el, style, value, flags);
     };
     /**
@@ -457,7 +590,13 @@ var BaseAnimationRenderer = (function () {
      * @param {?=} flags
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.removeStyle = function (el, style, flags) {
+    BaseAnimationRenderer.prototype.removeStyle = /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?=} flags
+     * @return {?}
+     */
+    function (el, style, flags) {
         this.delegate.removeStyle(el, style, flags);
     };
     /**
@@ -466,7 +605,13 @@ var BaseAnimationRenderer = (function () {
      * @param {?} value
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.setProperty = function (el, name, value) {
+    BaseAnimationRenderer.prototype.setProperty = /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    function (el, name, value) {
         if (name.charAt(0) == ANIMATION_PREFIX && name == DISABLE_ANIMATIONS_FLAG) {
             this.disableAnimations(el, !!value);
         }
@@ -479,14 +624,25 @@ var BaseAnimationRenderer = (function () {
      * @param {?} value
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.setValue = function (node, value) { this.delegate.setValue(node, value); };
+    BaseAnimationRenderer.prototype.setValue = /**
+     * @param {?} node
+     * @param {?} value
+     * @return {?}
+     */
+    function (node, value) { this.delegate.setValue(node, value); };
     /**
      * @param {?} target
      * @param {?} eventName
      * @param {?} callback
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.listen = function (target, eventName, callback) {
+    BaseAnimationRenderer.prototype.listen = /**
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
+    function (target, eventName, callback) {
         return this.delegate.listen(target, eventName, callback);
     };
     /**
@@ -494,19 +650,18 @@ var BaseAnimationRenderer = (function () {
      * @param {?} value
      * @return {?}
      */
-    BaseAnimationRenderer.prototype.disableAnimations = function (element, value) {
+    BaseAnimationRenderer.prototype.disableAnimations = /**
+     * @param {?} element
+     * @param {?} value
+     * @return {?}
+     */
+    function (element, value) {
         this.engine.disableAnimations(element, value);
     };
     return BaseAnimationRenderer;
 }());
-var AnimationRenderer = (function (_super) {
+var AnimationRenderer = /** @class */ (function (_super) {
     __extends(AnimationRenderer, _super);
-    /**
-     * @param {?} factory
-     * @param {?} namespaceId
-     * @param {?} delegate
-     * @param {?} engine
-     */
     function AnimationRenderer(factory, namespaceId, delegate, engine) {
         var _this = _super.call(this, namespaceId, delegate, engine) || this;
         _this.factory = factory;
@@ -519,7 +674,13 @@ var AnimationRenderer = (function (_super) {
      * @param {?} value
      * @return {?}
      */
-    AnimationRenderer.prototype.setProperty = function (el, name, value) {
+    AnimationRenderer.prototype.setProperty = /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    function (el, name, value) {
         if (name.charAt(0) == ANIMATION_PREFIX) {
             if (name.charAt(1) == '.' && name == DISABLE_ANIMATIONS_FLAG) {
                 value = value === undefined ? true : !!value;
@@ -539,7 +700,13 @@ var AnimationRenderer = (function (_super) {
      * @param {?} callback
      * @return {?}
      */
-    AnimationRenderer.prototype.listen = function (target, eventName, callback) {
+    AnimationRenderer.prototype.listen = /**
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
+    function (target, eventName, callback) {
         var _this = this;
         if (eventName.charAt(0) == ANIMATION_PREFIX) {
             var /** @type {?} */ element = resolveElementFromTarget(target);
@@ -551,7 +718,7 @@ var AnimationRenderer = (function (_super) {
                 _a = parseTriggerCallbackName(name_1), name_1 = _a[0], phase = _a[1];
             }
             return this.engine.listen(this.namespaceId, element, name_1, phase, function (event) {
-                var /** @type {?} */ countId = ((event))['_data'] || -1;
+                var /** @type {?} */ countId = (/** @type {?} */ (event))['_data'] || -1;
                 _this.factory.scheduleListenerCallback(countId, callback, event);
             });
         }
@@ -598,33 +765,26 @@ function parseTriggerCallbackName(triggerName) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var InjectableAnimationEngine = (function (_super) {
+var InjectableAnimationEngine = /** @class */ (function (_super) {
     __extends(InjectableAnimationEngine, _super);
-    /**
-     * @param {?} driver
-     * @param {?} normalizer
-     */
     function InjectableAnimationEngine(driver, normalizer) {
         return _super.call(this, driver, normalizer) || this;
     }
+    InjectableAnimationEngine.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    InjectableAnimationEngine.ctorParameters = function () { return [
+        { type: AnimationDriver, },
+        { type: ɵAnimationStyleNormalizer, },
+    ]; };
     return InjectableAnimationEngine;
 }(ɵAnimationEngine));
-InjectableAnimationEngine.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-InjectableAnimationEngine.ctorParameters = function () { return [
-    { type: AnimationDriver, },
-    { type: ɵAnimationStyleNormalizer, },
-]; };
 /**
  * @return {?}
  */
 function instantiateSupportedAnimationDriver() {
-    if (ɵsupportsWebAnimations()) {
-        return new ɵWebAnimationsDriver();
-    }
-    return new ɵNoopAnimationDriver();
+    return ɵsupportsWebAnimations() ? new ɵWebAnimationsDriver() : new ɵCssKeyframesDriver();
 }
 /**
  * @return {?}
@@ -668,55 +828,41 @@ var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useClass: �
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * \@experimental Animation support is experimental.
  */
-var BrowserAnimationsModule = (function () {
+var BrowserAnimationsModule = /** @class */ (function () {
     function BrowserAnimationsModule() {
     }
+    BrowserAnimationsModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserModule],
+                    providers: BROWSER_ANIMATIONS_PROVIDERS,
+                },] },
+    ];
+    /** @nocollapse */
+    BrowserAnimationsModule.ctorParameters = function () { return []; };
     return BrowserAnimationsModule;
 }());
-BrowserAnimationsModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [BrowserModule],
-                providers: BROWSER_ANIMATIONS_PROVIDERS,
-            },] },
-];
-/** @nocollapse */
-BrowserAnimationsModule.ctorParameters = function () { return []; };
 /**
  * \@experimental Animation support is experimental.
  */
-var NoopAnimationsModule = (function () {
+var NoopAnimationsModule = /** @class */ (function () {
     function NoopAnimationsModule() {
     }
+    NoopAnimationsModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserModule],
+                    providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
+                },] },
+    ];
+    /** @nocollapse */
+    NoopAnimationsModule.ctorParameters = function () { return []; };
     return NoopAnimationsModule;
 }());
-NoopAnimationsModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [BrowserModule],
-                providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
-            },] },
-];
-/** @nocollapse */
-NoopAnimationsModule.ctorParameters = function () { return []; };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 
 /**
@@ -729,11 +875,6 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all animation APIs of the animation browser package.
  */
 
 /**
@@ -762,4 +903,4 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
  */
 
 export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BaseAnimationRenderer as ɵa, BROWSER_ANIMATIONS_PROVIDERS as ɵf, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵg, InjectableAnimationEngine as ɵb, instantiateDefaultStyleNormalizer as ɵd, instantiateRendererFactory as ɵe, instantiateSupportedAnimationDriver as ɵc };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=animations.js.map

@@ -1,6 +1,6 @@
 /**
- * @license Angular v5.0.0-beta.6-f2945c6
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-63cad11
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { APP_ID, NgModule, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵglobal } from '@angular/core';
@@ -78,7 +78,7 @@ class BrowserDetection {
      * @return {?}
      */
     get supportsNativeIntlApi() {
-        return !!((ɵglobal)).Intl && ((ɵglobal)).Intl !== ((ɵglobal)).IntlPolyfill;
+        return !!(/** @type {?} */ (ɵglobal)).Intl && (/** @type {?} */ (ɵglobal)).Intl !== (/** @type {?} */ (ɵglobal)).IntlPolyfill;
     }
     /**
      * @return {?}
@@ -129,13 +129,6 @@ function createNgZone() {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * @return {?}
  */
 function initBrowserTests() {
@@ -149,6 +142,7 @@ const _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useVa
  * \@stable
  */
 const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
+const ɵ0 = createNgZone;
 /**
  * NgModule for testing.
  *
@@ -162,7 +156,7 @@ BrowserTestingModule.decorators = [
                 providers: [
                     { provide: APP_ID, useValue: 'a' },
                     ɵELEMENT_PROBE_PROVIDERS,
-                    { provide: NgZone, useFactory: createNgZone },
+                    { provide: NgZone, useFactory: ɵ0 },
                 ]
             },] },
 ];
@@ -212,4 +206,4 @@ BrowserTestingModule.ctorParameters = () => [];
  */
 
 export { platformBrowserTesting, BrowserTestingModule, createNgZone as ɵa };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=testing.js.map
