@@ -1,11 +1,11 @@
 /**
- * @license Angular v5.0.0-beta.6-3f585ba
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-a7d6efe
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations'), require('@angular/animations/browser')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/animations', '@angular/animations/browser'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/platform-browser/animations', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations', '@angular/animations/browser'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = {}),global.ng.core,global.ng.platformBrowser,global.ng.animations,global.ng.animations.browser));
 }(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations,_angular_animations_browser) { 'use strict';
 
@@ -36,22 +36,15 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.6-3f585ba
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-a7d6efe
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var BrowserAnimationBuilder = (function (_super) {
+var BrowserAnimationBuilder = /** @class */ (function (_super) {
     __extends(BrowserAnimationBuilder, _super);
     function BrowserAnimationBuilder(rootRenderer, doc) {
         var _this = _super.call(this) || this;
@@ -90,7 +83,7 @@ var BrowserAnimationBuilder = (function (_super) {
     ]; };
     return BrowserAnimationBuilder;
 }(_angular_animations.AnimationBuilder));
-var BrowserAnimationFactory = (function (_super) {
+var BrowserAnimationFactory = /** @class */ (function (_super) {
     __extends(BrowserAnimationFactory, _super);
     function BrowserAnimationFactory(_id, _renderer) {
         var _this = _super.call(this) || this;
@@ -113,7 +106,7 @@ var BrowserAnimationFactory = (function (_super) {
     };
     return BrowserAnimationFactory;
 }(_angular_animations.AnimationFactory));
-var RendererAnimationPlayer = (function () {
+var RendererAnimationPlayer = /** @class */ (function () {
     function RendererAnimationPlayer(id, element, options, _renderer) {
         this.id = id;
         this.element = element;
@@ -275,7 +268,7 @@ function issueAnimationCommand(renderer, element, id, command, args) {
  */
 var ANIMATION_PREFIX = '@';
 var DISABLE_ANIMATIONS_FLAG = '@.disabled';
-var AnimationRendererFactory = (function () {
+var AnimationRendererFactory = /** @class */ (function () {
     function AnimationRendererFactory(delegate, engine, _zone) {
         this.delegate = delegate;
         this.engine = engine;
@@ -285,6 +278,7 @@ var AnimationRendererFactory = (function () {
         this._animationCallbacksBuffer = [];
         this._rendererCache = new Map();
         this._cdRecurDepth = 0;
+        this.promise = Promise.resolve(0);
         engine.onRemovalComplete = function (element, delegate) {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
@@ -350,7 +344,8 @@ var AnimationRendererFactory = (function () {
      */
     function () {
         var _this = this;
-        Zone.current.scheduleMicroTask('incremenet the animation microtask', function () { return _this._microtaskId++; });
+        // always use promise to schedule microtask instead of use Zone
+        this.promise.then(function () { _this._microtaskId++; });
     };
     /* @internal */
     /**
@@ -423,12 +418,12 @@ var AnimationRendererFactory = (function () {
     ]; };
     return AnimationRendererFactory;
 }());
-var BaseAnimationRenderer = (function () {
+var BaseAnimationRenderer = /** @class */ (function () {
     function BaseAnimationRenderer(namespaceId, delegate, engine) {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? function (n) { return /** @type {?} */ ((delegate.destroyNode))(n); } : null;
+        this.destroyNode = this.delegate.destroyNode ? function (n) { return ((delegate.destroyNode))(n); } : null;
     }
     Object.defineProperty(BaseAnimationRenderer.prototype, "data", {
         get: /**
@@ -696,7 +691,7 @@ var BaseAnimationRenderer = (function () {
     };
     return BaseAnimationRenderer;
 }());
-var AnimationRenderer = (function (_super) {
+var AnimationRenderer = /** @class */ (function (_super) {
     __extends(AnimationRenderer, _super);
     function AnimationRenderer(factory, namespaceId, delegate, engine) {
         var _this = _super.call(this, namespaceId, delegate, engine) || this;
@@ -801,7 +796,7 @@ function parseTriggerCallbackName(triggerName) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var InjectableAnimationEngine = (function (_super) {
+var InjectableAnimationEngine = /** @class */ (function (_super) {
     __extends(InjectableAnimationEngine, _super);
     function InjectableAnimationEngine(driver, normalizer) {
         return _super.call(this, driver, normalizer) || this;
@@ -820,10 +815,7 @@ var InjectableAnimationEngine = (function (_super) {
  * @return {?}
  */
 function instantiateSupportedAnimationDriver() {
-    if (_angular_animations_browser.ɵsupportsWebAnimations()) {
-        return new _angular_animations_browser.ɵWebAnimationsDriver();
-    }
-    return new _angular_animations_browser.ɵNoopAnimationDriver();
+    return _angular_animations_browser.ɵsupportsWebAnimations() ? new _angular_animations_browser.ɵWebAnimationsDriver() : new _angular_animations_browser.ɵCssKeyframesDriver();
 }
 /**
  * @return {?}
@@ -867,16 +859,9 @@ var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: _angular_animations_browser.
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * \@experimental Animation support is experimental.
  */
-var BrowserAnimationsModule = (function () {
+var BrowserAnimationsModule = /** @class */ (function () {
     function BrowserAnimationsModule() {
     }
     BrowserAnimationsModule.decorators = [
@@ -892,7 +877,7 @@ var BrowserAnimationsModule = (function () {
 /**
  * \@experimental Animation support is experimental.
  */
-var NoopAnimationsModule = (function () {
+var NoopAnimationsModule = /** @class */ (function () {
     function NoopAnimationsModule() {
     }
     NoopAnimationsModule.decorators = [

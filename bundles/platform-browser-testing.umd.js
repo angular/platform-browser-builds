@@ -1,17 +1,17 @@
 /**
- * @license Angular v5.0.0-beta.6-3f585ba
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-a7d6efe
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/platform-browser/testing', ['exports', '@angular/core', '@angular/platform-browser'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.testing = {}),global.ng.core,global.ng.platformBrowser));
 }(this, (function (exports,_angular_core,_angular_platformBrowser) { 'use strict';
 
 /**
- * @license Angular v5.0.0-beta.6-3f585ba
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-a7d6efe
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 /**
@@ -26,7 +26,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 var browserDetection;
-var BrowserDetection = (function () {
+var BrowserDetection = /** @class */ (function () {
     function BrowserDetection(ua) {
         this._overrideUa = ua;
     }
@@ -190,13 +190,6 @@ function createNgZone() {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * @return {?}
  */
 function initBrowserTests() {
@@ -210,12 +203,13 @@ var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: _angular_core.PLATFORM_INITIA
  * \@stable
  */
 var platformBrowserTesting = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
+var ɵ0 = createNgZone;
 /**
  * NgModule for testing.
  *
  * \@stable
  */
-var BrowserTestingModule = (function () {
+var BrowserTestingModule = /** @class */ (function () {
     function BrowserTestingModule() {
     }
     BrowserTestingModule.decorators = [
@@ -224,7 +218,7 @@ var BrowserTestingModule = (function () {
                     providers: [
                         { provide: _angular_core.APP_ID, useValue: 'a' },
                         _angular_platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
-                        { provide: _angular_core.NgZone, useFactory: createNgZone },
+                        { provide: _angular_core.NgZone, useFactory: ɵ0 },
                     ]
                 },] },
     ];

@@ -1,11 +1,11 @@
 /**
- * @license Angular v5.0.0-beta.6-3f585ba
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-a7d6efe
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/platform-browser', ['exports', '@angular/common', '@angular/core'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = {}),global.ng.common,global.ng.core));
 }(this, (function (exports,_angular_common,_angular_core) { 'use strict';
 
@@ -44,13 +44,20 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v5.0.0-beta.6-3f585ba
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-a7d6efe
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 var _DOM = /** @type {?} */ ((null));
 /**
@@ -80,7 +87,7 @@ function setRootDomAdapter(adapter) {
  * can introduce XSS risks.
  * @abstract
  */
-var DomAdapter = (function () {
+var DomAdapter = /** @class */ (function () {
     function DomAdapter() {
         this.resourceLoaderType = /** @type {?} */ ((null));
     }
@@ -103,8 +110,6 @@ var DomAdapter = (function () {
         enumerable: true,
         configurable: true
     });
-    
-    
     return DomAdapter;
 }());
 
@@ -126,7 +131,7 @@ var DomAdapter = (function () {
  * can introduce XSS risks.
  * @abstract
  */
-var GenericBrowserDomAdapter = (function (_super) {
+var GenericBrowserDomAdapter = /** @class */ (function (_super) {
     __extends(GenericBrowserDomAdapter, _super);
     function GenericBrowserDomAdapter() {
         var _this = _super.call(this) || this;
@@ -299,7 +304,7 @@ if (_angular_core.ɵglobal['Node']) {
  * \@security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-var BrowserDomAdapter = (function (_super) {
+var BrowserDomAdapter = /** @class */ (function (_super) {
     __extends(BrowserDomAdapter, _super);
     function BrowserDomAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -1660,6 +1665,13 @@ var DOCUMENT$1 = _angular_common.DOCUMENT;
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @return {?}
  */
 function supportsState() {
@@ -1682,7 +1694,7 @@ function supportsState() {
  * This class should not be used directly by an application developer. Instead, use
  * {\@link Location}.
  */
-var BrowserPlatformLocation = (function (_super) {
+var BrowserPlatformLocation = /** @class */ (function (_super) {
     __extends(BrowserPlatformLocation, _super);
     function BrowserPlatformLocation(_doc) {
         var _this = _super.call(this) || this;
@@ -1701,17 +1713,9 @@ var BrowserPlatformLocation = (function (_super) {
      * @return {?}
      */
     function () {
-        this._location = getDOM().getLocation();
+        (/** @type {?} */ (this)).location = getDOM().getLocation();
         this._history = getDOM().getHistory();
     };
-    Object.defineProperty(BrowserPlatformLocation.prototype, "location", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._location; },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -1745,12 +1749,12 @@ var BrowserPlatformLocation = (function (_super) {
         get: /**
          * @return {?}
          */
-        function () { return this._location.pathname; },
+        function () { return this.location.pathname; },
         set: /**
          * @param {?} newPath
          * @return {?}
          */
-        function (newPath) { this._location.pathname = newPath; },
+        function (newPath) { this.location.pathname = newPath; },
         enumerable: true,
         configurable: true
     });
@@ -1758,7 +1762,7 @@ var BrowserPlatformLocation = (function (_super) {
         get: /**
          * @return {?}
          */
-        function () { return this._location.search; },
+        function () { return this.location.search; },
         enumerable: true,
         configurable: true
     });
@@ -1766,7 +1770,7 @@ var BrowserPlatformLocation = (function (_super) {
         get: /**
          * @return {?}
          */
-        function () { return this._location.hash; },
+        function () { return this.location.hash; },
         enumerable: true,
         configurable: true
     });
@@ -1787,7 +1791,7 @@ var BrowserPlatformLocation = (function (_super) {
             this._history.pushState(state, title, url);
         }
         else {
-            this._location.hash = url;
+            this.location.hash = url;
         }
     };
     /**
@@ -1807,7 +1811,7 @@ var BrowserPlatformLocation = (function (_super) {
             this._history.replaceState(state, title, url);
         }
         else {
-            this._location.hash = url;
+            this.location.hash = url;
         }
     };
     /**
@@ -1850,7 +1854,7 @@ var BrowserPlatformLocation = (function (_super) {
  *
  * \@experimental
  */
-var Meta = (function () {
+var Meta = /** @class */ (function () {
     function Meta(_doc) {
         this._doc = _doc;
         this._dom = getDOM();
@@ -2094,7 +2098,7 @@ var SERVER_TRANSITION_PROVIDERS = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var BrowserGetTestability = (function () {
+var BrowserGetTestability = /** @class */ (function () {
     function BrowserGetTestability() {
     }
     /**
@@ -2195,7 +2199,7 @@ var BrowserGetTestability = (function () {
  *
  * \@experimental
  */
-var Title = (function () {
+var Title = /** @class */ (function () {
     function Title(_doc) {
         this._doc = _doc;
     }
@@ -2266,12 +2270,15 @@ var Title = (function () {
  * @return {?}
  */
 function exportNgVar(name, value) {
-    if (!ng) {
-        _angular_core.ɵglobal['ng'] = ng = (/** @type {?} */ (_angular_core.ɵglobal['ng'])) || {};
+    if (typeof COMPILED === 'undefined' || !COMPILED) {
+        // Note: we can't export `ng` when using closure enhanced optimization as:
+        // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
+        // - we can't declare a closure extern as the namespace `ng` is already used within Google
+        //   for typings for angularJS (via `goog.provide('ng....')`).
+        var /** @type {?} */ ng = _angular_core.ɵglobal['ng'] = (/** @type {?} */ (_angular_core.ɵglobal['ng'])) || {};
+        ng[name] = value;
     }
-    ng[name] = value;
 }
-var ng;
 
 /**
  * @fileoverview added by tsickle
@@ -2348,7 +2355,7 @@ var EVENT_MANAGER_PLUGINS = new _angular_core.InjectionToken('EventManagerPlugin
 /**
  * \@stable
  */
-var EventManager = (function () {
+var EventManager = /** @class */ (function () {
     function EventManager(plugins, _zone) {
         var _this = this;
         this._zone = _zone;
@@ -2434,7 +2441,7 @@ var EventManager = (function () {
 /**
  * @abstract
  */
-var EventManagerPlugin = (function () {
+var EventManagerPlugin = /** @class */ (function () {
     function EventManagerPlugin(_doc) {
         this._doc = _doc;
     }
@@ -2457,7 +2464,6 @@ var EventManagerPlugin = (function () {
         }
         return this.addEventListener(target, eventName, handler);
     };
-    
     return EventManagerPlugin;
 }());
 
@@ -2472,7 +2478,7 @@ var EventManagerPlugin = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var SharedStylesHost = (function () {
+var SharedStylesHost = /** @class */ (function () {
     function SharedStylesHost() {
         /**
          * \@internal
@@ -2521,7 +2527,7 @@ var SharedStylesHost = (function () {
     SharedStylesHost.ctorParameters = function () { return []; };
     return SharedStylesHost;
 }());
-var DomSharedStylesHost = (function (_super) {
+var DomSharedStylesHost = /** @class */ (function (_super) {
     __extends(DomSharedStylesHost, _super);
     function DomSharedStylesHost(_doc) {
         var _this = _super.call(this) || this;
@@ -2668,14 +2674,13 @@ function decoratePreventDefault(eventHandler) {
         }
     };
 }
-var DomRendererFactory2 = (function () {
+var DomRendererFactory2 = /** @class */ (function () {
     function DomRendererFactory2(eventManager, sharedStylesHost) {
         this.eventManager = eventManager;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
         this.defaultRenderer = new DefaultDomRenderer2(eventManager);
     }
-    
     /**
      * @param {?} element
      * @param {?} type
@@ -2737,7 +2742,7 @@ var DomRendererFactory2 = (function () {
     ]; };
     return DomRendererFactory2;
 }());
-var DefaultDomRenderer2 = (function () {
+var DefaultDomRenderer2 = /** @class */ (function () {
     function DefaultDomRenderer2(eventManager) {
         this.eventManager = eventManager;
         this.data = Object.create(null);
@@ -3041,7 +3046,7 @@ function checkNoSyntheticProp(name, nameKind) {
         throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
     }
 }
-var EmulatedEncapsulationDomRenderer2 = (function (_super) {
+var EmulatedEncapsulationDomRenderer2 = /** @class */ (function (_super) {
     __extends(EmulatedEncapsulationDomRenderer2, _super);
     function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component) {
         var _this = _super.call(this, eventManager) || this;
@@ -3078,7 +3083,7 @@ var EmulatedEncapsulationDomRenderer2 = (function (_super) {
     };
     return EmulatedEncapsulationDomRenderer2;
 }(DefaultDomRenderer2));
-var ShadowDomRenderer = (function (_super) {
+var ShadowDomRenderer = /** @class */ (function (_super) {
     __extends(ShadowDomRenderer, _super);
     function ShadowDomRenderer(eventManager, sharedStylesHost, hostEl, component) {
         var _this = _super.call(this, eventManager) || this;
@@ -3177,16 +3182,16 @@ var ShadowDomRenderer = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var ɵ0 = function (v) {
+    return '__zone_symbol__' + v;
+};
 /**
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
  * since Angular can do much more
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
  */
-var Zone = _angular_core.ɵglobal['Zone'];
-var __symbol__ = Zone && Zone['__symbol__'] || function (v) {
-    return v;
-};
+var __symbol__ = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))['__symbol__'] || ɵ0;
 var ADD_EVENT_LISTENER = __symbol__('addEventListener');
 var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 var symbolNames = {};
@@ -3194,7 +3199,10 @@ var FALSE = 'FALSE';
 var ANGULAR = 'ANGULAR';
 var NATIVE_ADD_LISTENER = 'addEventListener';
 var NATIVE_REMOVE_LISTENER = 'removeEventListener';
-var blackListedEvents = Zone && Zone[__symbol__('BLACK_LISTED_EVENTS')];
+// use the same symbol string which is used in zone.js
+var stopSymbol = '__zone_symbol__propagationStopped';
+var stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
+var blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
 var blackListedMap;
 if (blackListedEvents) {
     blackListedMap = {};
@@ -3234,6 +3242,11 @@ var globalListener = function (event) {
         // itself or others
         var /** @type {?} */ copiedTasks = taskDatas.slice();
         for (var /** @type {?} */ i = 0; i < copiedTasks.length; i++) {
+            // if other listener call event.stopImmediatePropagation
+            // just break
+            if ((/** @type {?} */ (event))[stopSymbol] === true) {
+                break;
+            }
             var /** @type {?} */ taskData = copiedTasks[i];
             if (taskData.zone !== Zone.current) {
                 // only use Zone.run when Zone.current not equals to stored zone
@@ -3245,13 +3258,40 @@ var globalListener = function (event) {
         }
     }
 };
-var DomEventsPlugin = (function (_super) {
+var DomEventsPlugin = /** @class */ (function (_super) {
     __extends(DomEventsPlugin, _super);
     function DomEventsPlugin(doc, ngZone) {
         var _this = _super.call(this, doc) || this;
         _this.ngZone = ngZone;
+        _this.patchEvent();
         return _this;
     }
+    /**
+     * @return {?}
+     */
+    DomEventsPlugin.prototype.patchEvent = /**
+     * @return {?}
+     */
+    function () {
+        if (!Event || !Event.prototype) {
+            return;
+        }
+        if ((/** @type {?} */ (Event.prototype))[stopMethodSymbol]) {
+            // already patched by zone.js
+            return;
+        }
+        var /** @type {?} */ delegate = (/** @type {?} */ (Event.prototype))[stopMethodSymbol] =
+            Event.prototype.stopImmediatePropagation;
+        Event.prototype.stopImmediatePropagation = function () {
+            if (this) {
+                this[stopSymbol] = true;
+            }
+            // should call native delegate in case
+            // in some enviroment part of the application
+            // will not use the patched Event
+            delegate && delegate.apply(this, arguments);
+        };
+    };
     // This plugin should come last in the list of plugins, because it accepts all
     // events.
     /**
@@ -3355,16 +3395,27 @@ var DomEventsPlugin = (function (_super) {
             // just call native removeEventListener
             return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
+        // fix issue 20532, should be able to remove
+        // listener which was added inside of ngZone
+        var /** @type {?} */ found = false;
         for (var /** @type {?} */ i = 0; i < taskDatas.length; i++) {
             // remove listener from taskDatas if the callback equals
             if (taskDatas[i].handler === callback) {
+                found = true;
                 taskDatas.splice(i, 1);
                 break;
             }
         }
-        if (taskDatas.length === 0) {
-            // all listeners are removed, we can remove the globalListener from target
-            underlyingRemove.apply(target, [eventName, globalListener, false]);
+        if (found) {
+            if (taskDatas.length === 0) {
+                // all listeners are removed, we can remove the globalListener from target
+                underlyingRemove.apply(target, [eventName, globalListener, false]);
+            }
+        }
+        else {
+            // not found in taskDatas, the callback may be added inside of ngZone
+            // use native remove listener to remove the calback
+            target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
     };
     DomEventsPlugin.decorators = [
@@ -3440,7 +3491,7 @@ var HAMMER_GESTURE_CONFIG = new _angular_core.InjectionToken('HammerGestureConfi
 /**
  * \@experimental
  */
-var HammerGestureConfig = (function () {
+var HammerGestureConfig = /** @class */ (function () {
     function HammerGestureConfig() {
         this.events = [];
         this.overrides = {};
@@ -3454,7 +3505,7 @@ var HammerGestureConfig = (function () {
      * @return {?}
      */
     function (element) {
-        var /** @type {?} */ mc = new Hammer(element);
+        var /** @type {?} */ mc = new Hammer(element, this.options);
         mc.get('pinch').set({ enable: true });
         mc.get('rotate').set({ enable: true });
         for (var /** @type {?} */ eventName in this.overrides) {
@@ -3469,11 +3520,12 @@ var HammerGestureConfig = (function () {
     HammerGestureConfig.ctorParameters = function () { return []; };
     return HammerGestureConfig;
 }());
-var HammerGesturesPlugin = (function (_super) {
+var HammerGesturesPlugin = /** @class */ (function (_super) {
     __extends(HammerGesturesPlugin, _super);
-    function HammerGesturesPlugin(doc, _config) {
+    function HammerGesturesPlugin(doc, _config, console) {
         var _this = _super.call(this, doc) || this;
         _this._config = _config;
+        _this.console = console;
         return _this;
     }
     /**
@@ -3489,7 +3541,8 @@ var HammerGesturesPlugin = (function (_super) {
             return false;
         }
         if (!(/** @type {?} */ (window)).Hammer) {
-            throw new Error("Hammer.js is not loaded, can not bind " + eventName + " event");
+            this.console.warn("Hammer.js is not loaded, can not bind '" + eventName + "' event.");
+            return false;
         }
         return true;
     };
@@ -3535,6 +3588,7 @@ var HammerGesturesPlugin = (function (_super) {
     HammerGesturesPlugin.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [DOCUMENT$1,] },] },
         { type: HammerGestureConfig, decorators: [{ type: _angular_core.Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
+        { type: _angular_core.ɵConsole, },
     ]; };
     return HammerGesturesPlugin;
 }(EventManagerPlugin));
@@ -3551,16 +3605,20 @@ var HammerGesturesPlugin = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
+var ɵ0$1 = function (event) { return event.altKey; };
+var ɵ1$1 = function (event) { return event.ctrlKey; };
+var ɵ2$1 = function (event) { return event.metaKey; };
+var ɵ3 = function (event) { return event.shiftKey; };
 var MODIFIER_KEY_GETTERS = {
-    'alt': function (event) { return event.altKey; },
-    'control': function (event) { return event.ctrlKey; },
-    'meta': function (event) { return event.metaKey; },
-    'shift': function (event) { return event.shiftKey; }
+    'alt': ɵ0$1,
+    'control': ɵ1$1,
+    'meta': ɵ2$1,
+    'shift': ɵ3
 };
 /**
  * \@experimental
  */
-var KeyEventsPlugin = (function (_super) {
+var KeyEventsPlugin = /** @class */ (function (_super) {
     __extends(KeyEventsPlugin, _super);
     function KeyEventsPlugin(doc) {
         return _super.call(this, doc) || this;
@@ -3716,498 +3774,6 @@ var KeyEventsPlugin = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * A pattern that recognizes a commonly useful subset of URLs that are safe.
- *
- * This regular expression matches a subset of URLs that will not cause script
- * execution if used in URL context within a HTML document. Specifically, this
- * regular expression matches if (comment from here on and regex copied from
- * Soy's EscapingConventions):
- * (1) Either a protocol in a whitelist (http, https, mailto or ftp).
- * (2) or no protocol.  A protocol must be followed by a colon. The below
- *     allows that by allowing colons only after one of the characters [/?#].
- *     A colon after a hash (#) must be in the fragment.
- *     Otherwise, a colon after a (?) must be in a query.
- *     Otherwise, a colon after a single solidus (/) must be in a path.
- *     Otherwise, a colon after a double solidus (//) must be in the authority
- *     (before port).
- *
- * The pattern disallows &, used in HTML entity declarations before
- * one of the characters in [/?#]. This disallows HTML entities used in the
- * protocol name, which should never happen, e.g. "h&#116;tp" for "http".
- * It also disallows HTML entities in the first path part of a relative path,
- * e.g. "foo&lt;bar/baz".  Our existing escaping functions should not produce
- * that. More importantly, it disallows masking of a colon,
- * e.g. "javascript&#58;...".
- *
- * This regular expression was taken from the Closure sanitization library.
- */
-var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
-/**
- * A pattern that matches safe data URLs. Only matches image, video and audio types.
- */
-var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
-/**
- * @param {?} url
- * @return {?}
- */
-function sanitizeUrl(url) {
-    url = String(url);
-    if (url.match(SAFE_URL_PATTERN) || url.match(DATA_URL_PATTERN))
-        return url;
-    if (_angular_core.isDevMode()) {
-        getDOM().log("WARNING: sanitizing unsafe URL value " + url + " (see http://g.co/ng/security#xss)");
-    }
-    return 'unsafe:' + url;
-}
-/**
- * @param {?} srcset
- * @return {?}
- */
-function sanitizeSrcset(srcset) {
-    srcset = String(srcset);
-    return srcset.split(',').map(function (srcset) { return sanitizeUrl(srcset.trim()); }).join(', ');
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A <body> element that can be safely used to parse untrusted HTML. Lazily initialized below.
- */
-var inertElement = null;
-/**
- * Lazily initialized to make sure the DOM adapter gets set before use.
- */
-var DOM = /** @type {?} */ ((null));
-/**
- * Returns an HTML element that is guaranteed to not execute code when creating elements in it.
- * @return {?}
- */
-function getInertElement() {
-    if (inertElement)
-        return inertElement;
-    DOM = getDOM();
-    // Prefer using <template> element if supported.
-    var /** @type {?} */ templateEl = DOM.createElement('template');
-    if ('content' in templateEl)
-        return templateEl;
-    var /** @type {?} */ doc = DOM.createHtmlDocument();
-    inertElement = DOM.querySelector(doc, 'body');
-    if (inertElement == null) {
-        // usually there should be only one body element in the document, but IE doesn't have any, so we
-        // need to create one.
-        var /** @type {?} */ html = DOM.createElement('html', doc);
-        inertElement = DOM.createElement('body', doc);
-        DOM.appendChild(html, inertElement);
-        DOM.appendChild(doc, html);
-    }
-    return inertElement;
-}
-/**
- * @param {?} tags
- * @return {?}
- */
-function tagSet(tags) {
-    var /** @type {?} */ res = {};
-    for (var _i = 0, _a = tags.split(','); _i < _a.length; _i++) {
-        var t = _a[_i];
-        res[t] = true;
-    }
-    return res;
-}
-/**
- * @param {...?} sets
- * @return {?}
- */
-function merge() {
-    var sets = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        sets[_i] = arguments[_i];
-    }
-    var /** @type {?} */ res = {};
-    for (var _a = 0, sets_1 = sets; _a < sets_1.length; _a++) {
-        var s = sets_1[_a];
-        for (var /** @type {?} */ v in s) {
-            if (s.hasOwnProperty(v))
-                res[v] = true;
-        }
-    }
-    return res;
-}
-// Good source of info about elements and attributes
-// http://dev.w3.org/html5/spec/Overview.html#semantics
-// http://simon.html5.org/html-elements
-// Safe Void Elements - HTML5
-// http://dev.w3.org/html5/spec/Overview.html#void-elements
-var VOID_ELEMENTS = tagSet('area,br,col,hr,img,wbr');
-// Elements that you can, intentionally, leave open (and which close themselves)
-// http://dev.w3.org/html5/spec/Overview.html#optional-tags
-var OPTIONAL_END_TAG_BLOCK_ELEMENTS = tagSet('colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr');
-var OPTIONAL_END_TAG_INLINE_ELEMENTS = tagSet('rp,rt');
-var OPTIONAL_END_TAG_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, OPTIONAL_END_TAG_BLOCK_ELEMENTS);
-// Safe Block Elements - HTML5
-var BLOCK_ELEMENTS = merge(OPTIONAL_END_TAG_BLOCK_ELEMENTS, tagSet('address,article,' +
-    'aside,blockquote,caption,center,del,details,dialog,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,' +
-    'h6,header,hgroup,hr,ins,main,map,menu,nav,ol,pre,section,summary,table,ul'));
-// Inline Elements - HTML5
-var INLINE_ELEMENTS = merge(OPTIONAL_END_TAG_INLINE_ELEMENTS, tagSet('a,abbr,acronym,audio,b,' +
-    'bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,picture,q,ruby,rp,rt,s,' +
-    'samp,small,source,span,strike,strong,sub,sup,time,track,tt,u,var,video'));
-var VALID_ELEMENTS = merge(VOID_ELEMENTS, BLOCK_ELEMENTS, INLINE_ELEMENTS, OPTIONAL_END_TAG_ELEMENTS);
-// Attributes that have href and hence need to be sanitized
-var URI_ATTRS = tagSet('background,cite,href,itemtype,longdesc,poster,src,xlink:href');
-// Attributes that have special href set hence need to be sanitized
-var SRCSET_ATTRS = tagSet('srcset');
-var HTML_ATTRS = tagSet('abbr,accesskey,align,alt,autoplay,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,' +
-    'compact,controls,coords,datetime,default,dir,download,face,headers,height,hidden,hreflang,hspace,' +
-    'ismap,itemscope,itemprop,kind,label,lang,language,loop,media,muted,nohref,nowrap,open,preload,rel,rev,role,rows,rowspan,rules,' +
-    'scope,scrolling,shape,size,sizes,span,srclang,start,summary,tabindex,target,title,translate,type,usemap,' +
-    'valign,value,vspace,width');
-// NB: This currently consciously doesn't support SVG. SVG sanitization has had several security
-// issues in the past, so it seems safer to leave it out if possible. If support for binding SVG via
-// innerHTML is required, SVG attributes should be added here.
-// NB: Sanitization does not allow <form> elements or other active elements (<button> etc). Those
-// can be sanitized, but they increase security surface area without a legitimate use case, so they
-// are left out here.
-var VALID_ATTRS = merge(URI_ATTRS, SRCSET_ATTRS, HTML_ATTRS);
-/**
- * SanitizingHtmlSerializer serializes a DOM fragment, stripping out any unsafe elements and unsafe
- * attributes.
- */
-var SanitizingHtmlSerializer = (function () {
-    function SanitizingHtmlSerializer() {
-        this.sanitizedSomething = false;
-        this.buf = [];
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    SanitizingHtmlSerializer.prototype.sanitizeChildren = /**
-     * @param {?} el
-     * @return {?}
-     */
-    function (el) {
-        // This cannot use a TreeWalker, as it has to run on Angular's various DOM adapters.
-        // However this code never accesses properties off of `document` before deleting its contents
-        // again, so it shouldn't be vulnerable to DOM clobbering.
-        var /** @type {?} */ current = /** @type {?} */ ((el.firstChild));
-        while (current) {
-            if (DOM.isElementNode(current)) {
-                this.startElement(/** @type {?} */ (current));
-            }
-            else if (DOM.isTextNode(current)) {
-                this.chars(/** @type {?} */ ((DOM.nodeValue(current))));
-            }
-            else {
-                // Strip non-element, non-text nodes.
-                this.sanitizedSomething = true;
-            }
-            if (DOM.firstChild(current)) {
-                current = /** @type {?} */ ((DOM.firstChild(current)));
-                continue;
-            }
-            while (current) {
-                // Leaving the element. Walk up and to the right, closing tags as we go.
-                if (DOM.isElementNode(current)) {
-                    this.endElement(/** @type {?} */ (current));
-                }
-                var /** @type {?} */ next = checkClobberedElement(current, /** @type {?} */ ((DOM.nextSibling(current))));
-                if (next) {
-                    current = next;
-                    break;
-                }
-                current = checkClobberedElement(current, /** @type {?} */ ((DOM.parentElement(current))));
-            }
-        }
-        return this.buf.join('');
-    };
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    SanitizingHtmlSerializer.prototype.startElement = /**
-     * @param {?} element
-     * @return {?}
-     */
-    function (element) {
-        var _this = this;
-        var /** @type {?} */ tagName = DOM.nodeName(element).toLowerCase();
-        if (!VALID_ELEMENTS.hasOwnProperty(tagName)) {
-            this.sanitizedSomething = true;
-            return;
-        }
-        this.buf.push('<');
-        this.buf.push(tagName);
-        DOM.attributeMap(element).forEach(function (value, attrName) {
-            var /** @type {?} */ lower = attrName.toLowerCase();
-            if (!VALID_ATTRS.hasOwnProperty(lower)) {
-                _this.sanitizedSomething = true;
-                return;
-            }
-            // TODO(martinprobst): Special case image URIs for data:image/...
-            if (URI_ATTRS[lower])
-                value = sanitizeUrl(value);
-            if (SRCSET_ATTRS[lower])
-                value = sanitizeSrcset(value);
-            _this.buf.push(' ');
-            _this.buf.push(attrName);
-            _this.buf.push('="');
-            _this.buf.push(encodeEntities(value));
-            _this.buf.push('"');
-        });
-        this.buf.push('>');
-    };
-    /**
-     * @param {?} current
-     * @return {?}
-     */
-    SanitizingHtmlSerializer.prototype.endElement = /**
-     * @param {?} current
-     * @return {?}
-     */
-    function (current) {
-        var /** @type {?} */ tagName = DOM.nodeName(current).toLowerCase();
-        if (VALID_ELEMENTS.hasOwnProperty(tagName) && !VOID_ELEMENTS.hasOwnProperty(tagName)) {
-            this.buf.push('</');
-            this.buf.push(tagName);
-            this.buf.push('>');
-        }
-    };
-    /**
-     * @param {?} chars
-     * @return {?}
-     */
-    SanitizingHtmlSerializer.prototype.chars = /**
-     * @param {?} chars
-     * @return {?}
-     */
-    function (chars) { this.buf.push(encodeEntities(chars)); };
-    return SanitizingHtmlSerializer;
-}());
-/**
- * @param {?} node
- * @param {?} nextNode
- * @return {?}
- */
-function checkClobberedElement(node, nextNode) {
-    if (nextNode && DOM.contains(node, nextNode)) {
-        throw new Error("Failed to sanitize html because the element is clobbered: " + DOM.getOuterHTML(node));
-    }
-    return nextNode;
-}
-// Regular Expressions for parsing tags and attributes
-var SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
-// ! to ~ is the ASCII range.
-var NON_ALPHANUMERIC_REGEXP = /([^\#-~ |!])/g;
-/**
- * Escapes all potentially dangerous characters, so that the
- * resulting string can be safely inserted into attribute or
- * element text.
- * @param {?} value
- * @return {?}
- */
-function encodeEntities(value) {
-    return value.replace(/&/g, '&amp;')
-        .replace(SURROGATE_PAIR_REGEXP, function (match) {
-        var /** @type {?} */ hi = match.charCodeAt(0);
-        var /** @type {?} */ low = match.charCodeAt(1);
-        return '&#' + (((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000) + ';';
-    })
-        .replace(NON_ALPHANUMERIC_REGEXP, function (match) { return '&#' + match.charCodeAt(0) + ';'; })
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-}
-/**
- * When IE9-11 comes across an unknown namespaced attribute e.g. 'xlink:foo' it adds 'xmlns:ns1'
- * attribute to declare ns1 namespace and prefixes the attribute with 'ns1' (e.g. 'ns1:xlink:foo').
- *
- * This is undesirable since we don't want to allow any of these custom attributes. This method
- * strips them all.
- * @param {?} el
- * @return {?}
- */
-function stripCustomNsAttrs(el) {
-    DOM.attributeMap(el).forEach(function (_, attrName) {
-        if (attrName === 'xmlns:ns1' || attrName.indexOf('ns1:') === 0) {
-            DOM.removeAttribute(el, attrName);
-        }
-    });
-    for (var _i = 0, _a = DOM.childNodesAsList(el); _i < _a.length; _i++) {
-        var n = _a[_i];
-        if (DOM.isElementNode(n))
-            stripCustomNsAttrs(/** @type {?} */ (n));
-    }
-}
-/**
- * Sanitizes the given unsafe, untrusted HTML fragment, and returns HTML text that is safe to add to
- * the DOM in a browser environment.
- * @param {?} defaultDoc
- * @param {?} unsafeHtmlInput
- * @return {?}
- */
-function sanitizeHtml(defaultDoc, unsafeHtmlInput) {
-    try {
-        var /** @type {?} */ containerEl = getInertElement();
-        // Make sure unsafeHtml is actually a string (TypeScript types are not enforced at runtime).
-        var /** @type {?} */ unsafeHtml = unsafeHtmlInput ? String(unsafeHtmlInput) : '';
-        // mXSS protection. Repeatedly parse the document to make sure it stabilizes, so that a browser
-        // trying to auto-correct incorrect HTML cannot cause formerly inert HTML to become dangerous.
-        var /** @type {?} */ mXSSAttempts = 5;
-        var /** @type {?} */ parsedHtml = unsafeHtml;
-        do {
-            if (mXSSAttempts === 0) {
-                throw new Error('Failed to sanitize html because the input is unstable');
-            }
-            mXSSAttempts--;
-            unsafeHtml = parsedHtml;
-            DOM.setInnerHTML(containerEl, unsafeHtml);
-            if (defaultDoc.documentMode) {
-                // strip custom-namespaced attributes on IE<=11
-                stripCustomNsAttrs(containerEl);
-            }
-            parsedHtml = DOM.getInnerHTML(containerEl);
-        } while (unsafeHtml !== parsedHtml);
-        var /** @type {?} */ sanitizer = new SanitizingHtmlSerializer();
-        var /** @type {?} */ safeHtml = sanitizer.sanitizeChildren(DOM.getTemplateContent(containerEl) || containerEl);
-        // Clear out the body element.
-        var /** @type {?} */ parent_1 = DOM.getTemplateContent(containerEl) || containerEl;
-        for (var _i = 0, _a = DOM.childNodesAsList(parent_1); _i < _a.length; _i++) {
-            var child = _a[_i];
-            DOM.removeChild(parent_1, child);
-        }
-        if (_angular_core.isDevMode() && sanitizer.sanitizedSomething) {
-            DOM.log('WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).');
-        }
-        return safeHtml;
-    }
-    catch (/** @type {?} */ e) {
-        // In case anything goes wrong, clear out inertElement to reset the entire DOM structure.
-        inertElement = null;
-        throw e;
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Regular expression for safe style values.
- *
- * Quotes (" and ') are allowed, but a check must be done elsewhere to ensure they're balanced.
- *
- * ',' allows multiple values to be assigned to the same property (e.g. background-attachment or
- * font-family) and hence could allow multiple values to get injected, but that should pose no risk
- * of XSS.
- *
- * The function expression checks only for XSS safety, not for CSS validity.
- *
- * This regular expression was taken from the Closure sanitization library, and augmented for
- * transformation values.
- */
-var VALUES = '[-,."\'%_!# a-zA-Z0-9]+';
-var TRANSFORMATION_FNS = '(?:matrix|translate|scale|rotate|skew|perspective)(?:X|Y|3d)?';
-var COLOR_FNS = '(?:rgb|hsl)a?';
-var GRADIENTS = '(?:repeating-)?(?:linear|radial)-gradient';
-var CSS3_FNS = '(?:calc|attr)';
-var FN_ARGS = '\\([-0-9.%, #a-zA-Z]+\\)';
-var SAFE_STYLE_VALUE = new RegExp("^(" + VALUES + "|" +
-    ("(?:" + TRANSFORMATION_FNS + "|" + COLOR_FNS + "|" + GRADIENTS + "|" + CSS3_FNS + ")") +
-    (FN_ARGS + ")$"), 'g');
-/**
- * Matches a `url(...)` value with an arbitrary argument as long as it does
- * not contain parentheses.
- *
- * The URL value still needs to be sanitized separately.
- *
- * `url(...)` values are a very common use case, e.g. for `background-image`. With carefully crafted
- * CSS style rules, it is possible to construct an information leak with `url` values in CSS, e.g.
- * by observing whether scroll bars are displayed, or character ranges used by a font face
- * definition.
- *
- * Angular only allows binding CSS values (as opposed to entire CSS rules), so it is unlikely that
- * binding a URL value without further cooperation from the page will cause an information leak, and
- * if so, it is just a leak, not a full blown XSS vulnerability.
- *
- * Given the common use case, low likelihood of attack vector, and low impact of an attack, this
- * code is permissive and allows URLs that sanitize otherwise.
- */
-var URL_RE = /^url\(([^)]+)\)$/;
-/**
- * Checks that quotes (" and ') are properly balanced inside a string. Assumes
- * that neither escape (\) nor any other character that could result in
- * breaking out of a string parsing context are allowed;
- * see http://www.w3.org/TR/css3-syntax/#string-token-diagram.
- *
- * This code was taken from the Closure sanitization library.
- * @param {?} value
- * @return {?}
- */
-function hasBalancedQuotes(value) {
-    var /** @type {?} */ outsideSingle = true;
-    var /** @type {?} */ outsideDouble = true;
-    for (var /** @type {?} */ i = 0; i < value.length; i++) {
-        var /** @type {?} */ c = value.charAt(i);
-        if (c === '\'' && outsideDouble) {
-            outsideSingle = !outsideSingle;
-        }
-        else if (c === '"' && outsideSingle) {
-            outsideDouble = !outsideDouble;
-        }
-    }
-    return outsideSingle && outsideDouble;
-}
-/**
- * Sanitizes the given untrusted CSS style property value (i.e. not an entire object, just a single
- * value) and returns a value that is safe to use in a browser environment.
- * @param {?} value
- * @return {?}
- */
-function sanitizeStyle(value) {
-    value = String(value).trim(); // Make sure it's actually a string.
-    if (!value)
-        return '';
-    // Single url(...) values are supported, but only for URLs that sanitize cleanly. See above for
-    // reasoning behind this.
-    var /** @type {?} */ urlMatch = value.match(URL_RE);
-    if ((urlMatch && sanitizeUrl(urlMatch[1]) === urlMatch[1]) ||
-        value.match(SAFE_STYLE_VALUE) && hasBalancedQuotes(value)) {
-        return value; // Safe style values.
-    }
-    if (_angular_core.isDevMode()) {
-        getDOM().log("WARNING: sanitizing unsafe style value " + value + " (see http://g.co/ng/security#xss).");
-    }
-    return 'unsafe';
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Marker interface for a value that's safe to use in a particular context.
  *
  * \@stable
@@ -4281,12 +3847,12 @@ function sanitizeStyle(value) {
  * \@stable
  * @abstract
  */
-var DomSanitizer = (function () {
+var DomSanitizer = /** @class */ (function () {
     function DomSanitizer() {
     }
     return DomSanitizer;
 }());
-var DomSanitizerImpl = (function (_super) {
+var DomSanitizerImpl = /** @class */ (function (_super) {
     __extends(DomSanitizerImpl, _super);
     function DomSanitizerImpl(_doc) {
         var _this = _super.call(this) || this;
@@ -4313,12 +3879,12 @@ var DomSanitizerImpl = (function (_super) {
                 if (value instanceof SafeHtmlImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'HTML');
-                return sanitizeHtml(this._doc, String(value));
+                return _angular_core.ɵ_sanitizeHtml(this._doc, String(value));
             case _angular_core.SecurityContext.STYLE:
                 if (value instanceof SafeStyleImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'Style');
-                return sanitizeStyle(/** @type {?} */ (value));
+                return _angular_core.ɵ_sanitizeStyle(/** @type {?} */ (value));
             case _angular_core.SecurityContext.SCRIPT:
                 if (value instanceof SafeScriptImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -4330,7 +3896,7 @@ var DomSanitizerImpl = (function (_super) {
                     return value.changingThisBreaksApplicationSecurity;
                 }
                 this.checkNotSafeValue(value, 'URL');
-                return sanitizeUrl(String(value));
+                return _angular_core.ɵ_sanitizeUrl(String(value));
             case _angular_core.SecurityContext.RESOURCE_URL:
                 if (value instanceof SafeResourceUrlImpl) {
                     return value.changingThisBreaksApplicationSecurity;
@@ -4416,7 +3982,7 @@ var DomSanitizerImpl = (function (_super) {
 /**
  * @abstract
  */
-var SafeValueImpl = (function () {
+var SafeValueImpl = /** @class */ (function () {
     function SafeValueImpl(changingThisBreaksApplicationSecurity) {
         // empty
         this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
@@ -4433,7 +3999,7 @@ var SafeValueImpl = (function () {
     };
     return SafeValueImpl;
 }());
-var SafeHtmlImpl = (function (_super) {
+var SafeHtmlImpl = /** @class */ (function (_super) {
     __extends(SafeHtmlImpl, _super);
     function SafeHtmlImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -4447,7 +4013,7 @@ var SafeHtmlImpl = (function (_super) {
     function () { return 'HTML'; };
     return SafeHtmlImpl;
 }(SafeValueImpl));
-var SafeStyleImpl = (function (_super) {
+var SafeStyleImpl = /** @class */ (function (_super) {
     __extends(SafeStyleImpl, _super);
     function SafeStyleImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -4461,7 +4027,7 @@ var SafeStyleImpl = (function (_super) {
     function () { return 'Style'; };
     return SafeStyleImpl;
 }(SafeValueImpl));
-var SafeScriptImpl = (function (_super) {
+var SafeScriptImpl = /** @class */ (function (_super) {
     __extends(SafeScriptImpl, _super);
     function SafeScriptImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -4475,7 +4041,7 @@ var SafeScriptImpl = (function (_super) {
     function () { return 'Script'; };
     return SafeScriptImpl;
 }(SafeValueImpl));
-var SafeUrlImpl = (function (_super) {
+var SafeUrlImpl = /** @class */ (function (_super) {
     __extends(SafeUrlImpl, _super);
     function SafeUrlImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -4489,7 +4055,7 @@ var SafeUrlImpl = (function (_super) {
     function () { return 'URL'; };
     return SafeUrlImpl;
 }(SafeValueImpl));
-var SafeResourceUrlImpl = (function (_super) {
+var SafeResourceUrlImpl = /** @class */ (function (_super) {
     __extends(SafeResourceUrlImpl, _super);
     function SafeResourceUrlImpl() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -4559,7 +4125,7 @@ function _document() {
  *
  * \@stable
  */
-var BrowserModule = (function () {
+var BrowserModule = /** @class */ (function () {
     function BrowserModule(parentModule) {
         if (parentModule) {
             throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
@@ -4604,6 +4170,7 @@ var BrowserModule = (function () {
         { type: _angular_core.NgModule, args: [{
                     providers: [
                         BROWSER_SANITIZATION_PROVIDERS,
+                        { provide: _angular_core.ɵAPP_ROOT, useValue: true },
                         { provide: _angular_core.ErrorHandler, useFactory: errorHandler, deps: [] },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
                         { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
@@ -4653,7 +4220,7 @@ var win = typeof window !== 'undefined' && window || /** @type {?} */ ({});
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ChangeDetectionPerfRecord = (function () {
+var ChangeDetectionPerfRecord = /** @class */ (function () {
     function ChangeDetectionPerfRecord(msPerTick, numTicks) {
         this.msPerTick = msPerTick;
         this.numTicks = numTicks;
@@ -4664,7 +4231,7 @@ var ChangeDetectionPerfRecord = (function () {
  * Entry point for all Angular profiling-related debug tools. This object
  * corresponds to the `ng.profiler` in the dev console.
  */
-var AngularProfiler = (function () {
+var AngularProfiler = /** @class */ (function () {
     function AngularProfiler(ref) {
         this.appRef = ref.injector.get(_angular_core.ApplicationRef);
     }
@@ -4755,6 +4322,13 @@ var AngularProfiler = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 var PROFILER_GLOBAL_NAME = 'profiler';
 /**
  * Enabled Angular debug tools that are accessible via your browser's
@@ -4791,11 +4365,272 @@ function disableDebugTools() {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @param {?} text
+ * @return {?}
+ */
+function escapeHtml(text) {
+    var /** @type {?} */ escapedText = {
+        '&': '&a;',
+        '"': '&q;',
+        '\'': '&s;',
+        '<': '&l;',
+        '>': '&g;',
+    };
+    return text.replace(/[&"'<>]/g, function (s) { return escapedText[s]; });
+}
+/**
+ * @param {?} text
+ * @return {?}
+ */
+function unescapeHtml(text) {
+    var /** @type {?} */ unescapedText = {
+        '&a;': '&',
+        '&q;': '"',
+        '&s;': '\'',
+        '&l;': '<',
+        '&g;': '>',
+    };
+    return text.replace(/&[^;]+;/g, function (s) { return unescapedText[s]; });
+}
+/**
+ * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
+ *
+ * Example:
+ *
+ * ```
+ * const COUNTER_KEY = makeStateKey<number>('counter');
+ * let value = 10;
+ *
+ * transferState.set(COUNTER_KEY, value);
+ * ```
+ *
+ * \@experimental
+ * @template T
+ * @param {?} key
+ * @return {?}
+ */
+function makeStateKey(key) {
+    return /** @type {?} */ (key);
+}
+/**
+ * A key value store that is transferred from the application on the server side to the application
+ * on the client side.
+ *
+ * `TransferState` will be available as an injectable token. To use it import
+ * `ServerTransferStateModule` on the server and `BrowserTransferStateModule` on the client.
+ *
+ * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
+ * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
+ * non-lossy manner.
+ *
+ * \@experimental
+ */
+var TransferState = /** @class */ (function () {
+    function TransferState() {
+        this.store = {};
+        this.onSerializeCallbacks = {};
+    }
+    /** @internal */
+    /**
+     * \@internal
+     * @param {?} initState
+     * @return {?}
+     */
+    TransferState.init = /**
+     * \@internal
+     * @param {?} initState
+     * @return {?}
+     */
+    function (initState) {
+        var /** @type {?} */ transferState = new TransferState();
+        transferState.store = initState;
+        return transferState;
+    };
+    /**
+     * Get the value corresponding to a key. Return `defaultValue` if key is not found.
+     */
+    /**
+     * Get the value corresponding to a key. Return `defaultValue` if key is not found.
+     * @template T
+     * @param {?} key
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    TransferState.prototype.get = /**
+     * Get the value corresponding to a key. Return `defaultValue` if key is not found.
+     * @template T
+     * @param {?} key
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    function (key, defaultValue) {
+        return this.store[key] !== undefined ? /** @type {?} */ (this.store[key]) : defaultValue;
+    };
+    /**
+     * Set the value corresponding to a key.
+     */
+    /**
+     * Set the value corresponding to a key.
+     * @template T
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    TransferState.prototype.set = /**
+     * Set the value corresponding to a key.
+     * @template T
+     * @param {?} key
+     * @param {?} value
+     * @return {?}
+     */
+    function (key, value) { this.store[key] = value; };
+    /**
+     * Remove a key from the store.
+     */
+    /**
+     * Remove a key from the store.
+     * @template T
+     * @param {?} key
+     * @return {?}
+     */
+    TransferState.prototype.remove = /**
+     * Remove a key from the store.
+     * @template T
+     * @param {?} key
+     * @return {?}
+     */
+    function (key) { delete this.store[key]; };
+    /**
+     * Test whether a key exists in the store.
+     */
+    /**
+     * Test whether a key exists in the store.
+     * @template T
+     * @param {?} key
+     * @return {?}
+     */
+    TransferState.prototype.hasKey = /**
+     * Test whether a key exists in the store.
+     * @template T
+     * @param {?} key
+     * @return {?}
+     */
+    function (key) { return this.store.hasOwnProperty(key); };
+    /**
+     * Register a callback to provide the value for a key when `toJson` is called.
+     */
+    /**
+     * Register a callback to provide the value for a key when `toJson` is called.
+     * @template T
+     * @param {?} key
+     * @param {?} callback
+     * @return {?}
+     */
+    TransferState.prototype.onSerialize = /**
+     * Register a callback to provide the value for a key when `toJson` is called.
+     * @template T
+     * @param {?} key
+     * @param {?} callback
+     * @return {?}
+     */
+    function (key, callback) {
+        this.onSerializeCallbacks[key] = callback;
+    };
+    /**
+     * Serialize the current state of the store to JSON.
+     */
+    /**
+     * Serialize the current state of the store to JSON.
+     * @return {?}
+     */
+    TransferState.prototype.toJson = /**
+     * Serialize the current state of the store to JSON.
+     * @return {?}
+     */
+    function () {
+        // Call the onSerialize callbacks and put those values into the store.
+        for (var /** @type {?} */ key in this.onSerializeCallbacks) {
+            if (this.onSerializeCallbacks.hasOwnProperty(key)) {
+                try {
+                    this.store[key] = this.onSerializeCallbacks[key]();
+                }
+                catch (/** @type {?} */ e) {
+                    console.warn('Exception in onSerialize callback: ', e);
+                }
+            }
+        }
+        return JSON.stringify(this.store);
+    };
+    TransferState.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    TransferState.ctorParameters = function () { return []; };
+    return TransferState;
+}());
+/**
+ * @param {?} doc
+ * @param {?} appId
+ * @return {?}
+ */
+function initTransferState(doc, appId) {
+    // Locate the script tag with the JSON data transferred from the server.
+    // The id of the script tag is set to the Angular appId + 'state'.
+    var /** @type {?} */ script = doc.getElementById(appId + '-state');
+    var /** @type {?} */ initialState = {};
+    if (script && script.textContent) {
+        try {
+            initialState = JSON.parse(unescapeHtml(script.textContent));
+        }
+        catch (/** @type {?} */ e) {
+            console.warn('Exception while restoring TransferState for app ' + appId, e);
+        }
+    }
+    return TransferState.init(initialState);
+}
+/**
+ * NgModule to install on the client side while using the `TransferState` to transfer state from
+ * server to client.
+ *
+ * \@experimental
+ */
+var BrowserTransferStateModule = /** @class */ (function () {
+    function BrowserTransferStateModule() {
+    }
+    BrowserTransferStateModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, _angular_core.APP_ID] }],
+                },] },
+    ];
+    /** @nocollapse */
+    BrowserTransferStateModule.ctorParameters = function () { return []; };
+    return BrowserTransferStateModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Predicates for use with {\@link DebugElement}'s query functions.
  *
  * \@experimental All debugging apis are currently experimental.
  */
-var By = (function () {
+var By = /** @class */ (function () {
     function By() {
     }
     /**
@@ -4880,7 +4715,7 @@ var By = (function () {
      * @return {?}
      */
     function (type) {
-        return function (debugElement) { return /** @type {?} */ ((debugElement.providerTokens)).indexOf(type) !== -1; };
+        return function (debugElement) { return ((debugElement.providerTokens)).indexOf(type) !== -1; };
     };
     return By;
 }());
@@ -4909,14 +4744,9 @@ var By = (function () {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @module
- * @description
- * Entry point for all public APIs of the common package.
- */
-/**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.6-3f585ba');
+var VERSION = new _angular_core.Version('6.0.0-beta.7-a7d6efe');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
@@ -4924,6 +4754,9 @@ exports.Meta = Meta;
 exports.Title = Title;
 exports.disableDebugTools = disableDebugTools;
 exports.enableDebugTools = enableDebugTools;
+exports.BrowserTransferStateModule = BrowserTransferStateModule;
+exports.TransferState = TransferState;
+exports.makeStateKey = makeStateKey;
 exports.By = By;
 exports.DOCUMENT = DOCUMENT$1;
 exports.EVENT_MANAGER_PLUGINS = EVENT_MANAGER_PLUGINS;
@@ -4939,6 +4772,7 @@ exports.ɵBrowserDomAdapter = BrowserDomAdapter;
 exports.ɵBrowserPlatformLocation = BrowserPlatformLocation;
 exports.ɵTRANSITION_ID = TRANSITION_ID;
 exports.ɵBrowserGetTestability = BrowserGetTestability;
+exports.ɵescapeHtml = escapeHtml;
 exports.ɵELEMENT_PROBE_PROVIDERS = ELEMENT_PROBE_PROVIDERS;
 exports.ɵDomAdapter = DomAdapter;
 exports.ɵgetDOM = getDOM;
@@ -4955,12 +4789,13 @@ exports.ɵDomSharedStylesHost = DomSharedStylesHost;
 exports.ɵSharedStylesHost = SharedStylesHost;
 exports.ɵb = _document;
 exports.ɵa = errorHandler;
-exports.ɵh = GenericBrowserDomAdapter;
-exports.ɵf = SERVER_TRANSITION_PROVIDERS;
-exports.ɵe = appInitializerFactory;
-exports.ɵg = _createNgProbe;
-exports.ɵc = EventManagerPlugin;
-exports.ɵd = DomSanitizerImpl;
+exports.ɵi = GenericBrowserDomAdapter;
+exports.ɵg = SERVER_TRANSITION_PROVIDERS;
+exports.ɵf = appInitializerFactory;
+exports.ɵc = initTransferState;
+exports.ɵh = _createNgProbe;
+exports.ɵd = EventManagerPlugin;
+exports.ɵe = DomSanitizerImpl;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
