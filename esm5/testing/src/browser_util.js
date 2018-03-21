@@ -1,12 +1,4 @@
 /**
- * @license Angular v6.0.0-beta.7-63cad11
- * (c) 2010-2018 Google, Inc. https://angular.io/
- * License: MIT
- */
-import { APP_ID, NgModule, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵglobal } from '@angular/core';
-import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM } from '@angular/platform-browser';
-
-/**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
@@ -17,7 +9,9 @@ import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var browserDetection;
+import { NgZone, ɵglobal as global } from '@angular/core';
+import { ɵgetDOM as getDOM } from '@angular/platform-browser';
+export var /** @type {?} */ browserDetection;
 var BrowserDetection = /** @class */ (function () {
     function BrowserDetection(ua) {
         this._overrideUa = ua;
@@ -30,7 +24,7 @@ var BrowserDetection = /** @class */ (function () {
             if (typeof this._overrideUa === 'string') {
                 return this._overrideUa;
             }
-            return ɵgetDOM() ? ɵgetDOM().getUserAgent() : '';
+            return getDOM() ? getDOM().getUserAgent() : '';
         },
         enumerable: true,
         configurable: true
@@ -117,7 +111,7 @@ var BrowserDetection = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return !!(/** @type {?} */ (ɵglobal)).Intl && (/** @type {?} */ (ɵglobal)).Intl !== (/** @type {?} */ (ɵglobal)).IntlPolyfill;
+            return !!(/** @type {?} */ (global)).Intl && (/** @type {?} */ (global)).Intl !== (/** @type {?} */ (global)).IntlPolyfill;
         },
         enumerable: true,
         configurable: true
@@ -148,118 +142,100 @@ var BrowserDetection = /** @class */ (function () {
     });
     return BrowserDetection;
 }());
+export { BrowserDetection };
+function BrowserDetection_tsickle_Closure_declarations() {
+    /** @type {?} */
+    BrowserDetection.prototype._overrideUa;
+}
 BrowserDetection.setup();
 /**
  * @param {?} element
  * @param {?} eventType
  * @return {?}
  */
-
+export function dispatchEvent(element, eventType) {
+    getDOM().dispatchEvent(element, getDOM().createEvent(eventType));
+}
 /**
  * @param {?} html
  * @return {?}
  */
-
+export function el(html) {
+    return /** @type {?} */ (getDOM().firstChild(getDOM().content(getDOM().createTemplate(html))));
+}
 /**
  * @param {?} css
  * @return {?}
  */
-
+export function normalizeCSS(css) {
+    return css.replace(/\s+/g, ' ')
+        .replace(/:\s/g, ':')
+        .replace(/'/g, '"')
+        .replace(/ }/g, '}')
+        .replace(/url\((\"|\s)(.+)(\"|\s)\)(\s*)/g, function () {
+        var match = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            match[_i] = arguments[_i];
+        }
+        return "url(\"" + match[2] + "\")";
+    })
+        .replace(/\[(.+)=([^"\]]+)\]/g, function () {
+        var match = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            match[_i] = arguments[_i];
+        }
+        return "[" + match[1] + "=\"" + match[2] + "\"]";
+    });
+}
+var /** @type {?} */ _singleTagWhitelist = ['br', 'hr', 'input'];
 /**
  * @param {?} el
  * @return {?}
  */
-
+export function stringifyElement(el /** TODO #9100 */) {
+    var /** @type {?} */ result = '';
+    if (getDOM().isElementNode(el)) {
+        var /** @type {?} */ tagName = getDOM().tagName(el).toLowerCase();
+        // Opening tag
+        result += "<" + tagName;
+        // Attributes in an ordered way
+        var /** @type {?} */ attributeMap = getDOM().attributeMap(el);
+        var /** @type {?} */ keys = Array.from(attributeMap.keys()).sort();
+        for (var /** @type {?} */ i = 0; i < keys.length; i++) {
+            var /** @type {?} */ key = keys[i];
+            var /** @type {?} */ attValue = attributeMap.get(key);
+            var /** @type {?} */ lowerCaseKey = key.toLowerCase();
+            if (typeof attValue !== 'string') {
+                result += " " + lowerCaseKey;
+            }
+            else {
+                result += " " + lowerCaseKey + "=\"" + attValue + "\"";
+            }
+        }
+        result += '>';
+        // Children
+        var /** @type {?} */ childrenRoot = getDOM().templateAwareRoot(el);
+        var /** @type {?} */ children = childrenRoot ? getDOM().childNodes(childrenRoot) : [];
+        for (var /** @type {?} */ j = 0; j < children.length; j++) {
+            result += stringifyElement(children[j]);
+        }
+        // Closing tag
+        if (_singleTagWhitelist.indexOf(tagName) == -1) {
+            result += "</" + tagName + ">";
+        }
+    }
+    else if (getDOM().isCommentNode(el)) {
+        result += "<!--" + getDOM().nodeValue(el) + "-->";
+    }
+    else {
+        result += getDOM().getText(el);
+    }
+    return result;
+}
 /**
  * @return {?}
  */
-function createNgZone() {
+export function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
 }
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @return {?}
- */
-function initBrowserTests() {
-    ɵBrowserDomAdapter.makeCurrent();
-    BrowserDetection.setup();
-}
-var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
-/**
- * Platform for testing
- *
- * \@stable
- */
-var platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
-var ɵ0 = createNgZone;
-/**
- * NgModule for testing.
- *
- * \@stable
- */
-var BrowserTestingModule = /** @class */ (function () {
-    function BrowserTestingModule() {
-    }
-    BrowserTestingModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    providers: [
-                        { provide: APP_ID, useValue: 'a' },
-                        ɵELEMENT_PROBE_PROVIDERS,
-                        { provide: NgZone, useFactory: ɵ0 },
-                    ]
-                },] },
-    ];
-    /** @nocollapse */
-    BrowserTestingModule.ctorParameters = function () { return []; };
-    return BrowserTestingModule;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the platform-browser/testing package.
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
- */
-
-export { platformBrowserTesting, BrowserTestingModule, createNgZone as ɵa };
-//# sourceMappingURL=testing.js.map
+//# sourceMappingURL=browser_util.js.map

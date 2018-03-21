@@ -1,242 +1,12 @@
 /**
- * @license Angular v6.0.0-beta.7-63cad11
- * (c) 2010-2018 Google, Inc. https://angular.io/
- * License: MIT
- */
-import { Inject, Injectable, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { __extends } from 'tslib';
-import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
-
-/**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var BrowserAnimationBuilder = /** @class */ (function (_super) {
-    __extends(BrowserAnimationBuilder, _super);
-    function BrowserAnimationBuilder(rootRenderer, doc) {
-        var _this = _super.call(this) || this;
-        _this._nextAnimationId = 0;
-        var /** @type {?} */ typeData = /** @type {?} */ ({
-            id: '0',
-            encapsulation: ViewEncapsulation.None,
-            styles: [],
-            data: { animation: [] }
-        });
-        _this._renderer = /** @type {?} */ (rootRenderer.createRenderer(doc.body, typeData));
-        return _this;
-    }
-    /**
-     * @param {?} animation
-     * @return {?}
-     */
-    BrowserAnimationBuilder.prototype.build = /**
-     * @param {?} animation
-     * @return {?}
-     */
-    function (animation) {
-        var /** @type {?} */ id = this._nextAnimationId.toString();
-        this._nextAnimationId++;
-        var /** @type {?} */ entry = Array.isArray(animation) ? sequence(animation) : animation;
-        issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
-        return new BrowserAnimationFactory(id, this._renderer);
-    };
-    BrowserAnimationBuilder.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    BrowserAnimationBuilder.ctorParameters = function () { return [
-        { type: RendererFactory2, },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    ]; };
-    return BrowserAnimationBuilder;
-}(AnimationBuilder));
-var BrowserAnimationFactory = /** @class */ (function (_super) {
-    __extends(BrowserAnimationFactory, _super);
-    function BrowserAnimationFactory(_id, _renderer) {
-        var _this = _super.call(this) || this;
-        _this._id = _id;
-        _this._renderer = _renderer;
-        return _this;
-    }
-    /**
-     * @param {?} element
-     * @param {?=} options
-     * @return {?}
-     */
-    BrowserAnimationFactory.prototype.create = /**
-     * @param {?} element
-     * @param {?=} options
-     * @return {?}
-     */
-    function (element, options) {
-        return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
-    };
-    return BrowserAnimationFactory;
-}(AnimationFactory));
-var RendererAnimationPlayer = /** @class */ (function () {
-    function RendererAnimationPlayer(id, element, options, _renderer) {
-        this.id = id;
-        this.element = element;
-        this._renderer = _renderer;
-        this.parentPlayer = null;
-        this._started = false;
-        this.totalTime = 0;
-        this._command('create', options);
-    }
-    /**
-     * @param {?} eventName
-     * @param {?} callback
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype._listen = /**
-     * @param {?} eventName
-     * @param {?} callback
-     * @return {?}
-     */
-    function (eventName, callback) {
-        return this._renderer.listen(this.element, "@@" + this.id + ":" + eventName, callback);
-    };
-    /**
-     * @param {?} command
-     * @param {...?} args
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype._command = /**
-     * @param {?} command
-     * @param {...?} args
-     * @return {?}
-     */
-    function (command) {
-        var args = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            args[_i - 1] = arguments[_i];
-        }
-        return issueAnimationCommand(this._renderer, this.element, this.id, command, args);
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.onDone = /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) { this._listen('done', fn); };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.onStart = /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) { this._listen('start', fn); };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.onDestroy = /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function (fn) { this._listen('destroy', fn); };
-    /**
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.init = /**
-     * @return {?}
-     */
-    function () { this._command('init'); };
-    /**
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.hasStarted = /**
-     * @return {?}
-     */
-    function () { return this._started; };
-    /**
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.play = /**
-     * @return {?}
-     */
-    function () {
-        this._command('play');
-        this._started = true;
-    };
-    /**
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.pause = /**
-     * @return {?}
-     */
-    function () { this._command('pause'); };
-    /**
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.restart = /**
-     * @return {?}
-     */
-    function () { this._command('restart'); };
-    /**
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.finish = /**
-     * @return {?}
-     */
-    function () { this._command('finish'); };
-    /**
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.destroy = /**
-     * @return {?}
-     */
-    function () { this._command('destroy'); };
-    /**
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.reset = /**
-     * @return {?}
-     */
-    function () { this._command('reset'); };
-    /**
-     * @param {?} p
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.setPosition = /**
-     * @param {?} p
-     * @return {?}
-     */
-    function (p) { this._command('setPosition', p); };
-    /**
-     * @return {?}
-     */
-    RendererAnimationPlayer.prototype.getPosition = /**
-     * @return {?}
-     */
-    function () { return 0; };
-    return RendererAnimationPlayer;
-}());
-/**
- * @param {?} renderer
- * @param {?} element
- * @param {?} id
- * @param {?} command
- * @param {?} args
- * @return {?}
- */
-function issueAnimationCommand(renderer, element, id, command, args) {
-    return renderer.setProperty(element, "@@" + id + ":" + command, args);
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var ANIMATION_PREFIX = '@';
-var DISABLE_ANIMATIONS_FLAG = '@.disabled';
+import * as tslib_1 from "tslib";
+import { ɵAnimationEngine as AnimationEngine } from '@angular/animations/browser';
+import { Injectable, NgZone, RendererFactory2 } from '@angular/core';
+var /** @type {?} */ ANIMATION_PREFIX = '@';
+var /** @type {?} */ DISABLE_ANIMATIONS_FLAG = '@.disabled';
 var AnimationRendererFactory = /** @class */ (function () {
     function AnimationRendererFactory(delegate, engine, _zone) {
         this.delegate = delegate;
@@ -382,11 +152,39 @@ var AnimationRendererFactory = /** @class */ (function () {
     /** @nocollapse */
     AnimationRendererFactory.ctorParameters = function () { return [
         { type: RendererFactory2, },
-        { type: ɵAnimationEngine, },
+        { type: AnimationEngine, },
         { type: NgZone, },
     ]; };
     return AnimationRendererFactory;
 }());
+export { AnimationRendererFactory };
+function AnimationRendererFactory_tsickle_Closure_declarations() {
+    /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
+    AnimationRendererFactory.decorators;
+    /**
+     * @nocollapse
+     * @type {function(): !Array<(null|{type: ?, decorators: (undefined|!Array<{type: !Function, args: (undefined|!Array<?>)}>)})>}
+     */
+    AnimationRendererFactory.ctorParameters;
+    /** @type {?} */
+    AnimationRendererFactory.prototype._currentId;
+    /** @type {?} */
+    AnimationRendererFactory.prototype._microtaskId;
+    /** @type {?} */
+    AnimationRendererFactory.prototype._animationCallbacksBuffer;
+    /** @type {?} */
+    AnimationRendererFactory.prototype._rendererCache;
+    /** @type {?} */
+    AnimationRendererFactory.prototype._cdRecurDepth;
+    /** @type {?} */
+    AnimationRendererFactory.prototype.promise;
+    /** @type {?} */
+    AnimationRendererFactory.prototype.delegate;
+    /** @type {?} */
+    AnimationRendererFactory.prototype.engine;
+    /** @type {?} */
+    AnimationRendererFactory.prototype._zone;
+}
 var BaseAnimationRenderer = /** @class */ (function () {
     function BaseAnimationRenderer(namespaceId, delegate, engine) {
         this.namespaceId = namespaceId;
@@ -660,8 +458,19 @@ var BaseAnimationRenderer = /** @class */ (function () {
     };
     return BaseAnimationRenderer;
 }());
+export { BaseAnimationRenderer };
+function BaseAnimationRenderer_tsickle_Closure_declarations() {
+    /** @type {?} */
+    BaseAnimationRenderer.prototype.destroyNode;
+    /** @type {?} */
+    BaseAnimationRenderer.prototype.namespaceId;
+    /** @type {?} */
+    BaseAnimationRenderer.prototype.delegate;
+    /** @type {?} */
+    BaseAnimationRenderer.prototype.engine;
+}
 var AnimationRenderer = /** @class */ (function (_super) {
-    __extends(AnimationRenderer, _super);
+    tslib_1.__extends(AnimationRenderer, _super);
     function AnimationRenderer(factory, namespaceId, delegate, engine) {
         var _this = _super.call(this, namespaceId, delegate, engine) || this;
         _this.factory = factory;
@@ -727,6 +536,11 @@ var AnimationRenderer = /** @class */ (function (_super) {
     };
     return AnimationRenderer;
 }(BaseAnimationRenderer));
+export { AnimationRenderer };
+function AnimationRenderer_tsickle_Closure_declarations() {
+    /** @type {?} */
+    AnimationRenderer.prototype.factory;
+}
 /**
  * @param {?} target
  * @return {?}
@@ -753,154 +567,4 @@ function parseTriggerCallbackName(triggerName) {
     var /** @type {?} */ phase = triggerName.substr(dotIndex + 1);
     return [trigger, phase];
 }
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var InjectableAnimationEngine = /** @class */ (function (_super) {
-    __extends(InjectableAnimationEngine, _super);
-    function InjectableAnimationEngine(driver, normalizer) {
-        return _super.call(this, driver, normalizer) || this;
-    }
-    InjectableAnimationEngine.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    InjectableAnimationEngine.ctorParameters = function () { return [
-        { type: AnimationDriver, },
-        { type: ɵAnimationStyleNormalizer, },
-    ]; };
-    return InjectableAnimationEngine;
-}(ɵAnimationEngine));
-/**
- * @return {?}
- */
-function instantiateSupportedAnimationDriver() {
-    return ɵsupportsWebAnimations() ? new ɵWebAnimationsDriver() : new ɵCssKeyframesDriver();
-}
-/**
- * @return {?}
- */
-function instantiateDefaultStyleNormalizer() {
-    return new ɵWebAnimationsStyleNormalizer();
-}
-/**
- * @param {?} renderer
- * @param {?} engine
- * @param {?} zone
- * @return {?}
- */
-function instantiateRendererFactory(renderer, engine, zone) {
-    return new AnimationRendererFactory(renderer, engine, zone);
-}
-var SHARED_ANIMATION_PROVIDERS = [
-    { provide: AnimationBuilder, useClass: BrowserAnimationBuilder },
-    { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
-    { provide: ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
-        provide: RendererFactory2,
-        useFactory: instantiateRendererFactory,
-        deps: [ɵDomRendererFactory2, ɵAnimationEngine, NgZone]
-    }
-];
-/**
- * Separate providers from the actual module so that we can do a local modification in Google3 to
- * include them in the BrowserModule.
- */
-var BROWSER_ANIMATIONS_PROVIDERS = [
-    { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver }
-].concat(SHARED_ANIMATION_PROVIDERS);
-/**
- * Separate providers from the actual module so that we can do a local modification in Google3 to
- * include them in the BrowserTestingModule.
- */
-var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useClass: ɵNoopAnimationDriver }].concat(SHARED_ANIMATION_PROVIDERS);
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * \@experimental Animation support is experimental.
- */
-var BrowserAnimationsModule = /** @class */ (function () {
-    function BrowserAnimationsModule() {
-    }
-    BrowserAnimationsModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    providers: BROWSER_ANIMATIONS_PROVIDERS,
-                },] },
-    ];
-    /** @nocollapse */
-    BrowserAnimationsModule.ctorParameters = function () { return []; };
-    return BrowserAnimationsModule;
-}());
-/**
- * \@experimental Animation support is experimental.
- */
-var NoopAnimationsModule = /** @class */ (function () {
-    function NoopAnimationsModule() {
-    }
-    NoopAnimationsModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
-                },] },
-    ];
-    /** @nocollapse */
-    NoopAnimationsModule.ctorParameters = function () { return []; };
-    return NoopAnimationsModule;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
- */
-
-export { BrowserAnimationsModule, NoopAnimationsModule, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BaseAnimationRenderer as ɵa, BROWSER_ANIMATIONS_PROVIDERS as ɵf, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵg, InjectableAnimationEngine as ɵb, instantiateDefaultStyleNormalizer as ɵd, instantiateRendererFactory as ɵe, instantiateSupportedAnimationDriver as ɵc };
-//# sourceMappingURL=animations.js.map
+//# sourceMappingURL=animation_renderer.js.map
