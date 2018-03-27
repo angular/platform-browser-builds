@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.0-0ebdb3d
+ * @license Angular v6.0.0-rc.0-f739f75
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3174,7 +3174,7 @@ var isBlackListedEvent = function (eventName) {
     return blackListedMap.hasOwnProperty(eventName);
 };
 // a global listener to handle all dom event,
-// so we do not need to create a closure every time
+// so we do not need to create a closure everytime
 var globalListener = function (event) {
     var /** @type {?} */ symbolName = symbolNames[event.type];
     if (!symbolName) {
@@ -3246,7 +3246,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
                 this[stopSymbol] = true;
             }
             // should call native delegate in case
-            // in some environment part of the application
+            // in some enviroment part of the application
             // will not use the patched Event
             delegate && delegate.apply(this, arguments);
         };
@@ -3373,7 +3373,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
         }
         else {
             // not found in taskDatas, the callback may be added inside of ngZone
-            // use native remove listener to remove the callback
+            // use native remove listener to remove the calback
             target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
     };
@@ -4705,7 +4705,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('6.0.0-rc.0-0ebdb3d');
+var VERSION = new Version('6.0.0-rc.0-f739f75');
 
 /**
  * @fileoverview added by tsickle
