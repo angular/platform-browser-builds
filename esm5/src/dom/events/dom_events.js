@@ -57,7 +57,7 @@ function TaskData_tsickle_Closure_declarations() {
     TaskData.prototype.handler;
 }
 // a global listener to handle all dom event,
-// so we do not need to create a closure everytime
+// so we do not need to create a closure every time
 var /** @type {?} */ globalListener = function (event) {
     var /** @type {?} */ symbolName = symbolNames[event.type];
     if (!symbolName) {
@@ -130,7 +130,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
                 this[stopSymbol] = true;
             }
             // should call native delegate in case
-            // in some enviroment part of the application
+            // in some environment part of the application
             // will not use the patched Event
             delegate && delegate.apply(this, arguments);
         };
@@ -257,7 +257,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
         }
         else {
             // not found in taskDatas, the callback may be added inside of ngZone
-            // use native remove listener to remove the calback
+            // use native remove listener to remove the callback
             target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
     };
