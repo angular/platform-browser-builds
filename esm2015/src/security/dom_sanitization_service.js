@@ -15,7 +15,7 @@ export { SecurityContext };
 /**
  * Marker interface for a value that's safe to use in a particular context.
  *
- * \@stable
+ *
  * @record
  */
 export function SafeValue() { }
@@ -24,7 +24,7 @@ function SafeValue_tsickle_Closure_declarations() {
 /**
  * Marker interface for a value that's safe to use as HTML.
  *
- * \@stable
+ *
  * @record
  */
 export function SafeHtml() { }
@@ -33,7 +33,7 @@ function SafeHtml_tsickle_Closure_declarations() {
 /**
  * Marker interface for a value that's safe to use as style (CSS).
  *
- * \@stable
+ *
  * @record
  */
 export function SafeStyle() { }
@@ -42,7 +42,7 @@ function SafeStyle_tsickle_Closure_declarations() {
 /**
  * Marker interface for a value that's safe to use as JavaScript.
  *
- * \@stable
+ *
  * @record
  */
 export function SafeScript() { }
@@ -51,7 +51,7 @@ function SafeScript_tsickle_Closure_declarations() {
 /**
  * Marker interface for a value that's safe to use as a URL linking to a document.
  *
- * \@stable
+ *
  * @record
  */
 export function SafeUrl() { }
@@ -60,7 +60,7 @@ function SafeUrl_tsickle_Closure_declarations() {
 /**
  * Marker interface for a value that's safe to use as a URL to load executable code from.
  *
- * \@stable
+ *
  * @record
  */
 export function SafeResourceUrl() { }
@@ -95,7 +95,7 @@ function SafeResourceUrl_tsickle_Closure_declarations() {
  * into this call. Make sure any user data is appropriately escaped for this security context.
  * For more detail, see the [Security Guide](http://g.co/ng/security).
  *
- * \@stable
+ *
  * @abstract
  */
 export class DomSanitizer {

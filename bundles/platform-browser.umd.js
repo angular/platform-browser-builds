@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.3-5992fe6
+ * @license Angular v6.0.0-rc.3-fb4513c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -44,7 +44,7 @@ var __assign = Object.assign || function __assign(t) {
 };
 
 /**
- * @license Angular v6.0.0-rc.3-5992fe6
+ * @license Angular v6.0.0-rc.3-fb4513c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2349,11 +2349,11 @@ var ELEMENT_PROBE_PROVIDERS = [
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * \@stable
+ *
  */
 var EVENT_MANAGER_PLUGINS = new _angular_core.InjectionToken('EventManagerPlugins');
 /**
- * \@stable
+ *
  */
 var EventManager = /** @class */ (function () {
     function EventManager(plugins, _zone) {
@@ -3776,42 +3776,42 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
 /**
  * Marker interface for a value that's safe to use in a particular context.
  *
- * \@stable
+ *
  * @record
  */
 
 /**
  * Marker interface for a value that's safe to use as HTML.
  *
- * \@stable
+ *
  * @record
  */
 
 /**
  * Marker interface for a value that's safe to use as style (CSS).
  *
- * \@stable
+ *
  * @record
  */
 
 /**
  * Marker interface for a value that's safe to use as JavaScript.
  *
- * \@stable
+ *
  * @record
  */
 
 /**
  * Marker interface for a value that's safe to use as a URL linking to a document.
  *
- * \@stable
+ *
  * @record
  */
 
 /**
  * Marker interface for a value that's safe to use as a URL to load executable code from.
  *
- * \@stable
+ *
  * @record
  */
 
@@ -3844,7 +3844,7 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
  * into this call. Make sure any user data is appropriately escaped for this security context.
  * For more detail, see the [Security Guide](http://g.co/ng/security).
  *
- * \@stable
+ *
  * @abstract
  */
 var DomSanitizer = /** @class */ (function () {
@@ -4098,7 +4098,7 @@ var BROWSER_SANITIZATION_PROVIDERS = [
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
 /**
- * \@stable
+ *
  */
 var platformBrowser = _angular_core.createPlatformFactory(_angular_core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 /**
@@ -4123,7 +4123,7 @@ function _document() {
 /**
  * The ng module for the browser.
  *
- * \@stable
+ *
  */
 var BrowserModule = /** @class */ (function () {
     function BrowserModule(parentModule) {
@@ -4744,9 +4744,9 @@ var By = /** @class */ (function () {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * \@stable
+ *
  */
-var VERSION = new _angular_core.Version('6.0.0-rc.3-5992fe6');
+var VERSION = new _angular_core.Version('6.0.0-rc.3-fb4513c');
 
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
