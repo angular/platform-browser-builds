@@ -43,7 +43,7 @@ export const /** @type {?} */ BROWSER_SANITIZATION_PROVIDERS = [
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT] },
 ];
 /**
- * \@stable
+ *
  */
 export const /** @type {?} */ platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 /**
@@ -68,7 +68,7 @@ export function _document() {
 /**
  * The ng module for the browser.
  *
- * \@stable
+ *
  */
 export class BrowserModule {
     /**

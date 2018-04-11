@@ -12,11 +12,11 @@
 import { Inject, Injectable, InjectionToken, NgZone } from '@angular/core';
 import { getDOM } from '../dom_adapter';
 /**
- * \@stable
+ *
  */
 export const /** @type {?} */ EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
- * \@stable
+ *
  */
 export class EventManager {
     /**

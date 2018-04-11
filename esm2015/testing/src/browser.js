@@ -16,14 +16,14 @@ const /** @type {?} */ _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_I
 /**
  * Platform for testing
  *
- * \@stable
+ *
  */
 export const /** @type {?} */ platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
 const ɵ0 = createNgZone;
 /**
  * NgModule for testing.
  *
- * \@stable
+ *
  */
 export class BrowserTestingModule {
 }
