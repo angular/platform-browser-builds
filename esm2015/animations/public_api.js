@@ -14,5 +14,5 @@
  * @description
  * Entry point for all public APIs of this package.
  */
-export { BrowserAnimationsModule, NoopAnimationsModule, ɵBrowserAnimationBuilder, ɵBrowserAnimationFactory, ɵAnimationRenderer, ɵAnimationRendererFactory } from './src/animations';
+export { BrowserAnimationsModule, NoopAnimationsModule, ANIMATION_MODULE_TYPE, ɵBrowserAnimationBuilder, ɵBrowserAnimationFactory, ɵAnimationRenderer, ɵAnimationRendererFactory } from './src/animations';
 //# sourceMappingURL=public_api.js.map

@@ -5,7 +5,7 @@
 /**
  * Generated bundle index. Do not edit.
  */
-export { BrowserAnimationsModule, NoopAnimationsModule, ɵBrowserAnimationBuilder, ɵBrowserAnimationFactory, ɵAnimationRenderer, ɵAnimationRendererFactory } from './public_api';
-export { BaseAnimationRenderer as ɵa } from './src/animation_renderer';
-export { BROWSER_ANIMATIONS_PROVIDERS as ɵf, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵg, InjectableAnimationEngine as ɵb, instantiateDefaultStyleNormalizer as ɵd, instantiateRendererFactory as ɵe, instantiateSupportedAnimationDriver as ɵc } from './src/providers';
+export { BrowserAnimationsModule, NoopAnimationsModule, ANIMATION_MODULE_TYPE, ɵBrowserAnimationBuilder, ɵBrowserAnimationFactory, ɵAnimationRenderer, ɵAnimationRendererFactory } from './public_api';
+export { BaseAnimationRenderer as ɵg } from './src/animation_renderer';
+export { BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb } from './src/providers';
 //# sourceMappingURL=animations.js.map

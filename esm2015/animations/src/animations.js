@@ -10,5 +10,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 export { BrowserAnimationsModule, NoopAnimationsModule } from './module';
+export { ANIMATION_MODULE_TYPE } from './providers';
 export { ɵBrowserAnimationBuilder, ɵBrowserAnimationFactory, ɵAnimationRenderer, ɵAnimationRendererFactory } from './private_export';
 //# sourceMappingURL=animations.js.map

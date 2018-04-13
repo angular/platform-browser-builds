@@ -11,7 +11,7 @@
  */
 import { AnimationBuilder } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine as AnimationEngine, ɵAnimationStyleNormalizer as AnimationStyleNormalizer, ɵCssKeyframesDriver as CssKeyframesDriver, ɵNoopAnimationDriver as NoopAnimationDriver, ɵWebAnimationsDriver as WebAnimationsDriver, ɵWebAnimationsStyleNormalizer as WebAnimationsStyleNormalizer, ɵsupportsWebAnimations as supportsWebAnimations } from '@angular/animations/browser';
-import { Injectable, NgZone, RendererFactory2 } from '@angular/core';
+import { Injectable, InjectionToken, NgZone, RendererFactory2 } from '@angular/core';
 import { ɵDomRendererFactory2 as DomRendererFactory2 } from '@angular/platform-browser';
 import { BrowserAnimationBuilder } from './animation_builder';
 import { AnimationRendererFactory } from './animation_renderer';
@@ -62,6 +62,10 @@ export function instantiateDefaultStyleNormalizer() {
 export function instantiateRendererFactory(renderer, engine, zone) {
     return new AnimationRendererFactory(renderer, engine, zone);
 }
+/**
+ * \@experimental Animation support is experimental.
+ */
+export const /** @type {?} */ ANIMATION_MODULE_TYPE = new InjectionToken('AnimationModuleType');
 const /** @type {?} */ SHARED_ANIMATION_PROVIDERS = [
     { provide: AnimationBuilder, useClass: BrowserAnimationBuilder },
     { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
@@ -77,11 +81,14 @@ const /** @type {?} */ SHARED_ANIMATION_PROVIDERS = [
  */
 export const /** @type {?} */ BROWSER_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
-    ...SHARED_ANIMATION_PROVIDERS
+    { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' }, ...SHARED_ANIMATION_PROVIDERS
 ];
 /**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
  */
-export const /** @type {?} */ BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useClass: NoopAnimationDriver }, ...SHARED_ANIMATION_PROVIDERS];
+export const /** @type {?} */ BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
+    { provide: AnimationDriver, useClass: NoopAnimationDriver },
+    { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' }, ...SHARED_ANIMATION_PROVIDERS
+];
 //# sourceMappingURL=providers.js.map

@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.4-75febe7
+ * @license Angular v6.0.0-rc.4-b551f84
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v6.0.0-rc.4-75febe7
+ * @license Angular v6.0.0-rc.4-b551f84
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -832,6 +832,10 @@ function instantiateDefaultStyleNormalizer() {
 function instantiateRendererFactory(renderer, engine, zone) {
     return new AnimationRendererFactory(renderer, engine, zone);
 }
+/**
+ * \@experimental Animation support is experimental.
+ */
+var ANIMATION_MODULE_TYPE = new _angular_core.InjectionToken('AnimationModuleType');
 var SHARED_ANIMATION_PROVIDERS = [
     { provide: _angular_animations.AnimationBuilder, useClass: BrowserAnimationBuilder },
     { provide: _angular_animations_browser.ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
@@ -846,13 +850,17 @@ var SHARED_ANIMATION_PROVIDERS = [
  * include them in the BrowserModule.
  */
 var BROWSER_ANIMATIONS_PROVIDERS = [
-    { provide: _angular_animations_browser.AnimationDriver, useFactory: instantiateSupportedAnimationDriver }
+    { provide: _angular_animations_browser.AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
+    { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' }
 ].concat(SHARED_ANIMATION_PROVIDERS);
 /**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
  */
-var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: _angular_animations_browser.AnimationDriver, useClass: _angular_animations_browser.ɵNoopAnimationDriver }].concat(SHARED_ANIMATION_PROVIDERS);
+var BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
+    { provide: _angular_animations_browser.AnimationDriver, useClass: _angular_animations_browser.ɵNoopAnimationDriver },
+    { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' }
+].concat(SHARED_ANIMATION_PROVIDERS);
 
 /**
  * @fileoverview added by tsickle
@@ -893,17 +901,18 @@ var NoopAnimationsModule = /** @class */ (function () {
 
 exports.BrowserAnimationsModule = BrowserAnimationsModule;
 exports.NoopAnimationsModule = NoopAnimationsModule;
+exports.ANIMATION_MODULE_TYPE = ANIMATION_MODULE_TYPE;
 exports.ɵBrowserAnimationBuilder = BrowserAnimationBuilder;
 exports.ɵBrowserAnimationFactory = BrowserAnimationFactory;
 exports.ɵAnimationRenderer = AnimationRenderer;
 exports.ɵAnimationRendererFactory = AnimationRendererFactory;
-exports.ɵa = BaseAnimationRenderer;
-exports.ɵf = BROWSER_ANIMATIONS_PROVIDERS;
-exports.ɵg = BROWSER_NOOP_ANIMATIONS_PROVIDERS;
-exports.ɵb = InjectableAnimationEngine;
-exports.ɵd = instantiateDefaultStyleNormalizer;
-exports.ɵe = instantiateRendererFactory;
-exports.ɵc = instantiateSupportedAnimationDriver;
+exports.ɵg = BaseAnimationRenderer;
+exports.ɵe = BROWSER_ANIMATIONS_PROVIDERS;
+exports.ɵf = BROWSER_NOOP_ANIMATIONS_PROVIDERS;
+exports.ɵa = InjectableAnimationEngine;
+exports.ɵc = instantiateDefaultStyleNormalizer;
+exports.ɵd = instantiateRendererFactory;
+exports.ɵb = instantiateSupportedAnimationDriver;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
