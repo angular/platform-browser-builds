@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.4-6c2c958
+ * @license Angular v6.0.0-rc.4-6e73300
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -4705,7 +4705,7 @@ var By = /** @class */ (function () {
 /**
  *
  */
-var VERSION = new Version('6.0.0-rc.4-6c2c958');
+var VERSION = new Version('6.0.0-rc.4-6e73300');
 
 /**
  * @fileoverview added by tsickle
