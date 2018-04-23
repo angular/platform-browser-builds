@@ -1,15 +1,12 @@
 /**
- * @license Angular v6.0.0-rc.5-60e5507
+ * @license Angular v6.0.0-rc.5+73.sha-ace6440
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 import { APP_ID, NgModule, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵglobal } from '@angular/core';
 import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM } from '@angular/platform-browser';
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -17,16 +14,13 @@ import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var browserDetection;
+
 var BrowserDetection = /** @class */ (function () {
     function BrowserDetection(ua) {
         this._overrideUa = ua;
     }
     Object.defineProperty(BrowserDetection.prototype, "_ua", {
-        get: /**
-         * @return {?}
-         */
-        function () {
+        get: function () {
             if (typeof this._overrideUa === 'string') {
                 return this._overrideUa;
             }
@@ -35,26 +29,14 @@ var BrowserDetection = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
-    BrowserDetection.setup = /**
-     * @return {?}
-     */
-    function () { browserDetection = new BrowserDetection(null); };
+    BrowserDetection.setup = function () {  };
     Object.defineProperty(BrowserDetection.prototype, "isFirefox", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._ua.indexOf('Firefox') > -1; },
+        get: function () { return this._ua.indexOf('Firefox') > -1; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BrowserDetection.prototype, "isAndroid", {
-        get: /**
-         * @return {?}
-         */
-        function () {
+        get: function () {
             return this._ua.indexOf('Mozilla/5.0') > -1 && this._ua.indexOf('Android') > -1 &&
                 this._ua.indexOf('AppleWebKit') > -1 && this._ua.indexOf('Chrome') == -1 &&
                 this._ua.indexOf('IEMobile') == -1;
@@ -63,26 +45,17 @@ var BrowserDetection = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(BrowserDetection.prototype, "isEdge", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._ua.indexOf('Edge') > -1; },
+        get: function () { return this._ua.indexOf('Edge') > -1; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BrowserDetection.prototype, "isIE", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._ua.indexOf('Trident') > -1; },
+        get: function () { return this._ua.indexOf('Trident') > -1; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BrowserDetection.prototype, "isWebkit", {
-        get: /**
-         * @return {?}
-         */
-        function () {
+        get: function () {
             return this._ua.indexOf('AppleWebKit') > -1 && this._ua.indexOf('Edge') == -1 &&
                 this._ua.indexOf('IEMobile') == -1;
         },
@@ -90,10 +63,7 @@ var BrowserDetection = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(BrowserDetection.prototype, "isIOS7", {
-        get: /**
-         * @return {?}
-         */
-        function () {
+        get: function () {
             return (this._ua.indexOf('iPhone OS 7') > -1 || this._ua.indexOf('iPad OS 7') > -1) &&
                 this._ua.indexOf('IEMobile') == -1;
         },
@@ -101,10 +71,7 @@ var BrowserDetection = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(BrowserDetection.prototype, "isSlow", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this.isAndroid || this.isIE || this.isIOS7; },
+        get: function () { return this.isAndroid || this.isIE || this.isIOS7; },
         enumerable: true,
         configurable: true
     });
@@ -113,20 +80,19 @@ var BrowserDetection = /** @class */ (function () {
         // This detector is needed in tests to make the difference between:
         // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
         // 2) IE9/IE10: they use the polyfill, and so no discrepancies
-        get: /**
-         * @return {?}
-         */
+        get: 
+        // The Intl API is only natively supported in Chrome, Firefox, IE11 and Edge.
+        // This detector is needed in tests to make the difference between:
+        // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
+        // 2) IE9/IE10: they use the polyfill, and so no discrepancies
         function () {
-            return !!(/** @type {?} */ (ɵglobal)).Intl && (/** @type {?} */ (ɵglobal)).Intl !== (/** @type {?} */ (ɵglobal)).IntlPolyfill;
+            return !!ɵglobal.Intl && ɵglobal.Intl !== ɵglobal.IntlPolyfill;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BrowserDetection.prototype, "isChromeDesktop", {
-        get: /**
-         * @return {?}
-         */
-        function () {
+        get: function () {
             return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 &&
                 this._ua.indexOf('Edge') == -1;
         },
@@ -136,9 +102,9 @@ var BrowserDetection = /** @class */ (function () {
     Object.defineProperty(BrowserDetection.prototype, "isOldChrome", {
         // "Old Chrome" means Chrome 3X, where there are some discrepancies in the Intl API.
         // Android 4.4 and 5.X have such browsers by default (respectively 30 and 39).
-        get: /**
-         * @return {?}
-         */
+        get: 
+        // "Old Chrome" means Chrome 3X, where there are some discrepancies in the Intl API.
+        // Android 4.4 and 5.X have such browsers by default (respectively 30 and 39).
         function () {
             return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
                 this._ua.indexOf('Edge') == -1;
@@ -149,41 +115,14 @@ var BrowserDetection = /** @class */ (function () {
     return BrowserDetection;
 }());
 BrowserDetection.setup();
-/**
- * @param {?} element
- * @param {?} eventType
- * @return {?}
- */
 
-/**
- * @param {?} html
- * @return {?}
- */
 
-/**
- * @param {?} css
- * @return {?}
- */
 
-/**
- * @param {?} el
- * @return {?}
- */
 
-/**
- * @return {?}
- */
 function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
 }
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @return {?}
- */
 function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -212,7 +151,7 @@ var BrowserTestingModule = /** @class */ (function () {
                         ɵELEMENT_PROBE_PROVIDERS,
                         { provide: NgZone, useFactory: ɵ0 },
                     ]
-                },] },
+                },] }
     ];
     /** @nocollapse */
     BrowserTestingModule.ctorParameters = function () { return []; };
@@ -220,9 +159,13 @@ var BrowserTestingModule = /** @class */ (function () {
 }());
 
 /**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
+
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -230,16 +173,7 @@ var BrowserTestingModule = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the platform-browser/testing package.
- */
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -247,19 +181,10 @@ var BrowserTestingModule = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { platformBrowserTesting, BrowserTestingModule, createNgZone as ɵa };
+export { createNgZone as ɵangular_packages_platform_browser_testing_testing_a, platformBrowserTesting, BrowserTestingModule, ɵ0 };
 //# sourceMappingURL=testing.js.map

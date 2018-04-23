@@ -1,8 +1,9 @@
 /**
- * @license Angular v6.0.0-rc.5-60e5507
+ * @license Angular v6.0.0-rc.5+73.sha-ace6440
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
 import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, platformCore, setTestabilityGetter, ɵAPP_ROOT, ɵConsole, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ɵglobal } from '@angular/core';
 
@@ -1199,7 +1200,7 @@ class BrowserPlatformLocation extends PlatformLocation {
     back() { this._history.back(); }
 }
 BrowserPlatformLocation.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 BrowserPlatformLocation.ctorParameters = () => [
@@ -1351,7 +1352,7 @@ class Meta {
     }
 }
 Meta.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 Meta.ctorParameters = () => [
@@ -1516,7 +1517,7 @@ class Title {
     setTitle(newTitle) { getDOM().setTitle(this._doc, newTitle); }
 }
 Title.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 Title.ctorParameters = () => [
@@ -1695,7 +1696,7 @@ class EventManager {
     }
 }
 EventManager.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 EventManager.ctorParameters = () => [
@@ -1770,7 +1771,7 @@ class SharedStylesHost {
     getAllStyles() { return Array.from(this._stylesSet); }
 }
 SharedStylesHost.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 SharedStylesHost.ctorParameters = () => [];
@@ -1823,7 +1824,7 @@ class DomSharedStylesHost extends SharedStylesHost {
     ngOnDestroy() { this._styleNodes.forEach(styleNode => getDOM().remove(styleNode)); }
 }
 DomSharedStylesHost.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 DomSharedStylesHost.ctorParameters = () => [
@@ -1952,7 +1953,7 @@ class DomRendererFactory2 {
     end() { }
 }
 DomRendererFactory2.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 DomRendererFactory2.ctorParameters = () => [
@@ -2407,7 +2408,6 @@ class DomEventsPlugin extends EventManagerPlugin {
          * NOTE: it is possible that the element is from different iframe, and so we
          * have to check before we execute the method.
          */
-        const /** @type {?} */ self = this;
         const /** @type {?} */ zoneJsLoaded = element[ADD_EVENT_LISTENER];
         let /** @type {?} */ callback = /** @type {?} */ (handler);
         // if zonejs is loaded and current zone is not ngZone
@@ -2491,7 +2491,7 @@ class DomEventsPlugin extends EventManagerPlugin {
     }
 }
 DomEventsPlugin.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 DomEventsPlugin.ctorParameters = () => [
@@ -2581,7 +2581,7 @@ class HammerGestureConfig {
     }
 }
 HammerGestureConfig.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 HammerGestureConfig.ctorParameters = () => [];
@@ -2636,7 +2636,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
     isCustomEvent(eventName) { return this._config.events.indexOf(eventName) > -1; }
 }
 HammerGesturesPlugin.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 HammerGesturesPlugin.ctorParameters = () => [
@@ -2776,7 +2776,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
     }
 }
 KeyEventsPlugin.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 KeyEventsPlugin.ctorParameters = () => [
@@ -2961,7 +2961,7 @@ class DomSanitizerImpl extends DomSanitizer {
     }
 }
 DomSanitizerImpl.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 DomSanitizerImpl.ctorParameters = () => [
@@ -3122,7 +3122,7 @@ BrowserModule.decorators = [
                     Title,
                 ],
                 exports: [CommonModule, ApplicationModule]
-            },] },
+            },] }
 ];
 /** @nocollapse */
 BrowserModule.ctorParameters = () => [
@@ -3410,7 +3410,7 @@ class TransferState {
     }
 }
 TransferState.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 TransferState.ctorParameters = () => [];
@@ -3445,7 +3445,7 @@ class BrowserTransferStateModule {
 BrowserTransferStateModule.decorators = [
     { type: NgModule, args: [{
                 providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
-            },] },
+            },] }
 ];
 /** @nocollapse */
 BrowserTransferStateModule.ctorParameters = () => [];
@@ -3532,7 +3532,7 @@ class By {
 /**
  *
  */
-const VERSION = new Version('6.0.0-rc.5-60e5507');
+const VERSION = new Version('6.0.0-rc.5+73.sha-ace6440');
 
 /**
  * @fileoverview added by tsickle
@@ -3570,8 +3570,20 @@ const VERSION = new Version('6.0.0-rc.5-60e5507');
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// This file is not used to build this module. It is only used during editing
+// by the TypeScript language service and during build for verification. `ngc`
+// replaces this file with production index.ts when it rewrites private symbol
+// names.
+
+/**
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, _document as ɵb, errorHandler as ɵa, GenericBrowserDomAdapter as ɵi, SERVER_TRANSITION_PROVIDERS as ɵg, appInitializerFactory as ɵf, initTransferState as ɵc, _createNgProbe as ɵh, EventManagerPlugin as ɵd, DomSanitizerImpl as ɵe };
+export { _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_i, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_g, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_f, initTransferState as ɵangular_packages_platform_browser_platform_browser_c, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_h, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_d, DomSanitizerImpl as ɵangular_packages_platform_browser_platform_browser_e, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost };
 //# sourceMappingURL=platform-browser.js.map

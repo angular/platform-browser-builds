@@ -1,10 +1,7 @@
 /**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Generated bundle index. Do not edit.
  */
-export { platformBrowserTesting, BrowserTestingModule } from './public_api';
-export { createNgZone as ɵa } from './src/browser_util';
-//# sourceMappingURL=testing.js.map
+export * from './index';
+export { createNgZone as ɵangular_packages_platform_browser_testing_testing_a } from './src/browser_util';
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGVzdGluZy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3BhY2thZ2VzL3BsYXRmb3JtLWJyb3dzZXIvdGVzdGluZy90ZXN0aW5nLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBRUgsY0FBYyxTQUFTLENBQUM7QUFFeEIsT0FBTyxFQUFDLFlBQVksSUFBSSxvREFBb0QsRUFBQyxNQUFNLG9CQUFvQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBHZW5lcmF0ZWQgYnVuZGxlIGluZGV4LiBEbyBub3QgZWRpdC5cbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL2luZGV4JztcblxuZXhwb3J0IHtjcmVhdGVOZ1pvbmUgYXMgybVhbmd1bGFyX3BhY2thZ2VzX3BsYXRmb3JtX2Jyb3dzZXJfdGVzdGluZ190ZXN0aW5nX2F9IGZyb20gJy4vc3JjL2Jyb3dzZXJfdXRpbCc7Il19

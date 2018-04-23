@@ -1,8 +1,4 @@
 /**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -16,7 +12,8 @@ import { DOCUMENT as commonDOCUMENT } from '@angular/common';
  * Note: Document might not be available in the Application Context when Application and Rendering
  * Contexts are not the same (e.g. when running the application into a Web Worker).
  *
- * @deprecated import from `\@angular/common` instead.
+ * @deprecated import from `@angular/common` instead.
  */
-export var /** @type {?} */ DOCUMENT = commonDOCUMENT;
-//# sourceMappingURL=dom_tokens.js.map
+export var DOCUMENT = commonDOCUMENT;
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZG9tX3Rva2Vucy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL3BhY2thZ2VzL3BsYXRmb3JtLWJyb3dzZXIvc3JjL2RvbS9kb21fdG9rZW5zLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFRQSxPQUFPLEVBQUMsUUFBUSxJQUFJLGNBQWMsRUFBQyxNQUFNLGlCQUFpQixDQUFDOzs7Ozs7Ozs7QUFZM0QsTUFBTSxDQUFDLElBQU0sUUFBUSxHQUFHLGNBQWMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgSW5jLiBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuaW1wb3J0IHtET0NVTUVOVCBhcyBjb21tb25ET0NVTUVOVH0gZnJvbSAnQGFuZ3VsYXIvY29tbW9uJztcbmltcG9ydCB7SW5qZWN0aW9uVG9rZW59IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuXG5cbi8qKlxuICogQSBESSBUb2tlbiByZXByZXNlbnRpbmcgdGhlIG1haW4gcmVuZGVyaW5nIGNvbnRleHQuIEluIGEgYnJvd3NlciB0aGlzIGlzIHRoZSBET00gRG9jdW1lbnQuXG4gKlxuICogTm90ZTogRG9jdW1lbnQgbWlnaHQgbm90IGJlIGF2YWlsYWJsZSBpbiB0aGUgQXBwbGljYXRpb24gQ29udGV4dCB3aGVuIEFwcGxpY2F0aW9uIGFuZCBSZW5kZXJpbmdcbiAqIENvbnRleHRzIGFyZSBub3QgdGhlIHNhbWUgKGUuZy4gd2hlbiBydW5uaW5nIHRoZSBhcHBsaWNhdGlvbiBpbnRvIGEgV2ViIFdvcmtlcikuXG4gKlxuICogQGRlcHJlY2F0ZWQgaW1wb3J0IGZyb20gYEBhbmd1bGFyL2NvbW1vbmAgaW5zdGVhZC5cbiAqL1xuZXhwb3J0IGNvbnN0IERPQ1VNRU5UID0gY29tbW9uRE9DVU1FTlQ7XG4iXX0=
