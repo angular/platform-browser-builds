@@ -10,42 +10,42 @@ export { SecurityContext };
 /**
  * Marker interface for a value that's safe to use in a particular context.
  *
- * @stable
+ *
  */
 export interface SafeValue {
 }
 /**
  * Marker interface for a value that's safe to use as HTML.
  *
- * @stable
+ *
  */
 export interface SafeHtml extends SafeValue {
 }
 /**
  * Marker interface for a value that's safe to use as style (CSS).
  *
- * @stable
+ *
  */
 export interface SafeStyle extends SafeValue {
 }
 /**
  * Marker interface for a value that's safe to use as JavaScript.
  *
- * @stable
+ *
  */
 export interface SafeScript extends SafeValue {
 }
 /**
  * Marker interface for a value that's safe to use as a URL linking to a document.
  *
- * @stable
+ *
  */
 export interface SafeUrl extends SafeValue {
 }
 /**
  * Marker interface for a value that's safe to use as a URL to load executable code from.
  *
- * @stable
+ *
  */
 export interface SafeResourceUrl extends SafeValue {
 }
@@ -78,7 +78,7 @@ export interface SafeResourceUrl extends SafeValue {
  * into this call. Make sure any user data is appropriately escaped for this security context.
  * For more detail, see the [Security Guide](http://g.co/ng/security).
  *
- * @stable
+ *
  */
 export declare abstract class DomSanitizer implements Sanitizer {
     /**
@@ -89,7 +89,7 @@ export declare abstract class DomSanitizer implements Sanitizer {
      * by replacing URLs that have an unsafe protocol part (such as `javascript:`). The implementation
      * is responsible to make sure that the value can definitely be safely used in the given context.
      */
-    abstract sanitize(context: SecurityContext, value: any): string;
+    abstract sanitize(context: SecurityContext, value: SafeValue | string | null): string | null;
     /**
      * Bypass security and trust the given value to be safe HTML. Only use this when the bound HTML
      * is unsafe (e.g. contains `<script>` tags) and the code should be executed. The sanitizer will
@@ -133,7 +133,7 @@ export declare abstract class DomSanitizer implements Sanitizer {
 export declare class DomSanitizerImpl extends DomSanitizer {
     private _doc;
     constructor(_doc: any);
-    sanitize(ctx: SecurityContext, value: any): string;
+    sanitize(ctx: SecurityContext, value: SafeValue | string | null): string | null;
     private checkNotSafeValue(value, expectedType);
     bypassSecurityTrustHtml(value: string): SafeHtml;
     bypassSecurityTrustStyle(value: string): SafeStyle;
