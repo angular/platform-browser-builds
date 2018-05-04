@@ -1,8 +1,9 @@
 /**
- * @license Angular v6.0.0-373a47d
+ * @license Angular v6.0.0+23.sha-5eb9c01
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 import { APP_ID, NgModule, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵglobal } from '@angular/core';
 import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM } from '@angular/platform-browser';
 
@@ -17,7 +18,7 @@ import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let browserDetection;
+
 class BrowserDetection {
     /**
      * @return {?}
@@ -31,7 +32,7 @@ class BrowserDetection {
     /**
      * @return {?}
      */
-    static setup() { browserDetection = new BrowserDetection(null); }
+    static setup() {  }
     /**
      * @param {?} ua
      */
@@ -158,7 +159,7 @@ BrowserTestingModule.decorators = [
                     ɵELEMENT_PROBE_PROVIDERS,
                     { provide: NgZone, useFactory: ɵ0 },
                 ]
-            },] },
+            },] }
 ];
 /** @nocollapse */
 BrowserTestingModule.ctorParameters = () => [];
@@ -202,8 +203,20 @@ BrowserTestingModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// This file is not used to build this module. It is only used during editing
+// by the TypeScript language service and during build for verification. `ngc`
+// replaces this file with production index.ts when it rewrites private symbol
+// names.
+
+/**
  * Generated bundle index. Do not edit.
  */
 
-export { platformBrowserTesting, BrowserTestingModule, createNgZone as ɵa };
+export { createNgZone as ɵangular_packages_platform_browser_testing_testing_a, platformBrowserTesting, BrowserTestingModule };
 //# sourceMappingURL=testing.js.map

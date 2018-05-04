@@ -1,8 +1,9 @@
 /**
- * @license Angular v6.0.0-373a47d
+ * @license Angular v6.0.0+23.sha-5eb9c01
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 import { Inject, Injectable, InjectionToken, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
 import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
@@ -41,7 +42,7 @@ class BrowserAnimationBuilder extends AnimationBuilder {
     }
 }
 BrowserAnimationBuilder.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 BrowserAnimationBuilder.ctorParameters = () => [
@@ -293,7 +294,7 @@ class AnimationRendererFactory {
     whenRenderingDone() { return this.engine.whenRenderingDone(); }
 }
 AnimationRendererFactory.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 AnimationRendererFactory.ctorParameters = () => [
@@ -576,7 +577,7 @@ class InjectableAnimationEngine extends ɵAnimationEngine {
     }
 }
 InjectableAnimationEngine.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 InjectableAnimationEngine.ctorParameters = () => [
@@ -647,7 +648,7 @@ BrowserAnimationsModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserModule],
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
-            },] },
+            },] }
 ];
 /** @nocollapse */
 BrowserAnimationsModule.ctorParameters = () => [];
@@ -660,7 +661,7 @@ NoopAnimationsModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserModule],
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
-            },] },
+            },] }
 ];
 /** @nocollapse */
 NoopAnimationsModule.ctorParameters = () => [];
@@ -704,8 +705,20 @@ NoopAnimationsModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// This file is not used to build this module. It is only used during editing
+// by the TypeScript language service and during build for verifcation. `ngc`
+// replaces this file with production index.ts when it rewrites private symbol
+// names.
+
+/**
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserAnimationsModule, NoopAnimationsModule, ANIMATION_MODULE_TYPE, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BaseAnimationRenderer as ɵg, BROWSER_ANIMATIONS_PROVIDERS as ɵe, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵf, InjectableAnimationEngine as ɵa, instantiateDefaultStyleNormalizer as ɵc, instantiateRendererFactory as ɵd, instantiateSupportedAnimationDriver as ɵb };
+export { BaseAnimationRenderer as ɵangular_packages_platform_browser_animations_animations_g, BROWSER_ANIMATIONS_PROVIDERS as ɵangular_packages_platform_browser_animations_animations_e, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵangular_packages_platform_browser_animations_animations_f, InjectableAnimationEngine as ɵangular_packages_platform_browser_animations_animations_a, instantiateDefaultStyleNormalizer as ɵangular_packages_platform_browser_animations_animations_c, instantiateRendererFactory as ɵangular_packages_platform_browser_animations_animations_d, instantiateSupportedAnimationDriver as ɵangular_packages_platform_browser_animations_animations_b, BrowserAnimationsModule, NoopAnimationsModule, ANIMATION_MODULE_TYPE, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory };
 //# sourceMappingURL=animations.js.map
