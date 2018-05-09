@@ -7,11 +7,11 @@
  */
 import { InjectionToken, NgZone } from '@angular/core';
 /**
- * @stable
+ *
  */
 export declare const EVENT_MANAGER_PLUGINS: InjectionToken<EventManagerPlugin[]>;
 /**
- * @stable
+ *
  */
 export declare class EventManager {
     private _zone;
