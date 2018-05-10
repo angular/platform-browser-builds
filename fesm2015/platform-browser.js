@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+161.sha-72eab4d
+ * @license Angular v6.0.0-rc.5+163.sha-c4221da
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1632,13 +1632,7 @@ const ELEMENT_PROBE_PROVIDERS = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- *
- */
 const EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
-/**
- *
- */
 class EventManager {
     /**
      * @param {?} plugins
@@ -3044,9 +3038,6 @@ const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
-/**
- *
- */
 const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 /**
  * @return {?}
@@ -3529,10 +3520,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- *
- */
-const VERSION = new Version('6.0.0-rc.5+161.sha-72eab4d');
+const VERSION = new Version('6.0.0-rc.5+163.sha-c4221da');
 
 /**
  * @fileoverview added by tsickle

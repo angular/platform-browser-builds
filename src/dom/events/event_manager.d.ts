@@ -6,13 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken, NgZone } from '@angular/core';
-/**
- *
- */
 export declare const EVENT_MANAGER_PLUGINS: InjectionToken<EventManagerPlugin[]>;
-/**
- *
- */
 export declare class EventManager {
     private _zone;
     private _plugins;
