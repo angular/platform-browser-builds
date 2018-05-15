@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+184.sha-e5e5c24
+ * @license Angular v6.0.0-rc.5+185.sha-5cf82f8
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -650,8 +650,6 @@ BrowserAnimationsModule.decorators = [
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
             },] }
 ];
-/** @nocollapse */
-BrowserAnimationsModule.ctorParameters = () => [];
 /**
  * \@experimental Animation support is experimental.
  */
@@ -663,8 +661,6 @@ NoopAnimationsModule.decorators = [
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             },] }
 ];
-/** @nocollapse */
-NoopAnimationsModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+184.sha-e5e5c24
+ * @license Angular v6.0.0-rc.5+185.sha-5cf82f8
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -405,8 +405,6 @@ var BrowserAnimationsModule = /** @class */ (function () {
                     providers: BROWSER_ANIMATIONS_PROVIDERS,
                 },] }
     ];
-    /** @nocollapse */
-    BrowserAnimationsModule.ctorParameters = function () { return []; };
     return BrowserAnimationsModule;
 }());
 /**
@@ -421,8 +419,6 @@ var NoopAnimationsModule = /** @class */ (function () {
                     providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
                 },] }
     ];
-    /** @nocollapse */
-    NoopAnimationsModule.ctorParameters = function () { return []; };
     return NoopAnimationsModule;
 }());
 

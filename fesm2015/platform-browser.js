@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+184.sha-e5e5c24
+ * @license Angular v6.0.0-rc.5+185.sha-5cf82f8
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1767,8 +1767,6 @@ class SharedStylesHost {
 SharedStylesHost.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-SharedStylesHost.ctorParameters = () => [];
 class DomSharedStylesHost extends SharedStylesHost {
     /**
      * @param {?} _doc
@@ -2577,8 +2575,6 @@ class HammerGestureConfig {
 HammerGestureConfig.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-HammerGestureConfig.ctorParameters = () => [];
 class HammerGesturesPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
@@ -3403,8 +3399,6 @@ class TransferState {
 TransferState.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-TransferState.ctorParameters = () => [];
 /**
  * @param {?} doc
  * @param {?} appId
@@ -3438,8 +3432,6 @@ BrowserTransferStateModule.decorators = [
                 providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
             },] }
 ];
-/** @nocollapse */
-BrowserTransferStateModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -3520,7 +3512,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.0-rc.5+184.sha-e5e5c24');
+const VERSION = new Version('6.0.0-rc.5+185.sha-5cf82f8');
 
 /**
  * @fileoverview added by tsickle
