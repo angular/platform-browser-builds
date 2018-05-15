@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+185.sha-5cf82f8
+ * @license Angular v6.0.0-rc.5+187.sha-b7c417f
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1620,6 +1620,8 @@ var EVENT_NAMES = {
  * @experimental
  */
 var HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
+/** Injection token used to provide a {@link HammerLoader} to Angular. */
+var HAMMER_LOADER = new InjectionToken('HammerLoader');
 /**
  * @experimental
  */
@@ -1644,18 +1646,20 @@ var HammerGestureConfig = /** @class */ (function () {
 }());
 var HammerGesturesPlugin = /** @class */ (function (_super) {
     __extends(HammerGesturesPlugin, _super);
-    function HammerGesturesPlugin(doc, _config, console) {
+    function HammerGesturesPlugin(doc, _config, console, loader) {
         var _this = _super.call(this, doc) || this;
         _this._config = _config;
         _this.console = console;
+        _this.loader = loader;
         return _this;
     }
     HammerGesturesPlugin.prototype.supports = function (eventName) {
         if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
             return false;
         }
-        if (!window.Hammer) {
-            this.console.warn("Hammer.js is not loaded, can not bind '" + eventName + "' event.");
+        if (!window.Hammer && !this.loader) {
+            this.console.warn("The \"" + eventName + "\" event cannot be bound because Hammer.JS is not " +
+                "loaded and no custom loader has been specified.");
             return false;
         }
         return true;
@@ -1664,6 +1668,40 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
         var _this = this;
         var zone = this.manager.getZone();
         eventName = eventName.toLowerCase();
+        // If Hammer is not present but a loader is specified, we defer adding the event listener
+        // until Hammer is loaded.
+        if (!window.Hammer && this.loader) {
+            // This `addEventListener` method returns a function to remove the added listener.
+            // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
+            // than remove anything.
+            var cancelRegistration_1 = false;
+            var deregister_1 = function () { cancelRegistration_1 = true; };
+            this.loader()
+                .then(function () {
+                // If Hammer isn't actually loaded when the custom loader resolves, give up.
+                if (!window.Hammer) {
+                    _this.console.warn("The custom HAMMER_LOADER completed, but Hammer.JS is not present.");
+                    deregister_1 = function () { };
+                    return;
+                }
+                if (!cancelRegistration_1) {
+                    // Now that Hammer is loaded and the listener is being loaded for real,
+                    // the deregistration function changes from canceling registration to removal.
+                    // Now that Hammer is loaded and the listener is being loaded for real,
+                    // the deregistration function changes from canceling registration to removal.
+                    deregister_1 = _this.addEventListener(element, eventName, handler);
+                }
+            })
+                .catch(function () {
+                _this.console.warn("The \"" + eventName + "\" event cannot be bound because the custom " +
+                    "Hammer.JS loader failed.");
+                deregister_1 = function () { };
+            });
+            // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
+            // can change the behavior of `deregister` once the listener is added. Using a closure in
+            // this way allows us to avoid any additional data structures to track listener removal.
+            return function () { deregister_1(); };
+        }
         return zone.runOutsideAngular(function () {
             // Creating the manager bind events, must be done outside of angular
             var mc = _this._config.buildHammer(element);
@@ -1683,6 +1721,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
         { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
         { type: ɵConsole, },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] },] },
     ]; };
     return HammerGesturesPlugin;
 }(EventManagerPlugin));
@@ -2506,7 +2545,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.0.0-rc.5+185.sha-5cf82f8');
+var VERSION = new Version('6.0.0-rc.5+187.sha-b7c417f');
 
 /**
  * @license
@@ -2538,5 +2577,5 @@ var VERSION = new Version('6.0.0-rc.5+185.sha-5cf82f8');
  * Generated bundle index. Do not edit.
  */
 
-export { _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_i, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_g, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_f, initTransferState as ɵangular_packages_platform_browser_platform_browser_c, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_h, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_d, DomSanitizerImpl as ɵangular_packages_platform_browser_platform_browser_e, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost };
+export { _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_j, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_h, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_g, initTransferState as ɵangular_packages_platform_browser_platform_browser_c, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_i, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_d, HAMMER_LOADER as ɵangular_packages_platform_browser_platform_browser_e, DomSanitizerImpl as ɵangular_packages_platform_browser_platform_browser_f, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost };
 //# sourceMappingURL=platform-browser.js.map
