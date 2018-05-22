@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.2+22.sha-7fee1fd
+ * @license Angular v6.0.2+23.sha-469b1e4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1045,8 +1045,18 @@ var ELEMENT_PROBE_PROVIDERS = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * The injection token for the event-manager plug-in service.
+ */
 var EVENT_MANAGER_PLUGINS = new core.InjectionToken('EventManagerPlugins');
+/**
+ * An injectable service that provides event management for Angular
+ * through a browser plug-in.
+ */
 var EventManager = /** @class */ (function () {
+    /**
+     * Initializes an instance of the event-manager service.
+     */
     function EventManager(plugins, _zone) {
         var _this = this;
         this._zone = _zone;
@@ -1054,15 +1064,78 @@ var EventManager = /** @class */ (function () {
         plugins.forEach(function (p) { return p.manager = _this; });
         this._plugins = plugins.slice().reverse();
     }
-    EventManager.prototype.addEventListener = function (element, eventName, handler) {
+    /**
+     * Registers a handler for a specific element and event.
+     *
+     * @param element The HTML element to receive event notifications.
+     * @param eventName The name of the event to listen for.
+     * @param handler A function to call when the notification occurs. Receives the
+     * event object as an argument.
+     * @returns  A callback function that can be used to remove the handler.
+     */
+    /**
+       * Registers a handler for a specific element and event.
+       *
+       * @param element The HTML element to receive event notifications.
+       * @param eventName The name of the event to listen for.
+       * @param handler A function to call when the notification occurs. Receives the
+       * event object as an argument.
+       * @returns  A callback function that can be used to remove the handler.
+       */
+    EventManager.prototype.addEventListener = /**
+       * Registers a handler for a specific element and event.
+       *
+       * @param element The HTML element to receive event notifications.
+       * @param eventName The name of the event to listen for.
+       * @param handler A function to call when the notification occurs. Receives the
+       * event object as an argument.
+       * @returns  A callback function that can be used to remove the handler.
+       */
+    function (element, eventName, handler) {
         var plugin = this._findPluginFor(eventName);
         return plugin.addEventListener(element, eventName, handler);
     };
-    EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
+    /**
+     * Registers a global handler for an event in a target view.
+     *
+     * @param target A target for global event notifications. One of "window", "document", or "body".
+     * @param eventName The name of the event to listen for.
+     * @param handler A function to call when the notification occurs. Receives the
+     * event object as an argument.
+     * @returns A callback function that can be used to remove the handler.
+     */
+    /**
+       * Registers a global handler for an event in a target view.
+       *
+       * @param target A target for global event notifications. One of "window", "document", or "body".
+       * @param eventName The name of the event to listen for.
+       * @param handler A function to call when the notification occurs. Receives the
+       * event object as an argument.
+       * @returns A callback function that can be used to remove the handler.
+       */
+    EventManager.prototype.addGlobalEventListener = /**
+       * Registers a global handler for an event in a target view.
+       *
+       * @param target A target for global event notifications. One of "window", "document", or "body".
+       * @param eventName The name of the event to listen for.
+       * @param handler A function to call when the notification occurs. Receives the
+       * event object as an argument.
+       * @returns A callback function that can be used to remove the handler.
+       */
+    function (target, eventName, handler) {
         var plugin = this._findPluginFor(eventName);
         return plugin.addGlobalEventListener(target, eventName, handler);
     };
-    EventManager.prototype.getZone = function () { return this._zone; };
+    /**
+     * Retrieves the compilation zone in which event listeners are registered.
+     */
+    /**
+       * Retrieves the compilation zone in which event listeners are registered.
+       */
+    EventManager.prototype.getZone = /**
+       * Retrieves the compilation zone in which event listeners are registered.
+       */
+    function () { return this._zone; };
     /** @internal */
     /** @internal */
     EventManager.prototype._findPluginFor = /** @internal */
@@ -1653,6 +1726,9 @@ var DomEventsPlugin = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Supported HammerJS recognizer event names.
+ */
 var EVENT_NAMES = {
     // pan
     'pan': true,
@@ -1691,21 +1767,62 @@ var EVENT_NAMES = {
     'tap': true,
 };
 /**
- * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
- * Hammer gestures.
+ * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
+ * @see `HammerGestureConfig`
  *
  * @experimental
  */
 var HAMMER_GESTURE_CONFIG = new core.InjectionToken('HammerGestureConfig');
 /**
+ * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+ * for gesture recognition. Configures specific event recognition.
  * @experimental
  */
 var HammerGestureConfig = /** @class */ (function () {
     function HammerGestureConfig() {
+        /**
+           * A set of supported event names for gestures to be used in Angular.
+           * Angular supports all built-in recognizers, as listed in
+           * [HammerJS documentation](http://hammerjs.github.io/).
+           */
         this.events = [];
+        /**
+          * Maps gesture event names to a set of configuration options
+          * that specify overrides to the default values for specific properties.
+          *
+          * The key is a supported event name to be configured,
+          * and the options object contains a set of properties, with override values
+          * to be applied to the named recognizer event.
+          * For example, to disable recognition of the rotate event, specify
+          *  `{"rotate": {"enable": false}}`.
+          *
+          * Properties that are not present take the HammerJS default values.
+          * For information about which properties are supported for which events,
+          * and their allowed and default values, see
+          * [HammerJS documentation](http://hammerjs.github.io/).
+          *
+          */
         this.overrides = {};
     }
-    HammerGestureConfig.prototype.buildHammer = function (element) {
+    /**
+     * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+     * and attaches it to a given HTML element.
+     * @param element The element that will recognize gestures.
+     * @returns A HammerJS event-manager object.
+     */
+    /**
+       * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+       * and attaches it to a given HTML element.
+       * @param element The element that will recognize gestures.
+       * @returns A HammerJS event-manager object.
+       */
+    HammerGestureConfig.prototype.buildHammer = /**
+       * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+       * and attaches it to a given HTML element.
+       * @param element The element that will recognize gestures.
+       * @returns A HammerJS event-manager object.
+       */
+    function (element) {
         var mc = new Hammer(element, this.options);
         mc.get('pinch').set({ enable: true });
         mc.get('rotate').set({ enable: true });
@@ -1773,11 +1890,17 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Defines supported modifiers for key events.
+ */
 var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
 var ɵ0$1 = function (event) { return event.altKey; };
 var ɵ1$1 = function (event) { return event.ctrlKey; };
 var ɵ2$1 = function (event) { return event.metaKey; };
 var ɵ3 = function (event) { return event.shiftKey; };
+/**
+ * Retrieves modifiers from key-event objects.
+ */
 var MODIFIER_KEY_GETTERS = {
     'alt': ɵ0$1,
     'control': ɵ1$1,
@@ -1786,14 +1909,58 @@ var MODIFIER_KEY_GETTERS = {
 };
 /**
  * @experimental
+ * A browser plug-in that provides support for handling of key events in Angular.
  */
 var KeyEventsPlugin = /** @class */ (function (_super) {
     __extends(KeyEventsPlugin, _super);
+    /**
+     * Initializes an instance of the browser plug-in.
+     * @param doc The document in which key events will be detected.
+     */
     function KeyEventsPlugin(doc) {
         return _super.call(this, doc) || this;
     }
-    KeyEventsPlugin.prototype.supports = function (eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; };
-    KeyEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
+    /**
+      * Reports whether a named key event is supported.
+      * @param eventName The event name to query.
+      * @return True if the named key event is supported.
+     */
+    /**
+        * Reports whether a named key event is supported.
+        * @param eventName The event name to query.
+        * @return True if the named key event is supported.
+       */
+    KeyEventsPlugin.prototype.supports = /**
+        * Reports whether a named key event is supported.
+        * @param eventName The event name to query.
+        * @return True if the named key event is supported.
+       */
+    function (eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; };
+    /**
+     * Registers a handler for a specific element and key event.
+     * @param element The HTML element to receive event notifications.
+     * @param eventName The name of the key event to listen for.
+     * @param handler A function to call when the notification occurs. Receives the
+     * event object as an argument.
+     * @returns The key event that was registered.
+    */
+    /**
+       * Registers a handler for a specific element and key event.
+       * @param element The HTML element to receive event notifications.
+       * @param eventName The name of the key event to listen for.
+       * @param handler A function to call when the notification occurs. Receives the
+       * event object as an argument.
+       * @returns The key event that was registered.
+      */
+    KeyEventsPlugin.prototype.addEventListener = /**
+       * Registers a handler for a specific element and key event.
+       * @param element The HTML element to receive event notifications.
+       * @param eventName The name of the key event to listen for.
+       * @param handler A function to call when the notification occurs. Receives the
+       * event object as an argument.
+       * @returns The key event that was registered.
+      */
+    function (element, eventName, handler) {
         var parsedEvent = (KeyEventsPlugin.parseEventName(eventName));
         var outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
         return this.manager.getZone().runOutsideAngular(function () {
@@ -1846,7 +2013,28 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
         fullKey += key;
         return fullKey;
     };
-    KeyEventsPlugin.eventCallback = function (fullKey, handler, zone) {
+    /**
+     * Configures a handler callback for a key event.
+     * @param fullKey The event name that combines all simultaneous keystrokes.
+     * @param handler The function that responds to the key event.
+     * @param zone The zone in which the event occurred.
+     * @returns A callback function.
+     */
+    /**
+       * Configures a handler callback for a key event.
+       * @param fullKey The event name that combines all simultaneous keystrokes.
+       * @param handler The function that responds to the key event.
+       * @param zone The zone in which the event occurred.
+       * @returns A callback function.
+       */
+    KeyEventsPlugin.eventCallback = /**
+       * Configures a handler callback for a key event.
+       * @param fullKey The event name that combines all simultaneous keystrokes.
+       * @param handler The function that responds to the key event.
+       * @param zone The zone in which the event occurred.
+       * @returns A callback function.
+       */
+    function (fullKey, handler, zone) {
         return function (event /** TODO #9100 */) {
             if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
                 zone.runGuarded(function () { return handler(event); });
@@ -2589,7 +2777,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new core.Version('6.0.2+22.sha-7fee1fd');
+var VERSION = new core.Version('6.0.2+23.sha-469b1e4');
 
 /**
  * @license

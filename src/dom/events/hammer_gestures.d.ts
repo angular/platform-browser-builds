@@ -8,8 +8,8 @@
 import { InjectionToken, ɵConsole as Console } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
 /**
- * A DI token that you can use to provide{@link HammerGestureConfig} to Angular. Use it to configure
- * Hammer gestures.
+ * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
+ * @see `HammerGestureConfig`
  *
  * @experimental
  */
@@ -19,13 +19,43 @@ export interface HammerInstance {
     off(eventName: string, callback?: Function): void;
 }
 /**
+ * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+ * for gesture recognition. Configures specific event recognition.
  * @experimental
  */
 export declare class HammerGestureConfig {
+    /**
+     * A set of supported event names for gestures to be used in Angular.
+     * Angular supports all built-in recognizers, as listed in
+     * [HammerJS documentation](http://hammerjs.github.io/).
+     */
     events: string[];
+    /**
+    * Maps gesture event names to a set of configuration options
+    * that specify overrides to the default values for specific properties.
+    *
+    * The key is a supported event name to be configured,
+    * and the options object contains a set of properties, with override values
+    * to be applied to the named recognizer event.
+    * For example, to disable recognition of the rotate event, specify
+    *  `{"rotate": {"enable": false}}`.
+    *
+    * Properties that are not present take the HammerJS default values.
+    * For information about which properties are supported for which events,
+    * and their allowed and default values, see
+    * [HammerJS documentation](http://hammerjs.github.io/).
+    *
+    */
     overrides: {
         [key: string]: Object;
     };
+    /**
+     * Properties whose default values can be overridden for a given event.
+     * Different sets of properties apply to different events.
+     * For information about which properties are supported for which events,
+     * and their allowed and default values, see
+     * [HammerJS documentation](http://hammerjs.github.io/).
+     */
     options?: {
         cssProps?: any;
         domEvents?: boolean;
@@ -36,6 +66,12 @@ export declare class HammerGestureConfig {
         inputClass?: any;
         inputTarget?: EventTarget;
     };
+    /**
+     * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+     * and attaches it to a given HTML element.
+     * @param element The element that will recognize gestures.
+     * @returns A HammerJS event-manager object.
+     */
     buildHammer(element: HTMLElement): HammerInstance;
 }
 export declare class HammerGesturesPlugin extends EventManagerPlugin {
