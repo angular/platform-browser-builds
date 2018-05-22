@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+205.sha-db2329e
+ * @license Angular v6.0.0-rc.5+211.sha-373fa78
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2620,7 +2620,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new core.Version('6.0.0-rc.5+205.sha-db2329e');
+var VERSION = new core.Version('6.0.0-rc.5+211.sha-373fa78');
 
 /**
  * @license
@@ -2654,14 +2654,13 @@ var VERSION = new core.Version('6.0.0-rc.5+205.sha-db2329e');
 
 exports.ɵangular_packages_platform_browser_platform_browser_b = _document;
 exports.ɵangular_packages_platform_browser_platform_browser_a = errorHandler;
-exports.ɵangular_packages_platform_browser_platform_browser_j = GenericBrowserDomAdapter;
-exports.ɵangular_packages_platform_browser_platform_browser_h = SERVER_TRANSITION_PROVIDERS;
-exports.ɵangular_packages_platform_browser_platform_browser_g = appInitializerFactory;
+exports.ɵangular_packages_platform_browser_platform_browser_i = GenericBrowserDomAdapter;
+exports.ɵangular_packages_platform_browser_platform_browser_g = SERVER_TRANSITION_PROVIDERS;
+exports.ɵangular_packages_platform_browser_platform_browser_f = appInitializerFactory;
 exports.ɵangular_packages_platform_browser_platform_browser_c = initTransferState;
-exports.ɵangular_packages_platform_browser_platform_browser_i = _createNgProbe;
+exports.ɵangular_packages_platform_browser_platform_browser_h = _createNgProbe;
 exports.ɵangular_packages_platform_browser_platform_browser_d = EventManagerPlugin;
-exports.ɵangular_packages_platform_browser_platform_browser_e = HAMMER_LOADER;
-exports.ɵangular_packages_platform_browser_platform_browser_f = DomSanitizerImpl;
+exports.ɵangular_packages_platform_browser_platform_browser_e = DomSanitizerImpl;
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
 exports.Meta = Meta;
@@ -2676,6 +2675,7 @@ exports.DOCUMENT = DOCUMENT$1;
 exports.EVENT_MANAGER_PLUGINS = EVENT_MANAGER_PLUGINS;
 exports.EventManager = EventManager;
 exports.HAMMER_GESTURE_CONFIG = HAMMER_GESTURE_CONFIG;
+exports.HAMMER_LOADER = HAMMER_LOADER;
 exports.HammerGestureConfig = HammerGestureConfig;
 exports.DomSanitizer = DomSanitizer;
 exports.VERSION = VERSION;
