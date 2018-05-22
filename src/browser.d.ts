@@ -7,9 +7,6 @@ export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
  * @experimental
  */
 export declare const BROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
-/**
- *
- */
 export declare const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef;
 export declare function initDomAdapter(): void;
 export declare function errorHandler(): ErrorHandler;

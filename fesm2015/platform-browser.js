@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+78.sha-e1c4930
+ * @license Angular v6.0.0-rc.5+215.sha-23a98b9
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1633,14 +1633,16 @@ const ELEMENT_PROBE_PROVIDERS = [
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- *
+ * The injection token for the event-manager plug-in service.
  */
 const EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
- *
+ * An injectable service that provides event management for Angular
+ * through a browser plug-in.
  */
 class EventManager {
     /**
+     * Initializes an instance of the event-manager service.
      * @param {?} plugins
      * @param {?} _zone
      */
@@ -1651,26 +1653,33 @@ class EventManager {
         this._plugins = plugins.slice().reverse();
     }
     /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
+     * Registers a handler for a specific element and event.
+     *
+     * @param {?} element The HTML element to receive event notifications.
+     * @param {?} eventName The name of the event to listen for.
+     * @param {?} handler A function to call when the notification occurs. Receives the
+     * event object as an argument.
+     * @return {?} A callback function that can be used to remove the handler.
      */
     addEventListener(element, eventName, handler) {
         const /** @type {?} */ plugin = this._findPluginFor(eventName);
         return plugin.addEventListener(element, eventName, handler);
     }
     /**
-     * @param {?} target
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
+     * Registers a global handler for an event in a target view.
+     *
+     * @param {?} target A target for global event notifications. One of "window", "document", or "body".
+     * @param {?} eventName The name of the event to listen for.
+     * @param {?} handler A function to call when the notification occurs. Receives the
+     * event object as an argument.
+     * @return {?} A callback function that can be used to remove the handler.
      */
     addGlobalEventListener(target, eventName, handler) {
         const /** @type {?} */ plugin = this._findPluginFor(eventName);
         return plugin.addGlobalEventListener(target, eventName, handler);
     }
     /**
+     * Retrieves the compilation zone in which event listeners are registered.
      * @return {?}
      */
     getZone() { return this._zone; }
@@ -1773,8 +1782,6 @@ class SharedStylesHost {
 SharedStylesHost.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-SharedStylesHost.ctorParameters = () => [];
 class DomSharedStylesHost extends SharedStylesHost {
     /**
      * @param {?} _doc
@@ -2510,6 +2517,9 @@ DomEventsPlugin.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Supported HammerJS recognizer event names.
+ */
 const EVENT_NAMES = {
     // pan
     'pan': true,
@@ -2548,30 +2558,59 @@ const EVENT_NAMES = {
     'tap': true,
 };
 /**
- * A DI token that you can use to provide{\@link HammerGestureConfig} to Angular. Use it to configure
- * Hammer gestures.
+ * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
+ * @see `HammerGestureConfig`
  *
  * \@experimental
  */
 const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
 /**
+ * Injection token used to provide a {\@link HammerLoader} to Angular.
+ */
+const HAMMER_LOADER = new InjectionToken('HammerLoader');
+/**
  * @record
  */
 
 /**
+ * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+ * for gesture recognition. Configures specific event recognition.
  * \@experimental
  */
 class HammerGestureConfig {
     constructor() {
+        /**
+         * A set of supported event names for gestures to be used in Angular.
+         * Angular supports all built-in recognizers, as listed in
+         * [HammerJS documentation](http://hammerjs.github.io/).
+         */
         this.events = [];
+        /**
+         * Maps gesture event names to a set of configuration options
+         * that specify overrides to the default values for specific properties.
+         *
+         * The key is a supported event name to be configured,
+         * and the options object contains a set of properties, with override values
+         * to be applied to the named recognizer event.
+         * For example, to disable recognition of the rotate event, specify
+         *  `{"rotate": {"enable": false}}`.
+         *
+         * Properties that are not present take the HammerJS default values.
+         * For information about which properties are supported for which events,
+         * and their allowed and default values, see
+         * [HammerJS documentation](http://hammerjs.github.io/).
+         *
+         */
         this.overrides = {};
     }
     /**
-     * @param {?} element
-     * @return {?}
+     * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+     * and attaches it to a given HTML element.
+     * @param {?} element The element that will recognize gestures.
+     * @return {?} A HammerJS event-manager object.
      */
     buildHammer(element) {
-        const /** @type {?} */ mc = new Hammer(element, this.options);
+        const /** @type {?} */ mc = new /** @type {?} */ ((Hammer))(element, this.options);
         mc.get('pinch').set({ enable: true });
         mc.get('rotate').set({ enable: true });
         for (const /** @type {?} */ eventName in this.overrides) {
@@ -2583,18 +2622,18 @@ class HammerGestureConfig {
 HammerGestureConfig.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-HammerGestureConfig.ctorParameters = () => [];
 class HammerGesturesPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
      * @param {?} _config
      * @param {?} console
+     * @param {?=} loader
      */
-    constructor(doc, _config, console) {
+    constructor(doc, _config, console, loader) {
         super(doc);
         this._config = _config;
         this.console = console;
+        this.loader = loader;
     }
     /**
      * @param {?} eventName
@@ -2604,8 +2643,9 @@ class HammerGesturesPlugin extends EventManagerPlugin {
         if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
             return false;
         }
-        if (!(/** @type {?} */ (window)).Hammer) {
-            this.console.warn(`Hammer.js is not loaded, can not bind '${eventName}' event.`);
+        if (!(/** @type {?} */ (window)).Hammer && !this.loader) {
+            this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
+                `loaded and no custom loader has been specified.`);
             return false;
         }
         return true;
@@ -2619,6 +2659,38 @@ class HammerGesturesPlugin extends EventManagerPlugin {
     addEventListener(element, eventName, handler) {
         const /** @type {?} */ zone = this.manager.getZone();
         eventName = eventName.toLowerCase();
+        // If Hammer is not present but a loader is specified, we defer adding the event listener
+        // until Hammer is loaded.
+        if (!(/** @type {?} */ (window)).Hammer && this.loader) {
+            // This `addEventListener` method returns a function to remove the added listener.
+            // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
+            // than remove anything.
+            let /** @type {?} */ cancelRegistration = false;
+            let /** @type {?} */ deregister = () => { cancelRegistration = true; };
+            this.loader()
+                .then(() => {
+                // If Hammer isn't actually loaded when the custom loader resolves, give up.
+                if (!(/** @type {?} */ (window)).Hammer) {
+                    this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+                    deregister = () => { };
+                    return;
+                }
+                if (!cancelRegistration) {
+                    // Now that Hammer is loaded and the listener is being loaded for real,
+                    // the deregistration function changes from canceling registration to removal.
+                    deregister = this.addEventListener(element, eventName, handler);
+                }
+            })
+                .catch(() => {
+                this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
+                    `Hammer.JS loader failed.`);
+                deregister = () => { };
+            });
+            // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
+            // can change the behavior of `deregister` once the listener is added. Using a closure in
+            // this way allows us to avoid any additional data structures to track listener removal.
+            return () => { deregister(); };
+        }
         return zone.runOutsideAngular(() => {
             // Creating the manager bind events, must be done outside of angular
             const /** @type {?} */ mc = this._config.buildHammer(element);
@@ -2643,6 +2715,7 @@ HammerGesturesPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
     { type: ɵConsole, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] },] },
 ];
 
 /**
@@ -2656,11 +2729,17 @@ HammerGesturesPlugin.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Defines supported modifiers for key events.
+ */
 const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
 const ɵ0$1 = (event) => event.altKey;
 const ɵ1$1 = (event) => event.ctrlKey;
 const ɵ2$1 = (event) => event.metaKey;
 const ɵ3 = (event) => event.shiftKey;
+/**
+ * Retrieves modifiers from key-event objects.
+ */
 const MODIFIER_KEY_GETTERS = {
     'alt': ɵ0$1,
     'control': ɵ1$1,
@@ -2669,22 +2748,27 @@ const MODIFIER_KEY_GETTERS = {
 };
 /**
  * \@experimental
+ * A browser plug-in that provides support for handling of key events in Angular.
  */
 class KeyEventsPlugin extends EventManagerPlugin {
     /**
-     * @param {?} doc
+     * Initializes an instance of the browser plug-in.
+     * @param {?} doc The document in which key events will be detected.
      */
     constructor(doc) { super(doc); }
     /**
-     * @param {?} eventName
-     * @return {?}
+     * Reports whether a named key event is supported.
+     * @param {?} eventName The event name to query.
+     * @return {?} True if the named key event is supported.
      */
     supports(eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; }
     /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
+     * Registers a handler for a specific element and key event.
+     * @param {?} element The HTML element to receive event notifications.
+     * @param {?} eventName The name of the key event to listen for.
+     * @param {?} handler A function to call when the notification occurs. Receives the
+     * event object as an argument.
+     * @return {?} The key event that was registered.
      */
     addEventListener(element, eventName, handler) {
         const /** @type {?} */ parsedEvent = /** @type {?} */ ((KeyEventsPlugin.parseEventName(eventName)));
@@ -2748,10 +2832,11 @@ class KeyEventsPlugin extends EventManagerPlugin {
         return fullKey;
     }
     /**
-     * @param {?} fullKey
-     * @param {?} handler
-     * @param {?} zone
-     * @return {?}
+     * Configures a handler callback for a key event.
+     * @param {?} fullKey The event name that combines all simultaneous keystrokes.
+     * @param {?} handler The function that responds to the key event.
+     * @param {?} zone The zone in which the event occurred.
+     * @return {?} A callback function.
      */
     static eventCallback(fullKey, handler, zone) {
         return (event /** TODO #9100 */) => {
@@ -3044,9 +3129,6 @@ const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
-/**
- *
- */
 const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 /**
  * @return {?}
@@ -3412,8 +3494,6 @@ class TransferState {
 TransferState.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-TransferState.ctorParameters = () => [];
 /**
  * @param {?} doc
  * @param {?} appId
@@ -3447,8 +3527,6 @@ BrowserTransferStateModule.decorators = [
                 providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
             },] }
 ];
-/** @nocollapse */
-BrowserTransferStateModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -3529,10 +3607,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- *
- */
-const VERSION = new Version('6.0.0-rc.5+78.sha-e1c4930');
+const VERSION = new Version('6.0.0-rc.5+215.sha-23a98b9');
 
 /**
  * @fileoverview added by tsickle
@@ -3585,5 +3660,5 @@ const VERSION = new Version('6.0.0-rc.5+78.sha-e1c4930');
  * Generated bundle index. Do not edit.
  */
 
-export { _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_i, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_g, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_f, initTransferState as ɵangular_packages_platform_browser_platform_browser_c, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_h, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_d, DomSanitizerImpl as ɵangular_packages_platform_browser_platform_browser_e, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost };
+export { _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_i, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_g, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_f, initTransferState as ɵangular_packages_platform_browser_platform_browser_c, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_h, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_d, DomSanitizerImpl as ɵangular_packages_platform_browser_platform_browser_e, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost };
 //# sourceMappingURL=platform-browser.js.map
