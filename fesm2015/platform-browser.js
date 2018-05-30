@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+253.sha-3ed7fc6
+ * @license Angular v6.0.0-rc.5+255.sha-d6595eb
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2371,7 +2371,7 @@ class DomEventsPlugin extends EventManagerPlugin {
      * @return {?}
      */
     patchEvent() {
-        if (!Event || !Event.prototype) {
+        if (typeof Event === 'undefined' || !Event || !Event.prototype) {
             return;
         }
         if ((/** @type {?} */ (Event.prototype))[stopMethodSymbol]) {
@@ -3607,7 +3607,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.0-rc.5+253.sha-3ed7fc6');
+const VERSION = new Version('6.0.0-rc.5+255.sha-d6595eb');
 
 /**
  * @fileoverview added by tsickle
