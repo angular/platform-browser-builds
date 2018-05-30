@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.3+29.sha-f04aef4
+ * @license Angular v6.0.3+33.sha-e9f2203
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1584,14 +1584,16 @@ var globalListener = function (event) {
 };
 var DomEventsPlugin = /** @class */ (function (_super) {
     __extends(DomEventsPlugin, _super);
-    function DomEventsPlugin(doc, ngZone) {
+    function DomEventsPlugin(doc, ngZone, platformId) {
         var _this = _super.call(this, doc) || this;
         _this.ngZone = ngZone;
-        _this.patchEvent();
+        if (!platformId || !common.isPlatformServer(platformId)) {
+            _this.patchEvent();
+        }
         return _this;
     }
     DomEventsPlugin.prototype.patchEvent = function () {
-        if (!Event || !Event.prototype) {
+        if (typeof Event === 'undefined' || !Event || !Event.prototype) {
             return;
         }
         if (Event.prototype[stopMethodSymbol]) {
@@ -1715,6 +1717,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
     DomEventsPlugin.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT$1,] },] },
         { type: core.NgZone, },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core.PLATFORM_ID,] },] },
     ]; };
     return DomEventsPlugin;
 }(EventManagerPlugin));
@@ -2777,7 +2780,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new core.Version('6.0.3+29.sha-f04aef4');
+var VERSION = new core.Version('6.0.3+33.sha-e9f2203');
 
 /**
  * @license

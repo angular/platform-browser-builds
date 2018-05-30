@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.0.3+29.sha-f04aef4
+ * @license Angular v6.0.3+33.sha-e9f2203
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
+import { CommonModule, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
 import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, platformCore, setTestabilityGetter, ɵAPP_ROOT, ɵConsole, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ɵglobal } from '@angular/core';
 
 /**
@@ -2363,17 +2363,20 @@ class DomEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
      * @param {?} ngZone
+     * @param {?} platformId
      */
-    constructor(doc, ngZone) {
+    constructor(doc, ngZone, platformId) {
         super(doc);
         this.ngZone = ngZone;
-        this.patchEvent();
+        if (!platformId || !isPlatformServer(platformId)) {
+            this.patchEvent();
+        }
     }
     /**
      * @return {?}
      */
     patchEvent() {
-        if (!Event || !Event.prototype) {
+        if (typeof Event === 'undefined' || !Event || !Event.prototype) {
             return;
         }
         if ((/** @type {?} */ (Event.prototype))[stopMethodSymbol]) {
@@ -2506,6 +2509,7 @@ DomEventsPlugin.decorators = [
 DomEventsPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
     { type: NgZone, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] },] },
 ];
 
 /**
@@ -3575,7 +3579,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.3+29.sha-f04aef4');
+const VERSION = new Version('6.0.3+33.sha-e9f2203');
 
 /**
  * @fileoverview added by tsickle
