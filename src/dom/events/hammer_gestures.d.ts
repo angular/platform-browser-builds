@@ -15,7 +15,7 @@ import { EventManagerPlugin } from './event_manager';
  */
 export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
 /** Function that loads HammerJS, returning a promise that is resolved once HammerJs is loaded. */
-export declare type HammerLoader = (() => Promise<void>) | null;
+export declare type HammerLoader = () => Promise<void>;
 /** Injection token used to provide a {@link HammerLoader} to Angular. */
 export declare const HAMMER_LOADER: InjectionToken<HammerLoader>;
 export interface HammerInstance {
@@ -82,7 +82,7 @@ export declare class HammerGesturesPlugin extends EventManagerPlugin {
     private _config;
     private console;
     private loader;
-    constructor(doc: any, _config: HammerGestureConfig, console: Console, loader?: (() => Promise<void>) | null | undefined);
+    constructor(doc: any, _config: HammerGestureConfig, console: Console, loader?: HammerLoader | null | undefined);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
