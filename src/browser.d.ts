@@ -7,9 +7,6 @@ export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
  * @experimental
  */
 export declare const BROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
-/**
- * @stable
- */
 export declare const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef;
 export declare function initDomAdapter(): void;
 export declare function errorHandler(): ErrorHandler;
@@ -17,7 +14,7 @@ export declare function _document(): any;
 /**
  * The ng module for the browser.
  *
- * @stable
+ *
  */
 export declare class BrowserModule {
     constructor(parentModule: BrowserModule);
