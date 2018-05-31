@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.0.0-rc.5+243.sha-1eafd04
+ * @license Angular v6.0.0-rc.5+281.sha-b86d4de
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { CommonModule, DOCUMENT, PlatformLocation, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
+import { CommonModule, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
 import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, platformCore, setTestabilityGetter, ɵAPP_ROOT, ɵConsole, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ɵglobal } from '@angular/core';
 import { __assign, __extends, __spread } from 'tslib';
 
@@ -1507,14 +1507,16 @@ var globalListener = function (event) {
 };
 var DomEventsPlugin = /** @class */ (function (_super) {
     __extends(DomEventsPlugin, _super);
-    function DomEventsPlugin(doc, ngZone) {
+    function DomEventsPlugin(doc, ngZone, platformId) {
         var _this = _super.call(this, doc) || this;
         _this.ngZone = ngZone;
-        _this.patchEvent();
+        if (!platformId || !isPlatformServer(platformId)) {
+            _this.patchEvent();
+        }
         return _this;
     }
     DomEventsPlugin.prototype.patchEvent = function () {
-        if (!Event || !Event.prototype) {
+        if (typeof Event === 'undefined' || !Event || !Event.prototype) {
             return;
         }
         if (Event.prototype[stopMethodSymbol]) {
@@ -1638,6 +1640,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
     DomEventsPlugin.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
         { type: NgZone, },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] },] },
     ]; };
     return DomEventsPlugin;
 }(EventManagerPlugin));
@@ -2733,7 +2736,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.0.0-rc.5+243.sha-1eafd04');
+var VERSION = new Version('6.0.0-rc.5+281.sha-b86d4de');
 
 /**
  * @license
