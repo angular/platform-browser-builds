@@ -11,12 +11,7 @@ import { getDOM } from '../../dom/dom_adapter';
  *
  * @experimental All debugging apis are currently experimental.
  */
-var /**
- * Predicates for use with {@link DebugElement}'s query functions.
- *
- * @experimental All debugging apis are currently experimental.
- */
-By = /** @class */ (function () {
+var By = /** @class */ (function () {
     function By() {
     }
     /**
@@ -26,21 +21,7 @@ By = /** @class */ (function () {
      *
      * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
      */
-    /**
-       * Match all elements.
-       *
-       * ## Example
-       *
-       * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
-       */
-    By.all = /**
-       * Match all elements.
-       *
-       * ## Example
-       *
-       * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
-       */
-    function () { return function (debugElement) { return true; }; };
+    By.all = function () { return function (debugElement) { return true; }; };
     /**
      * Match elements by the given CSS selector.
      *
@@ -48,21 +29,7 @@ By = /** @class */ (function () {
      *
      * {@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
      */
-    /**
-       * Match elements by the given CSS selector.
-       *
-       * ## Example
-       *
-       * {@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
-       */
-    By.css = /**
-       * Match elements by the given CSS selector.
-       *
-       * ## Example
-       *
-       * {@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
-       */
-    function (selector) {
+    By.css = function (selector) {
         return function (debugElement) {
             return debugElement.nativeElement != null ?
                 getDOM().elementMatches(debugElement.nativeElement, selector) :
@@ -76,30 +43,11 @@ By = /** @class */ (function () {
      *
      * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
      */
-    /**
-       * Match elements that have the given directive present.
-       *
-       * ## Example
-       *
-       * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
-       */
-    By.directive = /**
-       * Match elements that have the given directive present.
-       *
-       * ## Example
-       *
-       * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
-       */
-    function (type) {
+    By.directive = function (type) {
         return function (debugElement) { return debugElement.providerTokens.indexOf(type) !== -1; };
     };
     return By;
 }());
-/**
- * Predicates for use with {@link DebugElement}'s query functions.
- *
- * @experimental All debugging apis are currently experimental.
- */
 export { By };
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYnkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9wbGF0Zm9ybS1icm93c2VyL3NyYy9kb20vZGVidWcvYnkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7OztBQVNBLE9BQU8sRUFBQyxNQUFNLEVBQUMsTUFBTSx1QkFBdUIsQ0FBQzs7Ozs7O0FBUzdDOzs7OztBQUFBOzs7SUFDRTs7Ozs7O09BTUc7Ozs7Ozs7O0lBQ0ksTUFBRzs7Ozs7OztJQUFWLGNBQXdDLE9BQU8sVUFBQyxZQUFZLElBQUssT0FBQSxJQUFJLEVBQUosQ0FBSSxDQUFDLEVBQUU7SUFFeEU7Ozs7OztPQU1HOzs7Ozs7OztJQUNJLE1BQUc7Ozs7Ozs7SUFBVixVQUFXLFFBQWdCO1FBQ3pCLE9BQU8sVUFBQyxZQUFZO1lBQ2xCLE9BQU8sWUFBWSxDQUFDLGFBQWEsSUFBSSxJQUFJLENBQUMsQ0FBQztnQkFDdkMsTUFBTSxFQUFFLENBQUMsY0FBYyxDQUFDLFlBQVksQ0FBQyxhQUFhLEVBQUUsUUFBUSxDQUFDLENBQUMsQ0FBQztnQkFDL0QsS0FBSyxDQUFDO1NBQ1gsQ0FBQztLQUNIO0lBRUQ7Ozs7OztPQU1HOzs7Ozs7OztJQUNJLFlBQVM7Ozs7Ozs7SUFBaEIsVUFBaUIsSUFBZTtRQUM5QixPQUFPLFVBQUMsWUFBWSxJQUFLLE9BQUEsWUFBWSxDQUFDLGNBQWdCLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxFQUFsRCxDQUFrRCxDQUFDO0tBQzdFO2FBcERIO0lBcURDLENBQUE7Ozs7OztBQW5DRCxjQW1DQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgSW5jLiBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuaW1wb3J0IHtEZWJ1Z0VsZW1lbnQsIFByZWRpY2F0ZSwgVHlwZX0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5pbXBvcnQge2dldERPTX0gZnJvbSAnLi4vLi4vZG9tL2RvbV9hZGFwdGVyJztcblxuXG5cbi8qKlxuICogUHJlZGljYXRlcyBmb3IgdXNlIHdpdGgge0BsaW5rIERlYnVnRWxlbWVudH0ncyBxdWVyeSBmdW5jdGlvbnMuXG4gKlxuICogQGV4cGVyaW1lbnRhbCBBbGwgZGVidWdnaW5nIGFwaXMgYXJlIGN1cnJlbnRseSBleHBlcmltZW50YWwuXG4gKi9cbmV4cG9ydCBjbGFzcyBCeSB7XG4gIC8qKlxuICAgKiBNYXRjaCBhbGwgZWxlbWVudHMuXG4gICAqXG4gICAqICMjIEV4YW1wbGVcbiAgICpcbiAgICoge0BleGFtcGxlIHBsYXRmb3JtLWJyb3dzZXIvZG9tL2RlYnVnL3RzL2J5L2J5LnRzIHJlZ2lvbj0nYnlfYWxsJ31cbiAgICovXG4gIHN0YXRpYyBhbGwoKTogUHJlZGljYXRlPERlYnVnRWxlbWVudD4geyByZXR1cm4gKGRlYnVnRWxlbWVudCkgPT4gdHJ1ZTsgfVxuXG4gIC8qKlxuICAgKiBNYXRjaCBlbGVtZW50cyBieSB0aGUgZ2l2ZW4gQ1NTIHNlbGVjdG9yLlxuICAgKlxuICAgKiAjIyBFeGFtcGxlXG4gICAqXG4gICAqIHtAZXhhbXBsZSBwbGF0Zm9ybS1icm93c2VyL2RvbS9kZWJ1Zy90cy9ieS9ieS50cyByZWdpb249J2J5X2Nzcyd9XG4gICAqL1xuICBzdGF0aWMgY3NzKHNlbGVjdG9yOiBzdHJpbmcpOiBQcmVkaWNhdGU8RGVidWdFbGVtZW50PiB7XG4gICAgcmV0dXJuIChkZWJ1Z0VsZW1lbnQpID0+IHtcbiAgICAgIHJldHVybiBkZWJ1Z0VsZW1lbnQubmF0aXZlRWxlbWVudCAhPSBudWxsID9cbiAgICAgICAgICBnZXRET00oKS5lbGVtZW50TWF0Y2hlcyhkZWJ1Z0VsZW1lbnQubmF0aXZlRWxlbWVudCwgc2VsZWN0b3IpIDpcbiAgICAgICAgICBmYWxzZTtcbiAgICB9O1xuICB9XG5cbiAgLyoqXG4gICAqIE1hdGNoIGVsZW1lbnRzIHRoYXQgaGF2ZSB0aGUgZ2l2ZW4gZGlyZWN0aXZlIHByZXNlbnQuXG4gICAqXG4gICAqICMjIEV4YW1wbGVcbiAgICpcbiAgICoge0BleGFtcGxlIHBsYXRmb3JtLWJyb3dzZXIvZG9tL2RlYnVnL3RzL2J5L2J5LnRzIHJlZ2lvbj0nYnlfZGlyZWN0aXZlJ31cbiAgICovXG4gIHN0YXRpYyBkaXJlY3RpdmUodHlwZTogVHlwZTxhbnk+KTogUHJlZGljYXRlPERlYnVnRWxlbWVudD4ge1xuICAgIHJldHVybiAoZGVidWdFbGVtZW50KSA9PiBkZWJ1Z0VsZW1lbnQucHJvdmlkZXJUb2tlbnMgIS5pbmRleE9mKHR5cGUpICE9PSAtMTtcbiAgfVxufVxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYnkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9wbGF0Zm9ybS1icm93c2VyL3NyYy9kb20vZGVidWcvYnkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBR0gsT0FBTyxFQUFDLE1BQU0sRUFBQyxNQUFNLHVCQUF1QixDQUFDO0FBSTdDOzs7O0dBSUc7QUFDSDtJQUFBO0lBbUNBLENBQUM7SUFsQ0M7Ozs7OztPQU1HO0lBQ0ksTUFBRyxHQUFWLGNBQXdDLE9BQU8sVUFBQyxZQUFZLElBQUssT0FBQSxJQUFJLEVBQUosQ0FBSSxDQUFDLENBQUMsQ0FBQztJQUV4RTs7Ozs7O09BTUc7SUFDSSxNQUFHLEdBQVYsVUFBVyxRQUFnQjtRQUN6QixPQUFPLFVBQUMsWUFBWTtZQUNsQixPQUFPLFlBQVksQ0FBQyxhQUFhLElBQUksSUFBSSxDQUFDLENBQUM7Z0JBQ3ZDLE1BQU0sRUFBRSxDQUFDLGNBQWMsQ0FBQyxZQUFZLENBQUMsYUFBYSxFQUFFLFFBQVEsQ0FBQyxDQUFDLENBQUM7Z0JBQy9ELEtBQUssQ0FBQztRQUNaLENBQUMsQ0FBQztJQUNKLENBQUM7SUFFRDs7Ozs7O09BTUc7SUFDSSxZQUFTLEdBQWhCLFVBQWlCLElBQWU7UUFDOUIsT0FBTyxVQUFDLFlBQVksSUFBSyxPQUFBLFlBQVksQ0FBQyxjQUFnQixDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUMsRUFBbEQsQ0FBa0QsQ0FBQztJQUM5RSxDQUFDO0lBQ0gsU0FBQztBQUFELENBQUMsQUFuQ0QsSUFtQ0MiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIEluYy4gQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7RGVidWdFbGVtZW50LCBQcmVkaWNhdGUsIFR5cGV9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHtnZXRET019IGZyb20gJy4uLy4uL2RvbS9kb21fYWRhcHRlcic7XG5cblxuXG4vKipcbiAqIFByZWRpY2F0ZXMgZm9yIHVzZSB3aXRoIHtAbGluayBEZWJ1Z0VsZW1lbnR9J3MgcXVlcnkgZnVuY3Rpb25zLlxuICpcbiAqIEBleHBlcmltZW50YWwgQWxsIGRlYnVnZ2luZyBhcGlzIGFyZSBjdXJyZW50bHkgZXhwZXJpbWVudGFsLlxuICovXG5leHBvcnQgY2xhc3MgQnkge1xuICAvKipcbiAgICogTWF0Y2ggYWxsIGVsZW1lbnRzLlxuICAgKlxuICAgKiAjIyBFeGFtcGxlXG4gICAqXG4gICAqIHtAZXhhbXBsZSBwbGF0Zm9ybS1icm93c2VyL2RvbS9kZWJ1Zy90cy9ieS9ieS50cyByZWdpb249J2J5X2FsbCd9XG4gICAqL1xuICBzdGF0aWMgYWxsKCk6IFByZWRpY2F0ZTxEZWJ1Z0VsZW1lbnQ+IHsgcmV0dXJuIChkZWJ1Z0VsZW1lbnQpID0+IHRydWU7IH1cblxuICAvKipcbiAgICogTWF0Y2ggZWxlbWVudHMgYnkgdGhlIGdpdmVuIENTUyBzZWxlY3Rvci5cbiAgICpcbiAgICogIyMgRXhhbXBsZVxuICAgKlxuICAgKiB7QGV4YW1wbGUgcGxhdGZvcm0tYnJvd3Nlci9kb20vZGVidWcvdHMvYnkvYnkudHMgcmVnaW9uPSdieV9jc3MnfVxuICAgKi9cbiAgc3RhdGljIGNzcyhzZWxlY3Rvcjogc3RyaW5nKTogUHJlZGljYXRlPERlYnVnRWxlbWVudD4ge1xuICAgIHJldHVybiAoZGVidWdFbGVtZW50KSA9PiB7XG4gICAgICByZXR1cm4gZGVidWdFbGVtZW50Lm5hdGl2ZUVsZW1lbnQgIT0gbnVsbCA/XG4gICAgICAgICAgZ2V0RE9NKCkuZWxlbWVudE1hdGNoZXMoZGVidWdFbGVtZW50Lm5hdGl2ZUVsZW1lbnQsIHNlbGVjdG9yKSA6XG4gICAgICAgICAgZmFsc2U7XG4gICAgfTtcbiAgfVxuXG4gIC8qKlxuICAgKiBNYXRjaCBlbGVtZW50cyB0aGF0IGhhdmUgdGhlIGdpdmVuIGRpcmVjdGl2ZSBwcmVzZW50LlxuICAgKlxuICAgKiAjIyBFeGFtcGxlXG4gICAqXG4gICAqIHtAZXhhbXBsZSBwbGF0Zm9ybS1icm93c2VyL2RvbS9kZWJ1Zy90cy9ieS9ieS50cyByZWdpb249J2J5X2RpcmVjdGl2ZSd9XG4gICAqL1xuICBzdGF0aWMgZGlyZWN0aXZlKHR5cGU6IFR5cGU8YW55Pik6IFByZWRpY2F0ZTxEZWJ1Z0VsZW1lbnQ+IHtcbiAgICByZXR1cm4gKGRlYnVnRWxlbWVudCkgPT4gZGVidWdFbGVtZW50LnByb3ZpZGVyVG9rZW5zICEuaW5kZXhPZih0eXBlKSAhPT0gLTE7XG4gIH1cbn1cbiJdfQ==

@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+294.sha-60aa943
+ * @license Angular v6.0.0-rc.5+295.sha-f69ac67
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -46,8 +46,8 @@ BrowserAnimationBuilder.decorators = [
 ];
 /** @nocollapse */
 BrowserAnimationBuilder.ctorParameters = () => [
-    { type: RendererFactory2, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: RendererFactory2 },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 class BrowserAnimationFactory extends AnimationFactory {
     /**
@@ -298,9 +298,9 @@ AnimationRendererFactory.decorators = [
 ];
 /** @nocollapse */
 AnimationRendererFactory.ctorParameters = () => [
-    { type: RendererFactory2, },
-    { type: ɵAnimationEngine, },
-    { type: NgZone, },
+    { type: RendererFactory2 },
+    { type: ɵAnimationEngine },
+    { type: NgZone }
 ];
 class BaseAnimationRenderer {
     /**
@@ -581,8 +581,8 @@ InjectableAnimationEngine.decorators = [
 ];
 /** @nocollapse */
 InjectableAnimationEngine.ctorParameters = () => [
-    { type: AnimationDriver, },
-    { type: ɵAnimationStyleNormalizer, },
+    { type: AnimationDriver },
+    { type: ɵAnimationStyleNormalizer }
 ];
 /**
  * @return {?}

@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+294.sha-60aa943
+ * @license Angular v6.0.0-rc.5+295.sha-f69ac67
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1204,7 +1204,7 @@ BrowserPlatformLocation.decorators = [
 ];
 /** @nocollapse */
 BrowserPlatformLocation.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -1356,7 +1356,7 @@ Meta.decorators = [
 ];
 /** @nocollapse */
 Meta.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -1521,7 +1521,7 @@ Title.decorators = [
 ];
 /** @nocollapse */
 Title.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -1709,8 +1709,8 @@ EventManager.decorators = [
 ];
 /** @nocollapse */
 EventManager.ctorParameters = () => [
-    { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-    { type: NgZone, },
+    { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
+    { type: NgZone }
 ];
 /**
  * @abstract
@@ -1835,7 +1835,7 @@ DomSharedStylesHost.decorators = [
 ];
 /** @nocollapse */
 DomSharedStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -1964,8 +1964,8 @@ DomRendererFactory2.decorators = [
 ];
 /** @nocollapse */
 DomRendererFactory2.ctorParameters = () => [
-    { type: EventManager, },
-    { type: DomSharedStylesHost, },
+    { type: EventManager },
+    { type: DomSharedStylesHost }
 ];
 class DefaultDomRenderer2 {
     /**
@@ -2505,9 +2505,9 @@ DomEventsPlugin.decorators = [
 ];
 /** @nocollapse */
 DomEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] }] }
 ];
 
 /**
@@ -2716,10 +2716,10 @@ HammerGesturesPlugin.decorators = [
 ];
 /** @nocollapse */
 HammerGesturesPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
-    { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
-    { type: ɵConsole, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+    { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
+    { type: ɵConsole },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
 ];
 
 /**
@@ -2869,7 +2869,7 @@ KeyEventsPlugin.decorators = [
 ];
 /** @nocollapse */
 KeyEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -3054,7 +3054,7 @@ DomSanitizerImpl.decorators = [
 ];
 /** @nocollapse */
 DomSanitizerImpl.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 /**
  * @abstract
@@ -3212,7 +3212,7 @@ BrowserModule.decorators = [
 ];
 /** @nocollapse */
 BrowserModule.ctorParameters = () => [
-    { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf },] },
+    { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
 ];
 
 /**
@@ -3611,7 +3611,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.0-rc.5+294.sha-60aa943');
+const VERSION = new Version('6.0.0-rc.5+295.sha-f69ac67');
 
 /**
  * @fileoverview added by tsickle
