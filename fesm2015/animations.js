@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.3+49.sha-2991b1b
+ * @license Angular v6.0.3+50.sha-d69ba73
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -46,8 +46,8 @@ BrowserAnimationBuilder.decorators = [
 ];
 /** @nocollapse */
 BrowserAnimationBuilder.ctorParameters = () => [
-    { type: RendererFactory2, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: RendererFactory2 },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 class BrowserAnimationFactory extends AnimationFactory {
     /**
@@ -298,9 +298,9 @@ AnimationRendererFactory.decorators = [
 ];
 /** @nocollapse */
 AnimationRendererFactory.ctorParameters = () => [
-    { type: RendererFactory2, },
-    { type: ɵAnimationEngine, },
-    { type: NgZone, },
+    { type: RendererFactory2 },
+    { type: ɵAnimationEngine },
+    { type: NgZone }
 ];
 class BaseAnimationRenderer {
     /**
@@ -581,8 +581,8 @@ InjectableAnimationEngine.decorators = [
 ];
 /** @nocollapse */
 InjectableAnimationEngine.ctorParameters = () => [
-    { type: AnimationDriver, },
-    { type: ɵAnimationStyleNormalizer, },
+    { type: AnimationDriver },
+    { type: ɵAnimationStyleNormalizer }
 ];
 /**
  * @return {?}
@@ -650,8 +650,6 @@ BrowserAnimationsModule.decorators = [
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
             },] }
 ];
-/** @nocollapse */
-BrowserAnimationsModule.ctorParameters = () => [];
 /**
  * \@experimental Animation support is experimental.
  */
@@ -663,8 +661,6 @@ NoopAnimationsModule.decorators = [
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             },] }
 ];
-/** @nocollapse */
-NoopAnimationsModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

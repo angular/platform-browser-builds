@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.3+49.sha-2991b1b
+ * @license Angular v6.0.3+50.sha-d69ba73
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -77,6 +77,13 @@ function __spread() {
     return ar;
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 var BrowserAnimationBuilder = /** @class */ (function (_super) {
     __extends(BrowserAnimationBuilder, _super);
     function BrowserAnimationBuilder(rootRenderer, doc) {
@@ -103,8 +110,8 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     BrowserAnimationBuilder.ctorParameters = function () { return [
-        { type: core.RendererFactory2, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] },] },
+        { type: core.RendererFactory2 },
+        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] }
     ]; };
     return BrowserAnimationBuilder;
 }(animations.AnimationBuilder));
@@ -206,9 +213,7 @@ var AnimationRendererFactory = /** @class */ (function () {
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
         var animationTriggers = type.data['animation'];
-        animationTriggers.forEach(function (trigger) {
-            return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger);
-        });
+        animationTriggers.forEach(function (trigger) { return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger); });
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     };
     AnimationRendererFactory.prototype.begin = function () {
@@ -223,9 +228,7 @@ var AnimationRendererFactory = /** @class */ (function () {
         this.promise.then(function () { _this._microtaskId++; });
     };
     /* @internal */
-    /* @internal */
-    AnimationRendererFactory.prototype.scheduleListenerCallback = /* @internal */
-    function (count, fn, data) {
+    AnimationRendererFactory.prototype.scheduleListenerCallback = function (count, fn, data) {
         var _this = this;
         if (count >= 0 && count < this._microtaskId) {
             this._zone.run(function () { return fn(data); });
@@ -265,9 +268,9 @@ var AnimationRendererFactory = /** @class */ (function () {
     ];
     /** @nocollapse */
     AnimationRendererFactory.ctorParameters = function () { return [
-        { type: core.RendererFactory2, },
-        { type: browser.ɵAnimationEngine, },
-        { type: core.NgZone, },
+        { type: core.RendererFactory2 },
+        { type: browser.ɵAnimationEngine },
+        { type: core.NgZone }
     ]; };
     return AnimationRendererFactory;
 }());
@@ -416,8 +419,8 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     InjectableAnimationEngine.ctorParameters = function () { return [
-        { type: browser.AnimationDriver, },
-        { type: browser.ɵAnimationStyleNormalizer, },
+        { type: browser.AnimationDriver },
+        { type: browser.ɵAnimationStyleNormalizer }
     ]; };
     return InjectableAnimationEngine;
 }(browser.ɵAnimationEngine));
@@ -461,6 +464,13 @@ var BROWSER_NOOP_ANIMATIONS_PROVIDERS = __spread([
 ], SHARED_ANIMATION_PROVIDERS);
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @experimental Animation support is experimental.
  */
 var BrowserAnimationsModule = /** @class */ (function () {
@@ -472,8 +482,6 @@ var BrowserAnimationsModule = /** @class */ (function () {
                     providers: BROWSER_ANIMATIONS_PROVIDERS,
                 },] }
     ];
-    /** @nocollapse */
-    BrowserAnimationsModule.ctorParameters = function () { return []; };
     return BrowserAnimationsModule;
 }());
 /**
@@ -488,8 +496,6 @@ var NoopAnimationsModule = /** @class */ (function () {
                     providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
                 },] }
     ];
-    /** @nocollapse */
-    NoopAnimationsModule.ctorParameters = function () { return []; };
     return NoopAnimationsModule;
 }());
 
@@ -508,6 +514,11 @@ var NoopAnimationsModule = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * @module
+ * @description
+ * Entry point for all animation APIs of the animation browser package.
+ */
 
 /**
  * @license
@@ -516,6 +527,23 @@ var NoopAnimationsModule = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of this package.
+ */
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// This file is not used to build this module. It is only used during editing
+// by the TypeScript language service and during build for verifcation. `ngc`
+// replaces this file with production index.ts when it rewrites private symbol
+// names.
 
 /**
  * Generated bundle index. Do not edit.

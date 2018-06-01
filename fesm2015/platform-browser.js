@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.3+49.sha-2991b1b
+ * @license Angular v6.0.3+50.sha-d69ba73
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1204,7 +1204,7 @@ BrowserPlatformLocation.decorators = [
 ];
 /** @nocollapse */
 BrowserPlatformLocation.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -1356,7 +1356,7 @@ Meta.decorators = [
 ];
 /** @nocollapse */
 Meta.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -1521,7 +1521,7 @@ Title.decorators = [
 ];
 /** @nocollapse */
 Title.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -1709,8 +1709,8 @@ EventManager.decorators = [
 ];
 /** @nocollapse */
 EventManager.ctorParameters = () => [
-    { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] },] },
-    { type: NgZone, },
+    { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
+    { type: NgZone }
 ];
 /**
  * @abstract
@@ -1782,8 +1782,6 @@ class SharedStylesHost {
 SharedStylesHost.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-SharedStylesHost.ctorParameters = () => [];
 class DomSharedStylesHost extends SharedStylesHost {
     /**
      * @param {?} _doc
@@ -1837,7 +1835,7 @@ DomSharedStylesHost.decorators = [
 ];
 /** @nocollapse */
 DomSharedStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -1966,8 +1964,8 @@ DomRendererFactory2.decorators = [
 ];
 /** @nocollapse */
 DomRendererFactory2.ctorParameters = () => [
-    { type: EventManager, },
-    { type: DomSharedStylesHost, },
+    { type: EventManager },
+    { type: DomSharedStylesHost }
 ];
 class DefaultDomRenderer2 {
     /**
@@ -2507,9 +2505,9 @@ DomEventsPlugin.decorators = [
 ];
 /** @nocollapse */
 DomEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] }] }
 ];
 
 /**
@@ -2624,8 +2622,6 @@ class HammerGestureConfig {
 HammerGestureConfig.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-HammerGestureConfig.ctorParameters = () => [];
 class HammerGesturesPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
@@ -2681,9 +2677,9 @@ HammerGesturesPlugin.decorators = [
 ];
 /** @nocollapse */
 HammerGesturesPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
-    { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] },] },
-    { type: ɵConsole, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+    { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
+    { type: ɵConsole }
 ];
 
 /**
@@ -2833,7 +2829,7 @@ KeyEventsPlugin.decorators = [
 ];
 /** @nocollapse */
 KeyEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 
 /**
@@ -3018,7 +3014,7 @@ DomSanitizerImpl.decorators = [
 ];
 /** @nocollapse */
 DomSanitizerImpl.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 /**
  * @abstract
@@ -3176,7 +3172,7 @@ BrowserModule.decorators = [
 ];
 /** @nocollapse */
 BrowserModule.ctorParameters = () => [
-    { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf },] },
+    { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
 ];
 
 /**
@@ -3462,8 +3458,6 @@ class TransferState {
 TransferState.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-TransferState.ctorParameters = () => [];
 /**
  * @param {?} doc
  * @param {?} appId
@@ -3497,8 +3491,6 @@ BrowserTransferStateModule.decorators = [
                 providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
             },] }
 ];
-/** @nocollapse */
-BrowserTransferStateModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -3579,7 +3571,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.3+49.sha-2991b1b');
+const VERSION = new Version('6.0.3+50.sha-d69ba73');
 
 /**
  * @fileoverview added by tsickle

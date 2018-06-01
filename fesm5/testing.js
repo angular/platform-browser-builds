@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.3+49.sha-2991b1b
+ * @license Angular v6.0.3+50.sha-d69ba73
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -80,12 +80,7 @@ var BrowserDetection = /** @class */ (function () {
         // This detector is needed in tests to make the difference between:
         // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
         // 2) IE9/IE10: they use the polyfill, and so no discrepancies
-        get: 
-        // The Intl API is only natively supported in Chrome, Firefox, IE11 and Edge.
-        // This detector is needed in tests to make the difference between:
-        // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
-        // 2) IE9/IE10: they use the polyfill, and so no discrepancies
-        function () {
+        get: function () {
             return !!ɵglobal.Intl && ɵglobal.Intl !== ɵglobal.IntlPolyfill;
         },
         enumerable: true,
@@ -102,10 +97,7 @@ var BrowserDetection = /** @class */ (function () {
     Object.defineProperty(BrowserDetection.prototype, "isOldChrome", {
         // "Old Chrome" means Chrome 3X, where there are some discrepancies in the Intl API.
         // Android 4.4 and 5.X have such browsers by default (respectively 30 and 39).
-        get: 
-        // "Old Chrome" means Chrome 3X, where there are some discrepancies in the Intl API.
-        // Android 4.4 and 5.X have such browsers by default (respectively 30 and 39).
-        function () {
+        get: function () {
             return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
                 this._ua.indexOf('Edge') == -1;
         },
@@ -123,6 +115,13 @@ function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -153,8 +152,6 @@ var BrowserTestingModule = /** @class */ (function () {
                     ]
                 },] }
     ];
-    /** @nocollapse */
-    BrowserTestingModule.ctorParameters = function () { return []; };
     return BrowserTestingModule;
 }());
 
@@ -165,13 +162,10 @@ var BrowserTestingModule = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @module
+ * @description
+ * Entry point for all public APIs of the platform-browser/testing package.
  */
 
 /**
@@ -181,6 +175,23 @@ var BrowserTestingModule = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of this package.
+ */
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// This file is not used to build this module. It is only used during editing
+// by the TypeScript language service and during build for verification. `ngc`
+// replaces this file with production index.ts when it rewrites private symbol
+// names.
 
 /**
  * Generated bundle index. Do not edit.
