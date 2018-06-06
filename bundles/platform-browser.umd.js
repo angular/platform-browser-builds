@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+324.sha-c494d3c
+ * @license Angular v6.0.0-rc.5+335.sha-acf270d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1274,7 +1274,7 @@ var DefaultDomRenderer2 = /** @class */ (function () {
     DefaultDomRenderer2.prototype.destroy = function () { };
     DefaultDomRenderer2.prototype.createElement = function (name, namespace) {
         if (namespace) {
-            return document.createElementNS(NAMESPACE_URIS[namespace], name);
+            return document.createElementNS(NAMESPACE_URIS[namespace] || namespace, name);
         }
         return document.createElement(name);
     };
@@ -1304,14 +1304,8 @@ var DefaultDomRenderer2 = /** @class */ (function () {
     DefaultDomRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
     DefaultDomRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
         if (namespace) {
-            name = namespace + ":" + name;
-            var namespaceUri = NAMESPACE_URIS[namespace];
-            if (namespaceUri) {
-                el.setAttributeNS(namespaceUri, name, value);
-            }
-            else {
-                el.setAttribute(name, value);
-            }
+            var namespaceUri = NAMESPACE_URIS[namespace] || namespace;
+            el.setAttributeNS(namespaceUri, name, value);
         }
         else {
             el.setAttribute(name, value);
@@ -1319,13 +1313,8 @@ var DefaultDomRenderer2 = /** @class */ (function () {
     };
     DefaultDomRenderer2.prototype.removeAttribute = function (el, name, namespace) {
         if (namespace) {
-            var namespaceUri = NAMESPACE_URIS[namespace];
-            if (namespaceUri) {
-                el.removeAttributeNS(namespaceUri, name);
-            }
-            else {
-                el.removeAttribute(namespace + ":" + name);
-            }
+            var namespaceUri = NAMESPACE_URIS[namespace] || namespace;
+            el.removeAttributeNS(namespaceUri, name);
         }
         else {
             el.removeAttribute(name);
@@ -2549,7 +2538,7 @@ var By = /** @class */ (function () {
  * @description
  * Entry point for all public APIs of the common package.
  */
-var VERSION = new core.Version('6.0.0-rc.5+324.sha-c494d3c');
+var VERSION = new core.Version('6.0.0-rc.5+335.sha-acf270d');
 
 /**
  * @license

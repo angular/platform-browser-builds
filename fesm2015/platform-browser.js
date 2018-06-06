@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+324.sha-c494d3c
+ * @license Angular v6.0.0-rc.5+335.sha-acf270d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1986,7 +1986,7 @@ class DefaultDomRenderer2 {
      */
     createElement(name, namespace) {
         if (namespace) {
-            return document.createElementNS(NAMESPACE_URIS[namespace], name);
+            return document.createElementNS(NAMESPACE_URIS[namespace] || namespace, name);
         }
         return document.createElement(name);
     }
@@ -2059,14 +2059,8 @@ class DefaultDomRenderer2 {
      */
     setAttribute(el, name, value, namespace) {
         if (namespace) {
-            name = `${namespace}:${name}`;
-            const /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
-            if (namespaceUri) {
-                el.setAttributeNS(namespaceUri, name, value);
-            }
-            else {
-                el.setAttribute(name, value);
-            }
+            const /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace] || namespace;
+            el.setAttributeNS(namespaceUri, name, value);
         }
         else {
             el.setAttribute(name, value);
@@ -2080,13 +2074,8 @@ class DefaultDomRenderer2 {
      */
     removeAttribute(el, name, namespace) {
         if (namespace) {
-            const /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace];
-            if (namespaceUri) {
-                el.removeAttributeNS(namespaceUri, name);
-            }
-            else {
-                el.removeAttribute(`${namespace}:${name}`);
-            }
+            const /** @type {?} */ namespaceUri = NAMESPACE_URIS[namespace] || namespace;
+            el.removeAttributeNS(namespaceUri, name);
         }
         else {
             el.removeAttribute(name);
@@ -3611,7 +3600,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.0-rc.5+324.sha-c494d3c');
+const VERSION = new Version('6.0.0-rc.5+335.sha-acf270d');
 
 /**
  * @fileoverview added by tsickle
