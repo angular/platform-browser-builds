@@ -11,13 +11,14 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
 export declare function initDomAdapter(): void;
 export declare function errorHandler(): ErrorHandler;
 export declare function _document(): any;
+export declare const BROWSER_MODULE_PROVIDERS: StaticProvider[];
 /**
  * The ng module for the browser.
  *
  *
  */
 export declare class BrowserModule {
-    constructor(parentModule: BrowserModule);
+    constructor(parentModule: BrowserModule | null);
     /**
      * Configures a browser-based application to transition from a server-rendered app, if
      * one is present on the page. The specified parameters must include an application id,
