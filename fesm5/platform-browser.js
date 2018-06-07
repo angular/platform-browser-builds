@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.0+11.sha-7de2ba0
+ * @license Angular v6.1.0-beta.0+12.sha-e3759f7
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2088,6 +2088,38 @@ function errorHandler() {
 function _document() {
     return document;
 }
+var BROWSER_MODULE_PROVIDERS = [
+    BROWSER_SANITIZATION_PROVIDERS,
+    { provide: ɵAPP_ROOT, useValue: true },
+    { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
+    {
+        provide: EVENT_MANAGER_PLUGINS,
+        useClass: DomEventsPlugin,
+        multi: true,
+        deps: [DOCUMENT$1, NgZone, PLATFORM_ID]
+    },
+    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT$1] },
+    {
+        provide: EVENT_MANAGER_PLUGINS,
+        useClass: HammerGesturesPlugin,
+        multi: true,
+        deps: [DOCUMENT$1, HAMMER_GESTURE_CONFIG]
+    },
+    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
+    {
+        provide: DomRendererFactory2,
+        useClass: DomRendererFactory2,
+        deps: [EventManager, DomSharedStylesHost]
+    },
+    { provide: RendererFactory2, useExisting: DomRendererFactory2 },
+    { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
+    { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [DOCUMENT$1] },
+    { provide: Testability, useClass: Testability, deps: [NgZone] },
+    { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, NgZone] },
+    ELEMENT_PROBE_PROVIDERS,
+    { provide: Meta, useClass: Meta, deps: [DOCUMENT$1] },
+    { provide: Title, useClass: Title, deps: [DOCUMENT$1] },
+];
 /**
  * The ng module for the browser.
  *
@@ -2117,31 +2149,11 @@ var BrowserModule = /** @class */ (function () {
         };
     };
     BrowserModule.decorators = [
-        { type: NgModule, args: [{
-                    providers: [
-                        BROWSER_SANITIZATION_PROVIDERS,
-                        { provide: ɵAPP_ROOT, useValue: true },
-                        { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
-                        { provide: EVENT_MANAGER_PLUGINS, useClass: DomEventsPlugin, multi: true },
-                        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true },
-                        { provide: EVENT_MANAGER_PLUGINS, useClass: HammerGesturesPlugin, multi: true },
-                        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig },
-                        DomRendererFactory2,
-                        { provide: RendererFactory2, useExisting: DomRendererFactory2 },
-                        { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-                        DomSharedStylesHost,
-                        Testability,
-                        EventManager,
-                        ELEMENT_PROBE_PROVIDERS,
-                        Meta,
-                        Title,
-                    ],
-                    exports: [CommonModule, ApplicationModule]
-                },] }
+        { type: NgModule, args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] },] }
     ];
     /** @nocollapse */
     BrowserModule.ctorParameters = function () { return [
-        { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
+        { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
     ]; };
     return BrowserModule;
 }());
@@ -2474,7 +2486,7 @@ var By = /** @class */ (function () {
  * @description
  * Entry point for all public APIs of the common package.
  */
-var VERSION = new Version('6.1.0-beta.0+11.sha-7de2ba0');
+var VERSION = new Version('6.1.0-beta.0+12.sha-e3759f7');
 
 /**
  * @license
@@ -2515,5 +2527,5 @@ var VERSION = new Version('6.1.0-beta.0+11.sha-7de2ba0');
  * Generated bundle index. Do not edit.
  */
 
-export { _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_i, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_g, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_f, initTransferState as ɵangular_packages_platform_browser_platform_browser_c, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_h, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_d, DomSanitizerImpl as ɵangular_packages_platform_browser_platform_browser_e, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost };
+export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_j, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_h, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_g, initTransferState as ɵangular_packages_platform_browser_platform_browser_d, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_i, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_e, DomSanitizerImpl as ɵangular_packages_platform_browser_platform_browser_f, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost };
 //# sourceMappingURL=platform-browser.js.map
