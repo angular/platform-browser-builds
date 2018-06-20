@@ -1,14 +1,14 @@
 /**
- * @license Angular v6.1.0-beta.1+32.sha-f3625e4
+ * @license Angular v6.1.0-beta.1+42.sha-e8354ed
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations'), require('@angular/animations/browser')) :
-	typeof define === 'function' && define.amd ? define('@angular/platform-browser/animations', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations', '@angular/animations/browser'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = {}),global.ng.core,global.ng.platformBrowser,global.ng.animations,global.ng.animations.browser));
-}(this, (function (exports,core,platformBrowser,animations,browser) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations'), require('@angular/animations/browser'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/platform-browser/animations', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations', '@angular/animations/browser', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = {}),global.ng.core,global.ng.platformBrowser,global.ng.animations,global.ng.animations.browser,global.ng.common));
+}(this, (function (exports,core,platformBrowser,animations,browser,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -411,14 +411,15 @@ function parseTriggerCallbackName(triggerName) {
  */
 var InjectableAnimationEngine = /** @class */ (function (_super) {
     __extends(InjectableAnimationEngine, _super);
-    function InjectableAnimationEngine(driver, normalizer) {
-        return _super.call(this, driver, normalizer) || this;
+    function InjectableAnimationEngine(doc, driver, normalizer) {
+        return _super.call(this, doc.body, driver, normalizer) || this;
     }
     InjectableAnimationEngine.decorators = [
         { type: core.Injectable }
     ];
     /** @nocollapse */
     InjectableAnimationEngine.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
         { type: browser.AnimationDriver },
         { type: browser.ɵAnimationStyleNormalizer }
     ]; };

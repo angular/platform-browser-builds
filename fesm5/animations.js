@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.1+32.sha-f3625e4
+ * @license Angular v6.1.0-beta.1+42.sha-e8354ed
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9,6 +9,7 @@ import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platfor
 import { __extends, __read, __spread } from 'tslib';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 /**
  * @license
@@ -344,14 +345,15 @@ function parseTriggerCallbackName(triggerName) {
  */
 var InjectableAnimationEngine = /** @class */ (function (_super) {
     __extends(InjectableAnimationEngine, _super);
-    function InjectableAnimationEngine(driver, normalizer) {
-        return _super.call(this, driver, normalizer) || this;
+    function InjectableAnimationEngine(doc, driver, normalizer) {
+        return _super.call(this, doc.body, driver, normalizer) || this;
     }
     InjectableAnimationEngine.decorators = [
         { type: Injectable }
     ];
     /** @nocollapse */
     InjectableAnimationEngine.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
         { type: AnimationDriver },
         { type: ɵAnimationStyleNormalizer }
     ]; };
