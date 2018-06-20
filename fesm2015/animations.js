@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.1+41.sha-5b76f04
+ * @license Angular v6.1.0-beta.1+42.sha-e8354ed
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9,6 +9,7 @@ import { Inject, Injectable, InjectionToken, NgModule, NgZone, RendererFactory2,
 import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 /**
  * @license
@@ -309,13 +310,14 @@ function parseTriggerCallbackName(triggerName) {
  * found in the LICENSE file at https://angular.io/license
  */
 let InjectableAnimationEngine = class InjectableAnimationEngine extends ɵAnimationEngine {
-    constructor(driver, normalizer) {
-        super(driver, normalizer);
+    constructor(doc, driver, normalizer) {
+        super(doc.body, driver, normalizer);
     }
 };
 InjectableAnimationEngine = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [AnimationDriver, ɵAnimationStyleNormalizer])
+    __param(0, Inject(DOCUMENT$1)),
+    __metadata("design:paramtypes", [Object, AnimationDriver, ɵAnimationStyleNormalizer])
 ], InjectableAnimationEngine);
 function instantiateSupportedAnimationDriver() {
     return ɵsupportsWebAnimations() ? new ɵWebAnimationsDriver() : new ɵCssKeyframesDriver();
