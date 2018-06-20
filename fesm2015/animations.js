@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.5+28.sha-74f07f4
+ * @license Angular v6.0.5+36.sha-776bc38
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,6 +8,7 @@ import { Inject, Injectable, InjectionToken, NgModule, NgZone, RendererFactory2,
 import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -569,11 +570,12 @@ function parseTriggerCallbackName(triggerName) {
  */
 class InjectableAnimationEngine extends ɵAnimationEngine {
     /**
+     * @param {?} doc
      * @param {?} driver
      * @param {?} normalizer
      */
-    constructor(driver, normalizer) {
-        super(driver, normalizer);
+    constructor(doc, driver, normalizer) {
+        super(doc.body, driver, normalizer);
     }
 }
 InjectableAnimationEngine.decorators = [
@@ -581,6 +583,7 @@ InjectableAnimationEngine.decorators = [
 ];
 /** @nocollapse */
 InjectableAnimationEngine.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
     { type: AnimationDriver },
     { type: ɵAnimationStyleNormalizer }
 ];
