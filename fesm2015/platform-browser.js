@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+20.sha-d243baf
+ * @license Angular v6.1.0-beta.3+25.sha-a294e0d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1100,6 +1100,7 @@ let DomRendererFactory2 = class DomRendererFactory2 {
                 return renderer;
             }
             case ViewEncapsulation.Native:
+            case ViewEncapsulation.ShadowDom:
                 return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
@@ -1244,7 +1245,12 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         this.sharedStylesHost = sharedStylesHost;
         this.hostEl = hostEl;
         this.component = component;
-        this.shadowRoot = hostEl.createShadowRoot();
+        if (component.encapsulation === ViewEncapsulation.ShadowDom) {
+            this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
+        }
+        else {
+            this.shadowRoot = hostEl.createShadowRoot();
+        }
         this.sharedStylesHost.addHost(this.shadowRoot);
         const styles = flattenStyles(component.id, component.styles, []);
         for (let i = 0; i < styles.length; i++) {
@@ -2353,7 +2359,7 @@ class By {
  * @description
  * Entry point for all public APIs of the common package.
  */
-const VERSION = new Version('6.1.0-beta.3+20.sha-d243baf');
+const VERSION = new Version('6.1.0-beta.3+25.sha-a294e0d');
 
 /**
  * @license
