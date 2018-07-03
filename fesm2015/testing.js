@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+29.sha-0c3738a
+ * @license Angular v6.1.0-beta.3+35.sha-b6af870
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9,7 +9,7 @@ import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -18,6 +18,7 @@ import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** @type {?} */
 
 class BrowserDetection {
     /**
@@ -127,7 +128,7 @@ function createNgZone() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @return {?}
@@ -136,12 +137,13 @@ function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
 }
+/** @type {?} */
 const _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
-/**
+/** *
  * Platform for testing
  *
  *
- */
+  @type {?} */
 const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
 const ɵ0 = createNgZone;
 /**
@@ -164,7 +166,7 @@ BrowserTestingModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -181,7 +183,7 @@ BrowserTestingModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -198,7 +200,7 @@ BrowserTestingModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
