@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.7+5.sha-0f1de35
+ * @license Angular v6.0.7+13.sha-dd931c7
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1939,6 +1939,7 @@ class DomRendererFactory2 {
                 return renderer;
             }
             case ViewEncapsulation.Native:
+            case ViewEncapsulation.ShadowDom:
                 return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
@@ -2218,7 +2219,12 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         this.sharedStylesHost = sharedStylesHost;
         this.hostEl = hostEl;
         this.component = component;
-        this.shadowRoot = (/** @type {?} */ (hostEl)).createShadowRoot();
+        if (component.encapsulation === ViewEncapsulation.ShadowDom) {
+            this.shadowRoot = (/** @type {?} */ (hostEl)).attachShadow({ mode: 'open' });
+        }
+        else {
+            this.shadowRoot = (/** @type {?} */ (hostEl)).createShadowRoot();
+        }
         this.sharedStylesHost.addHost(this.shadowRoot);
         const /** @type {?} */ styles = flattenStyles(component.id, component.styles, []);
         for (let /** @type {?} */ i = 0; i < styles.length; i++) {
@@ -3571,7 +3577,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.7+5.sha-0f1de35');
+const VERSION = new Version('6.0.7+13.sha-dd931c7');
 
 /**
  * @fileoverview added by tsickle
