@@ -16,7 +16,7 @@ export declare class DomSharedStylesHost extends SharedStylesHost implements OnD
     private _hostNodes;
     private _styleNodes;
     constructor(_doc: any);
-    private _addStylesToHost(styles, host);
+    private _addStylesToHost;
     addHost(hostNode: Node): void;
     removeHost(hostNode: Node): void;
     onStylesAdded(additions: Set<string>): void;

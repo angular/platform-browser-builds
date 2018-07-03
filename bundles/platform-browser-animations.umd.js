@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+29.sha-0c3738a
+ * @license Angular v6.1.0-beta.3+35.sha-b6af870
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -365,6 +365,7 @@ var AnimationRenderer = /** @class */ (function (_super) {
     };
     AnimationRenderer.prototype.listen = function (target, eventName, callback) {
         var _this = this;
+        var _a;
         if (eventName.charAt(0) == ANIMATION_PREFIX) {
             var element = resolveElementFromTarget(target);
             var name_1 = eventName.substr(1);
@@ -380,7 +381,6 @@ var AnimationRenderer = /** @class */ (function (_super) {
             });
         }
         return this.delegate.listen(target, eventName, callback);
-        var _a;
     };
     return AnimationRenderer;
 }(BaseAnimationRenderer));

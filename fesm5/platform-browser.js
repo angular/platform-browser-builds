@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+29.sha-0c3738a
+ * @license Angular v6.1.0-beta.3+35.sha-b6af870
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -193,8 +193,8 @@ var BrowserDomAdapter = /** @class */ (function (_super) {
     BrowserDomAdapter.prototype.setProperty = function (el, name, value) { el[name] = value; };
     BrowserDomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
     BrowserDomAdapter.prototype.invoke = function (el, methodName, args) {
-        (_a = el)[methodName].apply(_a, __spread(args));
         var _a;
+        (_a = el)[methodName].apply(_a, __spread(args));
     };
     // TODO(tbosch): move this into a separate environment class once we have it
     BrowserDomAdapter.prototype.logError = function (error) {
@@ -1863,13 +1863,13 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
                 return keyName;
         }
     };
+    var KeyEventsPlugin_1;
     KeyEventsPlugin = KeyEventsPlugin_1 = __decorate([
         Injectable(),
         __param(0, Inject(DOCUMENT$1)),
         __metadata("design:paramtypes", [Object])
     ], KeyEventsPlugin);
     return KeyEventsPlugin;
-    var KeyEventsPlugin_1;
 }(EventManagerPlugin));
 
 /**
@@ -2127,13 +2127,13 @@ var BrowserModule = /** @class */ (function () {
             ],
         };
     };
+    var BrowserModule_1;
     BrowserModule = BrowserModule_1 = __decorate([
         NgModule({ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }),
         __param(0, Optional()), __param(0, SkipSelf()), __param(0, Inject(BrowserModule_1)),
         __metadata("design:paramtypes", [Object])
     ], BrowserModule);
     return BrowserModule;
-    var BrowserModule_1;
 }());
 
 /**
@@ -2358,11 +2358,11 @@ var TransferState = /** @class */ (function () {
         }
         return JSON.stringify(this.store);
     };
+    var TransferState_1;
     TransferState = TransferState_1 = __decorate([
         Injectable()
     ], TransferState);
     return TransferState;
-    var TransferState_1;
 }());
 function initTransferState(doc, appId) {
     // Locate the script tag with the JSON data transferred from the server.
@@ -2466,7 +2466,7 @@ var By = /** @class */ (function () {
  * @description
  * Entry point for all public APIs of the common package.
  */
-var VERSION = new Version('6.1.0-beta.3+29.sha-0c3738a');
+var VERSION = new Version('6.1.0-beta.3+35.sha-b6af870');
 
 /**
  * @license
@@ -2503,5 +2503,5 @@ var VERSION = new Version('6.1.0-beta.3+29.sha-0c3738a');
 // replaces this file with production index.ts when it rewrites private symbol
 // names.
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.js.map
