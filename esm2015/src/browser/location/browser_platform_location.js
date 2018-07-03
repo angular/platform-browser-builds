@@ -1,6 +1,6 @@
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * @license
@@ -115,7 +115,7 @@ BrowserPlatformLocation.decorators = [
 BrowserPlatformLocation.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-if (false) {
+function BrowserPlatformLocation_tsickle_Closure_declarations() {
     /** @type {?} */
     BrowserPlatformLocation.prototype.location;
     /** @type {?} */
