@@ -134,7 +134,7 @@ export declare class DomSanitizerImpl extends DomSanitizer {
     private _doc;
     constructor(_doc: any);
     sanitize(ctx: SecurityContext, value: SafeValue | string | null): string | null;
-    private checkNotSafeValue(value, expectedType);
+    private checkNotSafeValue;
     bypassSecurityTrustHtml(value: string): SafeHtml;
     bypassSecurityTrustStyle(value: string): SafeStyle;
     bypassSecurityTrustScript(value: string): SafeScript;
