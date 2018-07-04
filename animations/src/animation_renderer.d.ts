@@ -13,7 +13,7 @@ export declare class AnimationRendererFactory implements RendererFactory2 {
     constructor(delegate: RendererFactory2, engine: AnimationEngine, _zone: NgZone);
     createRenderer(hostElement: any, type: RendererType2): Renderer2;
     begin(): void;
-    private _scheduleCountTask();
+    private _scheduleCountTask;
     end(): void;
     whenRenderingDone(): Promise<any>;
 }

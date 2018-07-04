@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+28.sha-0922228
+ * @license Angular v6.1.0-beta.3+35.sha-b6af870
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -268,8 +268,8 @@ var BrowserDomAdapter = /** @class */ (function (_super) {
     BrowserDomAdapter.prototype.setProperty = function (el, name, value) { el[name] = value; };
     BrowserDomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
     BrowserDomAdapter.prototype.invoke = function (el, methodName, args) {
-        (_a = el)[methodName].apply(_a, __spread(args));
         var _a;
+        (_a = el)[methodName].apply(_a, __spread(args));
     };
     // TODO(tbosch): move this into a separate environment class once we have it
     BrowserDomAdapter.prototype.logError = function (error) {
@@ -2567,7 +2567,7 @@ var By = /** @class */ (function () {
  * @description
  * Entry point for all public APIs of the common package.
  */
-var VERSION = new core.Version('6.1.0-beta.3+28.sha-0922228');
+var VERSION = new core.Version('6.1.0-beta.3+35.sha-b6af870');
 
 /**
  * @license
@@ -2611,13 +2611,12 @@ var VERSION = new core.Version('6.1.0-beta.3+28.sha-0922228');
 exports.ɵangular_packages_platform_browser_platform_browser_c = BROWSER_MODULE_PROVIDERS;
 exports.ɵangular_packages_platform_browser_platform_browser_b = _document;
 exports.ɵangular_packages_platform_browser_platform_browser_a = errorHandler;
-exports.ɵangular_packages_platform_browser_platform_browser_j = GenericBrowserDomAdapter;
-exports.ɵangular_packages_platform_browser_platform_browser_h = SERVER_TRANSITION_PROVIDERS;
-exports.ɵangular_packages_platform_browser_platform_browser_g = appInitializerFactory;
+exports.ɵangular_packages_platform_browser_platform_browser_i = GenericBrowserDomAdapter;
+exports.ɵangular_packages_platform_browser_platform_browser_g = SERVER_TRANSITION_PROVIDERS;
+exports.ɵangular_packages_platform_browser_platform_browser_f = appInitializerFactory;
 exports.ɵangular_packages_platform_browser_platform_browser_d = initTransferState;
-exports.ɵangular_packages_platform_browser_platform_browser_i = _createNgProbe;
+exports.ɵangular_packages_platform_browser_platform_browser_h = _createNgProbe;
 exports.ɵangular_packages_platform_browser_platform_browser_e = EventManagerPlugin;
-exports.ɵangular_packages_platform_browser_platform_browser_f = DomSanitizerImpl;
 exports.BrowserModule = BrowserModule;
 exports.platformBrowser = platformBrowser;
 exports.Meta = Meta;
@@ -2658,6 +2657,7 @@ exports.ɵHammerGesturesPlugin = HammerGesturesPlugin;
 exports.ɵKeyEventsPlugin = KeyEventsPlugin;
 exports.ɵDomSharedStylesHost = DomSharedStylesHost;
 exports.ɵSharedStylesHost = SharedStylesHost;
+exports.ɵDomSanitizerImpl = DomSanitizerImpl;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
