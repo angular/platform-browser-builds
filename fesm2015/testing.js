@@ -1,25 +1,16 @@
 /**
- * @license Angular v6.1.0-beta.3+45.sha-fddd2af
+ * @license Angular v6.1.0-beta.3+47.sha-1e74ea9
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { APP_ID, NgModule, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵglobal } from '@angular/core';
-import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM } from '@angular/platform-browser';
+import { NgZone, ɵglobal, APP_ID, NgModule, PLATFORM_INITIALIZER, createPlatformFactory, platformCore } from '@angular/core';
+import { ɵgetDOM, BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/** @type {?} */
-
 class BrowserDetection {
     /**
      * @return {?}
@@ -33,7 +24,7 @@ class BrowserDetection {
     /**
      * @return {?}
      */
-    static setup() {  }
+    static setup() { }
     /**
      * @param {?} ua
      */
@@ -99,27 +90,6 @@ class BrowserDetection {
 }
 BrowserDetection.setup();
 /**
- * @param {?} element
- * @param {?} eventType
- * @return {?}
- */
-
-/**
- * @param {?} html
- * @return {?}
- */
-
-/**
- * @param {?} css
- * @return {?}
- */
-
-/**
- * @param {?} el
- * @return {?}
- */
-
-/**
  * @return {?}
  */
 function createNgZone() {
@@ -168,51 +138,16 @@ BrowserTestingModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
+
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the platform-browser/testing package.
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// This file is not used to build this module. It is only used during editing
-// by the TypeScript language service and during build for verification. `ngc`
-// replaces this file with production index.ts when it rewrites private symbol
-// names.
 
 /**
  * Generated bundle index. Do not edit.
