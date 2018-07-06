@@ -8,7 +8,7 @@
 /**
  * Jasmine matchers that check Angular specific conditions.
  */
-export interface NgMatchers extends jasmine.Matchers {
+export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
     /**
      * Expect the value to be a `Promise`.
      *
@@ -70,7 +70,7 @@ export interface NgMatchers extends jasmine.Matchers {
     /**
      * Invert the matchers.
      */
-    not: NgMatchers;
+    not: NgMatchers<T>;
 }
 /**
  * Jasmine matching function with Angular matchers mixed in.
@@ -79,4 +79,4 @@ export interface NgMatchers extends jasmine.Matchers {
  *
  * {@example testing/ts/matchers.ts region='toHaveText'}
  */
-export declare const expect: (actual: any) => NgMatchers;
+export declare const expect: <T = any>(actual: T) => NgMatchers<T>;
