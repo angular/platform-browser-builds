@@ -1,11 +1,11 @@
 /**
- * @license Angular v6.1.0-beta.3+46.sha-f62876b
+ * @license Angular v6.1.0-beta.3+61.sha-3980640
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { CommonModule, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
-import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, platformCore, setTestabilityGetter, ɵAPP_ROOT, ɵConsole, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ɵglobal } from '@angular/core';
+import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
+import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, APP_ID, NgModule, NgZone, RendererStyleFlags2, ViewEncapsulation, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, Optional, ɵConsole, Version, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, getDebugNode, NgProbeToken } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -26,11 +26,6 @@ let _DOM = /** @type {?} */ ((null));
 function getDOM() {
     return _DOM;
 }
-/**
- * @param {?} adapter
- * @return {?}
- */
-
 /**
  * @param {?} adapter
  * @return {?}
@@ -67,13 +62,6 @@ class DomAdapter {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 /**
  * Provides DOM operations in any browser environment.
@@ -164,13 +152,6 @@ class GenericBrowserDomAdapter extends DomAdapter {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 /** @type {?} */
 const _attrToPropMap = {
@@ -1078,13 +1059,6 @@ function relativePath(url) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** *
  * A DI Token representing the main rendering context. In a browser this is the DOM Document.
  *
@@ -1116,13 +1090,6 @@ function supportsState() {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 /**
  * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
@@ -1229,13 +1196,6 @@ BrowserPlatformLocation.ctorParameters = () => [
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 /**
  * A service that can be used to get and add meta tags.
@@ -1389,13 +1349,6 @@ Meta.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** *
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
@@ -1434,13 +1387,6 @@ const SERVER_TRANSITION_PROVIDERS = [
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 class BrowserGetTestability {
     /**
@@ -1517,13 +1463,6 @@ class BrowserGetTestability {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * A service that can be used to get and set the title of a current HTML document.
  *
  * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
@@ -1565,23 +1504,6 @@ Title.ctorParameters = () => [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @param {?} input
- * @return {?}
- */
-
-/**
- * @param {?} input
- * @return {?}
- */
-
-/**
  * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
  * `name` is `'probe'`.
  * @param {?} name Name under which it will be exported. Keep in mind this will be a property of the
@@ -1600,13 +1522,6 @@ function exportNgVar(name, value) {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 /** @type {?} */
 const CORE_TOKENS = {
@@ -1660,13 +1575,6 @@ const ELEMENT_PROBE_PROVIDERS = [
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 /** *
  * The injection token for the event-manager plug-in service.
@@ -1783,13 +1691,6 @@ class EventManagerPlugin {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class SharedStylesHost {
     constructor() {
         /**
@@ -1885,13 +1786,6 @@ DomSharedStylesHost.ctorParameters = () => [
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 /** @type {?} */
 const NAMESPACE_URIS = {
@@ -2341,13 +2235,6 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const ɵ0 = function (v) {
     return '__zone_symbol__' + v;
 };
@@ -2486,19 +2373,7 @@ class DomEventsPlugin extends EventManagerPlugin {
      * @return {?}
      */
     addEventListener(element, eventName, handler) {
-        /** *
-         * This code is about to add a listener to the DOM. If Zone.js is present, than
-         * `addEventListener` has been patched. The patched code adds overhead in both
-         * memory and speed (3x slower) than native. For this reason if we detect that
-         * Zone.js is present we use a simple version of zone aware addEventListener instead.
-         * The result is faster registration and the zone will be restored.
-         * But ZoneSpec.onScheduleTask, ZoneSpec.onInvokeTask, ZoneSpec.onCancelTask
-         * will not be invoked
-         * We also do manual zone restoration in element.ts renderEventHandlerClosure method.
-         *
-         * NOTE: it is possible that the element is from different iframe, and so we
-         * have to check before we execute the method.
-          @type {?} */
+        /** @type {?} */
         const zoneJsLoaded = element[ADD_EVENT_LISTENER];
         /** @type {?} */
         let callback = /** @type {?} */ (handler);
@@ -2603,13 +2478,6 @@ DomEventsPlugin.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** *
  * Supported HammerJS recognizer event names.
   @type {?} */
@@ -2661,10 +2529,6 @@ const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
  * Injection token used to provide a {\@link HammerLoader} to Angular.
   @type {?} */
 const HAMMER_LOADER = new InjectionToken('HammerLoader');
-/**
- * @record
- */
-
 /**
  * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
  * for gesture recognition. Configures specific event recognition.
@@ -2817,21 +2681,11 @@ HammerGesturesPlugin.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** *
  * Defines supported modifiers for key events.
   @type {?} */
 const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-const ɵ0$1 = (event) => event.altKey;
-const ɵ1$1 = (event) => event.ctrlKey;
-const ɵ2$1 = (event) => event.metaKey;
-const ɵ3 = (event) => event.shiftKey;
+const ɵ0$1 = (event) => event.altKey, ɵ1$1 = (event) => event.ctrlKey, ɵ2$1 = (event) => event.metaKey, ɵ3 = (event) => event.shiftKey;
 /** *
  * Retrieves modifiers from key-event objects.
   @type {?} */
@@ -2978,55 +2832,6 @@ KeyEventsPlugin.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Marker interface for a value that's safe to use in a particular context.
- *
- *
- * @record
- */
-
-/**
- * Marker interface for a value that's safe to use as HTML.
- *
- *
- * @record
- */
-
-/**
- * Marker interface for a value that's safe to use as style (CSS).
- *
- *
- * @record
- */
-
-/**
- * Marker interface for a value that's safe to use as JavaScript.
- *
- *
- * @record
- */
-
-/**
- * Marker interface for a value that's safe to use as a URL linking to a document.
- *
- *
- * @record
- */
-
-/**
- * Marker interface for a value that's safe to use as a URL to load executable code from.
- *
- *
- * @record
- */
-
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.
@@ -3212,13 +3017,6 @@ class SafeResourceUrlImpl extends SafeValueImpl {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** @type {?} */
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
@@ -3350,13 +3148,6 @@ const win = typeof window !== 'undefined' && window || /** @type {?} */ ({});
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class ChangeDetectionPerfRecord {
     /**
      * @param {?} msPerTick
@@ -3433,13 +3224,6 @@ class AngularProfiler {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** @type {?} */
 const PROFILER_GLOBAL_NAME = 'profiler';
 /**
@@ -3475,13 +3259,6 @@ function disableDebugTools() {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 /**
  * @param {?} text
@@ -3665,13 +3442,6 @@ BrowserTransferStateModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Predicates for use with {\@link DebugElement}'s query functions.
  *
  * \@experimental All debugging apis are currently experimental.
@@ -3720,74 +3490,29 @@ class By {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 /** @type {?} */
-const VERSION = new Version('6.1.0-beta.3+46.sha-f62876b');
+const VERSION = new Version('6.1.0-beta.3+61.sha-3980640');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
  */
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
 // This file only reexports content of the `src` folder. Keep it that way.
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// This file is not used to build this module. It is only used during editing
-// by the TypeScript language service and during build for verification. `ngc`
-// replaces this file with production index.ts when it rewrites private symbol
-// names.
 
 /**
  * Generated bundle index. Do not edit.
