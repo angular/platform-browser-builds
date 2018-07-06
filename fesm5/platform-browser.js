@@ -1,12 +1,12 @@
 /**
- * @license Angular v6.1.0-beta.3+47.sha-1e74ea9
+ * @license Angular v6.1.0-beta.3+56.sha-f936b8c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { __decorate, __param, __metadata, __extends, __spread, __assign } from 'tslib';
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, NgZone, ɵConsole, Optional, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ViewEncapsulation, RendererStyleFlags2, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, Optional, ɵConsole, NgZone, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, ViewEncapsulation, RendererStyleFlags2, getDebugNode, NgProbeToken } from '@angular/core';
 
 /**
  * @license
@@ -2445,7 +2445,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.1.0-beta.3+47.sha-1e74ea9');
+var VERSION = new Version('6.1.0-beta.3+56.sha-f936b8c');
 
 /**
  * @license
