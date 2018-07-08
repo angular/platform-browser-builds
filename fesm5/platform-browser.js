@@ -1,12 +1,12 @@
 /**
- * @license Angular v6.1.0-beta.1+46.sha-a5799e6
+ * @license Angular v6.1.0-beta.3+80.sha-6c604bd
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { CommonModule, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, ɵparseCookieValue } from '@angular/common';
-import { APP_ID, APP_INITIALIZER, ApplicationInitStatus, ApplicationModule, ApplicationRef, ErrorHandler, Inject, Injectable, InjectionToken, Injector, NgModule, NgProbeToken, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, RendererStyleFlags2, Sanitizer, SecurityContext, SkipSelf, Testability, Version, ViewEncapsulation, createPlatformFactory, getDebugNode, platformCore, setTestabilityGetter, ɵAPP_ROOT, ɵConsole, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ɵglobal } from '@angular/core';
-import { __assign, __extends, __spread } from 'tslib';
+import { __extends, __assign, __spread } from 'tslib';
+import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
+import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, APP_ID, NgModule, NgZone, Version, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, Optional, RendererFactory2, Testability, ApplicationModule, SkipSelf, getDebugNode, NgProbeToken, ViewEncapsulation, RendererStyleFlags2, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl } from '@angular/core';
 
 /**
  * @license
@@ -19,7 +19,6 @@ var _DOM = null;
 function getDOM() {
     return _DOM;
 }
-
 function setRootDomAdapter(adapter) {
     if (!_DOM) {
         _DOM = adapter;
@@ -193,8 +192,8 @@ var BrowserDomAdapter = /** @class */ (function (_super) {
     BrowserDomAdapter.prototype.setProperty = function (el, name, value) { el[name] = value; };
     BrowserDomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
     BrowserDomAdapter.prototype.invoke = function (el, methodName, args) {
-        (_a = el)[methodName].apply(_a, __spread(args));
         var _a;
+        (_a = el)[methodName].apply(_a, __spread(args));
     };
     // TODO(tbosch): move this into a separate environment class once we have it
     BrowserDomAdapter.prototype.logError = function (error) {
@@ -871,8 +870,6 @@ var Title = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
-
 /**
  * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
  * `name` is `'probe'`.
@@ -1168,6 +1165,7 @@ var DomRendererFactory2 = /** @class */ (function () {
                 return renderer;
             }
             case ViewEncapsulation.Native:
+            case ViewEncapsulation.ShadowDom:
                 return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
@@ -1322,7 +1320,12 @@ var ShadowDomRenderer = /** @class */ (function (_super) {
         _this.sharedStylesHost = sharedStylesHost;
         _this.hostEl = hostEl;
         _this.component = component;
-        _this.shadowRoot = hostEl.createShadowRoot();
+        if (component.encapsulation === ViewEncapsulation.ShadowDom) {
+            _this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
+        }
+        else {
+            _this.shadowRoot = hostEl.createShadowRoot();
+        }
         _this.sharedStylesHost.addHost(_this.shadowRoot);
         var styles = flattenStyles(component.id, component.styles, []);
         for (var i = 0; i < styles.length; i++) {
@@ -1467,19 +1470,6 @@ var DomEventsPlugin = /** @class */ (function (_super) {
     DomEventsPlugin.prototype.supports = function (eventName) { return true; };
     DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
         var _this = this;
-        /**
-         * This code is about to add a listener to the DOM. If Zone.js is present, than
-         * `addEventListener` has been patched. The patched code adds overhead in both
-         * memory and speed (3x slower) than native. For this reason if we detect that
-         * Zone.js is present we use a simple version of zone aware addEventListener instead.
-         * The result is faster registration and the zone will be restored.
-         * But ZoneSpec.onScheduleTask, ZoneSpec.onInvokeTask, ZoneSpec.onCancelTask
-         * will not be invoked
-         * We also do manual zone restoration in element.ts renderEventHandlerClosure method.
-         *
-         * NOTE: it is possible that the element is from different iframe, and so we
-         * have to check before we execute the method.
-         */
         var zoneJsLoaded = element[ADD_EVENT_LISTENER];
         var callback = handler;
         // if zonejs is loaded and current zone is not ngZone
@@ -1765,10 +1755,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
  * Defines supported modifiers for key events.
  */
 var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-var ɵ0$1 = function (event) { return event.altKey; };
-var ɵ1$1 = function (event) { return event.ctrlKey; };
-var ɵ2$1 = function (event) { return event.metaKey; };
-var ɵ3 = function (event) { return event.shiftKey; };
+var ɵ0$1 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2$1 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
 /**
  * Retrieves modifiers from key-event objects.
  */
@@ -2103,7 +2090,7 @@ var BROWSER_MODULE_PROVIDERS = [
         provide: EVENT_MANAGER_PLUGINS,
         useClass: HammerGesturesPlugin,
         multi: true,
-        deps: [DOCUMENT$1, HAMMER_GESTURE_CONFIG]
+        deps: [DOCUMENT$1, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
     },
     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
     {
@@ -2481,12 +2468,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the common package.
- */
-var VERSION = new Version('6.1.0-beta.1+46.sha-a5799e6');
+var VERSION = new Version('6.1.0-beta.3+80.sha-6c604bd');
 
 /**
  * @license
@@ -2503,12 +2485,6 @@ var VERSION = new Version('6.1.0-beta.1+46.sha-a5799e6');
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
 // This file only reexports content of the `src` folder. Keep it that way.
 
 /**
@@ -2518,14 +2494,10 @@ var VERSION = new Version('6.1.0-beta.1+46.sha-a5799e6');
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// This file is not used to build this module. It is only used during editing
-// by the TypeScript language service and during build for verification. `ngc`
-// replaces this file with production index.ts when it rewrites private symbol
-// names.
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_j, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_h, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_g, initTransferState as ɵangular_packages_platform_browser_platform_browser_d, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_i, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_e, DomSanitizerImpl as ɵangular_packages_platform_browser_platform_browser_f, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost };
+export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_i, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_g, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_f, initTransferState as ɵangular_packages_platform_browser_platform_browser_d, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_h, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_e, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.js.map

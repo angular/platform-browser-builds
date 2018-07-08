@@ -1,17 +1,18 @@
 /**
- * @license Angular v6.1.0-beta.1+46.sha-a5799e6
+ * @license Angular v6.1.0-beta.3+80.sha-6c604bd
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { Inject, Injectable, InjectionToken, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgZone, InjectionToken, NgModule } from '@angular/core';
+import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
+import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 class BrowserAnimationBuilder extends AnimationBuilder {
     /**
@@ -21,7 +22,8 @@ class BrowserAnimationBuilder extends AnimationBuilder {
     constructor(rootRenderer, doc) {
         super();
         this._nextAnimationId = 0;
-        const /** @type {?} */ typeData = /** @type {?} */ ({
+        /** @type {?} */
+        const typeData = /** @type {?} */ ({
             id: '0',
             encapsulation: ViewEncapsulation.None,
             styles: [],
@@ -34,9 +36,11 @@ class BrowserAnimationBuilder extends AnimationBuilder {
      * @return {?}
      */
     build(animation) {
-        const /** @type {?} */ id = this._nextAnimationId.toString();
+        /** @type {?} */
+        const id = this._nextAnimationId.toString();
         this._nextAnimationId++;
-        const /** @type {?} */ entry = Array.isArray(animation) ? sequence(animation) : animation;
+        /** @type {?} */
+        const entry = Array.isArray(animation) ? sequence(animation) : animation;
         issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
         return new BrowserAnimationFactory(id, this._renderer);
     }
@@ -174,9 +178,11 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
+/** @type {?} */
 const ANIMATION_PREFIX = '@';
+/** @type {?} */
 const DISABLE_ANIMATIONS_FLAG = '@.disabled';
 class AnimationRendererFactory {
     /**
@@ -210,12 +216,13 @@ class AnimationRendererFactory {
      * @return {?}
      */
     createRenderer(hostElement, type) {
-        const /** @type {?} */ EMPTY_NAMESPACE_ID = '';
-        // cache the delegates to find out which cached delegate can
-        // be used by which cached renderer
-        const /** @type {?} */ delegate = this.delegate.createRenderer(hostElement, type);
+        /** @type {?} */
+        const EMPTY_NAMESPACE_ID = '';
+        /** @type {?} */
+        const delegate = this.delegate.createRenderer(hostElement, type);
         if (!hostElement || !type || !type.data || !type.data['animation']) {
-            let /** @type {?} */ renderer = this._rendererCache.get(delegate);
+            /** @type {?} */
+            let renderer = this._rendererCache.get(delegate);
             if (!renderer) {
                 renderer = new BaseAnimationRenderer(EMPTY_NAMESPACE_ID, delegate, this.engine);
                 // only cache this result when the base renderer is used
@@ -223,11 +230,14 @@ class AnimationRendererFactory {
             }
             return renderer;
         }
-        const /** @type {?} */ componentId = type.id;
-        const /** @type {?} */ namespaceId = type.id + '-' + this._currentId;
+        /** @type {?} */
+        const componentId = type.id;
+        /** @type {?} */
+        const namespaceId = type.id + '-' + this._currentId;
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
-        const /** @type {?} */ animationTriggers = /** @type {?} */ (type.data['animation']);
+        /** @type {?} */
+        const animationTriggers = /** @type {?} */ (type.data['animation']);
         animationTriggers.forEach(trigger => this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     }
@@ -513,16 +523,20 @@ class AnimationRenderer extends BaseAnimationRenderer {
      */
     listen(target, eventName, callback) {
         if (eventName.charAt(0) == ANIMATION_PREFIX) {
-            const /** @type {?} */ element = resolveElementFromTarget(target);
-            let /** @type {?} */ name = eventName.substr(1);
-            let /** @type {?} */ phase = '';
+            /** @type {?} */
+            const element = resolveElementFromTarget(target);
+            /** @type {?} */
+            let name = eventName.substr(1);
+            /** @type {?} */
+            let phase = '';
             // @listener.phase is for trigger animation callbacks
             // @@listener is for animation builder callbacks
             if (name.charAt(0) != ANIMATION_PREFIX) {
                 [name, phase] = parseTriggerCallbackName(name);
             }
             return this.engine.listen(this.namespaceId, element, name, phase, event => {
-                const /** @type {?} */ countId = (/** @type {?} */ (event))['_data'] || -1;
+                /** @type {?} */
+                const countId = (/** @type {?} */ (event))['_data'] || -1;
                 this.factory.scheduleListenerCallback(countId, callback, event);
             });
         }
@@ -550,30 +564,27 @@ function resolveElementFromTarget(target) {
  * @return {?}
  */
 function parseTriggerCallbackName(triggerName) {
-    const /** @type {?} */ dotIndex = triggerName.indexOf('.');
-    const /** @type {?} */ trigger = triggerName.substring(0, dotIndex);
-    const /** @type {?} */ phase = triggerName.substr(dotIndex + 1);
+    /** @type {?} */
+    const dotIndex = triggerName.indexOf('.');
+    /** @type {?} */
+    const trigger = triggerName.substring(0, dotIndex);
+    /** @type {?} */
+    const phase = triggerName.substr(dotIndex + 1);
     return [trigger, phase];
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 class InjectableAnimationEngine extends ɵAnimationEngine {
     /**
+     * @param {?} doc
      * @param {?} driver
      * @param {?} normalizer
      */
-    constructor(driver, normalizer) {
-        super(driver, normalizer);
+    constructor(doc, driver, normalizer) {
+        super(doc.body, driver, normalizer);
     }
 }
 InjectableAnimationEngine.decorators = [
@@ -581,6 +592,7 @@ InjectableAnimationEngine.decorators = [
 ];
 /** @nocollapse */
 InjectableAnimationEngine.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
     { type: AnimationDriver },
     { type: ɵAnimationStyleNormalizer }
 ];
@@ -605,10 +617,11 @@ function instantiateDefaultStyleNormalizer() {
 function instantiateRendererFactory(renderer, engine, zone) {
     return new AnimationRendererFactory(renderer, engine, zone);
 }
-/**
+/** *
  * \@experimental Animation support is experimental.
- */
+  @type {?} */
 const ANIMATION_MODULE_TYPE = new InjectionToken('AnimationModuleType');
+/** @type {?} */
 const SHARED_ANIMATION_PROVIDERS = [
     { provide: AnimationBuilder, useClass: BrowserAnimationBuilder },
     { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
@@ -618,18 +631,18 @@ const SHARED_ANIMATION_PROVIDERS = [
         deps: [ɵDomRendererFactory2, ɵAnimationEngine, NgZone]
     }
 ];
-/**
+/** *
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserModule.
- */
+  @type {?} */
 const BROWSER_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
     { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' }, ...SHARED_ANIMATION_PROVIDERS
 ];
-/**
+/** *
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
- */
+  @type {?} */
 const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useClass: ɵNoopAnimationDriver },
     { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' }, ...SHARED_ANIMATION_PROVIDERS
@@ -637,7 +650,7 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * \@experimental Animation support is experimental.
@@ -664,53 +677,23 @@ NoopAnimationsModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// This file is not used to build this module. It is only used during editing
-// by the TypeScript language service and during build for verifcation. `ngc`
-// replaces this file with production index.ts when it rewrites private symbol
-// names.
 
 /**
  * Generated bundle index. Do not edit.

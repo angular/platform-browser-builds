@@ -1,6 +1,6 @@
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -48,7 +48,7 @@ Title.decorators = [
 Title.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-function Title_tsickle_Closure_declarations() {
+if (false) {
     /** @type {?} */
     Title.prototype._doc;
 }

@@ -26,5 +26,5 @@ export declare class BrowserDetection {
 export declare function dispatchEvent(element: any, eventType: any): void;
 export declare function el(html: string): HTMLElement;
 export declare function normalizeCSS(css: string): string;
-export declare function stringifyElement(el: any): string;
+export declare function stringifyElement(el: any /** TODO #9100 */): string;
 export declare function createNgZone(): NgZone;
