@@ -1,4 +1,11 @@
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Represents a meta element.
  *
  * @experimental
@@ -32,8 +39,8 @@ export declare class Meta {
     updateTag(tag: MetaDefinition, selector?: string): HTMLMetaElement | null;
     removeTag(attrSelector: string): void;
     removeTagElement(meta: HTMLMetaElement): void;
-    private _getOrCreateElement(meta, forceCreation?);
-    private _setMetaElementAttributes(tag, el);
-    private _parseSelector(tag);
-    private _containsAttributes(tag, elem);
+    private _getOrCreateElement;
+    private _setMetaElementAttributes;
+    private _parseSelector;
+    private _containsAttributes;
 }

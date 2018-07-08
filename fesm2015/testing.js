@@ -1,12 +1,12 @@
 /**
- * @license Angular v6.1.0-beta.1+46.sha-a5799e6
+ * @license Angular v6.1.0-beta.3+80.sha-6c604bd
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
+import { NgZone, ɵglobal, APP_ID, NgModule, PLATFORM_INITIALIZER, createPlatformFactory, platformCore } from '@angular/core';
+import { ɵgetDOM, BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 import { __decorate } from 'tslib';
-import { APP_ID, NgModule, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵglobal } from '@angular/core';
-import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM } from '@angular/platform-browser';
 
 /**
  * @license
@@ -15,7 +15,6 @@ import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
 class BrowserDetection {
     get _ua() {
         if (typeof this._overrideUa === 'string') {
@@ -23,7 +22,7 @@ class BrowserDetection {
         }
         return ɵgetDOM() ? ɵgetDOM().getUserAgent() : '';
     }
-    static setup() {  }
+    static setup() { }
     constructor(ua) { this._overrideUa = ua; }
     get isFirefox() { return this._ua.indexOf('Firefox') > -1; }
     get isAndroid() {
@@ -61,21 +60,10 @@ class BrowserDetection {
     }
 }
 BrowserDetection.setup();
-
-
-
-
 function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -112,10 +100,13 @@ BrowserTestingModule = __decorate([
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+
 /**
- * @module
- * @description
- * Entry point for all public APIs of the platform-browser/testing package.
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 
 /**
@@ -125,23 +116,6 @@ BrowserTestingModule = __decorate([
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// This file is not used to build this module. It is only used during editing
-// by the TypeScript language service and during build for verification. `ngc`
-// replaces this file with production index.ts when it rewrites private symbol
-// names.
 
 export { platformBrowserTesting, BrowserTestingModule };
 //# sourceMappingURL=testing.js.map
