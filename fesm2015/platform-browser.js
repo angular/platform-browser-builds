@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+64.sha-3d20c50
+ * @license Angular v6.1.0-beta.3+75.sha-3a19f70
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -598,99 +598,6 @@ BrowserPlatformLocation = __decorate([
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * A service that can be used to get and add meta tags.
- *
- * @experimental
- */
-let Meta = class Meta {
-    constructor(_doc) {
-        this._doc = _doc;
-        this._dom = getDOM();
-    }
-    addTag(tag, forceCreation = false) {
-        if (!tag)
-            return null;
-        return this._getOrCreateElement(tag, forceCreation);
-    }
-    addTags(tags, forceCreation = false) {
-        if (!tags)
-            return [];
-        return tags.reduce((result, tag) => {
-            if (tag) {
-                result.push(this._getOrCreateElement(tag, forceCreation));
-            }
-            return result;
-        }, []);
-    }
-    getTag(attrSelector) {
-        if (!attrSelector)
-            return null;
-        return this._dom.querySelector(this._doc, `meta[${attrSelector}]`) || null;
-    }
-    getTags(attrSelector) {
-        if (!attrSelector)
-            return [];
-        const list /*NodeList*/ = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
-        return list ? [].slice.call(list) : [];
-    }
-    updateTag(tag, selector) {
-        if (!tag)
-            return null;
-        selector = selector || this._parseSelector(tag);
-        const meta = this.getTag(selector);
-        if (meta) {
-            return this._setMetaElementAttributes(tag, meta);
-        }
-        return this._getOrCreateElement(tag, true);
-    }
-    removeTag(attrSelector) { this.removeTagElement(this.getTag(attrSelector)); }
-    removeTagElement(meta) {
-        if (meta) {
-            this._dom.remove(meta);
-        }
-    }
-    _getOrCreateElement(meta, forceCreation = false) {
-        if (!forceCreation) {
-            const selector = this._parseSelector(meta);
-            const elem = this.getTag(selector);
-            // It's allowed to have multiple elements with the same name so it's not enough to
-            // just check that element with the same name already present on the page. We also need to
-            // check if element has tag attributes
-            if (elem && this._containsAttributes(meta, elem))
-                return elem;
-        }
-        const element = this._dom.createElement('meta');
-        this._setMetaElementAttributes(meta, element);
-        const head = this._dom.getElementsByTagName(this._doc, 'head')[0];
-        this._dom.appendChild(head, element);
-        return element;
-    }
-    _setMetaElementAttributes(tag, el) {
-        Object.keys(tag).forEach((prop) => this._dom.setAttribute(el, prop, tag[prop]));
-        return el;
-    }
-    _parseSelector(tag) {
-        const attr = tag.name ? 'name' : 'property';
-        return `${attr}="${tag[attr]}"`;
-    }
-    _containsAttributes(tag, elem) {
-        return Object.keys(tag).every((key) => this._dom.getAttribute(elem, key) === tag[key]);
-    }
-};
-Meta = __decorate([
-    Injectable(),
-    __param(0, Inject(DOCUMENT$1)),
-    __metadata("design:paramtypes", [Object])
-], Meta);
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
  */
@@ -772,43 +679,6 @@ class BrowserGetTestability {
         return this.findTestabilityInTree(registry, getDOM().parentElement(elem), true);
     }
 }
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A service that can be used to get and set the title of a current HTML document.
- *
- * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
- * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
- * (representing the `<title>` tag). Instead, this service can be used to set and get the current
- * title value.
- *
- * @experimental
- */
-let Title = class Title {
-    constructor(_doc) {
-        this._doc = _doc;
-    }
-    /**
-     * Get the title of the current HTML document.
-     */
-    getTitle() { return getDOM().getTitle(this._doc); }
-    /**
-     * Set the title of the current HTML document.
-     * @param newTitle
-     */
-    setTitle(newTitle) { getDOM().setTitle(this._doc, newTitle); }
-};
-Title = __decorate([
-    Injectable(),
-    __param(0, Inject(DOCUMENT$1)),
-    __metadata("design:paramtypes", [Object])
-], Title);
 
 /**
  * @license
@@ -1974,8 +1844,6 @@ const BROWSER_MODULE_PROVIDERS = [
     { provide: Testability, useClass: Testability, deps: [NgZone] },
     { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, NgZone] },
     ELEMENT_PROBE_PROVIDERS,
-    { provide: Meta, useClass: Meta, deps: [DOCUMENT$1] },
-    { provide: Title, useClass: Title, deps: [DOCUMENT$1] },
 ];
 /**
  * The ng module for the browser.
@@ -2011,6 +1879,136 @@ BrowserModule = BrowserModule_1 = __decorate([
     __param(0, Optional()), __param(0, SkipSelf()), __param(0, Inject(BrowserModule_1)),
     __metadata("design:paramtypes", [Object])
 ], BrowserModule);
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * A service that can be used to get and add meta tags.
+ *
+ * @experimental
+ */
+let Meta = class Meta {
+    constructor(_doc) {
+        this._doc = _doc;
+        this._dom = getDOM();
+    }
+    addTag(tag, forceCreation = false) {
+        if (!tag)
+            return null;
+        return this._getOrCreateElement(tag, forceCreation);
+    }
+    addTags(tags, forceCreation = false) {
+        if (!tags)
+            return [];
+        return tags.reduce((result, tag) => {
+            if (tag) {
+                result.push(this._getOrCreateElement(tag, forceCreation));
+            }
+            return result;
+        }, []);
+    }
+    getTag(attrSelector) {
+        if (!attrSelector)
+            return null;
+        return this._dom.querySelector(this._doc, `meta[${attrSelector}]`) || null;
+    }
+    getTags(attrSelector) {
+        if (!attrSelector)
+            return [];
+        const list /*NodeList*/ = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
+        return list ? [].slice.call(list) : [];
+    }
+    updateTag(tag, selector) {
+        if (!tag)
+            return null;
+        selector = selector || this._parseSelector(tag);
+        const meta = this.getTag(selector);
+        if (meta) {
+            return this._setMetaElementAttributes(tag, meta);
+        }
+        return this._getOrCreateElement(tag, true);
+    }
+    removeTag(attrSelector) { this.removeTagElement(this.getTag(attrSelector)); }
+    removeTagElement(meta) {
+        if (meta) {
+            this._dom.remove(meta);
+        }
+    }
+    _getOrCreateElement(meta, forceCreation = false) {
+        if (!forceCreation) {
+            const selector = this._parseSelector(meta);
+            const elem = this.getTag(selector);
+            // It's allowed to have multiple elements with the same name so it's not enough to
+            // just check that element with the same name already present on the page. We also need to
+            // check if element has tag attributes
+            if (elem && this._containsAttributes(meta, elem))
+                return elem;
+        }
+        const element = this._dom.createElement('meta');
+        this._setMetaElementAttributes(meta, element);
+        const head = this._dom.getElementsByTagName(this._doc, 'head')[0];
+        this._dom.appendChild(head, element);
+        return element;
+    }
+    _setMetaElementAttributes(tag, el) {
+        Object.keys(tag).forEach((prop) => this._dom.setAttribute(el, prop, tag[prop]));
+        return el;
+    }
+    _parseSelector(tag) {
+        const attr = tag.name ? 'name' : 'property';
+        return `${attr}="${tag[attr]}"`;
+    }
+    _containsAttributes(tag, elem) {
+        return Object.keys(tag).every((key) => this._dom.getAttribute(elem, key) === tag[key]);
+    }
+};
+Meta = __decorate([
+    Injectable({ providedIn: 'root' }),
+    __param(0, Inject(DOCUMENT$1)),
+    __metadata("design:paramtypes", [Object])
+], Meta);
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * A service that can be used to get and set the title of a current HTML document.
+ *
+ * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
+ * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
+ * (representing the `<title>` tag). Instead, this service can be used to set and get the current
+ * title value.
+ *
+ * @experimental
+ */
+let Title = class Title {
+    constructor(_doc) {
+        this._doc = _doc;
+    }
+    /**
+     * Get the title of the current HTML document.
+     */
+    getTitle() { return getDOM().getTitle(this._doc); }
+    /**
+     * Set the title of the current HTML document.
+     * @param newTitle
+     */
+    setTitle(newTitle) { getDOM().setTitle(this._doc, newTitle); }
+};
+Title = __decorate([
+    Injectable({ providedIn: 'root' }),
+    __param(0, Inject(DOCUMENT$1)),
+    __metadata("design:paramtypes", [Object])
+], Title);
 
 /**
  * @license
@@ -2338,7 +2336,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.1.0-beta.3+64.sha-3d20c50');
+const VERSION = new Version('6.1.0-beta.3+75.sha-3a19f70');
 
 /**
  * @license
