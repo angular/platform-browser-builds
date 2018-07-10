@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+64.sha-3d20c50
+ * @license Angular v6.1.0-beta.3+75.sha-3a19f70
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -694,108 +694,6 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /**
-     * A service that can be used to get and add meta tags.
-     *
-     * @experimental
-     */
-    var Meta = /** @class */ (function () {
-        function Meta(_doc) {
-            this._doc = _doc;
-            this._dom = getDOM();
-        }
-        Meta.prototype.addTag = function (tag, forceCreation) {
-            if (forceCreation === void 0) { forceCreation = false; }
-            if (!tag)
-                return null;
-            return this._getOrCreateElement(tag, forceCreation);
-        };
-        Meta.prototype.addTags = function (tags, forceCreation) {
-            var _this = this;
-            if (forceCreation === void 0) { forceCreation = false; }
-            if (!tags)
-                return [];
-            return tags.reduce(function (result, tag) {
-                if (tag) {
-                    result.push(_this._getOrCreateElement(tag, forceCreation));
-                }
-                return result;
-            }, []);
-        };
-        Meta.prototype.getTag = function (attrSelector) {
-            if (!attrSelector)
-                return null;
-            return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]") || null;
-        };
-        Meta.prototype.getTags = function (attrSelector) {
-            if (!attrSelector)
-                return [];
-            var list /*NodeList*/ = this._dom.querySelectorAll(this._doc, "meta[" + attrSelector + "]");
-            return list ? [].slice.call(list) : [];
-        };
-        Meta.prototype.updateTag = function (tag, selector) {
-            if (!tag)
-                return null;
-            selector = selector || this._parseSelector(tag);
-            var meta = this.getTag(selector);
-            if (meta) {
-                return this._setMetaElementAttributes(tag, meta);
-            }
-            return this._getOrCreateElement(tag, true);
-        };
-        Meta.prototype.removeTag = function (attrSelector) { this.removeTagElement(this.getTag(attrSelector)); };
-        Meta.prototype.removeTagElement = function (meta) {
-            if (meta) {
-                this._dom.remove(meta);
-            }
-        };
-        Meta.prototype._getOrCreateElement = function (meta, forceCreation) {
-            if (forceCreation === void 0) { forceCreation = false; }
-            if (!forceCreation) {
-                var selector = this._parseSelector(meta);
-                var elem = this.getTag(selector);
-                // It's allowed to have multiple elements with the same name so it's not enough to
-                // just check that element with the same name already present on the page. We also need to
-                // check if element has tag attributes
-                if (elem && this._containsAttributes(meta, elem))
-                    return elem;
-            }
-            var element = this._dom.createElement('meta');
-            this._setMetaElementAttributes(meta, element);
-            var head = this._dom.getElementsByTagName(this._doc, 'head')[0];
-            this._dom.appendChild(head, element);
-            return element;
-        };
-        Meta.prototype._setMetaElementAttributes = function (tag, el) {
-            var _this = this;
-            Object.keys(tag).forEach(function (prop) { return _this._dom.setAttribute(el, prop, tag[prop]); });
-            return el;
-        };
-        Meta.prototype._parseSelector = function (tag) {
-            var attr = tag.name ? 'name' : 'property';
-            return attr + "=\"" + tag[attr] + "\"";
-        };
-        Meta.prototype._containsAttributes = function (tag, elem) {
-            var _this = this;
-            return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
-        };
-        Meta.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        Meta.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] }] }
-        ]; };
-        return Meta;
-    }());
-
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /**
      * An id that identifies a particular application being bootstrapped, that should
      * match across the client/server boundary.
      */
@@ -880,46 +778,6 @@
             return this.findTestabilityInTree(registry, getDOM().parentElement(elem), true);
         };
         return BrowserGetTestability;
-    }());
-
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /**
-     * A service that can be used to get and set the title of a current HTML document.
-     *
-     * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
-     * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
-     * (representing the `<title>` tag). Instead, this service can be used to set and get the current
-     * title value.
-     *
-     * @experimental
-     */
-    var Title = /** @class */ (function () {
-        function Title(_doc) {
-            this._doc = _doc;
-        }
-        /**
-         * Get the title of the current HTML document.
-         */
-        Title.prototype.getTitle = function () { return getDOM().getTitle(this._doc); };
-        /**
-         * Set the title of the current HTML document.
-         * @param newTitle
-         */
-        Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
-        Title.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        Title.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] }] }
-        ]; };
-        return Title;
     }());
 
     /**
@@ -2163,8 +2021,6 @@
         { provide: core.Testability, useClass: core.Testability, deps: [core.NgZone] },
         { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, core.NgZone] },
         ELEMENT_PROBE_PROVIDERS,
-        { provide: Meta, useClass: Meta, deps: [DOCUMENT] },
-        { provide: Title, useClass: Title, deps: [DOCUMENT] },
     ];
     /**
      * The ng module for the browser.
@@ -2202,6 +2058,167 @@
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.SkipSelf }, { type: core.Inject, args: [BrowserModule,] }] }
         ]; };
         return BrowserModule;
+    }());
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
+     * A DI Token representing the main rendering context. In a browser this is the DOM Document.
+     *
+     * Note: Document might not be available in the Application Context when Application and Rendering
+     * Contexts are not the same (e.g. when running the application into a Web Worker).
+     *
+     *
+     */
+    var DOCUMENT$1 = new core.InjectionToken('DocumentToken');
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
+     * A service that can be used to get and add meta tags.
+     *
+     * @experimental
+     */
+    var Meta = /** @class */ (function () {
+        function Meta(_doc) {
+            this._doc = _doc;
+            this._dom = getDOM();
+        }
+        Meta.prototype.addTag = function (tag, forceCreation) {
+            if (forceCreation === void 0) { forceCreation = false; }
+            if (!tag)
+                return null;
+            return this._getOrCreateElement(tag, forceCreation);
+        };
+        Meta.prototype.addTags = function (tags, forceCreation) {
+            var _this = this;
+            if (forceCreation === void 0) { forceCreation = false; }
+            if (!tags)
+                return [];
+            return tags.reduce(function (result, tag) {
+                if (tag) {
+                    result.push(_this._getOrCreateElement(tag, forceCreation));
+                }
+                return result;
+            }, []);
+        };
+        Meta.prototype.getTag = function (attrSelector) {
+            if (!attrSelector)
+                return null;
+            return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]") || null;
+        };
+        Meta.prototype.getTags = function (attrSelector) {
+            if (!attrSelector)
+                return [];
+            var list /*NodeList*/ = this._dom.querySelectorAll(this._doc, "meta[" + attrSelector + "]");
+            return list ? [].slice.call(list) : [];
+        };
+        Meta.prototype.updateTag = function (tag, selector) {
+            if (!tag)
+                return null;
+            selector = selector || this._parseSelector(tag);
+            var meta = this.getTag(selector);
+            if (meta) {
+                return this._setMetaElementAttributes(tag, meta);
+            }
+            return this._getOrCreateElement(tag, true);
+        };
+        Meta.prototype.removeTag = function (attrSelector) { this.removeTagElement(this.getTag(attrSelector)); };
+        Meta.prototype.removeTagElement = function (meta) {
+            if (meta) {
+                this._dom.remove(meta);
+            }
+        };
+        Meta.prototype._getOrCreateElement = function (meta, forceCreation) {
+            if (forceCreation === void 0) { forceCreation = false; }
+            if (!forceCreation) {
+                var selector = this._parseSelector(meta);
+                var elem = this.getTag(selector);
+                // It's allowed to have multiple elements with the same name so it's not enough to
+                // just check that element with the same name already present on the page. We also need to
+                // check if element has tag attributes
+                if (elem && this._containsAttributes(meta, elem))
+                    return elem;
+            }
+            var element = this._dom.createElement('meta');
+            this._setMetaElementAttributes(meta, element);
+            var head = this._dom.getElementsByTagName(this._doc, 'head')[0];
+            this._dom.appendChild(head, element);
+            return element;
+        };
+        Meta.prototype._setMetaElementAttributes = function (tag, el) {
+            var _this = this;
+            Object.keys(tag).forEach(function (prop) { return _this._dom.setAttribute(el, prop, tag[prop]); });
+            return el;
+        };
+        Meta.prototype._parseSelector = function (tag) {
+            var attr = tag.name ? 'name' : 'property';
+            return attr + "=\"" + tag[attr] + "\"";
+        };
+        Meta.prototype._containsAttributes = function (tag, elem) {
+            var _this = this;
+            return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
+        };
+        Meta.decorators = [
+            { type: core.Injectable, args: [{ providedIn: 'root' },] }
+        ];
+        /** @nocollapse */
+        Meta.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] }] }
+        ]; };
+        Meta.ngInjectableDef = core.defineInjectable({ factory: function Meta_Factory() { return new Meta(core.inject(DOCUMENT$1)); }, token: Meta, providedIn: "root" });
+        return Meta;
+    }());
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
+     * A service that can be used to get and set the title of a current HTML document.
+     *
+     * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
+     * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
+     * (representing the `<title>` tag). Instead, this service can be used to set and get the current
+     * title value.
+     *
+     * @experimental
+     */
+    var Title = /** @class */ (function () {
+        function Title(_doc) {
+            this._doc = _doc;
+        }
+        /**
+         * Get the title of the current HTML document.
+         */
+        Title.prototype.getTitle = function () { return getDOM().getTitle(this._doc); };
+        /**
+         * Set the title of the current HTML document.
+         * @param newTitle
+         */
+        Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
+        Title.decorators = [
+            { type: core.Injectable, args: [{ providedIn: 'root' },] }
+        ];
+        /** @nocollapse */
+        Title.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] }] }
+        ]; };
+        Title.ngInjectableDef = core.defineInjectable({ factory: function Title_Factory() { return new Title(core.inject(DOCUMENT$1)); }, token: Title, providedIn: "root" });
+        return Title;
     }());
 
     /**
@@ -2527,7 +2544,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new core.Version('6.1.0-beta.3+64.sha-3d20c50');
+    var VERSION = new core.Version('6.1.0-beta.3+75.sha-3a19f70');
 
     /**
      * @license
