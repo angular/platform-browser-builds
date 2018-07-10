@@ -1,11 +1,11 @@
 /**
- * @license Angular v6.1.0-beta.3+67.sha-1089261
+ * @license Angular v6.1.0-beta.3+68.sha-197387d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, APP_ID, NgModule, NgZone, RendererStyleFlags2, ViewEncapsulation, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, Optional, ɵConsole, Version, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, APP_ID, NgModule, NgZone, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, Optional, ɵConsole, RendererStyleFlags2, ViewEncapsulation, Version, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, getDebugNode, NgProbeToken, defineInjectable, inject } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -1197,158 +1197,6 @@ BrowserPlatformLocation.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * A service that can be used to get and add meta tags.
- *
- * \@experimental
- */
-class Meta {
-    /**
-     * @param {?} _doc
-     */
-    constructor(_doc) {
-        this._doc = _doc;
-        this._dom = getDOM();
-    }
-    /**
-     * @param {?} tag
-     * @param {?=} forceCreation
-     * @return {?}
-     */
-    addTag(tag, forceCreation = false) {
-        if (!tag)
-            return null;
-        return this._getOrCreateElement(tag, forceCreation);
-    }
-    /**
-     * @param {?} tags
-     * @param {?=} forceCreation
-     * @return {?}
-     */
-    addTags(tags, forceCreation = false) {
-        if (!tags)
-            return [];
-        return tags.reduce((result, tag) => {
-            if (tag) {
-                result.push(this._getOrCreateElement(tag, forceCreation));
-            }
-            return result;
-        }, []);
-    }
-    /**
-     * @param {?} attrSelector
-     * @return {?}
-     */
-    getTag(attrSelector) {
-        if (!attrSelector)
-            return null;
-        return this._dom.querySelector(this._doc, `meta[${attrSelector}]`) || null;
-    }
-    /**
-     * @param {?} attrSelector
-     * @return {?}
-     */
-    getTags(attrSelector) {
-        if (!attrSelector)
-            return [];
-        /** @type {?} */
-        const list = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
-        return list ? [].slice.call(list) : [];
-    }
-    /**
-     * @param {?} tag
-     * @param {?=} selector
-     * @return {?}
-     */
-    updateTag(tag, selector) {
-        if (!tag)
-            return null;
-        selector = selector || this._parseSelector(tag);
-        /** @type {?} */
-        const meta = /** @type {?} */ ((this.getTag(selector)));
-        if (meta) {
-            return this._setMetaElementAttributes(tag, meta);
-        }
-        return this._getOrCreateElement(tag, true);
-    }
-    /**
-     * @param {?} attrSelector
-     * @return {?}
-     */
-    removeTag(attrSelector) { this.removeTagElement(/** @type {?} */ ((this.getTag(attrSelector)))); }
-    /**
-     * @param {?} meta
-     * @return {?}
-     */
-    removeTagElement(meta) {
-        if (meta) {
-            this._dom.remove(meta);
-        }
-    }
-    /**
-     * @param {?} meta
-     * @param {?=} forceCreation
-     * @return {?}
-     */
-    _getOrCreateElement(meta, forceCreation = false) {
-        if (!forceCreation) {
-            /** @type {?} */
-            const selector = this._parseSelector(meta);
-            /** @type {?} */
-            const elem = /** @type {?} */ ((this.getTag(selector)));
-            // It's allowed to have multiple elements with the same name so it's not enough to
-            // just check that element with the same name already present on the page. We also need to
-            // check if element has tag attributes
-            if (elem && this._containsAttributes(meta, elem))
-                return elem;
-        }
-        /** @type {?} */
-        const element = /** @type {?} */ (this._dom.createElement('meta'));
-        this._setMetaElementAttributes(meta, element);
-        /** @type {?} */
-        const head = this._dom.getElementsByTagName(this._doc, 'head')[0];
-        this._dom.appendChild(head, element);
-        return element;
-    }
-    /**
-     * @param {?} tag
-     * @param {?} el
-     * @return {?}
-     */
-    _setMetaElementAttributes(tag, el) {
-        Object.keys(tag).forEach((prop) => this._dom.setAttribute(el, prop, tag[prop]));
-        return el;
-    }
-    /**
-     * @param {?} tag
-     * @return {?}
-     */
-    _parseSelector(tag) {
-        /** @type {?} */
-        const attr = tag.name ? 'name' : 'property';
-        return `${attr}="${tag[attr]}"`;
-    }
-    /**
-     * @param {?} tag
-     * @param {?} elem
-     * @return {?}
-     */
-    _containsAttributes(tag, elem) {
-        return Object.keys(tag).every((key) => this._dom.getAttribute(elem, key) === tag[key]);
-    }
-}
-Meta.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-Meta.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
-];
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
 /** *
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
@@ -1457,47 +1305,6 @@ class BrowserGetTestability {
         return this.findTestabilityInTree(registry, getDOM().parentElement(elem), true);
     }
 }
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * A service that can be used to get and set the title of a current HTML document.
- *
- * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
- * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
- * (representing the `<title>` tag). Instead, this service can be used to set and get the current
- * title value.
- *
- * \@experimental
- */
-class Title {
-    /**
-     * @param {?} _doc
-     */
-    constructor(_doc) {
-        this._doc = _doc;
-    }
-    /**
-     * Get the title of the current HTML document.
-     * @return {?}
-     */
-    getTitle() { return getDOM().getTitle(this._doc); }
-    /**
-     * Set the title of the current HTML document.
-     * @param {?} newTitle
-     * @return {?}
-     */
-    setTitle(newTitle) { getDOM().setTitle(this._doc, newTitle); }
-}
-Title.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-Title.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
-];
 
 /**
  * @fileoverview added by tsickle
@@ -3085,8 +2892,6 @@ const BROWSER_MODULE_PROVIDERS = [
     { provide: Testability, useClass: Testability, deps: [NgZone] },
     { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, NgZone] },
     ELEMENT_PROBE_PROVIDERS,
-    { provide: Meta, useClass: Meta, deps: [DOCUMENT$1] },
-    { provide: Title, useClass: Title, deps: [DOCUMENT$1] },
 ];
 /**
  * The ng module for the browser.
@@ -3129,6 +2934,215 @@ BrowserModule.decorators = [
 BrowserModule.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/** *
+ * A DI Token representing the main rendering context. In a browser this is the DOM Document.
+ *
+ * Note: Document might not be available in the Application Context when Application and Rendering
+ * Contexts are not the same (e.g. when running the application into a Web Worker).
+ *
+ *
+  @type {?} */
+const DOCUMENT$2 = new InjectionToken('DocumentToken');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
+ * A service that can be used to get and add meta tags.
+ *
+ * \@experimental
+ */
+class Meta {
+    /**
+     * @param {?} _doc
+     */
+    constructor(_doc) {
+        this._doc = _doc;
+        this._dom = getDOM();
+    }
+    /**
+     * @param {?} tag
+     * @param {?=} forceCreation
+     * @return {?}
+     */
+    addTag(tag, forceCreation = false) {
+        if (!tag)
+            return null;
+        return this._getOrCreateElement(tag, forceCreation);
+    }
+    /**
+     * @param {?} tags
+     * @param {?=} forceCreation
+     * @return {?}
+     */
+    addTags(tags, forceCreation = false) {
+        if (!tags)
+            return [];
+        return tags.reduce((result, tag) => {
+            if (tag) {
+                result.push(this._getOrCreateElement(tag, forceCreation));
+            }
+            return result;
+        }, []);
+    }
+    /**
+     * @param {?} attrSelector
+     * @return {?}
+     */
+    getTag(attrSelector) {
+        if (!attrSelector)
+            return null;
+        return this._dom.querySelector(this._doc, `meta[${attrSelector}]`) || null;
+    }
+    /**
+     * @param {?} attrSelector
+     * @return {?}
+     */
+    getTags(attrSelector) {
+        if (!attrSelector)
+            return [];
+        /** @type {?} */
+        const list = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
+        return list ? [].slice.call(list) : [];
+    }
+    /**
+     * @param {?} tag
+     * @param {?=} selector
+     * @return {?}
+     */
+    updateTag(tag, selector) {
+        if (!tag)
+            return null;
+        selector = selector || this._parseSelector(tag);
+        /** @type {?} */
+        const meta = /** @type {?} */ ((this.getTag(selector)));
+        if (meta) {
+            return this._setMetaElementAttributes(tag, meta);
+        }
+        return this._getOrCreateElement(tag, true);
+    }
+    /**
+     * @param {?} attrSelector
+     * @return {?}
+     */
+    removeTag(attrSelector) { this.removeTagElement(/** @type {?} */ ((this.getTag(attrSelector)))); }
+    /**
+     * @param {?} meta
+     * @return {?}
+     */
+    removeTagElement(meta) {
+        if (meta) {
+            this._dom.remove(meta);
+        }
+    }
+    /**
+     * @param {?} meta
+     * @param {?=} forceCreation
+     * @return {?}
+     */
+    _getOrCreateElement(meta, forceCreation = false) {
+        if (!forceCreation) {
+            /** @type {?} */
+            const selector = this._parseSelector(meta);
+            /** @type {?} */
+            const elem = /** @type {?} */ ((this.getTag(selector)));
+            // It's allowed to have multiple elements with the same name so it's not enough to
+            // just check that element with the same name already present on the page. We also need to
+            // check if element has tag attributes
+            if (elem && this._containsAttributes(meta, elem))
+                return elem;
+        }
+        /** @type {?} */
+        const element = /** @type {?} */ (this._dom.createElement('meta'));
+        this._setMetaElementAttributes(meta, element);
+        /** @type {?} */
+        const head = this._dom.getElementsByTagName(this._doc, 'head')[0];
+        this._dom.appendChild(head, element);
+        return element;
+    }
+    /**
+     * @param {?} tag
+     * @param {?} el
+     * @return {?}
+     */
+    _setMetaElementAttributes(tag, el) {
+        Object.keys(tag).forEach((prop) => this._dom.setAttribute(el, prop, tag[prop]));
+        return el;
+    }
+    /**
+     * @param {?} tag
+     * @return {?}
+     */
+    _parseSelector(tag) {
+        /** @type {?} */
+        const attr = tag.name ? 'name' : 'property';
+        return `${attr}="${tag[attr]}"`;
+    }
+    /**
+     * @param {?} tag
+     * @param {?} elem
+     * @return {?}
+     */
+    _containsAttributes(tag, elem) {
+        return Object.keys(tag).every((key) => this._dom.getAttribute(elem, key) === tag[key]);
+    }
+}
+Meta.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+/** @nocollapse */
+Meta.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
+];
+/** @nocollapse */ Meta.ngInjectableDef = defineInjectable({ factory: function Meta_Factory() { return new Meta(inject(DOCUMENT$2)); }, token: Meta, providedIn: "root" });
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
+ * A service that can be used to get and set the title of a current HTML document.
+ *
+ * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
+ * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
+ * (representing the `<title>` tag). Instead, this service can be used to set and get the current
+ * title value.
+ *
+ * \@experimental
+ */
+class Title {
+    /**
+     * @param {?} _doc
+     */
+    constructor(_doc) {
+        this._doc = _doc;
+    }
+    /**
+     * Get the title of the current HTML document.
+     * @return {?}
+     */
+    getTitle() { return getDOM().getTitle(this._doc); }
+    /**
+     * Set the title of the current HTML document.
+     * @param {?} newTitle
+     * @return {?}
+     */
+    setTitle(newTitle) { getDOM().setTitle(this._doc, newTitle); }
+}
+Title.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+/** @nocollapse */
+Title.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
+];
+/** @nocollapse */ Title.ngInjectableDef = defineInjectable({ factory: function Title_Factory() { return new Title(inject(DOCUMENT$2)); }, token: Title, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle
@@ -3496,7 +3510,7 @@ class By {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-const VERSION = new Version('6.1.0-beta.3+67.sha-1089261');
+const VERSION = new Version('6.1.0-beta.3+68.sha-197387d');
 
 /**
  * @fileoverview added by tsickle
