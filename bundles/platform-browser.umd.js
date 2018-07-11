@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+76.sha-03616bc
+ * @license Angular v6.1.0-beta.3+77.sha-7d27ecc
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2062,6 +2062,12 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /**
+     * Factory to create Meta service.
+     */
+    function createMeta() {
+        return new Meta(core.inject(DOCUMENT));
+    }
+    /**
      * A service that can be used to get and add meta tags.
      *
      * @experimental
@@ -2147,7 +2153,7 @@
             return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
         };
         Meta = __decorate([
-            core.Injectable({ providedIn: 'root' }),
+            core.Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
             __param(0, core.Inject(DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], Meta);
@@ -2161,6 +2167,12 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /**
+     * Factory to create Title service.
+     */
+    function createTitle() {
+        return new Title(core.inject(DOCUMENT));
+    }
     /**
      * A service that can be used to get and set the title of a current HTML document.
      *
@@ -2185,7 +2197,7 @@
          */
         Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
         Title = __decorate([
-            core.Injectable({ providedIn: 'root' }),
+            core.Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
             __param(0, core.Inject(DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], Title);
@@ -2517,7 +2529,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new core.Version('6.1.0-beta.3+76.sha-03616bc');
+    var VERSION = new core.Version('6.1.0-beta.3+77.sha-7d27ecc');
 
     /**
      * @license

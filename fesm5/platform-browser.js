@@ -1,12 +1,12 @@
 /**
- * @license Angular v6.1.0-beta.3+76.sha-03616bc
+ * @license Angular v6.1.0-beta.3+77.sha-7d27ecc
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { __decorate, __param, __metadata, __extends, __spread, __assign } from 'tslib';
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, NgModule, APP_ID, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, NgZone, Optional, ɵConsole, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, ViewEncapsulation, RendererStyleFlags2, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, NgZone, ɵConsole, Optional, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, inject, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ViewEncapsulation, RendererStyleFlags2, getDebugNode, NgProbeToken } from '@angular/core';
 
 /**
  * @license
@@ -1988,6 +1988,12 @@ var BrowserModule = /** @class */ (function () {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * Factory to create Meta service.
+ */
+function createMeta() {
+    return new Meta(inject(DOCUMENT$1));
+}
+/**
  * A service that can be used to get and add meta tags.
  *
  * @experimental
@@ -2073,7 +2079,7 @@ var Meta = /** @class */ (function () {
         return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
     };
     Meta = __decorate([
-        Injectable({ providedIn: 'root' }),
+        Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
         __param(0, Inject(DOCUMENT$1)),
         __metadata("design:paramtypes", [Object])
     ], Meta);
@@ -2087,6 +2093,12 @@ var Meta = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Factory to create Title service.
+ */
+function createTitle() {
+    return new Title(inject(DOCUMENT$1));
+}
 /**
  * A service that can be used to get and set the title of a current HTML document.
  *
@@ -2111,7 +2123,7 @@ var Title = /** @class */ (function () {
      */
     Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
     Title = __decorate([
-        Injectable({ providedIn: 'root' }),
+        Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
         __param(0, Inject(DOCUMENT$1)),
         __metadata("design:paramtypes", [Object])
     ], Title);
@@ -2443,7 +2455,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.1.0-beta.3+76.sha-03616bc');
+var VERSION = new Version('6.1.0-beta.3+77.sha-7d27ecc');
 
 /**
  * @license

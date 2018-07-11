@@ -24,6 +24,10 @@ export declare type MetaDefinition = {
     [prop: string]: string;
 };
 /**
+ * Factory to create Meta service.
+ */
+export declare function createMeta(): Meta;
+/**
  * A service that can be used to get and add meta tags.
  *
  * @experimental
