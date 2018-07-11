@@ -6,6 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * Factory to create Title service.
+ */
+export declare function createTitle(): Title;
+/**
  * A service that can be used to get and set the title of a current HTML document.
  *
  * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)

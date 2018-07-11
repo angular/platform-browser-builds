@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+75.sha-3a19f70
+ * @license Angular v6.1.0-beta.3+87.sha-05e3e4d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2068,22 +2068,11 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /**
-     * A DI Token representing the main rendering context. In a browser this is the DOM Document.
-     *
-     * Note: Document might not be available in the Application Context when Application and Rendering
-     * Contexts are not the same (e.g. when running the application into a Web Worker).
-     *
-     *
+     * Factory to create Meta service.
      */
-    var DOCUMENT$1 = new core.InjectionToken('DocumentToken');
-
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
+    function createMeta() {
+        return new Meta(core.inject(DOCUMENT));
+    }
     /**
      * A service that can be used to get and add meta tags.
      *
@@ -2170,13 +2159,13 @@
             return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
         };
         Meta.decorators = [
-            { type: core.Injectable, args: [{ providedIn: 'root' },] }
+            { type: core.Injectable, args: [{ providedIn: 'root', useFactory: createMeta, deps: [] },] }
         ];
         /** @nocollapse */
         Meta.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] }] }
         ]; };
-        Meta.ngInjectableDef = core.defineInjectable({ factory: function Meta_Factory() { return new Meta(core.inject(DOCUMENT$1)); }, token: Meta, providedIn: "root" });
+        Meta.ngInjectableDef = core.defineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
         return Meta;
     }());
 
@@ -2187,6 +2176,12 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /**
+     * Factory to create Title service.
+     */
+    function createTitle() {
+        return new Title(core.inject(DOCUMENT));
+    }
     /**
      * A service that can be used to get and set the title of a current HTML document.
      *
@@ -2211,13 +2206,13 @@
          */
         Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
         Title.decorators = [
-            { type: core.Injectable, args: [{ providedIn: 'root' },] }
+            { type: core.Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] }
         ];
         /** @nocollapse */
         Title.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: core.Inject, args: [DOCUMENT,] }] }
         ]; };
-        Title.ngInjectableDef = core.defineInjectable({ factory: function Title_Factory() { return new Title(core.inject(DOCUMENT$1)); }, token: Title, providedIn: "root" });
+        Title.ngInjectableDef = core.defineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
         return Title;
     }());
 
@@ -2544,7 +2539,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new core.Version('6.1.0-beta.3+75.sha-3a19f70');
+    var VERSION = new core.Version('6.1.0-beta.3+87.sha-05e3e4d');
 
     /**
      * @license
@@ -2578,12 +2573,14 @@
     exports.ɵangular_packages_platform_browser_platform_browser_c = BROWSER_MODULE_PROVIDERS;
     exports.ɵangular_packages_platform_browser_platform_browser_b = _document;
     exports.ɵangular_packages_platform_browser_platform_browser_a = errorHandler;
-    exports.ɵangular_packages_platform_browser_platform_browser_i = GenericBrowserDomAdapter;
-    exports.ɵangular_packages_platform_browser_platform_browser_g = SERVER_TRANSITION_PROVIDERS;
-    exports.ɵangular_packages_platform_browser_platform_browser_f = appInitializerFactory;
-    exports.ɵangular_packages_platform_browser_platform_browser_d = initTransferState;
-    exports.ɵangular_packages_platform_browser_platform_browser_h = _createNgProbe;
-    exports.ɵangular_packages_platform_browser_platform_browser_e = EventManagerPlugin;
+    exports.ɵangular_packages_platform_browser_platform_browser_k = GenericBrowserDomAdapter;
+    exports.ɵangular_packages_platform_browser_platform_browser_d = createMeta;
+    exports.ɵangular_packages_platform_browser_platform_browser_i = SERVER_TRANSITION_PROVIDERS;
+    exports.ɵangular_packages_platform_browser_platform_browser_h = appInitializerFactory;
+    exports.ɵangular_packages_platform_browser_platform_browser_e = createTitle;
+    exports.ɵangular_packages_platform_browser_platform_browser_f = initTransferState;
+    exports.ɵangular_packages_platform_browser_platform_browser_j = _createNgProbe;
+    exports.ɵangular_packages_platform_browser_platform_browser_g = EventManagerPlugin;
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
     exports.Meta = Meta;
