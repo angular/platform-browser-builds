@@ -1,12 +1,12 @@
 /**
- * @license Angular v6.1.0-beta.3+76.sha-03616bc
+ * @license Angular v6.1.0-beta.3+77.sha-7d27ecc
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __assign, __extends, __spread } from 'tslib';
+import { __extends, __assign, __spread } from 'tslib';
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, APP_ID, NgModule, NgZone, Version, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, Optional, RendererFactory2, Testability, ApplicationModule, SkipSelf, getDebugNode, NgProbeToken, ViewEncapsulation, RendererStyleFlags2, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, defineInjectable, inject } from '@angular/core';
+import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, inject, APP_ID, NgModule, NgZone, Version, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, Optional, RendererFactory2, Testability, ApplicationModule, SkipSelf, defineInjectable, getDebugNode, NgProbeToken, ViewEncapsulation, RendererStyleFlags2, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl } from '@angular/core';
 
 /**
  * @license
@@ -2009,22 +2009,11 @@ var BrowserModule = /** @class */ (function () {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * A DI Token representing the main rendering context. In a browser this is the DOM Document.
- *
- * Note: Document might not be available in the Application Context when Application and Rendering
- * Contexts are not the same (e.g. when running the application into a Web Worker).
- *
- *
+ * Factory to create Meta service.
  */
-var DOCUMENT$2 = new InjectionToken('DocumentToken');
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+function createMeta() {
+    return new Meta(inject(DOCUMENT$1));
+}
 /**
  * A service that can be used to get and add meta tags.
  *
@@ -2111,13 +2100,13 @@ var Meta = /** @class */ (function () {
         return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
     };
     Meta.decorators = [
-        { type: Injectable, args: [{ providedIn: 'root' },] }
+        { type: Injectable, args: [{ providedIn: 'root', useFactory: createMeta, deps: [] },] }
     ];
     /** @nocollapse */
     Meta.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
     ]; };
-    Meta.ngInjectableDef = defineInjectable({ factory: function Meta_Factory() { return new Meta(inject(DOCUMENT$2)); }, token: Meta, providedIn: "root" });
+    Meta.ngInjectableDef = defineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
     return Meta;
 }());
 
@@ -2128,6 +2117,12 @@ var Meta = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Factory to create Title service.
+ */
+function createTitle() {
+    return new Title(inject(DOCUMENT$1));
+}
 /**
  * A service that can be used to get and set the title of a current HTML document.
  *
@@ -2152,13 +2147,13 @@ var Title = /** @class */ (function () {
      */
     Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
     Title.decorators = [
-        { type: Injectable, args: [{ providedIn: 'root' },] }
+        { type: Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] }
     ];
     /** @nocollapse */
     Title.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
     ]; };
-    Title.ngInjectableDef = defineInjectable({ factory: function Title_Factory() { return new Title(inject(DOCUMENT$2)); }, token: Title, providedIn: "root" });
+    Title.ngInjectableDef = defineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
     return Title;
 }());
 
@@ -2485,7 +2480,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.1.0-beta.3+76.sha-03616bc');
+var VERSION = new Version('6.1.0-beta.3+77.sha-7d27ecc');
 
 /**
  * @license
@@ -2516,5 +2511,5 @@ var VERSION = new Version('6.1.0-beta.3+76.sha-03616bc');
  * Generated bundle index. Do not edit.
  */
 
-export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_i, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_g, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_f, initTransferState as ɵangular_packages_platform_browser_platform_browser_d, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_h, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_e, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
+export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_k, createMeta as ɵangular_packages_platform_browser_platform_browser_d, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_h, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_j, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.js.map
