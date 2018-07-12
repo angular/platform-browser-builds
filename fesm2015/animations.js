@@ -1,13 +1,13 @@
 /**
- * @license Angular v6.0.7+21.sha-0437598
+ * @license Angular v6.0.8+4.sha-48415ed
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { Inject, Injectable, InjectionToken, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgZone, InjectionToken, NgModule } from '@angular/core';
+import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
+import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 /**
@@ -177,8 +177,8 @@ function issueAnimationCommand(renderer, element, id, command, args) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const ANIMATION_PREFIX = '@';
-const DISABLE_ANIMATIONS_FLAG = '@.disabled';
+const /** @type {?} */ ANIMATION_PREFIX = '@';
+const /** @type {?} */ DISABLE_ANIMATIONS_FLAG = '@.disabled';
 class AnimationRendererFactory {
     /**
      * @param {?} delegate
@@ -561,13 +561,6 @@ function parseTriggerCallbackName(triggerName) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class InjectableAnimationEngine extends ɵAnimationEngine {
     /**
      * @param {?} doc
@@ -611,8 +604,8 @@ function instantiateRendererFactory(renderer, engine, zone) {
 /**
  * \@experimental Animation support is experimental.
  */
-const ANIMATION_MODULE_TYPE = new InjectionToken('AnimationModuleType');
-const SHARED_ANIMATION_PROVIDERS = [
+const /** @type {?} */ ANIMATION_MODULE_TYPE = new InjectionToken('AnimationModuleType');
+const /** @type {?} */ SHARED_ANIMATION_PROVIDERS = [
     { provide: AnimationBuilder, useClass: BrowserAnimationBuilder },
     { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
     { provide: ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
@@ -625,7 +618,7 @@ const SHARED_ANIMATION_PROVIDERS = [
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserModule.
  */
-const BROWSER_ANIMATIONS_PROVIDERS = [
+const /** @type {?} */ BROWSER_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
     { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' }, ...SHARED_ANIMATION_PROVIDERS
 ];
@@ -633,7 +626,7 @@ const BROWSER_ANIMATIONS_PROVIDERS = [
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
  */
-const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
+const /** @type {?} */ BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useClass: ɵNoopAnimationDriver },
     { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' }, ...SHARED_ANIMATION_PROVIDERS
 ];
@@ -674,46 +667,16 @@ NoopAnimationsModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// This file is not used to build this module. It is only used during editing
-// by the TypeScript language service and during build for verifcation. `ngc`
-// replaces this file with production index.ts when it rewrites private symbol
-// names.
 
 /**
  * Generated bundle index. Do not edit.
