@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+121.sha-23dc9a9
+ * @license Angular v6.1.0-beta.3+122.sha-d76531d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -214,7 +214,7 @@
             // always use promise to schedule microtask instead of use Zone
             this.promise.then(function () { _this._microtaskId++; });
         };
-        /* @internal */
+        /** @internal */
         AnimationRendererFactory.prototype.scheduleListenerCallback = function (count, fn, data) {
             var _this = this;
             if (count >= 0 && count < this._microtaskId) {
