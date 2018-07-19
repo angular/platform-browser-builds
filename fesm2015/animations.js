@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+117.sha-c8ad965
+ * @license Angular v6.1.0-beta.3+122.sha-d76531d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -138,7 +138,7 @@ let AnimationRendererFactory = class AnimationRendererFactory {
         // always use promise to schedule microtask instead of use Zone
         this.promise.then(() => { this._microtaskId++; });
     }
-    /* @internal */
+    /** @internal */
     scheduleListenerCallback(count, fn, data) {
         if (count >= 0 && count < this._microtaskId) {
             this._zone.run(() => fn(data));
