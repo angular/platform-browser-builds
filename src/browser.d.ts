@@ -35,5 +35,5 @@ export declare class BrowserModule {
      */
     static withServerTransition(params: {
         appId: string;
-    }): ModuleWithProviders;
+    }): ModuleWithProviders<BrowserModule>;
 }
