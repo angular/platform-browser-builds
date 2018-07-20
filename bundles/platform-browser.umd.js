@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-rc.3+17.sha-bb58138
+ * @license Angular v6.1.0-rc.3+41.sha-8620373
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-browser', ['exports', '@angular/common', '@angular/core'], factory) :
     (factory((global.ng = global.ng || {}, global.ng.platformBrowser = {}),global.ng.common,global.ng.core));
-}(this, (function (exports,i1,i0) { 'use strict';
+}(this, (function (exports,common,i0) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -552,7 +552,7 @@
                 new Date().getTime();
         };
         BrowserDomAdapter.prototype.supportsCookies = function () { return true; };
-        BrowserDomAdapter.prototype.getCookie = function (name) { return i1.ɵparseCookieValue(document.cookie, name); };
+        BrowserDomAdapter.prototype.getCookie = function (name) { return common.ɵparseCookieValue(document.cookie, name); };
         BrowserDomAdapter.prototype.setCookie = function (name, value) {
             // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
             // not clear other cookies.
@@ -596,7 +596,7 @@
      *
      * @deprecated import from `@angular/common` instead.
      */
-    var DOCUMENT = i1.DOCUMENT;
+    var DOCUMENT = common.DOCUMENT;
 
     /**
      * @license
@@ -671,7 +671,7 @@
         BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
         BrowserPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory() { return new BrowserPlatformLocation(i0.inject(DOCUMENT)); }, providedIn: null });
         return BrowserPlatformLocation;
-    }(i1.PlatformLocation));
+    }(common.PlatformLocation));
 
     /**
      * @license
@@ -1293,7 +1293,7 @@
         function DomEventsPlugin(doc, ngZone, platformId) {
             var _this = _super.call(this, doc) || this;
             _this.ngZone = ngZone;
-            if (!platformId || !i1.isPlatformServer(platformId)) {
+            if (!platformId || !common.isPlatformServer(platformId)) {
                 _this.patchEvent();
             }
             return _this;
@@ -1842,9 +1842,9 @@
     }(SafeValueImpl));
 
     var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-        { provide: i0.PLATFORM_ID, useValue: i1.ɵPLATFORM_BROWSER_ID },
+        { provide: i0.PLATFORM_ID, useValue: common.ɵPLATFORM_BROWSER_ID },
         { provide: i0.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-        { provide: i1.PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
+        { provide: common.PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
         { provide: DOCUMENT, useFactory: _document, deps: [] },
     ];
     /**
@@ -1926,8 +1926,8 @@
                 ],
             };
         };
-        BrowserModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserModule, bootstrap: [], declarations: [], imports: [], exports: [i1.CommonModule, i0.ApplicationModule] });
-        BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory() { return new BrowserModule(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [i1.CommonModule, i0.ApplicationModule] });
+        BrowserModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserModule, bootstrap: [], declarations: [], imports: [], exports: [common.CommonModule, i0.ApplicationModule] });
+        BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory() { return new BrowserModule(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[common.CommonModule, i0.ApplicationModule]] });
         return BrowserModule;
     }());
 
@@ -2370,7 +2370,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new i0.Version('6.1.0-rc.3+17.sha-bb58138');
+    var VERSION = new i0.Version('6.1.0-rc.3+41.sha-8620373');
 
     /**
      * @license

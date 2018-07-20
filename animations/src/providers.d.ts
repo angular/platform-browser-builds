@@ -12,7 +12,7 @@ import { ɵDomRendererFactory2 as DomRendererFactory2 } from '@angular/platform-
 import { AnimationRendererFactory } from './animation_renderer';
 export declare class InjectableAnimationEngine extends AnimationEngine {
     constructor(doc: any, driver: AnimationDriver, normalizer: AnimationStyleNormalizer);
-    static ngInjectableDef: i0.InjectableDef<InjectableAnimationEngine>;
+    static ngInjectableDef: i0.ɵInjectableDef<InjectableAnimationEngine>;
 }
 export declare function instantiateSupportedAnimationDriver(): WebAnimationsDriver | CssKeyframesDriver;
 export declare function instantiateDefaultStyleNormalizer(): WebAnimationsStyleNormalizer;
