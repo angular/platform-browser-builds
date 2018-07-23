@@ -1,11 +1,11 @@
 /**
- * @license Angular v6.1.0-beta.3+142.sha-082c994
+ * @license Angular v6.1.0-rc.3+70.sha-8a7b0e9
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { ɵglobal, Version, inject, APP_ID, InjectionToken, Optional, ɵConsole, NgZone, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, APP_INITIALIZER, ApplicationInitStatus, Injector, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ɵdefineNgModule, ApplicationModule, defineInjector, defineInjectable, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
+import { ɵglobal, inject, APP_ID, InjectionToken, NgZone, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, Version, APP_INITIALIZER, ApplicationInitStatus, Injector, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ɵdefineNgModule, ApplicationModule, defineInjector, defineInjectable, getDebugNode, NgProbeToken } from '@angular/core';
 
 /**
  * @license
@@ -1766,7 +1766,7 @@ class BrowserModule {
     }
 }
 BrowserModule.ngModuleDef = ɵdefineNgModule({ type: BrowserModule, bootstrap: [], declarations: [], imports: [], exports: [CommonModule, ApplicationModule] });
-BrowserModule.ngInjectorDef = defineInjector({ factory: function BrowserModule_Factory() { return new BrowserModule(inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
+BrowserModule.ngInjectorDef = defineInjector({ factory: function BrowserModule_Factory() { return new BrowserModule(inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[CommonModule, ApplicationModule]] });
 
 /**
  * Factory to create Meta service.
@@ -2188,7 +2188,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.1.0-beta.3+142.sha-082c994');
+const VERSION = new Version('6.1.0-rc.3+70.sha-8a7b0e9');
 
 /**
  * @license

@@ -1,5 +1,4 @@
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/common';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -37,7 +36,7 @@ export declare class BrowserModule {
      */
     static withServerTransition(params: {
         appId: string;
-    }): ModuleWithProviders;
-    static ngModuleDef: i0.ɵNgModuleDef<BrowserModule, [], [], [i1.CommonModule,i0.ApplicationModule]>;
+    }): ModuleWithProviders<BrowserModule>;
+    static ngModuleDef: i0.ɵNgModuleDef<BrowserModule, never, never, [typeof CommonModule,typeof ApplicationModule]>;
     static ngInjectorDef: i0.ɵInjectorDef<BrowserModule>;
 }

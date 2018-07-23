@@ -1,11 +1,11 @@
 /**
- * @license Angular v6.1.0-beta.3+142.sha-082c994
+ * @license Angular v6.1.0-rc.3+70.sha-8a7b0e9
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { NgZone, ɵglobal, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵdefineNgModule, defineInjector, APP_ID } from '@angular/core';
-import { ɵgetDOM, ɵBrowserDomAdapter, BrowserModule, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
+import { NgZone, ɵglobal, APP_ID, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵdefineNgModule, defineInjector } from '@angular/core';
+import { ɵgetDOM, BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 
 /**
  * @license
@@ -86,7 +86,7 @@ BrowserTestingModule.ngInjectorDef = defineInjector({ factory: function BrowserT
         { provide: APP_ID, useValue: 'a' },
         ɵELEMENT_PROBE_PROVIDERS,
         { provide: NgZone, useFactory: createNgZone },
-    ], imports: [BrowserModule] });
+    ], imports: [[BrowserModule]] });
 
 /**
  * @license

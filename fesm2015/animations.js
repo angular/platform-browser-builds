@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+142.sha-082c994
+ * @license Angular v6.1.0-rc.3+70.sha-8a7b0e9
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -133,7 +133,7 @@ class AnimationRendererFactory {
         // always use promise to schedule microtask instead of use Zone
         this.promise.then(() => { this._microtaskId++; });
     }
-    /* @internal */
+    /** @internal */
     scheduleListenerCallback(count, fn, data) {
         if (count >= 0 && count < this._microtaskId) {
             this._zone.run(() => fn(data));
@@ -338,14 +338,14 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
 class BrowserAnimationsModule {
 }
 BrowserAnimationsModule.ngModuleDef = ɵdefineNgModule({ type: BrowserAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
-BrowserAnimationsModule.ngInjectorDef = defineInjector({ factory: function BrowserAnimationsModule_Factory() { return new BrowserAnimationsModule(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+BrowserAnimationsModule.ngInjectorDef = defineInjector({ factory: function BrowserAnimationsModule_Factory() { return new BrowserAnimationsModule(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [[BrowserModule]] });
 /**
  * @experimental Animation support is experimental.
  */
 class NoopAnimationsModule {
 }
 NoopAnimationsModule.ngModuleDef = ɵdefineNgModule({ type: NoopAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
-NoopAnimationsModule.ngInjectorDef = defineInjector({ factory: function NoopAnimationsModule_Factory() { return new NoopAnimationsModule(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+NoopAnimationsModule.ngInjectorDef = defineInjector({ factory: function NoopAnimationsModule_Factory() { return new NoopAnimationsModule(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [[BrowserModule]] });
 
 /**
  * @license
