@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+122.sha-d76531d
+ * @license Angular v6.1.0-rc.3+44.sha-6b859da
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-browser/testing', ['exports', '@angular/core', '@angular/platform-browser'], factory) :
     (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.testing = {}),global.ng.core,global.ng.platformBrowser));
-}(this, (function (exports,i0,i1) { 'use strict';
+}(this, (function (exports,i0,platformBrowser) { 'use strict';
 
     /**
      * @license
@@ -26,7 +26,7 @@
                 if (typeof this._overrideUa === 'string') {
                     return this._overrideUa;
                 }
-                return i1.ɵgetDOM() ? i1.ɵgetDOM().getUserAgent() : '';
+                return platformBrowser.ɵgetDOM() ? platformBrowser.ɵgetDOM().getUserAgent() : '';
             },
             enumerable: true,
             configurable: true
@@ -114,7 +114,7 @@
     }
 
     function initBrowserTests() {
-        i1.ɵBrowserDomAdapter.makeCurrent();
+        platformBrowser.ɵBrowserDomAdapter.makeCurrent();
         BrowserDetection.setup();
     }
     var _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: i0.PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
@@ -132,12 +132,12 @@
     var BrowserTestingModule = /** @class */ (function () {
         function BrowserTestingModule() {
         }
-        BrowserTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTestingModule, bootstrap: [], declarations: [], imports: [], exports: [i1.BrowserModule] });
+        BrowserTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTestingModule, bootstrap: [], declarations: [], imports: [], exports: [platformBrowser.BrowserModule] });
         BrowserTestingModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTestingModule_Factory() { return new BrowserTestingModule(); }, providers: [
                 { provide: i0.APP_ID, useValue: 'a' },
-                i1.ɵELEMENT_PROBE_PROVIDERS,
+                platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
                 { provide: i0.NgZone, useFactory: createNgZone },
-            ], imports: [i1.BrowserModule] });
+            ], imports: [[platformBrowser.BrowserModule]] });
         return BrowserTestingModule;
     }());
 

@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+122.sha-d76531d
+ * @license Angular v6.1.0-rc.3+44.sha-6b859da
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-browser/animations', ['exports', '@angular/core', '@angular/animations', '@angular/platform-browser', '@angular/animations/browser', '@angular/common'], factory) :
     (factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = {}),global.ng.core,global.ng.animations,global.ng.platformBrowser,global.ng.animations.browser,global.ng.common));
-}(this, (function (exports,i0,animations,i1,browser,common) { 'use strict';
+}(this, (function (exports,i0,animations,platformBrowser,browser,common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -80,7 +80,7 @@
             issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
             return new BrowserAnimationFactory(id, this._renderer);
         };
-        BrowserAnimationBuilder.ngInjectableDef = i0.defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory() { return new BrowserAnimationBuilder(i0.inject(i0.RendererFactory2), i0.inject(i1.DOCUMENT)); }, providedIn: null });
+        BrowserAnimationBuilder.ngInjectableDef = i0.defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory() { return new BrowserAnimationBuilder(i0.inject(i0.RendererFactory2), i0.inject(platformBrowser.DOCUMENT)); }, providedIn: null });
         return BrowserAnimationBuilder;
     }(animations.AnimationBuilder));
     var BrowserAnimationFactory = /** @class */ (function (_super) {
@@ -389,7 +389,7 @@
         { provide: browser.ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
             provide: i0.RendererFactory2,
             useFactory: instantiateRendererFactory,
-            deps: [i1.ɵDomRendererFactory2, browser.ɵAnimationEngine, i0.NgZone]
+            deps: [platformBrowser.ɵDomRendererFactory2, browser.ɵAnimationEngine, i0.NgZone]
         }
     ];
     /**
@@ -415,8 +415,8 @@
     var BrowserAnimationsModule = /** @class */ (function () {
         function BrowserAnimationsModule() {
         }
-        BrowserAnimationsModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [i1.BrowserModule] });
-        BrowserAnimationsModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserAnimationsModule_Factory() { return new BrowserAnimationsModule(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [i1.BrowserModule] });
+        BrowserAnimationsModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [platformBrowser.BrowserModule] });
+        BrowserAnimationsModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserAnimationsModule_Factory() { return new BrowserAnimationsModule(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [[platformBrowser.BrowserModule]] });
         return BrowserAnimationsModule;
     }());
     /**
@@ -425,8 +425,8 @@
     var NoopAnimationsModule = /** @class */ (function () {
         function NoopAnimationsModule() {
         }
-        NoopAnimationsModule.ngModuleDef = i0.ɵdefineNgModule({ type: NoopAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [i1.BrowserModule] });
-        NoopAnimationsModule.ngInjectorDef = i0.defineInjector({ factory: function NoopAnimationsModule_Factory() { return new NoopAnimationsModule(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [i1.BrowserModule] });
+        NoopAnimationsModule.ngModuleDef = i0.ɵdefineNgModule({ type: NoopAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [platformBrowser.BrowserModule] });
+        NoopAnimationsModule.ngInjectorDef = i0.defineInjector({ factory: function NoopAnimationsModule_Factory() { return new NoopAnimationsModule(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [[platformBrowser.BrowserModule]] });
         return NoopAnimationsModule;
     }());
 

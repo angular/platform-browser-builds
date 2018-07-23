@@ -48,5 +48,5 @@ export declare class Meta {
     private _setMetaElementAttributes;
     private _parseSelector;
     private _containsAttributes;
-    static ngInjectableDef: i0.InjectableDef<Meta>;
+    static ngInjectableDef: i0.ɵInjectableDef<Meta>;
 }

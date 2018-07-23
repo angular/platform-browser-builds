@@ -14,7 +14,7 @@ export declare class BrowserAnimationBuilder extends AnimationBuilder {
     private _renderer;
     constructor(rootRenderer: RendererFactory2, doc: any);
     build(animation: AnimationMetadata | AnimationMetadata[]): AnimationFactory;
-    static ngInjectableDef: i0.InjectableDef<BrowserAnimationBuilder>;
+    static ngInjectableDef: i0.ɵInjectableDef<BrowserAnimationBuilder>;
 }
 export declare class BrowserAnimationFactory extends AnimationFactory {
     private _id;

@@ -1,5 +1,4 @@
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/platform-browser';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -20,6 +19,6 @@ export declare const platformBrowserTesting: (extraProviders?: StaticProvider[] 
  *
  */
 export declare class BrowserTestingModule {
-    static ngModuleDef: i0.ɵNgModuleDef<BrowserTestingModule, [], [], [i1.BrowserModule]>;
+    static ngModuleDef: i0.ɵNgModuleDef<BrowserTestingModule, never, never, [typeof BrowserModule]>;
     static ngInjectorDef: i0.ɵInjectorDef<BrowserTestingModule>;
 }
