@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.1.1+24.sha-94a2ac7
+ * @license Angular v6.1.1+26.sha-054fbbe
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __extends, __spread, __assign } from 'tslib';
+import { __extends, __assign, __spread } from 'tslib';
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import { ɵglobal, inject, APP_ID, InjectionToken, NgZone, Version, APP_INITIALIZER, ApplicationInitStatus, Injector, setTestabilityGetter, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, Optional, RendererFactory2, Testability, ɵdefineNgModule, ApplicationModule, defineInjector, defineInjectable, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, getDebugNode, NgProbeToken, ViewEncapsulation, RendererStyleFlags2 } from '@angular/core';
 
@@ -2311,7 +2311,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.1.1+24.sha-94a2ac7');
+var VERSION = new Version('6.1.1+26.sha-054fbbe');
 
 /**
  * @license
