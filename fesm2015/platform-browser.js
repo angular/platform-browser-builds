@@ -1,11 +1,11 @@
 /**
- * @license Angular v7.0.0-beta.0+41.sha-2505c07
+ * @license Angular v7.0.0-beta.0+42.sha-2fe05ab
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, inject, APP_ID, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, InjectionToken, NgZone, Optional, ɵConsole, Version, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, APP_INITIALIZER, ApplicationInitStatus, Injector, ApplicationRef, defineInjectable, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ɵdefineNgModule, ApplicationModule, defineInjector, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵglobal, inject, InjectionToken, NgZone, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, Version, APP_ID, ApplicationRef, APP_INITIALIZER, ApplicationInitStatus, Injector, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, defineInjectable, ɵdefineNgModule, defineInjector, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, getDebugNode, NgProbeToken } from '@angular/core';
 
 /**
  * @license
@@ -2188,7 +2188,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('7.0.0-beta.0+41.sha-2505c07');
+const VERSION = new Version('7.0.0-beta.0+42.sha-2fe05ab');
 
 /**
  * @license
