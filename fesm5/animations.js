@@ -1,14 +1,15 @@
 /**
- * @license Angular v6.0.0-rc.5+145.sha-741fa9e
+ * @license Angular v7.0.0-beta.1+25.sha-ca8c683
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { Inject, Injectable, InjectionToken, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { __extends, __read, __spread } from 'tslib';
+import { __extends, __spread, __read } from 'tslib';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgZone, InjectionToken, NgModule } from '@angular/core';
+import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
+import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 var BrowserAnimationBuilder = /** @class */ (function (_super) {
     __extends(BrowserAnimationBuilder, _super);
@@ -36,8 +37,8 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     BrowserAnimationBuilder.ctorParameters = function () { return [
-        { type: RendererFactory2, },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+        { type: RendererFactory2 },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ]; };
     return BrowserAnimationBuilder;
 }(AnimationBuilder));
@@ -139,9 +140,7 @@ var AnimationRendererFactory = /** @class */ (function () {
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
         var animationTriggers = type.data['animation'];
-        animationTriggers.forEach(function (trigger) {
-            return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger);
-        });
+        animationTriggers.forEach(function (trigger) { return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger); });
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     };
     AnimationRendererFactory.prototype.begin = function () {
@@ -155,10 +154,8 @@ var AnimationRendererFactory = /** @class */ (function () {
         // always use promise to schedule microtask instead of use Zone
         this.promise.then(function () { _this._microtaskId++; });
     };
-    /* @internal */
-    /* @internal */
-    AnimationRendererFactory.prototype.scheduleListenerCallback = /* @internal */
-    function (count, fn, data) {
+    /** @internal */
+    AnimationRendererFactory.prototype.scheduleListenerCallback = function (count, fn, data) {
         var _this = this;
         if (count >= 0 && count < this._microtaskId) {
             this._zone.run(function () { return fn(data); });
@@ -198,9 +195,9 @@ var AnimationRendererFactory = /** @class */ (function () {
     ];
     /** @nocollapse */
     AnimationRendererFactory.ctorParameters = function () { return [
-        { type: RendererFactory2, },
-        { type: ɵAnimationEngine, },
-        { type: NgZone, },
+        { type: RendererFactory2 },
+        { type: ɵAnimationEngine },
+        { type: NgZone }
     ]; };
     return AnimationRendererFactory;
 }());
@@ -294,6 +291,7 @@ var AnimationRenderer = /** @class */ (function (_super) {
     };
     AnimationRenderer.prototype.listen = function (target, eventName, callback) {
         var _this = this;
+        var _a;
         if (eventName.charAt(0) == ANIMATION_PREFIX) {
             var element = resolveElementFromTarget(target);
             var name_1 = eventName.substr(1);
@@ -309,7 +307,6 @@ var AnimationRenderer = /** @class */ (function (_super) {
             });
         }
         return this.delegate.listen(target, eventName, callback);
-        var _a;
     };
     return AnimationRenderer;
 }(BaseAnimationRenderer));
@@ -341,16 +338,17 @@ function parseTriggerCallbackName(triggerName) {
  */
 var InjectableAnimationEngine = /** @class */ (function (_super) {
     __extends(InjectableAnimationEngine, _super);
-    function InjectableAnimationEngine(driver, normalizer) {
-        return _super.call(this, driver, normalizer) || this;
+    function InjectableAnimationEngine(doc, driver, normalizer) {
+        return _super.call(this, doc.body, driver, normalizer) || this;
     }
     InjectableAnimationEngine.decorators = [
         { type: Injectable }
     ];
     /** @nocollapse */
     InjectableAnimationEngine.ctorParameters = function () { return [
-        { type: AnimationDriver, },
-        { type: ɵAnimationStyleNormalizer, },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+        { type: AnimationDriver },
+        { type: ɵAnimationStyleNormalizer }
     ]; };
     return InjectableAnimationEngine;
 }(ɵAnimationEngine));
@@ -394,6 +392,13 @@ var BROWSER_NOOP_ANIMATIONS_PROVIDERS = __spread([
 ], SHARED_ANIMATION_PROVIDERS);
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @experimental Animation support is experimental.
  */
 var BrowserAnimationsModule = /** @class */ (function () {
@@ -405,8 +410,6 @@ var BrowserAnimationsModule = /** @class */ (function () {
                     providers: BROWSER_ANIMATIONS_PROVIDERS,
                 },] }
     ];
-    /** @nocollapse */
-    BrowserAnimationsModule.ctorParameters = function () { return []; };
     return BrowserAnimationsModule;
 }());
 /**
@@ -421,10 +424,16 @@ var NoopAnimationsModule = /** @class */ (function () {
                     providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
                 },] }
     ];
-    /** @nocollapse */
-    NoopAnimationsModule.ctorParameters = function () { return []; };
     return NoopAnimationsModule;
 }());
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
 /**
  * @license
