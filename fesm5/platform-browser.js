@@ -1,12 +1,12 @@
 /**
- * @license Angular v7.0.0-beta.1+10.sha-b64fed1
+ * @license Angular v7.0.0-beta.1+52.sha-1f11039
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { __extends, __spread, __assign } from 'tslib';
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, inject, APP_ID, InjectionToken, NgZone, Version, ApplicationRef, APP_INITIALIZER, ApplicationInitStatus, Injector, setTestabilityGetter, defineInjectable, ɵdefineNgModule, defineInjector, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, Optional, RendererFactory2, Testability, ApplicationModule, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ViewEncapsulation, RendererStyleFlags2, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵglobal, inject, APP_ID, InjectionToken, NgZone, Version, ApplicationRef, setTestabilityGetter, APP_INITIALIZER, ApplicationInitStatus, Injector, defineInjectable, ɵdefineNgModule, defineInjector, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, Optional, RendererFactory2, Testability, ApplicationModule, ViewEncapsulation, RendererStyleFlags2, getDebugNode, NgProbeToken } from '@angular/core';
 
 /**
  * @license
@@ -610,7 +610,7 @@ var BrowserPlatformLocation = /** @class */ (function (_super) {
     };
     BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
     BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
-    BrowserPlatformLocation.ngInjectableDef = defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory() { return new BrowserPlatformLocation(inject(DOCUMENT$1)); }, providedIn: null });
+    BrowserPlatformLocation.ngInjectableDef = defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory(t) { return new (t || BrowserPlatformLocation)(inject(DOCUMENT$1)); }, providedIn: null });
     return BrowserPlatformLocation;
 }(PlatformLocation));
 
@@ -777,6 +777,13 @@ var ELEMENT_PROBE_PROVIDERS = [
 ];
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * The injection token for the event-manager plug-in service.
  */
 var EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
@@ -841,7 +848,7 @@ var EventManager = /** @class */ (function () {
         }
         throw new Error("No event manager plugin found for event " + eventName);
     };
-    EventManager.ngInjectableDef = defineInjectable({ token: EventManager, factory: function EventManager_Factory() { return new EventManager(inject(EVENT_MANAGER_PLUGINS), inject(NgZone)); }, providedIn: null });
+    EventManager.ngInjectableDef = defineInjectable({ token: EventManager, factory: function EventManager_Factory(t) { return new (t || EventManager)(inject(EVENT_MANAGER_PLUGINS), inject(NgZone)); }, providedIn: null });
     return EventManager;
 }());
 var EventManagerPlugin = /** @class */ (function () {
@@ -876,7 +883,7 @@ var SharedStylesHost = /** @class */ (function () {
     };
     SharedStylesHost.prototype.onStylesAdded = function (additions) { };
     SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
-    SharedStylesHost.ngInjectableDef = defineInjectable({ token: SharedStylesHost, factory: function SharedStylesHost_Factory() { return new SharedStylesHost(); }, providedIn: null });
+    SharedStylesHost.ngInjectableDef = defineInjectable({ token: SharedStylesHost, factory: function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); }, providedIn: null });
     return SharedStylesHost;
 }());
 var DomSharedStylesHost = /** @class */ (function (_super) {
@@ -907,7 +914,7 @@ var DomSharedStylesHost = /** @class */ (function (_super) {
         this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
     };
     DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
-    DomSharedStylesHost.ngInjectableDef = defineInjectable({ token: DomSharedStylesHost, factory: function DomSharedStylesHost_Factory() { return new DomSharedStylesHost(inject(DOCUMENT$1)); }, providedIn: null });
+    DomSharedStylesHost.ngInjectableDef = defineInjectable({ token: DomSharedStylesHost, factory: function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(inject(DOCUMENT$1)); }, providedIn: null });
     return DomSharedStylesHost;
 }(SharedStylesHost));
 
@@ -988,7 +995,7 @@ var DomRendererFactory2 = /** @class */ (function () {
     };
     DomRendererFactory2.prototype.begin = function () { };
     DomRendererFactory2.prototype.end = function () { };
-    DomRendererFactory2.ngInjectableDef = defineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory() { return new DomRendererFactory2(inject(EventManager), inject(DomSharedStylesHost)); }, providedIn: null });
+    DomRendererFactory2.ngInjectableDef = defineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(inject(EventManager), inject(DomSharedStylesHost)); }, providedIn: null });
     return DomRendererFactory2;
 }());
 var DefaultDomRenderer2 = /** @class */ (function () {
@@ -1339,7 +1346,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
             target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
     };
-    DomEventsPlugin.ngInjectableDef = defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory() { return new DomEventsPlugin(inject(DOCUMENT$1), inject(NgZone), inject(PLATFORM_ID, 8)); }, providedIn: null });
+    DomEventsPlugin.ngInjectableDef = defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(inject(DOCUMENT$1), inject(NgZone), inject(PLATFORM_ID, 8)); }, providedIn: null });
     return DomEventsPlugin;
 }(EventManagerPlugin));
 
@@ -1438,7 +1445,7 @@ var HammerGestureConfig = /** @class */ (function () {
         }
         return mc;
     };
-    HammerGestureConfig.ngInjectableDef = defineInjectable({ token: HammerGestureConfig, factory: function HammerGestureConfig_Factory() { return new HammerGestureConfig(); }, providedIn: null });
+    HammerGestureConfig.ngInjectableDef = defineInjectable({ token: HammerGestureConfig, factory: function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); }, providedIn: null });
     return HammerGestureConfig;
 }());
 var HammerGesturesPlugin = /** @class */ (function (_super) {
@@ -1508,7 +1515,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
         });
     };
     HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
-    HammerGesturesPlugin.ngInjectableDef = defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory() { return new HammerGesturesPlugin(inject(DOCUMENT$1), inject(HAMMER_GESTURE_CONFIG), inject(ɵConsole), inject(HAMMER_LOADER, 8)); }, providedIn: null });
+    HammerGesturesPlugin.ngInjectableDef = defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(inject(DOCUMENT$1), inject(HAMMER_GESTURE_CONFIG), inject(ɵConsole), inject(HAMMER_LOADER, 8)); }, providedIn: null });
     return HammerGesturesPlugin;
 }(EventManagerPlugin));
 
@@ -1629,7 +1636,7 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
                 return keyName;
         }
     };
-    KeyEventsPlugin.ngInjectableDef = defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory() { return new KeyEventsPlugin(inject(DOCUMENT$1)); }, providedIn: null });
+    KeyEventsPlugin.ngInjectableDef = defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(inject(DOCUMENT$1)); }, providedIn: null });
     return KeyEventsPlugin;
 }(EventManagerPlugin));
 
@@ -1727,7 +1734,7 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
     DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
         return new SafeResourceUrlImpl(value);
     };
-    DomSanitizerImpl.ngInjectableDef = defineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory() { return new DomSanitizerImpl(inject(DOCUMENT$1)); }, providedIn: null });
+    DomSanitizerImpl.ngInjectableDef = defineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(inject(DOCUMENT$1)); }, providedIn: null });
     return DomSanitizerImpl;
 }(DomSanitizer));
 var SafeValueImpl = /** @class */ (function () {
@@ -1782,6 +1789,13 @@ var SafeResourceUrlImpl = /** @class */ (function (_super) {
     return SafeResourceUrlImpl;
 }(SafeValueImpl));
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
@@ -1868,10 +1882,17 @@ var BrowserModule = /** @class */ (function () {
         };
     };
     BrowserModule.ngModuleDef = ɵdefineNgModule({ type: BrowserModule, bootstrap: [], declarations: [], imports: [], exports: [CommonModule, ApplicationModule] });
-    BrowserModule.ngInjectorDef = defineInjector({ factory: function BrowserModule_Factory() { return new BrowserModule(inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[CommonModule, ApplicationModule]] });
+    BrowserModule.ngInjectorDef = defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[CommonModule, ApplicationModule]] });
     return BrowserModule;
 }());
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * Factory to create Meta service.
  */
@@ -1963,10 +1984,22 @@ var Meta = /** @class */ (function () {
         var _this = this;
         return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
     };
-    Meta.ngInjectableDef = defineInjectable({ token: Meta, factory: function Meta_Factory() { return createMeta(); }, providedIn: 'root' });
+    Meta.ngInjectableDef = defineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
+            (r = new t(inject(DOCUMENT$1)));
+        }
+        else {
+            (r = createMeta());
+        } return r; }, providedIn: 'root' });
     return Meta;
 }());
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * Factory to create Title service.
  */
@@ -1996,7 +2029,12 @@ var Title = /** @class */ (function () {
      * @param newTitle
      */
     Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
-    Title.ngInjectableDef = defineInjectable({ token: Title, factory: function Title_Factory() { return createTitle(); }, providedIn: 'root' });
+    Title.ngInjectableDef = defineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
+            (r = new t(inject(DOCUMENT$1)));
+        }
+        else {
+            (r = createTitle());
+        } return r; }, providedIn: 'root' });
     return Title;
 }());
 
@@ -2112,6 +2150,13 @@ function disableDebugTools() {
     exportNgVar(PROFILER_GLOBAL_NAME, null);
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 function escapeHtml(text) {
     var escapedText = {
         '&': '&a;',
@@ -2214,7 +2259,7 @@ var TransferState = /** @class */ (function () {
         }
         return JSON.stringify(this.store);
     };
-    TransferState.ngInjectableDef = defineInjectable({ token: TransferState, factory: function TransferState_Factory() { return new TransferState(); }, providedIn: null });
+    TransferState.ngInjectableDef = defineInjectable({ token: TransferState, factory: function TransferState_Factory(t) { return new (t || TransferState)(); }, providedIn: null });
     return TransferState;
 }());
 function initTransferState(doc, appId) {
@@ -2242,7 +2287,7 @@ var BrowserTransferStateModule = /** @class */ (function () {
     function BrowserTransferStateModule() {
     }
     BrowserTransferStateModule.ngModuleDef = ɵdefineNgModule({ type: BrowserTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
-    BrowserTransferStateModule.ngInjectorDef = defineInjector({ factory: function BrowserTransferStateModule_Factory() { return new BrowserTransferStateModule(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }], imports: [] });
+    BrowserTransferStateModule.ngInjectorDef = defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }], imports: [] });
     return BrowserTransferStateModule;
 }());
 
@@ -2311,7 +2356,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('7.0.0-beta.1+10.sha-b64fed1');
+var VERSION = new Version('7.0.0-beta.1+52.sha-1f11039');
 
 /**
  * @license

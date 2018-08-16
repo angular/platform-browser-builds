@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.1+10.sha-b64fed1
+ * @license Angular v7.0.0-beta.1+52.sha-1f11039
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -110,6 +110,13 @@ function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -130,7 +137,7 @@ var BrowserTestingModule = /** @class */ (function () {
     function BrowserTestingModule() {
     }
     BrowserTestingModule.ngModuleDef = ɵdefineNgModule({ type: BrowserTestingModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
-    BrowserTestingModule.ngInjectorDef = defineInjector({ factory: function BrowserTestingModule_Factory() { return new BrowserTestingModule(); }, providers: [
+    BrowserTestingModule.ngInjectorDef = defineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
             { provide: APP_ID, useValue: 'a' },
             ɵELEMENT_PROBE_PROVIDERS,
             { provide: NgZone, useFactory: createNgZone },

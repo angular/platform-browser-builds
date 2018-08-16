@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.1+10.sha-b64fed1
+ * @license Angular v7.0.0-beta.1+52.sha-1f11039
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -675,7 +675,7 @@
         };
         BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
         BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
-        BrowserPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory() { return new BrowserPlatformLocation(i0.inject(DOCUMENT)); }, providedIn: null });
+        BrowserPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory(t) { return new (t || BrowserPlatformLocation)(i0.inject(DOCUMENT)); }, providedIn: null });
         return BrowserPlatformLocation;
     }(common.PlatformLocation));
 
@@ -842,6 +842,13 @@
     ];
 
     /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
      * The injection token for the event-manager plug-in service.
      */
     var EVENT_MANAGER_PLUGINS = new i0.InjectionToken('EventManagerPlugins');
@@ -906,7 +913,7 @@
             }
             throw new Error("No event manager plugin found for event " + eventName);
         };
-        EventManager.ngInjectableDef = i0.defineInjectable({ token: EventManager, factory: function EventManager_Factory() { return new EventManager(i0.inject(EVENT_MANAGER_PLUGINS), i0.inject(i0.NgZone)); }, providedIn: null });
+        EventManager.ngInjectableDef = i0.defineInjectable({ token: EventManager, factory: function EventManager_Factory(t) { return new (t || EventManager)(i0.inject(EVENT_MANAGER_PLUGINS), i0.inject(i0.NgZone)); }, providedIn: null });
         return EventManager;
     }());
     var EventManagerPlugin = /** @class */ (function () {
@@ -941,7 +948,7 @@
         };
         SharedStylesHost.prototype.onStylesAdded = function (additions) { };
         SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
-        SharedStylesHost.ngInjectableDef = i0.defineInjectable({ token: SharedStylesHost, factory: function SharedStylesHost_Factory() { return new SharedStylesHost(); }, providedIn: null });
+        SharedStylesHost.ngInjectableDef = i0.defineInjectable({ token: SharedStylesHost, factory: function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); }, providedIn: null });
         return SharedStylesHost;
     }());
     var DomSharedStylesHost = /** @class */ (function (_super) {
@@ -972,7 +979,7 @@
             this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
         };
         DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
-        DomSharedStylesHost.ngInjectableDef = i0.defineInjectable({ token: DomSharedStylesHost, factory: function DomSharedStylesHost_Factory() { return new DomSharedStylesHost(i0.inject(DOCUMENT)); }, providedIn: null });
+        DomSharedStylesHost.ngInjectableDef = i0.defineInjectable({ token: DomSharedStylesHost, factory: function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(i0.inject(DOCUMENT)); }, providedIn: null });
         return DomSharedStylesHost;
     }(SharedStylesHost));
 
@@ -1053,7 +1060,7 @@
         };
         DomRendererFactory2.prototype.begin = function () { };
         DomRendererFactory2.prototype.end = function () { };
-        DomRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory() { return new DomRendererFactory2(i0.inject(EventManager), i0.inject(DomSharedStylesHost)); }, providedIn: null });
+        DomRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(i0.inject(EventManager), i0.inject(DomSharedStylesHost)); }, providedIn: null });
         return DomRendererFactory2;
     }());
     var DefaultDomRenderer2 = /** @class */ (function () {
@@ -1404,7 +1411,7 @@
                 target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
             }
         };
-        DomEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory() { return new DomEventsPlugin(i0.inject(DOCUMENT), i0.inject(i0.NgZone), i0.inject(i0.PLATFORM_ID, 8)); }, providedIn: null });
+        DomEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(i0.inject(DOCUMENT), i0.inject(i0.NgZone), i0.inject(i0.PLATFORM_ID, 8)); }, providedIn: null });
         return DomEventsPlugin;
     }(EventManagerPlugin));
 
@@ -1503,7 +1510,7 @@
             }
             return mc;
         };
-        HammerGestureConfig.ngInjectableDef = i0.defineInjectable({ token: HammerGestureConfig, factory: function HammerGestureConfig_Factory() { return new HammerGestureConfig(); }, providedIn: null });
+        HammerGestureConfig.ngInjectableDef = i0.defineInjectable({ token: HammerGestureConfig, factory: function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); }, providedIn: null });
         return HammerGestureConfig;
     }());
     var HammerGesturesPlugin = /** @class */ (function (_super) {
@@ -1573,7 +1580,7 @@
             });
         };
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
-        HammerGesturesPlugin.ngInjectableDef = i0.defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory() { return new HammerGesturesPlugin(i0.inject(DOCUMENT), i0.inject(HAMMER_GESTURE_CONFIG), i0.inject(i0.ɵConsole), i0.inject(HAMMER_LOADER, 8)); }, providedIn: null });
+        HammerGesturesPlugin.ngInjectableDef = i0.defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(i0.inject(DOCUMENT), i0.inject(HAMMER_GESTURE_CONFIG), i0.inject(i0.ɵConsole), i0.inject(HAMMER_LOADER, 8)); }, providedIn: null });
         return HammerGesturesPlugin;
     }(EventManagerPlugin));
 
@@ -1694,7 +1701,7 @@
                     return keyName;
             }
         };
-        KeyEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory() { return new KeyEventsPlugin(i0.inject(DOCUMENT)); }, providedIn: null });
+        KeyEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(i0.inject(DOCUMENT)); }, providedIn: null });
         return KeyEventsPlugin;
     }(EventManagerPlugin));
 
@@ -1792,7 +1799,7 @@
         DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
             return new SafeResourceUrlImpl(value);
         };
-        DomSanitizerImpl.ngInjectableDef = i0.defineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory() { return new DomSanitizerImpl(i0.inject(DOCUMENT)); }, providedIn: null });
+        DomSanitizerImpl.ngInjectableDef = i0.defineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(i0.inject(DOCUMENT)); }, providedIn: null });
         return DomSanitizerImpl;
     }(DomSanitizer));
     var SafeValueImpl = /** @class */ (function () {
@@ -1847,6 +1854,13 @@
         return SafeResourceUrlImpl;
     }(SafeValueImpl));
 
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
         { provide: i0.PLATFORM_ID, useValue: common.ɵPLATFORM_BROWSER_ID },
         { provide: i0.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
@@ -1933,10 +1947,17 @@
             };
         };
         BrowserModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserModule, bootstrap: [], declarations: [], imports: [], exports: [common.CommonModule, i0.ApplicationModule] });
-        BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory() { return new BrowserModule(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[common.CommonModule, i0.ApplicationModule]] });
+        BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[common.CommonModule, i0.ApplicationModule]] });
         return BrowserModule;
     }());
 
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     /**
      * Factory to create Meta service.
      */
@@ -2028,10 +2049,22 @@
             var _this = this;
             return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
         };
-        Meta.ngInjectableDef = i0.defineInjectable({ token: Meta, factory: function Meta_Factory() { return createMeta(); }, providedIn: 'root' });
+        Meta.ngInjectableDef = i0.defineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
+                (r = new t(i0.inject(DOCUMENT)));
+            }
+            else {
+                (r = createMeta());
+            } return r; }, providedIn: 'root' });
         return Meta;
     }());
 
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     /**
      * Factory to create Title service.
      */
@@ -2061,7 +2094,12 @@
          * @param newTitle
          */
         Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
-        Title.ngInjectableDef = i0.defineInjectable({ token: Title, factory: function Title_Factory() { return createTitle(); }, providedIn: 'root' });
+        Title.ngInjectableDef = i0.defineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
+                (r = new t(i0.inject(DOCUMENT)));
+            }
+            else {
+                (r = createTitle());
+            } return r; }, providedIn: 'root' });
         return Title;
     }());
 
@@ -2177,6 +2215,13 @@
         exportNgVar(PROFILER_GLOBAL_NAME, null);
     }
 
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     function escapeHtml(text) {
         var escapedText = {
             '&': '&a;',
@@ -2279,7 +2324,7 @@
             }
             return JSON.stringify(this.store);
         };
-        TransferState.ngInjectableDef = i0.defineInjectable({ token: TransferState, factory: function TransferState_Factory() { return new TransferState(); }, providedIn: null });
+        TransferState.ngInjectableDef = i0.defineInjectable({ token: TransferState, factory: function TransferState_Factory(t) { return new (t || TransferState)(); }, providedIn: null });
         return TransferState;
     }());
     function initTransferState(doc, appId) {
@@ -2307,7 +2352,7 @@
         function BrowserTransferStateModule() {
         }
         BrowserTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
-        BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory() { return new BrowserTransferStateModule(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, i0.APP_ID] }], imports: [] });
+        BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, i0.APP_ID] }], imports: [] });
         return BrowserTransferStateModule;
     }());
 
@@ -2376,7 +2421,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new i0.Version('7.0.0-beta.1+10.sha-b64fed1');
+    var VERSION = new i0.Version('7.0.0-beta.1+52.sha-1f11039');
 
     /**
      * @license
