@@ -1,10 +1,10 @@
 /**
- * @license Angular v7.0.0-beta.3+67.sha-0024d68
+ * @license Angular v7.0.0-beta.3+68.sha-b069514
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __extends, __decorate, __param, __metadata, __spread, __read } from 'tslib';
+import { __read, __decorate, __metadata, __extends, __param, __spread } from 'tslib';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgZone, InjectionToken, NgModule } from '@angular/core';
 import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
