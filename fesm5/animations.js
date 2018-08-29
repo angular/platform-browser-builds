@@ -1,14 +1,15 @@
 /**
- * @license Angular v6.0.0-rc.5+217.sha-5dafa1a
+ * @license Angular v7.0.0-beta.3+76.sha-693c387
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { Inject, Injectable, InjectionToken, NgModule, NgZone, RendererFactory2, ViewEncapsulation } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { __extends, __read, __spread } from 'tslib';
+import { __read, __decorate, __metadata, __extends, __param, __spread } from 'tslib';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { AnimationDriver, ɵAnimationEngine, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgZone, InjectionToken, NgModule } from '@angular/core';
+import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
+import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 var BrowserAnimationBuilder = /** @class */ (function (_super) {
     __extends(BrowserAnimationBuilder, _super);
@@ -31,14 +32,11 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
         issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
         return new BrowserAnimationFactory(id, this._renderer);
     };
-    BrowserAnimationBuilder.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    BrowserAnimationBuilder.ctorParameters = function () { return [
-        { type: RendererFactory2, },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    ]; };
+    BrowserAnimationBuilder = __decorate([
+        Injectable(),
+        __param(1, Inject(DOCUMENT)),
+        __metadata("design:paramtypes", [RendererFactory2, Object])
+    ], BrowserAnimationBuilder);
     return BrowserAnimationBuilder;
 }(AnimationBuilder));
 var BrowserAnimationFactory = /** @class */ (function (_super) {
@@ -139,9 +137,7 @@ var AnimationRendererFactory = /** @class */ (function () {
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
         var animationTriggers = type.data['animation'];
-        animationTriggers.forEach(function (trigger) {
-            return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger);
-        });
+        animationTriggers.forEach(function (trigger) { return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger); });
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     };
     AnimationRendererFactory.prototype.begin = function () {
@@ -155,10 +151,8 @@ var AnimationRendererFactory = /** @class */ (function () {
         // always use promise to schedule microtask instead of use Zone
         this.promise.then(function () { _this._microtaskId++; });
     };
-    /* @internal */
-    /* @internal */
-    AnimationRendererFactory.prototype.scheduleListenerCallback = /* @internal */
-    function (count, fn, data) {
+    /** @internal */
+    AnimationRendererFactory.prototype.scheduleListenerCallback = function (count, fn, data) {
         var _this = this;
         if (count >= 0 && count < this._microtaskId) {
             this._zone.run(function () { return fn(data); });
@@ -193,15 +187,10 @@ var AnimationRendererFactory = /** @class */ (function () {
         }
     };
     AnimationRendererFactory.prototype.whenRenderingDone = function () { return this.engine.whenRenderingDone(); };
-    AnimationRendererFactory.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    AnimationRendererFactory.ctorParameters = function () { return [
-        { type: RendererFactory2, },
-        { type: ɵAnimationEngine, },
-        { type: NgZone, },
-    ]; };
+    AnimationRendererFactory = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [RendererFactory2, ɵAnimationEngine, NgZone])
+    ], AnimationRendererFactory);
     return AnimationRendererFactory;
 }());
 var BaseAnimationRenderer = /** @class */ (function () {
@@ -294,6 +283,7 @@ var AnimationRenderer = /** @class */ (function (_super) {
     };
     AnimationRenderer.prototype.listen = function (target, eventName, callback) {
         var _this = this;
+        var _a;
         if (eventName.charAt(0) == ANIMATION_PREFIX) {
             var element = resolveElementFromTarget(target);
             var name_1 = eventName.substr(1);
@@ -309,7 +299,6 @@ var AnimationRenderer = /** @class */ (function (_super) {
             });
         }
         return this.delegate.listen(target, eventName, callback);
-        var _a;
     };
     return AnimationRenderer;
 }(BaseAnimationRenderer));
@@ -341,17 +330,14 @@ function parseTriggerCallbackName(triggerName) {
  */
 var InjectableAnimationEngine = /** @class */ (function (_super) {
     __extends(InjectableAnimationEngine, _super);
-    function InjectableAnimationEngine(driver, normalizer) {
-        return _super.call(this, driver, normalizer) || this;
+    function InjectableAnimationEngine(doc, driver, normalizer) {
+        return _super.call(this, doc.body, driver, normalizer) || this;
     }
-    InjectableAnimationEngine.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    InjectableAnimationEngine.ctorParameters = function () { return [
-        { type: AnimationDriver, },
-        { type: ɵAnimationStyleNormalizer, },
-    ]; };
+    InjectableAnimationEngine = __decorate([
+        Injectable(),
+        __param(0, Inject(DOCUMENT$1)),
+        __metadata("design:paramtypes", [Object, AnimationDriver, ɵAnimationStyleNormalizer])
+    ], InjectableAnimationEngine);
     return InjectableAnimationEngine;
 }(ɵAnimationEngine));
 function instantiateSupportedAnimationDriver() {
@@ -399,12 +385,12 @@ var BROWSER_NOOP_ANIMATIONS_PROVIDERS = __spread([
 var BrowserAnimationsModule = /** @class */ (function () {
     function BrowserAnimationsModule() {
     }
-    BrowserAnimationsModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    providers: BROWSER_ANIMATIONS_PROVIDERS,
-                },] }
-    ];
+    BrowserAnimationsModule = __decorate([
+        NgModule({
+            exports: [BrowserModule],
+            providers: BROWSER_ANIMATIONS_PROVIDERS,
+        })
+    ], BrowserAnimationsModule);
     return BrowserAnimationsModule;
 }());
 /**
@@ -413,14 +399,22 @@ var BrowserAnimationsModule = /** @class */ (function () {
 var NoopAnimationsModule = /** @class */ (function () {
     function NoopAnimationsModule() {
     }
-    NoopAnimationsModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
-                },] }
-    ];
+    NoopAnimationsModule = __decorate([
+        NgModule({
+            exports: [BrowserModule],
+            providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
+        })
+    ], NoopAnimationsModule);
     return NoopAnimationsModule;
 }());
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
 /**
  * @license

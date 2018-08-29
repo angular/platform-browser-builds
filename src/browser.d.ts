@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { ErrorHandler, ModuleWithProviders, PlatformRef, StaticProvider } from '@angular/core';
 export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
 /**
@@ -11,13 +18,14 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
 export declare function initDomAdapter(): void;
 export declare function errorHandler(): ErrorHandler;
 export declare function _document(): any;
+export declare const BROWSER_MODULE_PROVIDERS: StaticProvider[];
 /**
  * The ng module for the browser.
  *
  *
  */
 export declare class BrowserModule {
-    constructor(parentModule: BrowserModule);
+    constructor(parentModule: BrowserModule | null);
     /**
      * Configures a browser-based application to transition from a server-rendered app, if
      * one is present on the page. The specified parameters must include an application id,
@@ -27,5 +35,5 @@ export declare class BrowserModule {
      */
     static withServerTransition(params: {
         appId: string;
-    }): ModuleWithProviders;
+    }): ModuleWithProviders<BrowserModule>;
 }

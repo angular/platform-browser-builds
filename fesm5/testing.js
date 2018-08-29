@@ -1,11 +1,12 @@
 /**
- * @license Angular v6.0.0-rc.5+217.sha-5dafa1a
+ * @license Angular v7.0.0-beta.3+76.sha-693c387
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { APP_ID, NgModule, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵglobal } from '@angular/core';
-import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM } from '@angular/platform-browser';
+import { __decorate } from 'tslib';
+import { NgZone, ɵglobal, APP_ID, NgModule, PLATFORM_INITIALIZER, createPlatformFactory, platformCore } from '@angular/core';
+import { ɵgetDOM, BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 
 /**
  * @license
@@ -14,7 +15,6 @@ import { BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, ɵgetDOM
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
 var BrowserDetection = /** @class */ (function () {
     function BrowserDetection(ua) {
         this._overrideUa = ua;
@@ -29,7 +29,7 @@ var BrowserDetection = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    BrowserDetection.setup = function () {  };
+    BrowserDetection.setup = function () { };
     Object.defineProperty(BrowserDetection.prototype, "isFirefox", {
         get: function () { return this._ua.indexOf('Firefox') > -1; },
         enumerable: true,
@@ -80,12 +80,7 @@ var BrowserDetection = /** @class */ (function () {
         // This detector is needed in tests to make the difference between:
         // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
         // 2) IE9/IE10: they use the polyfill, and so no discrepancies
-        get: 
-        // The Intl API is only natively supported in Chrome, Firefox, IE11 and Edge.
-        // This detector is needed in tests to make the difference between:
-        // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
-        // 2) IE9/IE10: they use the polyfill, and so no discrepancies
-        function () {
+        get: function () {
             return !!ɵglobal.Intl && ɵglobal.Intl !== ɵglobal.IntlPolyfill;
         },
         enumerable: true,
@@ -102,10 +97,7 @@ var BrowserDetection = /** @class */ (function () {
     Object.defineProperty(BrowserDetection.prototype, "isOldChrome", {
         // "Old Chrome" means Chrome 3X, where there are some discrepancies in the Intl API.
         // Android 4.4 and 5.X have such browsers by default (respectively 30 and 39).
-        get: 
-        // "Old Chrome" means Chrome 3X, where there are some discrepancies in the Intl API.
-        // Android 4.4 and 5.X have such browsers by default (respectively 30 and 39).
-        function () {
+        get: function () {
             return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
                 this._ua.indexOf('Edge') == -1;
         },
@@ -115,10 +107,6 @@ var BrowserDetection = /** @class */ (function () {
     return BrowserDetection;
 }());
 BrowserDetection.setup();
-
-
-
-
 function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
 }
@@ -143,16 +131,16 @@ var ɵ0 = createNgZone;
 var BrowserTestingModule = /** @class */ (function () {
     function BrowserTestingModule() {
     }
-    BrowserTestingModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    providers: [
-                        { provide: APP_ID, useValue: 'a' },
-                        ɵELEMENT_PROBE_PROVIDERS,
-                        { provide: NgZone, useFactory: ɵ0 },
-                    ]
-                },] }
-    ];
+    BrowserTestingModule = __decorate([
+        NgModule({
+            exports: [BrowserModule],
+            providers: [
+                { provide: APP_ID, useValue: 'a' },
+                ɵELEMENT_PROBE_PROVIDERS,
+                { provide: NgZone, useFactory: ɵ0 },
+            ]
+        })
+    ], BrowserTestingModule);
     return BrowserTestingModule;
 }());
 
