@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.4
+ * @license Angular v7.0.0-beta.4+20.sha-00f1311
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -383,9 +383,12 @@ class BaseAnimationRenderer {
     }
     /**
      * @param {?} selectorOrNode
+     * @param {?=} preserveContent
      * @return {?}
      */
-    selectRootElement(selectorOrNode) { return this.delegate.selectRootElement(selectorOrNode); }
+    selectRootElement(selectorOrNode, preserveContent) {
+        return this.delegate.selectRootElement(selectorOrNode, preserveContent);
+    }
     /**
      * @param {?} node
      * @return {?}

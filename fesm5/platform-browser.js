@@ -1,10 +1,10 @@
 /**
- * @license Angular v7.0.0-beta.4
+ * @license Angular v7.0.0-beta.4+20.sha-00f1311
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __decorate, __param, __metadata, __extends, __assign, __spread } from 'tslib';
+import { __extends, __decorate, __param, __metadata, __assign, __spread } from 'tslib';
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, NgZone, ɵConsole, Optional, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, inject, defineInjectable, getDebugNode, NgProbeToken, ViewEncapsulation, RendererStyleFlags2, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl } from '@angular/core';
 
@@ -1061,13 +1061,15 @@ var DefaultDomRenderer2 = /** @class */ (function () {
             parent.removeChild(oldChild);
         }
     };
-    DefaultDomRenderer2.prototype.selectRootElement = function (selectorOrNode) {
+    DefaultDomRenderer2.prototype.selectRootElement = function (selectorOrNode, preserveContent) {
         var el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
             selectorOrNode;
         if (!el) {
             throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
         }
-        el.textContent = '';
+        if (!preserveContent) {
+            el.textContent = '';
+        }
         return el;
     };
     DefaultDomRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
@@ -2445,7 +2447,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('7.0.0-beta.4');
+var VERSION = new Version('7.0.0-beta.4+20.sha-00f1311');
 
 /**
  * @license
