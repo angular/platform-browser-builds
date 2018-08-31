@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.4
+ * @license Angular v7.0.0-beta.4+20.sha-00f1311
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -117,6 +117,34 @@
             get: function () {
                 return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
                     this._ua.indexOf('Edge') == -1;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "supportsCustomElements", {
+            get: function () { return (typeof i0.ɵglobal.customElements !== 'undefined'); },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "supportsDeprecatedCustomCustomElementsV0", {
+            get: function () {
+                return (typeof document.registerElement !== 'undefined');
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "supportsShadowDom", {
+            get: function () {
+                var testEl = document.createElement('div');
+                return (typeof testEl.attachShadow !== 'undefined');
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "supportsDeprecatedShadowDomV0", {
+            get: function () {
+                var testEl = document.createElement('div');
+                return (typeof testEl.createShadowRoot !== 'undefined');
             },
             enumerable: true,
             configurable: true
