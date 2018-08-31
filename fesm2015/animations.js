@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.4
+ * @license Angular v7.0.0-beta.4+20.sha-00f1311
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -205,7 +205,9 @@ class BaseAnimationRenderer {
     removeChild(parent, oldChild) {
         this.engine.onRemove(this.namespaceId, oldChild, this.delegate);
     }
-    selectRootElement(selectorOrNode) { return this.delegate.selectRootElement(selectorOrNode); }
+    selectRootElement(selectorOrNode, preserveContent) {
+        return this.delegate.selectRootElement(selectorOrNode, preserveContent);
+    }
     parentNode(node) { return this.delegate.parentNode(node); }
     nextSibling(node) { return this.delegate.nextSibling(node); }
     setAttribute(el, name, value, namespace) {

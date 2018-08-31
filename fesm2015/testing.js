@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.4
+ * @license Angular v7.0.0-beta.4+20.sha-00f1311
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -57,6 +57,18 @@ class BrowserDetection {
     get isOldChrome() {
         return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
             this._ua.indexOf('Edge') == -1;
+    }
+    get supportsCustomElements() { return (typeof ɵglobal.customElements !== 'undefined'); }
+    get supportsDeprecatedCustomCustomElementsV0() {
+        return (typeof document.registerElement !== 'undefined');
+    }
+    get supportsShadowDom() {
+        const testEl = document.createElement('div');
+        return (typeof testEl.attachShadow !== 'undefined');
+    }
+    get supportsDeprecatedShadowDomV0() {
+        const testEl = document.createElement('div');
+        return (typeof testEl.createShadowRoot !== 'undefined');
     }
 }
 BrowserDetection.setup();

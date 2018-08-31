@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.4
+ * @license Angular v7.0.0-beta.4+20.sha-00f1311
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1011,13 +1011,15 @@ class DefaultDomRenderer2 {
             parent.removeChild(oldChild);
         }
     }
-    selectRootElement(selectorOrNode) {
+    selectRootElement(selectorOrNode, preserveContent) {
         let el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
             selectorOrNode;
         if (!el) {
             throw new Error(`The selector "${selectorOrNode}" did not match any elements`);
         }
-        el.textContent = '';
+        if (!preserveContent) {
+            el.textContent = '';
+        }
         return el;
     }
     parentNode(node) { return node.parentNode; }
@@ -2348,7 +2350,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('7.0.0-beta.4');
+const VERSION = new Version('7.0.0-beta.4+20.sha-00f1311');
 
 /**
  * @license
