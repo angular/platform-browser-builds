@@ -1,9 +1,10 @@
 /**
- * @license Angular v6.1.6+23.sha-f0bcfd0
+ * @license Angular v6.1.6+27.sha-3a0b735
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
+import 'tslib';
 import { NgZone, ɵglobal, APP_ID, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵdefineNgModule, defineInjector } from '@angular/core';
 import { ɵgetDOM, BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 
