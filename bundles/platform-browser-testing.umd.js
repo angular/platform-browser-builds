@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.6+28.sha-d1063c6
+ * @license Angular v6.1.7+8.sha-b9a5ce1
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -24,6 +24,13 @@
     See the Apache Version 2.0 License for specific language governing permissions
     and limitations under the License.
     ***************************************************************************** */
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
 
     /**
      * @license
@@ -128,13 +135,6 @@
         return new core.NgZone({ enableLongStackTrace: true });
     }
 
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     function initBrowserTests() {
         platformBrowser.ɵBrowserDomAdapter.makeCurrent();
         BrowserDetection.setup();
@@ -155,16 +155,16 @@
     var BrowserTestingModule = /** @class */ (function () {
         function BrowserTestingModule() {
         }
-        BrowserTestingModule.decorators = [
-            { type: core.NgModule, args: [{
-                        exports: [platformBrowser.BrowserModule],
-                        providers: [
-                            { provide: core.APP_ID, useValue: 'a' },
-                            platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
-                            { provide: core.NgZone, useFactory: ɵ0 },
-                        ]
-                    },] }
-        ];
+        BrowserTestingModule = __decorate([
+            core.NgModule({
+                exports: [platformBrowser.BrowserModule],
+                providers: [
+                    { provide: core.APP_ID, useValue: 'a' },
+                    platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
+                    { provide: core.NgZone, useFactory: ɵ0 },
+                ]
+            })
+        ], BrowserTestingModule);
         return BrowserTestingModule;
     }());
 
