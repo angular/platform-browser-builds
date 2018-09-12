@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { Type } from '@angular/core';
 /**
  * Jasmine matchers that check Angular specific conditions.
  */
@@ -67,6 +68,10 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
      * {@example testing/ts/matchers.ts region='toContainError'}
      */
     toContainError(expected: any): boolean;
+    /**
+     * Expect a component of the given type to show.
+     */
+    toContainComponent(expectedComponentType: Type<any>, expectationFailOutput?: any): boolean;
     /**
      * Invert the matchers.
      */
