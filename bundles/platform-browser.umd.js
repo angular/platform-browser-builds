@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.2+28.sha-21a1440
+ * @license Angular v7.0.0-beta.5+32.sha-47f4412
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1088,13 +1088,15 @@
                 parent.removeChild(oldChild);
             }
         };
-        DefaultDomRenderer2.prototype.selectRootElement = function (selectorOrNode) {
+        DefaultDomRenderer2.prototype.selectRootElement = function (selectorOrNode, preserveContent) {
             var el = typeof selectorOrNode === 'string' ? document.querySelector(selectorOrNode) :
                 selectorOrNode;
             if (!el) {
                 throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
             }
-            el.textContent = '';
+            if (!preserveContent) {
+                el.textContent = '';
+            }
             return el;
         };
         DefaultDomRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
@@ -2421,7 +2423,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new i0.Version('7.0.0-beta.2+28.sha-21a1440');
+    var VERSION = new i0.Version('7.0.0-beta.5+32.sha-47f4412');
 
     /**
      * @license

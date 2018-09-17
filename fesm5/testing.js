@@ -1,9 +1,10 @@
 /**
- * @license Angular v7.0.0-beta.2+28.sha-21a1440
+ * @license Angular v7.0.0-beta.5+32.sha-47f4412
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
+import 'tslib';
 import { NgZone, ɵglobal, APP_ID, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵdefineNgModule, defineInjector } from '@angular/core';
 import { ɵgetDOM, BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 
@@ -99,6 +100,34 @@ var BrowserDetection = /** @class */ (function () {
         get: function () {
             return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
                 this._ua.indexOf('Edge') == -1;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserDetection.prototype, "supportsCustomElements", {
+        get: function () { return (typeof ɵglobal.customElements !== 'undefined'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserDetection.prototype, "supportsDeprecatedCustomCustomElementsV0", {
+        get: function () {
+            return (typeof document.registerElement !== 'undefined');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserDetection.prototype, "supportsShadowDom", {
+        get: function () {
+            var testEl = document.createElement('div');
+            return (typeof testEl.attachShadow !== 'undefined');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserDetection.prototype, "supportsDeprecatedShadowDomV0", {
+        get: function () {
+            var testEl = document.createElement('div');
+            return (typeof testEl.createShadowRoot !== 'undefined');
         },
         enumerable: true,
         configurable: true
