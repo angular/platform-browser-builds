@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.2+28.sha-21a1440
+ * @license Angular v7.0.0-beta.5+32.sha-47f4412
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -86,6 +86,32 @@ class BrowserDetection {
     get isOldChrome() {
         return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
             this._ua.indexOf('Edge') == -1;
+    }
+    /**
+     * @return {?}
+     */
+    get supportsCustomElements() { return (typeof (/** @type {?} */ (ɵglobal)).customElements !== 'undefined'); }
+    /**
+     * @return {?}
+     */
+    get supportsDeprecatedCustomCustomElementsV0() {
+        return (typeof (/** @type {?} */ (document)).registerElement !== 'undefined');
+    }
+    /**
+     * @return {?}
+     */
+    get supportsShadowDom() {
+        /** @type {?} */
+        const testEl = document.createElement('div');
+        return (typeof testEl.attachShadow !== 'undefined');
+    }
+    /**
+     * @return {?}
+     */
+    get supportsDeprecatedShadowDomV0() {
+        /** @type {?} */
+        const testEl = /** @type {?} */ (document.createElement('div'));
+        return (typeof testEl.createShadowRoot !== 'undefined');
     }
 }
 BrowserDetection.setup();

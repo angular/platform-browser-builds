@@ -1,9 +1,10 @@
 /**
- * @license Angular v7.0.0-beta.2+28.sha-21a1440
+ * @license Angular v7.0.0-beta.5+32.sha-47f4412
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
+import { __decorate } from 'tslib';
 import { NgZone, ɵglobal, APP_ID, NgModule, PLATFORM_INITIALIZER, createPlatformFactory, platformCore } from '@angular/core';
 import { ɵgetDOM, BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 
@@ -103,6 +104,34 @@ var BrowserDetection = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(BrowserDetection.prototype, "supportsCustomElements", {
+        get: function () { return (typeof ɵglobal.customElements !== 'undefined'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserDetection.prototype, "supportsDeprecatedCustomCustomElementsV0", {
+        get: function () {
+            return (typeof document.registerElement !== 'undefined');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserDetection.prototype, "supportsShadowDom", {
+        get: function () {
+            var testEl = document.createElement('div');
+            return (typeof testEl.attachShadow !== 'undefined');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserDetection.prototype, "supportsDeprecatedShadowDomV0", {
+        get: function () {
+            var testEl = document.createElement('div');
+            return (typeof testEl.createShadowRoot !== 'undefined');
+        },
+        enumerable: true,
+        configurable: true
+    });
     return BrowserDetection;
 }());
 BrowserDetection.setup();
@@ -110,13 +139,6 @@ function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -137,16 +159,16 @@ var ɵ0 = createNgZone;
 var BrowserTestingModule = /** @class */ (function () {
     function BrowserTestingModule() {
     }
-    BrowserTestingModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    providers: [
-                        { provide: APP_ID, useValue: 'a' },
-                        ɵELEMENT_PROBE_PROVIDERS,
-                        { provide: NgZone, useFactory: ɵ0 },
-                    ]
-                },] }
-    ];
+    BrowserTestingModule = __decorate([
+        NgModule({
+            exports: [BrowserModule],
+            providers: [
+                { provide: APP_ID, useValue: 'a' },
+                ɵELEMENT_PROBE_PROVIDERS,
+                { provide: NgZone, useFactory: ɵ0 },
+            ]
+        })
+    ], BrowserTestingModule);
     return BrowserTestingModule;
 }());
 
