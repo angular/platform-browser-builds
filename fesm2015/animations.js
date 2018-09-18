@@ -1,47 +1,81 @@
 /**
- * @license Angular v6.1.7+21.sha-110c81f
+ * @license Angular v6.1.7+36.sha-48d7f4e
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { defineInjectable, inject, InjectionToken, RendererFactory2, NgZone, ɵdefineNgModule, defineInjector, ViewEncapsulation } from '@angular/core';
+import { NgModule, ɵdefineNgModule, defineInjector, Injectable, Inject, defineInjectable, inject, InjectionToken, RendererFactory2, NgZone, ViewEncapsulation } from '@angular/core';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 class BrowserAnimationBuilder extends AnimationBuilder {
+    /**
+     * @param {?} rootRenderer
+     * @param {?} doc
+     */
     constructor(rootRenderer, doc) {
         super();
         this._nextAnimationId = 0;
-        const typeData = {
+        /** @type {?} */
+        const typeData = /** @type {?} */ ({
             id: '0',
             encapsulation: ViewEncapsulation.None,
             styles: [],
             data: { animation: [] }
-        };
-        this._renderer = rootRenderer.createRenderer(doc.body, typeData);
+        });
+        this._renderer = /** @type {?} */ (rootRenderer.createRenderer(doc.body, typeData));
     }
+    /**
+     * @param {?} animation
+     * @return {?}
+     */
     build(animation) {
+        /** @type {?} */
         const id = this._nextAnimationId.toString();
         this._nextAnimationId++;
+        /** @type {?} */
         const entry = Array.isArray(animation) ? sequence(animation) : animation;
         issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
         return new BrowserAnimationFactory(id, this._renderer);
     }
 }
+BrowserAnimationBuilder.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+BrowserAnimationBuilder.ctorParameters = () => [
+    { type: RendererFactory2 },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+];
 BrowserAnimationBuilder.ngInjectableDef = defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory() { return new BrowserAnimationBuilder(inject(RendererFactory2), inject(DOCUMENT)); }, providedIn: null });
 class BrowserAnimationFactory extends AnimationFactory {
+    /**
+     * @param {?} _id
+     * @param {?} _renderer
+     */
     constructor(_id, _renderer) {
         super();
         this._id = _id;
         this._renderer = _renderer;
     }
+    /**
+     * @param {?} element
+     * @param {?=} options
+     * @return {?}
+     */
     create(element, options) {
         return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
     }
 }
 class RendererAnimationPlayer {
+    /**
+     * @param {?} id
+     * @param {?} element
+     * @param {?} options
+     * @param {?} _renderer
+     */
     constructor(id, element, options, _renderer) {
         this.id = id;
         this.element = element;
@@ -51,36 +85,104 @@ class RendererAnimationPlayer {
         this.totalTime = 0;
         this._command('create', options);
     }
+    /**
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
     _listen(eventName, callback) {
         return this._renderer.listen(this.element, `@@${this.id}:${eventName}`, callback);
     }
+    /**
+     * @param {?} command
+     * @param {...?} args
+     * @return {?}
+     */
     _command(command, ...args) {
         return issueAnimationCommand(this._renderer, this.element, this.id, command, args);
     }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
     onDone(fn) { this._listen('done', fn); }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
     onStart(fn) { this._listen('start', fn); }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
     onDestroy(fn) { this._listen('destroy', fn); }
+    /**
+     * @return {?}
+     */
     init() { this._command('init'); }
+    /**
+     * @return {?}
+     */
     hasStarted() { return this._started; }
+    /**
+     * @return {?}
+     */
     play() {
         this._command('play');
         this._started = true;
     }
+    /**
+     * @return {?}
+     */
     pause() { this._command('pause'); }
+    /**
+     * @return {?}
+     */
     restart() { this._command('restart'); }
+    /**
+     * @return {?}
+     */
     finish() { this._command('finish'); }
+    /**
+     * @return {?}
+     */
     destroy() { this._command('destroy'); }
+    /**
+     * @return {?}
+     */
     reset() { this._command('reset'); }
+    /**
+     * @param {?} p
+     * @return {?}
+     */
     setPosition(p) { this._command('setPosition', p); }
+    /**
+     * @return {?}
+     */
     getPosition() { return 0; }
 }
+/**
+ * @param {?} renderer
+ * @param {?} element
+ * @param {?} id
+ * @param {?} command
+ * @param {?} args
+ * @return {?}
+ */
 function issueAnimationCommand(renderer, element, id, command, args) {
     return renderer.setProperty(element, `@@${id}:${command}`, args);
 }
 
+/** @type {?} */
 const ANIMATION_PREFIX = '@';
+/** @type {?} */
 const DISABLE_ANIMATIONS_FLAG = '@.disabled';
 class AnimationRendererFactory {
+    /**
+     * @param {?} delegate
+     * @param {?} engine
+     * @param {?} _zone
+     */
     constructor(delegate, engine, _zone) {
         this.delegate = delegate;
         this.engine = engine;
@@ -101,12 +203,18 @@ class AnimationRendererFactory {
             }
         };
     }
+    /**
+     * @param {?} hostElement
+     * @param {?} type
+     * @return {?}
+     */
     createRenderer(hostElement, type) {
+        /** @type {?} */
         const EMPTY_NAMESPACE_ID = '';
-        // cache the delegates to find out which cached delegate can
-        // be used by which cached renderer
+        /** @type {?} */
         const delegate = this.delegate.createRenderer(hostElement, type);
         if (!hostElement || !type || !type.data || !type.data['animation']) {
+            /** @type {?} */
             let renderer = this._rendererCache.get(delegate);
             if (!renderer) {
                 renderer = new BaseAnimationRenderer(EMPTY_NAMESPACE_ID, delegate, this.engine);
@@ -115,25 +223,40 @@ class AnimationRendererFactory {
             }
             return renderer;
         }
+        /** @type {?} */
         const componentId = type.id;
+        /** @type {?} */
         const namespaceId = type.id + '-' + this._currentId;
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
-        const animationTriggers = type.data['animation'];
+        /** @type {?} */
+        const animationTriggers = /** @type {?} */ (type.data['animation']);
         animationTriggers.forEach(trigger => this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     }
+    /**
+     * @return {?}
+     */
     begin() {
         this._cdRecurDepth++;
         if (this.delegate.begin) {
             this.delegate.begin();
         }
     }
+    /**
+     * @return {?}
+     */
     _scheduleCountTask() {
         // always use promise to schedule microtask instead of use Zone
         this.promise.then(() => { this._microtaskId++; });
     }
-    /** @internal */
+    /**
+     * \@internal
+     * @param {?} count
+     * @param {?} fn
+     * @param {?} data
+     * @return {?}
+     */
     scheduleListenerCallback(count, fn, data) {
         if (count >= 0 && count < this._microtaskId) {
             this._zone.run(() => fn(data));
@@ -152,6 +275,9 @@ class AnimationRendererFactory {
         }
         this._animationCallbacksBuffer.push([fn, data]);
     }
+    /**
+     * @return {?}
+     */
     end() {
         this._cdRecurDepth--;
         // this is to prevent animations from running twice when an inner
@@ -166,54 +292,160 @@ class AnimationRendererFactory {
             this.delegate.end();
         }
     }
+    /**
+     * @return {?}
+     */
     whenRenderingDone() { return this.engine.whenRenderingDone(); }
 }
+AnimationRendererFactory.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+AnimationRendererFactory.ctorParameters = () => [
+    { type: RendererFactory2 },
+    { type: ɵAnimationEngine },
+    { type: NgZone }
+];
 AnimationRendererFactory.ngInjectableDef = defineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory() { return new AnimationRendererFactory(inject(RendererFactory2), inject(ɵAnimationEngine), inject(NgZone)); }, providedIn: null });
 class BaseAnimationRenderer {
+    /**
+     * @param {?} namespaceId
+     * @param {?} delegate
+     * @param {?} engine
+     */
     constructor(namespaceId, delegate, engine) {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? (n) => delegate.destroyNode(n) : null;
+        this.destroyNode = this.delegate.destroyNode ? (n) => /** @type {?} */ ((delegate.destroyNode))(n) : null;
     }
+    /**
+     * @return {?}
+     */
     get data() { return this.delegate.data; }
+    /**
+     * @return {?}
+     */
     destroy() {
         this.engine.destroy(this.namespaceId, this.delegate);
         this.delegate.destroy();
     }
+    /**
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
     createElement(name, namespace) {
         return this.delegate.createElement(name, namespace);
     }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
     createComment(value) { return this.delegate.createComment(value); }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
     createText(value) { return this.delegate.createText(value); }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
     appendChild(parent, newChild) {
         this.delegate.appendChild(parent, newChild);
         this.engine.onInsert(this.namespaceId, newChild, parent, false);
     }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
     insertBefore(parent, newChild, refChild) {
         this.delegate.insertBefore(parent, newChild, refChild);
         this.engine.onInsert(this.namespaceId, newChild, parent, true);
     }
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
     removeChild(parent, oldChild) {
         this.engine.onRemove(this.namespaceId, oldChild, this.delegate);
     }
+    /**
+     * @param {?} selectorOrNode
+     * @return {?}
+     */
     selectRootElement(selectorOrNode) { return this.delegate.selectRootElement(selectorOrNode); }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
     parentNode(node) { return this.delegate.parentNode(node); }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
     nextSibling(node) { return this.delegate.nextSibling(node); }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @param {?=} namespace
+     * @return {?}
+     */
     setAttribute(el, name, value, namespace) {
         this.delegate.setAttribute(el, name, value, namespace);
     }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
     removeAttribute(el, name, namespace) {
         this.delegate.removeAttribute(el, name, namespace);
     }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
     addClass(el, name) { this.delegate.addClass(el, name); }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
     removeClass(el, name) { this.delegate.removeClass(el, name); }
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} value
+     * @param {?=} flags
+     * @return {?}
+     */
     setStyle(el, style, value, flags) {
         this.delegate.setStyle(el, style, value, flags);
     }
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?=} flags
+     * @return {?}
+     */
     removeStyle(el, style, flags) {
         this.delegate.removeStyle(el, style, flags);
     }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
     setProperty(el, name, value) {
         if (name.charAt(0) == ANIMATION_PREFIX && name == DISABLE_ANIMATIONS_FLAG) {
             this.disableAnimations(el, !!value);
@@ -222,25 +454,53 @@ class BaseAnimationRenderer {
             this.delegate.setProperty(el, name, value);
         }
     }
+    /**
+     * @param {?} node
+     * @param {?} value
+     * @return {?}
+     */
     setValue(node, value) { this.delegate.setValue(node, value); }
+    /**
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
     listen(target, eventName, callback) {
         return this.delegate.listen(target, eventName, callback);
     }
+    /**
+     * @param {?} element
+     * @param {?} value
+     * @return {?}
+     */
     disableAnimations(element, value) {
         this.engine.disableAnimations(element, value);
     }
 }
 class AnimationRenderer extends BaseAnimationRenderer {
+    /**
+     * @param {?} factory
+     * @param {?} namespaceId
+     * @param {?} delegate
+     * @param {?} engine
+     */
     constructor(factory, namespaceId, delegate, engine) {
         super(namespaceId, delegate, engine);
         this.factory = factory;
         this.namespaceId = namespaceId;
     }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
     setProperty(el, name, value) {
         if (name.charAt(0) == ANIMATION_PREFIX) {
             if (name.charAt(1) == '.' && name == DISABLE_ANIMATIONS_FLAG) {
                 value = value === undefined ? true : !!value;
-                this.disableAnimations(el, value);
+                this.disableAnimations(el, /** @type {?} */ (value));
             }
             else {
                 this.engine.process(this.namespaceId, el, name.substr(1), value);
@@ -250,10 +510,19 @@ class AnimationRenderer extends BaseAnimationRenderer {
             this.delegate.setProperty(el, name, value);
         }
     }
+    /**
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
     listen(target, eventName, callback) {
         if (eventName.charAt(0) == ANIMATION_PREFIX) {
+            /** @type {?} */
             const element = resolveElementFromTarget(target);
+            /** @type {?} */
             let name = eventName.substr(1);
+            /** @type {?} */
             let phase = '';
             // @listener.phase is for trigger animation callbacks
             // @@listener is for animation builder callbacks
@@ -261,13 +530,18 @@ class AnimationRenderer extends BaseAnimationRenderer {
                 [name, phase] = parseTriggerCallbackName(name);
             }
             return this.engine.listen(this.namespaceId, element, name, phase, event => {
-                const countId = event['_data'] || -1;
+                /** @type {?} */
+                const countId = (/** @type {?} */ (event))['_data'] || -1;
                 this.factory.scheduleListenerCallback(countId, callback, event);
             });
         }
         return this.delegate.listen(target, eventName, callback);
     }
 }
+/**
+ * @param {?} target
+ * @return {?}
+ */
 function resolveElementFromTarget(target) {
     switch (target) {
         case 'body':
@@ -280,32 +554,66 @@ function resolveElementFromTarget(target) {
             return target;
     }
 }
+/**
+ * @param {?} triggerName
+ * @return {?}
+ */
 function parseTriggerCallbackName(triggerName) {
+    /** @type {?} */
     const dotIndex = triggerName.indexOf('.');
+    /** @type {?} */
     const trigger = triggerName.substring(0, dotIndex);
+    /** @type {?} */
     const phase = triggerName.substr(dotIndex + 1);
     return [trigger, phase];
 }
 
 class InjectableAnimationEngine extends ɵAnimationEngine {
+    /**
+     * @param {?} doc
+     * @param {?} driver
+     * @param {?} normalizer
+     */
     constructor(doc, driver, normalizer) {
         super(doc.body, driver, normalizer);
     }
 }
+InjectableAnimationEngine.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+InjectableAnimationEngine.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+    { type: AnimationDriver },
+    { type: ɵAnimationStyleNormalizer }
+];
 InjectableAnimationEngine.ngInjectableDef = defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory() { return new InjectableAnimationEngine(inject(DOCUMENT$1), inject(AnimationDriver), inject(ɵAnimationStyleNormalizer)); }, providedIn: null });
+/**
+ * @return {?}
+ */
 function instantiateSupportedAnimationDriver() {
     return ɵsupportsWebAnimations() ? new ɵWebAnimationsDriver() : new ɵCssKeyframesDriver();
 }
+/**
+ * @return {?}
+ */
 function instantiateDefaultStyleNormalizer() {
     return new ɵWebAnimationsStyleNormalizer();
 }
+/**
+ * @param {?} renderer
+ * @param {?} engine
+ * @param {?} zone
+ * @return {?}
+ */
 function instantiateRendererFactory(renderer, engine, zone) {
     return new AnimationRendererFactory(renderer, engine, zone);
 }
-/**
- * @experimental Animation support is experimental.
- */
+/** *
+ * \@experimental Animation support is experimental.
+  @type {?} */
 const ANIMATION_MODULE_TYPE = new InjectionToken('AnimationModuleType');
+/** @type {?} */
 const SHARED_ANIMATION_PROVIDERS = [
     { provide: AnimationBuilder, useClass: BrowserAnimationBuilder },
     { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
@@ -315,68 +623,68 @@ const SHARED_ANIMATION_PROVIDERS = [
         deps: [ɵDomRendererFactory2, ɵAnimationEngine, NgZone]
     }
 ];
-/**
+/** *
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserModule.
- */
+  @type {?} */
 const BROWSER_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
     { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' }, ...SHARED_ANIMATION_PROVIDERS
 ];
-/**
+/** *
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
- */
+  @type {?} */
 const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useClass: ɵNoopAnimationDriver },
     { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' }, ...SHARED_ANIMATION_PROVIDERS
 ];
 
 /**
- * @experimental Animation support is experimental.
+ * \@experimental Animation support is experimental.
  */
 class BrowserAnimationsModule {
 }
+BrowserAnimationsModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BrowserModule],
+                providers: BROWSER_ANIMATIONS_PROVIDERS,
+            },] },
+];
 BrowserAnimationsModule.ngModuleDef = ɵdefineNgModule({ type: BrowserAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
 BrowserAnimationsModule.ngInjectorDef = defineInjector({ factory: function BrowserAnimationsModule_Factory() { return new BrowserAnimationsModule(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [[BrowserModule]] });
 /**
- * @experimental Animation support is experimental.
+ * \@experimental Animation support is experimental.
  */
 class NoopAnimationsModule {
 }
+NoopAnimationsModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BrowserModule],
+                providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
+            },] },
+];
 NoopAnimationsModule.ngModuleDef = ɵdefineNgModule({ type: NoopAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
 NoopAnimationsModule.ngInjectorDef = defineInjector({ factory: function NoopAnimationsModule_Factory() { return new NoopAnimationsModule(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [[BrowserModule]] });
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 export { BrowserAnimationsModule, NoopAnimationsModule, ANIMATION_MODULE_TYPE, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory };
