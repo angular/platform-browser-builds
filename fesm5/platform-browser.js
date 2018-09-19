@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.7+42.sha-5099b79
+ * @license Angular v6.1.7+38.sha-71628f1
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1943,11 +1943,7 @@ var BROWSER_MODULE_PROVIDERS = [
     ELEMENT_PROBE_PROVIDERS,
 ];
 /**
- * Exports required infrastructure for all Angular apps.
- * Included by defaults in all Angular apps created with the CLI
- * `new` command.
- * Re-exports `CommonModule` and `ApplicationModule`, making their
- * exports and providers available to all apps.
+ * The ng module for the browser.
  *
  *
  */
@@ -1959,12 +1955,9 @@ var BrowserModule = /** @class */ (function () {
     }
     BrowserModule_1 = BrowserModule;
     /**
-     * Configures a browser-based app to transition from a server-rendered app, if
-     * one is present on the page.
-     *
-     * @param params An object containing an identifier for the app to transition.
-     * The ID must match between the client and server versions of the app.
-     * @returns The reconfigured `BrowserModule` to import into the app's root `AppModule`.
+     * Configures a browser-based application to transition from a server-rendered app, if
+     * one is present on the page. The specified parameters must include an application id,
+     * which must match between the client and server applications.
      *
      * @experimental
      */
@@ -2462,7 +2455,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.1.7+42.sha-5099b79');
+var VERSION = new Version('6.1.7+38.sha-71628f1');
 
 /**
  * @license
