@@ -1,11 +1,11 @@
 /**
- * @license Angular v6.1.7+42.sha-5099b79
+ * @license Angular v6.1.7+38.sha-71628f1
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, inject, APP_ID, NgModule, NgZone, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, RendererStyleFlags2, ViewEncapsulation, Version, ApplicationRef, defineInjectable, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, inject, APP_ID, NgModule, NgZone, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, RendererStyleFlags2, ViewEncapsulation, Version, ApplicationRef, defineInjectable, getDebugNode, NgProbeToken, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -2894,11 +2894,7 @@ const BROWSER_MODULE_PROVIDERS = [
     ELEMENT_PROBE_PROVIDERS,
 ];
 /**
- * Exports required infrastructure for all Angular apps.
- * Included by defaults in all Angular apps created with the CLI
- * `new` command.
- * Re-exports `CommonModule` and `ApplicationModule`, making their
- * exports and providers available to all apps.
+ * The ng module for the browser.
  *
  *
  */
@@ -2912,14 +2908,13 @@ class BrowserModule {
         }
     }
     /**
-     * Configures a browser-based app to transition from a server-rendered app, if
-     * one is present on the page.
+     * Configures a browser-based application to transition from a server-rendered app, if
+     * one is present on the page. The specified parameters must include an application id,
+     * which must match between the client and server applications.
      *
      * \@experimental
-     * @param {?} params An object containing an identifier for the app to transition.
-     * The ID must match between the client and server versions of the app.
-     * @return {?} The reconfigured `BrowserModule` to import into the app's root `AppModule`.
-     *
+     * @param {?} params
+     * @return {?}
      */
     static withServerTransition(params) {
         return {
@@ -3515,7 +3510,7 @@ class By {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-const VERSION = new Version('6.1.7+42.sha-5099b79');
+const VERSION = new Version('6.1.7+38.sha-71628f1');
 
 /**
  * @fileoverview added by tsickle

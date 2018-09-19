@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.7+42.sha-5099b79
+ * @license Angular v6.1.7+38.sha-71628f1
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -654,9 +654,7 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
- * for use with animations. See [Animations](guide/animations).
- * \@experimental
+ * \@experimental Animation support is experimental.
  */
 class BrowserAnimationsModule {
 }
@@ -667,8 +665,7 @@ BrowserAnimationsModule.decorators = [
             },] }
 ];
 /**
- * A null player that must be imported to allow disabling of animations.
- * \@experimental
+ * \@experimental Animation support is experimental.
  */
 class NoopAnimationsModule {
 }
