@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.1.7+38.sha-71628f1
+ * @license Angular v6.1.7+39.sha-a41f331
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __read, __decorate, __metadata, __extends, __param, __spread } from 'tslib';
+import { __extends, __decorate, __param, __metadata, __spread, __read } from 'tslib';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
 import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgZone, InjectionToken, NgModule } from '@angular/core';
 import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
@@ -380,7 +380,9 @@ var BROWSER_NOOP_ANIMATIONS_PROVIDERS = __spread([
 ], SHARED_ANIMATION_PROVIDERS);
 
 /**
- * @experimental Animation support is experimental.
+ * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
+ * for use with animations. See [Animations](guide/animations).
+ * @experimental
  */
 var BrowserAnimationsModule = /** @class */ (function () {
     function BrowserAnimationsModule() {
@@ -394,7 +396,8 @@ var BrowserAnimationsModule = /** @class */ (function () {
     return BrowserAnimationsModule;
 }());
 /**
- * @experimental Animation support is experimental.
+ * A null player that must be imported to allow disabling of animations.
+ * @experimental
  */
 var NoopAnimationsModule = /** @class */ (function () {
     function NoopAnimationsModule() {
