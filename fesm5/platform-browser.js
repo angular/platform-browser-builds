@@ -1,12 +1,12 @@
 /**
- * @license Angular v6.1.7+37.sha-df878a6
+ * @license Angular v6.1.7+42.sha-5099b79
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { __extends, __assign, __spread } from 'tslib';
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, inject, APP_ID, InjectionToken, NgZone, Version, APP_INITIALIZER, ApplicationInitStatus, Injector, ApplicationRef, setTestabilityGetter, defineInjectable, ɵdefineNgModule, defineInjector, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, Optional, RendererFactory2, Testability, ApplicationModule, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, getDebugNode, NgProbeToken, ViewEncapsulation, RendererStyleFlags2 } from '@angular/core';
+import { ɵglobal, inject, Version, APP_ID, InjectionToken, NgZone, APP_INITIALIZER, ApplicationInitStatus, Injector, ApplicationRef, setTestabilityGetter, defineInjectable, ɵdefineNgModule, defineInjector, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, Optional, RendererFactory2, Testability, ApplicationModule, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, getDebugNode, NgProbeToken, ViewEncapsulation, RendererStyleFlags2 } from '@angular/core';
 
 /**
  * @license
@@ -1840,7 +1840,11 @@ var BROWSER_MODULE_PROVIDERS = [
     ELEMENT_PROBE_PROVIDERS,
 ];
 /**
- * The ng module for the browser.
+ * Exports required infrastructure for all Angular apps.
+ * Included by defaults in all Angular apps created with the CLI
+ * `new` command.
+ * Re-exports `CommonModule` and `ApplicationModule`, making their
+ * exports and providers available to all apps.
  *
  *
  */
@@ -1851,9 +1855,12 @@ var BrowserModule = /** @class */ (function () {
         }
     }
     /**
-     * Configures a browser-based application to transition from a server-rendered app, if
-     * one is present on the page. The specified parameters must include an application id,
-     * which must match between the client and server applications.
+     * Configures a browser-based app to transition from a server-rendered app, if
+     * one is present on the page.
+     *
+     * @param params An object containing an identifier for the app to transition.
+     * The ID must match between the client and server versions of the app.
+     * @returns The reconfigured `BrowserModule` to import into the app's root `AppModule`.
      *
      * @experimental
      */
@@ -2311,7 +2318,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.1.7+37.sha-df878a6');
+var VERSION = new Version('6.1.7+42.sha-5099b79');
 
 /**
  * @license
