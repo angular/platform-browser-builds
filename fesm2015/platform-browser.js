@@ -1,11 +1,11 @@
 /**
- * @license Angular v6.1.8+20.sha-37f3b92
+ * @license Angular v6.1.8+37.sha-cea7fbe
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, inject, Version, APP_ID, NgModule, InjectionToken, NgZone, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, APP_INITIALIZER, ApplicationInitStatus, Injector, ApplicationRef, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, defineInjectable, ɵdefineNgModule, defineInjector, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵglobal, Inject, Injectable, inject, Version, APP_ID, NgModule, InjectionToken, NgZone, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, Optional, ɵConsole, ApplicationRef, APP_INITIALIZER, ApplicationInitStatus, Injector, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, defineInjectable, ɵdefineNgModule, defineInjector, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, getDebugNode, NgProbeToken } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -3434,7 +3434,8 @@ class By {
     /**
      * Match all elements.
      *
-     * ## Example
+     * \@usageNotes
+     * ### Example
      *
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
      * @return {?}
@@ -3443,7 +3444,8 @@ class By {
     /**
      * Match elements by the given CSS selector.
      *
-     * ## Example
+     * \@usageNotes
+     * ### Example
      *
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
      * @param {?} selector
@@ -3459,7 +3461,8 @@ class By {
     /**
      * Match elements that have the given directive present.
      *
-     * ## Example
+     * \@usageNotes
+     * ### Example
      *
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
      * @param {?} type
@@ -3480,7 +3483,7 @@ class By {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-const VERSION = new Version('6.1.8+20.sha-37f3b92');
+const VERSION = new Version('6.1.8+37.sha-cea7fbe');
 
 /**
  * @fileoverview added by tsickle
