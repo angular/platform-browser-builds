@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.8+20.sha-37f3b92
+ * @license Angular v6.1.8+37.sha-cea7fbe
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2495,7 +2495,8 @@
         /**
          * Match all elements.
          *
-         * ## Example
+         * @usageNotes
+         * ### Example
          *
          * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
          */
@@ -2503,7 +2504,8 @@
         /**
          * Match elements by the given CSS selector.
          *
-         * ## Example
+         * @usageNotes
+         * ### Example
          *
          * {@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
          */
@@ -2517,7 +2519,8 @@
         /**
          * Match elements that have the given directive present.
          *
-         * ## Example
+         * @usageNotes
+         * ### Example
          *
          * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
          */
@@ -2542,7 +2545,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new core.Version('6.1.8+20.sha-37f3b92');
+    var VERSION = new core.Version('6.1.8+37.sha-cea7fbe');
 
     /**
      * @license

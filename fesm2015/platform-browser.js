@@ -1,11 +1,11 @@
 /**
- * @license Angular v6.1.8+20.sha-37f3b92
+ * @license Angular v6.1.8+37.sha-cea7fbe
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, inject, NgModule, APP_ID, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, Optional, RendererFactory2, Testability, ApplicationModule, SkipSelf, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, getDebugNode, NgProbeToken, ViewEncapsulation, RendererStyleFlags2 } from '@angular/core';
+import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, NgModule, APP_ID, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, Optional, RendererFactory2, Testability, ApplicationModule, SkipSelf, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, inject, getDebugNode, NgProbeToken, ViewEncapsulation, RendererStyleFlags2 } from '@angular/core';
 import { __decorate, __param, __metadata } from 'tslib';
 
 /**
@@ -2309,7 +2309,8 @@ class By {
     /**
      * Match all elements.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
      */
@@ -2317,7 +2318,8 @@ class By {
     /**
      * Match elements by the given CSS selector.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
      */
@@ -2331,7 +2333,8 @@ class By {
     /**
      * Match elements that have the given directive present.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
      */
@@ -2355,7 +2358,7 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.1.8+20.sha-37f3b92');
+const VERSION = new Version('6.1.8+37.sha-cea7fbe');
 
 /**
  * @license

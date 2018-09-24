@@ -13,7 +13,8 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
     /**
      * Expect the value to be a `Promise`.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example testing/ts/matchers.ts region='toBePromise'}
      */
@@ -21,7 +22,8 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
     /**
      * Expect the value to be an instance of a class.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example testing/ts/matchers.ts region='toBeAnInstanceOf'}
      */
@@ -29,7 +31,8 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
     /**
      * Expect the element to have exactly the given text.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example testing/ts/matchers.ts region='toHaveText'}
      */
@@ -37,7 +40,8 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
     /**
      * Expect the element to have the given CSS class.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example testing/ts/matchers.ts region='toHaveCssClass'}
      */
@@ -45,7 +49,8 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
     /**
      * Expect the element to have the given CSS styles.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example testing/ts/matchers.ts region='toHaveCssStyle'}
      */
@@ -55,7 +60,8 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
     /**
      * Expect a class to implement the interface of the given class.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example testing/ts/matchers.ts region='toImplement'}
      */
@@ -63,7 +69,8 @@ export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
     /**
      * Expect an exception to contain the given error text.
      *
-     * ## Example
+     * @usageNotes
+     * ### Example
      *
      * {@example testing/ts/matchers.ts region='toContainError'}
      */
