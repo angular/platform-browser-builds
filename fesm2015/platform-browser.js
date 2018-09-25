@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.6+35.sha-82a14dc
+ * @license Angular v7.0.0-beta.6+58.sha-0c34471
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3472,7 +3472,8 @@ class By {
     /**
      * Match all elements.
      *
-     * ## Example
+     * \@usageNotes
+     * ### Example
      *
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
      * @return {?}
@@ -3481,7 +3482,8 @@ class By {
     /**
      * Match elements by the given CSS selector.
      *
-     * ## Example
+     * \@usageNotes
+     * ### Example
      *
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
      * @param {?} selector
@@ -3497,7 +3499,8 @@ class By {
     /**
      * Match elements that have the given directive present.
      *
-     * ## Example
+     * \@usageNotes
+     * ### Example
      *
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
      * @param {?} type
@@ -3518,7 +3521,7 @@ class By {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-const VERSION = new Version('7.0.0-beta.6+35.sha-82a14dc');
+const VERSION = new Version('7.0.0-beta.6+58.sha-0c34471');
 
 /**
  * @fileoverview added by tsickle
