@@ -90,6 +90,6 @@ export declare function initTransferState(doc: Document, appId: string): Transfe
  * @experimental
  */
 export declare class BrowserTransferStateModule {
-    static ngModuleDef: i0.ɵNgModuleDef<BrowserTransferStateModule, never, never, never>;
+    static ngModuleDef: i0.ɵNgModuleDefWithMeta<BrowserTransferStateModule, never, never, never>;
     static ngInjectorDef: i0.ɵInjectorDef<BrowserTransferStateModule>;
 }
