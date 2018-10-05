@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.9+70.sha-3b4d9dc
+ * @license Angular v6.1.9+69.sha-8c6c2fc
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2464,13 +2464,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
                 zone.runGuarded(function () { handler(eventObj); });
             };
             mc.on(eventName, callback);
-            return () => {
-                mc.off(eventName, callback);
-                // destroy mc to prevent memory leak
-                if (typeof mc.destroy === 'function') {
-                    mc.destroy();
-                }
-            };
+            return () => mc.off(eventName, callback);
         });
     }
     /**
@@ -3524,7 +3518,7 @@ class By {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-const VERSION = new Version('6.1.9+70.sha-3b4d9dc');
+const VERSION = new Version('6.1.9+69.sha-8c6c2fc');
 
 /**
  * @fileoverview added by tsickle
