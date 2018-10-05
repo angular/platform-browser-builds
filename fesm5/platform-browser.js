@@ -1,12 +1,12 @@
 /**
- * @license Angular v6.1.9+68.sha-3886bfa
+ * @license Angular v6.1.9+70.sha-3b4d9dc
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { __decorate, __param, __metadata, __extends, __assign, __spread } from 'tslib';
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, inject, defineInjectable, NgModule, APP_ID, NgZone, getDebugNode, NgProbeToken, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, RendererFactory2, Testability, ApplicationModule, SkipSelf, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ViewEncapsulation, RendererStyleFlags2 } from '@angular/core';
+import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, inject, defineInjectable, NgZone, getDebugNode, NgProbeToken, Optional, NgModule, APP_ID, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, RendererFactory2, Testability, ApplicationModule, SkipSelf, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ViewEncapsulation, RendererStyleFlags2 } from '@angular/core';
 
 /**
  * @license
@@ -1571,7 +1571,13 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
                 zone.runGuarded(function () { handler(eventObj); });
             };
             mc.on(eventName, callback);
-            return function () { return mc.off(eventName, callback); };
+            return function () {
+                mc.off(eventName, callback);
+                // destroy mc to prevent memory leak
+                if (typeof mc.destroy === 'function') {
+                    mc.destroy();
+                }
+            };
         });
     };
     HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
@@ -2455,7 +2461,7 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.1.9+68.sha-3886bfa');
+var VERSION = new Version('6.1.9+70.sha-3b4d9dc');
 
 /**
  * @license
