@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-rc.1+20.sha-062fe5c
+ * @license Angular v7.0.0-rc.1+23.sha-9973675
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2182,10 +2182,6 @@
             }
             var end = getDOM().performanceNow();
             if (record && isProfilerAvailable) {
-                // need to cast to <any> because type checker thinks there's no argument
-                // while in fact there is:
-                //
-                // https://developer.mozilla.org/en-US/docs/Web/API/Console/profileEnd
                 win.console.profileEnd(profileName);
             }
             var msPerTick = (end - start) / numTicks;
@@ -2439,7 +2435,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new i0.Version('7.0.0-rc.1+20.sha-062fe5c');
+    var VERSION = new i0.Version('7.0.0-rc.1+23.sha-9973675');
 
     /**
      * @license
