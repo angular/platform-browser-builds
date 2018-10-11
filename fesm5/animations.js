@@ -1,12 +1,12 @@
 /**
- * @license Angular v7.0.0-rc.1+6.sha-7d0e175
+ * @license Angular v7.0.0-rc.1+16.sha-1e69d60
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { __extends, __spread, __read } from 'tslib';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { RendererFactory2, ViewEncapsulation, ɵdefineNgModule, defineInjector, defineInjectable, inject, InjectionToken, NgZone } from '@angular/core';
+import { RendererFactory2, ViewEncapsulation, defineInjectable, inject, InjectionToken, NgZone, ɵdefineNgModule, defineInjector } from '@angular/core';
 import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
