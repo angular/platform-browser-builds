@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-rc.1+22.sha-0a3f817
+ * @license Angular v7.0.0-rc.1+21.sha-6a64ac4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -3234,7 +3234,11 @@ class AngularProfiler {
         /** @type {?} */
         const end = getDOM().performanceNow();
         if (record && isProfilerAvailable) {
-            win.console.profileEnd(profileName);
+            // need to cast to <any> because type checker thinks there's no argument
+            // while in fact there is:
+            //
+            // https://developer.mozilla.org/en-US/docs/Web/API/Console/profileEnd
+            (/** @type {?} */ (win.console.profileEnd))(profileName);
         }
         /** @type {?} */
         const msPerTick = (end - start) / numTicks;
@@ -3523,7 +3527,7 @@ class By {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-const VERSION = new Version('7.0.0-rc.1+22.sha-0a3f817');
+const VERSION = new Version('7.0.0-rc.1+21.sha-6a64ac4');
 
 /**
  * @fileoverview added by tsickle
