@@ -11,9 +11,12 @@ export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
- * @experimental
+ * @publicApi
  */
 export declare const BROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
+/**
+ * @publicApi
+ */
 export declare const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef;
 export declare function initDomAdapter(): void;
 export declare function errorHandler(): ErrorHandler;
@@ -26,7 +29,7 @@ export declare const BROWSER_MODULE_PROVIDERS: StaticProvider[];
  * Re-exports `CommonModule` and `ApplicationModule`, making their
  * exports and providers available to all apps.
  *
- *
+ * @publicApi
  */
 export declare class BrowserModule {
     constructor(parentModule: BrowserModule | null);
@@ -37,8 +40,6 @@ export declare class BrowserModule {
      * @param params An object containing an identifier for the app to transition.
      * The ID must match between the client and server versions of the app.
      * @returns The reconfigured `BrowserModule` to import into the app's root `AppModule`.
-     *
-     * @experimental
      */
     static withServerTransition(params: {
         appId: string;
