@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0+32.sha-3f94759
+ * @license Angular v7.0.0+52.sha-778e1c2
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1066,6 +1066,7 @@ function relativePath(url) {
  * Contexts are not the same (e.g. when running the application into a Web Worker).
  *
  * @deprecated import from `\@angular/common` instead.
+ * \@publicApi
   @type {?} */
 const DOCUMENT$1 = DOCUMENT;
 
@@ -1385,11 +1386,15 @@ const ELEMENT_PROBE_PROVIDERS = [
  */
 /** *
  * The injection token for the event-manager plug-in service.
+ *
+ * \@publicApi
   @type {?} */
 const EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
  * An injectable service that provides event management for Angular
  * through a browser plug-in.
+ *
+ * \@publicApi
  */
 class EventManager {
     /**
@@ -2332,17 +2337,19 @@ const EVENT_NAMES = {
  * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
- * \@experimental
+ * \@publicApi
   @type {?} */
 const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
 /** *
  * Injection token used to provide a {\@link HammerLoader} to Angular.
+ *
+ * \@publicApi
   @type {?} */
 const HAMMER_LOADER = new InjectionToken('HammerLoader');
 /**
  * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
  * for gesture recognition. Configures specific event recognition.
- * \@experimental
+ * \@publicApi
  */
 class HammerGestureConfig {
     constructor() {
@@ -2512,7 +2519,7 @@ const MODIFIER_KEY_GETTERS = {
     'shift': ɵ3
 };
 /**
- * \@experimental
+ * \@publicApi
  * A browser plug-in that provides support for handling of key events in Angular.
  */
 class KeyEventsPlugin extends EventManagerPlugin {
@@ -2677,7 +2684,7 @@ KeyEventsPlugin.ctorParameters = () => [
  * into this call. Make sure any user data is appropriately escaped for this security context.
  * For more detail, see the [Security Guide](http://g.co/ng/security).
  *
- *
+ * \@publicApi
  * @abstract
  */
 class DomSanitizer {
@@ -2844,13 +2851,15 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
- * \@experimental
+ * \@publicApi
   @type {?} */
 const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
-/** @type {?} */
+/** *
+ * \@publicApi
+  @type {?} */
 const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 /**
  * @return {?}
@@ -2909,7 +2918,7 @@ const BROWSER_MODULE_PROVIDERS = [
  * Re-exports `CommonModule` and `ApplicationModule`, making their
  * exports and providers available to all apps.
  *
- *
+ * \@publicApi
  */
 class BrowserModule {
     /**
@@ -2924,11 +2933,9 @@ class BrowserModule {
      * Configures a browser-based app to transition from a server-rendered app, if
      * one is present on the page.
      *
-     * \@experimental
      * @param {?} params An object containing an identifier for the app to transition.
      * The ID must match between the client and server versions of the app.
      * @return {?} The reconfigured `BrowserModule` to import into the app's root `AppModule`.
-     *
      */
     static withServerTransition(params) {
         return {
@@ -2963,7 +2970,7 @@ function createMeta() {
 /**
  * A service that can be used to get and add meta tags.
  *
- * \@experimental
+ * \@publicApi
  */
 class Meta {
     /**
@@ -3128,7 +3135,7 @@ function createTitle() {
  * (representing the `<title>` tag). Instead, this service can be used to set and get the current
  * title value.
  *
- * \@experimental
+ * \@publicApi
  */
 class Title {
     /**
@@ -3261,7 +3268,7 @@ const PROFILER_GLOBAL_NAME = 'profiler';
  * 1. Try the change detection profiler `ng.profiler.timeChangeDetection()`
  *    then hit Enter.
  *
- * \@experimental All debugging apis are currently experimental.
+ * \@publicApi
  * @template T
  * @param {?} ref
  * @return {?}
@@ -3273,7 +3280,7 @@ function enableDebugTools(ref) {
 /**
  * Disables Angular tools.
  *
- * \@experimental All debugging apis are currently experimental.
+ * \@publicApi
  * @return {?}
  */
 function disableDebugTools() {
@@ -3326,7 +3333,7 @@ function unescapeHtml(text) {
  * transferState.set(COUNTER_KEY, value);
  * ```
  *
- * \@experimental
+ * \@publicApi
  * @template T
  * @param {?} key
  * @return {?}
@@ -3345,7 +3352,7 @@ function makeStateKey(key) {
  * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
  * non-lossy manner.
  *
- * \@experimental
+ * \@publicApi
  */
 class TransferState {
     constructor() {
@@ -3451,7 +3458,7 @@ function initTransferState(doc, appId) {
  * NgModule to install on the client side while using the `TransferState` to transfer state from
  * server to client.
  *
- * \@experimental
+ * \@publicApi
  */
 class BrowserTransferStateModule {
 }
@@ -3468,7 +3475,7 @@ BrowserTransferStateModule.decorators = [
 /**
  * Predicates for use with {\@link DebugElement}'s query functions.
  *
- * \@experimental All debugging apis are currently experimental.
+ * \@publicApi
  */
 class By {
     /**
@@ -3522,8 +3529,10 @@ class By {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const VERSION = new Version('7.0.0+32.sha-3f94759');
+/** *
+ * \@publicApi
+  @type {?} */
+const VERSION = new Version('7.0.0+52.sha-778e1c2');
 
 /**
  * @fileoverview added by tsickle
