@@ -9,7 +9,7 @@ import * as i0 from '@angular/core';
 import { NgZone } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
 /**
- * @experimental
+ * @publicApi
  * A browser plug-in that provides support for handling of key events in Angular.
  */
 export declare class KeyEventsPlugin extends EventManagerPlugin {

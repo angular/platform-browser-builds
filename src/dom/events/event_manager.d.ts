@@ -9,11 +9,15 @@ import * as i0 from '@angular/core';
 import { InjectionToken, NgZone } from '@angular/core';
 /**
  * The injection token for the event-manager plug-in service.
+ *
+ * @publicApi
  */
 export declare const EVENT_MANAGER_PLUGINS: InjectionToken<EventManagerPlugin[]>;
 /**
  * An injectable service that provides event management for Angular
  * through a browser plug-in.
+ *
+ * @publicApi
  */
 export declare class EventManager {
     private _zone;

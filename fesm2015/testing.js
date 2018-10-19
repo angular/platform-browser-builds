@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0+32.sha-3f94759
+ * @license Angular v7.0.0+52.sha-778e1c2
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -138,13 +138,13 @@ const _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useVa
 /** *
  * Platform for testing
  *
- *
+ * \@publicApi
   @type {?} */
 const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
- *
+ * \@publicApi
  */
 class BrowserTestingModule {
 }

@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0+32.sha-3f94759
+ * @license Angular v7.0.0+52.sha-778e1c2
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -385,7 +385,7 @@
         return new AnimationRendererFactory(renderer, engine, zone);
     }
     /**
-     * @experimental Animation support is experimental.
+     * @publicApi
      */
     var ANIMATION_MODULE_TYPE = new i0.InjectionToken('AnimationModuleType');
     var SHARED_ANIMATION_PROVIDERS = [
@@ -424,7 +424,7 @@
     /**
      * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
      * for use with animations. See [Animations](guide/animations).
-     * @experimental
+     * @publicApi
      */
     var BrowserAnimationsModule = /** @class */ (function () {
         function BrowserAnimationsModule() {
@@ -435,7 +435,7 @@
     }());
     /**
      * A null player that must be imported to allow disabling of animations.
-     * @experimental
+     * @publicApi
      */
     var NoopAnimationsModule = /** @class */ (function () {
         function NoopAnimationsModule() {
