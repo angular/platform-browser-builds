@@ -3,7 +3,7 @@ import * as i1 from '@angular/platform-browser';
 /**
  * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
  * for use with animations. See [Animations](guide/animations).
- * @experimental
+ * @publicApi
  */
 export declare class BrowserAnimationsModule {
     static ngModuleDef: i0.ɵNgModuleDefWithMeta<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
@@ -11,7 +11,7 @@ export declare class BrowserAnimationsModule {
 }
 /**
  * A null player that must be imported to allow disabling of animations.
- * @experimental
+ * @publicApi
  */
 export declare class NoopAnimationsModule {
     static ngModuleDef: i0.ɵNgModuleDefWithMeta<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
