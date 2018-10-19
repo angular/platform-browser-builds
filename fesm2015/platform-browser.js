@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-rc.1+118.sha-31022cb
+ * @license Angular v7.0.0-rc.1+137.sha-4c2ce4e
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -516,6 +516,7 @@ function relativePath(url) {
  * Contexts are not the same (e.g. when running the application into a Web Worker).
  *
  * @deprecated import from `@angular/common` instead.
+ * @publicApi
  */
 const DOCUMENT$1 = DOCUMENT;
 
@@ -757,11 +758,15 @@ const ELEMENT_PROBE_PROVIDERS = [
  */
 /**
  * The injection token for the event-manager plug-in service.
+ *
+ * @publicApi
  */
 const EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
  * An injectable service that provides event management for Angular
  * through a browser plug-in.
+ *
+ * @publicApi
  */
 let EventManager = class EventManager {
     /**
@@ -1392,21 +1397,25 @@ const EVENT_NAMES = {
  * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
- * @experimental
+ * @publicApi
  */
 const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
-/** Injection token used to provide a {@link HammerLoader} to Angular. */
+/**
+ * Injection token used to provide a {@link HammerLoader} to Angular.
+ *
+ * @publicApi
+ */
 const HAMMER_LOADER = new InjectionToken('HammerLoader');
 /**
  * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
  * for gesture recognition. Configures specific event recognition.
- * @experimental
+ * @publicApi
  */
 let HammerGestureConfig = class HammerGestureConfig {
     /**
      * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
      * for gesture recognition. Configures specific event recognition.
-     * @experimental
+     * @publicApi
      */
     constructor() {
         /**
@@ -1553,7 +1562,7 @@ const MODIFIER_KEY_GETTERS = {
     'shift': (event) => event.shiftKey
 };
 /**
- * @experimental
+ * @publicApi
  * A browser plug-in that provides support for handling of key events in Angular.
  */
 let KeyEventsPlugin = KeyEventsPlugin_1 = class KeyEventsPlugin extends EventManagerPlugin {
@@ -1696,7 +1705,7 @@ KeyEventsPlugin = KeyEventsPlugin_1 = __decorate([
  * into this call. Make sure any user data is appropriately escaped for this security context.
  * For more detail, see the [Security Guide](http://g.co/ng/security).
  *
- *
+ * @publicApi
  */
 class DomSanitizer {
 }
@@ -1806,12 +1815,15 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
- * @experimental
+ * @publicApi
  */
 const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
+/**
+ * @publicApi
+ */
 const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 function initDomAdapter() {
     BrowserDomAdapter.makeCurrent();
@@ -1860,7 +1872,7 @@ const BROWSER_MODULE_PROVIDERS = [
  * Re-exports `CommonModule` and `ApplicationModule`, making their
  * exports and providers available to all apps.
  *
- *
+ * @publicApi
  */
 let BrowserModule = BrowserModule_1 = class BrowserModule {
     constructor(parentModule) {
@@ -1875,8 +1887,6 @@ let BrowserModule = BrowserModule_1 = class BrowserModule {
      * @param params An object containing an identifier for the app to transition.
      * The ID must match between the client and server versions of the app.
      * @returns The reconfigured `BrowserModule` to import into the app's root `AppModule`.
-     *
-     * @experimental
      */
     static withServerTransition(params) {
         return {
@@ -1911,7 +1921,7 @@ function createMeta() {
 /**
  * A service that can be used to get and add meta tags.
  *
- * @experimental
+ * @publicApi
  */
 let Meta = class Meta {
     constructor(_doc) {
@@ -2015,7 +2025,7 @@ function createTitle() {
  * (representing the `<title>` tag). Instead, this service can be used to set and get the current
  * title value.
  *
- * @experimental
+ * @publicApi
  */
 let Title = class Title {
     constructor(_doc) {
@@ -2126,7 +2136,7 @@ const PROFILER_GLOBAL_NAME = 'profiler';
  * 1. Try the change detection profiler `ng.profiler.timeChangeDetection()`
  *    then hit Enter.
  *
- * @experimental All debugging apis are currently experimental.
+ * @publicApi
  */
 function enableDebugTools(ref) {
     exportNgVar(PROFILER_GLOBAL_NAME, new AngularProfiler(ref));
@@ -2135,7 +2145,7 @@ function enableDebugTools(ref) {
 /**
  * Disables Angular tools.
  *
- * @experimental All debugging apis are currently experimental.
+ * @publicApi
  */
 function disableDebugTools() {
     exportNgVar(PROFILER_GLOBAL_NAME, null);
@@ -2181,7 +2191,7 @@ function unescapeHtml(text) {
  * transferState.set(COUNTER_KEY, value);
  * ```
  *
- * @experimental
+ * @publicApi
  */
 function makeStateKey(key) {
     return key;
@@ -2197,7 +2207,7 @@ function makeStateKey(key) {
  * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
  * non-lossy manner.
  *
- * @experimental
+ * @publicApi
  */
 let TransferState = TransferState_1 = class TransferState {
     /**
@@ -2211,7 +2221,7 @@ let TransferState = TransferState_1 = class TransferState {
      * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
      * non-lossy manner.
      *
-     * @experimental
+     * @publicApi
      */
     constructor() {
         this.store = {};
@@ -2287,7 +2297,7 @@ function initTransferState(doc, appId) {
  * NgModule to install on the client side while using the `TransferState` to transfer state from
  * server to client.
  *
- * @experimental
+ * @publicApi
  */
 let BrowserTransferStateModule = class BrowserTransferStateModule {
 };
@@ -2307,7 +2317,7 @@ BrowserTransferStateModule = __decorate([
 /**
  * Predicates for use with {@link DebugElement}'s query functions.
  *
- * @experimental All debugging apis are currently experimental.
+ * @publicApi
  */
 class By {
     /**
@@ -2362,7 +2372,10 @@ class By {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('7.0.0-rc.1+118.sha-31022cb');
+/**
+ * @publicApi
+ */
+const VERSION = new Version('7.0.0-rc.1+137.sha-4c2ce4e');
 
 /**
  * @license

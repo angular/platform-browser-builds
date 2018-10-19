@@ -9,7 +9,7 @@ import { DebugElement, Predicate, Type } from '@angular/core';
 /**
  * Predicates for use with {@link DebugElement}'s query functions.
  *
- * @experimental All debugging apis are currently experimental.
+ * @publicApi
  */
 export declare class By {
     /**
