@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-rc.1+111.sha-5b4cf38
+ * @license Angular v7.0.0-rc.1+178.sha-ee0b857.with-local-changes
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -536,6 +536,7 @@ function relativePath(url) {
  * Contexts are not the same (e.g. when running the application into a Web Worker).
  *
  * @deprecated import from `@angular/common` instead.
+ * @publicApi
  */
 var DOCUMENT$1 = DOCUMENT;
 
@@ -785,11 +786,15 @@ var ELEMENT_PROBE_PROVIDERS = [
  */
 /**
  * The injection token for the event-manager plug-in service.
+ *
+ * @publicApi
  */
 var EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
  * An injectable service that provides event management for Angular
  * through a browser plug-in.
+ *
+ * @publicApi
  */
 var EventManager = /** @class */ (function () {
     /**
@@ -1396,15 +1401,19 @@ var EVENT_NAMES = {
  * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
- * @experimental
+ * @publicApi
  */
 var HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
-/** Injection token used to provide a {@link HammerLoader} to Angular. */
+/**
+ * Injection token used to provide a {@link HammerLoader} to Angular.
+ *
+ * @publicApi
+ */
 var HAMMER_LOADER = new InjectionToken('HammerLoader');
 /**
  * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
  * for gesture recognition. Configures specific event recognition.
- * @experimental
+ * @publicApi
  */
 var HammerGestureConfig = /** @class */ (function () {
     function HammerGestureConfig() {
@@ -1541,7 +1550,7 @@ var MODIFIER_KEY_GETTERS = {
     'shift': function (event) { return event.shiftKey; }
 };
 /**
- * @experimental
+ * @publicApi
  * A browser plug-in that provides support for handling of key events in Angular.
  */
 var KeyEventsPlugin = /** @class */ (function (_super) {
@@ -1677,7 +1686,7 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
  * into this call. Make sure any user data is appropriately escaped for this security context.
  * For more detail, see the [Security Guide](http://g.co/ng/security).
  *
- *
+ * @publicApi
  */
 var DomSanitizer = /** @class */ (function () {
     function DomSanitizer() {
@@ -1814,12 +1823,15 @@ var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
- * @experimental
+ * @publicApi
  */
 var BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
+/**
+ * @publicApi
+ */
 var platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 function initDomAdapter() {
     BrowserDomAdapter.makeCurrent();
@@ -1868,7 +1880,7 @@ var BROWSER_MODULE_PROVIDERS = [
  * Re-exports `CommonModule` and `ApplicationModule`, making their
  * exports and providers available to all apps.
  *
- *
+ * @publicApi
  */
 var BrowserModule = /** @class */ (function () {
     function BrowserModule(parentModule) {
@@ -1883,8 +1895,6 @@ var BrowserModule = /** @class */ (function () {
      * @param params An object containing an identifier for the app to transition.
      * The ID must match between the client and server versions of the app.
      * @returns The reconfigured `BrowserModule` to import into the app's root `AppModule`.
-     *
-     * @experimental
      */
     BrowserModule.withServerTransition = function (params) {
         return {
@@ -1917,7 +1927,7 @@ function createMeta() {
 /**
  * A service that can be used to get and add meta tags.
  *
- * @experimental
+ * @publicApi
  */
 var Meta = /** @class */ (function () {
     function Meta(_doc) {
@@ -2029,7 +2039,7 @@ function createTitle() {
  * (representing the `<title>` tag). Instead, this service can be used to set and get the current
  * title value.
  *
- * @experimental
+ * @publicApi
  */
 var Title = /** @class */ (function () {
     function Title(_doc) {
@@ -2146,7 +2156,7 @@ var PROFILER_GLOBAL_NAME = 'profiler';
  * 1. Try the change detection profiler `ng.profiler.timeChangeDetection()`
  *    then hit Enter.
  *
- * @experimental All debugging apis are currently experimental.
+ * @publicApi
  */
 function enableDebugTools(ref) {
     exportNgVar(PROFILER_GLOBAL_NAME, new AngularProfiler(ref));
@@ -2155,7 +2165,7 @@ function enableDebugTools(ref) {
 /**
  * Disables Angular tools.
  *
- * @experimental All debugging apis are currently experimental.
+ * @publicApi
  */
 function disableDebugTools() {
     exportNgVar(PROFILER_GLOBAL_NAME, null);
@@ -2200,7 +2210,7 @@ function unescapeHtml(text) {
  * transferState.set(COUNTER_KEY, value);
  * ```
  *
- * @experimental
+ * @publicApi
  */
 function makeStateKey(key) {
     return key;
@@ -2216,7 +2226,7 @@ function makeStateKey(key) {
  * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
  * non-lossy manner.
  *
- * @experimental
+ * @publicApi
  */
 var TransferState = /** @class */ (function () {
     function TransferState() {
@@ -2292,7 +2302,7 @@ function initTransferState(doc, appId) {
  * NgModule to install on the client side while using the `TransferState` to transfer state from
  * server to client.
  *
- * @experimental
+ * @publicApi
  */
 var BrowserTransferStateModule = /** @class */ (function () {
     function BrowserTransferStateModule() {
@@ -2312,7 +2322,7 @@ var BrowserTransferStateModule = /** @class */ (function () {
 /**
  * Predicates for use with {@link DebugElement}'s query functions.
  *
- * @experimental All debugging apis are currently experimental.
+ * @publicApi
  */
 var By = /** @class */ (function () {
     function By() {
@@ -2370,7 +2380,10 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('7.0.0-rc.1+111.sha-5b4cf38');
+/**
+ * @publicApi
+ */
+var VERSION = new Version('7.0.0-rc.1+178.sha-ee0b857.with-local-changes');
 
 /**
  * @license

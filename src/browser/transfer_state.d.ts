@@ -20,7 +20,7 @@ export declare function unescapeHtml(text: string): string;
  * transferState.set(COUNTER_KEY, value);
  * ```
  *
- * @experimental
+ * @publicApi
  */
 export declare type StateKey<T> = string & {
     __not_a_string: never;
@@ -37,7 +37,7 @@ export declare type StateKey<T> = string & {
  * transferState.set(COUNTER_KEY, value);
  * ```
  *
- * @experimental
+ * @publicApi
  */
 export declare function makeStateKey<T = void>(key: string): StateKey<T>;
 /**
@@ -51,7 +51,7 @@ export declare function makeStateKey<T = void>(key: string): StateKey<T>;
  * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
  * non-lossy manner.
  *
- * @experimental
+ * @publicApi
  */
 export declare class TransferState {
     private store;
@@ -87,7 +87,7 @@ export declare function initTransferState(doc: Document, appId: string): Transfe
  * NgModule to install on the client side while using the `TransferState` to transfer state from
  * server to client.
  *
- * @experimental
+ * @publicApi
  */
 export declare class BrowserTransferStateModule {
     static ngModuleDef: i0.ɵNgModuleDefWithMeta<BrowserTransferStateModule, never, never, never>;
