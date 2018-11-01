@@ -1,11 +1,11 @@
 /**
- * @license Angular v7.1.0-beta.1+6.sha-4e9f2e5
+ * @license Angular v7.1.0-beta.1+14.sha-2e7b5c5
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, inject, Version, APP_ID, NgModule, InjectionToken, NgZone, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, APP_INITIALIZER, ApplicationInitStatus, Injector, ApplicationRef, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, defineInjectable, ɵdefineNgModule, defineInjector, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵglobal, Inject, Injectable, inject, Version, InjectionToken, NgZone, APP_ID, NgModule, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ApplicationRef, APP_INITIALIZER, ApplicationInitStatus, Injector, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, defineInjectable, ɵsetClassMetadata, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, ɵdefineNgModule, defineInjector, getDebugNode, NgProbeToken } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -1201,6 +1201,15 @@ BrowserPlatformLocation.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 BrowserPlatformLocation.ngInjectableDef = defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory(t) { return new (t || BrowserPlatformLocation)(inject(DOCUMENT$1)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(BrowserPlatformLocation, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }], null);
 
 /**
  * @fileoverview added by tsickle
@@ -1489,6 +1498,17 @@ EventManager.ctorParameters = () => [
     { type: NgZone }
 ];
 EventManager.ngInjectableDef = defineInjectable({ token: EventManager, factory: function EventManager_Factory(t) { return new (t || EventManager)(inject(EVENT_MANAGER_PLUGINS), inject(NgZone)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(EventManager, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [EVENT_MANAGER_PLUGINS]
+            }]
+    }, {
+        type: NgZone
+    }], null);
 /**
  * @abstract
  */
@@ -1562,6 +1582,9 @@ SharedStylesHost.decorators = [
     { type: Injectable },
 ];
 SharedStylesHost.ngInjectableDef = defineInjectable({ token: SharedStylesHost, factory: function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(SharedStylesHost, [{
+        type: Injectable
+    }], null, null);
 class DomSharedStylesHost extends SharedStylesHost {
     /**
      * @param {?} _doc
@@ -1619,6 +1642,15 @@ DomSharedStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 DomSharedStylesHost.ngInjectableDef = defineInjectable({ token: DomSharedStylesHost, factory: function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(inject(DOCUMENT$1)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(DomSharedStylesHost, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }], null);
 
 /**
  * @fileoverview added by tsickle
@@ -1760,6 +1792,13 @@ DomRendererFactory2.ctorParameters = () => [
     { type: DomSharedStylesHost }
 ];
 DomRendererFactory2.ngInjectableDef = defineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(inject(EventManager), inject(DomSharedStylesHost)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(DomRendererFactory2, [{
+        type: Injectable
+    }], [{
+        type: EventManager
+    }, {
+        type: DomSharedStylesHost
+    }], null);
 class DefaultDomRenderer2 {
     /**
      * @param {?} eventManager
@@ -2328,6 +2367,25 @@ DomEventsPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] }] }
 ];
 DomEventsPlugin.ngInjectableDef = defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(inject(DOCUMENT$1), inject(NgZone), inject(PLATFORM_ID, 8)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(DomEventsPlugin, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }, {
+        type: NgZone
+    }, {
+        type: undefined,
+        decorators: [{
+                type: Optional
+            }, {
+                type: Inject,
+                args: [PLATFORM_ID]
+            }]
+    }], null);
 
 /**
  * @fileoverview added by tsickle
@@ -2445,6 +2503,9 @@ HammerGestureConfig.decorators = [
     { type: Injectable },
 ];
 HammerGestureConfig.ngInjectableDef = defineInjectable({ token: HammerGestureConfig, factory: function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(HammerGestureConfig, [{
+        type: Injectable
+    }], null, null);
 class HammerGesturesPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
@@ -2548,6 +2609,31 @@ HammerGesturesPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
 ];
 HammerGesturesPlugin.ngInjectableDef = defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(inject(DOCUMENT$1), inject(HAMMER_GESTURE_CONFIG), inject(ɵConsole), inject(HAMMER_LOADER, 8)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(HammerGesturesPlugin, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }, {
+        type: HammerGestureConfig,
+        decorators: [{
+                type: Inject,
+                args: [HAMMER_GESTURE_CONFIG]
+            }]
+    }, {
+        type: ɵConsole
+    }, {
+        type: undefined,
+        decorators: [{
+                type: Optional
+            }, {
+                type: Inject,
+                args: [HAMMER_LOADER]
+            }]
+    }], null);
 
 /**
  * @fileoverview added by tsickle
@@ -2706,6 +2792,15 @@ KeyEventsPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 KeyEventsPlugin.ngInjectableDef = defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(inject(DOCUMENT$1)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(KeyEventsPlugin, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }], null);
 
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
@@ -2839,6 +2934,15 @@ DomSanitizerImpl.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 DomSanitizerImpl.ngInjectableDef = defineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(inject(DOCUMENT$1)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(DomSanitizerImpl, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }], null);
 /**
  * @abstract
  */
@@ -3017,6 +3121,20 @@ BrowserModule.ctorParameters = () => [
 ];
 BrowserModule.ngModuleDef = ɵdefineNgModule({ type: BrowserModule, bootstrap: [], declarations: [], imports: [], exports: [CommonModule, ApplicationModule] });
 BrowserModule.ngInjectorDef = defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[CommonModule, ApplicationModule]] });
+/*@__PURE__*/ ɵsetClassMetadata(BrowserModule, [{
+        type: NgModule,
+        args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Optional
+            }, {
+                type: SkipSelf
+            }, {
+                type: Inject,
+                args: [BrowserModule]
+            }]
+    }], null);
 
 /**
  * Factory to create Meta service.
@@ -3178,6 +3296,16 @@ Meta.ngInjectableDef = defineInjectable({ token: Meta, factory: function Meta_Fa
     else {
         (r = createMeta());
     } return r; }, providedIn: 'root' });
+/*@__PURE__*/ ɵsetClassMetadata(Meta, [{
+        type: Injectable,
+        args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }], null);
 
 /**
  * @fileoverview added by tsickle
@@ -3239,6 +3367,16 @@ Title.ngInjectableDef = defineInjectable({ token: Title, factory: function Title
     else {
         (r = createTitle());
     } return r; }, providedIn: 'root' });
+/*@__PURE__*/ ɵsetClassMetadata(Title, [{
+        type: Injectable,
+        args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }], null);
 
 /**
  * @fileoverview added by tsickle
@@ -3517,6 +3655,9 @@ TransferState.decorators = [
     { type: Injectable },
 ];
 TransferState.ngInjectableDef = defineInjectable({ token: TransferState, factory: function TransferState_Factory(t) { return new (t || TransferState)(); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(TransferState, [{
+        type: Injectable
+    }], null, null);
 /**
  * @param {?} doc
  * @param {?} appId
@@ -3552,6 +3693,12 @@ BrowserTransferStateModule.decorators = [
 ];
 BrowserTransferStateModule.ngModuleDef = ɵdefineNgModule({ type: BrowserTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
 BrowserTransferStateModule.ngInjectorDef = defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }], imports: [] });
+/*@__PURE__*/ ɵsetClassMetadata(BrowserTransferStateModule, [{
+        type: NgModule,
+        args: [{
+                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
+            }]
+    }], null, null);
 
 /**
  * @fileoverview added by tsickle
@@ -3617,7 +3764,7 @@ class By {
 /** *
  * \@publicApi
   @type {?} */
-const VERSION = new Version('7.1.0-beta.1+6.sha-4e9f2e5');
+const VERSION = new Version('7.1.0-beta.1+14.sha-2e7b5c5');
 
 /**
  * @fileoverview added by tsickle

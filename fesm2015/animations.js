@@ -1,11 +1,11 @@
 /**
- * @license Angular v7.1.0-beta.1+6.sha-4e9f2e5
+ * @license Angular v7.1.0-beta.1+14.sha-2e7b5c5
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgModule, ɵdefineNgModule, defineInjector, defineInjectable, inject, InjectionToken, NgZone } from '@angular/core';
+import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgModule, ɵdefineNgModule, defineInjector, ɵsetClassMetadata, defineInjectable, inject, InjectionToken, NgZone } from '@angular/core';
 import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
@@ -54,6 +54,17 @@ BrowserAnimationBuilder.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 BrowserAnimationBuilder.ngInjectableDef = defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(inject(RendererFactory2), inject(DOCUMENT)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationBuilder, [{
+        type: Injectable
+    }], [{
+        type: RendererFactory2
+    }, {
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT]
+            }]
+    }], null);
 class BrowserAnimationFactory extends AnimationFactory {
     /**
      * @param {?} _id
@@ -315,6 +326,15 @@ AnimationRendererFactory.ctorParameters = () => [
     { type: NgZone }
 ];
 AnimationRendererFactory.ngInjectableDef = defineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(inject(RendererFactory2), inject(ɵAnimationEngine), inject(NgZone)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(AnimationRendererFactory, [{
+        type: Injectable
+    }], [{
+        type: RendererFactory2
+    }, {
+        type: ɵAnimationEngine
+    }, {
+        type: NgZone
+    }], null);
 class BaseAnimationRenderer {
     /**
      * @param {?} namespaceId
@@ -610,6 +630,19 @@ InjectableAnimationEngine.ctorParameters = () => [
     { type: ɵAnimationStyleNormalizer }
 ];
 InjectableAnimationEngine.ngInjectableDef = defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(inject(DOCUMENT$1), inject(AnimationDriver), inject(ɵAnimationStyleNormalizer)); }, providedIn: null });
+/*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }, {
+        type: AnimationDriver
+    }, {
+        type: ɵAnimationStyleNormalizer
+    }], null);
 /**
  * @return {?}
  */
@@ -681,6 +714,13 @@ BrowserAnimationsModule.decorators = [
 ];
 BrowserAnimationsModule.ngModuleDef = ɵdefineNgModule({ type: BrowserAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
 BrowserAnimationsModule.ngInjectorDef = defineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [[BrowserModule]] });
+/*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationsModule, [{
+        type: NgModule,
+        args: [{
+                exports: [BrowserModule],
+                providers: BROWSER_ANIMATIONS_PROVIDERS,
+            }]
+    }], null, null);
 /**
  * A null player that must be imported to allow disabling of animations.
  * \@publicApi
@@ -695,6 +735,13 @@ NoopAnimationsModule.decorators = [
 ];
 NoopAnimationsModule.ngModuleDef = ɵdefineNgModule({ type: NoopAnimationsModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
 NoopAnimationsModule.ngInjectorDef = defineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [[BrowserModule]] });
+/*@__PURE__*/ ɵsetClassMetadata(NoopAnimationsModule, [{
+        type: NgModule,
+        args: [{
+                exports: [BrowserModule],
+                providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
+            }]
+    }], null, null);
 
 /**
  * @fileoverview added by tsickle

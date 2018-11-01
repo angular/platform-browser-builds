@@ -1,10 +1,10 @@
 /**
- * @license Angular v7.1.0-beta.1+6.sha-4e9f2e5
+ * @license Angular v7.1.0-beta.1+14.sha-2e7b5c5
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { NgZone, ɵglobal, APP_ID, NgModule, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵdefineNgModule, defineInjector } from '@angular/core';
+import { NgZone, ɵglobal, APP_ID, NgModule, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵdefineNgModule, defineInjector, ɵsetClassMetadata } from '@angular/core';
 import { ɵgetDOM, BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 
 /**
@@ -164,6 +164,17 @@ BrowserTestingModule.ngInjectorDef = defineInjector({ factory: function BrowserT
         ɵELEMENT_PROBE_PROVIDERS,
         { provide: NgZone, useFactory: createNgZone },
     ], imports: [[BrowserModule]] });
+/*@__PURE__*/ ɵsetClassMetadata(BrowserTestingModule, [{
+        type: NgModule,
+        args: [{
+                exports: [BrowserModule],
+                providers: [
+                    { provide: APP_ID, useValue: 'a' },
+                    ɵELEMENT_PROBE_PROVIDERS,
+                    { provide: NgZone, useFactory: createNgZone },
+                ]
+            }]
+    }], null, null);
 
 /**
  * @fileoverview added by tsickle

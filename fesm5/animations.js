@@ -1,12 +1,12 @@
 /**
- * @license Angular v7.1.0-beta.1+6.sha-4e9f2e5
+ * @license Angular v7.1.0-beta.1+14.sha-2e7b5c5
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { __extends, __spread, __read } from 'tslib';
 import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { RendererFactory2, ViewEncapsulation, ɵdefineNgModule, defineInjector, defineInjectable, inject, InjectionToken, NgZone } from '@angular/core';
+import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgModule, ɵdefineNgModule, defineInjector, ɵsetClassMetadata, defineInjectable, inject, InjectionToken, NgZone } from '@angular/core';
 import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
 import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
@@ -35,6 +35,17 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
     BrowserAnimationBuilder.ngInjectableDef = defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(inject(RendererFactory2), inject(DOCUMENT)); }, providedIn: null });
     return BrowserAnimationBuilder;
 }(AnimationBuilder));
+/*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationBuilder, [{
+        type: Injectable
+    }], [{
+        type: RendererFactory2
+    }, {
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT]
+            }]
+    }], null);
 var BrowserAnimationFactory = /** @class */ (function (_super) {
     __extends(BrowserAnimationFactory, _super);
     function BrowserAnimationFactory(_id, _renderer) {
@@ -186,6 +197,15 @@ var AnimationRendererFactory = /** @class */ (function () {
     AnimationRendererFactory.ngInjectableDef = defineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(inject(RendererFactory2), inject(ɵAnimationEngine), inject(NgZone)); }, providedIn: null });
     return AnimationRendererFactory;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(AnimationRendererFactory, [{
+        type: Injectable
+    }], [{
+        type: RendererFactory2
+    }, {
+        type: ɵAnimationEngine
+    }, {
+        type: NgZone
+    }], null);
 var BaseAnimationRenderer = /** @class */ (function () {
     function BaseAnimationRenderer(namespaceId, delegate, engine) {
         this.namespaceId = namespaceId;
@@ -324,6 +344,19 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
     InjectableAnimationEngine.ngInjectableDef = defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(inject(DOCUMENT$1), inject(AnimationDriver), inject(ɵAnimationStyleNormalizer)); }, providedIn: null });
     return InjectableAnimationEngine;
 }(ɵAnimationEngine));
+/*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT$1]
+            }]
+    }, {
+        type: AnimationDriver
+    }, {
+        type: ɵAnimationStyleNormalizer
+    }], null);
 function instantiateSupportedAnimationDriver() {
     return ɵsupportsWebAnimations() ? new ɵWebAnimationsDriver() : new ɵCssKeyframesDriver();
 }
@@ -382,6 +415,13 @@ var BrowserAnimationsModule = /** @class */ (function () {
     BrowserAnimationsModule.ngInjectorDef = defineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [[BrowserModule]] });
     return BrowserAnimationsModule;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationsModule, [{
+        type: NgModule,
+        args: [{
+                exports: [BrowserModule],
+                providers: BROWSER_ANIMATIONS_PROVIDERS,
+            }]
+    }], null, null);
 /**
  * A null player that must be imported to allow disabling of animations.
  * @publicApi
@@ -393,6 +433,13 @@ var NoopAnimationsModule = /** @class */ (function () {
     NoopAnimationsModule.ngInjectorDef = defineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [[BrowserModule]] });
     return NoopAnimationsModule;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(NoopAnimationsModule, [{
+        type: NgModule,
+        args: [{
+                exports: [BrowserModule],
+                providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
+            }]
+    }], null, null);
 
 /**
  * @license

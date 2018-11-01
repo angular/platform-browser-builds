@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.0-beta.1+6.sha-4e9f2e5
+ * @license Angular v7.1.0-beta.1+14.sha-2e7b5c5
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -190,6 +190,17 @@
             ], imports: [[platformBrowser.BrowserModule]] });
         return BrowserTestingModule;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserTestingModule, [{
+            type: i0.NgModule,
+            args: [{
+                    exports: [platformBrowser.BrowserModule],
+                    providers: [
+                        { provide: i0.APP_ID, useValue: 'a' },
+                        platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
+                        { provide: i0.NgZone, useFactory: createNgZone },
+                    ]
+                }]
+        }], null, null);
 
     /**
      * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.0-beta.1+6.sha-4e9f2e5
+ * @license Angular v7.1.0-beta.1+14.sha-2e7b5c5
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -679,6 +679,15 @@
         BrowserPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory(t) { return new (t || BrowserPlatformLocation)(i0.inject(DOCUMENT)); }, providedIn: null });
         return BrowserPlatformLocation;
     }(common.PlatformLocation));
+    /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserPlatformLocation, [{
+            type: i0.Injectable
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [DOCUMENT]
+                }]
+        }], null);
 
     /**
      * @license
@@ -921,6 +930,17 @@
         EventManager.ngInjectableDef = i0.defineInjectable({ token: EventManager, factory: function EventManager_Factory(t) { return new (t || EventManager)(i0.inject(EVENT_MANAGER_PLUGINS), i0.inject(i0.NgZone)); }, providedIn: null });
         return EventManager;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(EventManager, [{
+            type: i0.Injectable
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [EVENT_MANAGER_PLUGINS]
+                }]
+        }, {
+            type: i0.NgZone
+        }], null);
     var EventManagerPlugin = /** @class */ (function () {
         function EventManagerPlugin(_doc) {
             this._doc = _doc;
@@ -956,6 +976,9 @@
         SharedStylesHost.ngInjectableDef = i0.defineInjectable({ token: SharedStylesHost, factory: function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); }, providedIn: null });
         return SharedStylesHost;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(SharedStylesHost, [{
+            type: i0.Injectable
+        }], null, null);
     var DomSharedStylesHost = /** @class */ (function (_super) {
         __extends(DomSharedStylesHost, _super);
         function DomSharedStylesHost(_doc) {
@@ -987,6 +1010,15 @@
         DomSharedStylesHost.ngInjectableDef = i0.defineInjectable({ token: DomSharedStylesHost, factory: function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(i0.inject(DOCUMENT)); }, providedIn: null });
         return DomSharedStylesHost;
     }(SharedStylesHost));
+    /*@__PURE__*/ i0.ɵsetClassMetadata(DomSharedStylesHost, [{
+            type: i0.Injectable
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [DOCUMENT]
+                }]
+        }], null);
 
     var NAMESPACE_URIS = {
         'svg': 'http://www.w3.org/2000/svg',
@@ -1068,6 +1100,13 @@
         DomRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(i0.inject(EventManager), i0.inject(DomSharedStylesHost)); }, providedIn: null });
         return DomRendererFactory2;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(DomRendererFactory2, [{
+            type: i0.Injectable
+        }], [{
+            type: EventManager
+        }, {
+            type: DomSharedStylesHost
+        }], null);
     var DefaultDomRenderer2 = /** @class */ (function () {
         function DefaultDomRenderer2(eventManager) {
             this.eventManager = eventManager;
@@ -1421,6 +1460,25 @@
         DomEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(i0.inject(DOCUMENT), i0.inject(i0.NgZone), i0.inject(i0.PLATFORM_ID, 8)); }, providedIn: null });
         return DomEventsPlugin;
     }(EventManagerPlugin));
+    /*@__PURE__*/ i0.ɵsetClassMetadata(DomEventsPlugin, [{
+            type: i0.Injectable
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [DOCUMENT]
+                }]
+        }, {
+            type: i0.NgZone
+        }, {
+            type: undefined,
+            decorators: [{
+                    type: i0.Optional
+                }, {
+                    type: i0.Inject,
+                    args: [i0.PLATFORM_ID]
+                }]
+        }], null);
 
     /**
      * Supported HammerJS recognizer event names.
@@ -1524,6 +1582,9 @@
         HammerGestureConfig.ngInjectableDef = i0.defineInjectable({ token: HammerGestureConfig, factory: function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); }, providedIn: null });
         return HammerGestureConfig;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(HammerGestureConfig, [{
+            type: i0.Injectable
+        }], null, null);
     var HammerGesturesPlugin = /** @class */ (function (_super) {
         __extends(HammerGesturesPlugin, _super);
         function HammerGesturesPlugin(doc, _config, console, loader) {
@@ -1600,6 +1661,31 @@
         HammerGesturesPlugin.ngInjectableDef = i0.defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(i0.inject(DOCUMENT), i0.inject(HAMMER_GESTURE_CONFIG), i0.inject(i0.ɵConsole), i0.inject(HAMMER_LOADER, 8)); }, providedIn: null });
         return HammerGesturesPlugin;
     }(EventManagerPlugin));
+    /*@__PURE__*/ i0.ɵsetClassMetadata(HammerGesturesPlugin, [{
+            type: i0.Injectable
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [DOCUMENT]
+                }]
+        }, {
+            type: HammerGestureConfig,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [HAMMER_GESTURE_CONFIG]
+                }]
+        }, {
+            type: i0.ɵConsole
+        }, {
+            type: undefined,
+            decorators: [{
+                    type: i0.Optional
+                }, {
+                    type: i0.Inject,
+                    args: [HAMMER_LOADER]
+                }]
+        }], null);
 
     /**
      * Defines supported modifiers for key events.
@@ -1721,6 +1807,15 @@
         KeyEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(i0.inject(DOCUMENT)); }, providedIn: null });
         return KeyEventsPlugin;
     }(EventManagerPlugin));
+    /*@__PURE__*/ i0.ɵsetClassMetadata(KeyEventsPlugin, [{
+            type: i0.Injectable
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [DOCUMENT]
+                }]
+        }], null);
 
     /**
      * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
@@ -1819,6 +1914,15 @@
         DomSanitizerImpl.ngInjectableDef = i0.defineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(i0.inject(DOCUMENT)); }, providedIn: null });
         return DomSanitizerImpl;
     }(DomSanitizer));
+    /*@__PURE__*/ i0.ɵsetClassMetadata(DomSanitizerImpl, [{
+            type: i0.Injectable
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [DOCUMENT]
+                }]
+        }], null);
     var SafeValueImpl = /** @class */ (function () {
         function SafeValueImpl(changingThisBreaksApplicationSecurity) {
             this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
@@ -1975,6 +2079,20 @@
         BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[common.CommonModule, i0.ApplicationModule]] });
         return BrowserModule;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserModule, [{
+            type: i0.NgModule,
+            args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] }]
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Optional
+                }, {
+                    type: i0.SkipSelf
+                }, {
+                    type: i0.Inject,
+                    args: [BrowserModule]
+                }]
+        }], null);
 
     /**
      * @license
@@ -2082,6 +2200,16 @@
             } return r; }, providedIn: 'root' });
         return Meta;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(Meta, [{
+            type: i0.Injectable,
+            args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [DOCUMENT]
+                }]
+        }], null);
 
     /**
      * @license
@@ -2127,6 +2255,16 @@
             } return r; }, providedIn: 'root' });
         return Title;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(Title, [{
+            type: i0.Injectable,
+            args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
+        }], [{
+            type: undefined,
+            decorators: [{
+                    type: i0.Inject,
+                    args: [DOCUMENT]
+                }]
+        }], null);
 
     /**
      * @license
@@ -2348,6 +2486,9 @@
         TransferState.ngInjectableDef = i0.defineInjectable({ token: TransferState, factory: function TransferState_Factory(t) { return new (t || TransferState)(); }, providedIn: null });
         return TransferState;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(TransferState, [{
+            type: i0.Injectable
+        }], null, null);
     function initTransferState(doc, appId) {
         // Locate the script tag with the JSON data transferred from the server.
         // The id of the script tag is set to the Angular appId + 'state'.
@@ -2376,6 +2517,12 @@
         BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, i0.APP_ID] }], imports: [] });
         return BrowserTransferStateModule;
     }());
+    /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserTransferStateModule, [{
+            type: i0.NgModule,
+            args: [{
+                    providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, i0.APP_ID] }],
+                }]
+        }], null, null);
 
     /**
      * @license
@@ -2448,7 +2595,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('7.1.0-beta.1+6.sha-4e9f2e5');
+    var VERSION = new i0.Version('7.1.0-beta.1+14.sha-2e7b5c5');
 
     /**
      * @license
