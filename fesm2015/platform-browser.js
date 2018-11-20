@@ -1,11 +1,11 @@
 /**
- * @license Angular v7.1.0-rc.0+29.sha-e56c8bf.with-local-changes
+ * @license Angular v7.1.0-rc.0+30.sha-4390e10.with-local-changes
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, inject, Version, InjectionToken, NgZone, APP_ID, NgModule, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ApplicationRef, APP_INITIALIZER, ApplicationInitStatus, Injector, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, defineInjectable, ɵsetClassMetadata, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, ɵdefineNgModule, defineInjector, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵglobal, Inject, Injectable, inject, Version, InjectionToken, NgZone, APP_ID, NgModule, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, APP_INITIALIZER, ApplicationInitStatus, Injector, ApplicationRef, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, defineInjectable, ɵsetClassMetadata, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, ɵdefineNgModule, defineInjector, getDebugNode, NgProbeToken } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -3764,7 +3764,7 @@ class By {
 /** *
  * \@publicApi
   @type {?} */
-const VERSION = new Version('7.1.0-rc.0+29.sha-e56c8bf.with-local-changes');
+const VERSION = new Version('7.1.0-rc.0+30.sha-4390e10.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
