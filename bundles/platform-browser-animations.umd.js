@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.0+69.sha-412e47d
+ * @license Angular v7.1.0+75.sha-1b84b11
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -241,7 +241,7 @@
             var _this = this;
             this._cdRecurDepth--;
             // this is to prevent animations from running twice when an inner
-            // component does CD when a parent component insted has inserted it
+            // component does CD when a parent component instead has inserted it
             if (this._cdRecurDepth == 0) {
                 this._zone.runOutsideAngular(function () {
                     _this._scheduleCountTask();
