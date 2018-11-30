@@ -24,6 +24,7 @@ export declare class BrowserDetection {
     readonly isOldChrome: boolean;
     readonly supportsCustomElements: boolean;
     readonly supportsDeprecatedCustomCustomElementsV0: boolean;
+    readonly supportsRegExUnicodeFlag: boolean;
     readonly supportsShadowDom: boolean;
     readonly supportsDeprecatedShadowDomV0: boolean;
 }
