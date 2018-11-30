@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.0+45.sha-11a8bd8
+ * @license Angular v7.1.0+49.sha-e024f2f
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -97,6 +97,10 @@ class BrowserDetection {
     get supportsDeprecatedCustomCustomElementsV0() {
         return (typeof (/** @type {?} */ (document)).registerElement !== 'undefined');
     }
+    /**
+     * @return {?}
+     */
+    get supportsRegExUnicodeFlag() { return RegExp.prototype.hasOwnProperty('unicode'); }
     /**
      * @return {?}
      */
