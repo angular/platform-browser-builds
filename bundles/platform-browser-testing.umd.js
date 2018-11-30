@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.0+34.sha-39e426c
+ * @license Angular v7.1.0+69.sha-412e47d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -137,6 +137,11 @@
             get: function () {
                 return (typeof document.registerElement !== 'undefined');
             },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(BrowserDetection.prototype, "supportsRegExUnicodeFlag", {
+            get: function () { return RegExp.prototype.hasOwnProperty('unicode'); },
             enumerable: true,
             configurable: true
         });
