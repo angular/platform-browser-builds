@@ -1,10 +1,10 @@
 /**
- * @license Angular v7.1.0+202.sha-159ab1c
+ * @license Angular v7.1.0+204.sha-21d13dd
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __decorate, __param, __metadata, __assign, __extends, __spread } from 'tslib';
+import { __decorate, __param, __metadata, __extends, __assign, __spread } from 'tslib';
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, InjectionToken, Injector, setTestabilityGetter, Version, ApplicationRef, inject, defineInjectable, NgZone, getDebugNode, NgProbeToken, Optional, NgModule, APP_ID, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, ɵConsole, RendererFactory2, Testability, ApplicationModule, SkipSelf, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, ViewEncapsulation, RendererStyleFlags2 } from '@angular/core';
 
@@ -2472,7 +2472,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('7.1.0+202.sha-159ab1c');
+var VERSION = new Version('7.1.0+204.sha-21d13dd');
 
 /**
  * @license
