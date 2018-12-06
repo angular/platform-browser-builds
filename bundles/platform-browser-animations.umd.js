@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.0+115.sha-6552471
+ * @license Angular v7.1.0+196.sha-091a504
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -515,13 +515,12 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.ɵangular_packages_platform_browser_animations_animations_g = BaseAnimationRenderer;
-    exports.ɵangular_packages_platform_browser_animations_animations_e = BROWSER_ANIMATIONS_PROVIDERS;
-    exports.ɵangular_packages_platform_browser_animations_animations_f = BROWSER_NOOP_ANIMATIONS_PROVIDERS;
-    exports.ɵangular_packages_platform_browser_animations_animations_a = InjectableAnimationEngine;
-    exports.ɵangular_packages_platform_browser_animations_animations_c = instantiateDefaultStyleNormalizer;
-    exports.ɵangular_packages_platform_browser_animations_animations_d = instantiateRendererFactory;
-    exports.ɵangular_packages_platform_browser_animations_animations_b = instantiateSupportedAnimationDriver;
+    exports.ɵangular_packages_platform_browser_animations_animations_f = BaseAnimationRenderer;
+    exports.ɵangular_packages_platform_browser_animations_animations_d = BROWSER_ANIMATIONS_PROVIDERS;
+    exports.ɵangular_packages_platform_browser_animations_animations_e = BROWSER_NOOP_ANIMATIONS_PROVIDERS;
+    exports.ɵangular_packages_platform_browser_animations_animations_b = instantiateDefaultStyleNormalizer;
+    exports.ɵangular_packages_platform_browser_animations_animations_c = instantiateRendererFactory;
+    exports.ɵangular_packages_platform_browser_animations_animations_a = instantiateSupportedAnimationDriver;
     exports.BrowserAnimationsModule = BrowserAnimationsModule;
     exports.NoopAnimationsModule = NoopAnimationsModule;
     exports.ANIMATION_MODULE_TYPE = ANIMATION_MODULE_TYPE;
@@ -529,6 +528,7 @@
     exports.ɵBrowserAnimationFactory = BrowserAnimationFactory;
     exports.ɵAnimationRenderer = AnimationRenderer;
     exports.ɵAnimationRendererFactory = AnimationRendererFactory;
+    exports.ɵInjectableAnimationEngine = InjectableAnimationEngine;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
