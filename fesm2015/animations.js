@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.0+177.sha-8973dd5
+ * @license Angular v7.1.0+185.sha-a315ded
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -763,5 +763,5 @@ NoopAnimationsModule.ngInjectorDef = defineInjector({ factory: function NoopAnim
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { BrowserAnimationsModule, NoopAnimationsModule, ANIMATION_MODULE_TYPE, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory };
+export { BrowserAnimationsModule, NoopAnimationsModule, ANIMATION_MODULE_TYPE, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, InjectableAnimationEngine as ɵInjectableAnimationEngine };
 //# sourceMappingURL=animations.js.map
