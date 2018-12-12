@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+9.sha-37c05bd
+ * @license Angular v7.2.0-beta.2+10.sha-7fabe44
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2083,7 +2083,7 @@
             type: i0.NgModule,
             args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] }]
         }], [{
-            type: undefined,
+            type: BrowserModule,
             decorators: [{
                     type: i0.Optional
                 }, {
@@ -2595,7 +2595,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('7.2.0-beta.2+9.sha-37c05bd');
+    var VERSION = new i0.Version('7.2.0-beta.2+10.sha-7fabe44');
 
     /**
      * @license
