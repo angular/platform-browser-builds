@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.3+6.sha-348c949
+ * @license Angular v7.1.3+9.sha-1059789
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -12,7 +12,7 @@ import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 class BrowserAnimationBuilder extends AnimationBuilder {
     /**
@@ -23,13 +23,13 @@ class BrowserAnimationBuilder extends AnimationBuilder {
         super();
         this._nextAnimationId = 0;
         /** @type {?} */
-        const typeData = /** @type {?} */ ({
+        const typeData = (/** @type {?} */ ({
             id: '0',
             encapsulation: ViewEncapsulation.None,
             styles: [],
             data: { animation: [] }
-        });
-        this._renderer = /** @type {?} */ (rootRenderer.createRenderer(doc.body, typeData));
+        }));
+        this._renderer = (/** @type {?} */ (rootRenderer.createRenderer(doc.body, typeData)));
     }
     /**
      * @param {?} animation
@@ -178,7 +178,7 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /** @type {?} */
 const ANIMATION_PREFIX = '@';
@@ -218,6 +218,8 @@ class AnimationRendererFactory {
     createRenderer(hostElement, type) {
         /** @type {?} */
         const EMPTY_NAMESPACE_ID = '';
+        // cache the delegates to find out which cached delegate can
+        // be used by which cached renderer
         /** @type {?} */
         const delegate = this.delegate.createRenderer(hostElement, type);
         if (!hostElement || !type || !type.data || !type.data['animation']) {
@@ -237,7 +239,7 @@ class AnimationRendererFactory {
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
         /** @type {?} */
-        const animationTriggers = /** @type {?} */ (type.data['animation']);
+        const animationTriggers = (/** @type {?} */ (type.data['animation']));
         animationTriggers.forEach(trigger => this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     }
@@ -323,7 +325,7 @@ class BaseAnimationRenderer {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? (n) => /** @type {?} */ ((delegate.destroyNode))(n) : null;
+        this.destroyNode = this.delegate.destroyNode ? (n) => (/** @type {?} */ (delegate.destroyNode))(n) : null;
     }
     /**
      * @return {?}
@@ -509,7 +511,7 @@ class AnimationRenderer extends BaseAnimationRenderer {
         if (name.charAt(0) == ANIMATION_PREFIX) {
             if (name.charAt(1) == '.' && name == DISABLE_ANIMATIONS_FLAG) {
                 value = value === undefined ? true : !!value;
-                this.disableAnimations(el, /** @type {?} */ (value));
+                this.disableAnimations(el, (/** @type {?} */ (value)));
             }
             else {
                 this.engine.process(this.namespaceId, el, name.substr(1), value);
@@ -540,7 +542,7 @@ class AnimationRenderer extends BaseAnimationRenderer {
             }
             return this.engine.listen(this.namespaceId, element, name, phase, event => {
                 /** @type {?} */
-                const countId = (/** @type {?} */ (event))['_data'] || -1;
+                const countId = ((/** @type {?} */ (event)))['_data'] || -1;
                 this.factory.scheduleListenerCallback(countId, callback, event);
             });
         }
@@ -579,7 +581,7 @@ function parseTriggerCallbackName(triggerName) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 class InjectableAnimationEngine extends ɵAnimationEngine {
     /**
@@ -621,9 +623,10 @@ function instantiateDefaultStyleNormalizer() {
 function instantiateRendererFactory(renderer, engine, zone) {
     return new AnimationRendererFactory(renderer, engine, zone);
 }
-/** *
+/**
  * \@publicApi
-  @type {?} */
+ * @type {?}
+ */
 const ANIMATION_MODULE_TYPE = new InjectionToken('AnimationModuleType');
 /** @type {?} */
 const SHARED_ANIMATION_PROVIDERS = [
@@ -635,18 +638,20 @@ const SHARED_ANIMATION_PROVIDERS = [
         deps: [ɵDomRendererFactory2, ɵAnimationEngine, NgZone]
     }
 ];
-/** *
+/**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserModule.
-  @type {?} */
+ * @type {?}
+ */
 const BROWSER_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
     { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' }, ...SHARED_ANIMATION_PROVIDERS
 ];
-/** *
+/**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
-  @type {?} */
+ * @type {?}
+ */
 const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useClass: ɵNoopAnimationDriver },
     { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' }, ...SHARED_ANIMATION_PROVIDERS
@@ -654,7 +659,7 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /**
  * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
@@ -684,22 +689,22 @@ NoopAnimationsModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
