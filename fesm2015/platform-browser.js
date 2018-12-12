@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+8.sha-9c7fb0d
+ * @license Angular v7.2.0-beta.2+6.sha-28ceca0
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9,7 +9,7 @@ import { ɵglobal, Inject, Injectable, inject, Version, InjectionToken, NgZone, 
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -19,7 +19,7 @@ import { ɵglobal, Inject, Injectable, inject, Version, InjectionToken, NgZone, 
  * found in the LICENSE file at https://angular.io/license
  */
 /** @type {?} */
-let _DOM = (/** @type {?} */ (null));
+let _DOM = /** @type {?} */ ((null));
 /**
  * @return {?}
  */
@@ -35,7 +35,6 @@ function setRootDomAdapter(adapter) {
         _DOM = adapter;
     }
 }
-/* tslint:disable:requireParameterType */
 /**
  * Provides DOM operations in an environment-agnostic way.
  *
@@ -45,7 +44,7 @@ function setRootDomAdapter(adapter) {
  */
 class DomAdapter {
     constructor() {
-        this.resourceLoaderType = (/** @type {?} */ (null));
+        this.resourceLoaderType = /** @type {?} */ ((null));
     }
     /**
      * Maps attribute names to their corresponding property names for cases
@@ -62,7 +61,7 @@ class DomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Provides DOM operations in any browser environment.
@@ -114,7 +113,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
      * @param {?} el
      * @return {?}
      */
-    getDistributedNodes(el) { return ((/** @type {?} */ (el))).getDistributedNodes(); }
+    getDistributedNodes(el) { return (/** @type {?} */ (el)).getDistributedNodes(); }
     /**
      * @param {?} el
      * @param {?} baseUrl
@@ -132,7 +131,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
      * @return {?}
      */
     supportsNativeShadowDOM() {
-        return typeof ((/** @type {?} */ (document.body))).createShadowRoot === 'function';
+        return typeof (/** @type {?} */ (document.body)).createShadowRoot === 'function';
     }
     /**
      * @return {?}
@@ -152,7 +151,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _attrToPropMap = {
@@ -163,7 +162,6 @@ const _attrToPropMap = {
 };
 /** @type {?} */
 const DOM_KEY_LOCATION_NUMPAD = 3;
-// Map to convert some key or keyIdentifier values to what will be returned by getEventKey
 /** @type {?} */
 const _keyMap = {
     // The following values are here for cross-browser compatibility and to match the W3C standard
@@ -182,9 +180,6 @@ const _keyMap = {
     'Scroll': 'ScrollLock',
     'Win': 'OS'
 };
-// There is a bug in Chrome for numeric keypad keys:
-// https://code.google.com/p/chromium/issues/detail?id=155654
-// 1, 2, 3 ... are reported as A, B, C ...
 /** @type {?} */
 const _chromeNumKeyPadMap = {
     'A': '1',
@@ -217,7 +212,6 @@ if (ɵglobal['Node']) {
  * \@security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-/* tslint:disable:requireParameterType no-console */
 class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @param {?} templateHtml
@@ -240,21 +234,20 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setProperty(el, name, value) { ((/** @type {?} */ (el)))[name] = value; }
+    setProperty(el, name, value) { (/** @type {?} */ (el))[name] = value; }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    getProperty(el, name) { return ((/** @type {?} */ (el)))[name]; }
+    getProperty(el, name) { return (/** @type {?} */ (el))[name]; }
     /**
      * @param {?} el
      * @param {?} methodName
      * @param {?} args
      * @return {?}
      */
-    invoke(el, methodName, args) { ((/** @type {?} */ (el)))[methodName](...args); }
-    // TODO(tbosch): move this into a separate environment class once we have it
+    invoke(el, methodName, args) { (/** @type {?} */ (el))[methodName](...args); }
     /**
      * @param {?} error
      * @return {?}
@@ -387,7 +380,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     getTemplateContent(el) {
-        return 'content' in el && this.isTemplateElement(el) ? ((/** @type {?} */ (el))).content : null;
+        return 'content' in el && this.isTemplateElement(el) ? (/** @type {?} */ (el)).content : null;
     }
     /**
      * @param {?} el
@@ -415,7 +408,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     content(node) {
         if (this.hasProperty(node, 'content')) {
-            return ((/** @type {?} */ (node))).content;
+            return (/** @type {?} */ (node)).content;
         }
         else {
             return node;
@@ -607,7 +600,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     createScriptTag(attrName, attrValue, doc) {
         doc = doc || this.getDefaultDocument();
         /** @type {?} */
-        const el = (/** @type {?} */ (doc.createElement('SCRIPT')));
+        const el = /** @type {?} */ (doc.createElement('SCRIPT'));
         el.setAttribute(attrName, attrValue);
         return el;
     }
@@ -619,7 +612,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     createStyleElement(css, doc) {
         doc = doc || this.getDefaultDocument();
         /** @type {?} */
-        const style = (/** @type {?} */ (doc.createElement('style')));
+        const style = /** @type {?} */ (doc.createElement('style'));
         this.appendChild(style, this.createTextNode(css, doc));
         return style;
     }
@@ -627,17 +620,17 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} el
      * @return {?}
      */
-    createShadowRoot(el) { return ((/** @type {?} */ (el))).createShadowRoot(); }
+    createShadowRoot(el) { return (/** @type {?} */ (el)).createShadowRoot(); }
     /**
      * @param {?} el
      * @return {?}
      */
-    getShadowRoot(el) { return ((/** @type {?} */ (el))).shadowRoot; }
+    getShadowRoot(el) { return (/** @type {?} */ (el)).shadowRoot; }
     /**
      * @param {?} el
      * @return {?}
      */
-    getHost(el) { return ((/** @type {?} */ (el))).host; }
+    getHost(el) { return (/** @type {?} */ (el)).host; }
     /**
      * @param {?} node
      * @return {?}
@@ -906,7 +899,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} el
      * @return {?}
      */
-    getHref(el) { return (/** @type {?} */ (el.getAttribute('href'))); }
+    getHref(el) { return /** @type {?} */ ((el.getAttribute('href'))); }
     /**
      * @param {?} event
      * @return {?}
@@ -928,7 +921,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
                     // There is a bug in Chrome for numeric keypad keys:
                     // https://code.google.com/p/chromium/issues/detail?id=155654
                     // 1, 2, 3 ... are reported as A, B, C ...
-                    key = ((/** @type {?} */ (_chromeNumKeyPadMap)))[key];
+                    key = (/** @type {?} */ (_chromeNumKeyPadMap))[key];
                 }
             }
         }
@@ -998,12 +991,11 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     getComputedStyle(element) { return getComputedStyle(element); }
-    // TODO(tbosch): move this into a separate environment class once we have it
     /**
      * @return {?}
      */
     supportsWebAnimation() {
-        return typeof ((/** @type {?} */ (Element))).prototype['animate'] === 'function';
+        return typeof (/** @type {?} */ (Element)).prototype['animate'] === 'function';
     }
     /**
      * @return {?}
@@ -1041,14 +1033,13 @@ let baseElement = null;
  */
 function getBaseElementHref() {
     if (!baseElement) {
-        baseElement = (/** @type {?} */ (document.querySelector('base')));
+        baseElement = /** @type {?} */ ((document.querySelector('base')));
         if (!baseElement) {
             return null;
         }
     }
     return baseElement.getAttribute('href');
 }
-// based on urlUtils.js in AngularJS 1
 /** @type {?} */
 let urlParsingNode;
 /**
@@ -1066,9 +1057,9 @@ function relativePath(url) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
+/** *
  * A DI Token representing the main rendering context. In a browser this is the DOM Document.
  *
  * Note: Document might not be available in the Application Context when Application and Rendering
@@ -1076,13 +1067,12 @@ function relativePath(url) {
  *
  * @deprecated import from `\@angular/common` instead.
  * \@publicApi
- * @type {?}
- */
+  @type {?} */
 const DOCUMENT$1 = DOCUMENT;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1100,7 +1090,7 @@ function supportsState() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1123,19 +1113,18 @@ class BrowserPlatformLocation extends PlatformLocation {
         this._doc = _doc;
         this._init();
     }
-    // This is moved to its own method so that `MockPlatformLocationStrategy` can overwrite it
     /**
      * \@internal
      * @return {?}
      */
     _init() {
-        ((/** @type {?} */ (this))).location = getDOM().getLocation();
+        (/** @type {?} */ (this)).location = getDOM().getLocation();
         this._history = getDOM().getHistory();
     }
     /**
      * @return {?}
      */
-    getBaseHrefFromDOM() { return (/** @type {?} */ (getDOM().getBaseHref(this._doc))); }
+    getBaseHrefFromDOM() { return /** @type {?} */ ((getDOM().getBaseHref(this._doc))); }
     /**
      * @param {?} fn
      * @return {?}
@@ -1224,13 +1213,12 @@ BrowserPlatformLocation.ngInjectableDef = defineInjectable({ token: BrowserPlatf
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
+/** *
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
- * @type {?}
- */
+  @type {?} */
 const TRANSITION_ID = new InjectionToken('TRANSITION_ID');
 /**
  * @param {?} transitionId
@@ -1264,7 +1252,7 @@ const SERVER_TRANSITION_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 class BrowserGetTestability {
     /**
@@ -1338,7 +1326,7 @@ class BrowserGetTestability {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
@@ -1350,19 +1338,15 @@ class BrowserGetTestability {
  */
 function exportNgVar(name, value) {
     if (typeof COMPILED === 'undefined' || !COMPILED) {
-        // Note: we can't export `ng` when using closure enhanced optimization as:
-        // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
-        // - we can't declare a closure extern as the namespace `ng` is already used within Google
-        //   for typings for angularJS (via `goog.provide('ng....')`).
         /** @type {?} */
-        const ng = ɵglobal['ng'] = ((/** @type {?} */ (ɵglobal['ng']))) || {};
+        const ng = ɵglobal['ng'] = (/** @type {?} */ (ɵglobal['ng'])) || {};
         ng[name] = value;
     }
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const CORE_TOKENS = {
@@ -1399,10 +1383,9 @@ function _createNgProbe(coreTokens) {
 function _ngProbeTokensToMap(tokens) {
     return tokens.reduce((prev, t) => (prev[t.name] = t.token, prev), {});
 }
-/**
+/** *
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
- * @type {?}
- */
+  @type {?} */
 const ELEMENT_PROBE_PROVIDERS = [
     {
         provide: APP_INITIALIZER,
@@ -1416,7 +1399,7 @@ const ELEMENT_PROBE_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1425,12 +1408,11 @@ const ELEMENT_PROBE_PROVIDERS = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
+/** *
  * The injection token for the event-manager plug-in service.
  *
  * \@publicApi
- * @type {?}
- */
+  @type {?} */
 const EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
 /**
  * An injectable service that provides event management for Angular
@@ -1555,7 +1537,7 @@ class EventManagerPlugin {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1672,7 +1654,7 @@ DomSharedStylesHost.ngInjectableDef = defineInjectable({ token: DomSharedStylesH
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1775,7 +1757,7 @@ class DomRendererFactory2 {
                         new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
-                ((/** @type {?} */ (renderer))).applyToHost(element);
+                (/** @type {?} */ (renderer)).applyToHost(element);
                 return renderer;
             }
             case ViewEncapsulation.Native:
@@ -2016,9 +1998,9 @@ class DefaultDomRenderer2 {
     listen(target, event, callback) {
         checkNoSyntheticProp(event, 'listener');
         if (typeof target === 'string') {
-            return (/** @type {?} */ (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback))));
+            return /** @type {?} */ (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback)));
         }
-        return (/** @type {?} */ ((/** @type {?} */ (this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))))));
+        return /** @type {?} */ ((this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))));
     }
 }
 /** @type {?} */
@@ -2078,10 +2060,10 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         this.hostEl = hostEl;
         this.component = component;
         if (component.encapsulation === ViewEncapsulation.ShadowDom) {
-            this.shadowRoot = ((/** @type {?} */ (hostEl))).attachShadow({ mode: 'open' });
+            this.shadowRoot = (/** @type {?} */ (hostEl)).attachShadow({ mode: 'open' });
         }
         else {
-            this.shadowRoot = ((/** @type {?} */ (hostEl))).createShadowRoot();
+            this.shadowRoot = (/** @type {?} */ (hostEl)).createShadowRoot();
         }
         this.sharedStylesHost.addHost(this.shadowRoot);
         /** @type {?} */
@@ -2138,7 +2120,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -2147,14 +2129,13 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
+/** *
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
  * since Angular can do much more
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
- * @type {?}
- */
-const __symbol__ = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))['__symbol__'] || function (v) {
+  @type {?} */
+const __symbol__ = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))['__symbol__'] || function (v) {
     return '__zone_symbol__' + v;
 };
 /** @type {?} */
@@ -2171,13 +2152,12 @@ const ANGULAR = 'ANGULAR';
 const NATIVE_ADD_LISTENER = 'addEventListener';
 /** @type {?} */
 const NATIVE_REMOVE_LISTENER = 'removeEventListener';
-// use the same symbol string which is used in zone.js
 /** @type {?} */
 const stopSymbol = '__zone_symbol__propagationStopped';
 /** @type {?} */
 const stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
 /** @type {?} */
-const blackListedEvents = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))[__symbol__('BLACK_LISTED_EVENTS')];
+const blackListedEvents = (typeof Zone !== 'undefined') && (/** @type {?} */ (Zone))[__symbol__('BLACK_LISTED_EVENTS')];
 /** @type {?} */
 let blackListedMap;
 if (blackListedEvents) {
@@ -2191,8 +2171,6 @@ const isBlackListedEvent = function (eventName) {
     }
     return blackListedMap.hasOwnProperty(eventName);
 };
-// a global listener to handle all dom event,
-// so we do not need to create a closure every time
 /** @type {?} */
 const globalListener = function (event) {
     /** @type {?} */
@@ -2208,7 +2186,6 @@ const globalListener = function (event) {
     /** @type {?} */
     const args = [event];
     if (taskDatas.length === 1) {
-        // if taskDatas only have one element, just invoke it
         /** @type {?} */
         const taskData = taskDatas[0];
         if (taskData.zone !== Zone.current) {
@@ -2220,14 +2197,12 @@ const globalListener = function (event) {
         }
     }
     else {
-        // copy tasks as a snapshot to avoid event handlers remove
-        // itself or others
         /** @type {?} */
         const copiedTasks = taskDatas.slice();
         for (let i = 0; i < copiedTasks.length; i++) {
             // if other listener call event.stopImmediatePropagation
             // just break
-            if (((/** @type {?} */ (event)))[stopSymbol] === true) {
+            if ((/** @type {?} */ (event))[stopSymbol] === true) {
                 break;
             }
             /** @type {?} */
@@ -2262,12 +2237,12 @@ class DomEventsPlugin extends EventManagerPlugin {
         if (typeof Event === 'undefined' || !Event || !Event.prototype) {
             return;
         }
-        if (((/** @type {?} */ (Event.prototype)))[stopMethodSymbol]) {
+        if ((/** @type {?} */ (Event.prototype))[stopMethodSymbol]) {
             // already patched by zone.js
             return;
         }
         /** @type {?} */
-        const delegate = ((/** @type {?} */ (Event.prototype)))[stopMethodSymbol] =
+        const delegate = (/** @type {?} */ (Event.prototype))[stopMethodSymbol] =
             Event.prototype.stopImmediatePropagation;
         Event.prototype.stopImmediatePropagation = function () {
             if (this) {
@@ -2279,8 +2254,6 @@ class DomEventsPlugin extends EventManagerPlugin {
             delegate && delegate.apply(this, arguments);
         };
     }
-    // This plugin should come last in the list of plugins, because it accepts all
-    // events.
     /**
      * @param {?} eventName
      * @return {?}
@@ -2296,7 +2269,7 @@ class DomEventsPlugin extends EventManagerPlugin {
         /** @type {?} */
         const zoneJsLoaded = element[ADD_EVENT_LISTENER];
         /** @type {?} */
-        let callback = (/** @type {?} */ (handler));
+        let callback = /** @type {?} */ (handler);
         // if zonejs is loaded and current zone is not ngZone
         // we keep Zone.current on target for later restoration.
         if (zoneJsLoaded && (!NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
@@ -2306,11 +2279,11 @@ class DomEventsPlugin extends EventManagerPlugin {
                 symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
             }
             /** @type {?} */
-            let taskDatas = ((/** @type {?} */ (element)))[symbolName];
+            let taskDatas = (/** @type {?} */ (element))[symbolName];
             /** @type {?} */
             const globalListenerRegistered = taskDatas && taskDatas.length > 0;
             if (!taskDatas) {
-                taskDatas = ((/** @type {?} */ (element)))[symbolName] = [];
+                taskDatas = (/** @type {?} */ (element))[symbolName] = [];
             }
             /** @type {?} */
             const zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
@@ -2361,8 +2334,6 @@ class DomEventsPlugin extends EventManagerPlugin {
             // just call native removeEventListener
             return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
-        // fix issue 20532, should be able to remove
-        // listener which was added inside of ngZone
         /** @type {?} */
         let found = false;
         for (let i = 0; i < taskDatas.length; i++) {
@@ -2418,7 +2389,7 @@ DomEventsPlugin.ngInjectableDef = defineInjectable({ token: DomEventsPlugin, fac
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -2427,10 +2398,9 @@ DomEventsPlugin.ngInjectableDef = defineInjectable({ token: DomEventsPlugin, fac
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
+/** *
  * Supported HammerJS recognizer event names.
- * @type {?}
- */
+  @type {?} */
 const EVENT_NAMES = {
     // pan
     'pan': true,
@@ -2468,20 +2438,18 @@ const EVENT_NAMES = {
     // tap
     'tap': true,
 };
-/**
+/** *
  * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
  * \@publicApi
- * @type {?}
- */
+  @type {?} */
 const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
-/**
+/** *
  * Injection token used to provide a {\@link HammerLoader} to Angular.
  *
  * \@publicApi
- * @type {?}
- */
+  @type {?} */
 const HAMMER_LOADER = new InjectionToken('HammerLoader');
 /**
  * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
@@ -2522,7 +2490,7 @@ class HammerGestureConfig {
      */
     buildHammer(element) {
         /** @type {?} */
-        const mc = new (/** @type {?} */ (Hammer))(element, this.options);
+        const mc = new /** @type {?} */ ((Hammer))(element, this.options);
         mc.get('pinch').set({ enable: true });
         mc.get('rotate').set({ enable: true });
         for (const eventName in this.overrides) {
@@ -2559,7 +2527,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
         if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
             return false;
         }
-        if (!((/** @type {?} */ (window))).Hammer && !this.loader) {
+        if (!(/** @type {?} */ (window)).Hammer && !this.loader) {
             this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
                 `loaded and no custom loader has been specified.`);
             return false;
@@ -2578,10 +2546,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
         eventName = eventName.toLowerCase();
         // If Hammer is not present but a loader is specified, we defer adding the event listener
         // until Hammer is loaded.
-        if (!((/** @type {?} */ (window))).Hammer && this.loader) {
-            // This `addEventListener` method returns a function to remove the added listener.
-            // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
-            // than remove anything.
+        if (!(/** @type {?} */ (window)).Hammer && this.loader) {
             /** @type {?} */
             let cancelRegistration = false;
             /** @type {?} */
@@ -2589,7 +2554,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
             this.loader()
                 .then(() => {
                 // If Hammer isn't actually loaded when the custom loader resolves, give up.
-                if (!((/** @type {?} */ (window))).Hammer) {
+                if (!(/** @type {?} */ (window)).Hammer) {
                     this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
                     deregister = () => { };
                     return;
@@ -2611,7 +2576,6 @@ class HammerGesturesPlugin extends EventManagerPlugin {
             return () => { deregister(); };
         }
         return zone.runOutsideAngular(() => {
-            // Creating the manager bind events, must be done outside of angular
             /** @type {?} */
             const mc = this._config.buildHammer(element);
             /** @type {?} */
@@ -2673,7 +2637,7 @@ HammerGesturesPlugin.ngInjectableDef = defineInjectable({ token: HammerGesturesP
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -2682,15 +2646,13 @@ HammerGesturesPlugin.ngInjectableDef = defineInjectable({ token: HammerGesturesP
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
+/** *
  * Defines supported modifiers for key events.
- * @type {?}
- */
+  @type {?} */
 const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-/**
+/** *
  * Retrieves modifiers from key-event objects.
- * @type {?}
- */
+  @type {?} */
 const MODIFIER_KEY_GETTERS = {
     'alt': (event) => event.altKey,
     'control': (event) => event.ctrlKey,
@@ -2723,7 +2685,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
      */
     addEventListener(element, eventName, handler) {
         /** @type {?} */
-        const parsedEvent = (/** @type {?} */ (KeyEventsPlugin.parseEventName(eventName)));
+        const parsedEvent = /** @type {?} */ ((KeyEventsPlugin.parseEventName(eventName)));
         /** @type {?} */
         const outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
         return this.manager.getZone().runOutsideAngular(() => {
@@ -2743,7 +2705,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
             return null;
         }
         /** @type {?} */
-        const key = KeyEventsPlugin._normalizeKey((/** @type {?} */ (parts.pop())));
+        const key = KeyEventsPlugin._normalizeKey(/** @type {?} */ ((parts.pop())));
         /** @type {?} */
         let fullKey = '';
         MODIFIER_KEYS.forEach(modifierName => {
@@ -2892,7 +2854,7 @@ class DomSanitizerImpl extends DomSanitizer {
             return null;
         switch (ctx) {
             case SecurityContext.NONE:
-                return (/** @type {?} */ (value));
+                return /** @type {?} */ (value);
             case SecurityContext.HTML:
                 if (value instanceof SafeHtmlImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -2902,7 +2864,7 @@ class DomSanitizerImpl extends DomSanitizer {
                 if (value instanceof SafeStyleImpl)
                     return value.changingThisBreaksApplicationSecurity;
                 this.checkNotSafeValue(value, 'Style');
-                return ɵ_sanitizeStyle((/** @type {?} */ (value)));
+                return ɵ_sanitizeStyle(/** @type {?} */ (value));
             case SecurityContext.SCRIPT:
                 if (value instanceof SafeScriptImpl)
                     return value.changingThisBreaksApplicationSecurity;
@@ -2989,8 +2951,8 @@ class SafeValueImpl {
      * @param {?} changingThisBreaksApplicationSecurity
      */
     constructor(changingThisBreaksApplicationSecurity) {
-        this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
         // empty
+        this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
     }
     /**
      * @return {?}
@@ -3033,7 +2995,7 @@ class SafeResourceUrlImpl extends SafeValueImpl {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3049,21 +3011,19 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT$1] },
     { provide: DOCUMENT$1, useFactory: _document, deps: [] },
 ];
-/**
+/** *
  * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
  * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
  * \@publicApi
- * @type {?}
- */
+  @type {?} */
 const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
-/**
+/** *
  * \@publicApi
- * @type {?}
- */
+  @type {?} */
 const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 /**
  * @return {?}
@@ -3177,17 +3137,6 @@ BrowserModule.ngInjectorDef = defineInjector({ factory: function BrowserModule_F
     }], null);
 
 /**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Factory to create Meta service.
  * @return {?}
  */
@@ -3249,7 +3198,7 @@ class Meta {
         if (!attrSelector)
             return [];
         /** @type {?} */
-        const list /*NodeList*/ = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
+        const list = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
         return list ? [].slice.call(list) : [];
     }
     /**
@@ -3262,7 +3211,7 @@ class Meta {
             return null;
         selector = selector || this._parseSelector(tag);
         /** @type {?} */
-        const meta = (/** @type {?} */ (this.getTag(selector)));
+        const meta = /** @type {?} */ ((this.getTag(selector)));
         if (meta) {
             return this._setMetaElementAttributes(tag, meta);
         }
@@ -3272,7 +3221,7 @@ class Meta {
      * @param {?} attrSelector
      * @return {?}
      */
-    removeTag(attrSelector) { this.removeTagElement((/** @type {?} */ (this.getTag(attrSelector)))); }
+    removeTag(attrSelector) { this.removeTagElement(/** @type {?} */ ((this.getTag(attrSelector)))); }
     /**
      * @param {?} meta
      * @return {?}
@@ -3292,7 +3241,7 @@ class Meta {
             /** @type {?} */
             const selector = this._parseSelector(meta);
             /** @type {?} */
-            const elem = (/** @type {?} */ (this.getTag(selector)));
+            const elem = /** @type {?} */ ((this.getTag(selector)));
             // It's allowed to have multiple elements with the same name so it's not enough to
             // just check that element with the same name already present on the page. We also need to
             // check if element has tag attributes
@@ -3300,7 +3249,7 @@ class Meta {
                 return elem;
         }
         /** @type {?} */
-        const element = (/** @type {?} */ (this._dom.createElement('meta')));
+        const element = /** @type {?} */ (this._dom.createElement('meta'));
         this._setMetaElementAttributes(meta, element);
         /** @type {?} */
         const head = this._dom.getElementsByTagName(this._doc, 'head')[0];
@@ -3360,7 +3309,7 @@ Meta.ngInjectableDef = defineInjectable({ token: Meta, factory: function Meta_Fa
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3431,7 +3380,7 @@ Title.ngInjectableDef = defineInjectable({ token: Title, factory: function Title
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3441,11 +3390,11 @@ Title.ngInjectableDef = defineInjectable({ token: Title, factory: function Title
  * found in the LICENSE file at https://angular.io/license
  */
 /** @type {?} */
-const win = typeof window !== 'undefined' && window || (/** @type {?} */ ({}));
+const win = typeof window !== 'undefined' && window || /** @type {?} */ ({});
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 class ChangeDetectionPerfRecord {
     /**
@@ -3466,7 +3415,6 @@ class AngularProfiler {
      * @param {?} ref
      */
     constructor(ref) { this.appRef = ref.injector.get(ApplicationRef); }
-    // tslint:disable:no-console
     /**
      * Exercises change detection in a loop and then prints the average amount of
      * time in milliseconds how long a single round of change detection takes for
@@ -3490,7 +3438,6 @@ class AngularProfiler {
         const record = config && config['record'];
         /** @type {?} */
         const profileName = 'Change Detection';
-        // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
         /** @type {?} */
         const isProfilerAvailable = win.console.profile != null;
         if (record && isProfilerAvailable) {
@@ -3519,7 +3466,7 @@ class AngularProfiler {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const PROFILER_GLOBAL_NAME = 'profiler';
@@ -3555,7 +3502,7 @@ function disableDebugTools() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3612,7 +3559,7 @@ function unescapeHtml(text) {
  * @return {?}
  */
 function makeStateKey(key) {
-    return (/** @type {?} */ (key));
+    return /** @type {?} */ (key);
 }
 /**
  * A key value store that is transferred from the application on the server side to the application
@@ -3651,7 +3598,7 @@ class TransferState {
      * @return {?}
      */
     get(key, defaultValue) {
-        return this.store[key] !== undefined ? (/** @type {?} */ (this.store[key])) : defaultValue;
+        return this.store[key] !== undefined ? /** @type {?} */ (this.store[key]) : defaultValue;
     }
     /**
      * Set the value corresponding to a key.
@@ -3717,8 +3664,6 @@ TransferState.ngInjectableDef = defineInjectable({ token: TransferState, factory
  * @return {?}
  */
 function initTransferState(doc, appId) {
-    // Locate the script tag with the JSON data transferred from the server.
-    // The id of the script tag is set to the Angular appId + 'state'.
     /** @type {?} */
     const script = doc.getElementById(appId + '-state');
     /** @type {?} */
@@ -3757,7 +3702,7 @@ BrowserTransferStateModule.ngInjectorDef = defineInjector({ factory: function Br
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Predicates for use with {\@link DebugElement}'s query functions.
@@ -3803,38 +3748,38 @@ class By {
      * @return {?}
      */
     static directive(type) {
-        return (debugElement) => (/** @type {?} */ (debugElement.providerTokens)).indexOf(type) !== -1;
+        return (debugElement) => /** @type {?} */ ((debugElement.providerTokens)).indexOf(type) !== -1;
     }
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
+/** *
  * \@publicApi
- * @type {?}
- */
-const VERSION = new Version('7.2.0-beta.2+8.sha-9c7fb0d');
+  @type {?} */
+const VERSION = new Version('7.2.0-beta.2+6.sha-28ceca0');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+// This file only reexports content of the `src` folder. Keep it that way.
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
