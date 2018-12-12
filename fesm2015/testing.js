@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+4.sha-042463f
+ * @license Angular v7.2.0-beta.2+8.sha-9c7fb0d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9,7 +9,7 @@ import { ɵgetDOM, BrowserModule, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 class BrowserDetection {
     /**
@@ -67,11 +67,15 @@ class BrowserDetection {
      * @return {?}
      */
     get isSlow() { return this.isAndroid || this.isIE || this.isIOS7; }
+    // The Intl API is only natively supported in Chrome, Firefox, IE11 and Edge.
+    // This detector is needed in tests to make the difference between:
+    // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
+    // 2) IE9/IE10: they use the polyfill, and so no discrepancies
     /**
      * @return {?}
      */
     get supportsNativeIntlApi() {
-        return !!(/** @type {?} */ (ɵglobal)).Intl && (/** @type {?} */ (ɵglobal)).Intl !== (/** @type {?} */ (ɵglobal)).IntlPolyfill;
+        return !!((/** @type {?} */ (ɵglobal))).Intl && ((/** @type {?} */ (ɵglobal))).Intl !== ((/** @type {?} */ (ɵglobal))).IntlPolyfill;
     }
     /**
      * @return {?}
@@ -80,6 +84,8 @@ class BrowserDetection {
         return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 &&
             this._ua.indexOf('Edge') == -1;
     }
+    // "Old Chrome" means Chrome 3X, where there are some discrepancies in the Intl API.
+    // Android 4.4 and 5.X have such browsers by default (respectively 30 and 39).
     /**
      * @return {?}
      */
@@ -90,12 +96,12 @@ class BrowserDetection {
     /**
      * @return {?}
      */
-    get supportsCustomElements() { return (typeof (/** @type {?} */ (ɵglobal)).customElements !== 'undefined'); }
+    get supportsCustomElements() { return (typeof ((/** @type {?} */ (ɵglobal))).customElements !== 'undefined'); }
     /**
      * @return {?}
      */
     get supportsDeprecatedCustomCustomElementsV0() {
-        return (typeof (/** @type {?} */ (document)).registerElement !== 'undefined');
+        return (typeof ((/** @type {?} */ (document))).registerElement !== 'undefined');
     }
     /**
      * @return {?}
@@ -114,7 +120,7 @@ class BrowserDetection {
      */
     get supportsDeprecatedShadowDomV0() {
         /** @type {?} */
-        const testEl = /** @type {?} */ (document.createElement('div'));
+        const testEl = (/** @type {?} */ (document.createElement('div')));
         return (typeof testEl.createShadowRoot !== 'undefined');
     }
 }
@@ -128,7 +134,7 @@ function createNgZone() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /**
  * @return {?}
@@ -139,11 +145,12 @@ function initBrowserTests() {
 }
 /** @type {?} */
 const _TEST_BROWSER_PLATFORM_PROVIDERS = [{ provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true }];
-/** *
+/**
  * Platform for testing
  *
  * \@publicApi
-  @type {?} */
+ * @type {?}
+ */
 const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting', _TEST_BROWSER_PLATFORM_PROVIDERS);
 const ɵ0 = createNgZone;
 /**
@@ -166,17 +173,17 @@ BrowserTestingModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
