@@ -291,7 +291,7 @@ HammerGesturesPlugin.ctorParameters = () => [
 HammerGesturesPlugin.ngInjectableDef = i0.defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(i0.inject(DOCUMENT), i0.inject(HAMMER_GESTURE_CONFIG), i0.inject(Console), i0.inject(HAMMER_LOADER, 8)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(HammerGesturesPlugin, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -313,7 +313,7 @@ HammerGesturesPlugin.ngInjectableDef = i0.defineInjectable({ token: HammerGestur
                 type: Inject,
                 args: [HAMMER_LOADER]
             }]
-    }]; }, null);
+    }], null);
 if (false) {
     /** @type {?} */
     HammerGesturesPlugin.prototype._config;

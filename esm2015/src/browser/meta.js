@@ -176,13 +176,13 @@ Meta.ngInjectableDef = i0.defineInjectable({ token: Meta, factory: function Meta
 /*@__PURE__*/ i0.ɵsetClassMetadata(Meta, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }]; }, null);
+    }], null);
 if (false) {
     /** @type {?} */
     Meta.prototype._dom;

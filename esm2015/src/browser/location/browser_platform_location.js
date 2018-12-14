@@ -120,13 +120,13 @@ BrowserPlatformLocation.ctorParameters = () => [
 BrowserPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory(t) { return new (t || BrowserPlatformLocation)(i0.inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserPlatformLocation, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }]; }, null);
+    }], null);
 if (false) {
     /** @type {?} */
     BrowserPlatformLocation.prototype.location;

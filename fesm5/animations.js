@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+38.sha-a954345
+ * @license Angular v7.2.0-beta.2+36.sha-7fae911
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -37,7 +37,7 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
 }(AnimationBuilder));
 /*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationBuilder, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: RendererFactory2
     }, {
         type: undefined,
@@ -45,7 +45,7 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }]; }, null);
+    }], null);
 var BrowserAnimationFactory = /** @class */ (function (_super) {
     __extends(BrowserAnimationFactory, _super);
     function BrowserAnimationFactory(_id, _renderer) {
@@ -199,13 +199,13 @@ var AnimationRendererFactory = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(AnimationRendererFactory, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: RendererFactory2
     }, {
         type: ɵAnimationEngine
     }, {
         type: NgZone
-    }]; }, null);
+    }], null);
 var BaseAnimationRenderer = /** @class */ (function () {
     function BaseAnimationRenderer(namespaceId, delegate, engine) {
         this.namespaceId = namespaceId;
@@ -346,7 +346,7 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
 }(ɵAnimationEngine));
 /*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -356,7 +356,7 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
         type: AnimationDriver
     }, {
         type: ɵAnimationStyleNormalizer
-    }]; }, null);
+    }], null);
 function instantiateSupportedAnimationDriver() {
     return ɵsupportsWebAnimations() ? new ɵWebAnimationsDriver() : new ɵCssKeyframesDriver();
 }

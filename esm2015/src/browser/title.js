@@ -65,13 +65,13 @@ Title.ngInjectableDef = i0.defineInjectable({ token: Title, factory: function Ti
 /*@__PURE__*/ i0.ɵsetClassMetadata(Title, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }]; }, null);
+    }], null);
 if (false) {
     /** @type {?} */
     Title.prototype._doc;
