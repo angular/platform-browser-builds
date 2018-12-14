@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+33.sha-d528e30
+ * @license Angular v7.2.0-beta.2+38.sha-a954345
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -681,13 +681,13 @@
     }(common.PlatformLocation));
     /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserPlatformLocation, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
                     args: [DOCUMENT]
                 }]
-        }], null);
+        }]; }, null);
 
     /**
      * @license
@@ -932,7 +932,7 @@
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(EventManager, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
@@ -940,7 +940,7 @@
                 }]
         }, {
             type: i0.NgZone
-        }], null);
+        }]; }, null);
     var EventManagerPlugin = /** @class */ (function () {
         function EventManagerPlugin(_doc) {
             this._doc = _doc;
@@ -1012,13 +1012,13 @@
     }(SharedStylesHost));
     /*@__PURE__*/ i0.ɵsetClassMetadata(DomSharedStylesHost, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
                     args: [DOCUMENT]
                 }]
-        }], null);
+        }]; }, null);
 
     var NAMESPACE_URIS = {
         'svg': 'http://www.w3.org/2000/svg',
@@ -1102,11 +1102,11 @@
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(DomRendererFactory2, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: EventManager
         }, {
             type: DomSharedStylesHost
-        }], null);
+        }]; }, null);
     var DefaultDomRenderer2 = /** @class */ (function () {
         function DefaultDomRenderer2(eventManager) {
             this.eventManager = eventManager;
@@ -1462,7 +1462,7 @@
     }(EventManagerPlugin));
     /*@__PURE__*/ i0.ɵsetClassMetadata(DomEventsPlugin, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
@@ -1478,7 +1478,7 @@
                     type: i0.Inject,
                     args: [i0.PLATFORM_ID]
                 }]
-        }], null);
+        }]; }, null);
 
     /**
      * Supported HammerJS recognizer event names.
@@ -1663,7 +1663,7 @@
     }(EventManagerPlugin));
     /*@__PURE__*/ i0.ɵsetClassMetadata(HammerGesturesPlugin, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
@@ -1685,7 +1685,7 @@
                     type: i0.Inject,
                     args: [HAMMER_LOADER]
                 }]
-        }], null);
+        }]; }, null);
 
     /**
      * Defines supported modifiers for key events.
@@ -1809,13 +1809,13 @@
     }(EventManagerPlugin));
     /*@__PURE__*/ i0.ɵsetClassMetadata(KeyEventsPlugin, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
                     args: [DOCUMENT]
                 }]
-        }], null);
+        }]; }, null);
 
     /**
      * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
@@ -1916,13 +1916,13 @@
     }(DomSanitizer));
     /*@__PURE__*/ i0.ɵsetClassMetadata(DomSanitizerImpl, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
                     args: [DOCUMENT]
                 }]
-        }], null);
+        }]; }, null);
     var SafeValueImpl = /** @class */ (function () {
         function SafeValueImpl(changingThisBreaksApplicationSecurity) {
             this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
@@ -2082,7 +2082,7 @@
     /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserModule, [{
             type: i0.NgModule,
             args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] }]
-        }], [{
+        }], function () { return [{
             type: BrowserModule,
             decorators: [{
                     type: i0.Optional
@@ -2092,7 +2092,7 @@
                     type: i0.Inject,
                     args: [BrowserModule]
                 }]
-        }], null);
+        }]; }, null);
 
     /**
      * @license
@@ -2203,13 +2203,13 @@
     /*@__PURE__*/ i0.ɵsetClassMetadata(Meta, [{
             type: i0.Injectable,
             args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
                     args: [DOCUMENT]
                 }]
-        }], null);
+        }]; }, null);
 
     /**
      * @license
@@ -2258,13 +2258,13 @@
     /*@__PURE__*/ i0.ɵsetClassMetadata(Title, [{
             type: i0.Injectable,
             args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
                     args: [DOCUMENT]
                 }]
-        }], null);
+        }]; }, null);
 
     /**
      * @license
@@ -2595,7 +2595,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('7.2.0-beta.2+33.sha-d528e30');
+    var VERSION = new i0.Version('7.2.0-beta.2+38.sha-a954345');
 
     /**
      * @license

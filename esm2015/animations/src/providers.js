@@ -39,7 +39,7 @@ InjectableAnimationEngine.ctorParameters = () => [
 InjectableAnimationEngine.ngInjectableDef = i0.defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(i0.inject(DOCUMENT), i0.inject(AnimationDriver), i0.inject(AnimationStyleNormalizer)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
-    }], [{
+    }], function () { return [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -49,7 +49,7 @@ InjectableAnimationEngine.ngInjectableDef = i0.defineInjectable({ token: Injecta
         type: AnimationDriver
     }, {
         type: AnimationStyleNormalizer
-    }], null);
+    }]; }, null);
 /**
  * @return {?}
  */

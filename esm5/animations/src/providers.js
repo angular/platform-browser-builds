@@ -25,7 +25,7 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
 export { InjectableAnimationEngine };
 /*@__PURE__*/ i0.ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
-    }], [{
+    }], function () { return [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -35,7 +35,7 @@ export { InjectableAnimationEngine };
         type: AnimationDriver
     }, {
         type: AnimationStyleNormalizer
-    }], null);
+    }]; }, null);
 export function instantiateSupportedAnimationDriver() {
     return supportsWebAnimations() ? new WebAnimationsDriver() : new CssKeyframesDriver();
 }
