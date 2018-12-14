@@ -55,7 +55,7 @@ BrowserAnimationBuilder.ctorParameters = () => [
 BrowserAnimationBuilder.ngInjectableDef = i0.defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(i0.inject(RendererFactory2), i0.inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserAnimationBuilder, [{
         type: Injectable
-    }], [{
+    }], function () { return [{
         type: RendererFactory2
     }, {
         type: undefined,
@@ -63,7 +63,7 @@ BrowserAnimationBuilder.ngInjectableDef = i0.defineInjectable({ token: BrowserAn
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }], null);
+    }]; }, null);
 if (false) {
     /** @type {?} */
     BrowserAnimationBuilder.prototype._nextAnimationId;
