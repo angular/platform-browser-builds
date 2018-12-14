@@ -93,11 +93,11 @@ var DomRendererFactory2 = /** @class */ (function () {
 export { DomRendererFactory2 };
 /*@__PURE__*/ i0.ɵsetClassMetadata(DomRendererFactory2, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: EventManager
     }, {
         type: DomSharedStylesHost
-    }]; }, null);
+    }], null);
 var DefaultDomRenderer2 = /** @class */ (function () {
     function DefaultDomRenderer2(eventManager) {
         this.eventManager = eventManager;

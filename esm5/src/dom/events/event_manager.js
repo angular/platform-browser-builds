@@ -83,7 +83,7 @@ var EventManager = /** @class */ (function () {
 export { EventManager };
 /*@__PURE__*/ i0.ɵsetClassMetadata(EventManager, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -91,7 +91,7 @@ export { EventManager };
             }]
     }, {
         type: NgZone
-    }]; }, null);
+    }], null);
 var EventManagerPlugin = /** @class */ (function () {
     function EventManagerPlugin(_doc) {
         this._doc = _doc;

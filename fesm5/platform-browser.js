@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+39.sha-d0d351c
+ * @license Angular v7.2.0-beta.2+37.sha-a8ebc83
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -616,13 +616,13 @@ var BrowserPlatformLocation = /** @class */ (function (_super) {
 }(PlatformLocation));
 /*@__PURE__*/ ɵsetClassMetadata(BrowserPlatformLocation, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT$1]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * @license
@@ -867,7 +867,7 @@ var EventManager = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(EventManager, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -875,7 +875,7 @@ var EventManager = /** @class */ (function () {
             }]
     }, {
         type: NgZone
-    }]; }, null);
+    }], null);
 var EventManagerPlugin = /** @class */ (function () {
     function EventManagerPlugin(_doc) {
         this._doc = _doc;
@@ -947,13 +947,13 @@ var DomSharedStylesHost = /** @class */ (function (_super) {
 }(SharedStylesHost));
 /*@__PURE__*/ ɵsetClassMetadata(DomSharedStylesHost, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT$1]
             }]
-    }]; }, null);
+    }], null);
 
 var NAMESPACE_URIS = {
     'svg': 'http://www.w3.org/2000/svg',
@@ -1037,11 +1037,11 @@ var DomRendererFactory2 = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(DomRendererFactory2, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: EventManager
     }, {
         type: DomSharedStylesHost
-    }]; }, null);
+    }], null);
 var DefaultDomRenderer2 = /** @class */ (function () {
     function DefaultDomRenderer2(eventManager) {
         this.eventManager = eventManager;
@@ -1397,7 +1397,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
 }(EventManagerPlugin));
 /*@__PURE__*/ ɵsetClassMetadata(DomEventsPlugin, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -1413,7 +1413,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
                 type: Inject,
                 args: [PLATFORM_ID]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * Supported HammerJS recognizer event names.
@@ -1598,7 +1598,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
 }(EventManagerPlugin));
 /*@__PURE__*/ ɵsetClassMetadata(HammerGesturesPlugin, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -1620,7 +1620,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
                 type: Inject,
                 args: [HAMMER_LOADER]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * Defines supported modifiers for key events.
@@ -1744,13 +1744,13 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
 }(EventManagerPlugin));
 /*@__PURE__*/ ɵsetClassMetadata(KeyEventsPlugin, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT$1]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
@@ -1851,13 +1851,13 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
 }(DomSanitizer));
 /*@__PURE__*/ ɵsetClassMetadata(DomSanitizerImpl, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT$1]
             }]
-    }]; }, null);
+    }], null);
 var SafeValueImpl = /** @class */ (function () {
     function SafeValueImpl(changingThisBreaksApplicationSecurity) {
         this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
@@ -2017,7 +2017,7 @@ var BrowserModule = /** @class */ (function () {
 /*@__PURE__*/ ɵsetClassMetadata(BrowserModule, [{
         type: NgModule,
         args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]
-    }], function () { return [{
+    }], [{
         type: BrowserModule,
         decorators: [{
                 type: Optional
@@ -2027,7 +2027,7 @@ var BrowserModule = /** @class */ (function () {
                 type: Inject,
                 args: [BrowserModule]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * @license
@@ -2138,13 +2138,13 @@ var Meta = /** @class */ (function () {
 /*@__PURE__*/ ɵsetClassMetadata(Meta, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT$1]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * @license
@@ -2193,13 +2193,13 @@ var Title = /** @class */ (function () {
 /*@__PURE__*/ ɵsetClassMetadata(Title, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT$1]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * @license
@@ -2530,7 +2530,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('7.2.0-beta.2+39.sha-d0d351c');
+var VERSION = new Version('7.2.0-beta.2+37.sha-a8ebc83');
 
 /**
  * @license

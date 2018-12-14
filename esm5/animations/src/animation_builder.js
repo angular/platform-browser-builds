@@ -37,7 +37,7 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
 export { BrowserAnimationBuilder };
 /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserAnimationBuilder, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: RendererFactory2
     }, {
         type: undefined,
@@ -45,7 +45,7 @@ export { BrowserAnimationBuilder };
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }]; }, null);
+    }], null);
 var BrowserAnimationFactory = /** @class */ (function (_super) {
     tslib_1.__extends(BrowserAnimationFactory, _super);
     function BrowserAnimationFactory(_id, _renderer) {
