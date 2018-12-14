@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+36.sha-7fae911
+ * @license Angular v7.2.0-beta.2+39.sha-d0d351c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -88,7 +88,7 @@
     }(animations.AnimationBuilder));
     /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserAnimationBuilder, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: i0.RendererFactory2
         }, {
             type: undefined,
@@ -96,7 +96,7 @@
                     type: i0.Inject,
                     args: [platformBrowser.DOCUMENT]
                 }]
-        }], null);
+        }]; }, null);
     var BrowserAnimationFactory = /** @class */ (function (_super) {
         __extends(BrowserAnimationFactory, _super);
         function BrowserAnimationFactory(_id, _renderer) {
@@ -250,13 +250,13 @@
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(AnimationRendererFactory, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: i0.RendererFactory2
         }, {
             type: browser.ɵAnimationEngine
         }, {
             type: i0.NgZone
-        }], null);
+        }]; }, null);
     var BaseAnimationRenderer = /** @class */ (function () {
         function BaseAnimationRenderer(namespaceId, delegate, engine) {
             this.namespaceId = namespaceId;
@@ -397,7 +397,7 @@
     }(browser.ɵAnimationEngine));
     /*@__PURE__*/ i0.ɵsetClassMetadata(InjectableAnimationEngine, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
@@ -407,7 +407,7 @@
             type: browser.AnimationDriver
         }, {
             type: browser.ɵAnimationStyleNormalizer
-        }], null);
+        }]; }, null);
     function instantiateSupportedAnimationDriver() {
         return browser.ɵsupportsWebAnimations() ? new browser.ɵWebAnimationsDriver() : new browser.ɵCssKeyframesDriver();
     }

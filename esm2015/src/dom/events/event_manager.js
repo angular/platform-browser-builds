@@ -105,7 +105,7 @@ EventManager.ctorParameters = () => [
 EventManager.ngInjectableDef = i0.defineInjectable({ token: EventManager, factory: function EventManager_Factory(t) { return new (t || EventManager)(i0.inject(EVENT_MANAGER_PLUGINS), i0.inject(NgZone)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(EventManager, [{
         type: Injectable
-    }], [{
+    }], function () { return [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -113,7 +113,7 @@ EventManager.ngInjectableDef = i0.defineInjectable({ token: EventManager, factor
             }]
     }, {
         type: NgZone
-    }], null);
+    }]; }, null);
 if (false) {
     /** @type {?} */
     EventManager.prototype._plugins;

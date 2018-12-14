@@ -111,13 +111,13 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
 export { DomSanitizerImpl };
 /*@__PURE__*/ i0.ɵsetClassMetadata(DomSanitizerImpl, [{
         type: Injectable
-    }], [{
+    }], function () { return [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }], null);
+    }]; }, null);
 var SafeValueImpl = /** @class */ (function () {
     function SafeValueImpl(changingThisBreaksApplicationSecurity) {
         this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;

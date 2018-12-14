@@ -118,13 +118,13 @@ DomSharedStylesHost.ctorParameters = () => [
 DomSharedStylesHost.ngInjectableDef = i0.defineInjectable({ token: DomSharedStylesHost, factory: function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(i0.inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(DomSharedStylesHost, [{
         type: Injectable
-    }], [{
+    }], function () { return [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }], null);
+    }]; }, null);
 if (false) {
     /** @type {?} */
     DomSharedStylesHost.prototype._hostNodes;

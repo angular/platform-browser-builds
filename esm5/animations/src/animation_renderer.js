@@ -101,13 +101,13 @@ var AnimationRendererFactory = /** @class */ (function () {
 export { AnimationRendererFactory };
 /*@__PURE__*/ i0.ɵsetClassMetadata(AnimationRendererFactory, [{
         type: Injectable
-    }], [{
+    }], function () { return [{
         type: RendererFactory2
     }, {
         type: AnimationEngine
     }, {
         type: NgZone
-    }], null);
+    }]; }, null);
 var BaseAnimationRenderer = /** @class */ (function () {
     function BaseAnimationRenderer(namespaceId, delegate, engine) {
         this.namespaceId = namespaceId;
