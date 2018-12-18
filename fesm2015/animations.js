@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+83.sha-b04bc5d
+ * @license Angular v7.2.0-beta.2+89.sha-69198ba
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -19,7 +19,7 @@ import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
  */
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class BrowserAnimationBuilder extends AnimationBuilder {
     /**
@@ -108,6 +108,7 @@ class RendererAnimationPlayer {
         this._command('create', options);
     }
     /**
+     * @private
      * @param {?} eventName
      * @param {?} callback
      * @return {?}
@@ -116,6 +117,7 @@ class RendererAnimationPlayer {
         return this._renderer.listen(this.element, `@@${this.id}:${eventName}`, callback);
     }
     /**
+     * @private
      * @param {?} command
      * @param {...?} args
      * @return {?}
@@ -197,7 +199,7 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const ANIMATION_PREFIX = '@';
@@ -272,6 +274,7 @@ class AnimationRendererFactory {
         }
     }
     /**
+     * @private
      * @return {?}
      */
     _scheduleCountTask() {
@@ -510,6 +513,7 @@ class BaseAnimationRenderer {
         return this.delegate.listen(target, eventName, callback);
     }
     /**
+     * @protected
      * @param {?} element
      * @param {?} value
      * @return {?}
@@ -610,7 +614,7 @@ function parseTriggerCallbackName(triggerName) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -716,7 +720,7 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
  */
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
@@ -764,22 +768,22 @@ NoopAnimationsModule.ngInjectorDef = defineInjector({ factory: function NoopAnim
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { BrowserAnimationsModule, NoopAnimationsModule, ANIMATION_MODULE_TYPE, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, InjectableAnimationEngine as ɵInjectableAnimationEngine };
