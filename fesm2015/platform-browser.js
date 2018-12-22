@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+78.sha-01a5c74
+ * @license Angular v7.2.0-rc.0+28.sha-3be276c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9,7 +9,7 @@ import { ɵglobal, Inject, Injectable, APP_INITIALIZER, ApplicationInitStatus, I
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -62,7 +62,7 @@ class DomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Provides DOM operations in any browser environment.
@@ -152,7 +152,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _attrToPropMap = {
@@ -1066,7 +1066,7 @@ function relativePath(url) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * A DI Token representing the main rendering context. In a browser this is the DOM Document.
@@ -1082,7 +1082,7 @@ const DOCUMENT$1 = DOCUMENT;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1100,7 +1100,7 @@ function supportsState() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
@@ -1207,7 +1207,7 @@ BrowserPlatformLocation.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An id that identifies a particular application being bootstrapped, that should
@@ -1247,7 +1247,7 @@ const SERVER_TRANSITION_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class BrowserGetTestability {
     /**
@@ -1321,7 +1321,7 @@ class BrowserGetTestability {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
@@ -1345,7 +1345,7 @@ function exportNgVar(name, value) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const CORE_TOKENS = {
@@ -1399,7 +1399,7 @@ const ELEMENT_PROBE_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The injection token for the event-manager plug-in service.
@@ -1519,7 +1519,7 @@ class EventManagerPlugin {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class SharedStylesHost {
     constructor() {
@@ -1568,6 +1568,7 @@ class DomSharedStylesHost extends SharedStylesHost {
         this._hostNodes.add(_doc.head);
     }
     /**
+     * @private
      * @param {?} styles
      * @param {?} host
      * @return {?}
@@ -1615,7 +1616,7 @@ DomSharedStylesHost.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const NAMESPACE_URIS = {
@@ -2022,6 +2023,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         }
     }
     /**
+     * @private
      * @param {?} node
      * @return {?}
      */
@@ -2066,7 +2068,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 const ɵ0 = function (v) {
     return '__zone_symbol__' + v;
@@ -2178,6 +2180,7 @@ class DomEventsPlugin extends EventManagerPlugin {
         }
     }
     /**
+     * @private
      * @return {?}
      */
     patchEvent() {
@@ -2320,7 +2323,7 @@ DomEventsPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Supported HammerJS recognizer event names.
@@ -2538,7 +2541,7 @@ HammerGesturesPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Defines supported modifiers for key events.
@@ -2691,7 +2694,7 @@ KeyEventsPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
@@ -2779,6 +2782,7 @@ class DomSanitizerImpl extends DomSanitizer {
         }
     }
     /**
+     * @private
      * @param {?} value
      * @param {?} expectedType
      * @return {?}
@@ -2876,7 +2880,7 @@ class SafeResourceUrlImpl extends SafeValueImpl {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
@@ -2998,7 +3002,7 @@ BrowserModule.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Factory to create Meta service.
@@ -3096,6 +3100,7 @@ class Meta {
         }
     }
     /**
+     * @private
      * @param {?} meta
      * @param {?=} forceCreation
      * @return {?}
@@ -3121,6 +3126,7 @@ class Meta {
         return element;
     }
     /**
+     * @private
      * @param {?} tag
      * @param {?} el
      * @return {?}
@@ -3130,6 +3136,7 @@ class Meta {
         return el;
     }
     /**
+     * @private
      * @param {?} tag
      * @return {?}
      */
@@ -3139,6 +3146,7 @@ class Meta {
         return `${attr}="${tag[attr]}"`;
     }
     /**
+     * @private
      * @param {?} tag
      * @param {?} elem
      * @return {?}
@@ -3158,7 +3166,7 @@ Meta.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Factory to create Title service.
@@ -3207,7 +3215,7 @@ Title.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3221,7 +3229,7 @@ const win = typeof window !== 'undefined' && window || (/** @type {?} */ ({}));
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ChangeDetectionPerfRecord {
     /**
@@ -3295,7 +3303,7 @@ class AngularProfiler {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const PROFILER_GLOBAL_NAME = 'profiler';
@@ -3331,7 +3339,7 @@ function disableDebugTools() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @param {?} text
@@ -3514,7 +3522,7 @@ BrowserTransferStateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Predicates for use with {\@link DebugElement}'s query functions.
@@ -3566,32 +3574,32 @@ class By {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('7.2.0-beta.2+78.sha-01a5c74');
+const VERSION = new Version('7.2.0-rc.0+28.sha-3be276c');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
