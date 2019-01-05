@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-rc.0+64.sha-929334b
+ * @license Angular v7.2.0-rc.0+65.sha-b61dafa
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -173,7 +173,7 @@
                     }
                 });
             }
-            catch (e) {
+            catch (_a) {
                 _this._animationPrefix = null;
                 _this._transitionEnd = null;
             }
@@ -486,7 +486,7 @@
             try {
                 return el.getBoundingClientRect();
             }
-            catch (e) {
+            catch (_a) {
                 return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0 };
             }
         };
@@ -2552,7 +2552,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('7.2.0-rc.0+64.sha-929334b');
+    var VERSION = new core.Version('7.2.0-rc.0+65.sha-b61dafa');
 
     /**
      * @license
