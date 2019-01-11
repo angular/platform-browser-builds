@@ -1,11 +1,11 @@
 /**
- * @license Angular v7.2.0+103.sha-885f1af
+ * @license Angular v7.2.0+104.sha-b78351c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Inject, Injectable, inject, Version, InjectionToken, NgZone, APP_ID, NgModule, Optional, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, APP_INITIALIZER, ApplicationInitStatus, Injector, ApplicationRef, setTestabilityGetter, RendererStyleFlags2, ViewEncapsulation, defineInjectable, ɵsetClassMetadata, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, ɵdefineNgModule, defineInjector, getDebugNode, NgProbeToken } from '@angular/core';
+import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵglobal, Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, InjectionToken, APP_INITIALIZER, Injector, ApplicationInitStatus, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵAPP_ROOT, ErrorHandler, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, ɵdefineNgModule, defineInjector, Version } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -3828,7 +3828,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('7.2.0+103.sha-885f1af');
+const VERSION = new Version('7.2.0+104.sha-b78351c');
 
 /**
  * @fileoverview added by tsickle

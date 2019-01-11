@@ -1,13 +1,13 @@
 /**
- * @license Angular v7.2.0+103.sha-885f1af
+ * @license Angular v7.2.0+104.sha-b78351c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { AnimationBuilder, AnimationFactory, sequence } from '@angular/animations';
-import { Inject, Injectable, RendererFactory2, ViewEncapsulation, NgModule, ɵdefineNgModule, defineInjector, ɵsetClassMetadata, defineInjectable, inject, InjectionToken, NgZone } from '@angular/core';
+import { ViewEncapsulation, Injectable, RendererFactory2, Inject, defineInjectable, inject, ɵsetClassMetadata, NgZone, InjectionToken, NgModule, ɵdefineNgModule, defineInjector } from '@angular/core';
 import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
-import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵCssKeyframesDriver, ɵNoopAnimationDriver, ɵWebAnimationsDriver, ɵWebAnimationsStyleNormalizer, ɵsupportsWebAnimations } from '@angular/animations/browser';
+import { AnimationBuilder, sequence, AnimationFactory } from '@angular/animations';
+import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer } from '@angular/animations/browser';
 import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 /**
