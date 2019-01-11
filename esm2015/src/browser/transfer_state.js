@@ -155,7 +155,7 @@ export class TransferState {
 TransferState.decorators = [
     { type: Injectable },
 ];
-TransferState.ngInjectableDef = i0.defineInjectable({ token: TransferState, factory: function TransferState_Factory(t) { return new (t || TransferState)(); }, providedIn: null });
+/** @nocollapse */ TransferState.ngInjectableDef = i0.defineInjectable({ token: TransferState, factory: function TransferState_Factory(t) { return new (t || TransferState)(); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(TransferState, [{
         type: Injectable
     }], null, null);
@@ -206,8 +206,8 @@ BrowserTransferStateModule.decorators = [
                 providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
             },] },
 ];
-BrowserTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
-BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }], imports: [] });
+/** @nocollapse */ BrowserTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
+/** @nocollapse */ BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }], imports: [] });
 /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserTransferStateModule, [{
         type: NgModule,
         args: [{

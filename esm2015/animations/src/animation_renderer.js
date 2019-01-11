@@ -141,7 +141,7 @@ AnimationRendererFactory.ctorParameters = () => [
     { type: AnimationEngine },
     { type: NgZone }
 ];
-AnimationRendererFactory.ngInjectableDef = i0.defineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(i0.inject(RendererFactory2), i0.inject(AnimationEngine), i0.inject(NgZone)); }, providedIn: null });
+/** @nocollapse */ AnimationRendererFactory.ngInjectableDef = i0.defineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(i0.inject(RendererFactory2), i0.inject(AnimationEngine), i0.inject(NgZone)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(AnimationRendererFactory, [{
         type: Injectable
     }], function () { return [{

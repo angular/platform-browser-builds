@@ -171,7 +171,7 @@ Meta.decorators = [
 Meta.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-Meta.ngInjectableDef = i0.defineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
+/** @nocollapse */ Meta.ngInjectableDef = i0.defineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
         (r = new t(i0.inject(DOCUMENT)));
     }
     else {

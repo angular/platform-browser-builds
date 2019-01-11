@@ -288,7 +288,7 @@ DomEventsPlugin.ctorParameters = () => [
     { type: NgZone },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] }] }
 ];
-DomEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(i0.inject(DOCUMENT), i0.inject(NgZone), i0.inject(PLATFORM_ID, 8)); }, providedIn: null });
+/** @nocollapse */ DomEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(i0.inject(DOCUMENT), i0.inject(NgZone), i0.inject(PLATFORM_ID, 8)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(DomEventsPlugin, [{
         type: Injectable
     }], function () { return [{

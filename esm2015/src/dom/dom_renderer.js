@@ -141,7 +141,7 @@ DomRendererFactory2.ctorParameters = () => [
     { type: EventManager },
     { type: DomSharedStylesHost }
 ];
-DomRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(i0.inject(EventManager), i0.inject(DomSharedStylesHost)); }, providedIn: null });
+/** @nocollapse */ DomRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(i0.inject(EventManager), i0.inject(DomSharedStylesHost)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(DomRendererFactory2, [{
         type: Injectable
     }], function () { return [{
