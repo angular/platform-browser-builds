@@ -56,7 +56,7 @@ Title.decorators = [
 Title.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ Title.ngInjectableDef = i0.defineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
+Title.ngInjectableDef = i0.defineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
         (r = new t(i0.inject(DOCUMENT)));
     }
     else {
