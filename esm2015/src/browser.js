@@ -142,8 +142,8 @@ BrowserModule.decorators = [
 BrowserModule.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
 ];
-BrowserModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserModule, bootstrap: [], declarations: [], imports: [], exports: [CommonModule, ApplicationModule] });
-BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[CommonModule, ApplicationModule]] });
+/** @nocollapse */ BrowserModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserModule, bootstrap: [], declarations: [], imports: [], exports: [CommonModule, ApplicationModule] });
+/** @nocollapse */ BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[CommonModule, ApplicationModule]] });
 /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserModule, [{
         type: NgModule,
         args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]

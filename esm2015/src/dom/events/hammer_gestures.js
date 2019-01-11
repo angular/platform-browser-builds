@@ -142,7 +142,7 @@ export class HammerGestureConfig {
 HammerGestureConfig.decorators = [
     { type: Injectable },
 ];
-HammerGestureConfig.ngInjectableDef = i0.defineInjectable({ token: HammerGestureConfig, factory: function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); }, providedIn: null });
+/** @nocollapse */ HammerGestureConfig.ngInjectableDef = i0.defineInjectable({ token: HammerGestureConfig, factory: function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(HammerGestureConfig, [{
         type: Injectable
     }], null, null);
@@ -288,7 +288,7 @@ HammerGesturesPlugin.ctorParameters = () => [
     { type: Console },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
 ];
-HammerGesturesPlugin.ngInjectableDef = i0.defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(i0.inject(DOCUMENT), i0.inject(HAMMER_GESTURE_CONFIG), i0.inject(Console), i0.inject(HAMMER_LOADER, 8)); }, providedIn: null });
+/** @nocollapse */ HammerGesturesPlugin.ngInjectableDef = i0.defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(i0.inject(DOCUMENT), i0.inject(HAMMER_GESTURE_CONFIG), i0.inject(Console), i0.inject(HAMMER_LOADER, 8)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(HammerGesturesPlugin, [{
         type: Injectable
     }], function () { return [{

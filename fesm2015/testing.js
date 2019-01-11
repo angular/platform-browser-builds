@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0+126.sha-df292c2
+ * @license Angular v7.2.0+132.sha-0c6fa1d
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -177,8 +177,8 @@ BrowserTestingModule.decorators = [
                 ]
             },] },
 ];
-BrowserTestingModule.ngModuleDef = ɵdefineNgModule({ type: BrowserTestingModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
-BrowserTestingModule.ngInjectorDef = defineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
+/** @nocollapse */ BrowserTestingModule.ngModuleDef = ɵdefineNgModule({ type: BrowserTestingModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
+/** @nocollapse */ BrowserTestingModule.ngInjectorDef = defineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
         { provide: APP_ID, useValue: 'a' },
         ɵELEMENT_PROBE_PROVIDERS,
         { provide: NgZone, useFactory: createNgZone },

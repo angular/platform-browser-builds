@@ -36,7 +36,7 @@ InjectableAnimationEngine.ctorParameters = () => [
     { type: AnimationDriver },
     { type: AnimationStyleNormalizer }
 ];
-InjectableAnimationEngine.ngInjectableDef = i0.defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(i0.inject(DOCUMENT), i0.inject(AnimationDriver), i0.inject(AnimationStyleNormalizer)); }, providedIn: null });
+/** @nocollapse */ InjectableAnimationEngine.ngInjectableDef = i0.defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(i0.inject(DOCUMENT), i0.inject(AnimationDriver), i0.inject(AnimationStyleNormalizer)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
     }], function () { return [{

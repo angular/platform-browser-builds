@@ -161,7 +161,7 @@ KeyEventsPlugin.decorators = [
 KeyEventsPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-KeyEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(i0.inject(DOCUMENT)); }, providedIn: null });
+/** @nocollapse */ KeyEventsPlugin.ngInjectableDef = i0.defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(i0.inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(KeyEventsPlugin, [{
         type: Injectable
     }], function () { return [{

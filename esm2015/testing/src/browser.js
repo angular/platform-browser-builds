@@ -46,8 +46,8 @@ BrowserTestingModule.decorators = [
                 ]
             },] },
 ];
-BrowserTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTestingModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
-BrowserTestingModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
+/** @nocollapse */ BrowserTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTestingModule, bootstrap: [], declarations: [], imports: [], exports: [BrowserModule] });
+/** @nocollapse */ BrowserTestingModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
         { provide: APP_ID, useValue: 'a' },
         ELEMENT_PROBE_PROVIDERS,
         { provide: NgZone, useFactory: createNgZone },
