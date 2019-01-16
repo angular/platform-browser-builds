@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-rc.0+129.sha-35ec2dc
+ * @license Angular v7.2.0+98.sha-03293c4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -93,7 +93,7 @@ var GenericBrowserDomAdapter = /** @class */ (function (_super) {
                 }
             });
         }
-        catch (e) {
+        catch (_a) {
             _this._animationPrefix = null;
             _this._transitionEnd = null;
         }
@@ -406,7 +406,7 @@ var BrowserDomAdapter = /** @class */ (function (_super) {
         try {
             return el.getBoundingClientRect();
         }
-        catch (e) {
+        catch (_a) {
             return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0 };
         }
     };
@@ -2472,7 +2472,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('7.2.0-rc.0+129.sha-35ec2dc');
+var VERSION = new Version('7.2.0+98.sha-03293c4');
 
 /**
  * @license
