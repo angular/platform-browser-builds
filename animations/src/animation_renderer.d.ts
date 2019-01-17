@@ -32,7 +32,7 @@ export declare class BaseAnimationRenderer implements Renderer2 {
     createText(value: string): any;
     appendChild(parent: any, newChild: any): void;
     insertBefore(parent: any, newChild: any, refChild: any): void;
-    removeChild(parent: any, oldChild: any, isHostElement: boolean): void;
+    removeChild(parent: any, oldChild: any): void;
     selectRootElement(selectorOrNode: any, preserveContent?: boolean): any;
     parentNode(node: any): any;
     nextSibling(node: any): any;
