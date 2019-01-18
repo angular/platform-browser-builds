@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.0+3.sha-808898d
+ * @license Angular v8.0.0-beta.0+21.sha-45bf911
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -288,8 +288,8 @@
             this.delegate.insertBefore(parent, newChild, refChild);
             this.engine.onInsert(this.namespaceId, newChild, parent, true);
         };
-        BaseAnimationRenderer.prototype.removeChild = function (parent, oldChild) {
-            this.engine.onRemove(this.namespaceId, oldChild, this.delegate);
+        BaseAnimationRenderer.prototype.removeChild = function (parent, oldChild, isHostElement) {
+            this.engine.onRemove(this.namespaceId, oldChild, this.delegate, isHostElement);
         };
         BaseAnimationRenderer.prototype.selectRootElement = function (selectorOrNode, preserveContent) {
             return this.delegate.selectRootElement(selectorOrNode, preserveContent);
