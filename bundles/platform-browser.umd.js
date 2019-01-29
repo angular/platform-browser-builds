@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.1+68.sha-6e16338
+ * @license Angular v8.0.0-beta.1+83.sha-e18a52e
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2084,7 +2084,7 @@
                 ],
             };
         };
-        BrowserModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserModule, bootstrap: [], declarations: [], imports: [], exports: [common.CommonModule, i0.ApplicationModule] });
+        BrowserModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserModule, exports: [common.CommonModule, i0.ApplicationModule] });
         BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[common.CommonModule, i0.ApplicationModule]] });
         return BrowserModule;
     }());
@@ -2522,7 +2522,7 @@
     var BrowserTransferStateModule = /** @class */ (function () {
         function BrowserTransferStateModule() {
         }
-        BrowserTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
+        BrowserTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTransferStateModule });
         BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, i0.APP_ID] }], imports: [] });
         return BrowserTransferStateModule;
     }());
@@ -2604,7 +2604,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-beta.1+68.sha-6e16338');
+    var VERSION = new i0.Version('8.0.0-beta.1+83.sha-e18a52e');
 
     /**
      * @license
