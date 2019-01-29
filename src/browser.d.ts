@@ -1,13 +1,6 @@
-import * as i0 from '@angular/core';
-import * as i1 from '@angular/common';
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { ErrorHandler, ModuleWithProviders, PlatformRef, StaticProvider } from '@angular/core';
+import * as i0 from "@angular/core";
+import * as i1 from "@angular/common";
 export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.

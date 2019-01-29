@@ -1,15 +1,8 @@
-import * as i0 from '@angular/core';
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { AnimationDriver, ɵAnimationEngine as AnimationEngine, ɵAnimationStyleNormalizer as AnimationStyleNormalizer, ɵCssKeyframesDriver as CssKeyframesDriver, ɵWebAnimationsDriver as WebAnimationsDriver, ɵWebAnimationsStyleNormalizer as WebAnimationsStyleNormalizer } from '@angular/animations/browser';
 import { InjectionToken, NgZone, Provider } from '@angular/core';
 import { ɵDomRendererFactory2 as DomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationRendererFactory } from './animation_renderer';
+import * as i0 from "@angular/core";
 export declare class InjectableAnimationEngine extends AnimationEngine {
     constructor(doc: any, driver: AnimationDriver, normalizer: AnimationStyleNormalizer);
     static ngInjectableDef: i0.ɵInjectableDef<InjectableAnimationEngine>;

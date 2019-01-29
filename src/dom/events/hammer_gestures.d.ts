@@ -1,4 +1,3 @@
-import * as i0 from '@angular/core';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8,6 +7,7 @@ import * as i0 from '@angular/core';
  */
 import { InjectionToken, ɵConsole as Console } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
+import * as i0 from "@angular/core";
 /**
  * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`

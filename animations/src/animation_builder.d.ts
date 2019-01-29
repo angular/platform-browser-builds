@@ -1,4 +1,3 @@
-import * as i0 from '@angular/core';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9,6 +8,7 @@ import * as i0 from '@angular/core';
 import { AnimationBuilder, AnimationFactory, AnimationMetadata, AnimationOptions, AnimationPlayer } from '@angular/animations';
 import { RendererFactory2 } from '@angular/core';
 import { AnimationRenderer } from './animation_renderer';
+import * as i0 from "@angular/core";
 export declare class BrowserAnimationBuilder extends AnimationBuilder {
     private _nextAnimationId;
     private _renderer;

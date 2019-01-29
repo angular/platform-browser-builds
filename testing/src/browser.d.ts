@@ -1,5 +1,3 @@
-import * as i0 from '@angular/core';
-import * as i1 from '@angular/platform-browser';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8,6 +6,8 @@ import * as i1 from '@angular/platform-browser';
  * found in the LICENSE file at https://angular.io/license
  */
 import { PlatformRef, StaticProvider } from '@angular/core';
+import * as i0 from "@angular/core";
+import * as i1 from "@angular/platform-browser";
 /**
  * Platform for testing
  *

@@ -1,4 +1,3 @@
-import * as i0 from '@angular/core';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8,6 +7,7 @@ import * as i0 from '@angular/core';
  */
 import { NgZone } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
+import * as i0 from "@angular/core";
 /**
  * @publicApi
  * A browser plug-in that provides support for handling of key events in Angular.

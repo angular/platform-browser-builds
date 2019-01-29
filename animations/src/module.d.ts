@@ -1,5 +1,5 @@
-import * as i0 from '@angular/core';
-import * as i1 from '@angular/platform-browser';
+import * as i0 from "@angular/core";
+import * as i1 from "@angular/platform-browser";
 /**
  * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
  * for use with animations. See [Animations](guide/animations).

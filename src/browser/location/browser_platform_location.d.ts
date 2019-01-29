@@ -1,4 +1,3 @@
-import * as i0 from '@angular/core';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -7,6 +6,7 @@ import * as i0 from '@angular/core';
  * found in the LICENSE file at https://angular.io/license
  */
 import { LocationChangeListener, PlatformLocation } from '@angular/common';
+import * as i0 from "@angular/core";
 /**
  * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
  * This class should not be used directly by an application developer. Instead, use

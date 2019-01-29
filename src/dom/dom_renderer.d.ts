@@ -1,4 +1,3 @@
-import * as i0 from '@angular/core';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9,6 +8,7 @@ import * as i0 from '@angular/core';
 import { Renderer2, RendererFactory2, RendererType2 } from '@angular/core';
 import { EventManager } from './events/event_manager';
 import { DomSharedStylesHost } from './shared_styles_host';
+import * as i0 from "@angular/core";
 export declare const NAMESPACE_URIS: {
     [ns: string]: string;
 };
