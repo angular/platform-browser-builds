@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.5+17.sha-3b78f9e
+ * @license Angular v7.2.5+19.sha-ff2c342
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1966,7 +1966,7 @@ var BROWSER_MODULE_PROVIDERS = [
 ];
 /**
  * Exports required infrastructure for all Angular apps.
- * Included by defaults in all Angular apps created with the CLI
+ * Included by default in all Angular apps created with the CLI
  * `new` command.
  * Re-exports `CommonModule` and `ApplicationModule`, making their
  * exports and providers available to all apps.
@@ -2472,7 +2472,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('7.2.5+17.sha-3b78f9e');
+var VERSION = new Version('7.2.5+19.sha-ff2c342');
 
 /**
  * @license
