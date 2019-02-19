@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.4+26.sha-745c9c5
+ * @license Angular v8.0.0-beta.4+27.sha-5e68e35
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2055,7 +2055,7 @@
     ];
     /**
      * Exports required infrastructure for all Angular apps.
-     * Included by defaults in all Angular apps created with the CLI
+     * Included by default in all Angular apps created with the CLI
      * `new` command.
      * Re-exports `CommonModule` and `ApplicationModule`, making their
      * exports and providers available to all apps.
@@ -2561,7 +2561,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-beta.4+26.sha-745c9c5');
+    var VERSION = new core.Version('8.0.0-beta.4+27.sha-5e68e35');
 
     /**
      * @license
