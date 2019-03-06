@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.6+85.sha-20a9dbe.with-local-changes
+ * @license Angular v8.0.0-beta.6+86.sha-881807d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -37,15 +37,10 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
 }(AnimationBuilder));
 /*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationBuilder, [{
         type: Injectable
-    }], function () { return [{
-        type: RendererFactory2
-    }, {
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: RendererFactory2 }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 var BrowserAnimationFactory = /** @class */ (function (_super) {
     __extends(BrowserAnimationFactory, _super);
     function BrowserAnimationFactory(_id, _renderer) {
@@ -199,13 +194,7 @@ var AnimationRendererFactory = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(AnimationRendererFactory, [{
         type: Injectable
-    }], function () { return [{
-        type: RendererFactory2
-    }, {
-        type: ɵAnimationEngine
-    }, {
-        type: NgZone
-    }]; }, null);
+    }], function () { return [{ type: RendererFactory2 }, { type: ɵAnimationEngine }, { type: NgZone }]; }, null);
 var BaseAnimationRenderer = /** @class */ (function () {
     function BaseAnimationRenderer(namespaceId, delegate, engine) {
         this.namespaceId = namespaceId;
@@ -346,17 +335,10 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
 }(ɵAnimationEngine));
 /*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT$1]
-            }]
-    }, {
-        type: AnimationDriver
-    }, {
-        type: ɵAnimationStyleNormalizer
-    }]; }, null);
+            }] }, { type: AnimationDriver }, { type: ɵAnimationStyleNormalizer }]; }, null);
 function instantiateSupportedAnimationDriver() {
     return ɵsupportsWebAnimations() ? new ɵWebAnimationsDriver() : new ɵCssKeyframesDriver();
 }

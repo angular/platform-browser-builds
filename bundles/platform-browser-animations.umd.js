@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.6+85.sha-20a9dbe.with-local-changes
+ * @license Angular v8.0.0-beta.6+86.sha-881807d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations'), require('@angular/animations/browser'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-browser/animations', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations', '@angular/animations/browser', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = {}), global.ng.core, global.ng.platformBrowser, global.ng.animations, global.ng.animations.browser, global.ng.common));
-}(this, function (exports, i0, platformBrowser, animations, browser, common) { 'use strict';
+}(this, function (exports, i0, platformBrowser, animations, i1, common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -88,15 +88,10 @@
     }(animations.AnimationBuilder));
     /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserAnimationBuilder, [{
             type: i0.Injectable
-        }], function () { return [{
-            type: i0.RendererFactory2
-        }, {
-            type: undefined,
-            decorators: [{
+        }], function () { return [{ type: i0.RendererFactory2 }, { type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [platformBrowser.DOCUMENT]
-                }]
-        }]; }, null);
+                }] }]; }, null);
     var BrowserAnimationFactory = /** @class */ (function (_super) {
         __extends(BrowserAnimationFactory, _super);
         function BrowserAnimationFactory(_id, _renderer) {
@@ -245,18 +240,12 @@
             }
         };
         AnimationRendererFactory.prototype.whenRenderingDone = function () { return this.engine.whenRenderingDone(); };
-        AnimationRendererFactory.ngInjectableDef = i0.defineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(i0.inject(i0.RendererFactory2), i0.inject(browser.ɵAnimationEngine), i0.inject(i0.NgZone)); }, providedIn: null });
+        AnimationRendererFactory.ngInjectableDef = i0.defineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(i0.inject(i0.RendererFactory2), i0.inject(i1.ɵAnimationEngine), i0.inject(i0.NgZone)); }, providedIn: null });
         return AnimationRendererFactory;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(AnimationRendererFactory, [{
             type: i0.Injectable
-        }], function () { return [{
-            type: i0.RendererFactory2
-        }, {
-            type: browser.ɵAnimationEngine
-        }, {
-            type: i0.NgZone
-        }]; }, null);
+        }], function () { return [{ type: i0.RendererFactory2 }, { type: i1.ɵAnimationEngine }, { type: i0.NgZone }]; }, null);
     var BaseAnimationRenderer = /** @class */ (function () {
         function BaseAnimationRenderer(namespaceId, delegate, engine) {
             this.namespaceId = namespaceId;
@@ -392,27 +381,20 @@
         function InjectableAnimationEngine(doc, driver, normalizer) {
             return _super.call(this, doc.body, driver, normalizer) || this;
         }
-        InjectableAnimationEngine.ngInjectableDef = i0.defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(i0.inject(common.DOCUMENT), i0.inject(browser.AnimationDriver), i0.inject(browser.ɵAnimationStyleNormalizer)); }, providedIn: null });
+        InjectableAnimationEngine.ngInjectableDef = i0.defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(i0.inject(common.DOCUMENT), i0.inject(i1.AnimationDriver), i0.inject(i1.ɵAnimationStyleNormalizer)); }, providedIn: null });
         return InjectableAnimationEngine;
-    }(browser.ɵAnimationEngine));
+    }(i1.ɵAnimationEngine));
     /*@__PURE__*/ i0.ɵsetClassMetadata(InjectableAnimationEngine, [{
             type: i0.Injectable
-        }], function () { return [{
-            type: undefined,
-            decorators: [{
+        }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }]
-        }, {
-            type: browser.AnimationDriver
-        }, {
-            type: browser.ɵAnimationStyleNormalizer
-        }]; }, null);
+                }] }, { type: i1.AnimationDriver }, { type: i1.ɵAnimationStyleNormalizer }]; }, null);
     function instantiateSupportedAnimationDriver() {
-        return browser.ɵsupportsWebAnimations() ? new browser.ɵWebAnimationsDriver() : new browser.ɵCssKeyframesDriver();
+        return i1.ɵsupportsWebAnimations() ? new i1.ɵWebAnimationsDriver() : new i1.ɵCssKeyframesDriver();
     }
     function instantiateDefaultStyleNormalizer() {
-        return new browser.ɵWebAnimationsStyleNormalizer();
+        return new i1.ɵWebAnimationsStyleNormalizer();
     }
     function instantiateRendererFactory(renderer, engine, zone) {
         return new AnimationRendererFactory(renderer, engine, zone);
@@ -423,11 +405,11 @@
     var ANIMATION_MODULE_TYPE = new i0.InjectionToken('AnimationModuleType');
     var SHARED_ANIMATION_PROVIDERS = [
         { provide: animations.AnimationBuilder, useClass: BrowserAnimationBuilder },
-        { provide: browser.ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
-        { provide: browser.ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
+        { provide: i1.ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
+        { provide: i1.ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
             provide: i0.RendererFactory2,
             useFactory: instantiateRendererFactory,
-            deps: [platformBrowser.ɵDomRendererFactory2, browser.ɵAnimationEngine, i0.NgZone]
+            deps: [platformBrowser.ɵDomRendererFactory2, i1.ɵAnimationEngine, i0.NgZone]
         }
     ];
     /**
@@ -435,7 +417,7 @@
      * include them in the BrowserModule.
      */
     var BROWSER_ANIMATIONS_PROVIDERS = __spread([
-        { provide: browser.AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
+        { provide: i1.AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
         { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' }
     ], SHARED_ANIMATION_PROVIDERS);
     /**
@@ -443,7 +425,7 @@
      * include them in the BrowserTestingModule.
      */
     var BROWSER_NOOP_ANIMATIONS_PROVIDERS = __spread([
-        { provide: browser.AnimationDriver, useClass: browser.ɵNoopAnimationDriver },
+        { provide: i1.AnimationDriver, useClass: i1.ɵNoopAnimationDriver },
         { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' }
     ], SHARED_ANIMATION_PROVIDERS);
 

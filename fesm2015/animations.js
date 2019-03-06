@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.6+85.sha-20a9dbe.with-local-changes
+ * @license Angular v8.0.0-beta.6+86.sha-881807d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -56,15 +56,10 @@ BrowserAnimationBuilder.ctorParameters = () => [
 /** @nocollapse */ BrowserAnimationBuilder.ngInjectableDef = defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(inject(RendererFactory2), inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationBuilder, [{
         type: Injectable
-    }], function () { return [{
-        type: RendererFactory2
-    }, {
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: RendererFactory2 }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 class BrowserAnimationFactory extends AnimationFactory {
     /**
      * @param {?} _id
@@ -333,13 +328,7 @@ AnimationRendererFactory.ctorParameters = () => [
 /** @nocollapse */ AnimationRendererFactory.ngInjectableDef = defineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(inject(RendererFactory2), inject(ɵAnimationEngine), inject(NgZone)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(AnimationRendererFactory, [{
         type: Injectable
-    }], function () { return [{
-        type: RendererFactory2
-    }, {
-        type: ɵAnimationEngine
-    }, {
-        type: NgZone
-    }]; }, null);
+    }], function () { return [{ type: RendererFactory2 }, { type: ɵAnimationEngine }, { type: NgZone }]; }, null);
 class BaseAnimationRenderer {
     /**
      * @param {?} namespaceId
@@ -639,17 +628,10 @@ InjectableAnimationEngine.ctorParameters = () => [
 /** @nocollapse */ InjectableAnimationEngine.ngInjectableDef = defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(inject(DOCUMENT$1), inject(AnimationDriver), inject(ɵAnimationStyleNormalizer)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT$1]
-            }]
-    }, {
-        type: AnimationDriver
-    }, {
-        type: ɵAnimationStyleNormalizer
-    }]; }, null);
+            }] }, { type: AnimationDriver }, { type: ɵAnimationStyleNormalizer }]; }, null);
 /**
  * @return {?}
  */
