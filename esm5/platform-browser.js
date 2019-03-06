@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.11-d8b63d0
+ * @license Angular v5.2.11-2fa61e8
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -5346,7 +5346,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.2.11-d8b63d0');
+var VERSION = new Version('5.2.11-2fa61e8');
 
 /**
  * @fileoverview added by tsickle
