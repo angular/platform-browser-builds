@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.8+8.sha-9a7f560.with-local-changes
+ * @license Angular v8.0.0-beta.8+11.sha-7b20cec.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -12,7 +12,7 @@ import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class BrowserAnimationBuilder extends AnimationBuilder {
     /**
@@ -180,7 +180,7 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const ANIMATION_PREFIX = '@';
@@ -202,7 +202,12 @@ class AnimationRendererFactory {
         this._rendererCache = new Map();
         this._cdRecurDepth = 0;
         this.promise = Promise.resolve(0);
-        engine.onRemovalComplete = (element, delegate) => {
+        engine.onRemovalComplete = (/**
+         * @param {?} element
+         * @param {?} delegate
+         * @return {?}
+         */
+        (element, delegate) => {
             // Note: if an component element has a leave animation, and the component
             // a host leave animation, the view engine will call `removeChild` for the parent
             // component renderer as well as for the child component renderer.
@@ -210,7 +215,7 @@ class AnimationRendererFactory {
             if (delegate && delegate.parentNode(element)) {
                 delegate.removeChild(element.parentNode, element);
             }
-        };
+        });
     }
     /**
      * @param {?} hostElement
@@ -242,7 +247,11 @@ class AnimationRendererFactory {
         this.engine.register(namespaceId, hostElement);
         /** @type {?} */
         const animationTriggers = (/** @type {?} */ (type.data['animation']));
-        animationTriggers.forEach(trigger => this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger));
+        animationTriggers.forEach((/**
+         * @param {?} trigger
+         * @return {?}
+         */
+        trigger => this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger)));
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     }
     /**
@@ -260,7 +269,10 @@ class AnimationRendererFactory {
      */
     _scheduleCountTask() {
         // always use promise to schedule microtask instead of use Zone
-        this.promise.then(() => { this._microtaskId++; });
+        this.promise.then((/**
+         * @return {?}
+         */
+        () => { this._microtaskId++; }));
     }
     /**
      * \@internal
@@ -271,19 +283,32 @@ class AnimationRendererFactory {
      */
     scheduleListenerCallback(count, fn, data) {
         if (count >= 0 && count < this._microtaskId) {
-            this._zone.run(() => fn(data));
+            this._zone.run((/**
+             * @return {?}
+             */
+            () => fn(data)));
             return;
         }
         if (this._animationCallbacksBuffer.length == 0) {
-            Promise.resolve(null).then(() => {
-                this._zone.run(() => {
-                    this._animationCallbacksBuffer.forEach(tuple => {
+            Promise.resolve(null).then((/**
+             * @return {?}
+             */
+            () => {
+                this._zone.run((/**
+                 * @return {?}
+                 */
+                () => {
+                    this._animationCallbacksBuffer.forEach((/**
+                     * @param {?} tuple
+                     * @return {?}
+                     */
+                    tuple => {
                         const [fn, data] = tuple;
                         fn(data);
-                    });
+                    }));
                     this._animationCallbacksBuffer = [];
-                });
-            });
+                }));
+            }));
         }
         this._animationCallbacksBuffer.push([fn, data]);
     }
@@ -295,10 +320,13 @@ class AnimationRendererFactory {
         // this is to prevent animations from running twice when an inner
         // component does CD when a parent component instead has inserted it
         if (this._cdRecurDepth == 0) {
-            this._zone.runOutsideAngular(() => {
+            this._zone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => {
                 this._scheduleCountTask();
                 this.engine.flush(this._microtaskId);
-            });
+            }));
         }
         if (this.delegate.end) {
             this.delegate.end();
@@ -328,7 +356,11 @@ class BaseAnimationRenderer {
         this.namespaceId = namespaceId;
         this.delegate = delegate;
         this.engine = engine;
-        this.destroyNode = this.delegate.destroyNode ? (n) => (/** @type {?} */ (delegate.destroyNode))(n) : null;
+        this.destroyNode = this.delegate.destroyNode ? (/**
+         * @param {?} n
+         * @return {?}
+         */
+        (n) => (/** @type {?} */ (delegate.destroyNode))(n)) : null;
     }
     /**
      * @return {?}
@@ -545,11 +577,15 @@ class AnimationRenderer extends BaseAnimationRenderer {
             if (name.charAt(0) != ANIMATION_PREFIX) {
                 [name, phase] = parseTriggerCallbackName(name);
             }
-            return this.engine.listen(this.namespaceId, element, name, phase, event => {
+            return this.engine.listen(this.namespaceId, element, name, phase, (/**
+             * @param {?} event
+             * @return {?}
+             */
+            event => {
                 /** @type {?} */
                 const countId = ((/** @type {?} */ (event)))['_data'] || -1;
                 this.factory.scheduleListenerCallback(countId, callback, event);
-            });
+            }));
         }
         return this.delegate.listen(target, eventName, callback);
     }
@@ -586,7 +622,7 @@ function parseTriggerCallbackName(triggerName) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class InjectableAnimationEngine extends ɵAnimationEngine {
     /**
@@ -664,7 +700,7 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
@@ -694,22 +730,22 @@ NoopAnimationsModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
