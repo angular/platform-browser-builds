@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.8+8.sha-9a7f560.with-local-changes
+ * @license Angular v8.0.0-beta.8+11.sha-7b20cec.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9,7 +9,7 @@ import { ɵglobal, Injectable, Inject, defineInjectable, inject, ɵsetClassMetad
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -62,7 +62,7 @@ class DomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Provides DOM operations in any browser environment.
@@ -99,11 +99,15 @@ class GenericBrowserDomAdapter extends DomAdapter {
                 OTransition: 'oTransitionEnd otransitionend',
                 transition: 'transitionend'
             };
-            Object.keys(transEndEventNames).forEach((key) => {
+            Object.keys(transEndEventNames).forEach((/**
+             * @param {?} key
+             * @return {?}
+             */
+            (key) => {
                 if (this.getStyle(element, key) != null) {
                     this._transitionEnd = transEndEventNames[key];
                 }
-            });
+            }));
         }
         catch (_a) {
             this._animationPrefix = null;
@@ -152,7 +156,7 @@ class GenericBrowserDomAdapter extends DomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _attrToPropMap = {
@@ -207,9 +211,13 @@ const _chromeNumKeyPadMap = {
 /** @type {?} */
 let nodeContains;
 if (ɵglobal['Node']) {
-    nodeContains = ɵglobal['Node'].prototype.contains || function (node) {
+    nodeContains = ɵglobal['Node'].prototype.contains || (/**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) {
         return !!(this.compareDocumentPosition(node) & 16);
-    };
+    });
 }
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
@@ -334,7 +342,10 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         el.addEventListener(evt, listener, false);
         // Needed to follow Dart's subscription semantic, until fix of
         // https://code.google.com/p/dart/issues/detail?id=17406
-        return () => { el.removeEventListener(evt, listener, false); };
+        return (/**
+         * @return {?}
+         */
+        () => { el.removeEventListener(evt, listener, false); });
     }
     /**
      * @param {?} el
@@ -507,7 +518,11 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     insertAllBefore(parent, ref, nodes) {
-        nodes.forEach((n) => parent.insertBefore(n, ref));
+        nodes.forEach((/**
+         * @param {?} n
+         * @return {?}
+         */
+        (n) => parent.insertBefore(n, ref)));
     }
     /**
      * @param {?} parent
@@ -1066,7 +1081,7 @@ function relativePath(url) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * A DI Token representing the main rendering context. In a browser this is the DOM Document.
@@ -1082,7 +1097,7 @@ const DOCUMENT$1 = DOCUMENT;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1100,7 +1115,7 @@ function supportsState() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1221,7 +1236,7 @@ BrowserPlatformLocation.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An id that identifies a particular application being bootstrapped, that should
@@ -1236,18 +1251,32 @@ const TRANSITION_ID = new InjectionToken('TRANSITION_ID');
  * @return {?}
  */
 function appInitializerFactory(transitionId, document, injector) {
-    return () => {
+    return (/**
+     * @return {?}
+     */
+    () => {
         // Wait for all application initializers to be completed before removing the styles set by
         // the server.
-        injector.get(ApplicationInitStatus).donePromise.then(() => {
+        injector.get(ApplicationInitStatus).donePromise.then((/**
+         * @return {?}
+         */
+        () => {
             /** @type {?} */
             const dom = getDOM();
             /** @type {?} */
             const styles = Array.prototype.slice.apply(dom.querySelectorAll(document, `style[ng-transition]`));
-            styles.filter(el => dom.getAttribute(el, 'ng-transition') === transitionId)
-                .forEach(el => dom.remove(el));
-        });
-    };
+            styles.filter((/**
+             * @param {?} el
+             * @return {?}
+             */
+            el => dom.getAttribute(el, 'ng-transition') === transitionId))
+                .forEach((/**
+             * @param {?} el
+             * @return {?}
+             */
+            el => dom.remove(el)));
+        }));
+    });
 }
 /** @type {?} */
 const SERVER_TRANSITION_PROVIDERS = [
@@ -1261,7 +1290,7 @@ const SERVER_TRANSITION_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class BrowserGetTestability {
     /**
@@ -1273,18 +1302,33 @@ class BrowserGetTestability {
      * @return {?}
      */
     addToWindow(registry) {
-        ɵglobal['getAngularTestability'] = (elem, findInAncestors = true) => {
+        ɵglobal['getAngularTestability'] = (/**
+         * @param {?} elem
+         * @param {?=} findInAncestors
+         * @return {?}
+         */
+        (elem, findInAncestors = true) => {
             /** @type {?} */
             const testability = registry.findTestabilityInTree(elem, findInAncestors);
             if (testability == null) {
                 throw new Error('Could not find testability for element.');
             }
             return testability;
-        };
-        ɵglobal['getAllAngularTestabilities'] = () => registry.getAllTestabilities();
-        ɵglobal['getAllAngularRootElements'] = () => registry.getAllRootElements();
+        });
+        ɵglobal['getAllAngularTestabilities'] = (/**
+         * @return {?}
+         */
+        () => registry.getAllTestabilities());
+        ɵglobal['getAllAngularRootElements'] = (/**
+         * @return {?}
+         */
+        () => registry.getAllRootElements());
         /** @type {?} */
-        const whenAllStable = (callback /** TODO #9100 */) => {
+        const whenAllStable = (/**
+         * @param {?} callback
+         * @return {?}
+         */
+        (callback /** TODO #9100 */) => {
             /** @type {?} */
             const testabilities = ɵglobal['getAllAngularTestabilities']();
             /** @type {?} */
@@ -1292,17 +1336,25 @@ class BrowserGetTestability {
             /** @type {?} */
             let didWork = false;
             /** @type {?} */
-            const decrement = function (didWork_ /** TODO #9100 */) {
+            const decrement = (/**
+             * @param {?} didWork_
+             * @return {?}
+             */
+            function (didWork_ /** TODO #9100 */) {
                 didWork = didWork || didWork_;
                 count--;
                 if (count == 0) {
                     callback(didWork);
                 }
-            };
-            testabilities.forEach(function (testability /** TODO #9100 */) {
-                testability.whenStable(decrement);
             });
-        };
+            testabilities.forEach((/**
+             * @param {?} testability
+             * @return {?}
+             */
+            function (testability /** TODO #9100 */) {
+                testability.whenStable(decrement);
+            }));
+        });
         if (!ɵglobal['frameworkStabilizers']) {
             ɵglobal['frameworkStabilizers'] = [];
         }
@@ -1335,7 +1387,7 @@ class BrowserGetTestability {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
@@ -1359,7 +1411,7 @@ function exportNgVar(name, value) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const CORE_TOKENS = {
@@ -1387,14 +1439,22 @@ function inspectNativeElement(element) {
 function _createNgProbe(coreTokens) {
     exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
     exportNgVar(CORE_TOKENS_GLOBAL_NAME, Object.assign({}, CORE_TOKENS, _ngProbeTokensToMap(coreTokens || [])));
-    return () => inspectNativeElement;
+    return (/**
+     * @return {?}
+     */
+    () => inspectNativeElement);
 }
 /**
  * @param {?} tokens
  * @return {?}
  */
 function _ngProbeTokensToMap(tokens) {
-    return tokens.reduce((prev, t) => (prev[t.name] = t.token, prev), {});
+    return tokens.reduce((/**
+     * @param {?} prev
+     * @param {?} t
+     * @return {?}
+     */
+    (prev, t) => (prev[t.name] = t.token, prev)), {});
 }
 /**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
@@ -1413,7 +1473,7 @@ const ELEMENT_PROBE_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1444,7 +1504,13 @@ class EventManager {
     constructor(plugins, _zone) {
         this._zone = _zone;
         this._eventNameToPlugin = new Map();
-        plugins.forEach(p => p.manager = this);
+        plugins.forEach((/**
+         * @template THIS
+         * @this {THIS}
+         * @param {?} p
+         * @return {THIS}
+         */
+        p => p.manager = this));
         this._plugins = plugins.slice().reverse();
     }
     /**
@@ -1547,7 +1613,7 @@ class EventManagerPlugin {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1570,12 +1636,16 @@ class SharedStylesHost {
     addStyles(styles) {
         /** @type {?} */
         const additions = new Set();
-        styles.forEach(style => {
+        styles.forEach((/**
+         * @param {?} style
+         * @return {?}
+         */
+        style => {
             if (!this._stylesSet.has(style)) {
                 this._stylesSet.add(style);
                 additions.add(style);
             }
-        });
+        }));
         this.onStylesAdded(additions);
     }
     /**
@@ -1613,12 +1683,16 @@ class DomSharedStylesHost extends SharedStylesHost {
      * @return {?}
      */
     _addStylesToHost(styles, host) {
-        styles.forEach((style) => {
+        styles.forEach((/**
+         * @param {?} style
+         * @return {?}
+         */
+        (style) => {
             /** @type {?} */
             const styleEl = this._doc.createElement('style');
             styleEl.textContent = style;
             this._styleNodes.add(host.appendChild(styleEl));
-        });
+        }));
     }
     /**
      * @param {?} hostNode
@@ -1638,12 +1712,20 @@ class DomSharedStylesHost extends SharedStylesHost {
      * @return {?}
      */
     onStylesAdded(additions) {
-        this._hostNodes.forEach(hostNode => this._addStylesToHost(additions, hostNode));
+        this._hostNodes.forEach((/**
+         * @param {?} hostNode
+         * @return {?}
+         */
+        hostNode => this._addStylesToHost(additions, hostNode)));
     }
     /**
      * @return {?}
      */
-    ngOnDestroy() { this._styleNodes.forEach(styleNode => getDOM().remove(styleNode)); }
+    ngOnDestroy() { this._styleNodes.forEach((/**
+     * @param {?} styleNode
+     * @return {?}
+     */
+    styleNode => getDOM().remove(styleNode))); }
 }
 DomSharedStylesHost.decorators = [
     { type: Injectable },
@@ -1662,7 +1744,7 @@ DomSharedStylesHost.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1726,7 +1808,11 @@ function flattenStyles(compId, styles, target) {
  * @return {?}
  */
 function decoratePreventDefault(eventHandler) {
-    return (event) => {
+    return (/**
+     * @param {?} event
+     * @return {?}
+     */
+    (event) => {
         /** @type {?} */
         const allowDefaultBehavior = eventHandler(event);
         if (allowDefaultBehavior === false) {
@@ -1734,7 +1820,7 @@ function decoratePreventDefault(eventHandler) {
             event.preventDefault();
             event.returnValue = false;
         }
-    };
+    });
 }
 class DomRendererFactory2 {
     /**
@@ -2134,7 +2220,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -2150,9 +2236,13 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * addEventListener by 3x.
  * @type {?}
  */
-const __symbol__ = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))['__symbol__'] || function (v) {
+const __symbol__ = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))['__symbol__'] || (/**
+ * @param {?} v
+ * @return {?}
+ */
+function (v) {
     return '__zone_symbol__' + v;
-};
+});
 /** @type {?} */
 const ADD_EVENT_LISTENER = __symbol__('addEventListener');
 /** @type {?} */
@@ -2178,19 +2268,31 @@ const blackListedEvents = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Z
 let blackListedMap;
 if (blackListedEvents) {
     blackListedMap = {};
-    blackListedEvents.forEach(eventName => { blackListedMap[eventName] = eventName; });
+    blackListedEvents.forEach((/**
+     * @param {?} eventName
+     * @return {?}
+     */
+    eventName => { blackListedMap[eventName] = eventName; }));
 }
 /** @type {?} */
-const isBlackListedEvent = function (eventName) {
+const isBlackListedEvent = (/**
+ * @param {?} eventName
+ * @return {?}
+ */
+function (eventName) {
     if (!blackListedMap) {
         return false;
     }
     return blackListedMap.hasOwnProperty(eventName);
-};
+});
 // a global listener to handle all dom event,
 // so we do not need to create a closure every time
 /** @type {?} */
-const globalListener = function (event) {
+const globalListener = (/**
+ * @param {?} event
+ * @return {?}
+ */
+function (event) {
     /** @type {?} */
     const symbolName = symbolNames[event.type];
     if (!symbolName) {
@@ -2237,7 +2339,7 @@ const globalListener = function (event) {
             }
         }
     }
-};
+});
 class DomEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
@@ -2266,7 +2368,10 @@ class DomEventsPlugin extends EventManagerPlugin {
         /** @type {?} */
         const delegate = ((/** @type {?} */ (Event.prototype)))[stopMethodSymbol] =
             Event.prototype.stopImmediatePropagation;
-        Event.prototype.stopImmediatePropagation = function () {
+        Event.prototype.stopImmediatePropagation = (/**
+         * @return {?}
+         */
+        function () {
             if (this) {
                 this[stopSymbol] = true;
             }
@@ -2274,7 +2379,7 @@ class DomEventsPlugin extends EventManagerPlugin {
             // in some environment part of the application
             // will not use the patched Event
             delegate && delegate.apply(this, arguments);
-        };
+        });
     }
     // This plugin should come last in the list of plugins, because it accepts all
     // events.
@@ -2334,7 +2439,10 @@ class DomEventsPlugin extends EventManagerPlugin {
         else {
             element[NATIVE_ADD_LISTENER](eventName, callback, false);
         }
-        return () => this.removeEventListener(element, eventName, callback);
+        return (/**
+         * @return {?}
+         */
+        () => this.removeEventListener(element, eventName, callback));
     }
     /**
      * @param {?} target
@@ -2407,7 +2515,7 @@ DomEventsPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -2574,13 +2682,22 @@ class HammerGesturesPlugin extends EventManagerPlugin {
             /** @type {?} */
             let cancelRegistration = false;
             /** @type {?} */
-            let deregister = () => { cancelRegistration = true; };
+            let deregister = (/**
+             * @return {?}
+             */
+            () => { cancelRegistration = true; });
             this.loader()
-                .then(() => {
+                .then((/**
+             * @return {?}
+             */
+            () => {
                 // If Hammer isn't actually loaded when the custom loader resolves, give up.
                 if (!((/** @type {?} */ (window))).Hammer) {
                     this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
-                    deregister = () => { };
+                    deregister = (/**
+                     * @return {?}
+                     */
+                    () => { });
                     return;
                 }
                 if (!cancelRegistration) {
@@ -2588,34 +2705,56 @@ class HammerGesturesPlugin extends EventManagerPlugin {
                     // the deregistration function changes from canceling registration to removal.
                     deregister = this.addEventListener(element, eventName, handler);
                 }
-            })
-                .catch(() => {
+            }))
+                .catch((/**
+             * @return {?}
+             */
+            () => {
                 this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
                     `Hammer.JS loader failed.`);
-                deregister = () => { };
-            });
+                deregister = (/**
+                 * @return {?}
+                 */
+                () => { });
+            }));
             // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
             // can change the behavior of `deregister` once the listener is added. Using a closure in
             // this way allows us to avoid any additional data structures to track listener removal.
-            return () => { deregister(); };
+            return (/**
+             * @return {?}
+             */
+            () => { deregister(); });
         }
-        return zone.runOutsideAngular(() => {
+        return zone.runOutsideAngular((/**
+         * @return {?}
+         */
+        () => {
             // Creating the manager bind events, must be done outside of angular
             /** @type {?} */
             const mc = this._config.buildHammer(element);
             /** @type {?} */
-            const callback = function (eventObj) {
-                zone.runGuarded(function () { handler(eventObj); });
-            };
+            const callback = (/**
+             * @param {?} eventObj
+             * @return {?}
+             */
+            function (eventObj) {
+                zone.runGuarded((/**
+                 * @return {?}
+                 */
+                function () { handler(eventObj); }));
+            });
             mc.on(eventName, callback);
-            return () => {
+            return (/**
+             * @return {?}
+             */
+            () => {
                 mc.off(eventName, callback);
                 // destroy mc to prevent memory leak
                 if (typeof mc.destroy === 'function') {
                     mc.destroy();
                 }
-            };
-        });
+            });
+        }));
     }
     /**
      * @param {?} eventName
@@ -2651,7 +2790,7 @@ HammerGesturesPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -2670,10 +2809,26 @@ const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
  * @type {?}
  */
 const MODIFIER_KEY_GETTERS = {
-    'alt': (event) => event.altKey,
-    'control': (event) => event.ctrlKey,
-    'meta': (event) => event.metaKey,
-    'shift': (event) => event.shiftKey
+    'alt': (/**
+     * @param {?} event
+     * @return {?}
+     */
+    (event) => event.altKey),
+    'control': (/**
+     * @param {?} event
+     * @return {?}
+     */
+    (event) => event.ctrlKey),
+    'meta': (/**
+     * @param {?} event
+     * @return {?}
+     */
+    (event) => event.metaKey),
+    'shift': (/**
+     * @param {?} event
+     * @return {?}
+     */
+    (event) => event.shiftKey)
 };
 /**
  * \@publicApi
@@ -2704,9 +2859,12 @@ class KeyEventsPlugin extends EventManagerPlugin {
         const parsedEvent = (/** @type {?} */ (KeyEventsPlugin.parseEventName(eventName)));
         /** @type {?} */
         const outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
-        return this.manager.getZone().runOutsideAngular(() => {
+        return this.manager.getZone().runOutsideAngular((/**
+         * @return {?}
+         */
+        () => {
             return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
-        });
+        }));
     }
     /**
      * @param {?} eventName
@@ -2724,14 +2882,18 @@ class KeyEventsPlugin extends EventManagerPlugin {
         const key = KeyEventsPlugin._normalizeKey((/** @type {?} */ (parts.pop())));
         /** @type {?} */
         let fullKey = '';
-        MODIFIER_KEYS.forEach(modifierName => {
+        MODIFIER_KEYS.forEach((/**
+         * @param {?} modifierName
+         * @return {?}
+         */
+        modifierName => {
             /** @type {?} */
             const index = parts.indexOf(modifierName);
             if (index > -1) {
                 parts.splice(index, 1);
                 fullKey += modifierName + '.';
             }
-        });
+        }));
         fullKey += key;
         if (parts.length != 0 || key.length === 0) {
             // returning null instead of throwing to let another plugin process the event
@@ -2759,7 +2921,11 @@ class KeyEventsPlugin extends EventManagerPlugin {
         else if (key === '.') {
             key = 'dot'; // because '.' is used as a separator in event names
         }
-        MODIFIER_KEYS.forEach(modifierName => {
+        MODIFIER_KEYS.forEach((/**
+         * @param {?} modifierName
+         * @return {?}
+         */
+        modifierName => {
             if (modifierName != key) {
                 /** @type {?} */
                 const modifierGetter = MODIFIER_KEY_GETTERS[modifierName];
@@ -2767,7 +2933,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
                     fullKey += modifierName + '.';
                 }
             }
-        });
+        }));
         fullKey += key;
         return fullKey;
     }
@@ -2779,11 +2945,18 @@ class KeyEventsPlugin extends EventManagerPlugin {
      * @return {?} A callback function.
      */
     static eventCallback(fullKey, handler, zone) {
-        return (event /** TODO #9100 */) => {
+        return (/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event /** TODO #9100 */) => {
             if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
-                zone.runGuarded(() => handler(event));
+                zone.runGuarded((/**
+                 * @return {?}
+                 */
+                () => handler(event)));
             }
-        };
+        });
     }
     /**
      * \@internal
@@ -2817,7 +2990,7 @@ KeyEventsPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
@@ -3010,7 +3183,7 @@ class SafeResourceUrlImpl extends SafeValueImpl {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3152,7 +3325,7 @@ BrowserModule.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3199,12 +3372,17 @@ class Meta {
     addTags(tags, forceCreation = false) {
         if (!tags)
             return [];
-        return tags.reduce((result, tag) => {
+        return tags.reduce((/**
+         * @param {?} result
+         * @param {?} tag
+         * @return {?}
+         */
+        (result, tag) => {
             if (tag) {
                 result.push(this._getOrCreateElement(tag, forceCreation));
             }
             return result;
-        }, []);
+        }), []);
     }
     /**
      * @param {?} attrSelector
@@ -3289,7 +3467,11 @@ class Meta {
      * @return {?}
      */
     _setMetaElementAttributes(tag, el) {
-        Object.keys(tag).forEach((prop) => this._dom.setAttribute(el, prop, tag[prop]));
+        Object.keys(tag).forEach((/**
+         * @param {?} prop
+         * @return {?}
+         */
+        (prop) => this._dom.setAttribute(el, prop, tag[prop])));
         return el;
     }
     /**
@@ -3309,7 +3491,11 @@ class Meta {
      * @return {?}
      */
     _containsAttributes(tag, elem) {
-        return Object.keys(tag).every((key) => this._dom.getAttribute(elem, key) === tag[key]);
+        return Object.keys(tag).every((/**
+         * @param {?} key
+         * @return {?}
+         */
+        (key) => this._dom.getAttribute(elem, key) === tag[key]));
     }
 }
 Meta.decorators = [
@@ -3335,7 +3521,7 @@ Meta.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3403,7 +3589,7 @@ Title.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3417,7 +3603,7 @@ const win = typeof window !== 'undefined' && window || (/** @type {?} */ ({}));
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ChangeDetectionPerfRecord {
     /**
@@ -3491,7 +3677,7 @@ class AngularProfiler {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const PROFILER_GLOBAL_NAME = 'profiler';
@@ -3527,7 +3713,7 @@ function disableDebugTools() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3549,7 +3735,11 @@ function escapeHtml(text) {
         '<': '&l;',
         '>': '&g;',
     };
-    return text.replace(/[&"'<>]/g, s => escapedText[s]);
+    return text.replace(/[&"'<>]/g, (/**
+     * @param {?} s
+     * @return {?}
+     */
+    s => escapedText[s]));
 }
 /**
  * @param {?} text
@@ -3564,7 +3754,11 @@ function unescapeHtml(text) {
         '&l;': '<',
         '&g;': '>',
     };
-    return text.replace(/&[^;]+;/g, s => unescapedText[s]);
+    return text.replace(/&[^;]+;/g, (/**
+     * @param {?} s
+     * @return {?}
+     */
+    s => unescapedText[s]));
 }
 /**
  * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
@@ -3729,7 +3923,7 @@ BrowserTransferStateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Predicates for use with {\@link DebugElement}'s query functions.
@@ -3746,7 +3940,11 @@ class By {
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
      * @return {?}
      */
-    static all() { return (debugElement) => true; }
+    static all() { return (/**
+     * @param {?} debugElement
+     * @return {?}
+     */
+    (debugElement) => true); }
     /**
      * Match elements by the given CSS selector.
      *
@@ -3758,11 +3956,15 @@ class By {
      * @return {?}
      */
     static css(selector) {
-        return (debugElement) => {
+        return (/**
+         * @param {?} debugElement
+         * @return {?}
+         */
+        (debugElement) => {
             return debugElement.nativeElement != null ?
                 getDOM().elementMatches(debugElement.nativeElement, selector) :
                 false;
-        };
+        });
     }
     /**
      * Match elements that have the given directive present.
@@ -3775,38 +3977,42 @@ class By {
      * @return {?}
      */
     static directive(type) {
-        return (debugElement) => (/** @type {?} */ (debugElement.providerTokens)).indexOf(type) !== -1;
+        return (/**
+         * @param {?} debugElement
+         * @return {?}
+         */
+        (debugElement) => (/** @type {?} */ (debugElement.providerTokens)).indexOf(type) !== -1);
     }
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.8+8.sha-9a7f560.with-local-changes');
+const VERSION = new Version('8.0.0-beta.8+11.sha-7b20cec.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
