@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.8+9.sha-75748d6.with-local-changes
+ * @license Angular v8.0.0-beta.8+33.sha-7c297e0.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -609,24 +609,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /**
-     * A DI Token representing the main rendering context. In a browser this is the DOM Document.
-     *
-     * Note: Document might not be available in the Application Context when Application and Rendering
-     * Contexts are not the same (e.g. when running the application into a Web Worker).
-     *
-     * @deprecated import from `@angular/common` instead.
-     * @publicApi
-     */
-    var DOCUMENT = common.DOCUMENT;
-
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     function supportsState() {
         return !!window.history.pushState;
     }
@@ -700,7 +682,7 @@
         BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
         BrowserPlatformLocation = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], BrowserPlatformLocation);
         return BrowserPlatformLocation;
@@ -734,7 +716,7 @@
         {
             provide: core.APP_INITIALIZER,
             useFactory: appInitializerFactory,
-            deps: [TRANSITION_ID, DOCUMENT, core.Injector],
+            deps: [TRANSITION_ID, common.DOCUMENT, core.Injector],
             multi: true
         },
     ];
@@ -1025,7 +1007,7 @@
         DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
         DomSharedStylesHost = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], DomSharedStylesHost);
         return DomSharedStylesHost;
@@ -1490,7 +1472,7 @@
         };
         DomEventsPlugin = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __param(2, core.Optional()), __param(2, core.Inject(core.PLATFORM_ID)),
             __metadata("design:paramtypes", [Object, core.NgZone, Object])
         ], DomEventsPlugin);
@@ -1683,7 +1665,7 @@
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
         HammerGesturesPlugin = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __param(1, core.Inject(HAMMER_GESTURE_CONFIG)),
             __param(3, core.Optional()), __param(3, core.Inject(HAMMER_LOADER)),
             __metadata("design:paramtypes", [Object, HammerGestureConfig, core.ɵConsole, Object])
@@ -1702,14 +1684,14 @@
      * Defines supported modifiers for key events.
      */
     var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-    var ɵ0$1 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2$1 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
+    var ɵ0$1 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
     /**
      * Retrieves modifiers from key-event objects.
      */
     var MODIFIER_KEY_GETTERS = {
         'alt': ɵ0$1,
-        'control': ɵ1$1,
-        'meta': ɵ2$1,
+        'control': ɵ1,
+        'meta': ɵ2,
         'shift': ɵ3
     };
     /**
@@ -1820,7 +1802,7 @@
         var KeyEventsPlugin_1;
         KeyEventsPlugin = KeyEventsPlugin_1 = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], KeyEventsPlugin);
         return KeyEventsPlugin;
@@ -1929,7 +1911,7 @@
         };
         DomSanitizerImpl = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], DomSanitizerImpl);
         return DomSanitizerImpl;
@@ -1996,8 +1978,8 @@
     var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
         { provide: core.PLATFORM_ID, useValue: common.ɵPLATFORM_BROWSER_ID },
         { provide: core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-        { provide: common.PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
-        { provide: DOCUMENT, useFactory: _document, deps: [] },
+        { provide: common.PlatformLocation, useClass: BrowserPlatformLocation, deps: [common.DOCUMENT] },
+        { provide: common.DOCUMENT, useFactory: _document, deps: [] },
     ];
     /**
      * @security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -2007,7 +1989,7 @@
      */
     var BROWSER_SANITIZATION_PROVIDERS = [
         { provide: core.Sanitizer, useExisting: DomSanitizer },
-        { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT] },
+        { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [common.DOCUMENT] },
     ];
     /**
      * @publicApi
@@ -2031,14 +2013,14 @@
             provide: EVENT_MANAGER_PLUGINS,
             useClass: DomEventsPlugin,
             multi: true,
-            deps: [DOCUMENT, core.NgZone, core.PLATFORM_ID]
+            deps: [common.DOCUMENT, core.NgZone, core.PLATFORM_ID]
         },
-        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT] },
+        { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [common.DOCUMENT] },
         {
             provide: EVENT_MANAGER_PLUGINS,
             useClass: HammerGesturesPlugin,
             multi: true,
-            deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, core.ɵConsole, [new core.Optional(), HAMMER_LOADER]]
+            deps: [common.DOCUMENT, HAMMER_GESTURE_CONFIG, core.ɵConsole, [new core.Optional(), HAMMER_LOADER]]
         },
         { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
         {
@@ -2048,7 +2030,7 @@
         },
         { provide: core.RendererFactory2, useExisting: DomRendererFactory2 },
         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-        { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [DOCUMENT] },
+        { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [common.DOCUMENT] },
         { provide: core.Testability, useClass: core.Testability, deps: [core.NgZone] },
         { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, core.NgZone] },
         ELEMENT_PROBE_PROVIDERS,
@@ -2100,7 +2082,7 @@
      * Factory to create Meta service.
      */
     function createMeta() {
-        return new Meta(core.inject(DOCUMENT));
+        return new Meta(core.inject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and add meta tags.
@@ -2190,7 +2172,7 @@
         Meta.ngInjectableDef = core.defineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
         Meta = __decorate([
             core.Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
-            __param(0, core.Inject(DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], Meta);
         return Meta;
@@ -2200,7 +2182,7 @@
      * Factory to create Title service.
      */
     function createTitle() {
-        return new Title(core.inject(DOCUMENT));
+        return new Title(core.inject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and set the title of a current HTML document.
@@ -2228,7 +2210,7 @@
         Title.ngInjectableDef = core.defineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
         Title = __decorate([
             core.Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
-            __param(0, core.Inject(DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], Title);
         return Title;
@@ -2484,7 +2466,7 @@
         }
         BrowserTransferStateModule = __decorate([
             core.NgModule({
-                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, core.APP_ID] }],
+                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, core.APP_ID] }],
             })
         ], BrowserTransferStateModule);
         return BrowserTransferStateModule;
@@ -2550,6 +2532,24 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /**
+     * A DI Token representing the main rendering context. In a browser this is the DOM Document.
+     *
+     * Note: Document might not be available in the Application Context when Application and Rendering
+     * Contexts are not the same (e.g. when running the application into a Web Worker).
+     *
+     * @deprecated import from `@angular/common` instead.
+     * @publicApi
+     */
+    var DOCUMENT = common.DOCUMENT;
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
 
     /**
      * @license
@@ -2561,7 +2561,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-beta.8+9.sha-75748d6.with-local-changes');
+    var VERSION = new core.Version('8.0.0-beta.8+33.sha-7c297e0.with-local-changes');
 
     /**
      * @license

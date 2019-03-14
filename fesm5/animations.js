@@ -1,15 +1,15 @@
 /**
- * @license Angular v8.0.0-beta.8+9.sha-75748d6.with-local-changes
+ * @license Angular v8.0.0-beta.8+33.sha-7c297e0.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { __extends, __decorate, __param, __metadata, __read, __spread } from 'tslib';
 import { ViewEncapsulation, Injectable, Inject, RendererFactory2, NgZone, InjectionToken, NgModule } from '@angular/core';
-import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
+import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { sequence, AnimationBuilder, AnimationFactory } from '@angular/animations';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer, ɵNoopAnimationDriver } from '@angular/animations/browser';
-import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 var BrowserAnimationBuilder = /** @class */ (function (_super) {
     __extends(BrowserAnimationBuilder, _super);
@@ -337,7 +337,7 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
     }
     InjectableAnimationEngine = __decorate([
         Injectable(),
-        __param(0, Inject(DOCUMENT$1)),
+        __param(0, Inject(DOCUMENT)),
         __metadata("design:paramtypes", [Object, AnimationDriver, ɵAnimationStyleNormalizer])
     ], InjectableAnimationEngine);
     return InjectableAnimationEngine;

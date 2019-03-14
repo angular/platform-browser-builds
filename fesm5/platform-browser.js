@@ -1,11 +1,11 @@
 /**
- * @license Angular v8.0.0-beta.8+9.sha-75748d6.with-local-changes
+ * @license Angular v8.0.0-beta.8+33.sha-7c297e0.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { __extends, __spread, __decorate, __param, __metadata, __assign } from 'tslib';
-import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵparseCookieValue, DOCUMENT as DOCUMENT$1, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, inject, defineInjectable, Version } from '@angular/core';
 
 /**
@@ -521,24 +521,6 @@ function relativePath(url) {
     return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
         '/' + urlParsingNode.pathname;
 }
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * A DI Token representing the main rendering context. In a browser this is the DOM Document.
- *
- * Note: Document might not be available in the Application Context when Application and Rendering
- * Contexts are not the same (e.g. when running the application into a Web Worker).
- *
- * @deprecated import from `@angular/common` instead.
- * @publicApi
- */
-var DOCUMENT$1 = DOCUMENT;
 
 /**
  * @license
@@ -1622,14 +1604,14 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
  * Defines supported modifiers for key events.
  */
 var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-var ɵ0$1 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2$1 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
+var ɵ0$1 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
 /**
  * Retrieves modifiers from key-event objects.
  */
 var MODIFIER_KEY_GETTERS = {
     'alt': ɵ0$1,
-    'control': ɵ1$1,
-    'meta': ɵ2$1,
+    'control': ɵ1,
+    'meta': ɵ2,
     'shift': ɵ3
 };
 /**
@@ -2470,6 +2452,24 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * A DI Token representing the main rendering context. In a browser this is the DOM Document.
+ *
+ * Note: Document might not be available in the Application Context when Application and Rendering
+ * Contexts are not the same (e.g. when running the application into a Web Worker).
+ *
+ * @deprecated import from `@angular/common` instead.
+ * @publicApi
+ */
+var DOCUMENT = DOCUMENT$1;
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
 /**
  * @license
@@ -2481,7 +2481,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-beta.8+9.sha-75748d6.with-local-changes');
+var VERSION = new Version('8.0.0-beta.8+33.sha-7c297e0.with-local-changes');
 
 /**
  * @license
@@ -2512,5 +2512,5 @@ var VERSION = new Version('8.0.0-beta.8+9.sha-75748d6.with-local-changes');
  * Generated bundle index. Do not edit.
  */
 
-export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_k, createMeta as ɵangular_packages_platform_browser_platform_browser_d, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_h, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_j, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
+export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_k, createMeta as ɵangular_packages_platform_browser_platform_browser_d, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_h, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_j, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.js.map
