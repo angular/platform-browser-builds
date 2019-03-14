@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes
+ * @license Angular v8.0.0-beta.8+31.sha-90df7de.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -83,14 +83,14 @@
             issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
             return new BrowserAnimationFactory(id, this._renderer);
         };
-        BrowserAnimationBuilder.ngInjectableDef = i0.defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(i0.inject(i0.RendererFactory2), i0.inject(platformBrowser.DOCUMENT)); }, providedIn: null });
+        BrowserAnimationBuilder.ngInjectableDef = i0.defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(i0.inject(i0.RendererFactory2), i0.inject(common.DOCUMENT)); }, providedIn: null });
         return BrowserAnimationBuilder;
     }(animations.AnimationBuilder));
     /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserAnimationBuilder, [{
             type: i0.Injectable
         }], function () { return [{ type: i0.RendererFactory2 }, { type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [platformBrowser.DOCUMENT]
+                    args: [common.DOCUMENT]
                 }] }]; }, null);
     var BrowserAnimationFactory = /** @class */ (function (_super) {
         __extends(BrowserAnimationFactory, _super);

@@ -1,10 +1,10 @@
 /**
- * @license Angular v8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes
+ * @license Angular v8.0.0-beta.8+31.sha-90df7de.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵparseCookieValue, DOCUMENT as DOCUMENT$1, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵparseCookieValue, PlatformLocation, DOCUMENT as DOCUMENT$1, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 import { ɵglobal, Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, InjectionToken, APP_INITIALIZER, Injector, ApplicationInitStatus, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵAPP_ROOT, ErrorHandler, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, ɵdefineNgModule, defineInjector, Version } from '@angular/core';
 
 /**
@@ -1084,22 +1084,6 @@ function relativePath(url) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
- * A DI Token representing the main rendering context. In a browser this is the DOM Document.
- *
- * Note: Document might not be available in the Application Context when Application and Rendering
- * Contexts are not the same (e.g. when running the application into a Web Worker).
- *
- * @deprecated import from `\@angular/common` instead.
- * \@publicApi
- * @type {?}
- */
-const DOCUMENT = DOCUMENT$1;
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -1224,14 +1208,14 @@ BrowserPlatformLocation.decorators = [
 ];
 /** @nocollapse */
 BrowserPlatformLocation.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
-/** @nocollapse */ BrowserPlatformLocation.ngInjectableDef = defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory(t) { return new (t || BrowserPlatformLocation)(inject(DOCUMENT)); }, providedIn: null });
+/** @nocollapse */ BrowserPlatformLocation.ngInjectableDef = defineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory(t) { return new (t || BrowserPlatformLocation)(inject(DOCUMENT$1)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserPlatformLocation, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT]
+                args: [DOCUMENT$1]
             }] }]; }, null);
 
 /**
@@ -1283,7 +1267,7 @@ const SERVER_TRANSITION_PROVIDERS = [
     {
         provide: APP_INITIALIZER,
         useFactory: appInitializerFactory,
-        deps: [TRANSITION_ID, DOCUMENT, Injector],
+        deps: [TRANSITION_ID, DOCUMENT$1, Injector],
         multi: true
     },
 ];
@@ -1732,14 +1716,14 @@ DomSharedStylesHost.decorators = [
 ];
 /** @nocollapse */
 DomSharedStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
-/** @nocollapse */ DomSharedStylesHost.ngInjectableDef = defineInjectable({ token: DomSharedStylesHost, factory: function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(inject(DOCUMENT)); }, providedIn: null });
+/** @nocollapse */ DomSharedStylesHost.ngInjectableDef = defineInjectable({ token: DomSharedStylesHost, factory: function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(inject(DOCUMENT$1)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(DomSharedStylesHost, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT]
+                args: [DOCUMENT$1]
             }] }]; }, null);
 
 /**
@@ -2496,16 +2480,16 @@ DomEventsPlugin.decorators = [
 ];
 /** @nocollapse */
 DomEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
     { type: NgZone },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] }] }
 ];
-/** @nocollapse */ DomEventsPlugin.ngInjectableDef = defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(inject(DOCUMENT), inject(NgZone), inject(PLATFORM_ID, 8)); }, providedIn: null });
+/** @nocollapse */ DomEventsPlugin.ngInjectableDef = defineInjectable({ token: DomEventsPlugin, factory: function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(inject(DOCUMENT$1), inject(NgZone), inject(PLATFORM_ID, 8)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(DomEventsPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT]
+                args: [DOCUMENT$1]
             }] }, { type: NgZone }, { type: undefined, decorators: [{
                 type: Optional
             }, {
@@ -2767,17 +2751,17 @@ HammerGesturesPlugin.decorators = [
 ];
 /** @nocollapse */
 HammerGesturesPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
     { type: ɵConsole },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
 ];
-/** @nocollapse */ HammerGesturesPlugin.ngInjectableDef = defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(inject(DOCUMENT), inject(HAMMER_GESTURE_CONFIG), inject(ɵConsole), inject(HAMMER_LOADER, 8)); }, providedIn: null });
+/** @nocollapse */ HammerGesturesPlugin.ngInjectableDef = defineInjectable({ token: HammerGesturesPlugin, factory: function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(inject(DOCUMENT$1), inject(HAMMER_GESTURE_CONFIG), inject(ɵConsole), inject(HAMMER_LOADER, 8)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(HammerGesturesPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT]
+                args: [DOCUMENT$1]
             }] }, { type: HammerGestureConfig, decorators: [{
                 type: Inject,
                 args: [HAMMER_GESTURE_CONFIG]
@@ -2978,14 +2962,14 @@ KeyEventsPlugin.decorators = [
 ];
 /** @nocollapse */
 KeyEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
-/** @nocollapse */ KeyEventsPlugin.ngInjectableDef = defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(inject(DOCUMENT)); }, providedIn: null });
+/** @nocollapse */ KeyEventsPlugin.ngInjectableDef = defineInjectable({ token: KeyEventsPlugin, factory: function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(inject(DOCUMENT$1)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(KeyEventsPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT]
+                args: [DOCUMENT$1]
             }] }]; }, null);
 
 /**
@@ -3122,14 +3106,14 @@ DomSanitizerImpl.decorators = [
 ];
 /** @nocollapse */
 DomSanitizerImpl.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
-/** @nocollapse */ DomSanitizerImpl.ngInjectableDef = defineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(inject(DOCUMENT)); }, providedIn: null });
+/** @nocollapse */ DomSanitizerImpl.ngInjectableDef = defineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(inject(DOCUMENT$1)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(DomSanitizerImpl, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT]
+                args: [DOCUMENT$1]
             }] }]; }, null);
 /**
  * @abstract
@@ -3196,8 +3180,8 @@ class SafeResourceUrlImpl extends SafeValueImpl {
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
-    { provide: DOCUMENT, useFactory: _document, deps: [] },
+    { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT$1] },
+    { provide: DOCUMENT$1, useFactory: _document, deps: [] },
 ];
 /**
  * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -3208,7 +3192,7 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  */
 const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
-    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT] },
+    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
 ];
 /**
  * \@publicApi
@@ -3243,14 +3227,14 @@ const BROWSER_MODULE_PROVIDERS = [
         provide: EVENT_MANAGER_PLUGINS,
         useClass: DomEventsPlugin,
         multi: true,
-        deps: [DOCUMENT, NgZone, PLATFORM_ID]
+        deps: [DOCUMENT$1, NgZone, PLATFORM_ID]
     },
-    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT] },
+    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT$1] },
     {
         provide: EVENT_MANAGER_PLUGINS,
         useClass: HammerGesturesPlugin,
         multi: true,
-        deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
+        deps: [DOCUMENT$1, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
     },
     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
     {
@@ -3260,7 +3244,7 @@ const BROWSER_MODULE_PROVIDERS = [
     },
     { provide: RendererFactory2, useExisting: DomRendererFactory2 },
     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-    { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [DOCUMENT] },
+    { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [DOCUMENT$1] },
     { provide: Testability, useClass: Testability, deps: [NgZone] },
     { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, NgZone] },
     ELEMENT_PROBE_PROVIDERS,
@@ -3339,7 +3323,7 @@ BrowserModule.ctorParameters = () => [
  * @return {?}
  */
 function createMeta() {
-    return new Meta(inject(DOCUMENT));
+    return new Meta(inject(DOCUMENT$1));
 }
 /**
  * A service that can be used to get and add meta tags.
@@ -3503,10 +3487,10 @@ Meta.decorators = [
 ];
 /** @nocollapse */
 Meta.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 /** @nocollapse */ Meta.ngInjectableDef = defineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
-        (r = new t(inject(DOCUMENT)));
+        (r = new t(inject(DOCUMENT$1)));
     }
     else {
         (r = createMeta());
@@ -3516,7 +3500,7 @@ Meta.ctorParameters = () => [
         args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT]
+                args: [DOCUMENT$1]
             }] }]; }, null);
 
 /**
@@ -3535,7 +3519,7 @@ Meta.ctorParameters = () => [
  * @return {?}
  */
 function createTitle() {
-    return new Title(inject(DOCUMENT));
+    return new Title(inject(DOCUMENT$1));
 }
 /**
  * A service that can be used to get and set the title of a current HTML document.
@@ -3571,10 +3555,10 @@ Title.decorators = [
 ];
 /** @nocollapse */
 Title.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
 ];
 /** @nocollapse */ Title.ngInjectableDef = defineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
-        (r = new t(inject(DOCUMENT)));
+        (r = new t(inject(DOCUMENT$1)));
     }
     else {
         (r = createTitle());
@@ -3584,7 +3568,7 @@ Title.ctorParameters = () => [
         args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT]
+                args: [DOCUMENT$1]
             }] }]; }, null);
 
 /**
@@ -3909,15 +3893,15 @@ class BrowserTransferStateModule {
 }
 BrowserTransferStateModule.decorators = [
     { type: NgModule, args: [{
-                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
+                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
             },] },
 ];
 /** @nocollapse */ BrowserTransferStateModule.ngModuleDef = ɵdefineNgModule({ type: BrowserTransferStateModule });
-/** @nocollapse */ BrowserTransferStateModule.ngInjectorDef = defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }], imports: [] });
+/** @nocollapse */ BrowserTransferStateModule.ngInjectorDef = defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }], imports: [] });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserTransferStateModule, [{
         type: NgModule,
         args: [{
-                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
+                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
             }]
     }], null, null);
 
@@ -3989,6 +3973,22 @@ class By {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * A DI Token representing the main rendering context. In a browser this is the DOM Document.
+ *
+ * Note: Document might not be available in the Application Context when Application and Rendering
+ * Contexts are not the same (e.g. when running the application into a Web Worker).
+ *
+ * @deprecated import from `\@angular/common` instead.
+ * \@publicApi
+ * @type {?}
+ */
+const DOCUMENT = DOCUMENT$1;
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 /**
  * @fileoverview added by tsickle
@@ -3998,7 +3998,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes');
+const VERSION = new Version('8.0.0-beta.8+31.sha-90df7de.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
