@@ -1,14 +1,14 @@
 /**
- * @license Angular v8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes
+ * @license Angular v8.0.0-beta.8+31.sha-90df7de.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ViewEncapsulation, Injectable, RendererFactory2, Inject, NgZone, InjectionToken, NgModule } from '@angular/core';
-import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
+import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { AnimationBuilder, sequence, AnimationFactory } from '@angular/animations';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer, ɵNoopAnimationDriver } from '@angular/animations/browser';
-import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -639,7 +639,7 @@ InjectableAnimationEngine.decorators = [
 ];
 /** @nocollapse */
 InjectableAnimationEngine.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: AnimationDriver },
     { type: ɵAnimationStyleNormalizer }
 ];
