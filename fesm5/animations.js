@@ -1,15 +1,15 @@
 /**
- * @license Angular v8.0.0-beta.8+29.sha-7b70760.with-local-changes
+ * @license Angular v8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ViewEncapsulation, defineInjectable, inject, RendererFactory2, ɵsetClassMetadata, Injectable, Inject, NgZone, InjectionToken, ɵdefineNgModule, defineInjector, NgModule } from '@angular/core';
-import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
+import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { __extends, __read, __spread } from 'tslib';
 import { sequence, AnimationBuilder, AnimationFactory } from '@angular/animations';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer } from '@angular/animations/browser';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
 
 var BrowserAnimationBuilder = /** @class */ (function (_super) {
     __extends(BrowserAnimationBuilder, _super);
@@ -330,14 +330,14 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
     function InjectableAnimationEngine(doc, driver, normalizer) {
         return _super.call(this, doc.body, driver, normalizer) || this;
     }
-    InjectableAnimationEngine.ngInjectableDef = defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(inject(DOCUMENT), inject(AnimationDriver), inject(ɵAnimationStyleNormalizer)); }, providedIn: null });
+    InjectableAnimationEngine.ngInjectableDef = defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(inject(DOCUMENT$1), inject(AnimationDriver), inject(ɵAnimationStyleNormalizer)); }, providedIn: null });
     return InjectableAnimationEngine;
 }(ɵAnimationEngine));
 /*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT]
+                args: [DOCUMENT$1]
             }] }, { type: AnimationDriver }, { type: ɵAnimationStyleNormalizer }]; }, null);
 function instantiateSupportedAnimationDriver() {
     return ɵsupportsWebAnimations() ? new ɵWebAnimationsDriver() : new ɵCssKeyframesDriver();
