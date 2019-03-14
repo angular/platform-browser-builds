@@ -1,10 +1,10 @@
 /**
- * @license Angular v8.0.0-beta.8+20.sha-a3e1054.with-local-changes
+ * @license Angular v8.0.0-beta.8+25.sha-410ccac.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵparseCookieValue, DOCUMENT as DOCUMENT$1, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, inject, defineInjectable, Version } from '@angular/core';
 
 /**
@@ -1093,7 +1093,7 @@ function relativePath(url) {
  * \@publicApi
  * @type {?}
  */
-const DOCUMENT$1 = DOCUMENT;
+const DOCUMENT = DOCUMENT$1;
 
 /**
  * @fileoverview added by tsickle
@@ -1217,7 +1217,7 @@ BrowserPlatformLocation.decorators = [
 ];
 /** @nocollapse */
 BrowserPlatformLocation.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -1269,7 +1269,7 @@ const SERVER_TRANSITION_PROVIDERS = [
     {
         provide: APP_INITIALIZER,
         useFactory: appInitializerFactory,
-        deps: [TRANSITION_ID, DOCUMENT$1, Injector],
+        deps: [TRANSITION_ID, DOCUMENT, Injector],
         multi: true
     },
 ];
@@ -1693,7 +1693,7 @@ DomSharedStylesHost.decorators = [
 ];
 /** @nocollapse */
 DomSharedStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -2433,7 +2433,7 @@ DomEventsPlugin.decorators = [
 ];
 /** @nocollapse */
 DomEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: NgZone },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] }] }
 ];
@@ -2681,7 +2681,7 @@ HammerGesturesPlugin.decorators = [
 ];
 /** @nocollapse */
 HammerGesturesPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
     { type: ɵConsole },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
@@ -2700,11 +2700,11 @@ const ɵ0$1 = /**
  * @param {?} event
  * @return {?}
  */
-(event) => event.altKey, ɵ1$1 = /**
+(event) => event.altKey, ɵ1 = /**
  * @param {?} event
  * @return {?}
  */
-(event) => event.ctrlKey, ɵ2$1 = /**
+(event) => event.ctrlKey, ɵ2 = /**
  * @param {?} event
  * @return {?}
  */
@@ -2719,8 +2719,8 @@ const ɵ0$1 = /**
  */
 const MODIFIER_KEY_GETTERS = {
     'alt': (ɵ0$1),
-    'control': (ɵ1$1),
-    'meta': (ɵ2$1),
+    'control': (ɵ1),
+    'meta': (ɵ2),
     'shift': (ɵ3)
 };
 /**
@@ -2871,7 +2871,7 @@ KeyEventsPlugin.decorators = [
 ];
 /** @nocollapse */
 KeyEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -3008,7 +3008,7 @@ DomSanitizerImpl.decorators = [
 ];
 /** @nocollapse */
 DomSanitizerImpl.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 /**
  * @abstract
@@ -3068,8 +3068,8 @@ class SafeResourceUrlImpl extends SafeValueImpl {
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT$1] },
-    { provide: DOCUMENT$1, useFactory: _document, deps: [] },
+    { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
+    { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
 /**
  * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -3080,7 +3080,7 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  */
 const BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
-    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
+    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT] },
 ];
 /**
  * \@publicApi
@@ -3115,14 +3115,14 @@ const BROWSER_MODULE_PROVIDERS = [
         provide: EVENT_MANAGER_PLUGINS,
         useClass: DomEventsPlugin,
         multi: true,
-        deps: [DOCUMENT$1, NgZone, PLATFORM_ID]
+        deps: [DOCUMENT, NgZone, PLATFORM_ID]
     },
-    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT$1] },
+    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT] },
     {
         provide: EVENT_MANAGER_PLUGINS,
         useClass: HammerGesturesPlugin,
         multi: true,
-        deps: [DOCUMENT$1, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
+        deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
     },
     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
     {
@@ -3132,7 +3132,7 @@ const BROWSER_MODULE_PROVIDERS = [
     },
     { provide: RendererFactory2, useExisting: DomRendererFactory2 },
     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-    { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [DOCUMENT$1] },
+    { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [DOCUMENT] },
     { provide: Testability, useClass: Testability, deps: [NgZone] },
     { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, NgZone] },
     ELEMENT_PROBE_PROVIDERS,
@@ -3191,7 +3191,7 @@ BrowserModule.ctorParameters = () => [
  * @return {?}
  */
 function createMeta() {
-    return new Meta(inject(DOCUMENT$1));
+    return new Meta(inject(DOCUMENT));
 }
 /**
  * A service that can be used to get and add meta tags.
@@ -3355,7 +3355,7 @@ Meta.decorators = [
 ];
 /** @nocollapse */
 Meta.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 /** @nocollapse */ Meta.ngInjectableDef = defineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
 
@@ -3368,7 +3368,7 @@ Meta.ctorParameters = () => [
  * @return {?}
  */
 function createTitle() {
-    return new Title(inject(DOCUMENT$1));
+    return new Title(inject(DOCUMENT));
 }
 /**
  * A service that can be used to get and set the title of a current HTML document.
@@ -3404,7 +3404,7 @@ Title.decorators = [
 ];
 /** @nocollapse */
 Title.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 /** @nocollapse */ Title.ngInjectableDef = defineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
 
@@ -3719,7 +3719,7 @@ class BrowserTransferStateModule {
 }
 BrowserTransferStateModule.decorators = [
     { type: NgModule, args: [{
-                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
+                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
             },] }
 ];
 
@@ -3800,7 +3800,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.8+20.sha-a3e1054.with-local-changes');
+const VERSION = new Version('8.0.0-beta.8+25.sha-410ccac.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
@@ -3821,5 +3821,5 @@ const VERSION = new Version('8.0.0-beta.8+20.sha-a3e1054.with-local-changes');
  * Generated bundle index. Do not edit.
  */
 
-export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_k, createMeta as ɵangular_packages_platform_browser_platform_browser_d, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_h, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_j, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT$1 as DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
+export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_k, createMeta as ɵangular_packages_platform_browser_platform_browser_d, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_h, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_j, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.js.map

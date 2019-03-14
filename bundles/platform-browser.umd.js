@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.8+20.sha-a3e1054.with-local-changes
+ * @license Angular v8.0.0-beta.8+25.sha-410ccac.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1702,14 +1702,14 @@
      * Defines supported modifiers for key events.
      */
     var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-    var ɵ0$1 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2$1 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
+    var ɵ0$1 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
     /**
      * Retrieves modifiers from key-event objects.
      */
     var MODIFIER_KEY_GETTERS = {
         'alt': ɵ0$1,
-        'control': ɵ1$1,
-        'meta': ɵ2$1,
+        'control': ɵ1,
+        'meta': ɵ2,
         'shift': ɵ3
     };
     /**
@@ -2561,7 +2561,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-beta.8+20.sha-a3e1054.with-local-changes');
+    var VERSION = new core.Version('8.0.0-beta.8+25.sha-410ccac.with-local-changes');
 
     /**
      * @license
