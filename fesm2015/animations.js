@@ -1,14 +1,14 @@
 /**
- * @license Angular v8.0.0-beta.8+26.sha-a5c747f.with-local-changes
+ * @license Angular v8.0.0-beta.8+29.sha-7b70760.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ViewEncapsulation, Injectable, RendererFactory2, Inject, defineInjectable, inject, ɵsetClassMetadata, NgZone, InjectionToken, NgModule, ɵdefineNgModule, defineInjector } from '@angular/core';
-import { DOCUMENT, ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
+import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { AnimationBuilder, sequence, AnimationFactory } from '@angular/animations';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer } from '@angular/animations/browser';
-import { DOCUMENT as DOCUMENT$1 } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -657,16 +657,16 @@ InjectableAnimationEngine.decorators = [
 ];
 /** @nocollapse */
 InjectableAnimationEngine.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT$1,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: AnimationDriver },
     { type: ɵAnimationStyleNormalizer }
 ];
-/** @nocollapse */ InjectableAnimationEngine.ngInjectableDef = defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(inject(DOCUMENT$1), inject(AnimationDriver), inject(ɵAnimationStyleNormalizer)); }, providedIn: null });
+/** @nocollapse */ InjectableAnimationEngine.ngInjectableDef = defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(inject(DOCUMENT), inject(AnimationDriver), inject(ɵAnimationStyleNormalizer)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
-                args: [DOCUMENT$1]
+                args: [DOCUMENT]
             }] }, { type: AnimationDriver }, { type: ɵAnimationStyleNormalizer }]; }, null);
 /**
  * @return {?}
