@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.8+29.sha-7b70760.with-local-changes
+ * @license Angular v8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -529,6 +529,24 @@ function relativePath(url) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * A DI Token representing the main rendering context. In a browser this is the DOM Document.
+ *
+ * Note: Document might not be available in the Application Context when Application and Rendering
+ * Contexts are not the same (e.g. when running the application into a Web Worker).
+ *
+ * @deprecated import from `@angular/common` instead.
+ * @publicApi
+ */
+var DOCUMENT = DOCUMENT$1;
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 function supportsState() {
     return !!window.history.pushState;
 }
@@ -602,7 +620,7 @@ var BrowserPlatformLocation = /** @class */ (function (_super) {
     BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
     BrowserPlatformLocation = __decorate([
         Injectable(),
-        __param(0, Inject(DOCUMENT$1)),
+        __param(0, Inject(DOCUMENT)),
         __metadata("design:paramtypes", [Object])
     ], BrowserPlatformLocation);
     return BrowserPlatformLocation;
@@ -636,7 +654,7 @@ var SERVER_TRANSITION_PROVIDERS = [
     {
         provide: APP_INITIALIZER,
         useFactory: appInitializerFactory,
-        deps: [TRANSITION_ID, DOCUMENT$1, Injector],
+        deps: [TRANSITION_ID, DOCUMENT, Injector],
         multi: true
     },
 ];
@@ -927,7 +945,7 @@ var DomSharedStylesHost = /** @class */ (function (_super) {
     DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
     DomSharedStylesHost = __decorate([
         Injectable(),
-        __param(0, Inject(DOCUMENT$1)),
+        __param(0, Inject(DOCUMENT)),
         __metadata("design:paramtypes", [Object])
     ], DomSharedStylesHost);
     return DomSharedStylesHost;
@@ -1392,7 +1410,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
     };
     DomEventsPlugin = __decorate([
         Injectable(),
-        __param(0, Inject(DOCUMENT$1)),
+        __param(0, Inject(DOCUMENT)),
         __param(2, Optional()), __param(2, Inject(PLATFORM_ID)),
         __metadata("design:paramtypes", [Object, NgZone, Object])
     ], DomEventsPlugin);
@@ -1585,7 +1603,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
     HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
     HammerGesturesPlugin = __decorate([
         Injectable(),
-        __param(0, Inject(DOCUMENT$1)),
+        __param(0, Inject(DOCUMENT)),
         __param(1, Inject(HAMMER_GESTURE_CONFIG)),
         __param(3, Optional()), __param(3, Inject(HAMMER_LOADER)),
         __metadata("design:paramtypes", [Object, HammerGestureConfig, ɵConsole, Object])
@@ -1722,7 +1740,7 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
     var KeyEventsPlugin_1;
     KeyEventsPlugin = KeyEventsPlugin_1 = __decorate([
         Injectable(),
-        __param(0, Inject(DOCUMENT$1)),
+        __param(0, Inject(DOCUMENT)),
         __metadata("design:paramtypes", [Object])
     ], KeyEventsPlugin);
     return KeyEventsPlugin;
@@ -1831,7 +1849,7 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
     };
     DomSanitizerImpl = __decorate([
         Injectable(),
-        __param(0, Inject(DOCUMENT$1)),
+        __param(0, Inject(DOCUMENT)),
         __metadata("design:paramtypes", [Object])
     ], DomSanitizerImpl);
     return DomSanitizerImpl;
@@ -1898,8 +1916,8 @@ var SafeResourceUrlImpl = /** @class */ (function (_super) {
 var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT$1] },
-    { provide: DOCUMENT$1, useFactory: _document, deps: [] },
+    { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
+    { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -1909,7 +1927,7 @@ var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  */
 var BROWSER_SANITIZATION_PROVIDERS = [
     { provide: Sanitizer, useExisting: DomSanitizer },
-    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT$1] },
+    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT] },
 ];
 /**
  * @publicApi
@@ -1933,14 +1951,14 @@ var BROWSER_MODULE_PROVIDERS = [
         provide: EVENT_MANAGER_PLUGINS,
         useClass: DomEventsPlugin,
         multi: true,
-        deps: [DOCUMENT$1, NgZone, PLATFORM_ID]
+        deps: [DOCUMENT, NgZone, PLATFORM_ID]
     },
-    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT$1] },
+    { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT] },
     {
         provide: EVENT_MANAGER_PLUGINS,
         useClass: HammerGesturesPlugin,
         multi: true,
-        deps: [DOCUMENT$1, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
+        deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
     },
     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
     {
@@ -1950,7 +1968,7 @@ var BROWSER_MODULE_PROVIDERS = [
     },
     { provide: RendererFactory2, useExisting: DomRendererFactory2 },
     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
-    { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [DOCUMENT$1] },
+    { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [DOCUMENT] },
     { provide: Testability, useClass: Testability, deps: [NgZone] },
     { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, NgZone] },
     ELEMENT_PROBE_PROVIDERS,
@@ -2002,7 +2020,7 @@ var BrowserModule = /** @class */ (function () {
  * Factory to create Meta service.
  */
 function createMeta() {
-    return new Meta(inject(DOCUMENT$1));
+    return new Meta(inject(DOCUMENT));
 }
 /**
  * A service that can be used to get and add meta tags.
@@ -2092,7 +2110,7 @@ var Meta = /** @class */ (function () {
     Meta.ngInjectableDef = defineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
     Meta = __decorate([
         Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
-        __param(0, Inject(DOCUMENT$1)),
+        __param(0, Inject(DOCUMENT)),
         __metadata("design:paramtypes", [Object])
     ], Meta);
     return Meta;
@@ -2102,7 +2120,7 @@ var Meta = /** @class */ (function () {
  * Factory to create Title service.
  */
 function createTitle() {
-    return new Title(inject(DOCUMENT$1));
+    return new Title(inject(DOCUMENT));
 }
 /**
  * A service that can be used to get and set the title of a current HTML document.
@@ -2130,7 +2148,7 @@ var Title = /** @class */ (function () {
     Title.ngInjectableDef = defineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
     Title = __decorate([
         Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
-        __param(0, Inject(DOCUMENT$1)),
+        __param(0, Inject(DOCUMENT)),
         __metadata("design:paramtypes", [Object])
     ], Title);
     return Title;
@@ -2386,7 +2404,7 @@ var BrowserTransferStateModule = /** @class */ (function () {
     }
     BrowserTransferStateModule = __decorate([
         NgModule({
-            providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }],
+            providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
         })
     ], BrowserTransferStateModule);
     return BrowserTransferStateModule;
@@ -2452,24 +2470,6 @@ var By = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * A DI Token representing the main rendering context. In a browser this is the DOM Document.
- *
- * Note: Document might not be available in the Application Context when Application and Rendering
- * Contexts are not the same (e.g. when running the application into a Web Worker).
- *
- * @deprecated import from `@angular/common` instead.
- * @publicApi
- */
-var DOCUMENT = DOCUMENT$1;
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 /**
  * @license
@@ -2481,7 +2481,7 @@ var DOCUMENT = DOCUMENT$1;
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-beta.8+29.sha-7b70760.with-local-changes');
+var VERSION = new Version('8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes');
 
 /**
  * @license

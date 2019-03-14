@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.8+29.sha-7b70760.with-local-changes
+ * @license Angular v8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -100,7 +100,7 @@
         };
         BrowserAnimationBuilder = __decorate([
             core.Injectable(),
-            __param(1, core.Inject(common.DOCUMENT)),
+            __param(1, core.Inject(platformBrowser.DOCUMENT)),
             __metadata("design:paramtypes", [core.RendererFactory2, Object])
         ], BrowserAnimationBuilder);
         return BrowserAnimationBuilder;
