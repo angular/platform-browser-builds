@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.10+117.sha-6b39c9c.with-local-changes
+ * @license Angular v8.0.0-beta.10+120.sha-60afe88.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -187,14 +187,15 @@
     var BrowserTestingModule = /** @class */ (function () {
         function BrowserTestingModule() {
         }
-        BrowserTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTestingModule, exports: [platformBrowser.BrowserModule] });
+        BrowserTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTestingModule });
         BrowserTestingModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
                 { provide: i0.APP_ID, useValue: 'a' },
                 platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
                 { provide: i0.NgZone, useFactory: createNgZone },
-            ], imports: [[platformBrowser.BrowserModule]] });
+            ], imports: [platformBrowser.BrowserModule] });
         return BrowserTestingModule;
     }());
+    /*@__PURE__*/ i0.ɵsetNgModuleScope(BrowserTestingModule, { exports: [platformBrowser.BrowserModule] });
     /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserTestingModule, [{
             type: i0.NgModule,
             args: [{

@@ -1,11 +1,11 @@
 /**
- * @license Angular v8.0.0-beta.10+117.sha-6b39c9c.with-local-changes
+ * @license Angular v8.0.0-beta.10+120.sha-60afe88.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, PlatformLocation, DOCUMENT as DOCUMENT$1, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { ɵglobal, Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, InjectionToken, APP_INITIALIZER, Injector, ApplicationInitStatus, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵAPP_ROOT, ErrorHandler, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, ɵdefineNgModule, defineInjector, Version } from '@angular/core';
+import { ɵglobal, Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, InjectionToken, APP_INITIALIZER, Injector, ApplicationInitStatus, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵAPP_ROOT, ErrorHandler, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, ɵdefineNgModule, defineInjector, ɵsetNgModuleScope, Version } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -3293,8 +3293,9 @@ BrowserModule.decorators = [
 BrowserModule.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
 ];
-/** @nocollapse */ BrowserModule.ngModuleDef = ɵdefineNgModule({ type: BrowserModule, exports: [CommonModule, ApplicationModule] });
-/** @nocollapse */ BrowserModule.ngInjectorDef = defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[CommonModule, ApplicationModule]] });
+/** @nocollapse */ BrowserModule.ngModuleDef = ɵdefineNgModule({ type: BrowserModule });
+/** @nocollapse */ BrowserModule.ngInjectorDef = defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
+/*@__PURE__*/ ɵsetNgModuleScope(BrowserModule, { exports: [CommonModule, ApplicationModule] });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserModule, [{
         type: NgModule,
         args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]
@@ -3897,7 +3898,7 @@ BrowserTransferStateModule.decorators = [
             },] },
 ];
 /** @nocollapse */ BrowserTransferStateModule.ngModuleDef = ɵdefineNgModule({ type: BrowserTransferStateModule });
-/** @nocollapse */ BrowserTransferStateModule.ngInjectorDef = defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }], imports: [] });
+/** @nocollapse */ BrowserTransferStateModule.ngInjectorDef = defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT$1, APP_ID] }] });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserTransferStateModule, [{
         type: NgModule,
         args: [{
@@ -3998,7 +3999,7 @@ const DOCUMENT = DOCUMENT$1;
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.10+117.sha-6b39c9c.with-local-changes');
+const VERSION = new Version('8.0.0-beta.10+120.sha-60afe88.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

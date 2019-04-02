@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.10+117.sha-6b39c9c.with-local-changes
+ * @license Angular v8.0.0-beta.10+120.sha-60afe88.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2026,10 +2026,11 @@
                 ],
             };
         };
-        BrowserModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserModule, exports: [common.CommonModule, i0.ApplicationModule] });
-        BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [[common.CommonModule, i0.ApplicationModule]] });
+        BrowserModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserModule });
+        BrowserModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.inject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [common.CommonModule, i0.ApplicationModule] });
         return BrowserModule;
     }());
+    /*@__PURE__*/ i0.ɵsetNgModuleScope(BrowserModule, { exports: [common.CommonModule, i0.ApplicationModule] });
     /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserModule, [{
             type: i0.NgModule,
             args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] }]
@@ -2456,7 +2457,7 @@
         function BrowserTransferStateModule() {
         }
         BrowserTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTransferStateModule });
-        BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, i0.APP_ID] }], imports: [] });
+        BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, i0.APP_ID] }] });
         return BrowserTransferStateModule;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserTransferStateModule, [{
@@ -2555,7 +2556,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-beta.10+117.sha-6b39c9c.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-beta.10+120.sha-60afe88.with-local-changes');
 
     /**
      * @license

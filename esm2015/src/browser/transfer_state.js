@@ -215,7 +215,7 @@ BrowserTransferStateModule.decorators = [
             },] },
 ];
 /** @nocollapse */ BrowserTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: BrowserTransferStateModule });
-/** @nocollapse */ BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }], imports: [] });
+/** @nocollapse */ BrowserTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }] });
 /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserTransferStateModule, [{
         type: NgModule,
         args: [{
