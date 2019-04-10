@@ -134,5 +134,5 @@ export declare class DomSanitizerImpl extends DomSanitizer {
     bypassSecurityTrustScript(value: string): SafeScript;
     bypassSecurityTrustUrl(value: string): SafeUrl;
     bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
-    static ngInjectableDef: i0.ɵInjectableDef<DomSanitizerImpl>;
+    static ngInjectableDef: i0.ΔInjectableDef<DomSanitizerImpl>;
 }

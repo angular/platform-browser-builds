@@ -6,14 +6,14 @@ import * as i1 from "@angular/platform-browser";
  * @publicApi
  */
 export declare class BrowserAnimationsModule {
-    static ngModuleDef: i0.ɵNgModuleDefWithMeta<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
-    static ngInjectorDef: i0.ɵInjectorDef<BrowserAnimationsModule>;
+    static ngModuleDef: i0.ΔNgModuleDefWithMeta<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ngInjectorDef: i0.ΔInjectorDef<BrowserAnimationsModule>;
 }
 /**
  * A null player that must be imported to allow disabling of animations.
  * @publicApi
  */
 export declare class NoopAnimationsModule {
-    static ngModuleDef: i0.ɵNgModuleDefWithMeta<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
-    static ngInjectorDef: i0.ɵInjectorDef<NoopAnimationsModule>;
+    static ngModuleDef: i0.ΔNgModuleDefWithMeta<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ngInjectorDef: i0.ΔInjectorDef<NoopAnimationsModule>;
 }

@@ -27,5 +27,5 @@ export declare class BrowserPlatformLocation extends PlatformLocation {
     replaceState(state: any, title: string, url: string): void;
     forward(): void;
     back(): void;
-    static ngInjectableDef: i0.ɵInjectableDef<BrowserPlatformLocation>;
+    static ngInjectableDef: i0.ΔInjectableDef<BrowserPlatformLocation>;
 }

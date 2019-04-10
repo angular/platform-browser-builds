@@ -1,10 +1,10 @@
 /**
- * @license Angular v8.0.0-beta.11+55.sha-db62ccf.with-local-changes
+ * @license Angular v8.0.0-beta.11+57.sha-ef85336.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ViewEncapsulation, Injectable, RendererFactory2, Inject, defineInjectable, inject, ɵsetClassMetadata, NgZone, InjectionToken, NgModule, ɵdefineNgModule, defineInjector, ɵsetNgModuleScope } from '@angular/core';
+import { ViewEncapsulation, Injectable, RendererFactory2, Inject, ΔdefineInjectable, Δinject, ɵsetClassMetadata, NgZone, InjectionToken, NgModule, ΔdefineNgModule, ΔdefineInjector, ΔsetNgModuleScope } from '@angular/core';
 import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { AnimationBuilder, sequence, AnimationFactory } from '@angular/animations';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer } from '@angular/animations/browser';
@@ -53,7 +53,7 @@ BrowserAnimationBuilder.ctorParameters = () => [
     { type: RendererFactory2 },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ BrowserAnimationBuilder.ngInjectableDef = defineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(inject(RendererFactory2), inject(DOCUMENT)); }, providedIn: null });
+/** @nocollapse */ BrowserAnimationBuilder.ngInjectableDef = ΔdefineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(Δinject(RendererFactory2), Δinject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationBuilder, [{
         type: Injectable
     }], function () { return [{ type: RendererFactory2 }, { type: undefined, decorators: [{
@@ -353,7 +353,7 @@ AnimationRendererFactory.ctorParameters = () => [
     { type: ɵAnimationEngine },
     { type: NgZone }
 ];
-/** @nocollapse */ AnimationRendererFactory.ngInjectableDef = defineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(inject(RendererFactory2), inject(ɵAnimationEngine), inject(NgZone)); }, providedIn: null });
+/** @nocollapse */ AnimationRendererFactory.ngInjectableDef = ΔdefineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(Δinject(RendererFactory2), Δinject(ɵAnimationEngine), Δinject(NgZone)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(AnimationRendererFactory, [{
         type: Injectable
     }], function () { return [{ type: RendererFactory2 }, { type: ɵAnimationEngine }, { type: NgZone }]; }, null);
@@ -661,7 +661,7 @@ InjectableAnimationEngine.ctorParameters = () => [
     { type: AnimationDriver },
     { type: ɵAnimationStyleNormalizer }
 ];
-/** @nocollapse */ InjectableAnimationEngine.ngInjectableDef = defineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(inject(DOCUMENT), inject(AnimationDriver), inject(ɵAnimationStyleNormalizer)); }, providedIn: null });
+/** @nocollapse */ InjectableAnimationEngine.ngInjectableDef = ΔdefineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(Δinject(DOCUMENT), Δinject(AnimationDriver), Δinject(ɵAnimationStyleNormalizer)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -740,9 +740,9 @@ BrowserAnimationsModule.decorators = [
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
             },] },
 ];
-/** @nocollapse */ BrowserAnimationsModule.ngModuleDef = ɵdefineNgModule({ type: BrowserAnimationsModule });
-/** @nocollapse */ BrowserAnimationsModule.ngInjectorDef = defineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
-/*@__PURE__*/ ɵsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] });
+/** @nocollapse */ BrowserAnimationsModule.ngModuleDef = ΔdefineNgModule({ type: BrowserAnimationsModule });
+/** @nocollapse */ BrowserAnimationsModule.ngInjectorDef = ΔdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+/*@__PURE__*/ ΔsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationsModule, [{
         type: NgModule,
         args: [{
@@ -762,9 +762,9 @@ NoopAnimationsModule.decorators = [
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             },] },
 ];
-/** @nocollapse */ NoopAnimationsModule.ngModuleDef = ɵdefineNgModule({ type: NoopAnimationsModule });
-/** @nocollapse */ NoopAnimationsModule.ngInjectorDef = defineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
-/*@__PURE__*/ ɵsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] });
+/** @nocollapse */ NoopAnimationsModule.ngModuleDef = ΔdefineNgModule({ type: NoopAnimationsModule });
+/** @nocollapse */ NoopAnimationsModule.ngInjectorDef = ΔdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+/*@__PURE__*/ ΔsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] });
 /*@__PURE__*/ ɵsetClassMetadata(NoopAnimationsModule, [{
         type: NgModule,
         args: [{

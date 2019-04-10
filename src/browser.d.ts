@@ -39,6 +39,6 @@ export declare class BrowserModule {
     static withServerTransition(params: {
         appId: string;
     }): ModuleWithProviders<BrowserModule>;
-    static ngModuleDef: i0.ɵNgModuleDefWithMeta<BrowserModule, never, never, [typeof i1.CommonModule, typeof i0.ApplicationModule]>;
-    static ngInjectorDef: i0.ɵInjectorDef<BrowserModule>;
+    static ngModuleDef: i0.ΔNgModuleDefWithMeta<BrowserModule, never, never, [typeof i1.CommonModule, typeof i0.ApplicationModule]>;
+    static ngInjectorDef: i0.ΔInjectorDef<BrowserModule>;
 }

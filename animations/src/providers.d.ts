@@ -5,7 +5,7 @@ import { AnimationRendererFactory } from './animation_renderer';
 import * as i0 from "@angular/core";
 export declare class InjectableAnimationEngine extends AnimationEngine {
     constructor(doc: any, driver: AnimationDriver, normalizer: AnimationStyleNormalizer);
-    static ngInjectableDef: i0.ɵInjectableDef<InjectableAnimationEngine>;
+    static ngInjectableDef: i0.ΔInjectableDef<InjectableAnimationEngine>;
 }
 export declare function instantiateSupportedAnimationDriver(): WebAnimationsDriver | CssKeyframesDriver;
 export declare function instantiateDefaultStyleNormalizer(): WebAnimationsStyleNormalizer;

@@ -25,5 +25,5 @@ export declare class Title {
      * @param newTitle
      */
     setTitle(newTitle: string): void;
-    static ngInjectableDef: i0.ɵInjectableDef<Title>;
+    static ngInjectableDef: i0.ΔInjectableDef<Title>;
 }
