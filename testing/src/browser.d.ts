@@ -20,6 +20,6 @@ export declare const platformBrowserTesting: (extraProviders?: StaticProvider[] 
  * @publicApi
  */
 export declare class BrowserTestingModule {
-    static ngModuleDef: i0.ΔNgModuleDefWithMeta<BrowserTestingModule, never, never, [typeof i1.BrowserModule]>;
-    static ngInjectorDef: i0.ΔInjectorDef<BrowserTestingModule>;
+    static ngModuleDef: i0.ɵɵNgModuleDefWithMeta<BrowserTestingModule, never, never, [typeof i1.BrowserModule]>;
+    static ngInjectorDef: i0.ɵɵInjectorDef<BrowserTestingModule>;
 }

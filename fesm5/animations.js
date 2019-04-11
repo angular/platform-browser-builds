@@ -1,10 +1,10 @@
 /**
- * @license Angular v8.0.0-beta.11+84.sha-54058ba.with-local-changes
+ * @license Angular v8.0.0-beta.11+85.sha-b057806.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ViewEncapsulation, ΔdefineInjectable, Δinject, RendererFactory2, ɵsetClassMetadata, Injectable, Inject, NgZone, InjectionToken, ΔdefineNgModule, ΔdefineInjector, ΔsetNgModuleScope, NgModule } from '@angular/core';
+import { ViewEncapsulation, ɵɵdefineInjectable, ɵɵinject, RendererFactory2, ɵsetClassMetadata, Injectable, Inject, NgZone, InjectionToken, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
 import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { __extends, __read, __spread } from 'tslib';
 import { sequence, AnimationBuilder, AnimationFactory } from '@angular/animations';
@@ -32,7 +32,7 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
         issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
         return new BrowserAnimationFactory(id, this._renderer);
     };
-    BrowserAnimationBuilder.ngInjectableDef = ΔdefineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(Δinject(RendererFactory2), Δinject(DOCUMENT)); }, providedIn: null });
+    BrowserAnimationBuilder.ngInjectableDef = ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(ɵɵinject(RendererFactory2), ɵɵinject(DOCUMENT)); }, providedIn: null });
     return BrowserAnimationBuilder;
 }(AnimationBuilder));
 /*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationBuilder, [{
@@ -189,7 +189,7 @@ var AnimationRendererFactory = /** @class */ (function () {
         }
     };
     AnimationRendererFactory.prototype.whenRenderingDone = function () { return this.engine.whenRenderingDone(); };
-    AnimationRendererFactory.ngInjectableDef = ΔdefineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(Δinject(RendererFactory2), Δinject(ɵAnimationEngine), Δinject(NgZone)); }, providedIn: null });
+    AnimationRendererFactory.ngInjectableDef = ɵɵdefineInjectable({ token: AnimationRendererFactory, factory: function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(ɵɵinject(RendererFactory2), ɵɵinject(ɵAnimationEngine), ɵɵinject(NgZone)); }, providedIn: null });
     return AnimationRendererFactory;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(AnimationRendererFactory, [{
@@ -330,7 +330,7 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
     function InjectableAnimationEngine(doc, driver, normalizer) {
         return _super.call(this, doc.body, driver, normalizer) || this;
     }
-    InjectableAnimationEngine.ngInjectableDef = ΔdefineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(Δinject(DOCUMENT), Δinject(AnimationDriver), Δinject(ɵAnimationStyleNormalizer)); }, providedIn: null });
+    InjectableAnimationEngine.ngInjectableDef = ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(ɵɵinject(DOCUMENT), ɵɵinject(AnimationDriver), ɵɵinject(ɵAnimationStyleNormalizer)); }, providedIn: null });
     return InjectableAnimationEngine;
 }(ɵAnimationEngine));
 /*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
@@ -393,11 +393,11 @@ var BROWSER_NOOP_ANIMATIONS_PROVIDERS = __spread([
 var BrowserAnimationsModule = /** @class */ (function () {
     function BrowserAnimationsModule() {
     }
-    BrowserAnimationsModule.ngModuleDef = ΔdefineNgModule({ type: BrowserAnimationsModule });
-    BrowserAnimationsModule.ngInjectorDef = ΔdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+    BrowserAnimationsModule.ngModuleDef = ɵɵdefineNgModule({ type: BrowserAnimationsModule });
+    BrowserAnimationsModule.ngInjectorDef = ɵɵdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
     return BrowserAnimationsModule;
 }());
-/*@__PURE__*/ ΔsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] });
+/*@__PURE__*/ ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationsModule, [{
         type: NgModule,
         args: [{
@@ -412,11 +412,11 @@ var BrowserAnimationsModule = /** @class */ (function () {
 var NoopAnimationsModule = /** @class */ (function () {
     function NoopAnimationsModule() {
     }
-    NoopAnimationsModule.ngModuleDef = ΔdefineNgModule({ type: NoopAnimationsModule });
-    NoopAnimationsModule.ngInjectorDef = ΔdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+    NoopAnimationsModule.ngModuleDef = ɵɵdefineNgModule({ type: NoopAnimationsModule });
+    NoopAnimationsModule.ngInjectorDef = ɵɵdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
     return NoopAnimationsModule;
 }());
-/*@__PURE__*/ ΔsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] });
+/*@__PURE__*/ ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] });
 /*@__PURE__*/ ɵsetClassMetadata(NoopAnimationsModule, [{
         type: NgModule,
         args: [{

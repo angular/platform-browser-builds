@@ -73,7 +73,7 @@ export declare class TransferState {
      * Serialize the current state of the store to JSON.
      */
     toJson(): string;
-    static ngInjectableDef: i0.ΔInjectableDef<TransferState>;
+    static ngInjectableDef: i0.ɵɵInjectableDef<TransferState>;
 }
 export declare function initTransferState(doc: Document, appId: string): TransferState;
 /**
@@ -83,6 +83,6 @@ export declare function initTransferState(doc: Document, appId: string): Transfe
  * @publicApi
  */
 export declare class BrowserTransferStateModule {
-    static ngModuleDef: i0.ΔNgModuleDefWithMeta<BrowserTransferStateModule, never, never, never>;
-    static ngInjectorDef: i0.ΔInjectorDef<BrowserTransferStateModule>;
+    static ngModuleDef: i0.ɵɵNgModuleDefWithMeta<BrowserTransferStateModule, never, never, never>;
+    static ngInjectorDef: i0.ɵɵInjectorDef<BrowserTransferStateModule>;
 }
