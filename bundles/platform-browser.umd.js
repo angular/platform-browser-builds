@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.11+72.sha-3ea8d65.with-local-changes
+ * @license Angular v8.0.0-beta.11+73.sha-712d60e.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1032,9 +1032,10 @@
         };
     }
     var DomRendererFactory2 = /** @class */ (function () {
-        function DomRendererFactory2(eventManager, sharedStylesHost) {
+        function DomRendererFactory2(eventManager, sharedStylesHost, appId) {
             this.eventManager = eventManager;
             this.sharedStylesHost = sharedStylesHost;
+            this.appId = appId;
             this.rendererByCompId = new Map();
             this.defaultRenderer = new DefaultDomRenderer2(eventManager);
         }
@@ -1046,8 +1047,7 @@
                 case i0.ViewEncapsulation.Emulated: {
                     var renderer = this.rendererByCompId.get(type.id);
                     if (!renderer) {
-                        renderer =
-                            new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
+                        renderer = new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type, this.appId);
                         this.rendererByCompId.set(type.id, renderer);
                     }
                     renderer.applyToHost(element);
@@ -1068,12 +1068,15 @@
         };
         DomRendererFactory2.prototype.begin = function () { };
         DomRendererFactory2.prototype.end = function () { };
-        DomRendererFactory2.ngInjectableDef = i0.ΔdefineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(i0.Δinject(EventManager), i0.Δinject(DomSharedStylesHost)); }, providedIn: null });
+        DomRendererFactory2.ngInjectableDef = i0.ΔdefineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(i0.Δinject(EventManager), i0.Δinject(DomSharedStylesHost), i0.Δinject(i0.APP_ID)); }, providedIn: null });
         return DomRendererFactory2;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(DomRendererFactory2, [{
             type: i0.Injectable
-        }], function () { return [{ type: EventManager }, { type: DomSharedStylesHost }]; }, null);
+        }], function () { return [{ type: EventManager }, { type: DomSharedStylesHost }, { type: undefined, decorators: [{
+                    type: i0.Inject,
+                    args: [i0.APP_ID]
+                }] }]; }, null);
     var DefaultDomRenderer2 = /** @class */ (function () {
         function DefaultDomRenderer2(eventManager) {
             this.eventManager = eventManager;
@@ -1192,13 +1195,13 @@
     }
     var EmulatedEncapsulationDomRenderer2 = /** @class */ (function (_super) {
         __extends(EmulatedEncapsulationDomRenderer2, _super);
-        function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component) {
+        function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component, appId) {
             var _this = _super.call(this, eventManager) || this;
             _this.component = component;
-            var styles = flattenStyles(component.id, component.styles, []);
+            var styles = flattenStyles(appId + '-' + component.id, component.styles, []);
             sharedStylesHost.addStyles(styles);
-            _this.contentAttr = shimContentAttribute(component.id);
-            _this.hostAttr = shimHostAttribute(component.id);
+            _this.contentAttr = shimContentAttribute(appId + '-' + component.id);
+            _this.hostAttr = shimHostAttribute(appId + '-' + component.id);
             return _this;
         }
         EmulatedEncapsulationDomRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
@@ -1984,7 +1987,7 @@
         {
             provide: DomRendererFactory2,
             useClass: DomRendererFactory2,
-            deps: [EventManager, DomSharedStylesHost]
+            deps: [EventManager, DomSharedStylesHost, i0.APP_ID]
         },
         { provide: i0.RendererFactory2, useExisting: DomRendererFactory2 },
         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
@@ -2556,7 +2559,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-beta.11+72.sha-3ea8d65.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-beta.11+73.sha-712d60e.with-local-changes');
 
     /**
      * @license

@@ -1,11 +1,11 @@
 /**
- * @license Angular v8.0.0-beta.11+72.sha-3ea8d65.with-local-changes
+ * @license Angular v8.0.0-beta.11+73.sha-712d60e.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT as DOCUMENT$1, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { ɵglobal, ΔdefineInjectable, Δinject, ɵsetClassMetadata, Injectable, Inject, InjectionToken, APP_INITIALIZER, Injector, ApplicationInitStatus, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵAPP_ROOT, ErrorHandler, RendererFactory2, Testability, ΔdefineNgModule, ΔdefineInjector, ApplicationModule, ΔsetNgModuleScope, NgModule, SkipSelf, APP_ID, Version } from '@angular/core';
+import { ɵglobal, ΔdefineInjectable, Δinject, ɵsetClassMetadata, Injectable, Inject, InjectionToken, APP_INITIALIZER, Injector, ApplicationInitStatus, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵAPP_ROOT, ErrorHandler, RendererFactory2, Testability, ΔdefineNgModule, ΔdefineInjector, ApplicationModule, ΔsetNgModuleScope, NgModule, SkipSelf, Version } from '@angular/core';
 import { __extends, __spread, __assign } from 'tslib';
 
 /**
@@ -967,9 +967,10 @@ function decoratePreventDefault(eventHandler) {
     };
 }
 var DomRendererFactory2 = /** @class */ (function () {
-    function DomRendererFactory2(eventManager, sharedStylesHost) {
+    function DomRendererFactory2(eventManager, sharedStylesHost, appId) {
         this.eventManager = eventManager;
         this.sharedStylesHost = sharedStylesHost;
+        this.appId = appId;
         this.rendererByCompId = new Map();
         this.defaultRenderer = new DefaultDomRenderer2(eventManager);
     }
@@ -981,8 +982,7 @@ var DomRendererFactory2 = /** @class */ (function () {
             case ViewEncapsulation.Emulated: {
                 var renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
-                    renderer =
-                        new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
+                    renderer = new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type, this.appId);
                     this.rendererByCompId.set(type.id, renderer);
                 }
                 renderer.applyToHost(element);
@@ -1003,12 +1003,15 @@ var DomRendererFactory2 = /** @class */ (function () {
     };
     DomRendererFactory2.prototype.begin = function () { };
     DomRendererFactory2.prototype.end = function () { };
-    DomRendererFactory2.ngInjectableDef = ΔdefineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(Δinject(EventManager), Δinject(DomSharedStylesHost)); }, providedIn: null });
+    DomRendererFactory2.ngInjectableDef = ΔdefineInjectable({ token: DomRendererFactory2, factory: function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(Δinject(EventManager), Δinject(DomSharedStylesHost), Δinject(APP_ID)); }, providedIn: null });
     return DomRendererFactory2;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(DomRendererFactory2, [{
         type: Injectable
-    }], function () { return [{ type: EventManager }, { type: DomSharedStylesHost }]; }, null);
+    }], function () { return [{ type: EventManager }, { type: DomSharedStylesHost }, { type: undefined, decorators: [{
+                type: Inject,
+                args: [APP_ID]
+            }] }]; }, null);
 var DefaultDomRenderer2 = /** @class */ (function () {
     function DefaultDomRenderer2(eventManager) {
         this.eventManager = eventManager;
@@ -1127,13 +1130,13 @@ function checkNoSyntheticProp(name, nameKind) {
 }
 var EmulatedEncapsulationDomRenderer2 = /** @class */ (function (_super) {
     __extends(EmulatedEncapsulationDomRenderer2, _super);
-    function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component) {
+    function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component, appId) {
         var _this = _super.call(this, eventManager) || this;
         _this.component = component;
-        var styles = flattenStyles(component.id, component.styles, []);
+        var styles = flattenStyles(appId + '-' + component.id, component.styles, []);
         sharedStylesHost.addStyles(styles);
-        _this.contentAttr = shimContentAttribute(component.id);
-        _this.hostAttr = shimHostAttribute(component.id);
+        _this.contentAttr = shimContentAttribute(appId + '-' + component.id);
+        _this.hostAttr = shimHostAttribute(appId + '-' + component.id);
         return _this;
     }
     EmulatedEncapsulationDomRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
@@ -1919,7 +1922,7 @@ var BROWSER_MODULE_PROVIDERS = [
     {
         provide: DomRendererFactory2,
         useClass: DomRendererFactory2,
-        deps: [EventManager, DomSharedStylesHost]
+        deps: [EventManager, DomSharedStylesHost, APP_ID]
     },
     { provide: RendererFactory2, useExisting: DomRendererFactory2 },
     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
@@ -2491,7 +2494,7 @@ var DOCUMENT = DOCUMENT$1;
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-beta.11+72.sha-3ea8d65.with-local-changes');
+var VERSION = new Version('8.0.0-beta.11+73.sha-712d60e.with-local-changes');
 
 /**
  * @license
