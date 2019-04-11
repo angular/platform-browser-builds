@@ -1,11 +1,11 @@
 /**
- * @license Angular v7.2.12+27.sha-19fe45d.with-local-changes
+ * @license Angular v7.2.12+28.sha-ca14509.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, APP_ID, NgModule, ApplicationModule, SkipSelf, inject, defineInjectable, Version } from '@angular/core';
+import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, NgModule, ApplicationModule, SkipSelf, inject, defineInjectable, Version } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -1687,10 +1687,12 @@ class DomRendererFactory2 {
     /**
      * @param {?} eventManager
      * @param {?} sharedStylesHost
+     * @param {?} appId
      */
-    constructor(eventManager, sharedStylesHost) {
+    constructor(eventManager, sharedStylesHost, appId) {
         this.eventManager = eventManager;
         this.sharedStylesHost = sharedStylesHost;
+        this.appId = appId;
         this.rendererByCompId = new Map();
         this.defaultRenderer = new DefaultDomRenderer2(eventManager);
     }
@@ -1708,8 +1710,7 @@ class DomRendererFactory2 {
                 /** @type {?} */
                 let renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
-                    renderer =
-                        new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
+                    renderer = new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type, this.appId);
                     this.rendererByCompId.set(type.id, renderer);
                 }
                 ((/** @type {?} */ (renderer))).applyToHost(element);
@@ -1744,7 +1745,8 @@ DomRendererFactory2.decorators = [
 /** @nocollapse */
 DomRendererFactory2.ctorParameters = () => [
     { type: EventManager },
-    { type: DomSharedStylesHost }
+    { type: DomSharedStylesHost },
+    { type: String, decorators: [{ type: Inject, args: [APP_ID,] }] }
 ];
 class DefaultDomRenderer2 {
     /**
@@ -1967,15 +1969,16 @@ class EmulatedEncapsulationDomRenderer2 extends DefaultDomRenderer2 {
      * @param {?} eventManager
      * @param {?} sharedStylesHost
      * @param {?} component
+     * @param {?} appId
      */
-    constructor(eventManager, sharedStylesHost, component) {
+    constructor(eventManager, sharedStylesHost, component, appId) {
         super(eventManager);
         this.component = component;
         /** @type {?} */
-        const styles = flattenStyles(component.id, component.styles, []);
+        const styles = flattenStyles(appId + '-' + component.id, component.styles, []);
         sharedStylesHost.addStyles(styles);
-        this.contentAttr = shimContentAttribute(component.id);
-        this.hostAttr = shimHostAttribute(component.id);
+        this.contentAttr = shimContentAttribute(appId + '-' + component.id);
+        this.hostAttr = shimHostAttribute(appId + '-' + component.id);
     }
     /**
      * @param {?} element
@@ -2946,7 +2949,7 @@ const BROWSER_MODULE_PROVIDERS = [
     {
         provide: DomRendererFactory2,
         useClass: DomRendererFactory2,
-        deps: [EventManager, DomSharedStylesHost]
+        deps: [EventManager, DomSharedStylesHost, APP_ID]
     },
     { provide: RendererFactory2, useExisting: DomRendererFactory2 },
     { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
@@ -3585,7 +3588,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('7.2.12+27.sha-19fe45d.with-local-changes');
+const VERSION = new Version('7.2.12+28.sha-ca14509.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

@@ -20,9 +20,10 @@ export declare function flattenStyles(compId: string, styles: Array<any | any[]>
 export declare class DomRendererFactory2 implements RendererFactory2 {
     private eventManager;
     private sharedStylesHost;
+    private appId;
     private rendererByCompId;
     private defaultRenderer;
-    constructor(eventManager: EventManager, sharedStylesHost: DomSharedStylesHost);
+    constructor(eventManager: EventManager, sharedStylesHost: DomSharedStylesHost, appId: string);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     begin(): void;
     end(): void;

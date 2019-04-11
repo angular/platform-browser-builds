@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.12+27.sha-19fe45d.with-local-changes
+ * @license Angular v7.2.12+28.sha-ca14509.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1079,9 +1079,10 @@
         };
     }
     var DomRendererFactory2 = /** @class */ (function () {
-        function DomRendererFactory2(eventManager, sharedStylesHost) {
+        function DomRendererFactory2(eventManager, sharedStylesHost, appId) {
             this.eventManager = eventManager;
             this.sharedStylesHost = sharedStylesHost;
+            this.appId = appId;
             this.rendererByCompId = new Map();
             this.defaultRenderer = new DefaultDomRenderer2(eventManager);
         }
@@ -1093,8 +1094,7 @@
                 case core.ViewEncapsulation.Emulated: {
                     var renderer = this.rendererByCompId.get(type.id);
                     if (!renderer) {
-                        renderer =
-                            new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
+                        renderer = new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type, this.appId);
                         this.rendererByCompId.set(type.id, renderer);
                     }
                     renderer.applyToHost(element);
@@ -1117,7 +1117,8 @@
         DomRendererFactory2.prototype.end = function () { };
         DomRendererFactory2 = __decorate([
             core.Injectable(),
-            __metadata("design:paramtypes", [EventManager, DomSharedStylesHost])
+            __param(2, core.Inject(core.APP_ID)),
+            __metadata("design:paramtypes", [EventManager, DomSharedStylesHost, String])
         ], DomRendererFactory2);
         return DomRendererFactory2;
     }());
@@ -1230,13 +1231,13 @@
     }
     var EmulatedEncapsulationDomRenderer2 = /** @class */ (function (_super) {
         __extends(EmulatedEncapsulationDomRenderer2, _super);
-        function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component) {
+        function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component, appId) {
             var _this = _super.call(this, eventManager) || this;
             _this.component = component;
-            var styles = flattenStyles(component.id, component.styles, []);
+            var styles = flattenStyles(appId + '-' + component.id, component.styles, []);
             sharedStylesHost.addStyles(styles);
-            _this.contentAttr = shimContentAttribute(component.id);
-            _this.hostAttr = shimHostAttribute(component.id);
+            _this.contentAttr = shimContentAttribute(appId + '-' + component.id);
+            _this.hostAttr = shimHostAttribute(appId + '-' + component.id);
             return _this;
         }
         EmulatedEncapsulationDomRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
@@ -2035,7 +2036,7 @@
         {
             provide: DomRendererFactory2,
             useClass: DomRendererFactory2,
-            deps: [EventManager, DomSharedStylesHost]
+            deps: [EventManager, DomSharedStylesHost, core.APP_ID]
         },
         { provide: core.RendererFactory2, useExisting: DomRendererFactory2 },
         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
@@ -2552,7 +2553,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('7.2.12+27.sha-19fe45d.with-local-changes');
+    var VERSION = new core.Version('7.2.12+28.sha-ca14509.with-local-changes');
 
     /**
      * @license
