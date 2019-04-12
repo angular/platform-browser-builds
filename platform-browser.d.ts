@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.11+64.sha-675f390.with-local-changes
+ * @license Angular v8.0.0-beta.11+85.sha-b057806.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -898,9 +898,10 @@ export declare class ɵDomEventsPlugin extends ɵangular_packages_platform_brows
 export declare class ɵDomRendererFactory2 implements RendererFactory2 {
     private eventManager;
     private sharedStylesHost;
+    private appId;
     private rendererByCompId;
     private defaultRenderer;
-    constructor(eventManager: EventManager, sharedStylesHost: ɵDomSharedStylesHost);
+    constructor(eventManager: EventManager, sharedStylesHost: ɵDomSharedStylesHost, appId: string);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     begin(): void;
     end(): void;

@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.11+64.sha-675f390.with-local-changes
+ * @license Angular v8.0.0-beta.11+85.sha-b057806.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1061,9 +1061,10 @@
         };
     }
     var DomRendererFactory2 = /** @class */ (function () {
-        function DomRendererFactory2(eventManager, sharedStylesHost) {
+        function DomRendererFactory2(eventManager, sharedStylesHost, appId) {
             this.eventManager = eventManager;
             this.sharedStylesHost = sharedStylesHost;
+            this.appId = appId;
             this.rendererByCompId = new Map();
             this.defaultRenderer = new DefaultDomRenderer2(eventManager);
         }
@@ -1075,8 +1076,7 @@
                 case core.ViewEncapsulation.Emulated: {
                     var renderer = this.rendererByCompId.get(type.id);
                     if (!renderer) {
-                        renderer =
-                            new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type);
+                        renderer = new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type, this.appId);
                         this.rendererByCompId.set(type.id, renderer);
                     }
                     renderer.applyToHost(element);
@@ -1099,7 +1099,8 @@
         DomRendererFactory2.prototype.end = function () { };
         DomRendererFactory2 = __decorate([
             core.Injectable(),
-            __metadata("design:paramtypes", [EventManager, DomSharedStylesHost])
+            __param(2, core.Inject(core.APP_ID)),
+            __metadata("design:paramtypes", [EventManager, DomSharedStylesHost, String])
         ], DomRendererFactory2);
         return DomRendererFactory2;
     }());
@@ -1221,13 +1222,13 @@
     }
     var EmulatedEncapsulationDomRenderer2 = /** @class */ (function (_super) {
         __extends(EmulatedEncapsulationDomRenderer2, _super);
-        function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component) {
+        function EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, component, appId) {
             var _this = _super.call(this, eventManager) || this;
             _this.component = component;
-            var styles = flattenStyles(component.id, component.styles, []);
+            var styles = flattenStyles(appId + '-' + component.id, component.styles, []);
             sharedStylesHost.addStyles(styles);
-            _this.contentAttr = shimContentAttribute(component.id);
-            _this.hostAttr = shimHostAttribute(component.id);
+            _this.contentAttr = shimContentAttribute(appId + '-' + component.id);
+            _this.hostAttr = shimHostAttribute(appId + '-' + component.id);
             return _this;
         }
         EmulatedEncapsulationDomRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
@@ -2026,7 +2027,7 @@
         {
             provide: DomRendererFactory2,
             useClass: DomRendererFactory2,
-            deps: [EventManager, DomSharedStylesHost]
+            deps: [EventManager, DomSharedStylesHost, core.APP_ID]
         },
         { provide: core.RendererFactory2, useExisting: DomRendererFactory2 },
         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
@@ -2082,7 +2083,7 @@
      * Factory to create Meta service.
      */
     function createMeta() {
-        return new Meta(core.Δinject(common.DOCUMENT));
+        return new Meta(core.ɵɵinject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and add meta tags.
@@ -2169,7 +2170,7 @@
             var _this = this;
             return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
         };
-        Meta.ngInjectableDef = core.ΔdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+        Meta.ngInjectableDef = core.ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
         Meta = __decorate([
             core.Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
             __param(0, core.Inject(common.DOCUMENT)),
@@ -2182,7 +2183,7 @@
      * Factory to create Title service.
      */
     function createTitle() {
-        return new Title(core.Δinject(common.DOCUMENT));
+        return new Title(core.ɵɵinject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and set the title of a current HTML document.
@@ -2207,7 +2208,7 @@
          * @param newTitle
          */
         Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
-        Title.ngInjectableDef = core.ΔdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+        Title.ngInjectableDef = core.ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
         Title = __decorate([
             core.Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
             __param(0, core.Inject(common.DOCUMENT)),
@@ -2561,7 +2562,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-beta.11+64.sha-675f390.with-local-changes');
+    var VERSION = new core.Version('8.0.0-beta.11+85.sha-b057806.with-local-changes');
 
     /**
      * @license
