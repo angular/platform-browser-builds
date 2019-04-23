@@ -1,10 +1,10 @@
 /**
- * @license Angular v8.0.0-beta.13+80.sha-9873356.with-local-changes
+ * @license Angular v8.0.0-beta.13+82.sha-8e73f9b.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵparseCookieValue, PlatformLocation, DOCUMENT as DOCUMENT$1, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵparseCookieValue, PlatformLocation, DOCUMENT as DOCUMENT$1, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, NgModule, ApplicationModule, SkipSelf, ɵɵinject, ɵɵdefineInjectable, Version } from '@angular/core';
 
 /**
@@ -3051,9 +3051,10 @@ class SafeResourceUrlImpl extends SafeValueImpl {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+const ɵ0$2 = ɵPLATFORM_BROWSER_ID;
 /** @type {?} */
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
+    { provide: PLATFORM_ID, useValue: ɵ0$2 },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT$1] },
     { provide: DOCUMENT$1, useFactory: _document, deps: [] },
@@ -3803,7 +3804,7 @@ const DOCUMENT = DOCUMENT$1;
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.13+80.sha-9873356.with-local-changes');
+const VERSION = new Version('8.0.0-beta.13+82.sha-8e73f9b.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
