@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.14+19.sha-3938563.with-local-changes
+ * @license Angular v8.0.0-beta.14+31.sha-071ee64.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -744,6 +744,10 @@ export declare class ɵBrowserPlatformLocation extends PlatformLocation {
     getBaseHrefFromDOM(): string;
     onPopState(fn: LocationChangeListener): void;
     onHashChange(fn: LocationChangeListener): void;
+    readonly href: string;
+    readonly protocol: string;
+    readonly hostname: string;
+    readonly port: string;
     pathname: string;
     readonly search: string;
     readonly hash: string;
@@ -751,6 +755,7 @@ export declare class ɵBrowserPlatformLocation extends PlatformLocation {
     replaceState(state: any, title: string, url: string): void;
     forward(): void;
     back(): void;
+    getState(): unknown;
 }
 
 /**
