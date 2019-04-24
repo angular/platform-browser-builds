@@ -20,6 +20,10 @@ export declare class BrowserPlatformLocation extends PlatformLocation {
     getBaseHrefFromDOM(): string;
     onPopState(fn: LocationChangeListener): void;
     onHashChange(fn: LocationChangeListener): void;
+    readonly href: string;
+    readonly protocol: string;
+    readonly hostname: string;
+    readonly port: string;
     pathname: string;
     readonly search: string;
     readonly hash: string;
@@ -27,5 +31,6 @@ export declare class BrowserPlatformLocation extends PlatformLocation {
     replaceState(state: any, title: string, url: string): void;
     forward(): void;
     back(): void;
+    getState(): unknown;
     static ngInjectableDef: i0.ɵɵInjectableDef<BrowserPlatformLocation>;
 }

@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.14+19.sha-3938563.with-local-changes
+ * @license Angular v8.0.0-beta.14+31.sha-071ee64.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -559,6 +559,26 @@ var BrowserPlatformLocation = /** @class */ (function (_super) {
     BrowserPlatformLocation.prototype.onHashChange = function (fn) {
         getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('hashchange', fn, false);
     };
+    Object.defineProperty(BrowserPlatformLocation.prototype, "href", {
+        get: function () { return this.location.href; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserPlatformLocation.prototype, "protocol", {
+        get: function () { return this.location.protocol; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserPlatformLocation.prototype, "hostname", {
+        get: function () { return this.location.hostname; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BrowserPlatformLocation.prototype, "port", {
+        get: function () { return this.location.port; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(BrowserPlatformLocation.prototype, "pathname", {
         get: function () { return this.location.pathname; },
         set: function (newPath) { this.location.pathname = newPath; },
@@ -593,6 +613,7 @@ var BrowserPlatformLocation = /** @class */ (function (_super) {
     };
     BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
     BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
+    BrowserPlatformLocation.prototype.getState = function () { return this._history.state; };
     BrowserPlatformLocation.ngInjectableDef = ɵɵdefineInjectable({ token: BrowserPlatformLocation, factory: function BrowserPlatformLocation_Factory(t) { return new (t || BrowserPlatformLocation)(ɵɵinject(DOCUMENT$1)); }, providedIn: null });
     return BrowserPlatformLocation;
 }(PlatformLocation));
@@ -2494,7 +2515,7 @@ var DOCUMENT = DOCUMENT$1;
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-beta.14+19.sha-3938563.with-local-changes');
+var VERSION = new Version('8.0.0-beta.14+31.sha-071ee64.with-local-changes');
 
 /**
  * @license
