@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.14+31.sha-071ee64.with-local-changes
+ * @license Angular v8.0.0-beta.14+74.sha-6de4cbd.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2555,24 +2555,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /**
-     * A DI Token representing the main rendering context. In a browser this is the DOM Document.
-     *
-     * Note: Document might not be available in the Application Context when Application and Rendering
-     * Contexts are not the same (e.g. when running the application into a Web Worker).
-     *
-     * @deprecated import from `@angular/common` instead.
-     * @publicApi
-     */
-    var DOCUMENT = common.DOCUMENT;
-
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
 
     /**
      * @license
@@ -2584,7 +2566,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-beta.14+31.sha-071ee64.with-local-changes');
+    var VERSION = new core.Version('8.0.0-beta.14+74.sha-6de4cbd.with-local-changes');
 
     /**
      * @license
@@ -2636,7 +2618,6 @@
     exports.TransferState = TransferState;
     exports.makeStateKey = makeStateKey;
     exports.By = By;
-    exports.DOCUMENT = DOCUMENT;
     exports.EVENT_MANAGER_PLUGINS = EVENT_MANAGER_PLUGINS;
     exports.EventManager = EventManager;
     exports.HAMMER_GESTURE_CONFIG = HAMMER_GESTURE_CONFIG;
