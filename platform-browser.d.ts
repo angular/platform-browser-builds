@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.14+71.sha-6200732.with-local-changes
+ * @license Angular v8.0.0-beta.14+72.sha-3a9d247.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -104,17 +104,6 @@ export declare class By {
  * @publicApi
  */
 export declare function disableDebugTools(): void;
-
-/**
- * A DI Token representing the main rendering context. In a browser this is the DOM Document.
- *
- * Note: Document might not be available in the Application Context when Application and Rendering
- * Contexts are not the same (e.g. when running the application into a Web Worker).
- *
- * @deprecated import from `@angular/common` instead.
- * @publicApi
- */
-export declare const DOCUMENT: InjectionToken<Document>;
 
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
