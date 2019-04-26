@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+4.sha-f45684f.with-local-changes
+ * @license Angular v8.0.0-rc.0+5.sha-870e0da.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -858,9 +858,17 @@
         return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
     }
     /**
+     * In Ivy, we don't support NgProbe because we have our own set of testing utilities
+     * with more robust functionality.
+     *
+     * We shouldn't bring in NgProbe because it prevents DebugNode and friends from
+     * tree-shaking properly.
+     */
+    var ELEMENT_PROBE_PROVIDERS__POST_R3__ = [];
+    /**
      * Providers which support debugging Angular applications (e.g. via `ng.probe`).
      */
-    var ELEMENT_PROBE_PROVIDERS = [
+    var ELEMENT_PROBE_PROVIDERS__PRE_R3__ = [
         {
             provide: core.APP_INITIALIZER,
             useFactory: _createNgProbe,
@@ -870,6 +878,7 @@
             multi: true,
         },
     ];
+    var ELEMENT_PROBE_PROVIDERS = ELEMENT_PROBE_PROVIDERS__PRE_R3__;
 
     /**
      * @license
@@ -2566,7 +2575,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-rc.0+4.sha-f45684f.with-local-changes');
+    var VERSION = new core.Version('8.0.0-rc.0+5.sha-870e0da.with-local-changes');
 
     /**
      * @license
@@ -2600,12 +2609,13 @@
     exports.ɵangular_packages_platform_browser_platform_browser_c = BROWSER_MODULE_PROVIDERS;
     exports.ɵangular_packages_platform_browser_platform_browser_b = _document;
     exports.ɵangular_packages_platform_browser_platform_browser_a = errorHandler;
-    exports.ɵangular_packages_platform_browser_platform_browser_k = GenericBrowserDomAdapter;
+    exports.ɵangular_packages_platform_browser_platform_browser_l = GenericBrowserDomAdapter;
     exports.ɵangular_packages_platform_browser_platform_browser_d = createMeta;
     exports.ɵangular_packages_platform_browser_platform_browser_i = SERVER_TRANSITION_PROVIDERS;
     exports.ɵangular_packages_platform_browser_platform_browser_h = appInitializerFactory;
     exports.ɵangular_packages_platform_browser_platform_browser_e = createTitle;
     exports.ɵangular_packages_platform_browser_platform_browser_f = initTransferState;
+    exports.ɵangular_packages_platform_browser_platform_browser_k = ELEMENT_PROBE_PROVIDERS__PRE_R3__;
     exports.ɵangular_packages_platform_browser_platform_browser_j = _createNgProbe;
     exports.ɵangular_packages_platform_browser_platform_browser_g = EventManagerPlugin;
     exports.BrowserModule = BrowserModule;
@@ -2625,6 +2635,7 @@
     exports.HammerGestureConfig = HammerGestureConfig;
     exports.DomSanitizer = DomSanitizer;
     exports.VERSION = VERSION;
+    exports.ɵELEMENT_PROBE_PROVIDERS__POST_R3__ = ELEMENT_PROBE_PROVIDERS__POST_R3__;
     exports.ɵBROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
     exports.ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS = INTERNAL_BROWSER_PLATFORM_PROVIDERS;
     exports.ɵinitDomAdapter = initDomAdapter;
