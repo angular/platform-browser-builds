@@ -14,6 +14,15 @@ import * as core from '@angular/core';
 export declare function inspectNativeElement(element: any): core.DebugNode | null;
 export declare function _createNgProbe(coreTokens: core.NgProbeToken[]): any;
 /**
+ * In Ivy, we don't support NgProbe because we have our own set of testing utilities
+ * with more robust functionality.
+ *
+ * We shouldn't bring in NgProbe because it prevents DebugNode and friends from
+ * tree-shaking properly.
+ */
+export declare const ELEMENT_PROBE_PROVIDERS__POST_R3__: never[];
+/**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
+export declare const ELEMENT_PROBE_PROVIDERS__PRE_R3__: core.Provider[];
 export declare const ELEMENT_PROBE_PROVIDERS: core.Provider[];

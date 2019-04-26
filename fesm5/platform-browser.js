@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+4.sha-f45684f.with-local-changes
+ * @license Angular v8.0.0-rc.0+5.sha-71b8b35.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -743,13 +743,6 @@ function exportNgVar(name, value) {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var CORE_TOKENS = {
     'ApplicationRef': ApplicationRef,
     'NgZone': NgZone,
@@ -773,9 +766,17 @@ function _ngProbeTokensToMap(tokens) {
     return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
 }
 /**
+ * In Ivy, we don't support NgProbe because we have our own set of testing utilities
+ * with more robust functionality.
+ *
+ * We shouldn't bring in NgProbe because it prevents DebugNode and friends from
+ * tree-shaking properly.
+ */
+var ELEMENT_PROBE_PROVIDERS__POST_R3__ = [];
+/**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
-var ELEMENT_PROBE_PROVIDERS = [
+var ELEMENT_PROBE_PROVIDERS__PRE_R3__ = [
     {
         provide: APP_INITIALIZER,
         useFactory: _createNgProbe,
@@ -785,6 +786,7 @@ var ELEMENT_PROBE_PROVIDERS = [
         multi: true,
     },
 ];
+var ELEMENT_PROBE_PROVIDERS = ELEMENT_PROBE_PROVIDERS__POST_R3__;
 
 /**
  * @license
@@ -2497,7 +2499,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-rc.0+4.sha-f45684f.with-local-changes');
+var VERSION = new Version('8.0.0-rc.0+5.sha-71b8b35.with-local-changes');
 
 /**
  * @license
@@ -2524,5 +2526,5 @@ var VERSION = new Version('8.0.0-rc.0+4.sha-f45684f.with-local-changes');
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.js.map

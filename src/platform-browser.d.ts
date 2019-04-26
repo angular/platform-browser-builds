@@ -16,3 +16,4 @@ export { HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerLoader
 export { DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl, SafeValue } from './security/dom_sanitization_service';
 export * from './private_export';
 export { VERSION } from './version';
+export { ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__ } from './dom/debug/ng_probe';
