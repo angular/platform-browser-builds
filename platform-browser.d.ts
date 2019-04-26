@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+4.sha-f45684f.with-local-changes
+ * @license Angular v8.0.0-rc.0+5.sha-71b8b35.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -569,12 +569,17 @@ export declare const ɵangular_packages_platform_browser_platform_browser_i: Sta
 export declare function ɵangular_packages_platform_browser_platform_browser_j(coreTokens: core.NgProbeToken[]): any;
 
 /**
+ * Providers which support debugging Angular applications (e.g. via `ng.probe`).
+ */
+export declare const ɵangular_packages_platform_browser_platform_browser_k: core.Provider[];
+
+/**
  * Provides DOM operations in any browser environment.
  *
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare abstract class ɵangular_packages_platform_browser_platform_browser_k extends ɵDomAdapter {
+export declare abstract class ɵangular_packages_platform_browser_platform_browser_l extends ɵDomAdapter {
     private _animationPrefix;
     private _transitionEnd;
     constructor();
@@ -601,7 +606,7 @@ export declare const ɵBROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_k {
+export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_l {
     parse(templateHtml: string): void;
     static makeCurrent(): void;
     hasProperty(element: Node, name: string): boolean;
@@ -925,10 +930,16 @@ export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements
     ngOnDestroy(): void;
 }
 
-/**
- * Providers which support debugging Angular applications (e.g. via `ng.probe`).
- */
 export declare const ɵELEMENT_PROBE_PROVIDERS: core.Provider[];
+
+/**
+ * In Ivy, we don't support NgProbe because we have our own set of testing utilities
+ * with more robust functionality.
+ *
+ * We shouldn't bring in NgProbe because it prevents DebugNode and friends from
+ * tree-shaking properly.
+ */
+export declare const ɵELEMENT_PROBE_PROVIDERS__POST_R3__: never[];
 
 
 export declare function ɵescapeHtml(text: string): string;
