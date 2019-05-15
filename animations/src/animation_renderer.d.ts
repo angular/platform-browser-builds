@@ -17,7 +17,7 @@ export declare class AnimationRendererFactory implements RendererFactory2 {
     private _scheduleCountTask;
     end(): void;
     whenRenderingDone(): Promise<any>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<AnimationRendererFactory>;
+    static ngInjectableDef: i0.ΔInjectableDef<AnimationRendererFactory>;
 }
 export declare class BaseAnimationRenderer implements Renderer2 {
     protected namespaceId: string;
