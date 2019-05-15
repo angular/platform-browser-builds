@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.3+50.sha-db64b01.with-local-changes
+ * @license Angular v8.0.0-rc.3+52.sha-b12e76d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -208,17 +208,23 @@ const _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
+const ɵ0 = /**
+ * @return {?}
+ */
+() => {
+    if (ɵglobal['Node']) {
+        return ɵglobal['Node'].prototype.contains || (/**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) {
+            return !!(this.compareDocumentPosition(node) & 16);
+        });
+    }
+    return (/** @type {?} */ (undefined));
+};
 /** @type {?} */
-let nodeContains;
-if (ɵglobal['Node']) {
-    nodeContains = ɵglobal['Node'].prototype.contains || (/**
-     * @param {?} node
-     * @return {?}
-     */
-    function (node) {
-        return !!(this.compareDocumentPosition(node) & 16);
-    });
-}
+const nodeContains = ((ɵ0))();
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
@@ -1403,11 +1409,15 @@ function exportNgVar(name, value) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const CORE_TOKENS = {
+const ɵ0$1 = /**
+ * @return {?}
+ */
+() => ({
     'ApplicationRef': ApplicationRef,
     'NgZone': NgZone,
-};
+});
+/** @type {?} */
+const CORE_TOKENS = ((ɵ0$1))();
 /** @type {?} */
 const INSPECT_GLOBAL_NAME = 'probe';
 /** @type {?} */
@@ -2062,8 +2072,12 @@ class DefaultDomRenderer2 {
         return (/** @type {?} */ ((/** @type {?} */ (this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))))));
     }
 }
+const ɵ0$2 = /**
+ * @return {?}
+ */
+() => '@'.charCodeAt(0);
 /** @type {?} */
-const AT_CHARCODE = '@'.charCodeAt(0);
+const AT_CHARCODE = ((ɵ0$2))();
 /**
  * @param {?} name
  * @param {?} nameKind
@@ -2183,13 +2197,15 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-const ɵ0 = /**
- * @param {?} v
+const ɵ0$3 = /**
  * @return {?}
  */
-function (v) {
-    return '__zone_symbol__' + v;
-};
+() => (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))['__symbol__'] ||
+    (/**
+     * @param {?} v
+     * @return {?}
+     */
+    function (v) { return '__zone_symbol__' + v; });
 /**
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
  * since Angular can do much more
@@ -2197,7 +2213,7 @@ function (v) {
  * addEventListener by 3x.
  * @type {?}
  */
-const __symbol__ = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))['__symbol__'] || (ɵ0);
+const __symbol__ = ((ɵ0$3))();
 /** @type {?} */
 const ADD_EVENT_LISTENER = __symbol__('addEventListener');
 /** @type {?} */
@@ -2217,18 +2233,26 @@ const NATIVE_REMOVE_LISTENER = 'removeEventListener';
 const stopSymbol = '__zone_symbol__propagationStopped';
 /** @type {?} */
 const stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
+const ɵ1 = /**
+ * @return {?}
+ */
+() => {
+    /** @type {?} */
+    const blackListedEvents = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))[__symbol__('BLACK_LISTED_EVENTS')];
+    if (blackListedEvents) {
+        /** @type {?} */
+        const res = {};
+        blackListedEvents.forEach((/**
+         * @param {?} eventName
+         * @return {?}
+         */
+        eventName => { res[eventName] = eventName; }));
+        return res;
+    }
+    return undefined;
+};
 /** @type {?} */
-const blackListedEvents = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))[__symbol__('BLACK_LISTED_EVENTS')];
-/** @type {?} */
-let blackListedMap;
-if (blackListedEvents) {
-    blackListedMap = {};
-    blackListedEvents.forEach((/**
-     * @param {?} eventName
-     * @return {?}
-     */
-    eventName => { blackListedMap[eventName] = eventName; }));
-}
+const blackListedMap = ((ɵ1))();
 /** @type {?} */
 const isBlackListedEvent = (/**
  * @param {?} eventName
@@ -2714,11 +2738,11 @@ HammerGesturesPlugin.ctorParameters = () => [
  * @type {?}
  */
 const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-const ɵ0$1 = /**
+const ɵ0$4 = /**
  * @param {?} event
  * @return {?}
  */
-(event) => event.altKey, ɵ1 = /**
+(event) => event.altKey, ɵ1$1 = /**
  * @param {?} event
  * @return {?}
  */
@@ -2736,8 +2760,8 @@ const ɵ0$1 = /**
  * @type {?}
  */
 const MODIFIER_KEY_GETTERS = {
-    'alt': (ɵ0$1),
-    'control': (ɵ1),
+    'alt': (ɵ0$4),
+    'control': (ɵ1$1),
     'meta': (ɵ2),
     'shift': (ɵ3)
 };
@@ -3082,10 +3106,10 @@ class SafeResourceUrlImpl extends SafeValueImpl {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-const ɵ0$2 = ɵPLATFORM_BROWSER_ID;
+const ɵ0$5 = ɵPLATFORM_BROWSER_ID;
 /** @type {?} */
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: PLATFORM_ID, useValue: ɵ0$2 },
+    { provide: PLATFORM_ID, useValue: ɵ0$5 },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
@@ -3819,7 +3843,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-rc.3+50.sha-db64b01.with-local-changes');
+const VERSION = new Version('8.0.0-rc.3+52.sha-b12e76d.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
