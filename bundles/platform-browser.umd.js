@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+170.sha-c7f9a95.with-local-changes
+ * @license Angular v8.0.0-rc.0+182.sha-79d4b16.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2114,7 +2114,7 @@
      * Factory to create Meta service.
      */
     function createMeta() {
-        return new Meta(core.ɵɵinject(common.DOCUMENT));
+        return new Meta(core.Δinject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and add meta tags.
@@ -2201,7 +2201,7 @@
             var _this = this;
             return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
         };
-        Meta.ngInjectableDef = core.ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+        Meta.ngInjectableDef = core.ΔdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
         Meta = __decorate([
             core.Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
             __param(0, core.Inject(common.DOCUMENT)),
@@ -2214,7 +2214,7 @@
      * Factory to create Title service.
      */
     function createTitle() {
-        return new Title(core.ɵɵinject(common.DOCUMENT));
+        return new Title(core.Δinject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and set the title of a current HTML document.
@@ -2239,7 +2239,7 @@
          * @param newTitle
          */
         Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
-        Title.ngInjectableDef = core.ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+        Title.ngInjectableDef = core.ΔdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
         Title = __decorate([
             core.Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
             __param(0, core.Inject(common.DOCUMENT)),
@@ -2575,7 +2575,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-rc.0+170.sha-c7f9a95.with-local-changes');
+    var VERSION = new core.Version('8.0.0-rc.0+182.sha-79d4b16.with-local-changes');
 
     /**
      * @license
