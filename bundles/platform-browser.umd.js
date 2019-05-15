@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.3+54.sha-17361d2.with-local-changes
+ * @license Angular v8.0.0-rc.3+57.sha-e10b213.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2122,7 +2122,7 @@
      * Factory to create Meta service.
      */
     function createMeta() {
-        return new Meta(i0.ɵɵinject(common.DOCUMENT));
+        return new Meta(i0.Δinject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and add meta tags.
@@ -2209,7 +2209,7 @@
             var _this = this;
             return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
         };
-        Meta.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+        Meta.ngInjectableDef = i0.ΔdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
         Meta = __decorate([
             i0.Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
             __param(0, i0.Inject(common.DOCUMENT)),
@@ -2222,7 +2222,7 @@
      * Factory to create Title service.
      */
     function createTitle() {
-        return new Title(i0.ɵɵinject(common.DOCUMENT));
+        return new Title(i0.Δinject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and set the title of a current HTML document.
@@ -2247,7 +2247,7 @@
          * @param newTitle
          */
         Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
-        Title.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+        Title.ngInjectableDef = i0.ΔdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
         Title = __decorate([
             i0.Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
             __param(0, i0.Inject(common.DOCUMENT)),
@@ -2583,7 +2583,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-rc.3+54.sha-17361d2.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-rc.3+57.sha-e10b213.with-local-changes');
 
     /**
      * @license
