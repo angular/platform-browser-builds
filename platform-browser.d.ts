@@ -1,11 +1,10 @@
 /**
- * @license Angular v8.0.0-rc.0+199.sha-e9ead2b.with-local-changes
+ * @license Angular v8.0.0-rc.0+216.sha-c9b588b.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ComponentRef } from '@angular/core';
-import * as core from '@angular/core';
 import { DebugElement } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
 import { GetTestability } from '@angular/core';
@@ -13,11 +12,13 @@ import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
 import { LocationChangeListener } from '@angular/common';
 import { ModuleWithProviders } from '@angular/core';
+import { NgProbeToken } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 import { PlatformRef } from '@angular/core';
 import { Predicate } from '@angular/core';
+import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
@@ -566,12 +567,12 @@ export declare function ɵangular_packages_platform_browser_platform_browser_h(t
 
 export declare const ɵangular_packages_platform_browser_platform_browser_i: StaticProvider[];
 
-export declare function ɵangular_packages_platform_browser_platform_browser_j(coreTokens: core.NgProbeToken[]): any;
+export declare function ɵangular_packages_platform_browser_platform_browser_j(coreTokens: NgProbeToken[]): any;
 
 /**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
-export declare const ɵangular_packages_platform_browser_platform_browser_k: core.Provider[];
+export declare const ɵangular_packages_platform_browser_platform_browser_k: Provider[];
 
 /**
  * Provides DOM operations in any browser environment.
@@ -930,7 +931,7 @@ export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements
     ngOnDestroy(): void;
 }
 
-export declare const ɵELEMENT_PROBE_PROVIDERS: core.Provider[];
+export declare const ɵELEMENT_PROBE_PROVIDERS: Provider[];
 
 /**
  * In Ivy, we don't support NgProbe because we have our own set of testing utilities

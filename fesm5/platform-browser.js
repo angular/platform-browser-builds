@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+199.sha-e9ead2b.with-local-changes
+ * @license Angular v8.0.0-rc.0+216.sha-c9b588b.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -168,12 +168,15 @@ var _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
-var nodeContains;
-if (ɵglobal['Node']) {
-    nodeContains = ɵglobal['Node'].prototype.contains || function (node) {
-        return !!(this.compareDocumentPosition(node) & 16);
-    };
-}
+var ɵ0 = function () {
+    if (ɵglobal['Node']) {
+        return ɵglobal['Node'].prototype.contains || function (node) {
+            return !!(this.compareDocumentPosition(node) & 16);
+        };
+    }
+    return undefined;
+};
+var nodeContains = (ɵ0)();
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
@@ -755,10 +758,11 @@ function exportNgVar(name, value) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var CORE_TOKENS = {
+var ɵ0$1 = function () { return ({
     'ApplicationRef': ApplicationRef,
     'NgZone': NgZone,
-};
+}); };
+var CORE_TOKENS = (ɵ0$1)();
 var INSPECT_GLOBAL_NAME = 'probe';
 var CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
 /**
@@ -1164,7 +1168,8 @@ var DefaultDomRenderer2 = /** @class */ (function () {
     };
     return DefaultDomRenderer2;
 }());
-var AT_CHARCODE = '@'.charCodeAt(0);
+var ɵ0$2 = function () { return '@'.charCodeAt(0); };
+var AT_CHARCODE = (ɵ0$2)();
 function checkNoSyntheticProp(name, nameKind) {
     if (name.charCodeAt(0) === AT_CHARCODE) {
         throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
@@ -1235,16 +1240,15 @@ var ShadowDomRenderer = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ɵ0 = function (v) {
-    return '__zone_symbol__' + v;
-};
+var ɵ0$3 = function () { return (typeof Zone !== 'undefined') && Zone['__symbol__'] ||
+    function (v) { return '__zone_symbol__' + v; }; };
 /**
  * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
  * since Angular can do much more
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
  */
-var __symbol__ = (typeof Zone !== 'undefined') && Zone['__symbol__'] || ɵ0;
+var __symbol__ = (ɵ0$3)();
 var ADD_EVENT_LISTENER = __symbol__('addEventListener');
 var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 var symbolNames = {};
@@ -1255,12 +1259,16 @@ var NATIVE_REMOVE_LISTENER = 'removeEventListener';
 // use the same symbol string which is used in zone.js
 var stopSymbol = '__zone_symbol__propagationStopped';
 var stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
-var blackListedEvents = (typeof Zone !== 'undefined') && Zone[__symbol__('BLACK_LISTED_EVENTS')];
-var blackListedMap;
-if (blackListedEvents) {
-    blackListedMap = {};
-    blackListedEvents.forEach(function (eventName) { blackListedMap[eventName] = eventName; });
-}
+var ɵ1 = function () {
+    var blackListedEvents = (typeof Zone !== 'undefined') && Zone[__symbol__('BLACK_LISTED_EVENTS')];
+    if (blackListedEvents) {
+        var res_1 = {};
+        blackListedEvents.forEach(function (eventName) { res_1[eventName] = eventName; });
+        return res_1;
+    }
+    return undefined;
+};
+var blackListedMap = (ɵ1)();
 var isBlackListedEvent = function (eventName) {
     if (!blackListedMap) {
         return false;
@@ -1635,13 +1643,13 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
  * Defines supported modifiers for key events.
  */
 var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-var ɵ0$1 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
+var ɵ0$4 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
 /**
  * Retrieves modifiers from key-event objects.
  */
 var MODIFIER_KEY_GETTERS = {
-    'alt': ɵ0$1,
-    'control': ɵ1,
+    'alt': ɵ0$4,
+    'control': ɵ1$1,
     'meta': ɵ2,
     'shift': ɵ3
 };
@@ -1926,9 +1934,9 @@ var SafeResourceUrlImpl = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ɵ0$2 = ɵPLATFORM_BROWSER_ID;
+var ɵ0$5 = ɵPLATFORM_BROWSER_ID;
 var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: PLATFORM_ID, useValue: ɵ0$2 },
+    { provide: PLATFORM_ID, useValue: ɵ0$5 },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
@@ -2495,7 +2503,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-rc.0+199.sha-e9ead2b.with-local-changes');
+var VERSION = new Version('8.0.0-rc.0+216.sha-c9b588b.with-local-changes');
 
 /**
  * @license

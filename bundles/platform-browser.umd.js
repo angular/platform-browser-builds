@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+199.sha-e9ead2b.with-local-changes
+ * @license Angular v8.0.0-rc.0+216.sha-c9b588b.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-browser', ['exports', '@angular/common', '@angular/core'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformBrowser = {}), global.ng.common, global.ng.core));
-}(this, function (exports, common, core) { 'use strict';
+}(this, function (exports, common, i0) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -248,12 +248,15 @@
         '\x60': '0',
         '\x90': 'NumLock'
     };
-    var nodeContains;
-    if (core.ɵglobal['Node']) {
-        nodeContains = core.ɵglobal['Node'].prototype.contains || function (node) {
-            return !!(this.compareDocumentPosition(node) & 16);
-        };
-    }
+    var ɵ0 = function () {
+        if (i0.ɵglobal['Node']) {
+            return i0.ɵglobal['Node'].prototype.contains || function (node) {
+                return !!(this.compareDocumentPosition(node) & 16);
+            };
+        }
+        return undefined;
+    };
+    var nodeContains = (ɵ0)();
     /**
      * A `DomAdapter` powered by full browser DOM APIs.
      *
@@ -702,8 +705,8 @@
         BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
         BrowserPlatformLocation.prototype.getState = function () { return this._history.state; };
         BrowserPlatformLocation = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
+            i0.Injectable(),
+            __param(0, i0.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], BrowserPlatformLocation);
         return BrowserPlatformLocation;
@@ -720,12 +723,12 @@
      * An id that identifies a particular application being bootstrapped, that should
      * match across the client/server boundary.
      */
-    var TRANSITION_ID = new core.InjectionToken('TRANSITION_ID');
+    var TRANSITION_ID = new i0.InjectionToken('TRANSITION_ID');
     function appInitializerFactory(transitionId, document, injector) {
         return function () {
             // Wait for all application initializers to be completed before removing the styles set by
             // the server.
-            injector.get(core.ApplicationInitStatus).donePromise.then(function () {
+            injector.get(i0.ApplicationInitStatus).donePromise.then(function () {
                 var dom = getDOM();
                 var styles = Array.prototype.slice.apply(dom.querySelectorAll(document, "style[ng-transition]"));
                 styles.filter(function (el) { return dom.getAttribute(el, 'ng-transition') === transitionId; })
@@ -735,9 +738,9 @@
     }
     var SERVER_TRANSITION_PROVIDERS = [
         {
-            provide: core.APP_INITIALIZER,
+            provide: i0.APP_INITIALIZER,
             useFactory: appInitializerFactory,
-            deps: [TRANSITION_ID, common.DOCUMENT, core.Injector],
+            deps: [TRANSITION_ID, common.DOCUMENT, i0.Injector],
             multi: true
         },
     ];
@@ -752,9 +755,9 @@
     var BrowserGetTestability = /** @class */ (function () {
         function BrowserGetTestability() {
         }
-        BrowserGetTestability.init = function () { core.setTestabilityGetter(new BrowserGetTestability()); };
+        BrowserGetTestability.init = function () { i0.setTestabilityGetter(new BrowserGetTestability()); };
         BrowserGetTestability.prototype.addToWindow = function (registry) {
-            core.ɵglobal['getAngularTestability'] = function (elem, findInAncestors) {
+            i0.ɵglobal['getAngularTestability'] = function (elem, findInAncestors) {
                 if (findInAncestors === void 0) { findInAncestors = true; }
                 var testability = registry.findTestabilityInTree(elem, findInAncestors);
                 if (testability == null) {
@@ -762,10 +765,10 @@
                 }
                 return testability;
             };
-            core.ɵglobal['getAllAngularTestabilities'] = function () { return registry.getAllTestabilities(); };
-            core.ɵglobal['getAllAngularRootElements'] = function () { return registry.getAllRootElements(); };
+            i0.ɵglobal['getAllAngularTestabilities'] = function () { return registry.getAllTestabilities(); };
+            i0.ɵglobal['getAllAngularRootElements'] = function () { return registry.getAllRootElements(); };
             var whenAllStable = function (callback /** TODO #9100 */) {
-                var testabilities = core.ɵglobal['getAllAngularTestabilities']();
+                var testabilities = i0.ɵglobal['getAllAngularTestabilities']();
                 var count = testabilities.length;
                 var didWork = false;
                 var decrement = function (didWork_ /** TODO #9100 */) {
@@ -779,10 +782,10 @@
                     testability.whenStable(decrement);
                 });
             };
-            if (!core.ɵglobal['frameworkStabilizers']) {
-                core.ɵglobal['frameworkStabilizers'] = [];
+            if (!i0.ɵglobal['frameworkStabilizers']) {
+                i0.ɵglobal['frameworkStabilizers'] = [];
             }
-            core.ɵglobal['frameworkStabilizers'].push(whenAllStable);
+            i0.ɵglobal['frameworkStabilizers'].push(whenAllStable);
         };
         BrowserGetTestability.prototype.findTestabilityInTree = function (registry, elem, findInAncestors) {
             if (elem == null) {
@@ -823,7 +826,7 @@
             // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
             // - we can't declare a closure extern as the namespace `ng` is already used within Google
             //   for typings for angularJS (via `goog.provide('ng....')`).
-            var ng = core.ɵglobal['ng'] = core.ɵglobal['ng'] || {};
+            var ng = i0.ɵglobal['ng'] = i0.ɵglobal['ng'] || {};
             ng[name] = value;
         }
     }
@@ -835,10 +838,11 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var CORE_TOKENS = {
-        'ApplicationRef': core.ApplicationRef,
-        'NgZone': core.NgZone,
-    };
+    var ɵ0$1 = function () { return ({
+        'ApplicationRef': i0.ApplicationRef,
+        'NgZone': i0.NgZone,
+    }); };
+    var CORE_TOKENS = (ɵ0$1)();
     var INSPECT_GLOBAL_NAME = 'probe';
     var CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
     /**
@@ -847,7 +851,7 @@
      * with it.
      */
     function inspectNativeElement(element) {
-        return core.getDebugNode(element);
+        return i0.getDebugNode(element);
     }
     function _createNgProbe(coreTokens) {
         exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
@@ -870,10 +874,10 @@
      */
     var ELEMENT_PROBE_PROVIDERS__PRE_R3__ = [
         {
-            provide: core.APP_INITIALIZER,
+            provide: i0.APP_INITIALIZER,
             useFactory: _createNgProbe,
             deps: [
-                [core.NgProbeToken, new core.Optional()],
+                [i0.NgProbeToken, new i0.Optional()],
             ],
             multi: true,
         },
@@ -892,7 +896,7 @@
      *
      * @publicApi
      */
-    var EVENT_MANAGER_PLUGINS = new core.InjectionToken('EventManagerPlugins');
+    var EVENT_MANAGER_PLUGINS = new i0.InjectionToken('EventManagerPlugins');
     /**
      * An injectable service that provides event management for Angular
      * through a browser plug-in.
@@ -957,9 +961,9 @@
             throw new Error("No event manager plugin found for event " + eventName);
         };
         EventManager = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(EVENT_MANAGER_PLUGINS)),
-            __metadata("design:paramtypes", [Array, core.NgZone])
+            i0.Injectable(),
+            __param(0, i0.Inject(EVENT_MANAGER_PLUGINS)),
+            __metadata("design:paramtypes", [Array, i0.NgZone])
         ], EventManager);
         return EventManager;
     }());
@@ -1003,7 +1007,7 @@
         SharedStylesHost.prototype.onStylesAdded = function (additions) { };
         SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
         SharedStylesHost = __decorate([
-            core.Injectable()
+            i0.Injectable()
         ], SharedStylesHost);
         return SharedStylesHost;
     }());
@@ -1036,8 +1040,8 @@
         };
         DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
         DomSharedStylesHost = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
+            i0.Injectable(),
+            __param(0, i0.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], DomSharedStylesHost);
         return DomSharedStylesHost;
@@ -1103,7 +1107,7 @@
                 return this.defaultRenderer;
             }
             switch (type.encapsulation) {
-                case core.ViewEncapsulation.Emulated: {
+                case i0.ViewEncapsulation.Emulated: {
                     var renderer = this.rendererByCompId.get(type.id);
                     if (!renderer) {
                         renderer = new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type, this.appId);
@@ -1112,8 +1116,8 @@
                     renderer.applyToHost(element);
                     return renderer;
                 }
-                case core.ViewEncapsulation.Native:
-                case core.ViewEncapsulation.ShadowDom:
+                case i0.ViewEncapsulation.Native:
+                case i0.ViewEncapsulation.ShadowDom:
                     return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
                 default: {
                     if (!this.rendererByCompId.has(type.id)) {
@@ -1128,8 +1132,8 @@
         DomRendererFactory2.prototype.begin = function () { };
         DomRendererFactory2.prototype.end = function () { };
         DomRendererFactory2 = __decorate([
-            core.Injectable(),
-            __param(2, core.Inject(core.APP_ID)),
+            i0.Injectable(),
+            __param(2, i0.Inject(i0.APP_ID)),
             __metadata("design:paramtypes", [EventManager, DomSharedStylesHost, String])
         ], DomRendererFactory2);
         return DomRendererFactory2;
@@ -1213,15 +1217,15 @@
         DefaultDomRenderer2.prototype.addClass = function (el, name) { el.classList.add(name); };
         DefaultDomRenderer2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
         DefaultDomRenderer2.prototype.setStyle = function (el, style, value, flags) {
-            if (flags & core.RendererStyleFlags2.DashCase) {
-                el.style.setProperty(style, value, !!(flags & core.RendererStyleFlags2.Important) ? 'important' : '');
+            if (flags & i0.RendererStyleFlags2.DashCase) {
+                el.style.setProperty(style, value, !!(flags & i0.RendererStyleFlags2.Important) ? 'important' : '');
             }
             else {
                 el.style[style] = value;
             }
         };
         DefaultDomRenderer2.prototype.removeStyle = function (el, style, flags) {
-            if (flags & core.RendererStyleFlags2.DashCase) {
+            if (flags & i0.RendererStyleFlags2.DashCase) {
                 el.style.removeProperty(style);
             }
             else {
@@ -1244,7 +1248,8 @@
         };
         return DefaultDomRenderer2;
     }());
-    var AT_CHARCODE = '@'.charCodeAt(0);
+    var ɵ0$2 = function () { return '@'.charCodeAt(0); };
+    var AT_CHARCODE = (ɵ0$2)();
     function checkNoSyntheticProp(name, nameKind) {
         if (name.charCodeAt(0) === AT_CHARCODE) {
             throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
@@ -1276,7 +1281,7 @@
             _this.sharedStylesHost = sharedStylesHost;
             _this.hostEl = hostEl;
             _this.component = component;
-            if (component.encapsulation === core.ViewEncapsulation.ShadowDom) {
+            if (component.encapsulation === i0.ViewEncapsulation.ShadowDom) {
                 _this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
             }
             else {
@@ -1315,16 +1320,15 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var ɵ0 = function (v) {
-        return '__zone_symbol__' + v;
-    };
+    var ɵ0$3 = function () { return (typeof Zone !== 'undefined') && Zone['__symbol__'] ||
+        function (v) { return '__zone_symbol__' + v; }; };
     /**
      * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
      * since Angular can do much more
      * efficient bookkeeping than Zone can, because we have additional information. This speeds up
      * addEventListener by 3x.
      */
-    var __symbol__ = (typeof Zone !== 'undefined') && Zone['__symbol__'] || ɵ0;
+    var __symbol__ = (ɵ0$3)();
     var ADD_EVENT_LISTENER = __symbol__('addEventListener');
     var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
     var symbolNames = {};
@@ -1335,12 +1339,16 @@
     // use the same symbol string which is used in zone.js
     var stopSymbol = '__zone_symbol__propagationStopped';
     var stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
-    var blackListedEvents = (typeof Zone !== 'undefined') && Zone[__symbol__('BLACK_LISTED_EVENTS')];
-    var blackListedMap;
-    if (blackListedEvents) {
-        blackListedMap = {};
-        blackListedEvents.forEach(function (eventName) { blackListedMap[eventName] = eventName; });
-    }
+    var ɵ1 = function () {
+        var blackListedEvents = (typeof Zone !== 'undefined') && Zone[__symbol__('BLACK_LISTED_EVENTS')];
+        if (blackListedEvents) {
+            var res_1 = {};
+            blackListedEvents.forEach(function (eventName) { res_1[eventName] = eventName; });
+            return res_1;
+        }
+        return undefined;
+    };
+    var blackListedMap = (ɵ1)();
     var isBlackListedEvent = function (eventName) {
         if (!blackListedMap) {
             return false;
@@ -1430,7 +1438,7 @@
             var callback = handler;
             // if zonejs is loaded and current zone is not ngZone
             // we keep Zone.current on target for later restoration.
-            if (zoneJsLoaded && (!core.NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
+            if (zoneJsLoaded && (!i0.NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
                 var symbolName = symbolNames[eventName];
                 if (!symbolName) {
                     symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
@@ -1502,10 +1510,10 @@
             }
         };
         DomEventsPlugin = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
-            __param(2, core.Optional()), __param(2, core.Inject(core.PLATFORM_ID)),
-            __metadata("design:paramtypes", [Object, core.NgZone, Object])
+            i0.Injectable(),
+            __param(0, i0.Inject(common.DOCUMENT)),
+            __param(2, i0.Optional()), __param(2, i0.Inject(i0.PLATFORM_ID)),
+            __metadata("design:paramtypes", [Object, i0.NgZone, Object])
         ], DomEventsPlugin);
         return DomEventsPlugin;
     }(EventManagerPlugin));
@@ -1563,13 +1571,13 @@
      *
      * @publicApi
      */
-    var HAMMER_GESTURE_CONFIG = new core.InjectionToken('HammerGestureConfig');
+    var HAMMER_GESTURE_CONFIG = new i0.InjectionToken('HammerGestureConfig');
     /**
      * Injection token used to provide a {@link HammerLoader} to Angular.
      *
      * @publicApi
      */
-    var HAMMER_LOADER = new core.InjectionToken('HammerLoader');
+    var HAMMER_LOADER = new i0.InjectionToken('HammerLoader');
     /**
      * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
      * for gesture recognition. Configures specific event recognition.
@@ -1617,7 +1625,7 @@
             return mc;
         };
         HammerGestureConfig = __decorate([
-            core.Injectable()
+            i0.Injectable()
         ], HammerGestureConfig);
         return HammerGestureConfig;
     }());
@@ -1695,11 +1703,11 @@
         };
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
         HammerGesturesPlugin = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
-            __param(1, core.Inject(HAMMER_GESTURE_CONFIG)),
-            __param(3, core.Optional()), __param(3, core.Inject(HAMMER_LOADER)),
-            __metadata("design:paramtypes", [Object, HammerGestureConfig, core.ɵConsole, Object])
+            i0.Injectable(),
+            __param(0, i0.Inject(common.DOCUMENT)),
+            __param(1, i0.Inject(HAMMER_GESTURE_CONFIG)),
+            __param(3, i0.Optional()), __param(3, i0.Inject(HAMMER_LOADER)),
+            __metadata("design:paramtypes", [Object, HammerGestureConfig, i0.ɵConsole, Object])
         ], HammerGesturesPlugin);
         return HammerGesturesPlugin;
     }(EventManagerPlugin));
@@ -1715,13 +1723,13 @@
      * Defines supported modifiers for key events.
      */
     var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-    var ɵ0$1 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
+    var ɵ0$4 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
     /**
      * Retrieves modifiers from key-event objects.
      */
     var MODIFIER_KEY_GETTERS = {
-        'alt': ɵ0$1,
-        'control': ɵ1,
+        'alt': ɵ0$4,
+        'control': ɵ1$1,
         'meta': ɵ2,
         'shift': ɵ3
     };
@@ -1832,8 +1840,8 @@
         };
         var KeyEventsPlugin_1;
         KeyEventsPlugin = KeyEventsPlugin_1 = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
+            i0.Injectable(),
+            __param(0, i0.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], KeyEventsPlugin);
         return KeyEventsPlugin;
@@ -1893,31 +1901,31 @@
             if (value == null)
                 return null;
             switch (ctx) {
-                case core.SecurityContext.NONE:
+                case i0.SecurityContext.NONE:
                     return value;
-                case core.SecurityContext.HTML:
+                case i0.SecurityContext.HTML:
                     if (value instanceof SafeHtmlImpl)
                         return value.changingThisBreaksApplicationSecurity;
                     this.checkNotSafeValue(value, 'HTML');
-                    return core.ɵ_sanitizeHtml(this._doc, String(value));
-                case core.SecurityContext.STYLE:
+                    return i0.ɵ_sanitizeHtml(this._doc, String(value));
+                case i0.SecurityContext.STYLE:
                     if (value instanceof SafeStyleImpl)
                         return value.changingThisBreaksApplicationSecurity;
                     this.checkNotSafeValue(value, 'Style');
-                    return core.ɵ_sanitizeStyle(value);
-                case core.SecurityContext.SCRIPT:
+                    return i0.ɵ_sanitizeStyle(value);
+                case i0.SecurityContext.SCRIPT:
                     if (value instanceof SafeScriptImpl)
                         return value.changingThisBreaksApplicationSecurity;
                     this.checkNotSafeValue(value, 'Script');
                     throw new Error('unsafe value used in a script context');
-                case core.SecurityContext.URL:
+                case i0.SecurityContext.URL:
                     if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
                         // Allow resource URLs in URL contexts, they are strictly more trusted.
                         return value.changingThisBreaksApplicationSecurity;
                     }
                     this.checkNotSafeValue(value, 'URL');
-                    return core.ɵ_sanitizeUrl(String(value));
-                case core.SecurityContext.RESOURCE_URL:
+                    return i0.ɵ_sanitizeUrl(String(value));
+                case i0.SecurityContext.RESOURCE_URL:
                     if (value instanceof SafeResourceUrlImpl) {
                         return value.changingThisBreaksApplicationSecurity;
                     }
@@ -1941,8 +1949,8 @@
             return new SafeResourceUrlImpl(value);
         };
         DomSanitizerImpl = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
+            i0.Injectable(),
+            __param(0, i0.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], DomSanitizerImpl);
         return DomSanitizerImpl;
@@ -2006,10 +2014,10 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var ɵ0$2 = common.ɵPLATFORM_BROWSER_ID;
+    var ɵ0$5 = common.ɵPLATFORM_BROWSER_ID;
     var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-        { provide: core.PLATFORM_ID, useValue: ɵ0$2 },
-        { provide: core.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
+        { provide: i0.PLATFORM_ID, useValue: ɵ0$5 },
+        { provide: i0.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
         { provide: common.PlatformLocation, useClass: BrowserPlatformLocation, deps: [common.DOCUMENT] },
         { provide: common.DOCUMENT, useFactory: _document, deps: [] },
     ];
@@ -2020,51 +2028,51 @@
      * @publicApi
      */
     var BROWSER_SANITIZATION_PROVIDERS = [
-        { provide: core.Sanitizer, useExisting: DomSanitizer },
+        { provide: i0.Sanitizer, useExisting: DomSanitizer },
         { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [common.DOCUMENT] },
     ];
     /**
      * @publicApi
      */
-    var platformBrowser = core.createPlatformFactory(core.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+    var platformBrowser = i0.createPlatformFactory(i0.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
     function initDomAdapter() {
         BrowserDomAdapter.makeCurrent();
         BrowserGetTestability.init();
     }
     function errorHandler() {
-        return new core.ErrorHandler();
+        return new i0.ErrorHandler();
     }
     function _document() {
         return document;
     }
     var BROWSER_MODULE_PROVIDERS = [
         BROWSER_SANITIZATION_PROVIDERS,
-        { provide: core.ɵAPP_ROOT, useValue: true },
-        { provide: core.ErrorHandler, useFactory: errorHandler, deps: [] },
+        { provide: i0.ɵAPP_ROOT, useValue: true },
+        { provide: i0.ErrorHandler, useFactory: errorHandler, deps: [] },
         {
             provide: EVENT_MANAGER_PLUGINS,
             useClass: DomEventsPlugin,
             multi: true,
-            deps: [common.DOCUMENT, core.NgZone, core.PLATFORM_ID]
+            deps: [common.DOCUMENT, i0.NgZone, i0.PLATFORM_ID]
         },
         { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [common.DOCUMENT] },
         {
             provide: EVENT_MANAGER_PLUGINS,
             useClass: HammerGesturesPlugin,
             multi: true,
-            deps: [common.DOCUMENT, HAMMER_GESTURE_CONFIG, core.ɵConsole, [new core.Optional(), HAMMER_LOADER]]
+            deps: [common.DOCUMENT, HAMMER_GESTURE_CONFIG, i0.ɵConsole, [new i0.Optional(), HAMMER_LOADER]]
         },
         { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
         {
             provide: DomRendererFactory2,
             useClass: DomRendererFactory2,
-            deps: [EventManager, DomSharedStylesHost, core.APP_ID]
+            deps: [EventManager, DomSharedStylesHost, i0.APP_ID]
         },
-        { provide: core.RendererFactory2, useExisting: DomRendererFactory2 },
+        { provide: i0.RendererFactory2, useExisting: DomRendererFactory2 },
         { provide: SharedStylesHost, useExisting: DomSharedStylesHost },
         { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [common.DOCUMENT] },
-        { provide: core.Testability, useClass: core.Testability, deps: [core.NgZone] },
-        { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, core.NgZone] },
+        { provide: i0.Testability, useClass: i0.Testability, deps: [i0.NgZone] },
+        { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, i0.NgZone] },
         ELEMENT_PROBE_PROVIDERS,
     ];
     /**
@@ -2095,16 +2103,16 @@
             return {
                 ngModule: BrowserModule_1,
                 providers: [
-                    { provide: core.APP_ID, useValue: params.appId },
-                    { provide: TRANSITION_ID, useExisting: core.APP_ID },
+                    { provide: i0.APP_ID, useValue: params.appId },
+                    { provide: TRANSITION_ID, useExisting: i0.APP_ID },
                     SERVER_TRANSITION_PROVIDERS,
                 ],
             };
         };
         var BrowserModule_1;
         BrowserModule = BrowserModule_1 = __decorate([
-            core.NgModule({ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, core.ApplicationModule] }),
-            __param(0, core.Optional()), __param(0, core.SkipSelf()), __param(0, core.Inject(BrowserModule_1)),
+            i0.NgModule({ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] }),
+            __param(0, i0.Optional()), __param(0, i0.SkipSelf()), __param(0, i0.Inject(BrowserModule_1)),
             __metadata("design:paramtypes", [Object])
         ], BrowserModule);
         return BrowserModule;
@@ -2114,7 +2122,7 @@
      * Factory to create Meta service.
      */
     function createMeta() {
-        return new Meta(core.Δinject(common.DOCUMENT));
+        return new Meta(i0.Δinject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and add meta tags.
@@ -2201,10 +2209,10 @@
             var _this = this;
             return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
         };
-        Meta.ngInjectableDef = core.ΔdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+        Meta.ngInjectableDef = i0.ΔdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
         Meta = __decorate([
-            core.Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
-            __param(0, core.Inject(common.DOCUMENT)),
+            i0.Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
+            __param(0, i0.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], Meta);
         return Meta;
@@ -2214,7 +2222,7 @@
      * Factory to create Title service.
      */
     function createTitle() {
-        return new Title(core.Δinject(common.DOCUMENT));
+        return new Title(i0.Δinject(common.DOCUMENT));
     }
     /**
      * A service that can be used to get and set the title of a current HTML document.
@@ -2239,10 +2247,10 @@
          * @param newTitle
          */
         Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
-        Title.ngInjectableDef = core.ΔdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+        Title.ngInjectableDef = i0.ΔdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
         Title = __decorate([
-            core.Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
-            __param(0, core.Inject(common.DOCUMENT)),
+            i0.Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
+            __param(0, i0.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], Title);
         return Title;
@@ -2277,7 +2285,7 @@
      */
     var AngularProfiler = /** @class */ (function () {
         function AngularProfiler(ref) {
-            this.appRef = ref.injector.get(core.ApplicationRef);
+            this.appRef = ref.injector.get(i0.ApplicationRef);
         }
         // tslint:disable:no-console
         /**
@@ -2468,7 +2476,7 @@
         };
         var TransferState_1;
         TransferState = TransferState_1 = __decorate([
-            core.Injectable()
+            i0.Injectable()
         ], TransferState);
         return TransferState;
     }());
@@ -2497,8 +2505,8 @@
         function BrowserTransferStateModule() {
         }
         BrowserTransferStateModule = __decorate([
-            core.NgModule({
-                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, core.APP_ID] }],
+            i0.NgModule({
+                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, i0.APP_ID] }],
             })
         ], BrowserTransferStateModule);
         return BrowserTransferStateModule;
@@ -2575,7 +2583,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-rc.0+199.sha-e9ead2b.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-rc.0+216.sha-c9b588b.with-local-changes');
 
     /**
      * @license
