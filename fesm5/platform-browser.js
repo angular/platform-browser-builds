@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+200.sha-3f7e823.with-local-changes
+ * @license Angular v8.0.0-rc.0+222.sha-757d4c3.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -168,12 +168,14 @@ var _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
-var nodeContains;
-if (ɵglobal['Node']) {
-    nodeContains = ɵglobal['Node'].prototype.contains || function (node) {
-        return !!(this.compareDocumentPosition(node) & 16);
-    };
-}
+var nodeContains = (function () {
+    if (ɵglobal['Node']) {
+        return ɵglobal['Node'].prototype.contains || function (node) {
+            return !!(this.compareDocumentPosition(node) & 16);
+        };
+    }
+    return undefined;
+})();
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
@@ -743,10 +745,10 @@ function exportNgVar(name, value) {
     }
 }
 
-var CORE_TOKENS = {
+var CORE_TOKENS = (function () { return ({
     'ApplicationRef': ApplicationRef,
     'NgZone': NgZone,
-};
+}); })();
 var INSPECT_GLOBAL_NAME = 'probe';
 var CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
 /**
@@ -1145,7 +1147,7 @@ var DefaultDomRenderer2 = /** @class */ (function () {
     };
     return DefaultDomRenderer2;
 }());
-var AT_CHARCODE = '@'.charCodeAt(0);
+var AT_CHARCODE = (function () { return '@'.charCodeAt(0); })();
 function checkNoSyntheticProp(name, nameKind) {
     if (name.charCodeAt(0) === AT_CHARCODE) {
         throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
@@ -1215,9 +1217,8 @@ var ShadowDomRenderer = /** @class */ (function (_super) {
  * efficient bookkeeping than Zone can, because we have additional information. This speeds up
  * addEventListener by 3x.
  */
-var __symbol__ = (typeof Zone !== 'undefined') && Zone['__symbol__'] || function (v) {
-    return '__zone_symbol__' + v;
-};
+var __symbol__ = (function () { return (typeof Zone !== 'undefined') && Zone['__symbol__'] ||
+    function (v) { return '__zone_symbol__' + v; }; })();
 var ADD_EVENT_LISTENER = __symbol__('addEventListener');
 var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
 var symbolNames = {};
@@ -1228,12 +1229,15 @@ var NATIVE_REMOVE_LISTENER = 'removeEventListener';
 // use the same symbol string which is used in zone.js
 var stopSymbol = '__zone_symbol__propagationStopped';
 var stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
-var blackListedEvents = (typeof Zone !== 'undefined') && Zone[__symbol__('BLACK_LISTED_EVENTS')];
-var blackListedMap;
-if (blackListedEvents) {
-    blackListedMap = {};
-    blackListedEvents.forEach(function (eventName) { blackListedMap[eventName] = eventName; });
-}
+var blackListedMap = (function () {
+    var blackListedEvents = (typeof Zone !== 'undefined') && Zone[__symbol__('BLACK_LISTED_EVENTS')];
+    if (blackListedEvents) {
+        var res_1 = {};
+        blackListedEvents.forEach(function (eventName) { res_1[eventName] = eventName; });
+        return res_1;
+    }
+    return undefined;
+})();
 var isBlackListedEvent = function (eventName) {
     if (!blackListedMap) {
         return false;
@@ -2499,7 +2503,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-rc.0+200.sha-3f7e823.with-local-changes');
+var VERSION = new Version('8.0.0-rc.0+222.sha-757d4c3.with-local-changes');
 
 /**
  * @license

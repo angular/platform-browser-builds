@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+200.sha-3f7e823.with-local-changes
+ * @license Angular v8.0.0-rc.0+222.sha-757d4c3.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -209,16 +209,21 @@ const _chromeNumKeyPadMap = {
     '\x90': 'NumLock'
 };
 /** @type {?} */
-let nodeContains;
-if (ɵglobal['Node']) {
-    nodeContains = ɵglobal['Node'].prototype.contains || (/**
-     * @param {?} node
-     * @return {?}
-     */
-    function (node) {
-        return !!(this.compareDocumentPosition(node) & 16);
-    });
-}
+const nodeContains = ((/**
+ * @return {?}
+ */
+() => {
+    if (ɵglobal['Node']) {
+        return ɵglobal['Node'].prototype.contains || (/**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) {
+            return !!(this.compareDocumentPosition(node) & 16);
+        });
+    }
+    return (/** @type {?} */ (undefined));
+}))();
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
@@ -1418,10 +1423,13 @@ function exportNgVar(name, value) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const CORE_TOKENS = {
+const CORE_TOKENS = ((/**
+ * @return {?}
+ */
+() => ({
     'ApplicationRef': ApplicationRef,
     'NgZone': NgZone,
-};
+})))();
 /** @type {?} */
 const INSPECT_GLOBAL_NAME = 'probe';
 /** @type {?} */
@@ -2123,7 +2131,10 @@ class DefaultDomRenderer2 {
     }
 }
 /** @type {?} */
-const AT_CHARCODE = '@'.charCodeAt(0);
+const AT_CHARCODE = ((/**
+ * @return {?}
+ */
+() => '@'.charCodeAt(0)))();
 /**
  * @param {?} name
  * @param {?} nameKind
@@ -2257,13 +2268,15 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * addEventListener by 3x.
  * @type {?}
  */
-const __symbol__ = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))['__symbol__'] || (/**
- * @param {?} v
+const __symbol__ = ((/**
  * @return {?}
  */
-function (v) {
-    return '__zone_symbol__' + v;
-});
+() => (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))['__symbol__'] ||
+    (/**
+     * @param {?} v
+     * @return {?}
+     */
+    function (v) { return '__zone_symbol__' + v; })))();
 /** @type {?} */
 const ADD_EVENT_LISTENER = __symbol__('addEventListener');
 /** @type {?} */
@@ -2284,17 +2297,24 @@ const stopSymbol = '__zone_symbol__propagationStopped';
 /** @type {?} */
 const stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
 /** @type {?} */
-const blackListedEvents = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))[__symbol__('BLACK_LISTED_EVENTS')];
-/** @type {?} */
-let blackListedMap;
-if (blackListedEvents) {
-    blackListedMap = {};
-    blackListedEvents.forEach((/**
-     * @param {?} eventName
-     * @return {?}
-     */
-    eventName => { blackListedMap[eventName] = eventName; }));
-}
+const blackListedMap = ((/**
+ * @return {?}
+ */
+() => {
+    /** @type {?} */
+    const blackListedEvents = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))[__symbol__('BLACK_LISTED_EVENTS')];
+    if (blackListedEvents) {
+        /** @type {?} */
+        const res = {};
+        blackListedEvents.forEach((/**
+         * @param {?} eventName
+         * @return {?}
+         */
+        eventName => { res[eventName] = eventName; }));
+        return res;
+    }
+    return undefined;
+}))();
 /** @type {?} */
 const isBlackListedEvent = (/**
  * @param {?} eventName
@@ -4020,7 +4040,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-rc.0+200.sha-3f7e823.with-local-changes');
+const VERSION = new Version('8.0.0-rc.0+222.sha-757d4c3.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
