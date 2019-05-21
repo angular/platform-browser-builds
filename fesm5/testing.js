@@ -1,10 +1,10 @@
 /**
- * @license Angular v8.0.0-rc.0+259.sha-6454f76.with-local-changes
+ * @license Angular v8.0.0-rc.0+262.sha-d7eaae6.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵglobal, NgZone, createPlatformFactory, platformCore, ΔdefineNgModule, ΔdefineInjector, APP_ID, ΔsetNgModuleScope, ɵsetClassMetadata, NgModule, PLATFORM_INITIALIZER } from '@angular/core';
+import { ɵglobal, NgZone, createPlatformFactory, platformCore, ɵɵdefineNgModule, ɵɵdefineInjector, APP_ID, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule, PLATFORM_INITIALIZER } from '@angular/core';
 import { ɵgetDOM, ɵELEMENT_PROBE_PROVIDERS, BrowserModule, ɵBrowserDomAdapter } from '@angular/platform-browser';
 import 'tslib';
 
@@ -170,15 +170,15 @@ var platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting
 var BrowserTestingModule = /** @class */ (function () {
     function BrowserTestingModule() {
     }
-    BrowserTestingModule.ngModuleDef = ΔdefineNgModule({ type: BrowserTestingModule });
-    BrowserTestingModule.ngInjectorDef = ΔdefineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
+    BrowserTestingModule.ngModuleDef = ɵɵdefineNgModule({ type: BrowserTestingModule });
+    BrowserTestingModule.ngInjectorDef = ɵɵdefineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
             { provide: APP_ID, useValue: 'a' },
             ɵELEMENT_PROBE_PROVIDERS,
             { provide: NgZone, useFactory: createNgZone },
         ], imports: [BrowserModule] });
     return BrowserTestingModule;
 }());
-/*@__PURE__*/ ΔsetNgModuleScope(BrowserTestingModule, { exports: [BrowserModule] });
+/*@__PURE__*/ ɵɵsetNgModuleScope(BrowserTestingModule, { exports: [BrowserModule] });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserTestingModule, [{
         type: NgModule,
         args: [{

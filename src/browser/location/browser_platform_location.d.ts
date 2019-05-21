@@ -32,5 +32,5 @@ export declare class BrowserPlatformLocation extends PlatformLocation {
     forward(): void;
     back(): void;
     getState(): unknown;
-    static ngInjectableDef: i0.ΔInjectableDef<BrowserPlatformLocation>;
+    static ngInjectableDef: i0.ɵɵInjectableDef<BrowserPlatformLocation>;
 }
