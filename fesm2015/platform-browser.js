@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+297.sha-02523de.with-local-changes
+ * @license Angular v8.0.0-rc.0+326.sha-132c61d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2015,7 +2015,7 @@ class DefaultDomRenderer2 {
      */
     setAttribute(el, name, value, namespace) {
         if (namespace) {
-            name = `${namespace}:${name}`;
+            name = namespace + ':' + name;
             // TODO(benlesh): Ivy may cause issues here because it's passing around
             // full URIs for namespaces, therefore this lookup will fail.
             /** @type {?} */
@@ -4040,7 +4040,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-rc.0+297.sha-02523de.with-local-changes');
+const VERSION = new Version('8.0.0-rc.0+326.sha-132c61d.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

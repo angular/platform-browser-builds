@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-rc.0+297.sha-02523de.with-local-changes
+ * @license Angular v8.0.0-rc.0+326.sha-132c61d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1144,7 +1144,7 @@
         DefaultDomRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
         DefaultDomRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
             if (namespace) {
-                name = namespace + ":" + name;
+                name = namespace + ':' + name;
                 // TODO(benlesh): Ivy may cause issues here because it's passing around
                 // full URIs for namespaces, therefore this lookup will fail.
                 var namespaceUri = NAMESPACE_URIS[namespace];
@@ -2568,7 +2568,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-rc.0+297.sha-02523de.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-rc.0+326.sha-132c61d.with-local-changes');
 
     /**
      * @license
