@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.2.0-next.2+8.sha-78e7fdd.with-local-changes
+ * @license Angular v8.2.0-next.2+22.sha-60f58bf.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1423,9 +1423,11 @@
                 if (this) {
                     this[stopSymbol] = true;
                 }
-                // should call native delegate in case
-                // in some environment part of the application
-                // will not use the patched Event
+                // We should call native delegate in case in some environment part of
+                // the application will not use the patched Event. Also we cast the
+                // "arguments" to any since "stopImmediatePropagation" technically does not
+                // accept any arguments, but we don't know what developers pass through the
+                // function and we want to not break these calls.
                 delegate && delegate.apply(this, arguments);
             };
         };
@@ -2528,14 +2530,14 @@
         function By() {
         }
         /**
-         * Match all elements.
+         * Match all nodes.
          *
          * @usageNotes
          * ### Example
          *
          * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
          */
-        By.all = function () { return function (debugElement) { return true; }; };
+        By.all = function () { return function () { return true; }; };
         /**
          * Match elements by the given CSS selector.
          *
@@ -2552,7 +2554,7 @@
             };
         };
         /**
-         * Match elements that have the given directive present.
+         * Match nodes that have the given directive present.
          *
          * @usageNotes
          * ### Example
@@ -2560,7 +2562,7 @@
          * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
          */
         By.directive = function (type) {
-            return function (debugElement) { return debugElement.providerTokens.indexOf(type) !== -1; };
+            return function (debugNode) { return debugNode.providerTokens.indexOf(type) !== -1; };
         };
         return By;
     }());
@@ -2583,7 +2585,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.2.0-next.2+8.sha-78e7fdd.with-local-changes');
+    var VERSION = new i0.Version('8.2.0-next.2+22.sha-60f58bf.with-local-changes');
 
     /**
      * @license
