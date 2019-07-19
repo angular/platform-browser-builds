@@ -1,11 +1,12 @@
 /**
- * @license Angular v8.2.0-next.2+7.sha-1e9eeaf.with-local-changes
+ * @license Angular v8.2.0-next.2+25.sha-7151eae.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ComponentRef } from '@angular/core';
 import { DebugElement } from '@angular/core';
+import { DebugNode } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
 import { GetTestability } from '@angular/core';
 import { InjectionToken } from '@angular/core';
@@ -71,14 +72,14 @@ export declare class BrowserTransferStateModule {
  */
 export declare class By {
     /**
-     * Match all elements.
+     * Match all nodes.
      *
      * @usageNotes
      * ### Example
      *
      * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
      */
-    static all(): Predicate<DebugElement>;
+    static all(): Predicate<DebugNode>;
     /**
      * Match elements by the given CSS selector.
      *
@@ -89,14 +90,14 @@ export declare class By {
      */
     static css(selector: string): Predicate<DebugElement>;
     /**
-     * Match elements that have the given directive present.
+     * Match nodes that have the given directive present.
      *
      * @usageNotes
      * ### Example
      *
      * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}
      */
-    static directive(type: Type<any>): Predicate<DebugElement>;
+    static directive(type: Type<any>): Predicate<DebugNode>;
 }
 
 /**

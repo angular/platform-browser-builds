@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.2.0-next.2+7.sha-1e9eeaf.with-local-changes
+ * @license Angular v8.2.0-next.2+25.sha-7151eae.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -214,6 +214,7 @@ const ɵ0 = /**
 () => {
     if (ɵglobal['Node']) {
         return ɵglobal['Node'].prototype.contains || (/**
+         * @this {?}
          * @param {?} node
          * @return {?}
          */
@@ -2268,6 +2269,7 @@ function (eventName) {
 // so we do not need to create a closure every time
 /** @type {?} */
 const globalListener = (/**
+ * @this {?}
  * @param {?} event
  * @return {?}
  */
@@ -2348,16 +2350,19 @@ class DomEventsPlugin extends EventManagerPlugin {
         const delegate = ((/** @type {?} */ (Event.prototype)))[stopMethodSymbol] =
             Event.prototype.stopImmediatePropagation;
         Event.prototype.stopImmediatePropagation = (/**
+         * @this {?}
          * @return {?}
          */
         function () {
             if (this) {
                 this[stopSymbol] = true;
             }
-            // should call native delegate in case
-            // in some environment part of the application
-            // will not use the patched Event
-            delegate && delegate.apply(this, arguments);
+            // We should call native delegate in case in some environment part of
+            // the application will not use the patched Event. Also we cast the
+            // "arguments" to any since "stopImmediatePropagation" technically does not
+            // accept any arguments, but we don't know what developers pass through the
+            // function and we want to not break these calls.
+            delegate && delegate.apply(this, (/** @type {?} */ (arguments)));
         });
     }
     // This plugin should come last in the list of plugins, because it accepts all
@@ -3777,7 +3782,7 @@ BrowserTransferStateModule.decorators = [
  */
 class By {
     /**
-     * Match all elements.
+     * Match all nodes.
      *
      * \@usageNotes
      * ### Example
@@ -3786,10 +3791,9 @@ class By {
      * @return {?}
      */
     static all() { return (/**
-     * @param {?} debugElement
      * @return {?}
      */
-    (debugElement) => true); }
+    () => true); }
     /**
      * Match elements by the given CSS selector.
      *
@@ -3812,7 +3816,7 @@ class By {
         });
     }
     /**
-     * Match elements that have the given directive present.
+     * Match nodes that have the given directive present.
      *
      * \@usageNotes
      * ### Example
@@ -3823,10 +3827,10 @@ class By {
      */
     static directive(type) {
         return (/**
-         * @param {?} debugElement
+         * @param {?} debugNode
          * @return {?}
          */
-        (debugElement) => (/** @type {?} */ (debugElement.providerTokens)).indexOf(type) !== -1);
+        (debugNode) => (/** @type {?} */ (debugNode.providerTokens)).indexOf(type) !== -1);
     }
 }
 
@@ -3843,7 +3847,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.2.0-next.2+7.sha-1e9eeaf.with-local-changes');
+const VERSION = new Version('8.2.0-next.2+25.sha-7151eae.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
