@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.2.0-next.2+93.sha-3a2b195.with-local-changes
+ * @license Angular v8.2.0-next.2+94.sha-6ece7db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1023,6 +1023,6 @@ export declare function ɵshimHostAttribute(componentShortId: string): string;
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
  */
-export declare const ɵTRANSITION_ID: InjectionToken<{}>;
+export declare const ɵTRANSITION_ID: InjectionToken<unknown>;
 
 export { }

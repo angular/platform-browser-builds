@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.2.0-next.2+93.sha-3a2b195.with-local-changes
+ * @license Angular v8.2.0-next.2+94.sha-6ece7db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -284,8 +284,8 @@ var AnimationRenderer = /** @class */ (function (_super) {
         }
     };
     AnimationRenderer.prototype.listen = function (target, eventName, callback) {
-        var _this = this;
         var _a;
+        var _this = this;
         if (eventName.charAt(0) == ANIMATION_PREFIX) {
             var element = resolveElementFromTarget(target);
             var name_1 = eventName.substr(1);
