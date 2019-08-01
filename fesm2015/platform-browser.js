@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.0+12.sha-a610d12.with-local-changes
+ * @license Angular v9.0.0-next.0+13.sha-184d270.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1786,6 +1786,11 @@ function decoratePreventDefault(eventHandler) {
      * @return {?}
      */
     (event) => {
+        // Ivy uses `Function` as a special token that allows us to unwrap the function
+        // so that it can be invoked programmatically by `DebugNode.triggerEventHandler`.
+        if (event === Function) {
+            return eventHandler;
+        }
         /** @type {?} */
         const allowDefaultBehavior = eventHandler(event);
         if (allowDefaultBehavior === false) {
@@ -1793,6 +1798,7 @@ function decoratePreventDefault(eventHandler) {
             event.preventDefault();
             event.returnValue = false;
         }
+        return undefined;
     });
 }
 class DomRendererFactory2 {
@@ -3847,7 +3853,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.0+12.sha-a610d12.with-local-changes');
+const VERSION = new Version('9.0.0-next.0+13.sha-184d270.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
