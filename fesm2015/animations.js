@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.1+11.sha-0ddf0c4.with-local-changes
+ * @license Angular v9.0.0-next.1+13.sha-c198a27.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import { ViewEncapsulation, Injectable, RendererFactory2, Inject, ɵɵdefineInjectable, ɵɵinject, ɵsetClassMetadata, NgZone, InjectionToken, NgModule, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope } from '@angular/core';
 import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { AnimationBuilder, sequence, AnimationFactory } from '@angular/animations';
-import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵNoopAnimationDriver, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer } from '@angular/animations/browser';
+import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer, ɵNoopAnimationDriver } from '@angular/animations/browser';
 import { DOCUMENT } from '@angular/common';
 
 /**
@@ -60,6 +60,18 @@ BrowserAnimationBuilder.ctorParameters = () => [
                 type: Inject,
                 args: [DOCUMENT]
             }] }]; }, null);
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowserAnimationBuilder.prototype._nextAnimationId;
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowserAnimationBuilder.prototype._renderer;
+}
 class BrowserAnimationFactory extends AnimationFactory {
     /**
      * @param {?} _id
@@ -78,6 +90,18 @@ class BrowserAnimationFactory extends AnimationFactory {
     create(element, options) {
         return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowserAnimationFactory.prototype._id;
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowserAnimationFactory.prototype._renderer;
 }
 class RendererAnimationPlayer {
     /**
@@ -172,6 +196,26 @@ class RendererAnimationPlayer {
      * @return {?}
      */
     getPosition() { return 0; }
+}
+if (false) {
+    /** @type {?} */
+    RendererAnimationPlayer.prototype.parentPlayer;
+    /**
+     * @type {?}
+     * @private
+     */
+    RendererAnimationPlayer.prototype._started;
+    /** @type {?} */
+    RendererAnimationPlayer.prototype.totalTime;
+    /** @type {?} */
+    RendererAnimationPlayer.prototype.id;
+    /** @type {?} */
+    RendererAnimationPlayer.prototype.element;
+    /**
+     * @type {?}
+     * @private
+     */
+    RendererAnimationPlayer.prototype._renderer;
 }
 /**
  * @param {?} renderer
@@ -357,6 +401,53 @@ AnimationRendererFactory.ctorParameters = () => [
 /*@__PURE__*/ ɵsetClassMetadata(AnimationRendererFactory, [{
         type: Injectable
     }], function () { return [{ type: RendererFactory2 }, { type: ɵAnimationEngine }, { type: NgZone }]; }, null);
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    AnimationRendererFactory.prototype._currentId;
+    /**
+     * @type {?}
+     * @private
+     */
+    AnimationRendererFactory.prototype._microtaskId;
+    /**
+     * @type {?}
+     * @private
+     */
+    AnimationRendererFactory.prototype._animationCallbacksBuffer;
+    /**
+     * @type {?}
+     * @private
+     */
+    AnimationRendererFactory.prototype._rendererCache;
+    /**
+     * @type {?}
+     * @private
+     */
+    AnimationRendererFactory.prototype._cdRecurDepth;
+    /**
+     * @type {?}
+     * @private
+     */
+    AnimationRendererFactory.prototype.promise;
+    /**
+     * @type {?}
+     * @private
+     */
+    AnimationRendererFactory.prototype.delegate;
+    /**
+     * @type {?}
+     * @private
+     */
+    AnimationRendererFactory.prototype.engine;
+    /**
+     * @type {?}
+     * @private
+     */
+    AnimationRendererFactory.prototype._zone;
+}
 class BaseAnimationRenderer {
     /**
      * @param {?} namespaceId
@@ -537,6 +628,19 @@ class BaseAnimationRenderer {
         this.engine.disableAnimations(element, value);
     }
 }
+if (false) {
+    /** @type {?} */
+    BaseAnimationRenderer.prototype.destroyNode;
+    /**
+     * @type {?}
+     * @protected
+     */
+    BaseAnimationRenderer.prototype.namespaceId;
+    /** @type {?} */
+    BaseAnimationRenderer.prototype.delegate;
+    /** @type {?} */
+    BaseAnimationRenderer.prototype.engine;
+}
 class AnimationRenderer extends BaseAnimationRenderer {
     /**
      * @param {?} factory
@@ -600,6 +704,10 @@ class AnimationRenderer extends BaseAnimationRenderer {
         }
         return this.delegate.listen(target, eventName, callback);
     }
+}
+if (false) {
+    /** @type {?} */
+    AnimationRenderer.prototype.factory;
 }
 /**
  * @param {?} target
