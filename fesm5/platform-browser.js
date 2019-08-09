@@ -1,12 +1,12 @@
 /**
- * @license Angular v8.2.1+4.sha-6ec91dd.with-local-changes
+ * @license Angular v8.2.1+6.sha-eccb60c.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { __extends, __spread, __decorate, __param, __metadata, __assign } from 'tslib';
-import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, NgModule, ApplicationModule, SkipSelf, ɵɵinject, ɵɵdefineInjectable, Version } from '@angular/core';
+import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, NgModule, ApplicationModule, SkipSelf, ɵɵinject, ɵɵdefineInjectable, Version } from '@angular/core';
 
 /**
  * @license
@@ -18,6 +18,9 @@ import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, AP
 var _DOM = null;
 function getDOM() {
     return _DOM;
+}
+function setDOM(adapter) {
+    _DOM = adapter;
 }
 function setRootDomAdapter(adapter) {
     if (!_DOM) {
@@ -733,6 +736,26 @@ var BrowserGetTestability = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var CAMEL_CASE_REGEXP = /([A-Z])/g;
+var DASH_CASE_REGEXP = /-([a-z])/g;
+function camelCaseToDashCase(input) {
+    return input.replace(CAMEL_CASE_REGEXP, function () {
+        var m = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            m[_i] = arguments[_i];
+        }
+        return '-' + m[1].toLowerCase();
+    });
+}
+function dashCaseToCamelCase(input) {
+    return input.replace(DASH_CASE_REGEXP, function () {
+        var m = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            m[_i] = arguments[_i];
+        }
+        return m[1].toUpperCase();
+    });
+}
 /**
  * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
  * `name` is `'probe'`.
@@ -1275,6 +1298,7 @@ var isBlackListedEvent = function (eventName) {
     }
     return blackListedMap.hasOwnProperty(eventName);
 };
+var ɵ2 = isBlackListedEvent;
 // a global listener to handle all dom event,
 // so we do not need to create a closure every time
 var globalListener = function (event) {
@@ -1319,6 +1343,7 @@ var globalListener = function (event) {
         }
     }
 };
+var ɵ3 = globalListener;
 var DomEventsPlugin = /** @class */ (function (_super) {
     __extends(DomEventsPlugin, _super);
     function DomEventsPlugin(doc, ngZone, platformId) {
@@ -1356,6 +1381,20 @@ var DomEventsPlugin = /** @class */ (function (_super) {
     DomEventsPlugin.prototype.supports = function (eventName) { return true; };
     DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
         var _this = this;
+        /**
+         * This code is about to add a listener to the DOM. If Zone.js is present, than
+         * `addEventListener` has been patched. The patched code adds overhead in both
+         * memory and speed (3x slower) than native. For this reason if we detect that
+         * Zone.js is present we use a simple version of zone aware addEventListener instead.
+         * The result is faster registration and the zone will be restored.
+         * But ZoneSpec.onScheduleTask, ZoneSpec.onInvokeTask, ZoneSpec.onCancelTask
+         * will not be invoked
+         * We also do manual zone restoration in element.ts renderEventHandlerClosure method.
+         *
+         * NOTE: it is possible that the element is from different iframe, and so we
+         * have to check before we execute the method.
+         */
+        var self = this;
         var zoneJsLoaded = element[ADD_EVENT_LISTENER];
         var callback = handler;
         // if zonejs is loaded and current zone is not ngZone
@@ -1645,15 +1684,15 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
  * Defines supported modifiers for key events.
  */
 var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
-var ɵ0$4 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
+var ɵ0$4 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2$1 = function (event) { return event.metaKey; }, ɵ3$1 = function (event) { return event.shiftKey; };
 /**
  * Retrieves modifiers from key-event objects.
  */
 var MODIFIER_KEY_GETTERS = {
     'alt': ɵ0$4,
     'control': ɵ1$1,
-    'meta': ɵ2,
-    'shift': ɵ3
+    'meta': ɵ2$1,
+    'shift': ɵ3$1
 };
 /**
  * @publicApi
@@ -2505,7 +2544,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.2.1+4.sha-6ec91dd.with-local-changes');
+var VERSION = new Version('8.2.1+6.sha-eccb60c.with-local-changes');
 
 /**
  * @license

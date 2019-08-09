@@ -1,11 +1,11 @@
 /**
- * @license Angular v8.2.1+4.sha-6ec91dd.with-local-changes
+ * @license Angular v8.2.1+6.sha-eccb60c.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵparseCookieValue, PlatformLocation, DOCUMENT, isPlatformServer, CommonModule, ɵPLATFORM_BROWSER_ID } from '@angular/common';
-import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, NgProbeToken, Optional, ApplicationRef, NgZone, getDebugNode, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, NgModule, ApplicationModule, SkipSelf, ɵɵinject, ɵɵdefineInjectable, Version } from '@angular/core';
+import { ɵparseCookieValue, PlatformLocation, DOCUMENT, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, NgModule, ApplicationModule, SkipSelf, ɵɵinject, ɵɵdefineInjectable, Version } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -25,6 +25,13 @@ let _DOM = (/** @type {?} */ (null));
  */
 function getDOM() {
     return _DOM;
+}
+/**
+ * @param {?} adapter
+ * @return {?}
+ */
+function setDOM(adapter) {
+    _DOM = adapter;
 }
 /**
  * @param {?} adapter
@@ -58,6 +65,760 @@ class DomAdapter {
      * @return {?}
      */
     set attrToPropMap(value) { this._attrToPropMap = value; }
+}
+if (false) {
+    /** @type {?} */
+    DomAdapter.prototype.resourceLoaderType;
+    /**
+     * \@internal
+     * @type {?}
+     */
+    DomAdapter.prototype._attrToPropMap;
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.hasProperty = function (element, name) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setProperty = function (el, name, value) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getProperty = function (el, name) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} methodName
+     * @param {?} args
+     * @return {?}
+     */
+    DomAdapter.prototype.invoke = function (el, methodName, args) { };
+    /**
+     * @abstract
+     * @param {?} error
+     * @return {?}
+     */
+    DomAdapter.prototype.logError = function (error) { };
+    /**
+     * @abstract
+     * @param {?} error
+     * @return {?}
+     */
+    DomAdapter.prototype.log = function (error) { };
+    /**
+     * @abstract
+     * @param {?} error
+     * @return {?}
+     */
+    DomAdapter.prototype.logGroup = function (error) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.logGroupEnd = function () { };
+    /**
+     * @abstract
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    DomAdapter.prototype.contains = function (nodeA, nodeB) { };
+    /**
+     * @abstract
+     * @param {?} templateHtml
+     * @return {?}
+     */
+    DomAdapter.prototype.parse = function (templateHtml) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} selector
+     * @return {?}
+     */
+    DomAdapter.prototype.querySelector = function (el, selector) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} selector
+     * @return {?}
+     */
+    DomAdapter.prototype.querySelectorAll = function (el, selector) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} evt
+     * @param {?} listener
+     * @return {?}
+     */
+    DomAdapter.prototype.on = function (el, evt, listener) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} evt
+     * @param {?} listener
+     * @return {?}
+     */
+    DomAdapter.prototype.onAndCancel = function (el, evt, listener) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} evt
+     * @return {?}
+     */
+    DomAdapter.prototype.dispatchEvent = function (el, evt) { };
+    /**
+     * @abstract
+     * @param {?} eventType
+     * @return {?}
+     */
+    DomAdapter.prototype.createMouseEvent = function (eventType) { };
+    /**
+     * @abstract
+     * @param {?} eventType
+     * @return {?}
+     */
+    DomAdapter.prototype.createEvent = function (eventType) { };
+    /**
+     * @abstract
+     * @param {?} evt
+     * @return {?}
+     */
+    DomAdapter.prototype.preventDefault = function (evt) { };
+    /**
+     * @abstract
+     * @param {?} evt
+     * @return {?}
+     */
+    DomAdapter.prototype.isPrevented = function (evt) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getInnerHTML = function (el) { };
+    /**
+     * Returns content if el is a <template> element, null otherwise.
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getTemplateContent = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getOuterHTML = function (el) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.nodeName = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.nodeValue = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.type = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.content = function (node) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.firstChild = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.nextSibling = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.parentElement = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.childNodes = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.childNodesAsList = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.clearNodes = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.appendChild = function (el, node) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.removeChild = function (el, node) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} newNode
+     * @param {?} oldNode
+     * @return {?}
+     */
+    DomAdapter.prototype.replaceChild = function (el, newNode, oldNode) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.remove = function (el) { };
+    /**
+     * @abstract
+     * @param {?} parent
+     * @param {?} ref
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.insertBefore = function (parent, ref, node) { };
+    /**
+     * @abstract
+     * @param {?} parent
+     * @param {?} ref
+     * @param {?} nodes
+     * @return {?}
+     */
+    DomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) { };
+    /**
+     * @abstract
+     * @param {?} parent
+     * @param {?} el
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.insertAfter = function (parent, el, node) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setInnerHTML = function (el, value) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getText = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setText = function (el, value) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getValue = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setValue = function (el, value) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getChecked = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setChecked = function (el, value) { };
+    /**
+     * @abstract
+     * @param {?} text
+     * @return {?}
+     */
+    DomAdapter.prototype.createComment = function (text) { };
+    /**
+     * @abstract
+     * @param {?} html
+     * @return {?}
+     */
+    DomAdapter.prototype.createTemplate = function (html) { };
+    /**
+     * @abstract
+     * @param {?} tagName
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createElement = function (tagName, doc) { };
+    /**
+     * @abstract
+     * @param {?} ns
+     * @param {?} tagName
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createElementNS = function (ns, tagName, doc) { };
+    /**
+     * @abstract
+     * @param {?} text
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createTextNode = function (text, doc) { };
+    /**
+     * @abstract
+     * @param {?} attrName
+     * @param {?} attrValue
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) { };
+    /**
+     * @abstract
+     * @param {?} css
+     * @param {?=} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.createStyleElement = function (css, doc) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.createShadowRoot = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getShadowRoot = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getHost = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getDistributedNodes = function (el) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.clone = function (node) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getElementsByClassName = function (element, name) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getElementsByTagName = function (element, name) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.classList = function (element) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    DomAdapter.prototype.addClass = function (element, className) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    DomAdapter.prototype.removeClass = function (element, className) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} className
+     * @return {?}
+     */
+    DomAdapter.prototype.hasClass = function (element, className) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?} styleValue
+     * @return {?}
+     */
+    DomAdapter.prototype.setStyle = function (element, styleName, styleValue) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} styleName
+     * @return {?}
+     */
+    DomAdapter.prototype.removeStyle = function (element, styleName) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} styleName
+     * @return {?}
+     */
+    DomAdapter.prototype.getStyle = function (element, styleName) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?=} styleValue
+     * @return {?}
+     */
+    DomAdapter.prototype.hasStyle = function (element, styleName, styleValue) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.tagName = function (element) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.attributeMap = function (element) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.hasAttribute = function (element, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.getAttribute = function (element, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setAttribute = function (element, name, value) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setAttributeNS = function (element, ns, name, value) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.removeAttribute = function (element, attribute) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} ns
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.removeAttributeNS = function (element, ns, attribute) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.templateAwareRoot = function (el) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.createHtmlDocument = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getDefaultDocument = function () { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getBoundingClientRect = function (el) { };
+    /**
+     * @abstract
+     * @param {?} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.getTitle = function (doc) { };
+    /**
+     * @abstract
+     * @param {?} doc
+     * @param {?} newTitle
+     * @return {?}
+     */
+    DomAdapter.prototype.setTitle = function (doc, newTitle) { };
+    /**
+     * @abstract
+     * @param {?} n
+     * @param {?} selector
+     * @return {?}
+     */
+    DomAdapter.prototype.elementMatches = function (n, selector) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.isTemplateElement = function (el) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.isTextNode = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.isCommentNode = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.isElementNode = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.hasShadowRoot = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.isShadowRoot = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.importIntoDoc = function (node) { };
+    /**
+     * @abstract
+     * @param {?} node
+     * @return {?}
+     */
+    DomAdapter.prototype.adoptNode = function (node) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.getHref = function (element) { };
+    /**
+     * @abstract
+     * @param {?} event
+     * @return {?}
+     */
+    DomAdapter.prototype.getEventKey = function (event) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} baseUrl
+     * @param {?} href
+     * @return {?}
+     */
+    DomAdapter.prototype.resolveAndSetHref = function (element, baseUrl, href) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsDOMEvents = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsNativeShadowDOM = function () { };
+    /**
+     * @abstract
+     * @param {?} doc
+     * @param {?} target
+     * @return {?}
+     */
+    DomAdapter.prototype.getGlobalEventTarget = function (doc, target) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getHistory = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getLocation = function () { };
+    /**
+     * @abstract
+     * @param {?} doc
+     * @return {?}
+     */
+    DomAdapter.prototype.getBaseHref = function (doc) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.resetBaseElement = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getUserAgent = function () { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setData = function (element, name, value) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    DomAdapter.prototype.getComputedStyle = function (element) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getData = function (element, name) { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsWebAnimation = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.performanceNow = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getAnimationPrefix = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.getTransitionEnd = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsAnimation = function () { };
+    /**
+     * @abstract
+     * @return {?}
+     */
+    DomAdapter.prototype.supportsCookies = function () { };
+    /**
+     * @abstract
+     * @param {?} name
+     * @return {?}
+     */
+    DomAdapter.prototype.getCookie = function (name) { };
+    /**
+     * @abstract
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    DomAdapter.prototype.setCookie = function (name, value) { };
 }
 
 /**
@@ -152,6 +913,18 @@ class GenericBrowserDomAdapter extends DomAdapter {
     supportsAnimation() {
         return this._animationPrefix != null && this._transitionEnd != null;
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    GenericBrowserDomAdapter.prototype._animationPrefix;
+    /**
+     * @type {?}
+     * @private
+     */
+    GenericBrowserDomAdapter.prototype._transitionEnd;
 }
 
 /**
@@ -1230,6 +2003,20 @@ BrowserPlatformLocation.decorators = [
 BrowserPlatformLocation.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
+if (false) {
+    /** @type {?} */
+    BrowserPlatformLocation.prototype.location;
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowserPlatformLocation.prototype._history;
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowserPlatformLocation.prototype._doc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1386,6 +2173,32 @@ class BrowserGetTestability {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const CAMEL_CASE_REGEXP = /([A-Z])/g;
+/** @type {?} */
+const DASH_CASE_REGEXP = /-([a-z])/g;
+/**
+ * @param {?} input
+ * @return {?}
+ */
+function camelCaseToDashCase(input) {
+    return input.replace(CAMEL_CASE_REGEXP, (/**
+     * @param {...?} m
+     * @return {?}
+     */
+    (...m) => '-' + m[1].toLowerCase()));
+}
+/**
+ * @param {?} input
+ * @return {?}
+ */
+function dashCaseToCamelCase(input) {
+    return input.replace(DASH_CASE_REGEXP, (/**
+     * @param {...?} m
+     * @return {?}
+     */
+    (...m) => m[1].toUpperCase()));
+}
 /**
  * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
  * `name` is `'probe'`.
@@ -1583,6 +2396,23 @@ EventManager.ctorParameters = () => [
     { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
     { type: NgZone }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    EventManager.prototype._plugins;
+    /**
+     * @type {?}
+     * @private
+     */
+    EventManager.prototype._eventNameToPlugin;
+    /**
+     * @type {?}
+     * @private
+     */
+    EventManager.prototype._zone;
+}
 /**
  * @abstract
  */
@@ -1607,6 +2437,29 @@ class EventManagerPlugin {
         }
         return this.addEventListener(target, eventName, handler);
     }
+}
+if (false) {
+    /** @type {?} */
+    EventManagerPlugin.prototype.manager;
+    /**
+     * @type {?}
+     * @private
+     */
+    EventManagerPlugin.prototype._doc;
+    /**
+     * @abstract
+     * @param {?} eventName
+     * @return {?}
+     */
+    EventManagerPlugin.prototype.supports = function (eventName) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    EventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) { };
 }
 
 /**
@@ -1652,6 +2505,14 @@ class SharedStylesHost {
 SharedStylesHost.decorators = [
     { type: Injectable }
 ];
+if (false) {
+    /**
+     * \@internal
+     * @type {?}
+     * @protected
+     */
+    SharedStylesHost.prototype._stylesSet;
+}
 class DomSharedStylesHost extends SharedStylesHost {
     /**
      * @param {?} _doc
@@ -1721,6 +2582,23 @@ DomSharedStylesHost.decorators = [
 DomSharedStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    DomSharedStylesHost.prototype._hostNodes;
+    /**
+     * @type {?}
+     * @private
+     */
+    DomSharedStylesHost.prototype._styleNodes;
+    /**
+     * @type {?}
+     * @private
+     */
+    DomSharedStylesHost.prototype._doc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1860,6 +2738,33 @@ DomRendererFactory2.ctorParameters = () => [
     { type: DomSharedStylesHost },
     { type: String, decorators: [{ type: Inject, args: [APP_ID,] }] }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    DomRendererFactory2.prototype.rendererByCompId;
+    /**
+     * @type {?}
+     * @private
+     */
+    DomRendererFactory2.prototype.defaultRenderer;
+    /**
+     * @type {?}
+     * @private
+     */
+    DomRendererFactory2.prototype.eventManager;
+    /**
+     * @type {?}
+     * @private
+     */
+    DomRendererFactory2.prototype.sharedStylesHost;
+    /**
+     * @type {?}
+     * @private
+     */
+    DomRendererFactory2.prototype.appId;
+}
 class DefaultDomRenderer2 {
     /**
      * @param {?} eventManager
@@ -2073,6 +2978,17 @@ class DefaultDomRenderer2 {
         return (/** @type {?} */ ((/** @type {?} */ (this.eventManager.addEventListener(target, event, decoratePreventDefault(callback))))));
     }
 }
+if (false) {
+    /** @type {?} */
+    DefaultDomRenderer2.prototype.data;
+    /** @type {?} */
+    DefaultDomRenderer2.prototype.destroyNode;
+    /**
+     * @type {?}
+     * @private
+     */
+    DefaultDomRenderer2.prototype.eventManager;
+}
 const ɵ0$2 = /**
  * @return {?}
  */
@@ -2121,6 +3037,23 @@ class EmulatedEncapsulationDomRenderer2 extends DefaultDomRenderer2 {
         super.setAttribute(el, this.contentAttr, '');
         return el;
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    EmulatedEncapsulationDomRenderer2.prototype.contentAttr;
+    /**
+     * @type {?}
+     * @private
+     */
+    EmulatedEncapsulationDomRenderer2.prototype.hostAttr;
+    /**
+     * @type {?}
+     * @private
+     */
+    EmulatedEncapsulationDomRenderer2.prototype.component;
 }
 class ShadowDomRenderer extends DefaultDomRenderer2 {
     /**
@@ -2192,6 +3125,28 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
     parentNode(node) {
         return this.nodeOrShadowRoot(super.parentNode(this.nodeOrShadowRoot(node)));
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ShadowDomRenderer.prototype.shadowRoot;
+    /**
+     * @type {?}
+     * @private
+     */
+    ShadowDomRenderer.prototype.sharedStylesHost;
+    /**
+     * @type {?}
+     * @private
+     */
+    ShadowDomRenderer.prototype.hostEl;
+    /**
+     * @type {?}
+     * @private
+     */
+    ShadowDomRenderer.prototype.component;
 }
 
 /**
@@ -2265,6 +3220,17 @@ function (eventName) {
     }
     return blackListedMap.hasOwnProperty(eventName);
 });
+const ɵ2 = isBlackListedEvent;
+/**
+ * @record
+ */
+function TaskData() { }
+if (false) {
+    /** @type {?} */
+    TaskData.prototype.zone;
+    /** @type {?} */
+    TaskData.prototype.handler;
+}
 // a global listener to handle all dom event,
 // so we do not need to create a closure every time
 /** @type {?} */
@@ -2321,6 +3287,7 @@ function (event) {
         }
     }
 });
+const ɵ3 = globalListener;
 class DomEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
@@ -2379,6 +3346,21 @@ class DomEventsPlugin extends EventManagerPlugin {
      * @return {?}
      */
     addEventListener(element, eventName, handler) {
+        /**
+         * This code is about to add a listener to the DOM. If Zone.js is present, than
+         * `addEventListener` has been patched. The patched code adds overhead in both
+         * memory and speed (3x slower) than native. For this reason if we detect that
+         * Zone.js is present we use a simple version of zone aware addEventListener instead.
+         * The result is faster registration and the zone will be restored.
+         * But ZoneSpec.onScheduleTask, ZoneSpec.onInvokeTask, ZoneSpec.onCancelTask
+         * will not be invoked
+         * We also do manual zone restoration in element.ts renderEventHandlerClosure method.
+         *
+         * NOTE: it is possible that the element is from different iframe, and so we
+         * have to check before we execute the method.
+         * @type {?}
+         */
+        const self = this;
         /** @type {?} */
         const zoneJsLoaded = element[ADD_EVENT_LISTENER];
         /** @type {?} */
@@ -2484,6 +3466,13 @@ DomEventsPlugin.ctorParameters = () => [
     { type: NgZone },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] }] }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    DomEventsPlugin.prototype.ngZone;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2546,6 +3535,28 @@ const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
  */
 const HAMMER_LOADER = new InjectionToken('HammerLoader');
 /**
+ * @record
+ */
+function HammerInstance() { }
+if (false) {
+    /**
+     * @param {?} eventName
+     * @param {?=} callback
+     * @return {?}
+     */
+    HammerInstance.prototype.on = function (eventName, callback) { };
+    /**
+     * @param {?} eventName
+     * @param {?=} callback
+     * @return {?}
+     */
+    HammerInstance.prototype.off = function (eventName, callback) { };
+    /**
+     * @return {?}
+     */
+    HammerInstance.prototype.destroy = function () { };
+}
+/**
  * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
  * for gesture recognition. Configures specific event recognition.
  * \@publicApi
@@ -2596,6 +3607,42 @@ class HammerGestureConfig {
 HammerGestureConfig.decorators = [
     { type: Injectable }
 ];
+if (false) {
+    /**
+     * A set of supported event names for gestures to be used in Angular.
+     * Angular supports all built-in recognizers, as listed in
+     * [HammerJS documentation](http://hammerjs.github.io/).
+     * @type {?}
+     */
+    HammerGestureConfig.prototype.events;
+    /**
+     * Maps gesture event names to a set of configuration options
+     * that specify overrides to the default values for specific properties.
+     *
+     * The key is a supported event name to be configured,
+     * and the options object contains a set of properties, with override values
+     * to be applied to the named recognizer event.
+     * For example, to disable recognition of the rotate event, specify
+     *  `{"rotate": {"enable": false}}`.
+     *
+     * Properties that are not present take the HammerJS default values.
+     * For information about which properties are supported for which events,
+     * and their allowed and default values, see
+     * [HammerJS documentation](http://hammerjs.github.io/).
+     *
+     * @type {?}
+     */
+    HammerGestureConfig.prototype.overrides;
+    /**
+     * Properties whose default values can be overridden for a given event.
+     * Different sets of properties apply to different events.
+     * For information about which properties are supported for which events,
+     * and their allowed and default values, see
+     * [HammerJS documentation](http://hammerjs.github.io/).
+     * @type {?}
+     */
+    HammerGestureConfig.prototype.options;
+}
 class HammerGesturesPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
@@ -2733,6 +3780,23 @@ HammerGesturesPlugin.ctorParameters = () => [
     { type: ɵConsole },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    HammerGesturesPlugin.prototype._config;
+    /**
+     * @type {?}
+     * @private
+     */
+    HammerGesturesPlugin.prototype.console;
+    /**
+     * @type {?}
+     * @private
+     */
+    HammerGesturesPlugin.prototype.loader;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2751,11 +3815,11 @@ const ɵ0$4 = /**
  * @param {?} event
  * @return {?}
  */
-(event) => event.ctrlKey, ɵ2 = /**
+(event) => event.ctrlKey, ɵ2$1 = /**
  * @param {?} event
  * @return {?}
  */
-(event) => event.metaKey, ɵ3 = /**
+(event) => event.metaKey, ɵ3$1 = /**
  * @param {?} event
  * @return {?}
  */
@@ -2767,8 +3831,8 @@ const ɵ0$4 = /**
 const MODIFIER_KEY_GETTERS = {
     'alt': (ɵ0$4),
     'control': (ɵ1$1),
-    'meta': (ɵ2),
-    'shift': (ɵ3)
+    'meta': (ɵ2$1),
+    'shift': (ɵ3$1)
 };
 /**
  * \@publicApi
@@ -2926,6 +3990,48 @@ KeyEventsPlugin.ctorParameters = () => [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
+ * Marker interface for a value that's safe to use in a particular context.
+ *
+ * \@publicApi
+ * @record
+ */
+function SafeValue() { }
+/**
+ * Marker interface for a value that's safe to use as HTML.
+ *
+ * \@publicApi
+ * @record
+ */
+function SafeHtml() { }
+/**
+ * Marker interface for a value that's safe to use as style (CSS).
+ *
+ * \@publicApi
+ * @record
+ */
+function SafeStyle() { }
+/**
+ * Marker interface for a value that's safe to use as JavaScript.
+ *
+ * \@publicApi
+ * @record
+ */
+function SafeScript() { }
+/**
+ * Marker interface for a value that's safe to use as a URL linking to a document.
+ *
+ * \@publicApi
+ * @record
+ */
+function SafeUrl() { }
+/**
+ * Marker interface for a value that's safe to use as a URL to load executable code from.
+ *
+ * \@publicApi
+ * @record
+ */
+function SafeResourceUrl() { }
+/**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.
  *
@@ -2958,6 +4064,75 @@ KeyEventsPlugin.ctorParameters = () => [
  * @abstract
  */
 class DomSanitizer {
+}
+if (false) {
+    /**
+     * Sanitizes a value for use in the given SecurityContext.
+     *
+     * If value is trusted for the context, this method will unwrap the contained safe value and use
+     * it directly. Otherwise, value will be sanitized to be safe in the given context, for example
+     * by replacing URLs that have an unsafe protocol part (such as `javascript:`). The implementation
+     * is responsible to make sure that the value can definitely be safely used in the given context.
+     * @abstract
+     * @param {?} context
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.sanitize = function (context, value) { };
+    /**
+     * Bypass security and trust the given value to be safe HTML. Only use this when the bound HTML
+     * is unsafe (e.g. contains `<script>` tags) and the code should be executed. The sanitizer will
+     * leave safe HTML intact, so in most situations this method should not be used.
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustHtml = function (value) { };
+    /**
+     * Bypass security and trust the given value to be safe style value (CSS).
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustStyle = function (value) { };
+    /**
+     * Bypass security and trust the given value to be safe JavaScript.
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustScript = function (value) { };
+    /**
+     * Bypass security and trust the given value to be a safe style URL, i.e. a value that can be used
+     * in hyperlinks or `<img src>`.
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustUrl = function (value) { };
+    /**
+     * Bypass security and trust the given value to be a safe resource URL, i.e. a location that may
+     * be used to load executable code from, like `<script src>`, or `<iframe src>`.
+     *
+     * **WARNING:** calling this method with untrusted user data exposes your application to XSS
+     * security risks!
+     * @abstract
+     * @param {?} value
+     * @return {?}
+     */
+    DomSanitizer.prototype.bypassSecurityTrustResourceUrl = function (value) { };
 }
 class DomSanitizerImpl extends DomSanitizer {
     /**
@@ -3057,6 +4232,13 @@ DomSanitizerImpl.decorators = [
 DomSanitizerImpl.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    DomSanitizerImpl.prototype._doc;
+}
 /**
  * @abstract
  */
@@ -3075,6 +4257,15 @@ class SafeValueImpl {
         return `SafeValue must use [property]=binding: ${this.changingThisBreaksApplicationSecurity}` +
             ` (see http://g.co/ng/security#xss)`;
     }
+}
+if (false) {
+    /** @type {?} */
+    SafeValueImpl.prototype.changingThisBreaksApplicationSecurity;
+    /**
+     * @abstract
+     * @return {?}
+     */
+    SafeValueImpl.prototype.getTypeName = function () { };
 }
 class SafeHtmlImpl extends SafeValueImpl {
     /**
@@ -3406,6 +4597,18 @@ Meta.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 /** @nocollapse */ Meta.ngInjectableDef = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    Meta.prototype._dom;
+    /**
+     * @type {?}
+     * @private
+     */
+    Meta.prototype._doc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3455,6 +4658,13 @@ Title.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 /** @nocollapse */ Title.ngInjectableDef = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    Title.prototype._doc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3483,6 +4693,12 @@ class ChangeDetectionPerfRecord {
         this.msPerTick = msPerTick;
         this.numTicks = numTicks;
     }
+}
+if (false) {
+    /** @type {?} */
+    ChangeDetectionPerfRecord.prototype.msPerTick;
+    /** @type {?} */
+    ChangeDetectionPerfRecord.prototype.numTicks;
 }
 /**
  * Entry point for all Angular profiling-related debug tools. This object
@@ -3542,6 +4758,10 @@ class AngularProfiler {
         win.console.log(`${msPerTick.toFixed(2)} ms per check`);
         return new ChangeDetectionPerfRecord(msPerTick, numTicks);
     }
+}
+if (false) {
+    /** @type {?} */
+    AngularProfiler.prototype.appRef;
 }
 
 /**
@@ -3735,6 +4955,18 @@ class TransferState {
 TransferState.decorators = [
     { type: Injectable }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    TransferState.prototype.store;
+    /**
+     * @type {?}
+     * @private
+     */
+    TransferState.prototype.onSerializeCallbacks;
+}
 /**
  * @param {?} doc
  * @param {?} appId
@@ -3847,7 +5079,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.2.1+4.sha-6ec91dd.with-local-changes');
+const VERSION = new Version('8.2.1+6.sha-eccb60c.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
