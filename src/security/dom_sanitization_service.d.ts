@@ -1,4 +1,4 @@
-import { Sanitizer, SecurityContext } from '@angular/core';
+import { Injector, Sanitizer, SecurityContext } from '@angular/core';
 import * as i0 from "@angular/core";
 export { SecurityContext };
 /**
@@ -123,12 +123,13 @@ export declare abstract class DomSanitizer implements Sanitizer {
      * security risks!
      */
     abstract bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
+    static ngInjectableDef: i0.ɵɵInjectableDef<DomSanitizer>;
 }
+export declare function domSanitizerImplFactory(injector: Injector): DomSanitizerImpl;
 export declare class DomSanitizerImpl extends DomSanitizer {
     private _doc;
     constructor(_doc: any);
     sanitize(ctx: SecurityContext, value: SafeValue | string | null): string | null;
-    private checkNotSafeValue;
     bypassSecurityTrustHtml(value: string): SafeHtml;
     bypassSecurityTrustStyle(value: string): SafeStyle;
     bypassSecurityTrustScript(value: string): SafeScript;
