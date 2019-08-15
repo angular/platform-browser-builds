@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.2+13.sha-628b0c1.with-local-changes
+ * @license Angular v9.0.0-next.2+39.sha-2e4d17f.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -564,16 +564,18 @@ export declare abstract class ɵangular_packages_platform_browser_platform_brows
     addGlobalEventListener(element: string, eventName: string, handler: Function): Function;
 }
 
-export declare function ɵangular_packages_platform_browser_platform_browser_h(transitionId: string, document: any, injector: Injector): () => void;
+export declare function ɵangular_packages_platform_browser_platform_browser_h(injector: Injector): ɵDomSanitizerImpl;
 
-export declare const ɵangular_packages_platform_browser_platform_browser_i: StaticProvider[];
+export declare function ɵangular_packages_platform_browser_platform_browser_i(transitionId: string, document: any, injector: Injector): () => void;
 
-export declare function ɵangular_packages_platform_browser_platform_browser_j(coreTokens: NgProbeToken[]): any;
+export declare const ɵangular_packages_platform_browser_platform_browser_j: StaticProvider[];
+
+export declare function ɵangular_packages_platform_browser_platform_browser_k(coreTokens: NgProbeToken[]): any;
 
 /**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
-export declare const ɵangular_packages_platform_browser_platform_browser_k: Provider[];
+export declare const ɵangular_packages_platform_browser_platform_browser_l: Provider[];
 
 /**
  * Provides DOM operations in any browser environment.
@@ -581,7 +583,7 @@ export declare const ɵangular_packages_platform_browser_platform_browser_k: Pro
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare abstract class ɵangular_packages_platform_browser_platform_browser_l extends ɵDomAdapter {
+export declare abstract class ɵangular_packages_platform_browser_platform_browser_m extends ɵDomAdapter {
     private _animationPrefix;
     private _transitionEnd;
     constructor();
@@ -603,12 +605,17 @@ export declare abstract class ɵangular_packages_platform_browser_platform_brows
 export declare const ɵBROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
 
 /**
+ * @codeGenApi
+ */
+export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
+
+/**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_l {
+export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_m {
     parse(templateHtml: string): void;
     static makeCurrent(): void;
     hasProperty(element: Node, name: string): boolean;
@@ -912,7 +919,6 @@ export declare class ɵDomSanitizerImpl extends DomSanitizer {
     private _doc;
     constructor(_doc: any);
     sanitize(ctx: SecurityContext, value: SafeValue | string | null): string | null;
-    private checkNotSafeValue;
     bypassSecurityTrustHtml(value: string): SafeHtml;
     bypassSecurityTrustStyle(value: string): SafeStyle;
     bypassSecurityTrustScript(value: string): SafeScript;

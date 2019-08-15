@@ -1,11 +1,11 @@
 /**
- * @license Angular v9.0.0-next.2+13.sha-628b0c1.with-local-changes
+ * @license Angular v9.0.0-next.2+39.sha-2e4d17f.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, PlatformLocation, DOCUMENT, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, SecurityContext, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵ_sanitizeUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, NgModule, ApplicationModule, SkipSelf, ɵɵinject, ɵɵdefineInjectable, Version } from '@angular/core';
+import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, forwardRef, ɵɵdefineInjectable, ɵɵinject, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, NgModule, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -4071,6 +4071,13 @@ function SafeResourceUrl() { }
  */
 class DomSanitizer {
 }
+DomSanitizer.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root', useExisting: forwardRef((/**
+                 * @return {?}
+                 */
+                () => DomSanitizerImpl)) },] }
+];
+/** @nocollapse */ DomSanitizer.ngInjectableDef = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
 if (false) {
     /**
      * Sanitizes a value for use in the given SecurityContext.
@@ -4140,6 +4147,13 @@ if (false) {
      */
     DomSanitizer.prototype.bypassSecurityTrustResourceUrl = function (value) { };
 }
+/**
+ * @param {?} injector
+ * @return {?}
+ */
+function domSanitizerImplFactory(injector) {
+    return new DomSanitizerImpl(injector.get(DOCUMENT));
+}
 class DomSanitizerImpl extends DomSanitizer {
     /**
      * @param {?} _doc
@@ -4160,148 +4174,80 @@ class DomSanitizerImpl extends DomSanitizer {
             case SecurityContext.NONE:
                 return (/** @type {?} */ (value));
             case SecurityContext.HTML:
-                if (value instanceof SafeHtmlImpl)
-                    return value.changingThisBreaksApplicationSecurity;
-                this.checkNotSafeValue(value, 'HTML');
+                if (ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
+                    return ɵunwrapSafeValue(value);
+                }
                 return ɵ_sanitizeHtml(this._doc, String(value));
             case SecurityContext.STYLE:
-                if (value instanceof SafeStyleImpl)
-                    return value.changingThisBreaksApplicationSecurity;
-                this.checkNotSafeValue(value, 'Style');
+                if (ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
+                    return ɵunwrapSafeValue(value);
+                }
                 return ɵ_sanitizeStyle((/** @type {?} */ (value)));
             case SecurityContext.SCRIPT:
-                if (value instanceof SafeScriptImpl)
-                    return value.changingThisBreaksApplicationSecurity;
-                this.checkNotSafeValue(value, 'Script');
+                if (ɵallowSanitizationBypassAndThrow(value, "Script" /* Script */)) {
+                    return ɵunwrapSafeValue(value);
+                }
                 throw new Error('unsafe value used in a script context');
             case SecurityContext.URL:
-                if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
-                    // Allow resource URLs in URL contexts, they are strictly more trusted.
-                    return value.changingThisBreaksApplicationSecurity;
+                /** @type {?} */
+                const type = ɵgetSanitizationBypassType(value);
+                if (ɵallowSanitizationBypassAndThrow(value, "URL" /* Url */)) {
+                    return ɵunwrapSafeValue(value);
                 }
-                this.checkNotSafeValue(value, 'URL');
                 return ɵ_sanitizeUrl(String(value));
             case SecurityContext.RESOURCE_URL:
-                if (value instanceof SafeResourceUrlImpl) {
-                    return value.changingThisBreaksApplicationSecurity;
+                if (ɵallowSanitizationBypassAndThrow(value, "ResourceURL" /* ResourceUrl */)) {
+                    return ɵunwrapSafeValue(value);
                 }
-                this.checkNotSafeValue(value, 'ResourceURL');
                 throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
             default:
                 throw new Error(`Unexpected SecurityContext ${ctx} (see http://g.co/ng/security#xss)`);
         }
     }
     /**
-     * @private
      * @param {?} value
-     * @param {?} expectedType
      * @return {?}
      */
-    checkNotSafeValue(value, expectedType) {
-        if (value instanceof SafeValueImpl) {
-            throw new Error(`Required a safe ${expectedType}, got a ${value.getTypeName()} ` +
-                `(see http://g.co/ng/security#xss)`);
-        }
+    bypassSecurityTrustHtml(value) { return ɵbypassSanitizationTrustHtml(value); }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    bypassSecurityTrustStyle(value) { return ɵbypassSanitizationTrustStyle(value); }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    bypassSecurityTrustScript(value) {
+        return ɵbypassSanitizationTrustScript(value);
     }
     /**
      * @param {?} value
      * @return {?}
      */
-    bypassSecurityTrustHtml(value) { return new SafeHtmlImpl(value); }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    bypassSecurityTrustStyle(value) { return new SafeStyleImpl(value); }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    bypassSecurityTrustScript(value) { return new SafeScriptImpl(value); }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    bypassSecurityTrustUrl(value) { return new SafeUrlImpl(value); }
+    bypassSecurityTrustUrl(value) { return ɵbypassSanitizationTrustUrl(value); }
     /**
      * @param {?} value
      * @return {?}
      */
     bypassSecurityTrustResourceUrl(value) {
-        return new SafeResourceUrlImpl(value);
+        return ɵbypassSanitizationTrustResourceUrl(value);
     }
 }
 DomSanitizerImpl.decorators = [
-    { type: Injectable }
+    { type: Injectable, args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] },] }
 ];
 /** @nocollapse */
 DomSanitizerImpl.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
+/** @nocollapse */ DomSanitizerImpl.ngInjectableDef = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
      * @private
      */
     DomSanitizerImpl.prototype._doc;
-}
-/**
- * @abstract
- */
-class SafeValueImpl {
-    /**
-     * @param {?} changingThisBreaksApplicationSecurity
-     */
-    constructor(changingThisBreaksApplicationSecurity) {
-        this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
-        // empty
-    }
-    /**
-     * @return {?}
-     */
-    toString() {
-        return `SafeValue must use [property]=binding: ${this.changingThisBreaksApplicationSecurity}` +
-            ` (see http://g.co/ng/security#xss)`;
-    }
-}
-if (false) {
-    /** @type {?} */
-    SafeValueImpl.prototype.changingThisBreaksApplicationSecurity;
-    /**
-     * @abstract
-     * @return {?}
-     */
-    SafeValueImpl.prototype.getTypeName = function () { };
-}
-class SafeHtmlImpl extends SafeValueImpl {
-    /**
-     * @return {?}
-     */
-    getTypeName() { return 'HTML'; }
-}
-class SafeStyleImpl extends SafeValueImpl {
-    /**
-     * @return {?}
-     */
-    getTypeName() { return 'Style'; }
-}
-class SafeScriptImpl extends SafeValueImpl {
-    /**
-     * @return {?}
-     */
-    getTypeName() { return 'Script'; }
-}
-class SafeUrlImpl extends SafeValueImpl {
-    /**
-     * @return {?}
-     */
-    getTypeName() { return 'URL'; }
-}
-class SafeResourceUrlImpl extends SafeValueImpl {
-    /**
-     * @return {?}
-     */
-    getTypeName() { return 'ResourceURL'; }
 }
 
 /**
@@ -4316,6 +4262,16 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
+/** @type {?} */
+const BROWSER_SANITIZATION_PROVIDERS__PRE_R3__ = [
+    { provide: Sanitizer, useExisting: DomSanitizer },
+    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT] },
+];
+/**
+ * \@codeGenApi
+ * @type {?}
+ */
+const BROWSER_SANITIZATION_PROVIDERS__POST_R3__ = [];
 /**
  * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
@@ -4323,10 +4279,7 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
  * \@publicApi
  * @type {?}
  */
-const BROWSER_SANITIZATION_PROVIDERS = [
-    { provide: Sanitizer, useExisting: DomSanitizer },
-    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT] },
-];
+const BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__PRE_R3__;
 /**
  * \@publicApi
  * @type {?}
@@ -5085,7 +5038,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.2+13.sha-628b0c1.with-local-changes');
+const VERSION = new Version('9.0.0-next.2+39.sha-2e4d17f.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
@@ -5106,5 +5059,5 @@ const VERSION = new Version('9.0.0-next.2+13.sha-628b0c1.with-local-changes');
  * Generated bundle index. Do not edit.
  */
 
-export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_l, createMeta as ɵangular_packages_platform_browser_platform_browser_d, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_h, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, ELEMENT_PROBE_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_k, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_j, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
+export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_m, createMeta as ɵangular_packages_platform_browser_platform_browser_d, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_j, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_i, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, ELEMENT_PROBE_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_l, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_k, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, domSanitizerImplFactory as ɵangular_packages_platform_browser_platform_browser_h, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.js.map
