@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.2+38.sha-40b2874.with-local-changes
+ * @license Angular v9.0.0-next.2+40.sha-3cf2005.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2004,13 +2004,6 @@
     }(EventManagerPlugin));
 
     /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /**
      * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
      * values to be safe to use in the different DOM contexts.
      *
@@ -2044,8 +2037,15 @@
     var DomSanitizer = /** @class */ (function () {
         function DomSanitizer() {
         }
+        DomSanitizer.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return i0.ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
+        DomSanitizer = __decorate([
+            i0.Injectable({ providedIn: 'root', useExisting: i0.forwardRef(function () { return DomSanitizerImpl; }) })
+        ], DomSanitizer);
         return DomSanitizer;
     }());
+    function domSanitizerImplFactory(injector) {
+        return new DomSanitizerImpl(injector.get(common.DOCUMENT));
+    }
     var DomSanitizerImpl = /** @class */ (function (_super) {
         __extends(DomSanitizerImpl, _super);
         function DomSanitizerImpl(_doc) {
@@ -2060,108 +2060,52 @@
                 case i0.SecurityContext.NONE:
                     return value;
                 case i0.SecurityContext.HTML:
-                    if (value instanceof SafeHtmlImpl)
-                        return value.changingThisBreaksApplicationSecurity;
-                    this.checkNotSafeValue(value, 'HTML');
+                    if (i0.ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
+                        return i0.ɵunwrapSafeValue(value);
+                    }
                     return i0.ɵ_sanitizeHtml(this._doc, String(value));
                 case i0.SecurityContext.STYLE:
-                    if (value instanceof SafeStyleImpl)
-                        return value.changingThisBreaksApplicationSecurity;
-                    this.checkNotSafeValue(value, 'Style');
+                    if (i0.ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
+                        return i0.ɵunwrapSafeValue(value);
+                    }
                     return i0.ɵ_sanitizeStyle(value);
                 case i0.SecurityContext.SCRIPT:
-                    if (value instanceof SafeScriptImpl)
-                        return value.changingThisBreaksApplicationSecurity;
-                    this.checkNotSafeValue(value, 'Script');
+                    if (i0.ɵallowSanitizationBypassAndThrow(value, "Script" /* Script */)) {
+                        return i0.ɵunwrapSafeValue(value);
+                    }
                     throw new Error('unsafe value used in a script context');
                 case i0.SecurityContext.URL:
-                    if (value instanceof SafeResourceUrlImpl || value instanceof SafeUrlImpl) {
-                        // Allow resource URLs in URL contexts, they are strictly more trusted.
-                        return value.changingThisBreaksApplicationSecurity;
+                    var type = i0.ɵgetSanitizationBypassType(value);
+                    if (i0.ɵallowSanitizationBypassAndThrow(value, "URL" /* Url */)) {
+                        return i0.ɵunwrapSafeValue(value);
                     }
-                    this.checkNotSafeValue(value, 'URL');
                     return i0.ɵ_sanitizeUrl(String(value));
                 case i0.SecurityContext.RESOURCE_URL:
-                    if (value instanceof SafeResourceUrlImpl) {
-                        return value.changingThisBreaksApplicationSecurity;
+                    if (i0.ɵallowSanitizationBypassAndThrow(value, "ResourceURL" /* ResourceUrl */)) {
+                        return i0.ɵunwrapSafeValue(value);
                     }
-                    this.checkNotSafeValue(value, 'ResourceURL');
                     throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
                 default:
                     throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
             }
         };
-        DomSanitizerImpl.prototype.checkNotSafeValue = function (value, expectedType) {
-            if (value instanceof SafeValueImpl) {
-                throw new Error("Required a safe " + expectedType + ", got a " + value.getTypeName() + " " +
-                    "(see http://g.co/ng/security#xss)");
-            }
+        DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) { return i0.ɵbypassSanitizationTrustHtml(value); };
+        DomSanitizerImpl.prototype.bypassSecurityTrustStyle = function (value) { return i0.ɵbypassSanitizationTrustStyle(value); };
+        DomSanitizerImpl.prototype.bypassSecurityTrustScript = function (value) {
+            return i0.ɵbypassSanitizationTrustScript(value);
         };
-        DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) { return new SafeHtmlImpl(value); };
-        DomSanitizerImpl.prototype.bypassSecurityTrustStyle = function (value) { return new SafeStyleImpl(value); };
-        DomSanitizerImpl.prototype.bypassSecurityTrustScript = function (value) { return new SafeScriptImpl(value); };
-        DomSanitizerImpl.prototype.bypassSecurityTrustUrl = function (value) { return new SafeUrlImpl(value); };
+        DomSanitizerImpl.prototype.bypassSecurityTrustUrl = function (value) { return i0.ɵbypassSanitizationTrustUrl(value); };
         DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
-            return new SafeResourceUrlImpl(value);
+            return i0.ɵbypassSanitizationTrustResourceUrl(value);
         };
+        DomSanitizerImpl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(i0.ɵɵinject(i0.INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
         DomSanitizerImpl = __decorate([
-            i0.Injectable(),
+            i0.Injectable({ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [i0.Injector] }),
             __param(0, i0.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], DomSanitizerImpl);
         return DomSanitizerImpl;
     }(DomSanitizer));
-    var SafeValueImpl = /** @class */ (function () {
-        function SafeValueImpl(changingThisBreaksApplicationSecurity) {
-            this.changingThisBreaksApplicationSecurity = changingThisBreaksApplicationSecurity;
-            // empty
-        }
-        SafeValueImpl.prototype.toString = function () {
-            return "SafeValue must use [property]=binding: " + this.changingThisBreaksApplicationSecurity +
-                " (see http://g.co/ng/security#xss)";
-        };
-        return SafeValueImpl;
-    }());
-    var SafeHtmlImpl = /** @class */ (function (_super) {
-        __extends(SafeHtmlImpl, _super);
-        function SafeHtmlImpl() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        SafeHtmlImpl.prototype.getTypeName = function () { return 'HTML'; };
-        return SafeHtmlImpl;
-    }(SafeValueImpl));
-    var SafeStyleImpl = /** @class */ (function (_super) {
-        __extends(SafeStyleImpl, _super);
-        function SafeStyleImpl() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        SafeStyleImpl.prototype.getTypeName = function () { return 'Style'; };
-        return SafeStyleImpl;
-    }(SafeValueImpl));
-    var SafeScriptImpl = /** @class */ (function (_super) {
-        __extends(SafeScriptImpl, _super);
-        function SafeScriptImpl() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        SafeScriptImpl.prototype.getTypeName = function () { return 'Script'; };
-        return SafeScriptImpl;
-    }(SafeValueImpl));
-    var SafeUrlImpl = /** @class */ (function (_super) {
-        __extends(SafeUrlImpl, _super);
-        function SafeUrlImpl() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        SafeUrlImpl.prototype.getTypeName = function () { return 'URL'; };
-        return SafeUrlImpl;
-    }(SafeValueImpl));
-    var SafeResourceUrlImpl = /** @class */ (function (_super) {
-        __extends(SafeResourceUrlImpl, _super);
-        function SafeResourceUrlImpl() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        SafeResourceUrlImpl.prototype.getTypeName = function () { return 'ResourceURL'; };
-        return SafeResourceUrlImpl;
-    }(SafeValueImpl));
 
     /**
      * @license
@@ -2177,16 +2121,21 @@
         { provide: common.PlatformLocation, useClass: BrowserPlatformLocation, deps: [common.DOCUMENT] },
         { provide: common.DOCUMENT, useFactory: _document, deps: [] },
     ];
+    var BROWSER_SANITIZATION_PROVIDERS__PRE_R3__ = [
+        { provide: i0.Sanitizer, useExisting: DomSanitizer },
+        { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [common.DOCUMENT] },
+    ];
+    /**
+     * @codeGenApi
+     */
+    var BROWSER_SANITIZATION_PROVIDERS__POST_R3__ = [];
     /**
      * @security Replacing built-in sanitization providers exposes the application to XSS risks.
      * Attacker-controlled data introduced by an unsanitized provider could expose your
      * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
      * @publicApi
      */
-    var BROWSER_SANITIZATION_PROVIDERS = [
-        { provide: i0.Sanitizer, useExisting: DomSanitizer },
-        { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [common.DOCUMENT] },
-    ];
+    var BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__PRE_R3__;
     /**
      * @publicApi
      */
@@ -2739,7 +2688,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.2+38.sha-40b2874.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.2+40.sha-3cf2005.with-local-changes');
 
     /**
      * @license
@@ -2773,15 +2722,16 @@
     exports.ɵangular_packages_platform_browser_platform_browser_c = BROWSER_MODULE_PROVIDERS;
     exports.ɵangular_packages_platform_browser_platform_browser_b = _document;
     exports.ɵangular_packages_platform_browser_platform_browser_a = errorHandler;
-    exports.ɵangular_packages_platform_browser_platform_browser_l = GenericBrowserDomAdapter;
+    exports.ɵangular_packages_platform_browser_platform_browser_m = GenericBrowserDomAdapter;
     exports.ɵangular_packages_platform_browser_platform_browser_d = createMeta;
-    exports.ɵangular_packages_platform_browser_platform_browser_i = SERVER_TRANSITION_PROVIDERS;
-    exports.ɵangular_packages_platform_browser_platform_browser_h = appInitializerFactory;
+    exports.ɵangular_packages_platform_browser_platform_browser_j = SERVER_TRANSITION_PROVIDERS;
+    exports.ɵangular_packages_platform_browser_platform_browser_i = appInitializerFactory;
     exports.ɵangular_packages_platform_browser_platform_browser_e = createTitle;
     exports.ɵangular_packages_platform_browser_platform_browser_f = initTransferState;
-    exports.ɵangular_packages_platform_browser_platform_browser_k = ELEMENT_PROBE_PROVIDERS__PRE_R3__;
-    exports.ɵangular_packages_platform_browser_platform_browser_j = _createNgProbe;
+    exports.ɵangular_packages_platform_browser_platform_browser_l = ELEMENT_PROBE_PROVIDERS__PRE_R3__;
+    exports.ɵangular_packages_platform_browser_platform_browser_k = _createNgProbe;
     exports.ɵangular_packages_platform_browser_platform_browser_g = EventManagerPlugin;
+    exports.ɵangular_packages_platform_browser_platform_browser_h = domSanitizerImplFactory;
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
     exports.Meta = Meta;
@@ -2801,6 +2751,7 @@
     exports.VERSION = VERSION;
     exports.ɵELEMENT_PROBE_PROVIDERS__POST_R3__ = ELEMENT_PROBE_PROVIDERS__POST_R3__;
     exports.ɵBROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
+    exports.ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__ = BROWSER_SANITIZATION_PROVIDERS__POST_R3__;
     exports.ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS = INTERNAL_BROWSER_PLATFORM_PROVIDERS;
     exports.ɵinitDomAdapter = initDomAdapter;
     exports.ɵBrowserDomAdapter = BrowserDomAdapter;
