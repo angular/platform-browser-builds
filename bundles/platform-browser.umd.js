@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.2+81.sha-daac386.with-local-changes
+ * @license Angular v9.0.0-next.2+86.sha-1062960.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1725,6 +1725,7 @@
      * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
      * @see `HammerGestureConfig`
      *
+     * @ngModule HammerModule
      * @publicApi
      */
     var HAMMER_GESTURE_CONFIG = new i0.InjectionToken('HammerGestureConfig');
@@ -1785,6 +1786,11 @@
         ], HammerGestureConfig);
         return HammerGestureConfig;
     }());
+    /**
+     * Event plugin that adds Hammer support to an application.
+     *
+     * @ngModule HammerModule
+     */
     var HammerGesturesPlugin = /** @class */ (function (_super) {
         __extends(HammerGesturesPlugin, _super);
         function HammerGesturesPlugin(doc, _config, console, loader) {
@@ -1867,6 +1873,44 @@
         ], HammerGesturesPlugin);
         return HammerGesturesPlugin;
     }(EventManagerPlugin));
+    /**
+     * In Ivy, support for Hammer gestures is optional, so applications must
+     * import the `HammerModule` at root to turn on support. This means that
+     * Hammer-specific code can be tree-shaken away if not needed.
+     */
+    var HAMMER_PROVIDERS__POST_R3__ = [];
+    /**
+     * In View Engine, support for Hammer gestures is built-in by default.
+     */
+    var HAMMER_PROVIDERS__PRE_R3__ = [
+        {
+            provide: EVENT_MANAGER_PLUGINS,
+            useClass: HammerGesturesPlugin,
+            multi: true,
+            deps: [common.DOCUMENT, HAMMER_GESTURE_CONFIG, i0.ɵConsole, [new i0.Optional(), HAMMER_LOADER]]
+        },
+        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
+    ];
+    var HAMMER_PROVIDERS = HAMMER_PROVIDERS__PRE_R3__;
+    /**
+     * Adds support for HammerJS.
+     *
+     * Import this module at the root of your application so that Angular can work with
+     * HammerJS to detect gesture events.
+     *
+     * Note that applications still need to include the HammerJS script itself. This module
+     * simply sets up the coordination layer between HammerJS and Angular's EventManager.
+     *
+     * @publicApi
+     */
+    var HammerModule = /** @class */ (function () {
+        function HammerModule() {
+        }
+        HammerModule = __decorate([
+            i0.NgModule({ providers: HAMMER_PROVIDERS__PRE_R3__ })
+        ], HammerModule);
+        return HammerModule;
+    }());
 
     /**
      * @license
@@ -2161,13 +2205,7 @@
             deps: [common.DOCUMENT, i0.NgZone, i0.PLATFORM_ID]
         },
         { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [common.DOCUMENT] },
-        {
-            provide: EVENT_MANAGER_PLUGINS,
-            useClass: HammerGesturesPlugin,
-            multi: true,
-            deps: [common.DOCUMENT, HAMMER_GESTURE_CONFIG, i0.ɵConsole, [new i0.Optional(), HAMMER_LOADER]]
-        },
-        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
+        HAMMER_PROVIDERS,
         {
             provide: DomRendererFactory2,
             useClass: DomRendererFactory2,
@@ -2688,7 +2726,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.2+81.sha-daac386.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.2+86.sha-1062960.with-local-changes');
 
     /**
      * @license
@@ -2722,16 +2760,18 @@
     exports.ɵangular_packages_platform_browser_platform_browser_c = BROWSER_MODULE_PROVIDERS;
     exports.ɵangular_packages_platform_browser_platform_browser_b = _document;
     exports.ɵangular_packages_platform_browser_platform_browser_a = errorHandler;
-    exports.ɵangular_packages_platform_browser_platform_browser_m = GenericBrowserDomAdapter;
+    exports.ɵangular_packages_platform_browser_platform_browser_o = GenericBrowserDomAdapter;
     exports.ɵangular_packages_platform_browser_platform_browser_d = createMeta;
-    exports.ɵangular_packages_platform_browser_platform_browser_j = SERVER_TRANSITION_PROVIDERS;
-    exports.ɵangular_packages_platform_browser_platform_browser_i = appInitializerFactory;
+    exports.ɵangular_packages_platform_browser_platform_browser_l = SERVER_TRANSITION_PROVIDERS;
+    exports.ɵangular_packages_platform_browser_platform_browser_k = appInitializerFactory;
     exports.ɵangular_packages_platform_browser_platform_browser_e = createTitle;
     exports.ɵangular_packages_platform_browser_platform_browser_f = initTransferState;
-    exports.ɵangular_packages_platform_browser_platform_browser_l = ELEMENT_PROBE_PROVIDERS__PRE_R3__;
-    exports.ɵangular_packages_platform_browser_platform_browser_k = _createNgProbe;
+    exports.ɵangular_packages_platform_browser_platform_browser_n = ELEMENT_PROBE_PROVIDERS__PRE_R3__;
+    exports.ɵangular_packages_platform_browser_platform_browser_m = _createNgProbe;
     exports.ɵangular_packages_platform_browser_platform_browser_g = EventManagerPlugin;
-    exports.ɵangular_packages_platform_browser_platform_browser_h = domSanitizerImplFactory;
+    exports.ɵangular_packages_platform_browser_platform_browser_i = HAMMER_PROVIDERS;
+    exports.ɵangular_packages_platform_browser_platform_browser_h = HAMMER_PROVIDERS__PRE_R3__;
+    exports.ɵangular_packages_platform_browser_platform_browser_j = domSanitizerImplFactory;
     exports.BrowserModule = BrowserModule;
     exports.platformBrowser = platformBrowser;
     exports.Meta = Meta;
@@ -2746,7 +2786,9 @@
     exports.EventManager = EventManager;
     exports.HAMMER_GESTURE_CONFIG = HAMMER_GESTURE_CONFIG;
     exports.HAMMER_LOADER = HAMMER_LOADER;
+    exports.ɵHAMMER_PROVIDERS__POST_R3__ = HAMMER_PROVIDERS__POST_R3__;
     exports.HammerGestureConfig = HammerGestureConfig;
+    exports.HammerModule = HammerModule;
     exports.DomSanitizer = DomSanitizer;
     exports.VERSION = VERSION;
     exports.ɵELEMENT_PROBE_PROVIDERS__POST_R3__ = ELEMENT_PROBE_PROVIDERS__POST_R3__;

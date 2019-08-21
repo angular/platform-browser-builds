@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.2+81.sha-daac386.with-local-changes
+ * @license Angular v9.0.0-next.2+86.sha-1062960.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -255,6 +255,7 @@ export declare class EventManager {
  * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
+ * @ngModule HammerModule
  * @publicApi
  */
 export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
@@ -335,6 +336,20 @@ declare interface HammerInstance {
  * @publicApi
  */
 export declare type HammerLoader = () => Promise<void>;
+
+/**
+ * Adds support for HammerJS.
+ *
+ * Import this module at the root of your application so that Angular can work with
+ * HammerJS to detect gesture events.
+ *
+ * Note that applications still need to include the HammerJS script itself. This module
+ * simply sets up the coordination layer between HammerJS and Angular's EventManager.
+ *
+ * @publicApi
+ */
+export declare class HammerModule {
+}
 
 /**
  * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
@@ -564,18 +579,25 @@ export declare abstract class ɵangular_packages_platform_browser_platform_brows
     addGlobalEventListener(element: string, eventName: string, handler: Function): Function;
 }
 
-export declare function ɵangular_packages_platform_browser_platform_browser_h(injector: Injector): ɵDomSanitizerImpl;
+/**
+ * In View Engine, support for Hammer gestures is built-in by default.
+ */
+export declare const ɵangular_packages_platform_browser_platform_browser_h: Provider[];
 
-export declare function ɵangular_packages_platform_browser_platform_browser_i(transitionId: string, document: any, injector: Injector): () => void;
+export declare const ɵangular_packages_platform_browser_platform_browser_i: Provider[];
 
-export declare const ɵangular_packages_platform_browser_platform_browser_j: StaticProvider[];
+export declare function ɵangular_packages_platform_browser_platform_browser_j(injector: Injector): ɵDomSanitizerImpl;
 
-export declare function ɵangular_packages_platform_browser_platform_browser_k(coreTokens: NgProbeToken[]): any;
+export declare function ɵangular_packages_platform_browser_platform_browser_k(transitionId: string, document: any, injector: Injector): () => void;
+
+export declare const ɵangular_packages_platform_browser_platform_browser_l: StaticProvider[];
+
+export declare function ɵangular_packages_platform_browser_platform_browser_m(coreTokens: NgProbeToken[]): any;
 
 /**
  * Providers which support debugging Angular applications (e.g. via `ng.probe`).
  */
-export declare const ɵangular_packages_platform_browser_platform_browser_l: Provider[];
+export declare const ɵangular_packages_platform_browser_platform_browser_n: Provider[];
 
 /**
  * Provides DOM operations in any browser environment.
@@ -583,7 +605,7 @@ export declare const ɵangular_packages_platform_browser_platform_browser_l: Pro
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare abstract class ɵangular_packages_platform_browser_platform_browser_m extends ɵDomAdapter {
+export declare abstract class ɵangular_packages_platform_browser_platform_browser_o extends ɵDomAdapter {
     private _animationPrefix;
     private _transitionEnd;
     constructor();
@@ -615,7 +637,7 @@ export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_m {
+export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_o {
     parse(templateHtml: string): void;
     static makeCurrent(): void;
     hasProperty(element: Node, name: string): boolean;
@@ -956,6 +978,18 @@ export declare function ɵflattenStyles(compId: string, styles: Array<any | any[
 
 export declare function ɵgetDOM(): ɵDomAdapter;
 
+/**
+ * In Ivy, support for Hammer gestures is optional, so applications must
+ * import the `HammerModule` at root to turn on support. This means that
+ * Hammer-specific code can be tree-shaken away if not needed.
+ */
+export declare const ɵHAMMER_PROVIDERS__POST_R3__: never[];
+
+/**
+ * Event plugin that adds Hammer support to an application.
+ *
+ * @ngModule HammerModule
+ */
 export declare class ɵHammerGesturesPlugin extends ɵangular_packages_platform_browser_platform_browser_g {
     private _config;
     private console;
