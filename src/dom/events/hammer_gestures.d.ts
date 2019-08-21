@@ -1,10 +1,11 @@
-import { InjectionToken, ɵConsole as Console } from '@angular/core';
+import { InjectionToken, Provider, ɵConsole as Console } from '@angular/core';
 import { EventManagerPlugin } from './event_manager';
 import * as i0 from "@angular/core";
 /**
  * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
+ * @ngModule HammerModule
  * @publicApi
  */
 export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
@@ -82,6 +83,11 @@ export declare class HammerGestureConfig {
     buildHammer(element: HTMLElement): HammerInstance;
     static ngInjectableDef: i0.ɵɵInjectableDef<HammerGestureConfig>;
 }
+/**
+ * Event plugin that adds Hammer support to an application.
+ *
+ * @ngModule HammerModule
+ */
 export declare class HammerGesturesPlugin extends EventManagerPlugin {
     private _config;
     private console;
@@ -91,4 +97,30 @@ export declare class HammerGesturesPlugin extends EventManagerPlugin {
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
     static ngInjectableDef: i0.ɵɵInjectableDef<HammerGesturesPlugin>;
+}
+/**
+ * In Ivy, support for Hammer gestures is optional, so applications must
+ * import the `HammerModule` at root to turn on support. This means that
+ * Hammer-specific code can be tree-shaken away if not needed.
+ */
+export declare const HAMMER_PROVIDERS__POST_R3__: never[];
+/**
+ * In View Engine, support for Hammer gestures is built-in by default.
+ */
+export declare const HAMMER_PROVIDERS__PRE_R3__: Provider[];
+export declare const HAMMER_PROVIDERS: Provider[];
+/**
+ * Adds support for HammerJS.
+ *
+ * Import this module at the root of your application so that Angular can work with
+ * HammerJS to detect gesture events.
+ *
+ * Note that applications still need to include the HammerJS script itself. This module
+ * simply sets up the coordination layer between HammerJS and Angular's EventManager.
+ *
+ * @publicApi
+ */
+export declare class HammerModule {
+    static ngModuleDef: i0.ɵɵNgModuleDefWithMeta<HammerModule, never, never, never>;
+    static ngInjectorDef: i0.ɵɵInjectorDef<HammerModule>;
 }

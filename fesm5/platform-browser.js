@@ -1,11 +1,11 @@
 /**
- * @license Angular v9.0.0-next.2+81.sha-daac386.with-local-changes
+ * @license Angular v9.0.0-next.2+86.sha-1062960.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { ɵglobal, ɵɵdefineInjectable, ɵɵinject, ɵsetClassMetadata, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ɵɵdefineNgModule, ɵɵdefineInjector, ApplicationModule, ɵɵsetNgModuleScope, NgModule, SkipSelf, Version } from '@angular/core';
+import { ɵglobal, ɵɵdefineInjectable, ɵɵinject, ɵsetClassMetadata, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, ɵɵsetNgModuleScope, SkipSelf, Version } from '@angular/core';
 import { __extends, __spread, __assign } from 'tslib';
 
 /**
@@ -1502,6 +1502,7 @@ var EVENT_NAMES = {
  * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
+ * @ngModule HammerModule
  * @publicApi
  */
 var HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
@@ -1563,6 +1564,11 @@ var HammerGestureConfig = /** @class */ (function () {
 /*@__PURE__*/ ɵsetClassMetadata(HammerGestureConfig, [{
         type: Injectable
     }], null, null);
+/**
+ * Event plugin that adds Hammer support to an application.
+ *
+ * @ngModule HammerModule
+ */
 var HammerGesturesPlugin = /** @class */ (function (_super) {
     __extends(HammerGesturesPlugin, _super);
     function HammerGesturesPlugin(doc, _config, console, loader) {
@@ -1653,6 +1659,47 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
                 type: Inject,
                 args: [HAMMER_LOADER]
             }] }]; }, null);
+/**
+ * In Ivy, support for Hammer gestures is optional, so applications must
+ * import the `HammerModule` at root to turn on support. This means that
+ * Hammer-specific code can be tree-shaken away if not needed.
+ */
+var HAMMER_PROVIDERS__POST_R3__ = [];
+/**
+ * In View Engine, support for Hammer gestures is built-in by default.
+ */
+var HAMMER_PROVIDERS__PRE_R3__ = [
+    {
+        provide: EVENT_MANAGER_PLUGINS,
+        useClass: HammerGesturesPlugin,
+        multi: true,
+        deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
+    },
+    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
+];
+var HAMMER_PROVIDERS = HAMMER_PROVIDERS__POST_R3__;
+/**
+ * Adds support for HammerJS.
+ *
+ * Import this module at the root of your application so that Angular can work with
+ * HammerJS to detect gesture events.
+ *
+ * Note that applications still need to include the HammerJS script itself. This module
+ * simply sets up the coordination layer between HammerJS and Angular's EventManager.
+ *
+ * @publicApi
+ */
+var HammerModule = /** @class */ (function () {
+    function HammerModule() {
+    }
+    HammerModule.ngModuleDef = ɵɵdefineNgModule({ type: HammerModule });
+    HammerModule.ngInjectorDef = ɵɵdefineInjector({ factory: function HammerModule_Factory(t) { return new (t || HammerModule)(); }, providers: HAMMER_PROVIDERS__PRE_R3__ });
+    return HammerModule;
+}());
+/*@__PURE__*/ ɵsetClassMetadata(HammerModule, [{
+        type: NgModule,
+        args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ }]
+    }], null, null);
 
 /**
  * Defines supported modifiers for key events.
@@ -1951,13 +1998,7 @@ var BROWSER_MODULE_PROVIDERS = [
         deps: [DOCUMENT, NgZone, PLATFORM_ID]
     },
     { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT] },
-    {
-        provide: EVENT_MANAGER_PLUGINS,
-        useClass: HammerGesturesPlugin,
-        multi: true,
-        deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
-    },
-    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
+    HAMMER_PROVIDERS,
     {
         provide: DomRendererFactory2,
         useClass: DomRendererFactory2,
@@ -2515,7 +2556,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-next.2+81.sha-daac386.with-local-changes');
+var VERSION = new Version('9.0.0-next.2+86.sha-1062960.with-local-changes');
 
 /**
  * @license
@@ -2542,5 +2583,5 @@ var VERSION = new Version('9.0.0-next.2+81.sha-daac386.with-local-changes');
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, DomSanitizer, VERSION, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
+export { BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HAMMER_PROVIDERS__POST_R3__ as ɵHAMMER_PROVIDERS__POST_R3__, HammerGestureConfig, HammerModule, DomSanitizer, VERSION, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.js.map
