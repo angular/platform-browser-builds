@@ -13,14 +13,7 @@ import { DomAdapter } from '../dom/dom_adapter';
  * can introduce XSS risks.
  */
 export declare abstract class GenericBrowserDomAdapter extends DomAdapter {
-    private _animationPrefix;
-    private _transitionEnd;
     constructor();
     getDistributedNodes(el: HTMLElement): Node[];
-    resolveAndSetHref(el: HTMLAnchorElement, baseUrl: string, href: string): void;
     supportsDOMEvents(): boolean;
-    supportsNativeShadowDOM(): boolean;
-    getAnimationPrefix(): string;
-    getTransitionEnd(): string;
-    supportsAnimation(): boolean;
 }

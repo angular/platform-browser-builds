@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.3+30.sha-e79ba19.with-local-changes
+ * @license Angular v9.0.0-next.3+39.sha-cf4b944.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -145,7 +145,7 @@ function dispatchEvent(element, eventType) {
     ɵgetDOM().dispatchEvent(element, ɵgetDOM().createEvent(eventType));
 }
 function el(html) {
-    return ɵgetDOM().firstChild(ɵgetDOM().content(ɵgetDOM().createTemplate(html)));
+    return ɵgetDOM().firstChild(getContent(ɵgetDOM().createTemplate(html)));
 }
 function normalizeCSS(css) {
     return css.replace(/\s+/g, ' ')
@@ -167,16 +167,25 @@ function normalizeCSS(css) {
         return "[" + match[1] + "=\"" + match[2] + "\"]";
     });
 }
+function getAttributeMap(element) {
+    var res = new Map();
+    var elAttrs = element.attributes;
+    for (var i = 0; i < elAttrs.length; i++) {
+        var attrib = elAttrs.item(i);
+        res.set(attrib.name, attrib.value);
+    }
+    return res;
+}
 var _selfClosingTags = ['br', 'hr', 'input'];
 function stringifyElement(el /** TODO #9100 */) {
     var e_1, _a;
     var result = '';
     if (ɵgetDOM().isElementNode(el)) {
-        var tagName = ɵgetDOM().tagName(el).toLowerCase();
+        var tagName = el.tagName.toLowerCase();
         // Opening tag
         result += "<" + tagName;
         // Attributes in an ordered way
-        var attributeMap = ɵgetDOM().attributeMap(el);
+        var attributeMap = getAttributeMap(el);
         var sortedKeys = Array.from(attributeMap.keys()).sort();
         try {
             for (var sortedKeys_1 = __values(sortedKeys), sortedKeys_1_1 = sortedKeys_1.next(); !sortedKeys_1_1.done; sortedKeys_1_1 = sortedKeys_1.next()) {
@@ -204,7 +213,7 @@ function stringifyElement(el /** TODO #9100 */) {
         }
         result += '>';
         // Children
-        var childrenRoot = ɵgetDOM().templateAwareRoot(el);
+        var childrenRoot = templateAwareRoot(el);
         var children = childrenRoot ? ɵgetDOM().childNodes(childrenRoot) : [];
         for (var j = 0; j < children.length; j++) {
             result += stringifyElement(children[j]);
@@ -214,8 +223,8 @@ function stringifyElement(el /** TODO #9100 */) {
             result += "</" + tagName + ">";
         }
     }
-    else if (ɵgetDOM().isCommentNode(el)) {
-        result += "<!--" + ɵgetDOM().nodeValue(el) + "-->";
+    else if (isCommentNode(el)) {
+        result += "<!--" + el.nodeValue + "-->";
     }
     else {
         result += ɵgetDOM().getText(el);
@@ -224,6 +233,31 @@ function stringifyElement(el /** TODO #9100 */) {
 }
 function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
+}
+function isCommentNode(node) {
+    return node.nodeType === Node.COMMENT_NODE;
+}
+function isTextNode(node) {
+    return node.nodeType === Node.TEXT_NODE;
+}
+function getContent(node) {
+    if ('content' in node) {
+        return node.content;
+    }
+    else {
+        return node;
+    }
+}
+function templateAwareRoot(el) {
+    return ɵgetDOM().isElementNode(el) && el.nodeName === 'TEMPLATE' ? getContent(el) : el;
+}
+function setCookie(name, value) {
+    // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
+    // not clear other cookies.
+    document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+}
+function supportsWebAnimation() {
+    return typeof Element.prototype['animate'] === 'function';
 }
 
 /**

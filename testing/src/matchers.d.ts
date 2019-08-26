@@ -8,6 +8,8 @@
 import { Type } from '@angular/core';
 /**
  * Jasmine matchers that check Angular specific conditions.
+ *
+ * Note: These matchers will only work in a browser environment.
  */
 export interface NgMatchers<T = any> extends jasmine.Matchers<T> {
     /**
