@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.3+30.sha-e79ba19.with-local-changes
+ * @license Angular v9.0.0-next.3+39.sha-cf4b944.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -148,7 +148,7 @@ function dispatchEvent(element, eventType) {
  * @return {?}
  */
 function el(html) {
-    return (/** @type {?} */ (ɵgetDOM().firstChild(ɵgetDOM().content(ɵgetDOM().createTemplate(html)))));
+    return (/** @type {?} */ (ɵgetDOM().firstChild(getContent(ɵgetDOM().createTemplate(html)))));
 }
 /**
  * @param {?} css
@@ -170,6 +170,22 @@ function normalizeCSS(css) {
      */
     (...match) => `[${match[1]}="${match[2]}"]`));
 }
+/**
+ * @param {?} element
+ * @return {?}
+ */
+function getAttributeMap(element) {
+    /** @type {?} */
+    const res = new Map();
+    /** @type {?} */
+    const elAttrs = element.attributes;
+    for (let i = 0; i < elAttrs.length; i++) {
+        /** @type {?} */
+        const attrib = elAttrs.item(i);
+        res.set(attrib.name, attrib.value);
+    }
+    return res;
+}
 /** @type {?} */
 const _selfClosingTags = ['br', 'hr', 'input'];
 /**
@@ -181,12 +197,12 @@ function stringifyElement(el /** TODO #9100 */) {
     let result = '';
     if (ɵgetDOM().isElementNode(el)) {
         /** @type {?} */
-        const tagName = ɵgetDOM().tagName(el).toLowerCase();
+        const tagName = el.tagName.toLowerCase();
         // Opening tag
         result += `<${tagName}`;
         // Attributes in an ordered way
         /** @type {?} */
-        const attributeMap = ɵgetDOM().attributeMap(el);
+        const attributeMap = getAttributeMap(el);
         /** @type {?} */
         const sortedKeys = Array.from(attributeMap.keys()).sort();
         for (const key of sortedKeys) {
@@ -216,7 +232,7 @@ function stringifyElement(el /** TODO #9100 */) {
         result += '>';
         // Children
         /** @type {?} */
-        const childrenRoot = ɵgetDOM().templateAwareRoot(el);
+        const childrenRoot = templateAwareRoot(el);
         /** @type {?} */
         const children = childrenRoot ? ɵgetDOM().childNodes(childrenRoot) : [];
         for (let j = 0; j < children.length; j++) {
@@ -227,8 +243,8 @@ function stringifyElement(el /** TODO #9100 */) {
             result += `</${tagName}>`;
         }
     }
-    else if (ɵgetDOM().isCommentNode(el)) {
-        result += `<!--${ɵgetDOM().nodeValue(el)}-->`;
+    else if (isCommentNode(el)) {
+        result += `<!--${el.nodeValue}-->`;
     }
     else {
         result += ɵgetDOM().getText(el);
@@ -240,6 +256,55 @@ function stringifyElement(el /** TODO #9100 */) {
  */
 function createNgZone() {
     return new NgZone({ enableLongStackTrace: true });
+}
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function isCommentNode(node) {
+    return node.nodeType === Node.COMMENT_NODE;
+}
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function isTextNode(node) {
+    return node.nodeType === Node.TEXT_NODE;
+}
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function getContent(node) {
+    if ('content' in node) {
+        return ((/** @type {?} */ (node))).content;
+    }
+    else {
+        return node;
+    }
+}
+/**
+ * @param {?} el
+ * @return {?}
+ */
+function templateAwareRoot(el) {
+    return ɵgetDOM().isElementNode(el) && el.nodeName === 'TEMPLATE' ? getContent(el) : el;
+}
+/**
+ * @param {?} name
+ * @param {?} value
+ * @return {?}
+ */
+function setCookie(name, value) {
+    // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
+    // not clear other cookies.
+    document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+}
+/**
+ * @return {?}
+ */
+function supportsWebAnimation() {
+    return typeof ((/** @type {?} */ (Element))).prototype['animate'] === 'function';
 }
 
 /**

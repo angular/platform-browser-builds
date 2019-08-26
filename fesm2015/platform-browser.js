@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.3+30.sha-e79ba19.with-local-changes
+ * @license Angular v9.0.0-next.3+39.sha-cf4b944.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -51,29 +51,8 @@ function setRootDomAdapter(adapter) {
  * @abstract
  */
 class DomAdapter {
-    constructor() {
-        this.resourceLoaderType = (/** @type {?} */ (null));
-    }
-    /**
-     * Maps attribute names to their corresponding property names for cases
-     * where attribute name doesn't match property name.
-     * @return {?}
-     */
-    get attrToPropMap() { return this._attrToPropMap; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set attrToPropMap(value) { this._attrToPropMap = value; }
 }
 if (false) {
-    /** @type {?} */
-    DomAdapter.prototype.resourceLoaderType;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    DomAdapter.prototype._attrToPropMap;
     /**
      * @abstract
      * @param {?} element
@@ -203,25 +182,6 @@ if (false) {
     DomAdapter.prototype.isPrevented = function (evt) { };
     /**
      * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getInnerHTML = function (el) { };
-    /**
-     * Returns content if el is a <template> element, null otherwise.
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getTemplateContent = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getOuterHTML = function (el) { };
-    /**
-     * @abstract
      * @param {?} node
      * @return {?}
      */
@@ -238,12 +198,6 @@ if (false) {
      * @return {?}
      */
     DomAdapter.prototype.type = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.content = function (node) { };
     /**
      * @abstract
      * @param {?} el
@@ -297,14 +251,6 @@ if (false) {
     /**
      * @abstract
      * @param {?} el
-     * @param {?} newNode
-     * @param {?} oldNode
-     * @return {?}
-     */
-    DomAdapter.prototype.replaceChild = function (el, newNode, oldNode) { };
-    /**
-     * @abstract
-     * @param {?} el
      * @return {?}
      */
     DomAdapter.prototype.remove = function (el) { };
@@ -316,29 +262,6 @@ if (false) {
      * @return {?}
      */
     DomAdapter.prototype.insertBefore = function (parent, ref, node) { };
-    /**
-     * @abstract
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} nodes
-     * @return {?}
-     */
-    DomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) { };
-    /**
-     * @abstract
-     * @param {?} parent
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.insertAfter = function (parent, el, node) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setInnerHTML = function (el, value) { };
     /**
      * @abstract
      * @param {?} el
@@ -371,13 +294,6 @@ if (false) {
      * @return {?}
      */
     DomAdapter.prototype.getChecked = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setChecked = function (el, value) { };
     /**
      * @abstract
      * @param {?} text
@@ -414,33 +330,6 @@ if (false) {
     DomAdapter.prototype.createTextNode = function (text, doc) { };
     /**
      * @abstract
-     * @param {?} attrName
-     * @param {?} attrValue
-     * @param {?=} doc
-     * @return {?}
-     */
-    DomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) { };
-    /**
-     * @abstract
-     * @param {?} css
-     * @param {?=} doc
-     * @return {?}
-     */
-    DomAdapter.prototype.createStyleElement = function (css, doc) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.createShadowRoot = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getShadowRoot = function (el) { };
-    /**
-     * @abstract
      * @param {?} el
      * @return {?}
      */
@@ -457,13 +346,6 @@ if (false) {
      * @return {?}
      */
     DomAdapter.prototype.clone = function (node) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    DomAdapter.prototype.getElementsByClassName = function (element, name) { };
     /**
      * @abstract
      * @param {?} element
@@ -531,45 +413,10 @@ if (false) {
     /**
      * @abstract
      * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.tagName = function (element) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.attributeMap = function (element) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.hasAttribute = function (element, attribute) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { };
-    /**
-     * @abstract
-     * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
     DomAdapter.prototype.getAttribute = function (element, attribute) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { };
     /**
      * @abstract
      * @param {?} element
@@ -604,12 +451,6 @@ if (false) {
     DomAdapter.prototype.removeAttributeNS = function (element, ns, attribute) { };
     /**
      * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.templateAwareRoot = function (el) { };
-    /**
-     * @abstract
      * @return {?}
      */
     DomAdapter.prototype.createHtmlDocument = function () { };
@@ -618,12 +459,6 @@ if (false) {
      * @return {?}
      */
     DomAdapter.prototype.getDefaultDocument = function () { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getBoundingClientRect = function (el) { };
     /**
      * @abstract
      * @param {?} doc
@@ -646,24 +481,6 @@ if (false) {
     DomAdapter.prototype.elementMatches = function (n, selector) { };
     /**
      * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.isTemplateElement = function (el) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.isTextNode = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.isCommentNode = function (node) { };
-    /**
-     * @abstract
      * @param {?} node
      * @return {?}
      */
@@ -673,31 +490,7 @@ if (false) {
      * @param {?} node
      * @return {?}
      */
-    DomAdapter.prototype.hasShadowRoot = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
     DomAdapter.prototype.isShadowRoot = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.importIntoDoc = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.adoptNode = function (node) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.getHref = function (element) { };
     /**
      * @abstract
      * @param {?} event
@@ -706,22 +499,9 @@ if (false) {
     DomAdapter.prototype.getEventKey = function (event) { };
     /**
      * @abstract
-     * @param {?} element
-     * @param {?} baseUrl
-     * @param {?} href
-     * @return {?}
-     */
-    DomAdapter.prototype.resolveAndSetHref = function (element, baseUrl, href) { };
-    /**
-     * @abstract
      * @return {?}
      */
     DomAdapter.prototype.supportsDOMEvents = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.supportsNativeShadowDOM = function () { };
     /**
      * @abstract
      * @param {?} doc
@@ -757,50 +537,9 @@ if (false) {
     DomAdapter.prototype.getUserAgent = function () { };
     /**
      * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setData = function (element, name, value) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.getComputedStyle = function (element) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    DomAdapter.prototype.getData = function (element, name) { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.supportsWebAnimation = function () { };
-    /**
-     * @abstract
      * @return {?}
      */
     DomAdapter.prototype.performanceNow = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.getAnimationPrefix = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.getTransitionEnd = function () { };
-    /**
-     * @abstract
-     * @return {?}
-     */
-    DomAdapter.prototype.supportsAnimation = function () { };
     /**
      * @abstract
      * @return {?}
@@ -812,13 +551,6 @@ if (false) {
      * @return {?}
      */
     DomAdapter.prototype.getCookie = function (name) { };
-    /**
-     * @abstract
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setCookie = function (name, value) { };
 }
 
 /**
@@ -833,111 +565,22 @@ if (false) {
  * @abstract
  */
 class GenericBrowserDomAdapter extends DomAdapter {
-    constructor() {
-        super();
-        this._animationPrefix = null;
-        this._transitionEnd = null;
-        try {
-            /** @type {?} */
-            const element = this.createElement('div', document);
-            if (this.getStyle(element, 'animationName') != null) {
-                this._animationPrefix = '';
-            }
-            else {
-                /** @type {?} */
-                const domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-                for (let i = 0; i < domPrefixes.length; i++) {
-                    if (this.getStyle(element, domPrefixes[i] + 'AnimationName') != null) {
-                        this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
-                        break;
-                    }
-                }
-            }
-            /** @type {?} */
-            const transEndEventNames = {
-                WebkitTransition: 'webkitTransitionEnd',
-                MozTransition: 'transitionend',
-                OTransition: 'oTransitionEnd otransitionend',
-                transition: 'transitionend'
-            };
-            Object.keys(transEndEventNames).forEach((/**
-             * @param {?} key
-             * @return {?}
-             */
-            (key) => {
-                if (this.getStyle(element, key) != null) {
-                    this._transitionEnd = transEndEventNames[key];
-                }
-            }));
-        }
-        catch (_a) {
-            this._animationPrefix = null;
-            this._transitionEnd = null;
-        }
-    }
+    constructor() { super(); }
     /**
      * @param {?} el
      * @return {?}
      */
     getDistributedNodes(el) { return ((/** @type {?} */ (el))).getDistributedNodes(); }
     /**
-     * @param {?} el
-     * @param {?} baseUrl
-     * @param {?} href
-     * @return {?}
-     */
-    resolveAndSetHref(el, baseUrl, href) {
-        el.href = href == null ? baseUrl : baseUrl + '/../' + href;
-    }
-    /**
      * @return {?}
      */
     supportsDOMEvents() { return true; }
-    /**
-     * @return {?}
-     */
-    supportsNativeShadowDOM() {
-        return typeof ((/** @type {?} */ (document.body))).createShadowRoot === 'function';
-    }
-    /**
-     * @return {?}
-     */
-    getAnimationPrefix() { return this._animationPrefix ? this._animationPrefix : ''; }
-    /**
-     * @return {?}
-     */
-    getTransitionEnd() { return this._transitionEnd ? this._transitionEnd : ''; }
-    /**
-     * @return {?}
-     */
-    supportsAnimation() {
-        return this._animationPrefix != null && this._transitionEnd != null;
-    }
-}
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    GenericBrowserDomAdapter.prototype._animationPrefix;
-    /**
-     * @type {?}
-     * @private
-     */
-    GenericBrowserDomAdapter.prototype._transitionEnd;
 }
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _attrToPropMap = {
-    'class': 'className',
-    'innerHtml': 'innerHTML',
-    'readonly': 'readOnly',
-    'tabindex': 'tabIndex',
-};
 /** @type {?} */
 const DOM_KEY_LOCATION_NUMPAD = 3;
 // Map to convert some key or keyIdentifier values to what will be returned by getEventKey
@@ -1084,10 +727,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         }
     }
     /**
-     * @return {?}
-     */
-    get attrToPropMap() { return _attrToPropMap; }
-    /**
      * @param {?} nodeA
      * @param {?} nodeB
      * @return {?}
@@ -1169,23 +808,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return evt.defaultPrevented || evt.returnValue != null && !evt.returnValue;
     }
     /**
-     * @param {?} el
-     * @return {?}
-     */
-    getInnerHTML(el) { return el.innerHTML; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getTemplateContent(el) {
-        return 'content' in el && this.isTemplateElement(el) ? ((/** @type {?} */ (el))).content : null;
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getOuterHTML(el) { return el.outerHTML; }
-    /**
      * @param {?} node
      * @return {?}
      */
@@ -1200,18 +822,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     type(node) { return node.type; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    content(node) {
-        if (this.hasProperty(node, 'content')) {
-            return ((/** @type {?} */ (node))).content;
-        }
-        else {
-            return node;
-        }
-    }
     /**
      * @param {?} el
      * @return {?}
@@ -1268,13 +878,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     removeChild(el, node) { el.removeChild(node); }
     /**
-     * @param {?} el
-     * @param {?} newChild
-     * @param {?} oldChild
-     * @return {?}
-     */
-    replaceChild(el, newChild, oldChild) { el.replaceChild(newChild, oldChild); }
-    /**
      * @param {?} node
      * @return {?}
      */
@@ -1291,32 +894,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     insertBefore(parent, ref, node) { parent.insertBefore(node, ref); }
-    /**
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} nodes
-     * @return {?}
-     */
-    insertAllBefore(parent, ref, nodes) {
-        nodes.forEach((/**
-         * @param {?} n
-         * @return {?}
-         */
-        (n) => parent.insertBefore(n, ref)));
-    }
-    /**
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} node
-     * @return {?}
-     */
-    insertAfter(parent, ref, node) { parent.insertBefore(node, ref.nextSibling); }
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    setInnerHTML(el, value) { el.innerHTML = value; }
     /**
      * @param {?} el
      * @return {?}
@@ -1344,12 +921,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     getChecked(el) { return el.checked; }
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    setChecked(el, value) { el.checked = value; }
     /**
      * @param {?} text
      * @return {?}
@@ -1394,41 +965,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return doc.createTextNode(text);
     }
     /**
-     * @param {?} attrName
-     * @param {?} attrValue
-     * @param {?=} doc
-     * @return {?}
-     */
-    createScriptTag(attrName, attrValue, doc) {
-        doc = doc || this.getDefaultDocument();
-        /** @type {?} */
-        const el = (/** @type {?} */ (doc.createElement('SCRIPT')));
-        el.setAttribute(attrName, attrValue);
-        return el;
-    }
-    /**
-     * @param {?} css
-     * @param {?=} doc
-     * @return {?}
-     */
-    createStyleElement(css, doc) {
-        doc = doc || this.getDefaultDocument();
-        /** @type {?} */
-        const style = (/** @type {?} */ (doc.createElement('style')));
-        this.appendChild(style, this.createTextNode(css, doc));
-        return style;
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    createShadowRoot(el) { return ((/** @type {?} */ (el))).createShadowRoot(); }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getShadowRoot(el) { return ((/** @type {?} */ (el))).shadowRoot; }
-    /**
      * @param {?} el
      * @return {?}
      */
@@ -1438,14 +974,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     clone(node) { return node.cloneNode(true); }
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    getElementsByClassName(element, name) {
-        return element.getElementsByClassName(name);
-    }
     /**
      * @param {?} element
      * @param {?} name
@@ -1517,58 +1045,11 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     }
     /**
      * @param {?} element
-     * @return {?}
-     */
-    tagName(element) { return element.tagName; }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    attributeMap(element) {
-        /** @type {?} */
-        const res = new Map();
-        /** @type {?} */
-        const elAttrs = element.attributes;
-        for (let i = 0; i < elAttrs.length; i++) {
-            /** @type {?} */
-            const attrib = elAttrs.item(i);
-            res.set(attrib.name, attrib.value);
-        }
-        return res;
-    }
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    hasAttribute(element, attribute) {
-        return element.hasAttribute(attribute);
-    }
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @return {?}
-     */
-    hasAttributeNS(element, ns, attribute) {
-        return element.hasAttributeNS(ns, attribute);
-    }
-    /**
-     * @param {?} element
      * @param {?} attribute
      * @return {?}
      */
     getAttribute(element, attribute) {
         return element.getAttribute(attribute);
-    }
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} name
-     * @return {?}
-     */
-    getAttributeNS(element, ns, name) {
-        return element.getAttributeNS(ns, name);
     }
     /**
      * @param {?} element
@@ -1603,11 +1084,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         element.removeAttributeNS(ns, name);
     }
     /**
-     * @param {?} el
-     * @return {?}
-     */
-    templateAwareRoot(el) { return this.isTemplateElement(el) ? this.content(el) : el; }
-    /**
      * @return {?}
      */
     createHtmlDocument() {
@@ -1617,18 +1093,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     getDefaultDocument() { return document; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getBoundingClientRect(el) {
-        try {
-            return el.getBoundingClientRect();
-        }
-        catch (_a) {
-            return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0 };
-        }
-    }
     /**
      * @param {?} doc
      * @return {?}
@@ -1654,23 +1118,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return false;
     }
     /**
-     * @param {?} el
-     * @return {?}
-     */
-    isTemplateElement(el) {
-        return this.isElementNode(el) && el.nodeName === 'TEMPLATE';
-    }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    isTextNode(node) { return node.nodeType === Node.TEXT_NODE; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    isCommentNode(node) { return node.nodeType === Node.COMMENT_NODE; }
-    /**
      * @param {?} node
      * @return {?}
      */
@@ -1679,29 +1126,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} node
      * @return {?}
      */
-    hasShadowRoot(node) {
-        return node.shadowRoot != null && node instanceof HTMLElement;
-    }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
     isShadowRoot(node) { return node instanceof DocumentFragment; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    importIntoDoc(node) { return document.importNode(this.templateAwareRoot(node), true); }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    adoptNode(node) { return document.adoptNode(node); }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getHref(el) { return (/** @type {?} */ (el.getAttribute('href'))); }
     /**
      * @param {?} event
      * @return {?}
@@ -1772,35 +1197,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     getUserAgent() { return window.navigator.userAgent; }
     /**
-     * @param {?} element
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setData(element, name, value) {
-        this.setAttribute(element, 'data-' + name, value);
-    }
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    getData(element, name) {
-        return this.getAttribute(element, 'data-' + name);
-    }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    getComputedStyle(element) { return getComputedStyle(element); }
-    // TODO(tbosch): move this into a separate environment class once we have it
-    /**
-     * @return {?}
-     */
-    supportsWebAnimation() {
-        return typeof ((/** @type {?} */ (Element))).prototype['animate'] === 'function';
-    }
-    /**
      * @return {?}
      */
     performanceNow() {
@@ -1818,16 +1214,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     getCookie(name) { return ɵparseCookieValue(document.cookie, name); }
-    /**
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setCookie(name, value) {
-        // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
-        // not clear other cookies.
-        document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
-    }
 }
 /** @type {?} */
 let baseElement = null;
@@ -5076,7 +4462,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.3+30.sha-e79ba19.with-local-changes');
+const VERSION = new Version('9.0.0-next.3+39.sha-cf4b944.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

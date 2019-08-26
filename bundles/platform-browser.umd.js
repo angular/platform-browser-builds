@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.3+30.sha-e79ba19.with-local-changes
+ * @license Angular v9.0.0-next.3+39.sha-cf4b944.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -225,18 +225,7 @@
      */
     var DomAdapter = /** @class */ (function () {
         function DomAdapter() {
-            this.resourceLoaderType = null;
         }
-        Object.defineProperty(DomAdapter.prototype, "attrToPropMap", {
-            /**
-             * Maps attribute names to their corresponding property names for cases
-             * where attribute name doesn't match property name.
-             */
-            get: function () { return this._attrToPropMap; },
-            set: function (value) { this._attrToPropMap = value; },
-            enumerable: true,
-            configurable: true
-        });
         return DomAdapter;
     }());
 
@@ -256,54 +245,10 @@
     var GenericBrowserDomAdapter = /** @class */ (function (_super) {
         __extends(GenericBrowserDomAdapter, _super);
         function GenericBrowserDomAdapter() {
-            var _this = _super.call(this) || this;
-            _this._animationPrefix = null;
-            _this._transitionEnd = null;
-            try {
-                var element_1 = _this.createElement('div', document);
-                if (_this.getStyle(element_1, 'animationName') != null) {
-                    _this._animationPrefix = '';
-                }
-                else {
-                    var domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-                    for (var i = 0; i < domPrefixes.length; i++) {
-                        if (_this.getStyle(element_1, domPrefixes[i] + 'AnimationName') != null) {
-                            _this._animationPrefix = '-' + domPrefixes[i].toLowerCase() + '-';
-                            break;
-                        }
-                    }
-                }
-                var transEndEventNames_1 = {
-                    WebkitTransition: 'webkitTransitionEnd',
-                    MozTransition: 'transitionend',
-                    OTransition: 'oTransitionEnd otransitionend',
-                    transition: 'transitionend'
-                };
-                Object.keys(transEndEventNames_1).forEach(function (key) {
-                    if (_this.getStyle(element_1, key) != null) {
-                        _this._transitionEnd = transEndEventNames_1[key];
-                    }
-                });
-            }
-            catch (_a) {
-                _this._animationPrefix = null;
-                _this._transitionEnd = null;
-            }
-            return _this;
+            return _super.call(this) || this;
         }
         GenericBrowserDomAdapter.prototype.getDistributedNodes = function (el) { return el.getDistributedNodes(); };
-        GenericBrowserDomAdapter.prototype.resolveAndSetHref = function (el, baseUrl, href) {
-            el.href = href == null ? baseUrl : baseUrl + '/../' + href;
-        };
         GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () { return true; };
-        GenericBrowserDomAdapter.prototype.supportsNativeShadowDOM = function () {
-            return typeof document.body.createShadowRoot === 'function';
-        };
-        GenericBrowserDomAdapter.prototype.getAnimationPrefix = function () { return this._animationPrefix ? this._animationPrefix : ''; };
-        GenericBrowserDomAdapter.prototype.getTransitionEnd = function () { return this._transitionEnd ? this._transitionEnd : ''; };
-        GenericBrowserDomAdapter.prototype.supportsAnimation = function () {
-            return this._animationPrefix != null && this._transitionEnd != null;
-        };
         return GenericBrowserDomAdapter;
     }(DomAdapter));
 
@@ -314,12 +259,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var _attrToPropMap = {
-        'class': 'className',
-        'innerHtml': 'innerHTML',
-        'readonly': 'readOnly',
-        'tabindex': 'tabIndex',
-    };
     var DOM_KEY_LOCATION_NUMPAD = 3;
     // Map to convert some key or keyIdentifier values to what will be returned by getEventKey
     var _keyMap = {
@@ -416,11 +355,6 @@
                 window.console.groupEnd && window.console.groupEnd();
             }
         };
-        Object.defineProperty(BrowserDomAdapter.prototype, "attrToPropMap", {
-            get: function () { return _attrToPropMap; },
-            enumerable: true,
-            configurable: true
-        });
         BrowserDomAdapter.prototype.contains = function (nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); };
         BrowserDomAdapter.prototype.querySelector = function (el, selector) { return el.querySelector(selector); };
         BrowserDomAdapter.prototype.querySelectorAll = function (el, selector) { return el.querySelectorAll(selector); };
@@ -449,22 +383,9 @@
         BrowserDomAdapter.prototype.isPrevented = function (evt) {
             return evt.defaultPrevented || evt.returnValue != null && !evt.returnValue;
         };
-        BrowserDomAdapter.prototype.getInnerHTML = function (el) { return el.innerHTML; };
-        BrowserDomAdapter.prototype.getTemplateContent = function (el) {
-            return 'content' in el && this.isTemplateElement(el) ? el.content : null;
-        };
-        BrowserDomAdapter.prototype.getOuterHTML = function (el) { return el.outerHTML; };
         BrowserDomAdapter.prototype.nodeName = function (node) { return node.nodeName; };
         BrowserDomAdapter.prototype.nodeValue = function (node) { return node.nodeValue; };
         BrowserDomAdapter.prototype.type = function (node) { return node.type; };
-        BrowserDomAdapter.prototype.content = function (node) {
-            if (this.hasProperty(node, 'content')) {
-                return node.content;
-            }
-            else {
-                return node;
-            }
-        };
         BrowserDomAdapter.prototype.firstChild = function (el) { return el.firstChild; };
         BrowserDomAdapter.prototype.nextSibling = function (el) { return el.nextSibling; };
         BrowserDomAdapter.prototype.parentElement = function (el) { return el.parentNode; };
@@ -484,7 +405,6 @@
         };
         BrowserDomAdapter.prototype.appendChild = function (el, node) { el.appendChild(node); };
         BrowserDomAdapter.prototype.removeChild = function (el, node) { el.removeChild(node); };
-        BrowserDomAdapter.prototype.replaceChild = function (el, newChild, oldChild) { el.replaceChild(newChild, oldChild); };
         BrowserDomAdapter.prototype.remove = function (node) {
             if (node.parentNode) {
                 node.parentNode.removeChild(node);
@@ -492,17 +412,11 @@
             return node;
         };
         BrowserDomAdapter.prototype.insertBefore = function (parent, ref, node) { parent.insertBefore(node, ref); };
-        BrowserDomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) {
-            nodes.forEach(function (n) { return parent.insertBefore(n, ref); });
-        };
-        BrowserDomAdapter.prototype.insertAfter = function (parent, ref, node) { parent.insertBefore(node, ref.nextSibling); };
-        BrowserDomAdapter.prototype.setInnerHTML = function (el, value) { el.innerHTML = value; };
         BrowserDomAdapter.prototype.getText = function (el) { return el.textContent; };
         BrowserDomAdapter.prototype.setText = function (el, value) { el.textContent = value; };
         BrowserDomAdapter.prototype.getValue = function (el) { return el.value; };
         BrowserDomAdapter.prototype.setValue = function (el, value) { el.value = value; };
         BrowserDomAdapter.prototype.getChecked = function (el) { return el.checked; };
-        BrowserDomAdapter.prototype.setChecked = function (el, value) { el.checked = value; };
         BrowserDomAdapter.prototype.createComment = function (text) { return this.getDefaultDocument().createComment(text); };
         BrowserDomAdapter.prototype.createTemplate = function (html) {
             var t = this.getDefaultDocument().createElement('template');
@@ -521,25 +435,8 @@
             doc = doc || this.getDefaultDocument();
             return doc.createTextNode(text);
         };
-        BrowserDomAdapter.prototype.createScriptTag = function (attrName, attrValue, doc) {
-            doc = doc || this.getDefaultDocument();
-            var el = doc.createElement('SCRIPT');
-            el.setAttribute(attrName, attrValue);
-            return el;
-        };
-        BrowserDomAdapter.prototype.createStyleElement = function (css, doc) {
-            doc = doc || this.getDefaultDocument();
-            var style = doc.createElement('style');
-            this.appendChild(style, this.createTextNode(css, doc));
-            return style;
-        };
-        BrowserDomAdapter.prototype.createShadowRoot = function (el) { return el.createShadowRoot(); };
-        BrowserDomAdapter.prototype.getShadowRoot = function (el) { return el.shadowRoot; };
         BrowserDomAdapter.prototype.getHost = function (el) { return el.host; };
         BrowserDomAdapter.prototype.clone = function (node) { return node.cloneNode(true); };
-        BrowserDomAdapter.prototype.getElementsByClassName = function (element, name) {
-            return element.getElementsByClassName(name);
-        };
         BrowserDomAdapter.prototype.getElementsByTagName = function (element, name) {
             return element.getElementsByTagName(name);
         };
@@ -562,27 +459,8 @@
             var value = this.getStyle(element, styleName) || '';
             return styleValue ? value == styleValue : value.length > 0;
         };
-        BrowserDomAdapter.prototype.tagName = function (element) { return element.tagName; };
-        BrowserDomAdapter.prototype.attributeMap = function (element) {
-            var res = new Map();
-            var elAttrs = element.attributes;
-            for (var i = 0; i < elAttrs.length; i++) {
-                var attrib = elAttrs.item(i);
-                res.set(attrib.name, attrib.value);
-            }
-            return res;
-        };
-        BrowserDomAdapter.prototype.hasAttribute = function (element, attribute) {
-            return element.hasAttribute(attribute);
-        };
-        BrowserDomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) {
-            return element.hasAttributeNS(ns, attribute);
-        };
         BrowserDomAdapter.prototype.getAttribute = function (element, attribute) {
             return element.getAttribute(attribute);
-        };
-        BrowserDomAdapter.prototype.getAttributeNS = function (element, ns, name) {
-            return element.getAttributeNS(ns, name);
         };
         BrowserDomAdapter.prototype.setAttribute = function (element, name, value) { element.setAttribute(name, value); };
         BrowserDomAdapter.prototype.setAttributeNS = function (element, ns, name, value) {
@@ -592,19 +470,10 @@
         BrowserDomAdapter.prototype.removeAttributeNS = function (element, ns, name) {
             element.removeAttributeNS(ns, name);
         };
-        BrowserDomAdapter.prototype.templateAwareRoot = function (el) { return this.isTemplateElement(el) ? this.content(el) : el; };
         BrowserDomAdapter.prototype.createHtmlDocument = function () {
             return document.implementation.createHTMLDocument('fakeTitle');
         };
         BrowserDomAdapter.prototype.getDefaultDocument = function () { return document; };
-        BrowserDomAdapter.prototype.getBoundingClientRect = function (el) {
-            try {
-                return el.getBoundingClientRect();
-            }
-            catch (_a) {
-                return { top: 0, bottom: 0, left: 0, right: 0, width: 0, height: 0 };
-            }
-        };
         BrowserDomAdapter.prototype.getTitle = function (doc) { return doc.title; };
         BrowserDomAdapter.prototype.setTitle = function (doc, newTitle) { doc.title = newTitle || ''; };
         BrowserDomAdapter.prototype.elementMatches = function (n, selector) {
@@ -615,19 +484,8 @@
             }
             return false;
         };
-        BrowserDomAdapter.prototype.isTemplateElement = function (el) {
-            return this.isElementNode(el) && el.nodeName === 'TEMPLATE';
-        };
-        BrowserDomAdapter.prototype.isTextNode = function (node) { return node.nodeType === Node.TEXT_NODE; };
-        BrowserDomAdapter.prototype.isCommentNode = function (node) { return node.nodeType === Node.COMMENT_NODE; };
         BrowserDomAdapter.prototype.isElementNode = function (node) { return node.nodeType === Node.ELEMENT_NODE; };
-        BrowserDomAdapter.prototype.hasShadowRoot = function (node) {
-            return node.shadowRoot != null && node instanceof HTMLElement;
-        };
         BrowserDomAdapter.prototype.isShadowRoot = function (node) { return node instanceof DocumentFragment; };
-        BrowserDomAdapter.prototype.importIntoDoc = function (node) { return document.importNode(this.templateAwareRoot(node), true); };
-        BrowserDomAdapter.prototype.adoptNode = function (node) { return document.adoptNode(node); };
-        BrowserDomAdapter.prototype.getHref = function (el) { return el.getAttribute('href'); };
         BrowserDomAdapter.prototype.getEventKey = function (event) {
             var key = event.key;
             if (key == null) {
@@ -670,17 +528,6 @@
         };
         BrowserDomAdapter.prototype.resetBaseElement = function () { baseElement = null; };
         BrowserDomAdapter.prototype.getUserAgent = function () { return window.navigator.userAgent; };
-        BrowserDomAdapter.prototype.setData = function (element, name, value) {
-            this.setAttribute(element, 'data-' + name, value);
-        };
-        BrowserDomAdapter.prototype.getData = function (element, name) {
-            return this.getAttribute(element, 'data-' + name);
-        };
-        BrowserDomAdapter.prototype.getComputedStyle = function (element) { return getComputedStyle(element); };
-        // TODO(tbosch): move this into a separate environment class once we have it
-        BrowserDomAdapter.prototype.supportsWebAnimation = function () {
-            return typeof Element.prototype['animate'] === 'function';
-        };
         BrowserDomAdapter.prototype.performanceNow = function () {
             // performance.now() is not available in all browsers, see
             // http://caniuse.com/#search=performance.now
@@ -689,11 +536,6 @@
         };
         BrowserDomAdapter.prototype.supportsCookies = function () { return true; };
         BrowserDomAdapter.prototype.getCookie = function (name) { return common.ɵparseCookieValue(document.cookie, name); };
-        BrowserDomAdapter.prototype.setCookie = function (name, value) {
-            // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
-            // not clear other cookies.
-            document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
-        };
         return BrowserDomAdapter;
     }(GenericBrowserDomAdapter));
     var baseElement = null;
@@ -2726,7 +2568,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.3+30.sha-e79ba19.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.3+39.sha-cf4b944.with-local-changes');
 
     /**
      * @license
