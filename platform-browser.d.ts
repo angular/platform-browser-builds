@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4.with-local-changes
+ * @license Angular v9.0.0-next.4+7.sha-b094936.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -607,7 +607,6 @@ export declare const ɵangular_packages_platform_browser_platform_browser_n: Pro
  */
 export declare abstract class ɵangular_packages_platform_browser_platform_browser_o extends ɵDomAdapter {
     constructor();
-    getDistributedNodes(el: HTMLElement): Node[];
     supportsDOMEvents(): boolean;
 }
 
@@ -631,60 +630,36 @@ export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
  * can introduce XSS risks.
  */
 export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_o {
-    parse(templateHtml: string): void;
     static makeCurrent(): void;
-    hasProperty(element: Node, name: string): boolean;
     setProperty(el: Node, name: string, value: any): void;
     getProperty(el: Node, name: string): any;
-    invoke(el: Node, methodName: string, args: any[]): any;
-    logError(error: string): void;
     log(error: string): void;
     logGroup(error: string): void;
     logGroupEnd(): void;
-    contains(nodeA: any, nodeB: any): boolean;
     querySelector(el: HTMLElement, selector: string): any;
     querySelectorAll(el: any, selector: string): any[];
-    on(el: Node, evt: any, listener: any): void;
     onAndCancel(el: Node, evt: any, listener: any): Function;
     dispatchEvent(el: Node, evt: any): void;
-    createMouseEvent(eventType: string): MouseEvent;
-    createEvent(eventType: any): Event;
-    preventDefault(evt: Event): void;
-    isPrevented(evt: Event): boolean;
-    nodeName(node: Node): string;
-    nodeValue(node: Node): string | null;
-    type(node: HTMLInputElement): string;
-    firstChild(el: Node): Node | null;
     nextSibling(el: Node): Node | null;
     parentElement(el: Node): Node | null;
-    childNodes(el: any): Node[];
-    childNodesAsList(el: Node): any[];
     clearNodes(el: Node): void;
     appendChild(el: Node, node: Node): void;
     removeChild(el: Node, node: Node): void;
     remove(node: Node): Node;
     insertBefore(parent: Node, ref: Node, node: Node): void;
-    getText(el: Node): string | null;
     setText(el: Node, value: string): void;
     getValue(el: any): string;
-    setValue(el: any, value: string): void;
-    getChecked(el: any): boolean;
     createComment(text: string): Comment;
-    createTemplate(html: any): HTMLElement;
     createElement(tagName: string, doc?: Document): HTMLElement;
     createElementNS(ns: string, tagName: string, doc?: Document): Element;
     createTextNode(text: string, doc?: Document): Text;
     getHost(el: HTMLElement): HTMLElement;
-    clone(node: Node): Node;
     getElementsByTagName(element: any, name: string): HTMLElement[];
-    classList(element: any): any[];
     addClass(element: any, className: string): void;
     removeClass(element: any, className: string): void;
-    hasClass(element: any, className: string): boolean;
     setStyle(element: any, styleName: string, styleValue: string): void;
     removeStyle(element: any, stylename: string): void;
     getStyle(element: any, stylename: string): string;
-    hasStyle(element: any, styleName: string, styleValue?: string | null): boolean;
     getAttribute(element: Element, attribute: string): string | null;
     setAttribute(element: Element, name: string, value: string): void;
     setAttributeNS(element: Element, ns: string, name: string, value: string): void;
@@ -749,61 +724,33 @@ export declare class ɵBrowserPlatformLocation extends PlatformLocation {
  * can introduce XSS risks.
  */
 export declare abstract class ɵDomAdapter {
-    abstract hasProperty(element: any, name: string): boolean;
-    abstract setProperty(el: Element, name: string, value: any): any;
     abstract getProperty(el: Element, name: string): any;
-    abstract invoke(el: Element, methodName: string, args: any[]): any;
-    abstract logError(error: any): any;
+    abstract dispatchEvent(el: any, evt: any): any;
     abstract log(error: any): any;
     abstract logGroup(error: any): any;
     abstract logGroupEnd(): any;
-    abstract contains(nodeA: any, nodeB: any): boolean;
-    abstract parse(templateHtml: string): any;
-    abstract querySelector(el: any, selector: string): any;
     abstract querySelectorAll(el: any, selector: string): any[];
-    abstract on(el: any, evt: any, listener: any): any;
-    abstract onAndCancel(el: any, evt: any, listener: any): Function;
-    abstract dispatchEvent(el: any, evt: any): any;
-    abstract createMouseEvent(eventType: any): any;
-    abstract createEvent(eventType: string): any;
-    abstract preventDefault(evt: any): any;
-    abstract isPrevented(evt: any): boolean;
-    abstract nodeName(node: any): string;
-    abstract nodeValue(node: any): string | null;
-    abstract type(node: any): string;
-    abstract firstChild(el: any): Node | null;
+    abstract remove(el: any): Node;
+    abstract getAttribute(element: any, attribute: string): string | null;
+    abstract setProperty(el: Element, name: string, value: any): any;
+    abstract querySelector(el: any, selector: string): any;
     abstract nextSibling(el: any): Node | null;
     abstract parentElement(el: any): Node | null;
-    abstract childNodes(el: any): Node[];
-    abstract childNodesAsList(el: any): Node[];
     abstract clearNodes(el: any): any;
     abstract appendChild(el: any, node: any): any;
     abstract removeChild(el: any, node: any): any;
-    abstract remove(el: any): Node;
     abstract insertBefore(parent: any, ref: any, node: any): any;
-    abstract getText(el: any): string | null;
     abstract setText(el: any, value: string): any;
-    abstract getValue(el: any): string;
-    abstract setValue(el: any, value: string): any;
-    abstract getChecked(el: any): boolean;
     abstract createComment(text: string): any;
-    abstract createTemplate(html: any): HTMLElement;
     abstract createElement(tagName: any, doc?: any): HTMLElement;
     abstract createElementNS(ns: string, tagName: string, doc?: any): Element;
     abstract createTextNode(text: string, doc?: any): Text;
-    abstract getHost(el: any): any;
-    abstract getDistributedNodes(el: any): Node[];
-    abstract clone(node: Node): Node;
     abstract getElementsByTagName(element: any, name: string): HTMLElement[];
-    abstract classList(element: any): any[];
     abstract addClass(element: any, className: string): any;
     abstract removeClass(element: any, className: string): any;
-    abstract hasClass(element: any, className: string): boolean;
+    abstract getStyle(element: any, styleName: string): any;
     abstract setStyle(element: any, styleName: string, styleValue: string): any;
     abstract removeStyle(element: any, styleName: string): any;
-    abstract getStyle(element: any, styleName: string): string;
-    abstract hasStyle(element: any, styleName: string, styleValue?: string): boolean;
-    abstract getAttribute(element: any, attribute: string): string | null;
     abstract setAttribute(element: any, name: string, value: string): any;
     abstract setAttributeNS(element: any, ns: string, name: string, value: string): any;
     abstract removeAttribute(element: any, attribute: string): any;
@@ -815,6 +762,8 @@ export declare abstract class ɵDomAdapter {
     abstract elementMatches(n: any, selector: string): boolean;
     abstract isElementNode(node: any): boolean;
     abstract isShadowRoot(node: any): boolean;
+    abstract getHost(el: any): any;
+    abstract onAndCancel(el: any, evt: any, listener: any): Function;
     abstract getEventKey(event: any): string;
     abstract supportsDOMEvents(): boolean;
     abstract getGlobalEventTarget(doc: Document, target: string): any;
