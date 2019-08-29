@@ -2,9 +2,6 @@ import { ErrorHandler, ModuleWithProviders, PlatformRef, StaticProvider } from '
 import * as i0 from "@angular/core";
 import * as i1 from "@angular/common";
 export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
-/**
- * @codeGenApi
- */
 export declare const BROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
