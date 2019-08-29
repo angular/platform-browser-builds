@@ -29,7 +29,6 @@ export declare class BrowserDetection {
     readonly supportsDeprecatedShadowDomV0: boolean;
 }
 export declare function dispatchEvent(element: any, eventType: any): void;
-export declare function createMouseEvent(eventType: string): MouseEvent;
 export declare function el(html: string): HTMLElement;
 export declare function normalizeCSS(css: string): string;
 export declare function stringifyElement(el: any /** TODO #9100 */): string;
@@ -40,8 +39,3 @@ export declare function getContent(node: Node): Node;
 export declare function templateAwareRoot(el: Node): any;
 export declare function setCookie(name: string, value: string): void;
 export declare function supportsWebAnimation(): boolean;
-export declare function hasStyle(element: any, styleName: string, styleValue?: string | null): boolean;
-export declare function hasClass(element: any, className: string): boolean;
-export declare function sortedClassList(element: any): any[];
-export declare function createTemplate(html: any): HTMLElement;
-export declare function childNodesAsList(el: Node): any[];
