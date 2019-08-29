@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+1.sha-46caf88.with-local-changes
+ * @license Angular v9.0.0-next.4+9.sha-d0f3539.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -141,14 +141,27 @@ BrowserDetection.setup();
  * @return {?}
  */
 function dispatchEvent(element, eventType) {
-    ɵgetDOM().dispatchEvent(element, ɵgetDOM().createEvent(eventType));
+    /** @type {?} */
+    const evt = ɵgetDOM().getDefaultDocument().createEvent('Event');
+    evt.initEvent(eventType, true, true);
+    ɵgetDOM().dispatchEvent(element, evt);
+}
+/**
+ * @param {?} eventType
+ * @return {?}
+ */
+function createMouseEvent(eventType) {
+    /** @type {?} */
+    const evt = ɵgetDOM().getDefaultDocument().createEvent('MouseEvent');
+    evt.initEvent(eventType, true, true);
+    return evt;
 }
 /**
  * @param {?} html
  * @return {?}
  */
 function el(html) {
-    return (/** @type {?} */ (ɵgetDOM().firstChild(getContent(ɵgetDOM().createTemplate(html)))));
+    return (/** @type {?} */ (getContent(createTemplate(html)).firstChild));
 }
 /**
  * @param {?} css
@@ -234,7 +247,7 @@ function stringifyElement(el /** TODO #9100 */) {
         /** @type {?} */
         const childrenRoot = templateAwareRoot(el);
         /** @type {?} */
-        const children = childrenRoot ? ɵgetDOM().childNodes(childrenRoot) : [];
+        const children = childrenRoot ? childrenRoot.childNodes : [];
         for (let j = 0; j < children.length; j++) {
             result += stringifyElement(children[j]);
         }
@@ -247,7 +260,7 @@ function stringifyElement(el /** TODO #9100 */) {
         result += `<!--${el.nodeValue}-->`;
     }
     else {
-        result += ɵgetDOM().getText(el);
+        result += el.textContent;
     }
     return result;
 }
@@ -305,6 +318,56 @@ function setCookie(name, value) {
  */
 function supportsWebAnimation() {
     return typeof ((/** @type {?} */ (Element))).prototype['animate'] === 'function';
+}
+/**
+ * @param {?} element
+ * @param {?} styleName
+ * @param {?=} styleValue
+ * @return {?}
+ */
+function hasStyle(element, styleName, styleValue) {
+    /** @type {?} */
+    const value = element.style[styleName] || '';
+    return styleValue ? value == styleValue : value.length > 0;
+}
+/**
+ * @param {?} element
+ * @param {?} className
+ * @return {?}
+ */
+function hasClass(element, className) {
+    return element.classList.contains(className);
+}
+/**
+ * @param {?} element
+ * @return {?}
+ */
+function sortedClassList(element) {
+    return Array.prototype.slice.call(element.classList, 0).sort();
+}
+/**
+ * @param {?} html
+ * @return {?}
+ */
+function createTemplate(html) {
+    /** @type {?} */
+    const t = ɵgetDOM().getDefaultDocument().createElement('template');
+    t.innerHTML = html;
+    return t;
+}
+/**
+ * @param {?} el
+ * @return {?}
+ */
+function childNodesAsList(el) {
+    /** @type {?} */
+    const childNodes = el.childNodes;
+    /** @type {?} */
+    const res = [];
+    for (let i = 0; i < childNodes.length; i++) {
+        res[i] = childNodes[i];
+    }
+    return res;
 }
 
 /**
