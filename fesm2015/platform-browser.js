@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+21.sha-18ce58c.with-local-changes
+ * @license Angular v9.0.0-next.4+30.sha-63dff9c.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -3351,10 +3351,7 @@ const BROWSER_SANITIZATION_PROVIDERS__PRE_R3__ = [
     { provide: Sanitizer, useExisting: DomSanitizer },
     { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT] },
 ];
-/**
- * \@codeGenApi
- * @type {?}
- */
+/** @type {?} */
 const BROWSER_SANITIZATION_PROVIDERS__POST_R3__ = [];
 /**
  * \@security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -4116,7 +4113,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.4+21.sha-18ce58c.with-local-changes');
+const VERSION = new Version('9.0.0-next.4+30.sha-63dff9c.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+21.sha-18ce58c.with-local-changes
+ * @license Angular v9.0.0-next.4+30.sha-63dff9c.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -618,9 +618,6 @@ export declare abstract class ɵangular_packages_platform_browser_platform_brows
  */
 export declare const ɵBROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
 
-/**
- * @codeGenApi
- */
 export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
 
 /**
