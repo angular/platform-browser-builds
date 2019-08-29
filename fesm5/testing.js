@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+1.sha-46caf88.with-local-changes
+ * @license Angular v9.0.0-next.4+9.sha-d0f3539.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -142,10 +142,17 @@ var BrowserDetection = /** @class */ (function () {
 }());
 BrowserDetection.setup();
 function dispatchEvent(element, eventType) {
-    ɵgetDOM().dispatchEvent(element, ɵgetDOM().createEvent(eventType));
+    var evt = ɵgetDOM().getDefaultDocument().createEvent('Event');
+    evt.initEvent(eventType, true, true);
+    ɵgetDOM().dispatchEvent(element, evt);
+}
+function createMouseEvent(eventType) {
+    var evt = ɵgetDOM().getDefaultDocument().createEvent('MouseEvent');
+    evt.initEvent(eventType, true, true);
+    return evt;
 }
 function el(html) {
-    return ɵgetDOM().firstChild(getContent(ɵgetDOM().createTemplate(html)));
+    return getContent(createTemplate(html)).firstChild;
 }
 function normalizeCSS(css) {
     return css.replace(/\s+/g, ' ')
@@ -214,7 +221,7 @@ function stringifyElement(el /** TODO #9100 */) {
         result += '>';
         // Children
         var childrenRoot = templateAwareRoot(el);
-        var children = childrenRoot ? ɵgetDOM().childNodes(childrenRoot) : [];
+        var children = childrenRoot ? childrenRoot.childNodes : [];
         for (var j = 0; j < children.length; j++) {
             result += stringifyElement(children[j]);
         }
@@ -227,7 +234,7 @@ function stringifyElement(el /** TODO #9100 */) {
         result += "<!--" + el.nodeValue + "-->";
     }
     else {
-        result += ɵgetDOM().getText(el);
+        result += el.textContent;
     }
     return result;
 }
@@ -258,6 +265,29 @@ function setCookie(name, value) {
 }
 function supportsWebAnimation() {
     return typeof Element.prototype['animate'] === 'function';
+}
+function hasStyle(element, styleName, styleValue) {
+    var value = element.style[styleName] || '';
+    return styleValue ? value == styleValue : value.length > 0;
+}
+function hasClass(element, className) {
+    return element.classList.contains(className);
+}
+function sortedClassList(element) {
+    return Array.prototype.slice.call(element.classList, 0).sort();
+}
+function createTemplate(html) {
+    var t = ɵgetDOM().getDefaultDocument().createElement('template');
+    t.innerHTML = html;
+    return t;
+}
+function childNodesAsList(el) {
+    var childNodes = el.childNodes;
+    var res = [];
+    for (var i = 0; i < childNodes.length; i++) {
+        res[i] = childNodes[i];
+    }
+    return res;
 }
 
 /**

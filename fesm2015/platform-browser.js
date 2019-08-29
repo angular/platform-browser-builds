@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+1.sha-46caf88.with-local-changes
+ * @license Angular v9.0.0-next.4+9.sha-d0f3539.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -55,21 +55,6 @@ class DomAdapter {
 if (false) {
     /**
      * @abstract
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    DomAdapter.prototype.hasProperty = function (element, name) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setProperty = function (el, name, value) { };
-    /**
-     * @abstract
      * @param {?} el
      * @param {?} name
      * @return {?}
@@ -78,17 +63,10 @@ if (false) {
     /**
      * @abstract
      * @param {?} el
-     * @param {?} methodName
-     * @param {?} args
+     * @param {?} evt
      * @return {?}
      */
-    DomAdapter.prototype.invoke = function (el, methodName, args) { };
-    /**
-     * @abstract
-     * @param {?} error
-     * @return {?}
-     */
-    DomAdapter.prototype.logError = function (error) { };
+    DomAdapter.prototype.dispatchEvent = function (el, evt) { };
     /**
      * @abstract
      * @param {?} error
@@ -108,26 +86,6 @@ if (false) {
     DomAdapter.prototype.logGroupEnd = function () { };
     /**
      * @abstract
-     * @param {?} nodeA
-     * @param {?} nodeB
-     * @return {?}
-     */
-    DomAdapter.prototype.contains = function (nodeA, nodeB) { };
-    /**
-     * @abstract
-     * @param {?} templateHtml
-     * @return {?}
-     */
-    DomAdapter.prototype.parse = function (templateHtml) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    DomAdapter.prototype.querySelector = function (el, selector) { };
-    /**
-     * @abstract
      * @param {?} el
      * @param {?} selector
      * @return {?}
@@ -136,74 +94,31 @@ if (false) {
     /**
      * @abstract
      * @param {?} el
-     * @param {?} evt
-     * @param {?} listener
      * @return {?}
      */
-    DomAdapter.prototype.on = function (el, evt, listener) { };
+    DomAdapter.prototype.remove = function (el) { };
+    /**
+     * @abstract
+     * @param {?} element
+     * @param {?} attribute
+     * @return {?}
+     */
+    DomAdapter.prototype.getAttribute = function (element, attribute) { };
     /**
      * @abstract
      * @param {?} el
-     * @param {?} evt
-     * @param {?} listener
+     * @param {?} name
+     * @param {?} value
      * @return {?}
      */
-    DomAdapter.prototype.onAndCancel = function (el, evt, listener) { };
+    DomAdapter.prototype.setProperty = function (el, name, value) { };
     /**
      * @abstract
      * @param {?} el
-     * @param {?} evt
+     * @param {?} selector
      * @return {?}
      */
-    DomAdapter.prototype.dispatchEvent = function (el, evt) { };
-    /**
-     * @abstract
-     * @param {?} eventType
-     * @return {?}
-     */
-    DomAdapter.prototype.createMouseEvent = function (eventType) { };
-    /**
-     * @abstract
-     * @param {?} eventType
-     * @return {?}
-     */
-    DomAdapter.prototype.createEvent = function (eventType) { };
-    /**
-     * @abstract
-     * @param {?} evt
-     * @return {?}
-     */
-    DomAdapter.prototype.preventDefault = function (evt) { };
-    /**
-     * @abstract
-     * @param {?} evt
-     * @return {?}
-     */
-    DomAdapter.prototype.isPrevented = function (evt) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.nodeName = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.nodeValue = function (node) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.type = function (node) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.firstChild = function (el) { };
+    DomAdapter.prototype.querySelector = function (el, selector) { };
     /**
      * @abstract
      * @param {?} el
@@ -216,18 +131,6 @@ if (false) {
      * @return {?}
      */
     DomAdapter.prototype.parentElement = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.childNodes = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.childNodesAsList = function (el) { };
     /**
      * @abstract
      * @param {?} el
@@ -250,12 +153,6 @@ if (false) {
     DomAdapter.prototype.removeChild = function (el, node) { };
     /**
      * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.remove = function (el) { };
-    /**
-     * @abstract
      * @param {?} parent
      * @param {?} ref
      * @param {?} node
@@ -265,47 +162,16 @@ if (false) {
     /**
      * @abstract
      * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getText = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
      * @param {?} value
      * @return {?}
      */
     DomAdapter.prototype.setText = function (el, value) { };
     /**
      * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getValue = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    DomAdapter.prototype.setValue = function (el, value) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getChecked = function (el) { };
-    /**
-     * @abstract
      * @param {?} text
      * @return {?}
      */
     DomAdapter.prototype.createComment = function (text) { };
-    /**
-     * @abstract
-     * @param {?} html
-     * @return {?}
-     */
-    DomAdapter.prototype.createTemplate = function (html) { };
     /**
      * @abstract
      * @param {?} tagName
@@ -330,35 +196,11 @@ if (false) {
     DomAdapter.prototype.createTextNode = function (text, doc) { };
     /**
      * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getHost = function (el) { };
-    /**
-     * @abstract
-     * @param {?} el
-     * @return {?}
-     */
-    DomAdapter.prototype.getDistributedNodes = function (el) { };
-    /**
-     * @abstract
-     * @param {?} node
-     * @return {?}
-     */
-    DomAdapter.prototype.clone = function (node) { };
-    /**
-     * @abstract
      * @param {?} element
      * @param {?} name
      * @return {?}
      */
     DomAdapter.prototype.getElementsByTagName = function (element, name) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @return {?}
-     */
-    DomAdapter.prototype.classList = function (element) { };
     /**
      * @abstract
      * @param {?} element
@@ -376,10 +218,10 @@ if (false) {
     /**
      * @abstract
      * @param {?} element
-     * @param {?} className
+     * @param {?} styleName
      * @return {?}
      */
-    DomAdapter.prototype.hasClass = function (element, className) { };
+    DomAdapter.prototype.getStyle = function (element, styleName) { };
     /**
      * @abstract
      * @param {?} element
@@ -395,28 +237,6 @@ if (false) {
      * @return {?}
      */
     DomAdapter.prototype.removeStyle = function (element, styleName) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} styleName
-     * @return {?}
-     */
-    DomAdapter.prototype.getStyle = function (element, styleName) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?=} styleValue
-     * @return {?}
-     */
-    DomAdapter.prototype.hasStyle = function (element, styleName, styleValue) { };
-    /**
-     * @abstract
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    DomAdapter.prototype.getAttribute = function (element, attribute) { };
     /**
      * @abstract
      * @param {?} element
@@ -493,6 +313,20 @@ if (false) {
     DomAdapter.prototype.isShadowRoot = function (node) { };
     /**
      * @abstract
+     * @param {?} el
+     * @return {?}
+     */
+    DomAdapter.prototype.getHost = function (el) { };
+    /**
+     * @abstract
+     * @param {?} el
+     * @param {?} evt
+     * @param {?} listener
+     * @return {?}
+     */
+    DomAdapter.prototype.onAndCancel = function (el, evt, listener) { };
+    /**
+     * @abstract
      * @param {?} event
      * @return {?}
      */
@@ -566,11 +400,6 @@ if (false) {
  */
 class GenericBrowserDomAdapter extends DomAdapter {
     constructor() { super(); }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getDistributedNodes(el) { return ((/** @type {?} */ (el))).getDistributedNodes(); }
     /**
      * @return {?}
      */
@@ -650,20 +479,9 @@ const nodeContains = ((/**
 /* tslint:disable:requireParameterType no-console */
 class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
-     * @param {?} templateHtml
-     * @return {?}
-     */
-    parse(templateHtml) { throw new Error('parse not implemented'); }
-    /**
      * @return {?}
      */
     static makeCurrent() { setRootDomAdapter(new BrowserDomAdapter()); }
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    hasProperty(element, name) { return name in element; }
     /**
      * @param {?} el
      * @param {?} name
@@ -677,28 +495,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     getProperty(el, name) { return ((/** @type {?} */ (el)))[name]; }
-    /**
-     * @param {?} el
-     * @param {?} methodName
-     * @param {?} args
-     * @return {?}
-     */
-    invoke(el, methodName, args) { ((/** @type {?} */ (el)))[methodName](...args); }
-    // TODO(tbosch): move this into a separate environment class once we have it
-    /**
-     * @param {?} error
-     * @return {?}
-     */
-    logError(error) {
-        if (window.console) {
-            if (console.error) {
-                console.error(error);
-            }
-            else {
-                console.log(error);
-            }
-        }
-    }
     /**
      * @param {?} error
      * @return {?}
@@ -726,12 +522,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         }
     }
     /**
-     * @param {?} nodeA
-     * @param {?} nodeB
-     * @return {?}
-     */
-    contains(nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); }
-    /**
      * @param {?} el
      * @param {?} selector
      * @return {?}
@@ -743,13 +533,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     querySelectorAll(el, selector) { return el.querySelectorAll(selector); }
-    /**
-     * @param {?} el
-     * @param {?} evt
-     * @param {?} listener
-     * @return {?}
-     */
-    on(el, evt, listener) { el.addEventListener(evt, listener, false); }
     /**
      * @param {?} el
      * @param {?} evt
@@ -772,61 +555,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     dispatchEvent(el, evt) { el.dispatchEvent(evt); }
     /**
-     * @param {?} eventType
-     * @return {?}
-     */
-    createMouseEvent(eventType) {
-        /** @type {?} */
-        const evt = this.getDefaultDocument().createEvent('MouseEvent');
-        evt.initEvent(eventType, true, true);
-        return evt;
-    }
-    /**
-     * @param {?} eventType
-     * @return {?}
-     */
-    createEvent(eventType) {
-        /** @type {?} */
-        const evt = this.getDefaultDocument().createEvent('Event');
-        evt.initEvent(eventType, true, true);
-        return evt;
-    }
-    /**
-     * @param {?} evt
-     * @return {?}
-     */
-    preventDefault(evt) {
-        evt.preventDefault();
-        evt.returnValue = false;
-    }
-    /**
-     * @param {?} evt
-     * @return {?}
-     */
-    isPrevented(evt) {
-        return evt.defaultPrevented || evt.returnValue != null && !evt.returnValue;
-    }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    nodeName(node) { return node.nodeName; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    nodeValue(node) { return node.nodeValue; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    type(node) { return node.type; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    firstChild(el) { return el.firstChild; }
-    /**
      * @param {?} el
      * @return {?}
      */
@@ -836,25 +564,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     parentElement(el) { return el.parentNode; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    childNodes(el) { return el.childNodes; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    childNodesAsList(el) {
-        /** @type {?} */
-        const childNodes = el.childNodes;
-        /** @type {?} */
-        const res = [];
-        for (let i = 0; i < childNodes.length; i++) {
-            res[i] = childNodes[i];
-        }
-        return res;
-    }
     /**
      * @param {?} el
      * @return {?}
@@ -895,11 +604,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     insertBefore(parent, ref, node) { parent.insertBefore(node, ref); }
     /**
      * @param {?} el
-     * @return {?}
-     */
-    getText(el) { return el.textContent; }
-    /**
-     * @param {?} el
      * @param {?} value
      * @return {?}
      */
@@ -910,31 +614,10 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     getValue(el) { return el.value; }
     /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    setValue(el, value) { el.value = value; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getChecked(el) { return el.checked; }
-    /**
      * @param {?} text
      * @return {?}
      */
     createComment(text) { return this.getDefaultDocument().createComment(text); }
-    /**
-     * @param {?} html
-     * @return {?}
-     */
-    createTemplate(html) {
-        /** @type {?} */
-        const t = this.getDefaultDocument().createElement('template');
-        t.innerHTML = html;
-        return t;
-    }
     /**
      * @param {?} tagName
      * @param {?=} doc
@@ -969,11 +652,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     getHost(el) { return ((/** @type {?} */ (el))).host; }
     /**
-     * @param {?} node
-     * @return {?}
-     */
-    clone(node) { return node.cloneNode(true); }
-    /**
      * @param {?} element
      * @param {?} name
      * @return {?}
@@ -981,11 +659,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     getElementsByTagName(element, name) {
         return element.getElementsByTagName(name);
     }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    classList(element) { return Array.prototype.slice.call(element.classList, 0); }
     /**
      * @param {?} element
      * @param {?} className
@@ -998,14 +671,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     removeClass(element, className) { element.classList.remove(className); }
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    hasClass(element, className) {
-        return element.classList.contains(className);
-    }
     /**
      * @param {?} element
      * @param {?} styleName
@@ -1031,17 +696,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     getStyle(element, stylename) { return element.style[stylename]; }
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?=} styleValue
-     * @return {?}
-     */
-    hasStyle(element, styleName, styleValue) {
-        /** @type {?} */
-        const value = this.getStyle(element, styleName) || '';
-        return styleValue ? value == styleValue : value.length > 0;
-    }
     /**
      * @param {?} element
      * @param {?} attribute
@@ -4683,7 +4337,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.4+1.sha-46caf88.with-local-changes');
+const VERSION = new Version('9.0.0-next.4+9.sha-d0f3539.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
