@@ -14,6 +14,5 @@ import { DomAdapter } from '../dom/dom_adapter';
  */
 export declare abstract class GenericBrowserDomAdapter extends DomAdapter {
     constructor();
-    getDistributedNodes(el: HTMLElement): Node[];
     supportsDOMEvents(): boolean;
 }

@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4.with-local-changes
+ * @license Angular v9.0.0-next.4+7.sha-b094936.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -247,7 +247,6 @@
         function GenericBrowserDomAdapter() {
             return _super.call(this) || this;
         }
-        GenericBrowserDomAdapter.prototype.getDistributedNodes = function (el) { return el.getDistributedNodes(); };
         GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () { return true; };
         return GenericBrowserDomAdapter;
     }(DomAdapter));
@@ -319,26 +318,9 @@
         function BrowserDomAdapter() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        BrowserDomAdapter.prototype.parse = function (templateHtml) { throw new Error('parse not implemented'); };
         BrowserDomAdapter.makeCurrent = function () { setRootDomAdapter(new BrowserDomAdapter()); };
-        BrowserDomAdapter.prototype.hasProperty = function (element, name) { return name in element; };
         BrowserDomAdapter.prototype.setProperty = function (el, name, value) { el[name] = value; };
         BrowserDomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
-        BrowserDomAdapter.prototype.invoke = function (el, methodName, args) {
-            var _a;
-            (_a = el)[methodName].apply(_a, __spread(args));
-        };
-        // TODO(tbosch): move this into a separate environment class once we have it
-        BrowserDomAdapter.prototype.logError = function (error) {
-            if (window.console) {
-                if (console.error) {
-                    console.error(error);
-                }
-                else {
-                    console.log(error);
-                }
-            }
-        };
         BrowserDomAdapter.prototype.log = function (error) {
             if (window.console) {
                 window.console.log && window.console.log(error);
@@ -354,10 +336,8 @@
                 window.console.groupEnd && window.console.groupEnd();
             }
         };
-        BrowserDomAdapter.prototype.contains = function (nodeA, nodeB) { return nodeContains.call(nodeA, nodeB); };
         BrowserDomAdapter.prototype.querySelector = function (el, selector) { return el.querySelector(selector); };
         BrowserDomAdapter.prototype.querySelectorAll = function (el, selector) { return el.querySelectorAll(selector); };
-        BrowserDomAdapter.prototype.on = function (el, evt, listener) { el.addEventListener(evt, listener, false); };
         BrowserDomAdapter.prototype.onAndCancel = function (el, evt, listener) {
             el.addEventListener(evt, listener, false);
             // Needed to follow Dart's subscription semantic, until fix of
@@ -365,38 +345,8 @@
             return function () { el.removeEventListener(evt, listener, false); };
         };
         BrowserDomAdapter.prototype.dispatchEvent = function (el, evt) { el.dispatchEvent(evt); };
-        BrowserDomAdapter.prototype.createMouseEvent = function (eventType) {
-            var evt = this.getDefaultDocument().createEvent('MouseEvent');
-            evt.initEvent(eventType, true, true);
-            return evt;
-        };
-        BrowserDomAdapter.prototype.createEvent = function (eventType) {
-            var evt = this.getDefaultDocument().createEvent('Event');
-            evt.initEvent(eventType, true, true);
-            return evt;
-        };
-        BrowserDomAdapter.prototype.preventDefault = function (evt) {
-            evt.preventDefault();
-            evt.returnValue = false;
-        };
-        BrowserDomAdapter.prototype.isPrevented = function (evt) {
-            return evt.defaultPrevented || evt.returnValue != null && !evt.returnValue;
-        };
-        BrowserDomAdapter.prototype.nodeName = function (node) { return node.nodeName; };
-        BrowserDomAdapter.prototype.nodeValue = function (node) { return node.nodeValue; };
-        BrowserDomAdapter.prototype.type = function (node) { return node.type; };
-        BrowserDomAdapter.prototype.firstChild = function (el) { return el.firstChild; };
         BrowserDomAdapter.prototype.nextSibling = function (el) { return el.nextSibling; };
         BrowserDomAdapter.prototype.parentElement = function (el) { return el.parentNode; };
-        BrowserDomAdapter.prototype.childNodes = function (el) { return el.childNodes; };
-        BrowserDomAdapter.prototype.childNodesAsList = function (el) {
-            var childNodes = el.childNodes;
-            var res = [];
-            for (var i = 0; i < childNodes.length; i++) {
-                res[i] = childNodes[i];
-            }
-            return res;
-        };
         BrowserDomAdapter.prototype.clearNodes = function (el) {
             while (el.firstChild) {
                 el.removeChild(el.firstChild);
@@ -411,17 +361,9 @@
             return node;
         };
         BrowserDomAdapter.prototype.insertBefore = function (parent, ref, node) { parent.insertBefore(node, ref); };
-        BrowserDomAdapter.prototype.getText = function (el) { return el.textContent; };
         BrowserDomAdapter.prototype.setText = function (el, value) { el.textContent = value; };
         BrowserDomAdapter.prototype.getValue = function (el) { return el.value; };
-        BrowserDomAdapter.prototype.setValue = function (el, value) { el.value = value; };
-        BrowserDomAdapter.prototype.getChecked = function (el) { return el.checked; };
         BrowserDomAdapter.prototype.createComment = function (text) { return this.getDefaultDocument().createComment(text); };
-        BrowserDomAdapter.prototype.createTemplate = function (html) {
-            var t = this.getDefaultDocument().createElement('template');
-            t.innerHTML = html;
-            return t;
-        };
         BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
             doc = doc || this.getDefaultDocument();
             return doc.createElement(tagName);
@@ -435,16 +377,11 @@
             return doc.createTextNode(text);
         };
         BrowserDomAdapter.prototype.getHost = function (el) { return el.host; };
-        BrowserDomAdapter.prototype.clone = function (node) { return node.cloneNode(true); };
         BrowserDomAdapter.prototype.getElementsByTagName = function (element, name) {
             return element.getElementsByTagName(name);
         };
-        BrowserDomAdapter.prototype.classList = function (element) { return Array.prototype.slice.call(element.classList, 0); };
         BrowserDomAdapter.prototype.addClass = function (element, className) { element.classList.add(className); };
         BrowserDomAdapter.prototype.removeClass = function (element, className) { element.classList.remove(className); };
-        BrowserDomAdapter.prototype.hasClass = function (element, className) {
-            return element.classList.contains(className);
-        };
         BrowserDomAdapter.prototype.setStyle = function (element, styleName, styleValue) {
             element.style[styleName] = styleValue;
         };
@@ -454,10 +391,6 @@
             element.style[stylename] = '';
         };
         BrowserDomAdapter.prototype.getStyle = function (element, stylename) { return element.style[stylename]; };
-        BrowserDomAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
-            var value = this.getStyle(element, styleName) || '';
-            return styleValue ? value == styleValue : value.length > 0;
-        };
         BrowserDomAdapter.prototype.getAttribute = function (element, attribute) {
             return element.getAttribute(attribute);
         };
@@ -2587,7 +2520,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.4.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.4+7.sha-b094936.with-local-changes');
 
     /**
      * @license

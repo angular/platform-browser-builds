@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4.with-local-changes
+ * @license Angular v9.0.0-next.4+7.sha-b094936.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -331,10 +331,17 @@
     }());
     BrowserDetection.setup();
     function dispatchEvent(element, eventType) {
-        platformBrowser.ɵgetDOM().dispatchEvent(element, platformBrowser.ɵgetDOM().createEvent(eventType));
+        var evt = platformBrowser.ɵgetDOM().getDefaultDocument().createEvent('Event');
+        evt.initEvent(eventType, true, true);
+        platformBrowser.ɵgetDOM().dispatchEvent(element, evt);
+    }
+    function createMouseEvent(eventType) {
+        var evt = platformBrowser.ɵgetDOM().getDefaultDocument().createEvent('MouseEvent');
+        evt.initEvent(eventType, true, true);
+        return evt;
     }
     function el(html) {
-        return platformBrowser.ɵgetDOM().firstChild(getContent(platformBrowser.ɵgetDOM().createTemplate(html)));
+        return getContent(createTemplate(html)).firstChild;
     }
     function normalizeCSS(css) {
         return css.replace(/\s+/g, ' ')
@@ -403,7 +410,7 @@
             result += '>';
             // Children
             var childrenRoot = templateAwareRoot(el);
-            var children = childrenRoot ? platformBrowser.ɵgetDOM().childNodes(childrenRoot) : [];
+            var children = childrenRoot ? childrenRoot.childNodes : [];
             for (var j = 0; j < children.length; j++) {
                 result += stringifyElement(children[j]);
             }
@@ -416,7 +423,7 @@
             result += "<!--" + el.nodeValue + "-->";
         }
         else {
-            result += platformBrowser.ɵgetDOM().getText(el);
+            result += el.textContent;
         }
         return result;
     }
@@ -447,6 +454,29 @@
     }
     function supportsWebAnimation() {
         return typeof Element.prototype['animate'] === 'function';
+    }
+    function hasStyle(element, styleName, styleValue) {
+        var value = element.style[styleName] || '';
+        return styleValue ? value == styleValue : value.length > 0;
+    }
+    function hasClass(element, className) {
+        return element.classList.contains(className);
+    }
+    function sortedClassList(element) {
+        return Array.prototype.slice.call(element.classList, 0).sort();
+    }
+    function createTemplate(html) {
+        var t = platformBrowser.ɵgetDOM().getDefaultDocument().createElement('template');
+        t.innerHTML = html;
+        return t;
+    }
+    function childNodesAsList(el) {
+        var childNodes = el.childNodes;
+        var res = [];
+        for (var i = 0; i < childNodes.length; i++) {
+            res[i] = childNodes[i];
+        }
+        return res;
     }
 
     /**
