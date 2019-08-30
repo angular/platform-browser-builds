@@ -1,12 +1,13 @@
 /**
- * @license Angular v9.0.0-next.4+39.sha-3758978.with-local-changes
+ * @license Angular v9.0.0-next.4+44.sha-1537791.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵglobal, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵɵdefineNgModule, ɵɵdefineInjector, APP_ID, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
-import { ɵgetDOM, ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, BrowserModule } from '@angular/platform-browser';
+import { ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, BrowserModule } from '@angular/platform-browser';
 import { __values } from 'tslib';
+import { ɵgetDOM } from '@angular/common';
 
 /**
  * @license
