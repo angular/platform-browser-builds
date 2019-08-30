@@ -1,14 +1,14 @@
 /**
- * @license Angular v9.0.0-next.4+39.sha-3758978.with-local-changes
+ * @license Angular v9.0.0-next.4+44.sha-1537791.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser')) :
-    typeof define === 'function' && define.amd ? define('@angular/platform-browser/testing', ['exports', '@angular/core', '@angular/platform-browser'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.testing = {}), global.ng.core, global.ng.platformBrowser));
-}(this, function (exports, core, platformBrowser) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@angular/platform-browser/testing', ['exports', '@angular/core', '@angular/platform-browser', '@angular/common'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.testing = {}), global.ng.core, global.ng.platformBrowser, global.ng.common));
+}(this, function (exports, core, platformBrowser, common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -214,7 +214,7 @@
                 if (typeof this._overrideUa === 'string') {
                     return this._overrideUa;
                 }
-                return platformBrowser.ɵgetDOM() ? platformBrowser.ɵgetDOM().getUserAgent() : '';
+                return common.ɵgetDOM() ? common.ɵgetDOM().getUserAgent() : '';
             },
             enumerable: true,
             configurable: true
@@ -331,12 +331,12 @@
     }());
     BrowserDetection.setup();
     function dispatchEvent(element, eventType) {
-        var evt = platformBrowser.ɵgetDOM().getDefaultDocument().createEvent('Event');
+        var evt = common.ɵgetDOM().getDefaultDocument().createEvent('Event');
         evt.initEvent(eventType, true, true);
-        platformBrowser.ɵgetDOM().dispatchEvent(element, evt);
+        common.ɵgetDOM().dispatchEvent(element, evt);
     }
     function createMouseEvent(eventType) {
-        var evt = platformBrowser.ɵgetDOM().getDefaultDocument().createEvent('MouseEvent');
+        var evt = common.ɵgetDOM().getDefaultDocument().createEvent('MouseEvent');
         evt.initEvent(eventType, true, true);
         return evt;
     }
@@ -376,7 +376,7 @@
     function stringifyElement(el /** TODO #9100 */) {
         var e_1, _a;
         var result = '';
-        if (platformBrowser.ɵgetDOM().isElementNode(el)) {
+        if (common.ɵgetDOM().isElementNode(el)) {
             var tagName = el.tagName.toLowerCase();
             // Opening tag
             result += "<" + tagName;
@@ -445,7 +445,7 @@
         }
     }
     function templateAwareRoot(el) {
-        return platformBrowser.ɵgetDOM().isElementNode(el) && el.nodeName === 'TEMPLATE' ? getContent(el) : el;
+        return common.ɵgetDOM().isElementNode(el) && el.nodeName === 'TEMPLATE' ? getContent(el) : el;
     }
     function setCookie(name, value) {
         // document.cookie is magical, assigning into it assigns/overrides one cookie value, but does
@@ -466,7 +466,7 @@
         return Array.prototype.slice.call(element.classList, 0).sort();
     }
     function createTemplate(html) {
-        var t = platformBrowser.ɵgetDOM().getDefaultDocument().createElement('template');
+        var t = common.ɵgetDOM().getDefaultDocument().createElement('template');
         t.innerHTML = html;
         return t;
     }

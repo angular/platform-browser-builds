@@ -1,44 +1,13 @@
 /**
- * @license Angular v9.0.0-next.4+39.sha-3758978.with-local-changes
+ * @license Angular v9.0.0-next.4+44.sha-1537791.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { __extends, __decorate, __param, __metadata, __assign } from 'tslib';
-import { ɵparseCookieValue, DOCUMENT, PlatformLocation, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
-import { ɵglobal, Injectable, Inject, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵAPP_ROOT, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var _DOM = null;
-function getDOM() {
-    return _DOM;
-}
-function setDOM(adapter) {
-    _DOM = adapter;
-}
-function setRootDomAdapter(adapter) {
-    if (!_DOM) {
-        _DOM = adapter;
-    }
-}
-/* tslint:disable:requireParameterType */
-/**
- * Provides DOM operations in an environment-agnostic way.
- *
- * @security Tread carefully! Interacting with the DOM directly is dangerous and
- * can introduce XSS risks.
- */
-var DomAdapter = /** @class */ (function () {
-    function DomAdapter() {
-    }
-    return DomAdapter;
-}());
+import { __extends, __assign, __decorate, __param, __metadata } from 'tslib';
+import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+export { ɵgetDOM } from '@angular/common';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵ_sanitizeHtml, ɵ_sanitizeStyle, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @license
@@ -60,7 +29,7 @@ var GenericBrowserDomAdapter = /** @class */ (function (_super) {
     }
     GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () { return true; };
     return GenericBrowserDomAdapter;
-}(DomAdapter));
+}(ɵDomAdapter));
 
 /**
  * @license
@@ -130,7 +99,7 @@ var BrowserDomAdapter = /** @class */ (function (_super) {
     function BrowserDomAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    BrowserDomAdapter.makeCurrent = function () { setRootDomAdapter(new BrowserDomAdapter()); };
+    BrowserDomAdapter.makeCurrent = function () { ɵsetRootDomAdapter(new BrowserDomAdapter()); };
     BrowserDomAdapter.prototype.setProperty = function (el, name, value) { el[name] = value; };
     BrowserDomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
     BrowserDomAdapter.prototype.log = function (error) {
@@ -310,113 +279,6 @@ function relativePath(url) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-function supportsState() {
-    return !!window.history.pushState;
-}
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
- * This class should not be used directly by an application developer. Instead, use
- * {@link Location}.
- */
-var BrowserPlatformLocation = /** @class */ (function (_super) {
-    __extends(BrowserPlatformLocation, _super);
-    function BrowserPlatformLocation(_doc) {
-        var _this = _super.call(this) || this;
-        _this._doc = _doc;
-        _this._init();
-        return _this;
-    }
-    // This is moved to its own method so that `MockPlatformLocationStrategy` can overwrite it
-    /** @internal */
-    BrowserPlatformLocation.prototype._init = function () {
-        this.location = getDOM().getLocation();
-        this._history = getDOM().getHistory();
-    };
-    BrowserPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(this._doc); };
-    BrowserPlatformLocation.prototype.onPopState = function (fn) {
-        getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('popstate', fn, false);
-    };
-    BrowserPlatformLocation.prototype.onHashChange = function (fn) {
-        getDOM().getGlobalEventTarget(this._doc, 'window').addEventListener('hashchange', fn, false);
-    };
-    Object.defineProperty(BrowserPlatformLocation.prototype, "href", {
-        get: function () { return this.location.href; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "protocol", {
-        get: function () { return this.location.protocol; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "hostname", {
-        get: function () { return this.location.hostname; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "port", {
-        get: function () { return this.location.port; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "pathname", {
-        get: function () { return this.location.pathname; },
-        set: function (newPath) { this.location.pathname = newPath; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "search", {
-        get: function () { return this.location.search; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BrowserPlatformLocation.prototype, "hash", {
-        get: function () { return this.location.hash; },
-        enumerable: true,
-        configurable: true
-    });
-    BrowserPlatformLocation.prototype.pushState = function (state, title, url) {
-        if (supportsState()) {
-            this._history.pushState(state, title, url);
-        }
-        else {
-            this.location.hash = url;
-        }
-    };
-    BrowserPlatformLocation.prototype.replaceState = function (state, title, url) {
-        if (supportsState()) {
-            this._history.replaceState(state, title, url);
-        }
-        else {
-            this.location.hash = url;
-        }
-    };
-    BrowserPlatformLocation.prototype.forward = function () { this._history.forward(); };
-    BrowserPlatformLocation.prototype.back = function () { this._history.back(); };
-    BrowserPlatformLocation.prototype.getState = function () { return this._history.state; };
-    BrowserPlatformLocation = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
-    ], BrowserPlatformLocation);
-    return BrowserPlatformLocation;
-}(PlatformLocation));
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
@@ -427,7 +289,7 @@ function appInitializerFactory(transitionId, document, injector) {
         // Wait for all application initializers to be completed before removing the styles set by
         // the server.
         injector.get(ApplicationInitStatus).donePromise.then(function () {
-            var dom = getDOM();
+            var dom = ɵgetDOM();
             var styles = Array.prototype.slice.apply(dom.querySelectorAll(document, "style[ng-transition]"));
             styles.filter(function (el) { return dom.getAttribute(el, 'ng-transition') === transitionId; })
                 .forEach(function (el) { return dom.remove(el); });
@@ -496,10 +358,10 @@ var BrowserGetTestability = /** @class */ (function () {
         else if (!findInAncestors) {
             return null;
         }
-        if (getDOM().isShadowRoot(elem)) {
-            return this.findTestabilityInTree(registry, getDOM().getHost(elem), true);
+        if (ɵgetDOM().isShadowRoot(elem)) {
+            return this.findTestabilityInTree(registry, ɵgetDOM().getHost(elem), true);
         }
-        return this.findTestabilityInTree(registry, getDOM().parentElement(elem), true);
+        return this.findTestabilityInTree(registry, ɵgetDOM().parentElement(elem), true);
     };
     return BrowserGetTestability;
 }());
@@ -690,7 +552,7 @@ var EventManagerPlugin = /** @class */ (function () {
         this._doc = _doc;
     }
     EventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-        var target = getDOM().getGlobalEventTarget(this._doc, element);
+        var target = ɵgetDOM().getGlobalEventTarget(this._doc, element);
         if (!target) {
             throw new Error("Unsupported event target " + target + " for event " + eventName);
         }
@@ -756,7 +618,7 @@ var DomSharedStylesHost = /** @class */ (function (_super) {
         var _this = this;
         this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
     };
-    DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return getDOM().remove(styleNode); }); };
+    DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return ɵgetDOM().remove(styleNode); }); };
     DomSharedStylesHost = __decorate([
         Injectable(),
         __param(0, Inject(DOCUMENT)),
@@ -1551,7 +1413,7 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
         var parsedEvent = KeyEventsPlugin_1.parseEventName(eventName);
         var outsideHandler = KeyEventsPlugin_1.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
         return this.manager.getZone().runOutsideAngular(function () {
-            return getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
+            return ɵgetDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
         });
     };
     KeyEventsPlugin.parseEventName = function (eventName) {
@@ -1581,7 +1443,7 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
     };
     KeyEventsPlugin.getEventFullKey = function (event) {
         var fullKey = '';
-        var key = getDOM().getEventKey(event);
+        var key = ɵgetDOM().getEventKey(event);
         key = key.toLowerCase();
         if (key === ' ') {
             key = 'space'; // for readability
@@ -1748,7 +1610,6 @@ var ɵ0$5 = ɵPLATFORM_BROWSER_ID;
 var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵ0$5 },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
-    { provide: PlatformLocation, useClass: BrowserPlatformLocation, deps: [DOCUMENT] },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
 var BROWSER_SANITIZATION_PROVIDERS__PRE_R3__ = [
@@ -1779,7 +1640,7 @@ function _document() {
 }
 var BROWSER_MODULE_PROVIDERS = [
     BROWSER_SANITIZATION_PROVIDERS,
-    { provide: ɵAPP_ROOT, useValue: true },
+    { provide: ɵINJECTOR_SCOPE, useValue: 'root' },
     { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
     {
         provide: EVENT_MANAGER_PLUGINS,
@@ -1858,7 +1719,7 @@ function createMeta() {
 var Meta = /** @class */ (function () {
     function Meta(_doc) {
         this._doc = _doc;
-        this._dom = getDOM();
+        this._dom = ɵgetDOM();
     }
     Meta.prototype.addTag = function (tag, forceCreation) {
         if (forceCreation === void 0) { forceCreation = false; }
@@ -1967,12 +1828,12 @@ var Title = /** @class */ (function () {
     /**
      * Get the title of the current HTML document.
      */
-    Title.prototype.getTitle = function () { return getDOM().getTitle(this._doc); };
+    Title.prototype.getTitle = function () { return ɵgetDOM().getTitle(this._doc); };
     /**
      * Set the title of the current HTML document.
      * @param newTitle
      */
-    Title.prototype.setTitle = function (newTitle) { getDOM().setTitle(this._doc, newTitle); };
+    Title.prototype.setTitle = function (newTitle) { ɵgetDOM().setTitle(this._doc, newTitle); };
     Title.ngInjectableDef = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
     Title = __decorate([
         Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
@@ -2038,13 +1899,13 @@ var AngularProfiler = /** @class */ (function () {
         if (record && isProfilerAvailable) {
             win.console.profile(profileName);
         }
-        var start = getDOM().performanceNow();
+        var start = ɵgetDOM().performanceNow();
         var numTicks = 0;
-        while (numTicks < 5 || (getDOM().performanceNow() - start) < 500) {
+        while (numTicks < 5 || (ɵgetDOM().performanceNow() - start) < 500) {
             this.appRef.tick();
             numTicks++;
         }
-        var end = getDOM().performanceNow();
+        var end = ɵgetDOM().performanceNow();
         if (record && isProfilerAvailable) {
             win.console.profileEnd(profileName);
         }
@@ -2273,7 +2134,7 @@ var By = /** @class */ (function () {
     By.css = function (selector) {
         return function (debugElement) {
             return debugElement.nativeElement != null ?
-                getDOM().elementMatches(debugElement.nativeElement, selector) :
+                ɵgetDOM().elementMatches(debugElement.nativeElement, selector) :
                 false;
         };
     };
@@ -2309,7 +2170,7 @@ var By = /** @class */ (function () {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-next.4+39.sha-3758978.with-local-changes');
+var VERSION = new Version('9.0.0-next.4+44.sha-1537791.with-local-changes');
 
 /**
  * @license
@@ -2340,5 +2201,5 @@ var VERSION = new Version('9.0.0-next.4+39.sha-3758978.with-local-changes');
  * Generated bundle index. Do not edit.
  */
 
-export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_o, createMeta as ɵangular_packages_platform_browser_platform_browser_d, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_l, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_k, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, ELEMENT_PROBE_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_n, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_m, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, HAMMER_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, HAMMER_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_h, domSanitizerImplFactory as ɵangular_packages_platform_browser_platform_browser_j, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HAMMER_PROVIDERS__POST_R3__ as ɵHAMMER_PROVIDERS__POST_R3__, HammerGestureConfig, HammerModule, DomSanitizer, VERSION, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserPlatformLocation as ɵBrowserPlatformLocation, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomAdapter as ɵDomAdapter, getDOM as ɵgetDOM, setRootDomAdapter as ɵsetRootDomAdapter, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
+export { BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, _document as ɵangular_packages_platform_browser_platform_browser_b, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_o, createMeta as ɵangular_packages_platform_browser_platform_browser_d, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_l, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_k, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, ELEMENT_PROBE_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_n, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_m, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, HAMMER_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, HAMMER_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_h, domSanitizerImplFactory as ɵangular_packages_platform_browser_platform_browser_j, BrowserModule, platformBrowser, Meta, Title, disableDebugTools, enableDebugTools, BrowserTransferStateModule, TransferState, makeStateKey, By, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HAMMER_PROVIDERS__POST_R3__ as ɵHAMMER_PROVIDERS__POST_R3__, HammerGestureConfig, HammerModule, DomSanitizer, VERSION, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, initDomAdapter as ɵinitDomAdapter, BrowserDomAdapter as ɵBrowserDomAdapter, TRANSITION_ID as ɵTRANSITION_ID, BrowserGetTestability as ɵBrowserGetTestability, escapeHtml as ɵescapeHtml, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, DomRendererFactory2 as ɵDomRendererFactory2, NAMESPACE_URIS as ɵNAMESPACE_URIS, flattenStyles as ɵflattenStyles, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute, DomEventsPlugin as ɵDomEventsPlugin, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, DomSharedStylesHost as ɵDomSharedStylesHost, SharedStylesHost as ɵSharedStylesHost, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.js.map

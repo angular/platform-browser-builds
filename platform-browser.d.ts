@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+39.sha-3758978.with-local-changes
+ * @license Angular v9.0.0-next.4+44.sha-1537791.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -11,12 +11,10 @@ import { ErrorHandler } from '@angular/core';
 import { GetTestability } from '@angular/core';
 import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
-import { LocationChangeListener } from '@angular/common';
 import { ModuleWithProviders } from '@angular/core';
 import { NgProbeToken } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { PlatformLocation } from '@angular/common';
 import { PlatformRef } from '@angular/core';
 import { Predicate } from '@angular/core';
 import { Provider } from '@angular/core';
@@ -31,6 +29,8 @@ import { TestabilityRegistry } from '@angular/core';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
 import { ɵConsole } from '@angular/core';
+import { ɵDomAdapter } from '@angular/common';
+import { ɵgetDOM } from '@angular/common';
 
 /**
  * Exports required infrastructure for all Angular apps.
@@ -687,93 +687,6 @@ export declare class ɵBrowserGetTestability implements GetTestability {
     findTestabilityInTree(registry: TestabilityRegistry, elem: any, findInAncestors: boolean): Testability | null;
 }
 
-/**
- * `PlatformLocation` encapsulates all of the direct calls to platform APIs.
- * This class should not be used directly by an application developer. Instead, use
- * {@link Location}.
- */
-export declare class ɵBrowserPlatformLocation extends PlatformLocation {
-    private _doc;
-    readonly location: Location;
-    private _history;
-    constructor(_doc: any);
-    getBaseHrefFromDOM(): string;
-    onPopState(fn: LocationChangeListener): void;
-    onHashChange(fn: LocationChangeListener): void;
-    readonly href: string;
-    readonly protocol: string;
-    readonly hostname: string;
-    readonly port: string;
-    pathname: string;
-    readonly search: string;
-    readonly hash: string;
-    pushState(state: any, title: string, url: string): void;
-    replaceState(state: any, title: string, url: string): void;
-    forward(): void;
-    back(): void;
-    getState(): unknown;
-}
-
-/**
- * Provides DOM operations in an environment-agnostic way.
- *
- * @security Tread carefully! Interacting with the DOM directly is dangerous and
- * can introduce XSS risks.
- */
-export declare abstract class ɵDomAdapter {
-    abstract getProperty(el: Element, name: string): any;
-    abstract dispatchEvent(el: any, evt: any): any;
-    abstract log(error: any): any;
-    abstract logGroup(error: any): any;
-    abstract logGroupEnd(): any;
-    abstract querySelectorAll(el: any, selector: string): any[];
-    abstract remove(el: any): Node;
-    abstract getAttribute(element: any, attribute: string): string | null;
-    abstract setProperty(el: Element, name: string, value: any): any;
-    abstract querySelector(el: any, selector: string): any;
-    abstract nextSibling(el: any): Node | null;
-    abstract parentElement(el: any): Node | null;
-    abstract clearNodes(el: any): any;
-    abstract appendChild(el: any, node: any): any;
-    abstract removeChild(el: any, node: any): any;
-    abstract insertBefore(parent: any, ref: any, node: any): any;
-    abstract setText(el: any, value: string): any;
-    abstract createComment(text: string): any;
-    abstract createElement(tagName: any, doc?: any): HTMLElement;
-    abstract createElementNS(ns: string, tagName: string, doc?: any): Element;
-    abstract createTextNode(text: string, doc?: any): Text;
-    abstract getElementsByTagName(element: any, name: string): HTMLElement[];
-    abstract addClass(element: any, className: string): any;
-    abstract removeClass(element: any, className: string): any;
-    abstract getStyle(element: any, styleName: string): any;
-    abstract setStyle(element: any, styleName: string, styleValue: string): any;
-    abstract removeStyle(element: any, styleName: string): any;
-    abstract setAttribute(element: any, name: string, value: string): any;
-    abstract setAttributeNS(element: any, ns: string, name: string, value: string): any;
-    abstract removeAttribute(element: any, attribute: string): any;
-    abstract removeAttributeNS(element: any, ns: string, attribute: string): any;
-    abstract createHtmlDocument(): HTMLDocument;
-    abstract getDefaultDocument(): Document;
-    abstract getTitle(doc: Document): string;
-    abstract setTitle(doc: Document, newTitle: string): any;
-    abstract elementMatches(n: any, selector: string): boolean;
-    abstract isElementNode(node: any): boolean;
-    abstract isShadowRoot(node: any): boolean;
-    abstract getHost(el: any): any;
-    abstract onAndCancel(el: any, evt: any, listener: any): Function;
-    abstract getEventKey(event: any): string;
-    abstract supportsDOMEvents(): boolean;
-    abstract getGlobalEventTarget(doc: Document, target: string): any;
-    abstract getHistory(): History;
-    abstract getLocation(): Location;
-    abstract getBaseHref(doc: Document): string | null;
-    abstract resetBaseElement(): void;
-    abstract getUserAgent(): string;
-    abstract performanceNow(): number;
-    abstract supportsCookies(): boolean;
-    abstract getCookie(name: string): string | null;
-}
-
 export declare class ɵDomEventsPlugin extends ɵangular_packages_platform_browser_platform_browser_g {
     private ngZone;
     constructor(doc: any, ngZone: NgZone, platformId: {} | null);
@@ -833,9 +746,7 @@ export declare const ɵELEMENT_PROBE_PROVIDERS__POST_R3__: never[];
 export declare function ɵescapeHtml(text: string): string;
 
 export declare function ɵflattenStyles(compId: string, styles: Array<any | any[]>, target: string[]): string[];
-
-
-export declare function ɵgetDOM(): ɵDomAdapter;
+export { ɵgetDOM }
 
 /**
  * In Ivy, support for Hammer gestures is optional, so applications must
@@ -905,8 +816,6 @@ export declare class ɵKeyEventsPlugin extends ɵangular_packages_platform_brows
 export declare const ɵNAMESPACE_URIS: {
     [ns: string]: string;
 };
-
-export declare function ɵsetRootDomAdapter(adapter: ɵDomAdapter): void;
 
 export declare class ɵSharedStylesHost {
     addStyles(styles: string[]): void;
