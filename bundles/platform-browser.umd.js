@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+71.sha-e8f9ba4.with-local-changes
+ * @license Angular v9.0.0-next.4+78.sha-89434e0.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -226,46 +226,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var DOM_KEY_LOCATION_NUMPAD = 3;
-    // Map to convert some key or keyIdentifier values to what will be returned by getEventKey
-    var _keyMap = {
-        // The following values are here for cross-browser compatibility and to match the W3C standard
-        // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
-        '\b': 'Backspace',
-        '\t': 'Tab',
-        '\x7F': 'Delete',
-        '\x1B': 'Escape',
-        'Del': 'Delete',
-        'Esc': 'Escape',
-        'Left': 'ArrowLeft',
-        'Right': 'ArrowRight',
-        'Up': 'ArrowUp',
-        'Down': 'ArrowDown',
-        'Menu': 'ContextMenu',
-        'Scroll': 'ScrollLock',
-        'Win': 'OS'
-    };
-    // There is a bug in Chrome for numeric keypad keys:
-    // https://code.google.com/p/chromium/issues/detail?id=155654
-    // 1, 2, 3 ... are reported as A, B, C ...
-    var _chromeNumKeyPadMap = {
-        'A': '1',
-        'B': '2',
-        'C': '3',
-        'D': '4',
-        'E': '5',
-        'F': '6',
-        'G': '7',
-        'H': '8',
-        'I': '9',
-        'J': '*',
-        'K': '+',
-        'M': '-',
-        'N': '.',
-        'O': '/',
-        '\x60': '0',
-        '\x90': 'NumLock'
-    };
     var ɵ0 = function () {
         if (i0.ɵglobal['Node']) {
             return i0.ɵglobal['Node'].prototype.contains || function (node) {
@@ -288,7 +248,6 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         BrowserDomAdapter.makeCurrent = function () { common.ɵsetRootDomAdapter(new BrowserDomAdapter()); };
-        BrowserDomAdapter.prototype.setProperty = function (el, name, value) { el[name] = value; };
         BrowserDomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
         BrowserDomAdapter.prototype.log = function (error) {
             if (window.console) {
@@ -305,8 +264,6 @@
                 window.console.groupEnd && window.console.groupEnd();
             }
         };
-        BrowserDomAdapter.prototype.querySelector = function (el, selector) { return el.querySelector(selector); };
-        BrowserDomAdapter.prototype.querySelectorAll = function (el, selector) { return el.querySelectorAll(selector); };
         BrowserDomAdapter.prototype.onAndCancel = function (el, evt, listener) {
             el.addEventListener(evt, listener, false);
             // Needed to follow Dart's subscription semantic, until fix of
@@ -314,101 +271,23 @@
             return function () { el.removeEventListener(evt, listener, false); };
         };
         BrowserDomAdapter.prototype.dispatchEvent = function (el, evt) { el.dispatchEvent(evt); };
-        BrowserDomAdapter.prototype.nextSibling = function (el) { return el.nextSibling; };
-        BrowserDomAdapter.prototype.parentElement = function (el) { return el.parentNode; };
-        BrowserDomAdapter.prototype.clearNodes = function (el) {
-            while (el.firstChild) {
-                el.removeChild(el.firstChild);
-            }
-        };
-        BrowserDomAdapter.prototype.appendChild = function (el, node) { el.appendChild(node); };
-        BrowserDomAdapter.prototype.removeChild = function (el, node) { el.removeChild(node); };
         BrowserDomAdapter.prototype.remove = function (node) {
             if (node.parentNode) {
                 node.parentNode.removeChild(node);
             }
             return node;
         };
-        BrowserDomAdapter.prototype.insertBefore = function (parent, ref, node) { parent.insertBefore(node, ref); };
-        BrowserDomAdapter.prototype.setText = function (el, value) { el.textContent = value; };
         BrowserDomAdapter.prototype.getValue = function (el) { return el.value; };
-        BrowserDomAdapter.prototype.createComment = function (text) { return this.getDefaultDocument().createComment(text); };
         BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
             doc = doc || this.getDefaultDocument();
             return doc.createElement(tagName);
-        };
-        BrowserDomAdapter.prototype.createElementNS = function (ns, tagName, doc) {
-            doc = doc || this.getDefaultDocument();
-            return doc.createElementNS(ns, tagName);
-        };
-        BrowserDomAdapter.prototype.createTextNode = function (text, doc) {
-            doc = doc || this.getDefaultDocument();
-            return doc.createTextNode(text);
-        };
-        BrowserDomAdapter.prototype.getHost = function (el) { return el.host; };
-        BrowserDomAdapter.prototype.getElementsByTagName = function (element, name) {
-            return element.getElementsByTagName(name);
-        };
-        BrowserDomAdapter.prototype.addClass = function (element, className) { element.classList.add(className); };
-        BrowserDomAdapter.prototype.removeClass = function (element, className) { element.classList.remove(className); };
-        BrowserDomAdapter.prototype.setStyle = function (element, styleName, styleValue) {
-            element.style[styleName] = styleValue;
-        };
-        BrowserDomAdapter.prototype.removeStyle = function (element, stylename) {
-            // IE requires '' instead of null
-            // see https://github.com/angular/angular/issues/7916
-            element.style[stylename] = '';
-        };
-        BrowserDomAdapter.prototype.getStyle = function (element, stylename) { return element.style[stylename]; };
-        BrowserDomAdapter.prototype.getAttribute = function (element, attribute) {
-            return element.getAttribute(attribute);
-        };
-        BrowserDomAdapter.prototype.setAttribute = function (element, name, value) { element.setAttribute(name, value); };
-        BrowserDomAdapter.prototype.setAttributeNS = function (element, ns, name, value) {
-            element.setAttributeNS(ns, name, value);
-        };
-        BrowserDomAdapter.prototype.removeAttribute = function (element, attribute) { element.removeAttribute(attribute); };
-        BrowserDomAdapter.prototype.removeAttributeNS = function (element, ns, name) {
-            element.removeAttributeNS(ns, name);
         };
         BrowserDomAdapter.prototype.createHtmlDocument = function () {
             return document.implementation.createHTMLDocument('fakeTitle');
         };
         BrowserDomAdapter.prototype.getDefaultDocument = function () { return document; };
-        BrowserDomAdapter.prototype.getTitle = function (doc) { return doc.title; };
-        BrowserDomAdapter.prototype.setTitle = function (doc, newTitle) { doc.title = newTitle || ''; };
-        BrowserDomAdapter.prototype.elementMatches = function (n, selector) {
-            if (this.isElementNode(n)) {
-                return n.matches && n.matches(selector) ||
-                    n.msMatchesSelector && n.msMatchesSelector(selector) ||
-                    n.webkitMatchesSelector && n.webkitMatchesSelector(selector);
-            }
-            return false;
-        };
         BrowserDomAdapter.prototype.isElementNode = function (node) { return node.nodeType === Node.ELEMENT_NODE; };
         BrowserDomAdapter.prototype.isShadowRoot = function (node) { return node instanceof DocumentFragment; };
-        BrowserDomAdapter.prototype.getEventKey = function (event) {
-            var key = event.key;
-            if (key == null) {
-                key = event.keyIdentifier;
-                // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
-                // Safari cf
-                // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
-                if (key == null) {
-                    return 'Unidentified';
-                }
-                if (key.startsWith('U+')) {
-                    key = String.fromCharCode(parseInt(key.substring(2), 16));
-                    if (event.location === DOM_KEY_LOCATION_NUMPAD && _chromeNumKeyPadMap.hasOwnProperty(key)) {
-                        // There is a bug in Chrome for numeric keypad keys:
-                        // https://code.google.com/p/chromium/issues/detail?id=155654
-                        // 1, 2, 3 ... are reported as A, B, C ...
-                        key = _chromeNumKeyPadMap[key];
-                    }
-                }
-            }
-            return _keyMap[key] || key;
-        };
         BrowserDomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target === 'window') {
                 return window;
@@ -478,8 +357,8 @@
             // the server.
             injector.get(i0.ApplicationInitStatus).donePromise.then(function () {
                 var dom = common.ɵgetDOM();
-                var styles = Array.prototype.slice.apply(dom.querySelectorAll(document, "style[ng-transition]"));
-                styles.filter(function (el) { return dom.getAttribute(el, 'ng-transition') === transitionId; })
+                var styles = Array.prototype.slice.apply(document.querySelectorAll("style[ng-transition]"));
+                styles.filter(function (el) { return el.getAttribute('ng-transition') === transitionId; })
                     .forEach(function (el) { return dom.remove(el); });
             });
         };
@@ -547,9 +426,9 @@
                 return null;
             }
             if (common.ɵgetDOM().isShadowRoot(elem)) {
-                return this.findTestabilityInTree(registry, common.ɵgetDOM().getHost(elem), true);
+                return this.findTestabilityInTree(registry, elem.host, true);
             }
-            return this.findTestabilityInTree(registry, common.ɵgetDOM().parentElement(elem), true);
+            return this.findTestabilityInTree(registry, elem.parentElement, true);
         };
         return BrowserGetTestability;
     }());
@@ -1559,6 +1438,46 @@
      * Defines supported modifiers for key events.
      */
     var MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
+    var DOM_KEY_LOCATION_NUMPAD = 3;
+    // Map to convert some key or keyIdentifier values to what will be returned by getEventKey
+    var _keyMap = {
+        // The following values are here for cross-browser compatibility and to match the W3C standard
+        // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
+        '\b': 'Backspace',
+        '\t': 'Tab',
+        '\x7F': 'Delete',
+        '\x1B': 'Escape',
+        'Del': 'Delete',
+        'Esc': 'Escape',
+        'Left': 'ArrowLeft',
+        'Right': 'ArrowRight',
+        'Up': 'ArrowUp',
+        'Down': 'ArrowDown',
+        'Menu': 'ContextMenu',
+        'Scroll': 'ScrollLock',
+        'Win': 'OS'
+    };
+    // There is a bug in Chrome for numeric keypad keys:
+    // https://code.google.com/p/chromium/issues/detail?id=155654
+    // 1, 2, 3 ... are reported as A, B, C ...
+    var _chromeNumKeyPadMap = {
+        'A': '1',
+        'B': '2',
+        'C': '3',
+        'D': '4',
+        'E': '5',
+        'F': '6',
+        'G': '7',
+        'H': '8',
+        'I': '9',
+        'J': '*',
+        'K': '+',
+        'M': '-',
+        'N': '.',
+        'O': '/',
+        '\x60': '0',
+        '\x90': 'NumLock'
+    };
     var ɵ0$4 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2$1 = function (event) { return event.metaKey; }, ɵ3$1 = function (event) { return event.shiftKey; };
     /**
      * Retrieves modifiers from key-event objects.
@@ -1631,7 +1550,7 @@
         };
         KeyEventsPlugin.getEventFullKey = function (event) {
             var fullKey = '';
-            var key = common.ɵgetDOM().getEventKey(event);
+            var key = getEventKey(event);
             key = key.toLowerCase();
             if (key === ' ') {
                 key = 'space'; // for readability
@@ -1682,6 +1601,28 @@
         ], KeyEventsPlugin);
         return KeyEventsPlugin;
     }(EventManagerPlugin));
+    function getEventKey(event) {
+        var key = event.key;
+        if (key == null) {
+            key = event.keyIdentifier;
+            // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
+            // Safari cf
+            // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
+            if (key == null) {
+                return 'Unidentified';
+            }
+            if (key.startsWith('U+')) {
+                key = String.fromCharCode(parseInt(key.substring(2), 16));
+                if (event.location === DOM_KEY_LOCATION_NUMPAD && _chromeNumKeyPadMap.hasOwnProperty(key)) {
+                    // There is a bug in Chrome for numeric keypad keys:
+                    // https://code.google.com/p/chromium/issues/detail?id=155654
+                    // 1, 2, 3 ... are reported as A, B, C ...
+                    key = _chromeNumKeyPadMap[key];
+                }
+            }
+        }
+        return _keyMap[key] || key;
+    }
 
     /**
      * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
@@ -1930,12 +1871,12 @@
         Meta.prototype.getTag = function (attrSelector) {
             if (!attrSelector)
                 return null;
-            return this._dom.querySelector(this._doc, "meta[" + attrSelector + "]") || null;
+            return this._doc.querySelector("meta[" + attrSelector + "]") || null;
         };
         Meta.prototype.getTags = function (attrSelector) {
             if (!attrSelector)
                 return [];
-            var list /*NodeList*/ = this._dom.querySelectorAll(this._doc, "meta[" + attrSelector + "]");
+            var list /*NodeList*/ = this._doc.querySelectorAll("meta[" + attrSelector + "]");
             return list ? [].slice.call(list) : [];
         };
         Meta.prototype.updateTag = function (tag, selector) {
@@ -1967,13 +1908,12 @@
             }
             var element = this._dom.createElement('meta');
             this._setMetaElementAttributes(meta, element);
-            var head = this._dom.getElementsByTagName(this._doc, 'head')[0];
-            this._dom.appendChild(head, element);
+            var head = this._doc.getElementsByTagName('head')[0];
+            head.appendChild(element);
             return element;
         };
         Meta.prototype._setMetaElementAttributes = function (tag, el) {
-            var _this = this;
-            Object.keys(tag).forEach(function (prop) { return _this._dom.setAttribute(el, prop, tag[prop]); });
+            Object.keys(tag).forEach(function (prop) { return el.setAttribute(prop, tag[prop]); });
             return el;
         };
         Meta.prototype._parseSelector = function (tag) {
@@ -1981,8 +1921,7 @@
             return attr + "=\"" + tag[attr] + "\"";
         };
         Meta.prototype._containsAttributes = function (tag, elem) {
-            var _this = this;
-            return Object.keys(tag).every(function (key) { return _this._dom.getAttribute(elem, key) === tag[key]; });
+            return Object.keys(tag).every(function (key) { return elem.getAttribute(key) === tag[key]; });
         };
         Meta.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
         Meta = __decorate([
@@ -2016,12 +1955,12 @@
         /**
          * Get the title of the current HTML document.
          */
-        Title.prototype.getTitle = function () { return common.ɵgetDOM().getTitle(this._doc); };
+        Title.prototype.getTitle = function () { return this._doc.title; };
         /**
          * Set the title of the current HTML document.
          * @param newTitle
          */
-        Title.prototype.setTitle = function (newTitle) { common.ɵgetDOM().setTitle(this._doc, newTitle); };
+        Title.prototype.setTitle = function (newTitle) { this._doc.title = newTitle || ''; };
         Title.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
         Title = __decorate([
             i0.Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
@@ -2322,7 +2261,7 @@
         By.css = function (selector) {
             return function (debugElement) {
                 return debugElement.nativeElement != null ?
-                    common.ɵgetDOM().elementMatches(debugElement.nativeElement, selector) :
+                    elementMatches(debugElement.nativeElement, selector) :
                     false;
             };
         };
@@ -2339,6 +2278,14 @@
         };
         return By;
     }());
+    function elementMatches(n, selector) {
+        if (common.ɵgetDOM().isElementNode(n)) {
+            return n.matches && n.matches(selector) ||
+                n.msMatchesSelector && n.msMatchesSelector(selector) ||
+                n.webkitMatchesSelector && n.webkitMatchesSelector(selector);
+        }
+        return false;
+    }
 
     /**
      * @license
@@ -2358,7 +2305,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.4+71.sha-e8f9ba4.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.4+78.sha-89434e0.with-local-changes');
 
     /**
      * @license

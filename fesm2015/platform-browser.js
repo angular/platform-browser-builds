@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+71.sha-e8f9ba4.with-local-changes
+ * @license Angular v9.0.0-next.4+78.sha-89434e0.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -31,49 +31,6 @@ class GenericBrowserDomAdapter extends ɵDomAdapter {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const DOM_KEY_LOCATION_NUMPAD = 3;
-// Map to convert some key or keyIdentifier values to what will be returned by getEventKey
-/** @type {?} */
-const _keyMap = {
-    // The following values are here for cross-browser compatibility and to match the W3C standard
-    // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
-    '\b': 'Backspace',
-    '\t': 'Tab',
-    '\x7F': 'Delete',
-    '\x1B': 'Escape',
-    'Del': 'Delete',
-    'Esc': 'Escape',
-    'Left': 'ArrowLeft',
-    'Right': 'ArrowRight',
-    'Up': 'ArrowUp',
-    'Down': 'ArrowDown',
-    'Menu': 'ContextMenu',
-    'Scroll': 'ScrollLock',
-    'Win': 'OS'
-};
-// There is a bug in Chrome for numeric keypad keys:
-// https://code.google.com/p/chromium/issues/detail?id=155654
-// 1, 2, 3 ... are reported as A, B, C ...
-/** @type {?} */
-const _chromeNumKeyPadMap = {
-    'A': '1',
-    'B': '2',
-    'C': '3',
-    'D': '4',
-    'E': '5',
-    'F': '6',
-    'G': '7',
-    'H': '8',
-    'I': '9',
-    'J': '*',
-    'K': '+',
-    'M': '-',
-    'N': '.',
-    'O': '/',
-    '\x60': '0',
-    '\x90': 'NumLock'
-};
 const ɵ0 = /**
  * @return {?}
  */
@@ -104,13 +61,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     static makeCurrent() { ɵsetRootDomAdapter(new BrowserDomAdapter()); }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setProperty(el, name, value) { ((/** @type {?} */ (el)))[name] = value; }
     /**
      * @param {?} el
      * @param {?} name
@@ -145,18 +95,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     }
     /**
      * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    querySelector(el, selector) { return el.querySelector(selector); }
-    /**
-     * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    querySelectorAll(el, selector) { return el.querySelectorAll(selector); }
-    /**
-     * @param {?} el
      * @param {?} evt
      * @param {?} listener
      * @return {?}
@@ -177,37 +115,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     dispatchEvent(el, evt) { el.dispatchEvent(evt); }
     /**
-     * @param {?} el
-     * @return {?}
-     */
-    nextSibling(el) { return el.nextSibling; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    parentElement(el) { return el.parentNode; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    clearNodes(el) {
-        while (el.firstChild) {
-            el.removeChild(el.firstChild);
-        }
-    }
-    /**
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    appendChild(el, node) { el.appendChild(node); }
-    /**
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    removeChild(el, node) { el.removeChild(node); }
-    /**
      * @param {?} node
      * @return {?}
      */
@@ -218,28 +125,10 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return node;
     }
     /**
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} node
-     * @return {?}
-     */
-    insertBefore(parent, ref, node) { parent.insertBefore(node, ref); }
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    setText(el, value) { el.textContent = value; }
-    /**
      * @param {?} el
      * @return {?}
      */
     getValue(el) { return el.value; }
-    /**
-     * @param {?} text
-     * @return {?}
-     */
-    createComment(text) { return this.getDefaultDocument().createComment(text); }
     /**
      * @param {?} tagName
      * @param {?=} doc
@@ -248,115 +137,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     createElement(tagName, doc) {
         doc = doc || this.getDefaultDocument();
         return doc.createElement(tagName);
-    }
-    /**
-     * @param {?} ns
-     * @param {?} tagName
-     * @param {?=} doc
-     * @return {?}
-     */
-    createElementNS(ns, tagName, doc) {
-        doc = doc || this.getDefaultDocument();
-        return doc.createElementNS(ns, tagName);
-    }
-    /**
-     * @param {?} text
-     * @param {?=} doc
-     * @return {?}
-     */
-    createTextNode(text, doc) {
-        doc = doc || this.getDefaultDocument();
-        return doc.createTextNode(text);
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getHost(el) { return ((/** @type {?} */ (el))).host; }
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    getElementsByTagName(element, name) {
-        return element.getElementsByTagName(name);
-    }
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    addClass(element, className) { element.classList.add(className); }
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    removeClass(element, className) { element.classList.remove(className); }
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?} styleValue
-     * @return {?}
-     */
-    setStyle(element, styleName, styleValue) {
-        element.style[styleName] = styleValue;
-    }
-    /**
-     * @param {?} element
-     * @param {?} stylename
-     * @return {?}
-     */
-    removeStyle(element, stylename) {
-        // IE requires '' instead of null
-        // see https://github.com/angular/angular/issues/7916
-        element.style[stylename] = '';
-    }
-    /**
-     * @param {?} element
-     * @param {?} stylename
-     * @return {?}
-     */
-    getStyle(element, stylename) { return element.style[stylename]; }
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    getAttribute(element, attribute) {
-        return element.getAttribute(attribute);
-    }
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setAttribute(element, name, value) { element.setAttribute(name, value); }
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setAttributeNS(element, ns, name, value) {
-        element.setAttributeNS(ns, name, value);
-    }
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    removeAttribute(element, attribute) { element.removeAttribute(attribute); }
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} name
-     * @return {?}
-     */
-    removeAttributeNS(element, ns, name) {
-        element.removeAttributeNS(ns, name);
     }
     /**
      * @return {?}
@@ -369,30 +149,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      */
     getDefaultDocument() { return document; }
     /**
-     * @param {?} doc
-     * @return {?}
-     */
-    getTitle(doc) { return doc.title; }
-    /**
-     * @param {?} doc
-     * @param {?} newTitle
-     * @return {?}
-     */
-    setTitle(doc, newTitle) { doc.title = newTitle || ''; }
-    /**
-     * @param {?} n
-     * @param {?} selector
-     * @return {?}
-     */
-    elementMatches(n, selector) {
-        if (this.isElementNode(n)) {
-            return n.matches && n.matches(selector) ||
-                n.msMatchesSelector && n.msMatchesSelector(selector) ||
-                n.webkitMatchesSelector && n.webkitMatchesSelector(selector);
-        }
-        return false;
-    }
-    /**
      * @param {?} node
      * @return {?}
      */
@@ -402,33 +158,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @return {?}
      */
     isShadowRoot(node) { return node instanceof DocumentFragment; }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    getEventKey(event) {
-        /** @type {?} */
-        let key = event.key;
-        if (key == null) {
-            key = event.keyIdentifier;
-            // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
-            // Safari cf
-            // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
-            if (key == null) {
-                return 'Unidentified';
-            }
-            if (key.startsWith('U+')) {
-                key = String.fromCharCode(parseInt(key.substring(2), 16));
-                if (event.location === DOM_KEY_LOCATION_NUMPAD && _chromeNumKeyPadMap.hasOwnProperty(key)) {
-                    // There is a bug in Chrome for numeric keypad keys:
-                    // https://code.google.com/p/chromium/issues/detail?id=155654
-                    // 1, 2, 3 ... are reported as A, B, C ...
-                    key = ((/** @type {?} */ (_chromeNumKeyPadMap)))[key];
-                }
-            }
-        }
-        return _keyMap[key] || key;
-    }
     /**
      * @param {?} doc
      * @param {?} target
@@ -550,12 +279,12 @@ function appInitializerFactory(transitionId, document, injector) {
             /** @type {?} */
             const dom = ɵgetDOM();
             /** @type {?} */
-            const styles = Array.prototype.slice.apply(dom.querySelectorAll(document, `style[ng-transition]`));
+            const styles = Array.prototype.slice.apply(document.querySelectorAll(`style[ng-transition]`));
             styles.filter((/**
              * @param {?} el
              * @return {?}
              */
-            el => dom.getAttribute(el, 'ng-transition') === transitionId))
+            el => el.getAttribute('ng-transition') === transitionId))
                 .forEach((/**
              * @param {?} el
              * @return {?}
@@ -665,9 +394,9 @@ class BrowserGetTestability {
             return null;
         }
         if (ɵgetDOM().isShadowRoot(elem)) {
-            return this.findTestabilityInTree(registry, ɵgetDOM().getHost(elem), true);
+            return this.findTestabilityInTree(registry, ((/** @type {?} */ (elem))).host, true);
         }
-        return this.findTestabilityInTree(registry, ɵgetDOM().parentElement(elem), true);
+        return this.findTestabilityInTree(registry, elem.parentElement, true);
     }
 }
 
@@ -2359,6 +2088,49 @@ HammerModule.decorators = [
  * @type {?}
  */
 const MODIFIER_KEYS = ['alt', 'control', 'meta', 'shift'];
+/** @type {?} */
+const DOM_KEY_LOCATION_NUMPAD = 3;
+// Map to convert some key or keyIdentifier values to what will be returned by getEventKey
+/** @type {?} */
+const _keyMap = {
+    // The following values are here for cross-browser compatibility and to match the W3C standard
+    // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
+    '\b': 'Backspace',
+    '\t': 'Tab',
+    '\x7F': 'Delete',
+    '\x1B': 'Escape',
+    'Del': 'Delete',
+    'Esc': 'Escape',
+    'Left': 'ArrowLeft',
+    'Right': 'ArrowRight',
+    'Up': 'ArrowUp',
+    'Down': 'ArrowDown',
+    'Menu': 'ContextMenu',
+    'Scroll': 'ScrollLock',
+    'Win': 'OS'
+};
+// There is a bug in Chrome for numeric keypad keys:
+// https://code.google.com/p/chromium/issues/detail?id=155654
+// 1, 2, 3 ... are reported as A, B, C ...
+/** @type {?} */
+const _chromeNumKeyPadMap = {
+    'A': '1',
+    'B': '2',
+    'C': '3',
+    'D': '4',
+    'E': '5',
+    'F': '6',
+    'G': '7',
+    'H': '8',
+    'I': '9',
+    'J': '*',
+    'K': '+',
+    'M': '-',
+    'N': '.',
+    'O': '/',
+    '\x60': '0',
+    '\x90': 'NumLock'
+};
 const ɵ0$4 = /**
  * @param {?} event
  * @return {?}
@@ -2469,7 +2241,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
         /** @type {?} */
         let fullKey = '';
         /** @type {?} */
-        let key = ɵgetDOM().getEventKey(event);
+        let key = getEventKey(event);
         key = key.toLowerCase();
         if (key === ' ') {
             key = 'space'; // for readability
@@ -2536,6 +2308,33 @@ KeyEventsPlugin.decorators = [
 KeyEventsPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
+/**
+ * @param {?} event
+ * @return {?}
+ */
+function getEventKey(event) {
+    /** @type {?} */
+    let key = event.key;
+    if (key == null) {
+        key = event.keyIdentifier;
+        // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
+        // Safari cf
+        // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
+        if (key == null) {
+            return 'Unidentified';
+        }
+        if (key.startsWith('U+')) {
+            key = String.fromCharCode(parseInt(key.substring(2), 16));
+            if (event.location === DOM_KEY_LOCATION_NUMPAD && _chromeNumKeyPadMap.hasOwnProperty(key)) {
+                // There is a bug in Chrome for numeric keypad keys:
+                // https://code.google.com/p/chromium/issues/detail?id=155654
+                // 1, 2, 3 ... are reported as A, B, C ...
+                key = ((/** @type {?} */ (_chromeNumKeyPadMap)))[key];
+            }
+        }
+    }
+    return _keyMap[key] || key;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2977,7 +2776,7 @@ class Meta {
     getTag(attrSelector) {
         if (!attrSelector)
             return null;
-        return this._dom.querySelector(this._doc, `meta[${attrSelector}]`) || null;
+        return this._doc.querySelector(`meta[${attrSelector}]`) || null;
     }
     /**
      * @param {?} attrSelector
@@ -2987,7 +2786,7 @@ class Meta {
         if (!attrSelector)
             return [];
         /** @type {?} */
-        const list /*NodeList*/ = this._dom.querySelectorAll(this._doc, `meta[${attrSelector}]`);
+        const list /*NodeList*/ = this._doc.querySelectorAll(`meta[${attrSelector}]`);
         return list ? [].slice.call(list) : [];
     }
     /**
@@ -3042,8 +2841,8 @@ class Meta {
         const element = (/** @type {?} */ (this._dom.createElement('meta')));
         this._setMetaElementAttributes(meta, element);
         /** @type {?} */
-        const head = this._dom.getElementsByTagName(this._doc, 'head')[0];
-        this._dom.appendChild(head, element);
+        const head = this._doc.getElementsByTagName('head')[0];
+        head.appendChild(element);
         return element;
     }
     /**
@@ -3057,7 +2856,7 @@ class Meta {
          * @param {?} prop
          * @return {?}
          */
-        (prop) => this._dom.setAttribute(el, prop, tag[prop])));
+        (prop) => el.setAttribute(prop, tag[prop])));
         return el;
     }
     /**
@@ -3081,7 +2880,7 @@ class Meta {
          * @param {?} key
          * @return {?}
          */
-        (key) => this._dom.getAttribute(elem, key) === tag[key]));
+        (key) => elem.getAttribute(key) === tag[key]));
     }
 }
 Meta.decorators = [
@@ -3137,13 +2936,13 @@ class Title {
      * Get the title of the current HTML document.
      * @return {?}
      */
-    getTitle() { return ɵgetDOM().getTitle(this._doc); }
+    getTitle() { return this._doc.title; }
     /**
      * Set the title of the current HTML document.
      * @param {?} newTitle
      * @return {?}
      */
-    setTitle(newTitle) { ɵgetDOM().setTitle(this._doc, newTitle); }
+    setTitle(newTitle) { this._doc.title = newTitle || ''; }
 }
 Title.decorators = [
     { type: Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] }
@@ -3538,7 +3337,7 @@ class By {
          */
         (debugElement) => {
             return debugElement.nativeElement != null ?
-                ɵgetDOM().elementMatches(debugElement.nativeElement, selector) :
+                elementMatches(debugElement.nativeElement, selector) :
                 false;
         });
     }
@@ -3560,6 +3359,19 @@ class By {
         (debugNode) => (/** @type {?} */ (debugNode.providerTokens)).indexOf(type) !== -1);
     }
 }
+/**
+ * @param {?} n
+ * @param {?} selector
+ * @return {?}
+ */
+function elementMatches(n, selector) {
+    if (ɵgetDOM().isElementNode(n)) {
+        return n.matches && n.matches(selector) ||
+            n.msMatchesSelector && n.msMatchesSelector(selector) ||
+            n.webkitMatchesSelector && n.webkitMatchesSelector(selector);
+    }
+    return false;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3574,7 +3386,7 @@ class By {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.4+71.sha-e8f9ba4.with-local-changes');
+const VERSION = new Version('9.0.0-next.4+78.sha-89434e0.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
