@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.6+14.sha-a85eccd.with-local-changes
+ * @license Angular v9.0.0-next.6+15.sha-5f095a5.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -521,6 +521,7 @@ var NAMESPACE_URIS = {
     'xmlns': 'http://www.w3.org/2000/xmlns/',
 };
 var COMPONENT_REGEX = /%COMP%/g;
+var NG_DEV_MODE = typeof ngDevMode === 'undefined' || !!ngDevMode;
 var COMPONENT_VARIABLE = '%COMP%';
 var HOST_ATTR = "_nghost-" + COMPONENT_VARIABLE;
 var CONTENT_ATTR = "_ngcontent-" + COMPONENT_VARIABLE;
@@ -700,12 +701,12 @@ var DefaultDomRenderer2 = /** @class */ (function () {
         }
     };
     DefaultDomRenderer2.prototype.setProperty = function (el, name, value) {
-        ngDevMode && checkNoSyntheticProp(name, 'property');
+        NG_DEV_MODE && checkNoSyntheticProp(name, 'property');
         el[name] = value;
     };
     DefaultDomRenderer2.prototype.setValue = function (node, value) { node.nodeValue = value; };
     DefaultDomRenderer2.prototype.listen = function (target, event, callback) {
-        ngDevMode && checkNoSyntheticProp(event, 'listener');
+        NG_DEV_MODE && checkNoSyntheticProp(event, 'listener');
         if (typeof target === 'string') {
             return this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback));
         }
@@ -2117,7 +2118,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-next.6+14.sha-a85eccd.with-local-changes');
+var VERSION = new Version('9.0.0-next.6+15.sha-5f095a5.with-local-changes');
 
 /**
  * @license
