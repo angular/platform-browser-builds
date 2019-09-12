@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.6+14.sha-a85eccd.with-local-changes
+ * @license Angular v9.0.0-next.6+15.sha-5f095a5.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -883,6 +883,8 @@ const NAMESPACE_URIS = {
 /** @type {?} */
 const COMPONENT_REGEX = /%COMP%/g;
 /** @type {?} */
+const NG_DEV_MODE = typeof ngDevMode === 'undefined' || !!ngDevMode;
+/** @type {?} */
 const COMPONENT_VARIABLE = '%COMP%';
 /** @type {?} */
 const HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
@@ -1236,7 +1238,7 @@ class DefaultDomRenderer2 {
      * @return {?}
      */
     setProperty(el, name, value) {
-        ngDevMode && checkNoSyntheticProp(name, 'property');
+        NG_DEV_MODE && checkNoSyntheticProp(name, 'property');
         el[name] = value;
     }
     /**
@@ -1252,7 +1254,7 @@ class DefaultDomRenderer2 {
      * @return {?}
      */
     listen(target, event, callback) {
-        ngDevMode && checkNoSyntheticProp(event, 'listener');
+        NG_DEV_MODE && checkNoSyntheticProp(event, 'listener');
         if (typeof target === 'string') {
             return (/** @type {?} */ (this.eventManager.addGlobalEventListener(target, event, decoratePreventDefault(callback))));
         }
@@ -3593,7 +3595,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.6+14.sha-a85eccd.with-local-changes');
+const VERSION = new Version('9.0.0-next.6+15.sha-5f095a5.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
