@@ -38,5 +38,6 @@ export declare class KeyEventsPlugin extends EventManagerPlugin {
      * @returns A callback function.
      */
     static eventCallback(fullKey: any, handler: Function, zone: NgZone): Function;
+    static ngFactoryDef: i0.ɵɵFactoryDef<KeyEventsPlugin>;
     static ngInjectableDef: i0.ɵɵInjectableDef<KeyEventsPlugin>;
 }
