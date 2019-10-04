@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.9+40.sha-442f323.with-local-changes
+ * @license Angular v9.0.0-next.9+41.sha-53d13c3.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -994,22 +994,22 @@
     var stopSymbol = '__zone_symbol__propagationStopped';
     var stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
     var ɵ1 = function () {
-        var blackListedEvents = (typeof Zone !== 'undefined') && Zone[__symbol__('BLACK_LISTED_EVENTS')];
-        if (blackListedEvents) {
-            var res_1 = {};
-            blackListedEvents.forEach(function (eventName) { res_1[eventName] = eventName; });
-            return res_1;
+        var unpatchedEvents = (typeof Zone !== 'undefined') && Zone[__symbol__('UNPATCHED_EVENTS')];
+        if (unpatchedEvents) {
+            var unpatchedEventMap_1 = {};
+            unpatchedEvents.forEach(function (eventName) { unpatchedEventMap_1[eventName] = eventName; });
+            return unpatchedEventMap_1;
         }
         return undefined;
     };
-    var blackListedMap = (ɵ1)();
-    var isBlackListedEvent = function (eventName) {
-        if (!blackListedMap) {
+    var unpatchedMap = (ɵ1)();
+    var isUnpatchedEvent = function (eventName) {
+        if (!unpatchedMap) {
             return false;
         }
-        return blackListedMap.hasOwnProperty(eventName);
+        return unpatchedMap.hasOwnProperty(eventName);
     };
-    var ɵ2 = isBlackListedEvent;
+    var ɵ2 = isUnpatchedEvent;
     // a global listener to handle all dom event,
     // so we do not need to create a closure every time
     var globalListener = function (event) {
@@ -1110,7 +1110,7 @@
             var callback = handler;
             // if zonejs is loaded and current zone is not ngZone
             // we keep Zone.current on target for later restoration.
-            if (zoneJsLoaded && (!i0.NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
+            if (zoneJsLoaded && (!i0.NgZone.isInAngularZone() || isUnpatchedEvent(eventName))) {
                 var symbolName = symbolNames[eventName];
                 if (!symbolName) {
                     symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
@@ -1120,7 +1120,7 @@
                 if (!taskDatas) {
                     taskDatas = element[symbolName] = [];
                 }
-                var zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
+                var zone = isUnpatchedEvent(eventName) ? Zone.root : Zone.current;
                 if (taskDatas.length === 0) {
                     taskDatas.push({ zone: zone, handler: callback });
                 }
@@ -2306,7 +2306,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.9+40.sha-442f323.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.9+41.sha-53d13c3.with-local-changes');
 
     /**
      * @license
