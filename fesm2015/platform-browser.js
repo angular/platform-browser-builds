@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.9+40.sha-442f323.with-local-changes
+ * @license Angular v9.0.0-next.9+41.sha-53d13c3.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1482,34 +1482,34 @@ const stopSymbol = '__zone_symbol__propagationStopped';
 /** @type {?} */
 const stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
 /** @type {?} */
-const blackListedMap = ((/**
+const unpatchedMap = ((/**
  * @return {?}
  */
 () => {
     /** @type {?} */
-    const blackListedEvents = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))[__symbol__('BLACK_LISTED_EVENTS')];
-    if (blackListedEvents) {
+    const unpatchedEvents = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))[__symbol__('UNPATCHED_EVENTS')];
+    if (unpatchedEvents) {
         /** @type {?} */
-        const res = {};
-        blackListedEvents.forEach((/**
+        const unpatchedEventMap = {};
+        unpatchedEvents.forEach((/**
          * @param {?} eventName
          * @return {?}
          */
-        eventName => { res[eventName] = eventName; }));
-        return res;
+        (eventName) => { unpatchedEventMap[eventName] = eventName; }));
+        return unpatchedEventMap;
     }
     return undefined;
 }))();
 /** @type {?} */
-const isBlackListedEvent = (/**
+const isUnpatchedEvent = (/**
  * @param {?} eventName
  * @return {?}
  */
 function (eventName) {
-    if (!blackListedMap) {
+    if (!unpatchedMap) {
         return false;
     }
-    return blackListedMap.hasOwnProperty(eventName);
+    return unpatchedMap.hasOwnProperty(eventName);
 });
 /**
  * @record
@@ -1656,7 +1656,7 @@ class DomEventsPlugin extends EventManagerPlugin {
         let callback = (/** @type {?} */ (handler));
         // if zonejs is loaded and current zone is not ngZone
         // we keep Zone.current on target for later restoration.
-        if (zoneJsLoaded && (!NgZone.isInAngularZone() || isBlackListedEvent(eventName))) {
+        if (zoneJsLoaded && (!NgZone.isInAngularZone() || isUnpatchedEvent(eventName))) {
             /** @type {?} */
             let symbolName = symbolNames[eventName];
             if (!symbolName) {
@@ -1670,7 +1670,7 @@ class DomEventsPlugin extends EventManagerPlugin {
                 taskDatas = ((/** @type {?} */ (element)))[symbolName] = [];
             }
             /** @type {?} */
-            const zone = isBlackListedEvent(eventName) ? Zone.root : Zone.current;
+            const zone = isUnpatchedEvent(eventName) ? Zone.root : Zone.current;
             if (taskDatas.length === 0) {
                 taskDatas.push({ zone: zone, handler: callback });
             }
@@ -3605,7 +3605,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.9+40.sha-442f323.with-local-changes');
+const VERSION = new Version('9.0.0-next.9+41.sha-53d13c3.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
