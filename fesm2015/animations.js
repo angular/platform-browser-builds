@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.9+56.sha-393398e.with-local-changes
+ * @license Angular v9.0.0-next.9+57.sha-c61e4d7.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -230,6 +230,10 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 const ANIMATION_PREFIX = '@';
 /** @type {?} */
 const DISABLE_ANIMATIONS_FLAG = '@.disabled';
+/**
+ * @record
+ */
+function RecursiveAnimationTriggerMetadata() { }
 class AnimationRendererFactory {
     /**
      * @param {?} delegate
@@ -290,12 +294,21 @@ class AnimationRendererFactory {
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
         /** @type {?} */
-        const animationTriggers = (/** @type {?} */ (type.data['animation']));
-        animationTriggers.forEach((/**
+        const registerTrigger = (/**
          * @param {?} trigger
          * @return {?}
          */
-        trigger => this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger)));
+        (trigger) => {
+            if (Array.isArray(trigger)) {
+                trigger.forEach(registerTrigger);
+            }
+            else {
+                this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger);
+            }
+        });
+        /** @type {?} */
+        const animationTriggers = (/** @type {?} */ (type.data['animation']));
+        animationTriggers.forEach(registerTrigger);
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     }
     /**

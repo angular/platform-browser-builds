@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.9+56.sha-393398e.with-local-changes
+ * @license Angular v9.0.0-next.9+57.sha-c61e4d7.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -136,8 +136,16 @@ var AnimationRendererFactory = /** @class */ (function () {
         var namespaceId = type.id + '-' + this._currentId;
         this._currentId++;
         this.engine.register(namespaceId, hostElement);
+        var registerTrigger = function (trigger) {
+            if (Array.isArray(trigger)) {
+                trigger.forEach(registerTrigger);
+            }
+            else {
+                _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger);
+            }
+        };
         var animationTriggers = type.data['animation'];
-        animationTriggers.forEach(function (trigger) { return _this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger); });
+        animationTriggers.forEach(registerTrigger);
         return new AnimationRenderer(this, namespaceId, delegate, this.engine);
     };
     AnimationRendererFactory.prototype.begin = function () {
