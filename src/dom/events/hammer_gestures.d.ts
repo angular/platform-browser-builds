@@ -81,7 +81,7 @@ export declare class HammerGestureConfig {
      * @returns A HammerJS event-manager object.
      */
     buildHammer(element: HTMLElement): HammerInstance;
-    static ngFactoryDef: i0.ɵɵFactoryDef<HammerGestureConfig>;
+    static ɵfac: i0.ɵɵFactoryDef<HammerGestureConfig>;
     static ngInjectableDef: i0.ɵɵInjectableDef<HammerGestureConfig>;
 }
 /**
@@ -97,7 +97,7 @@ export declare class HammerGesturesPlugin extends EventManagerPlugin {
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
-    static ngFactoryDef: i0.ɵɵFactoryDef<HammerGesturesPlugin>;
+    static ɵfac: i0.ɵɵFactoryDef<HammerGesturesPlugin>;
     static ngInjectableDef: i0.ɵɵInjectableDef<HammerGesturesPlugin>;
 }
 /**

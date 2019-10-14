@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+66.sha-cd7b199.with-local-changes
+ * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -410,8 +410,8 @@ var EventManager = /** @class */ (function () {
         }
         throw new Error("No event manager plugin found for event " + eventName);
     };
-    EventManager.ngFactoryDef = function EventManager_Factory(t) { return new (t || EventManager)(ɵɵinject(EVENT_MANAGER_PLUGINS), ɵɵinject(NgZone)); };
-    EventManager.ngInjectableDef = ɵɵdefineInjectable({ token: EventManager, factory: function (t) { return EventManager.ngFactoryDef(t); }, providedIn: null });
+    EventManager.ɵfac = function EventManager_Factory(t) { return new (t || EventManager)(ɵɵinject(EVENT_MANAGER_PLUGINS), ɵɵinject(NgZone)); };
+    EventManager.ngInjectableDef = ɵɵdefineInjectable({ token: EventManager, factory: function (t) { return EventManager.ɵfac(t); }, providedIn: null });
     return EventManager;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(EventManager, [{
@@ -452,8 +452,8 @@ var SharedStylesHost = /** @class */ (function () {
     };
     SharedStylesHost.prototype.onStylesAdded = function (additions) { };
     SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
-    SharedStylesHost.ngFactoryDef = function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); };
-    SharedStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: SharedStylesHost, factory: function (t) { return SharedStylesHost.ngFactoryDef(t); }, providedIn: null });
+    SharedStylesHost.ɵfac = function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); };
+    SharedStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: SharedStylesHost, factory: function (t) { return SharedStylesHost.ɵfac(t); }, providedIn: null });
     return SharedStylesHost;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(SharedStylesHost, [{
@@ -487,8 +487,8 @@ var DomSharedStylesHost = /** @class */ (function (_super) {
         this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
     };
     DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return ɵgetDOM().remove(styleNode); }); };
-    DomSharedStylesHost.ngFactoryDef = function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(ɵɵinject(DOCUMENT)); };
-    DomSharedStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: function (t) { return DomSharedStylesHost.ngFactoryDef(t); }, providedIn: null });
+    DomSharedStylesHost.ɵfac = function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(ɵɵinject(DOCUMENT)); };
+    DomSharedStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: function (t) { return DomSharedStylesHost.ɵfac(t); }, providedIn: null });
     return DomSharedStylesHost;
 }(SharedStylesHost));
 /*@__PURE__*/ ɵsetClassMetadata(DomSharedStylesHost, [{
@@ -582,8 +582,8 @@ var DomRendererFactory2 = /** @class */ (function () {
     };
     DomRendererFactory2.prototype.begin = function () { };
     DomRendererFactory2.prototype.end = function () { };
-    DomRendererFactory2.ngFactoryDef = function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(DomSharedStylesHost), ɵɵinject(APP_ID)); };
-    DomRendererFactory2.ngInjectableDef = ɵɵdefineInjectable({ token: DomRendererFactory2, factory: function (t) { return DomRendererFactory2.ngFactoryDef(t); }, providedIn: null });
+    DomRendererFactory2.ɵfac = function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(DomSharedStylesHost), ɵɵinject(APP_ID)); };
+    DomRendererFactory2.ngInjectableDef = ɵɵdefineInjectable({ token: DomRendererFactory2, factory: function (t) { return DomRendererFactory2.ɵfac(t); }, providedIn: null });
     return DomRendererFactory2;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(DomRendererFactory2, [{
@@ -969,8 +969,8 @@ var DomEventsPlugin = /** @class */ (function (_super) {
             target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
         }
     };
-    DomEventsPlugin.ngFactoryDef = function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(NgZone), ɵɵinject(PLATFORM_ID, 8)); };
-    DomEventsPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: DomEventsPlugin, factory: function (t) { return DomEventsPlugin.ngFactoryDef(t); }, providedIn: null });
+    DomEventsPlugin.ɵfac = function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(NgZone), ɵɵinject(PLATFORM_ID, 8)); };
+    DomEventsPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: DomEventsPlugin, factory: function (t) { return DomEventsPlugin.ɵfac(t); }, providedIn: null });
     return DomEventsPlugin;
 }(EventManagerPlugin));
 /*@__PURE__*/ ɵsetClassMetadata(DomEventsPlugin, [{
@@ -1085,8 +1085,8 @@ var HammerGestureConfig = /** @class */ (function () {
         }
         return mc;
     };
-    HammerGestureConfig.ngFactoryDef = function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); };
-    HammerGestureConfig.ngInjectableDef = ɵɵdefineInjectable({ token: HammerGestureConfig, factory: function (t) { return HammerGestureConfig.ngFactoryDef(t); }, providedIn: null });
+    HammerGestureConfig.ɵfac = function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); };
+    HammerGestureConfig.ngInjectableDef = ɵɵdefineInjectable({ token: HammerGestureConfig, factory: function (t) { return HammerGestureConfig.ɵfac(t); }, providedIn: null });
     return HammerGestureConfig;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(HammerGestureConfig, [{
@@ -1170,8 +1170,8 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
         });
     };
     HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
-    HammerGesturesPlugin.ngFactoryDef = function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(HAMMER_GESTURE_CONFIG), ɵɵinject(ɵConsole), ɵɵinject(HAMMER_LOADER, 8)); };
-    HammerGesturesPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: function (t) { return HammerGesturesPlugin.ngFactoryDef(t); }, providedIn: null });
+    HammerGesturesPlugin.ɵfac = function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(HAMMER_GESTURE_CONFIG), ɵɵinject(ɵConsole), ɵɵinject(HAMMER_LOADER, 8)); };
+    HammerGesturesPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: function (t) { return HammerGesturesPlugin.ɵfac(t); }, providedIn: null });
     return HammerGesturesPlugin;
 }(EventManagerPlugin));
 /*@__PURE__*/ ɵsetClassMetadata(HammerGesturesPlugin, [{
@@ -1387,8 +1387,8 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
                 return keyName;
         }
     };
-    KeyEventsPlugin.ngFactoryDef = function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(ɵɵinject(DOCUMENT)); };
-    KeyEventsPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: function (t) { return KeyEventsPlugin.ngFactoryDef(t); }, providedIn: null });
+    KeyEventsPlugin.ɵfac = function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(ɵɵinject(DOCUMENT)); };
+    KeyEventsPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: function (t) { return KeyEventsPlugin.ɵfac(t); }, providedIn: null });
     return KeyEventsPlugin;
 }(EventManagerPlugin));
 /*@__PURE__*/ ɵsetClassMetadata(KeyEventsPlugin, [{
@@ -1454,7 +1454,7 @@ function getEventKey(event) {
 var DomSanitizer = /** @class */ (function () {
     function DomSanitizer() {
     }
-    DomSanitizer.ngFactoryDef = function DomSanitizer_Factory(t) { return new (t || DomSanitizer)(); };
+    DomSanitizer.ɵfac = function DomSanitizer_Factory(t) { return new (t || DomSanitizer)(); };
     DomSanitizer.ngInjectableDef = ɵɵdefineInjectable({ token: DomSanitizer, factory: function DomSanitizer_Factory(t) { var r = null; if (t) {
             (r = new (t || DomSanitizer)());
         }
@@ -1522,7 +1522,7 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
     DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
         return ɵbypassSanitizationTrustResourceUrl(value);
     };
-    DomSanitizerImpl.ngFactoryDef = function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(ɵɵinject(DOCUMENT)); };
+    DomSanitizerImpl.ɵfac = function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(ɵɵinject(DOCUMENT)); };
     DomSanitizerImpl.ngInjectableDef = ɵɵdefineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { var r = null; if (t) {
             (r = new t());
         }
@@ -1747,7 +1747,7 @@ var Meta = /** @class */ (function () {
     Meta.prototype._containsAttributes = function (tag, elem) {
         return Object.keys(tag).every(function (key) { return elem.getAttribute(key) === tag[key]; });
     };
-    Meta.ngFactoryDef = function Meta_Factory(t) { return new (t || Meta)(ɵɵinject(DOCUMENT)); };
+    Meta.ɵfac = function Meta_Factory(t) { return new (t || Meta)(ɵɵinject(DOCUMENT)); };
     Meta.ngInjectableDef = ɵɵdefineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
             (r = new t());
         }
@@ -1800,7 +1800,7 @@ var Title = /** @class */ (function () {
      * @param newTitle
      */
     Title.prototype.setTitle = function (newTitle) { this._doc.title = newTitle || ''; };
-    Title.ngFactoryDef = function Title_Factory(t) { return new (t || Title)(ɵɵinject(DOCUMENT)); };
+    Title.ɵfac = function Title_Factory(t) { return new (t || Title)(ɵɵinject(DOCUMENT)); };
     Title.ngInjectableDef = ɵɵdefineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
             (r = new t());
         }
@@ -2034,8 +2034,8 @@ var TransferState = /** @class */ (function () {
         }
         return JSON.stringify(this.store);
     };
-    TransferState.ngFactoryDef = function TransferState_Factory(t) { return new (t || TransferState)(); };
-    TransferState.ngInjectableDef = ɵɵdefineInjectable({ token: TransferState, factory: function (t) { return TransferState.ngFactoryDef(t); }, providedIn: null });
+    TransferState.ɵfac = function TransferState_Factory(t) { return new (t || TransferState)(); };
+    TransferState.ngInjectableDef = ɵɵdefineInjectable({ token: TransferState, factory: function (t) { return TransferState.ɵfac(t); }, providedIn: null });
     return TransferState;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(TransferState, [{
@@ -2155,7 +2155,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-next.10+66.sha-cd7b199.with-local-changes');
+var VERSION = new Version('9.0.0-next.10+73.sha-f433d66.with-local-changes');
 
 /**
  * @license

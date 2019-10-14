@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+66.sha-cd7b199.with-local-changes
+ * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -632,8 +632,8 @@ EventManager.ctorParameters = () => [
     { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
     { type: NgZone }
 ];
-/** @nocollapse */ EventManager.ngFactoryDef = function EventManager_Factory(t) { return new (t || EventManager)(ɵɵinject(EVENT_MANAGER_PLUGINS), ɵɵinject(NgZone)); };
-/** @nocollapse */ EventManager.ngInjectableDef = ɵɵdefineInjectable({ token: EventManager, factory: function (t) { return EventManager.ngFactoryDef(t); }, providedIn: null });
+/** @nocollapse */ EventManager.ɵfac = function EventManager_Factory(t) { return new (t || EventManager)(ɵɵinject(EVENT_MANAGER_PLUGINS), ɵɵinject(NgZone)); };
+/** @nocollapse */ EventManager.ngInjectableDef = ɵɵdefineInjectable({ token: EventManager, factory: function (t) { return EventManager.ɵfac(t); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(EventManager, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -756,8 +756,8 @@ class SharedStylesHost {
 SharedStylesHost.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */ SharedStylesHost.ngFactoryDef = function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); };
-/** @nocollapse */ SharedStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: SharedStylesHost, factory: function (t) { return SharedStylesHost.ngFactoryDef(t); }, providedIn: null });
+/** @nocollapse */ SharedStylesHost.ɵfac = function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); };
+/** @nocollapse */ SharedStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: SharedStylesHost, factory: function (t) { return SharedStylesHost.ɵfac(t); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(SharedStylesHost, [{
         type: Injectable
     }], null, null);
@@ -838,8 +838,8 @@ DomSharedStylesHost.decorators = [
 DomSharedStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ DomSharedStylesHost.ngFactoryDef = function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(ɵɵinject(DOCUMENT)); };
-/** @nocollapse */ DomSharedStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: function (t) { return DomSharedStylesHost.ngFactoryDef(t); }, providedIn: null });
+/** @nocollapse */ DomSharedStylesHost.ɵfac = function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(ɵɵinject(DOCUMENT)); };
+/** @nocollapse */ DomSharedStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: function (t) { return DomSharedStylesHost.ɵfac(t); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(DomSharedStylesHost, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -1017,8 +1017,8 @@ DomRendererFactory2.ctorParameters = () => [
     { type: DomSharedStylesHost },
     { type: String, decorators: [{ type: Inject, args: [APP_ID,] }] }
 ];
-/** @nocollapse */ DomRendererFactory2.ngFactoryDef = function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(DomSharedStylesHost), ɵɵinject(APP_ID)); };
-/** @nocollapse */ DomRendererFactory2.ngInjectableDef = ɵɵdefineInjectable({ token: DomRendererFactory2, factory: function (t) { return DomRendererFactory2.ngFactoryDef(t); }, providedIn: null });
+/** @nocollapse */ DomRendererFactory2.ɵfac = function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(DomSharedStylesHost), ɵɵinject(APP_ID)); };
+/** @nocollapse */ DomRendererFactory2.ngInjectableDef = ɵɵdefineInjectable({ token: DomRendererFactory2, factory: function (t) { return DomRendererFactory2.ɵfac(t); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(DomRendererFactory2, [{
         type: Injectable
     }], function () { return [{ type: EventManager }, { type: DomSharedStylesHost }, { type: undefined, decorators: [{
@@ -1755,8 +1755,8 @@ DomEventsPlugin.ctorParameters = () => [
     { type: NgZone },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] }] }
 ];
-/** @nocollapse */ DomEventsPlugin.ngFactoryDef = function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(NgZone), ɵɵinject(PLATFORM_ID, 8)); };
-/** @nocollapse */ DomEventsPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: DomEventsPlugin, factory: function (t) { return DomEventsPlugin.ngFactoryDef(t); }, providedIn: null });
+/** @nocollapse */ DomEventsPlugin.ɵfac = function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(NgZone), ɵɵinject(PLATFORM_ID, 8)); };
+/** @nocollapse */ DomEventsPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: DomEventsPlugin, factory: function (t) { return DomEventsPlugin.ɵfac(t); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(DomEventsPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -1917,8 +1917,8 @@ class HammerGestureConfig {
 HammerGestureConfig.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */ HammerGestureConfig.ngFactoryDef = function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); };
-/** @nocollapse */ HammerGestureConfig.ngInjectableDef = ɵɵdefineInjectable({ token: HammerGestureConfig, factory: function (t) { return HammerGestureConfig.ngFactoryDef(t); }, providedIn: null });
+/** @nocollapse */ HammerGestureConfig.ɵfac = function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); };
+/** @nocollapse */ HammerGestureConfig.ngInjectableDef = ɵɵdefineInjectable({ token: HammerGestureConfig, factory: function (t) { return HammerGestureConfig.ɵfac(t); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(HammerGestureConfig, [{
         type: Injectable
     }], null, null);
@@ -2100,8 +2100,8 @@ HammerGesturesPlugin.ctorParameters = () => [
     { type: ɵConsole },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
 ];
-/** @nocollapse */ HammerGesturesPlugin.ngFactoryDef = function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(HAMMER_GESTURE_CONFIG), ɵɵinject(ɵConsole), ɵɵinject(HAMMER_LOADER, 8)); };
-/** @nocollapse */ HammerGesturesPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: function (t) { return HammerGesturesPlugin.ngFactoryDef(t); }, providedIn: null });
+/** @nocollapse */ HammerGesturesPlugin.ɵfac = function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(HAMMER_GESTURE_CONFIG), ɵɵinject(ɵConsole), ɵɵinject(HAMMER_LOADER, 8)); };
+/** @nocollapse */ HammerGesturesPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: function (t) { return HammerGesturesPlugin.ɵfac(t); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(HammerGesturesPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -2413,8 +2413,8 @@ KeyEventsPlugin.decorators = [
 KeyEventsPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ KeyEventsPlugin.ngFactoryDef = function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(ɵɵinject(DOCUMENT)); };
-/** @nocollapse */ KeyEventsPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: function (t) { return KeyEventsPlugin.ngFactoryDef(t); }, providedIn: null });
+/** @nocollapse */ KeyEventsPlugin.ɵfac = function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(ɵɵinject(DOCUMENT)); };
+/** @nocollapse */ KeyEventsPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: function (t) { return KeyEventsPlugin.ɵfac(t); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(KeyEventsPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -2535,7 +2535,7 @@ DomSanitizer.decorators = [
                  */
                 () => DomSanitizerImpl)) },] },
 ];
-/** @nocollapse */ DomSanitizer.ngFactoryDef = function DomSanitizer_Factory(t) { return new (t || DomSanitizer)(); };
+/** @nocollapse */ DomSanitizer.ɵfac = function DomSanitizer_Factory(t) { return new (t || DomSanitizer)(); };
 /** @nocollapse */ DomSanitizer.ngInjectableDef = ɵɵdefineInjectable({ token: DomSanitizer, factory: function DomSanitizer_Factory(t) { var r = null; if (t) {
         (r = new (t || DomSanitizer)());
     }
@@ -2712,7 +2712,7 @@ DomSanitizerImpl.decorators = [
 DomSanitizerImpl.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ DomSanitizerImpl.ngFactoryDef = function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(ɵɵinject(DOCUMENT)); };
+/** @nocollapse */ DomSanitizerImpl.ɵfac = function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ DomSanitizerImpl.ngInjectableDef = ɵɵdefineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { var r = null; if (t) {
         (r = new t());
     }
@@ -3056,7 +3056,7 @@ Meta.decorators = [
 Meta.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ Meta.ngFactoryDef = function Meta_Factory(t) { return new (t || Meta)(ɵɵinject(DOCUMENT)); };
+/** @nocollapse */ Meta.ɵfac = function Meta_Factory(t) { return new (t || Meta)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ Meta.ngInjectableDef = ɵɵdefineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
         (r = new t());
     }
@@ -3137,7 +3137,7 @@ Title.decorators = [
 Title.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ Title.ngFactoryDef = function Title_Factory(t) { return new (t || Title)(ɵɵinject(DOCUMENT)); };
+/** @nocollapse */ Title.ɵfac = function Title_Factory(t) { return new (t || Title)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ Title.ngInjectableDef = ɵɵdefineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
         (r = new t());
     }
@@ -3455,8 +3455,8 @@ class TransferState {
 TransferState.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */ TransferState.ngFactoryDef = function TransferState_Factory(t) { return new (t || TransferState)(); };
-/** @nocollapse */ TransferState.ngInjectableDef = ɵɵdefineInjectable({ token: TransferState, factory: function (t) { return TransferState.ngFactoryDef(t); }, providedIn: null });
+/** @nocollapse */ TransferState.ɵfac = function TransferState_Factory(t) { return new (t || TransferState)(); };
+/** @nocollapse */ TransferState.ngInjectableDef = ɵɵdefineInjectable({ token: TransferState, factory: function (t) { return TransferState.ɵfac(t); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(TransferState, [{
         type: Injectable
     }], null, null);
@@ -3605,7 +3605,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.10+66.sha-cd7b199.with-local-changes');
+const VERSION = new Version('9.0.0-next.10+73.sha-f433d66.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
