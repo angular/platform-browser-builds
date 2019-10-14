@@ -123,6 +123,6 @@ export declare const HAMMER_PROVIDERS: Provider[];
  * @publicApi
  */
 export declare class HammerModule {
-    static ngModuleDef: i0.ɵɵNgModuleDefWithMeta<HammerModule, never, never, never>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<HammerModule, never, never, never>;
     static ngInjectorDef: i0.ɵɵInjectorDef<HammerModule>;
 }

@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
+ * @license Angular v9.0.0-next.10+75.sha-fc93daf.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1409,7 +1409,7 @@
     var HammerModule = /** @class */ (function () {
         function HammerModule() {
         }
-        HammerModule.ngModuleDef = i0.ɵɵdefineNgModule({ type: HammerModule });
+        HammerModule.ɵmod = i0.ɵɵdefineNgModule({ type: HammerModule });
         HammerModule.ngInjectorDef = i0.ɵɵdefineInjector({ factory: function HammerModule_Factory(t) { return new (t || HammerModule)(); }, providers: HAMMER_PROVIDERS__PRE_R3__ });
         return HammerModule;
     }());
@@ -1822,7 +1822,7 @@
                 ],
             };
         };
-        BrowserModule.ngModuleDef = i0.ɵɵdefineNgModule({ type: BrowserModule });
+        BrowserModule.ɵmod = i0.ɵɵdefineNgModule({ type: BrowserModule });
         BrowserModule.ngInjectorDef = i0.ɵɵdefineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.ɵɵinject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [common.CommonModule, i0.ApplicationModule] });
         return BrowserModule;
     }());
@@ -2253,7 +2253,7 @@
     var BrowserTransferStateModule = /** @class */ (function () {
         function BrowserTransferStateModule() {
         }
-        BrowserTransferStateModule.ngModuleDef = i0.ɵɵdefineNgModule({ type: BrowserTransferStateModule });
+        BrowserTransferStateModule.ɵmod = i0.ɵɵdefineNgModule({ type: BrowserTransferStateModule });
         BrowserTransferStateModule.ngInjectorDef = i0.ɵɵdefineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, i0.APP_ID] }] });
         return BrowserTransferStateModule;
     }());
@@ -2343,7 +2343,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.10+73.sha-f433d66.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.10+75.sha-fc93daf.with-local-changes');
 
     /**
      * @license

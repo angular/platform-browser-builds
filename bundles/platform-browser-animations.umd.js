@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
+ * @license Angular v9.0.0-next.10+75.sha-fc93daf.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -590,7 +590,7 @@
     var BrowserAnimationsModule = /** @class */ (function () {
         function BrowserAnimationsModule() {
         }
-        BrowserAnimationsModule.ngModuleDef = i0.ɵɵdefineNgModule({ type: BrowserAnimationsModule });
+        BrowserAnimationsModule.ɵmod = i0.ɵɵdefineNgModule({ type: BrowserAnimationsModule });
         BrowserAnimationsModule.ngInjectorDef = i0.ɵɵdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
         return BrowserAnimationsModule;
     }());
@@ -609,7 +609,7 @@
     var NoopAnimationsModule = /** @class */ (function () {
         function NoopAnimationsModule() {
         }
-        NoopAnimationsModule.ngModuleDef = i0.ɵɵdefineNgModule({ type: NoopAnimationsModule });
+        NoopAnimationsModule.ɵmod = i0.ɵɵdefineNgModule({ type: NoopAnimationsModule });
         NoopAnimationsModule.ngInjectorDef = i0.ɵɵdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
         return NoopAnimationsModule;
     }());

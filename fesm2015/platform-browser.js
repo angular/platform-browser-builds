@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
+ * @license Angular v9.0.0-next.10+75.sha-fc93daf.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2171,7 +2171,7 @@ class HammerModule {
 HammerModule.decorators = [
     { type: NgModule, args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ },] },
 ];
-/** @nocollapse */ HammerModule.ngModuleDef = ɵɵdefineNgModule({ type: HammerModule });
+/** @nocollapse */ HammerModule.ɵmod = ɵɵdefineNgModule({ type: HammerModule });
 /** @nocollapse */ HammerModule.ngInjectorDef = ɵɵdefineInjector({ factory: function HammerModule_Factory(t) { return new (t || HammerModule)(); }, providers: HAMMER_PROVIDERS__PRE_R3__ });
 /*@__PURE__*/ ɵsetClassMetadata(HammerModule, [{
         type: NgModule,
@@ -2859,7 +2859,7 @@ BrowserModule.decorators = [
 BrowserModule.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
 ];
-/** @nocollapse */ BrowserModule.ngModuleDef = ɵɵdefineNgModule({ type: BrowserModule });
+/** @nocollapse */ BrowserModule.ɵmod = ɵɵdefineNgModule({ type: BrowserModule });
 /** @nocollapse */ BrowserModule.ngInjectorDef = ɵɵdefineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(ɵɵinject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
 /*@__PURE__*/ ɵɵsetNgModuleScope(BrowserModule, { exports: [CommonModule, ApplicationModule] });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserModule, [{
@@ -3507,7 +3507,7 @@ BrowserTransferStateModule.decorators = [
                 providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
             },] },
 ];
-/** @nocollapse */ BrowserTransferStateModule.ngModuleDef = ɵɵdefineNgModule({ type: BrowserTransferStateModule });
+/** @nocollapse */ BrowserTransferStateModule.ɵmod = ɵɵdefineNgModule({ type: BrowserTransferStateModule });
 /** @nocollapse */ BrowserTransferStateModule.ngInjectorDef = ɵɵdefineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }] });
 /*@__PURE__*/ ɵsetClassMetadata(BrowserTransferStateModule, [{
         type: NgModule,
@@ -3605,7 +3605,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.10+73.sha-f433d66.with-local-changes');
+const VERSION = new Version('9.0.0-next.10+75.sha-fc93daf.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

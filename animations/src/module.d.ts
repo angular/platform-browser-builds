@@ -6,7 +6,7 @@ import * as i1 from "@angular/platform-browser";
  * @publicApi
  */
 export declare class BrowserAnimationsModule {
-    static ngModuleDef: i0.ɵɵNgModuleDefWithMeta<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
     static ngInjectorDef: i0.ɵɵInjectorDef<BrowserAnimationsModule>;
 }
 /**
@@ -14,6 +14,6 @@ export declare class BrowserAnimationsModule {
  * @publicApi
  */
 export declare class NoopAnimationsModule {
-    static ngModuleDef: i0.ɵɵNgModuleDefWithMeta<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
     static ngInjectorDef: i0.ɵɵInjectorDef<NoopAnimationsModule>;
 }

@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
+ * @license Angular v9.0.0-next.10+75.sha-fc93daf.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1221,7 +1221,7 @@ var HAMMER_PROVIDERS = HAMMER_PROVIDERS__POST_R3__;
 var HammerModule = /** @class */ (function () {
     function HammerModule() {
     }
-    HammerModule.ngModuleDef = ɵɵdefineNgModule({ type: HammerModule });
+    HammerModule.ɵmod = ɵɵdefineNgModule({ type: HammerModule });
     HammerModule.ngInjectorDef = ɵɵdefineInjector({ factory: function HammerModule_Factory(t) { return new (t || HammerModule)(); }, providers: HAMMER_PROVIDERS__PRE_R3__ });
     return HammerModule;
 }());
@@ -1634,7 +1634,7 @@ var BrowserModule = /** @class */ (function () {
             ],
         };
     };
-    BrowserModule.ngModuleDef = ɵɵdefineNgModule({ type: BrowserModule });
+    BrowserModule.ɵmod = ɵɵdefineNgModule({ type: BrowserModule });
     BrowserModule.ngInjectorDef = ɵɵdefineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(ɵɵinject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
     return BrowserModule;
 }());
@@ -2065,7 +2065,7 @@ function initTransferState(doc, appId) {
 var BrowserTransferStateModule = /** @class */ (function () {
     function BrowserTransferStateModule() {
     }
-    BrowserTransferStateModule.ngModuleDef = ɵɵdefineNgModule({ type: BrowserTransferStateModule });
+    BrowserTransferStateModule.ɵmod = ɵɵdefineNgModule({ type: BrowserTransferStateModule });
     BrowserTransferStateModule.ngInjectorDef = ɵɵdefineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }] });
     return BrowserTransferStateModule;
 }());
@@ -2155,7 +2155,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-next.10+73.sha-f433d66.with-local-changes');
+var VERSION = new Version('9.0.0-next.10+75.sha-fc93daf.with-local-changes');
 
 /**
  * @license

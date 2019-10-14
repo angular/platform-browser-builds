@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
+ * @license Angular v9.0.0-next.10+75.sha-fc93daf.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -317,7 +317,7 @@ var platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesting
 var BrowserTestingModule = /** @class */ (function () {
     function BrowserTestingModule() {
     }
-    BrowserTestingModule.ngModuleDef = ɵɵdefineNgModule({ type: BrowserTestingModule });
+    BrowserTestingModule.ɵmod = ɵɵdefineNgModule({ type: BrowserTestingModule });
     BrowserTestingModule.ngInjectorDef = ɵɵdefineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
             { provide: APP_ID, useValue: 'a' },
             ɵELEMENT_PROBE_PROVIDERS,
