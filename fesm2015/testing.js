@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.11+8.sha-3e14c2d.with-local-changes
+ * @license Angular v9.0.0-next.11+10.sha-86104b8.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -409,7 +409,7 @@ BrowserTestingModule.decorators = [
             },] },
 ];
 /** @nocollapse */ BrowserTestingModule.ɵmod = ɵɵdefineNgModule({ type: BrowserTestingModule });
-/** @nocollapse */ BrowserTestingModule.ngInjectorDef = ɵɵdefineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
+/** @nocollapse */ BrowserTestingModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
         { provide: APP_ID, useValue: 'a' },
         ɵELEMENT_PROBE_PROVIDERS,
         { provide: NgZone, useFactory: createNgZone },

@@ -124,7 +124,7 @@ export declare abstract class DomSanitizer implements Sanitizer {
      */
     abstract bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
     static ɵfac: i0.ɵɵFactoryDef<DomSanitizer>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<DomSanitizer>;
+    static ɵprov: i0.ɵɵInjectableDef<DomSanitizer>;
 }
 export declare function domSanitizerImplFactory(injector: Injector): DomSanitizerImpl;
 export declare class DomSanitizerImpl extends DomSanitizer {
@@ -137,5 +137,5 @@ export declare class DomSanitizerImpl extends DomSanitizer {
     bypassSecurityTrustUrl(value: string): SafeUrl;
     bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
     static ɵfac: i0.ɵɵFactoryDef<DomSanitizerImpl>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<DomSanitizerImpl>;
+    static ɵprov: i0.ɵɵInjectableDef<DomSanitizerImpl>;
 }

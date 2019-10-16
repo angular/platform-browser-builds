@@ -41,5 +41,5 @@ export declare class BrowserModule {
         appId: string;
     }): ModuleWithProviders<BrowserModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<BrowserModule, never, never, [typeof i1.CommonModule, typeof i0.ApplicationModule]>;
-    static ngInjectorDef: i0.ɵɵInjectorDef<BrowserModule>;
+    static ɵinj: i0.ɵɵInjectorDef<BrowserModule>;
 }

@@ -74,7 +74,7 @@ export declare class TransferState {
      */
     toJson(): string;
     static ɵfac: i0.ɵɵFactoryDef<TransferState>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<TransferState>;
+    static ɵprov: i0.ɵɵInjectableDef<TransferState>;
 }
 export declare function initTransferState(doc: Document, appId: string): TransferState;
 /**
@@ -85,5 +85,5 @@ export declare function initTransferState(doc: Document, appId: string): Transfe
  */
 export declare class BrowserTransferStateModule {
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<BrowserTransferStateModule, never, never, never>;
-    static ngInjectorDef: i0.ɵɵInjectorDef<BrowserTransferStateModule>;
+    static ɵinj: i0.ɵɵInjectorDef<BrowserTransferStateModule>;
 }

@@ -45,7 +45,7 @@ export declare class EventManager {
      */
     getZone(): NgZone;
     static ɵfac: i0.ɵɵFactoryDef<EventManager>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<EventManager>;
+    static ɵprov: i0.ɵɵInjectableDef<EventManager>;
 }
 export declare abstract class EventManagerPlugin {
     private _doc;

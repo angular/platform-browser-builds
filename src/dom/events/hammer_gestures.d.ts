@@ -82,7 +82,7 @@ export declare class HammerGestureConfig {
      */
     buildHammer(element: HTMLElement): HammerInstance;
     static ɵfac: i0.ɵɵFactoryDef<HammerGestureConfig>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<HammerGestureConfig>;
+    static ɵprov: i0.ɵɵInjectableDef<HammerGestureConfig>;
 }
 /**
  * Event plugin that adds Hammer support to an application.
@@ -98,7 +98,7 @@ export declare class HammerGesturesPlugin extends EventManagerPlugin {
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
     static ɵfac: i0.ɵɵFactoryDef<HammerGesturesPlugin>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<HammerGesturesPlugin>;
+    static ɵprov: i0.ɵɵInjectableDef<HammerGesturesPlugin>;
 }
 /**
  * In Ivy, support for Hammer gestures is optional, so applications must
@@ -124,5 +124,5 @@ export declare const HAMMER_PROVIDERS: Provider[];
  */
 export declare class HammerModule {
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<HammerModule, never, never, never>;
-    static ngInjectorDef: i0.ɵɵInjectorDef<HammerModule>;
+    static ɵinj: i0.ɵɵInjectorDef<HammerModule>;
 }

@@ -29,5 +29,5 @@ export declare class DomRendererFactory2 implements RendererFactory2 {
     begin(): void;
     end(): void;
     static ɵfac: i0.ɵɵFactoryDef<DomRendererFactory2>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<DomRendererFactory2>;
+    static ɵprov: i0.ɵɵInjectableDef<DomRendererFactory2>;
 }

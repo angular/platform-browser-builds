@@ -9,5 +9,5 @@ export declare class DomEventsPlugin extends EventManagerPlugin {
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     removeEventListener(target: any, eventName: string, callback: Function): void;
     static ɵfac: i0.ɵɵFactoryDef<DomEventsPlugin>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<DomEventsPlugin>;
+    static ɵprov: i0.ɵɵInjectableDef<DomEventsPlugin>;
 }
