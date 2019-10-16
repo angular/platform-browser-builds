@@ -95,7 +95,7 @@ DomSanitizer.decorators = [
                  */
                 () => DomSanitizerImpl)) },] }
 ];
-/** @nocollapse */ DomSanitizer.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return i0.ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
+/** @nocollapse */ DomSanitizer.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return i0.ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
 if (false) {
     /**
      * Sanitizes a value for use in the given SecurityContext.
@@ -259,7 +259,7 @@ DomSanitizerImpl.decorators = [
 DomSanitizerImpl.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ DomSanitizerImpl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(i0.ɵɵinject(i0.INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
+/** @nocollapse */ DomSanitizerImpl.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(i0.ɵɵinject(i0.INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
 if (false) {
     /**
      * @type {?}

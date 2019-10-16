@@ -44,7 +44,7 @@ export { SecurityContext };
 var DomSanitizer = /** @class */ (function () {
     function DomSanitizer() {
     }
-    DomSanitizer.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return i0.ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
+    DomSanitizer.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return i0.ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
     DomSanitizer = tslib_1.__decorate([
         Injectable({ providedIn: 'root', useExisting: forwardRef(function () { return DomSanitizerImpl; }) })
     ], DomSanitizer);
@@ -106,7 +106,7 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
     DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
         return bypassSanitizationTrustResourceUrl(value);
     };
-    DomSanitizerImpl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(i0.ɵɵinject(i0.INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
+    DomSanitizerImpl.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(i0.ɵɵinject(i0.INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
     DomSanitizerImpl = tslib_1.__decorate([
         Injectable({ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] }),
         tslib_1.__param(0, Inject(DOCUMENT)),

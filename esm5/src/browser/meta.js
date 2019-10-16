@@ -98,7 +98,7 @@ var Meta = /** @class */ (function () {
     Meta.prototype._containsAttributes = function (tag, elem) {
         return Object.keys(tag).every(function (key) { return elem.getAttribute(key) === tag[key]; });
     };
-    Meta.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+    Meta.ɵprov = i0.ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
     Meta = tslib_1.__decorate([
         Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
         tslib_1.__param(0, Inject(DOCUMENT)),

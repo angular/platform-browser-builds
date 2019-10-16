@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.11+8.sha-3e14c2d.with-local-changes
+ * @license Angular v9.0.0-next.11+10.sha-86104b8.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1471,7 +1471,7 @@ function getEventKey(event) {
 var DomSanitizer = /** @class */ (function () {
     function DomSanitizer() {
     }
-    DomSanitizer.ngInjectableDef = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
+    DomSanitizer.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
     DomSanitizer = __decorate([
         Injectable({ providedIn: 'root', useExisting: forwardRef(function () { return DomSanitizerImpl; }) })
     ], DomSanitizer);
@@ -1532,7 +1532,7 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
     DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
         return ɵbypassSanitizationTrustResourceUrl(value);
     };
-    DomSanitizerImpl.ngInjectableDef = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
+    DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
     DomSanitizerImpl = __decorate([
         Injectable({ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] }),
         __param(0, Inject(DOCUMENT)),
@@ -1736,7 +1736,7 @@ var Meta = /** @class */ (function () {
     Meta.prototype._containsAttributes = function (tag, elem) {
         return Object.keys(tag).every(function (key) { return elem.getAttribute(key) === tag[key]; });
     };
-    Meta.ngInjectableDef = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+    Meta.ɵprov = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
     Meta = __decorate([
         Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
         __param(0, Inject(DOCUMENT)),
@@ -1774,7 +1774,7 @@ var Title = /** @class */ (function () {
      * @param newTitle
      */
     Title.prototype.setTitle = function (newTitle) { this._doc.title = newTitle || ''; };
-    Title.ngInjectableDef = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+    Title.ɵprov = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
     Title = __decorate([
         Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
         __param(0, Inject(DOCUMENT)),
@@ -2118,7 +2118,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-next.11+8.sha-3e14c2d.with-local-changes');
+var VERSION = new Version('9.0.0-next.11+10.sha-86104b8.with-local-changes');
 
 /**
  * @license

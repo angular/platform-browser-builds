@@ -38,7 +38,7 @@ var Title = /** @class */ (function () {
      * @param newTitle
      */
     Title.prototype.setTitle = function (newTitle) { this._doc.title = newTitle || ''; };
-    Title.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+    Title.ɵprov = i0.ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
     Title = tslib_1.__decorate([
         Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
         tslib_1.__param(0, Inject(DOCUMENT)),

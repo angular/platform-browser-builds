@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.11+8.sha-3e14c2d.with-local-changes
+ * @license Angular v9.0.0-next.11+10.sha-86104b8.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2424,7 +2424,7 @@ DomSanitizer.decorators = [
                  */
                 () => DomSanitizerImpl)) },] }
 ];
-/** @nocollapse */ DomSanitizer.ngInjectableDef = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
+/** @nocollapse */ DomSanitizer.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
 if (false) {
     /**
      * Sanitizes a value for use in the given SecurityContext.
@@ -2588,7 +2588,7 @@ DomSanitizerImpl.decorators = [
 DomSanitizerImpl.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ DomSanitizerImpl.ngInjectableDef = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
+/** @nocollapse */ DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
@@ -2892,7 +2892,7 @@ Meta.decorators = [
 Meta.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ Meta.ngInjectableDef = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+/** @nocollapse */ Meta.ɵprov = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
@@ -2953,7 +2953,7 @@ Title.decorators = [
 Title.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ Title.ngInjectableDef = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+/** @nocollapse */ Title.ɵprov = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
@@ -3388,7 +3388,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.11+8.sha-3e14c2d.with-local-changes');
+const VERSION = new Version('9.0.0-next.11+10.sha-86104b8.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
