@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.11+59.sha-117ca7c.with-local-changes
+ * @license Angular v9.0.0-next.11+62.sha-a0d16dc.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -483,7 +483,7 @@ function inspectNativeElement(element) {
  */
 function _createNgProbe(coreTokens) {
     exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
-    exportNgVar(CORE_TOKENS_GLOBAL_NAME, Object.assign({}, CORE_TOKENS, _ngProbeTokensToMap(coreTokens || [])));
+    exportNgVar(CORE_TOKENS_GLOBAL_NAME, Object.assign(Object.assign({}, CORE_TOKENS), _ngProbeTokensToMap(coreTokens || [])));
     return (/**
      * @return {?}
      */
@@ -2169,7 +2169,9 @@ class KeyEventsPlugin extends EventManagerPlugin {
      * Initializes an instance of the browser plug-in.
      * @param {?} doc The document in which key events will be detected.
      */
-    constructor(doc) { super(doc); }
+    constructor(doc) {
+        super(doc);
+    }
     /**
      * Reports whether a named key event is supported.
      * @param {?} eventName The event name to query.
@@ -3388,7 +3390,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.11+59.sha-117ca7c.with-local-changes');
+const VERSION = new Version('9.0.0-next.11+62.sha-a0d16dc.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
