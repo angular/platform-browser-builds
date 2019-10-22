@@ -1,4 +1,4 @@
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -17,7 +17,7 @@ import { BROWSER_ANIMATIONS_PROVIDERS, BROWSER_NOOP_ANIMATIONS_PROVIDERS } from 
 var BrowserAnimationsModule = /** @class */ (function () {
     function BrowserAnimationsModule() {
     }
-    BrowserAnimationsModule = tslib_1.__decorate([
+    BrowserAnimationsModule = __decorate([
         NgModule({
             exports: [BrowserModule],
             providers: BROWSER_ANIMATIONS_PROVIDERS,
@@ -33,7 +33,7 @@ export { BrowserAnimationsModule };
 var NoopAnimationsModule = /** @class */ (function () {
     function NoopAnimationsModule() {
     }
-    NoopAnimationsModule = tslib_1.__decorate([
+    NoopAnimationsModule = __decorate([
         NgModule({
             exports: [BrowserModule],
             providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,

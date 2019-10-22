@@ -1,4 +1,4 @@
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -29,7 +29,7 @@ var ɵ0 = createNgZone;
 var BrowserTestingModule = /** @class */ (function () {
     function BrowserTestingModule() {
     }
-    BrowserTestingModule = tslib_1.__decorate([
+    BrowserTestingModule = __decorate([
         NgModule({
             exports: [BrowserModule],
             providers: [
