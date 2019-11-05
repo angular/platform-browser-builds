@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.0+47.sha-85298e3.with-local-changes
+ * @license Angular v9.0.0-rc.0+62.sha-d751ca7.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -240,7 +240,7 @@ function stringifyElement(el /** TODO #9100 */) {
     return result;
 }
 function createNgZone() {
-    return new NgZone({ enableLongStackTrace: true });
+    return new NgZone({ enableLongStackTrace: true, shouldCoalesceEventChangeDetection: false });
 }
 function isCommentNode(node) {
     return node.nodeType === Node.COMMENT_NODE;
@@ -362,5 +362,5 @@ var BrowserTestingModule = /** @class */ (function () {
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { platformBrowserTesting, BrowserTestingModule };
+export { BrowserTestingModule, platformBrowserTesting };
 //# sourceMappingURL=testing.js.map
