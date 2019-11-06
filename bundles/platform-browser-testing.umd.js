@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.0+77.sha-2ed04ff.with-local-changes
+ * @license Angular v9.0.0-rc.0+69.sha-41560b4.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-browser/testing', ['exports', '@angular/core', '@angular/platform-browser', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.testing = {}), global.ng.core, global.ng.platformBrowser, global.ng.common));
-}(this, (function (exports, i0, platformBrowser, common) { 'use strict';
+}(this, function (exports, i0, platformBrowser, common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -560,10 +560,10 @@
      * found in the LICENSE file at https://angular.io/license
      */
 
-    exports.BrowserTestingModule = BrowserTestingModule;
     exports.platformBrowserTesting = platformBrowserTesting;
+    exports.BrowserTestingModule = BrowserTestingModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=platform-browser-testing.umd.js.map

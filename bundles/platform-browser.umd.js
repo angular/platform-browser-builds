@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.0+77.sha-2ed04ff.with-local-changes
+ * @license Angular v9.0.0-rc.0+69.sha-41560b4.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-browser', ['exports', '@angular/common', '@angular/core'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformBrowser = {}), global.ng.common, global.ng.core));
-}(this, (function (exports, common, i0) { 'use strict';
+}(this, function (exports, common, i0) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -2353,7 +2353,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.0+77.sha-2ed04ff.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-rc.0+69.sha-41560b4.with-local-changes');
 
     /**
      * @license
@@ -2380,54 +2380,49 @@
      * found in the LICENSE file at https://angular.io/license
      */
 
-    Object.defineProperty(exports, 'ɵgetDOM', {
-        enumerable: true,
-        get: function () {
-            return common.ɵgetDOM;
-        }
-    });
+    exports.ɵgetDOM = common.ɵgetDOM;
     exports.BrowserModule = BrowserModule;
+    exports.platformBrowser = platformBrowser;
+    exports.Meta = Meta;
+    exports.Title = Title;
+    exports.disableDebugTools = disableDebugTools;
+    exports.enableDebugTools = enableDebugTools;
     exports.BrowserTransferStateModule = BrowserTransferStateModule;
+    exports.TransferState = TransferState;
+    exports.makeStateKey = makeStateKey;
     exports.By = By;
-    exports.DomSanitizer = DomSanitizer;
     exports.EVENT_MANAGER_PLUGINS = EVENT_MANAGER_PLUGINS;
     exports.EventManager = EventManager;
     exports.HAMMER_GESTURE_CONFIG = HAMMER_GESTURE_CONFIG;
     exports.HAMMER_LOADER = HAMMER_LOADER;
+    exports.ɵHAMMER_PROVIDERS__POST_R3__ = HAMMER_PROVIDERS__POST_R3__;
     exports.HammerGestureConfig = HammerGestureConfig;
     exports.HammerModule = HammerModule;
-    exports.Meta = Meta;
-    exports.Title = Title;
-    exports.TransferState = TransferState;
+    exports.DomSanitizer = DomSanitizer;
     exports.VERSION = VERSION;
-    exports.disableDebugTools = disableDebugTools;
-    exports.enableDebugTools = enableDebugTools;
-    exports.makeStateKey = makeStateKey;
-    exports.platformBrowser = platformBrowser;
+    exports.ɵELEMENT_PROBE_PROVIDERS__POST_R3__ = ELEMENT_PROBE_PROVIDERS__POST_R3__;
     exports.ɵBROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS;
     exports.ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__ = BROWSER_SANITIZATION_PROVIDERS__POST_R3__;
-    exports.ɵBrowserDomAdapter = BrowserDomAdapter;
-    exports.ɵBrowserGetTestability = BrowserGetTestability;
-    exports.ɵDomEventsPlugin = DomEventsPlugin;
-    exports.ɵDomRendererFactory2 = DomRendererFactory2;
-    exports.ɵDomSanitizerImpl = DomSanitizerImpl;
-    exports.ɵDomSharedStylesHost = DomSharedStylesHost;
-    exports.ɵELEMENT_PROBE_PROVIDERS = ELEMENT_PROBE_PROVIDERS;
-    exports.ɵELEMENT_PROBE_PROVIDERS__POST_R3__ = ELEMENT_PROBE_PROVIDERS__POST_R3__;
-    exports.ɵHAMMER_PROVIDERS__POST_R3__ = HAMMER_PROVIDERS__POST_R3__;
-    exports.ɵHammerGesturesPlugin = HammerGesturesPlugin;
     exports.ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS = INTERNAL_BROWSER_PLATFORM_PROVIDERS;
-    exports.ɵKeyEventsPlugin = KeyEventsPlugin;
-    exports.ɵNAMESPACE_URIS = NAMESPACE_URIS;
-    exports.ɵSharedStylesHost = SharedStylesHost;
-    exports.ɵTRANSITION_ID = TRANSITION_ID;
-    exports.ɵescapeHtml = escapeHtml;
-    exports.ɵflattenStyles = flattenStyles;
     exports.ɵinitDomAdapter = initDomAdapter;
+    exports.ɵBrowserDomAdapter = BrowserDomAdapter;
+    exports.ɵTRANSITION_ID = TRANSITION_ID;
+    exports.ɵBrowserGetTestability = BrowserGetTestability;
+    exports.ɵescapeHtml = escapeHtml;
+    exports.ɵELEMENT_PROBE_PROVIDERS = ELEMENT_PROBE_PROVIDERS;
+    exports.ɵDomRendererFactory2 = DomRendererFactory2;
+    exports.ɵNAMESPACE_URIS = NAMESPACE_URIS;
+    exports.ɵflattenStyles = flattenStyles;
     exports.ɵshimContentAttribute = shimContentAttribute;
     exports.ɵshimHostAttribute = shimHostAttribute;
+    exports.ɵDomEventsPlugin = DomEventsPlugin;
+    exports.ɵHammerGesturesPlugin = HammerGesturesPlugin;
+    exports.ɵKeyEventsPlugin = KeyEventsPlugin;
+    exports.ɵDomSharedStylesHost = DomSharedStylesHost;
+    exports.ɵSharedStylesHost = SharedStylesHost;
+    exports.ɵDomSanitizerImpl = DomSanitizerImpl;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=platform-browser.umd.js.map
