@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.0+69.sha-41560b4.with-local-changes
+ * @license Angular v9.0.0-rc.0+78.sha-a20979d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations'), require('@angular/animations/browser'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-browser/animations', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations', '@angular/animations/browser', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = {}), global.ng.core, global.ng.platformBrowser, global.ng.animations, global.ng.animations.browser, global.ng.common));
-}(this, function (exports, i0, platformBrowser, animations, i1, common) { 'use strict';
+}(this, (function (exports, i0, platformBrowser, animations, i1, common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -664,16 +664,16 @@
      * found in the LICENSE file at https://angular.io/license
      */
 
+    exports.ANIMATION_MODULE_TYPE = ANIMATION_MODULE_TYPE;
     exports.BrowserAnimationsModule = BrowserAnimationsModule;
     exports.NoopAnimationsModule = NoopAnimationsModule;
-    exports.ANIMATION_MODULE_TYPE = ANIMATION_MODULE_TYPE;
-    exports.ɵBrowserAnimationBuilder = BrowserAnimationBuilder;
-    exports.ɵBrowserAnimationFactory = BrowserAnimationFactory;
     exports.ɵAnimationRenderer = AnimationRenderer;
     exports.ɵAnimationRendererFactory = AnimationRendererFactory;
+    exports.ɵBrowserAnimationBuilder = BrowserAnimationBuilder;
+    exports.ɵBrowserAnimationFactory = BrowserAnimationFactory;
     exports.ɵInjectableAnimationEngine = InjectableAnimationEngine;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=platform-browser-animations.umd.js.map
