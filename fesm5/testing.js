@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.0+66.sha-1735135.with-local-changes
+ * @license Angular v9.0.0-rc.0+75.sha-114317c.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -352,5 +352,5 @@ var BrowserTestingModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { createNgZone as ɵangular_packages_platform_browser_testing_testing_a, platformBrowserTesting, BrowserTestingModule, ɵ0 };
+export { BrowserTestingModule, platformBrowserTesting, ɵ0, createNgZone as ɵangular_packages_platform_browser_testing_testing_a };
 //# sourceMappingURL=testing.js.map

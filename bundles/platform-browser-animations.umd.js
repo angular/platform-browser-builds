@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.0+66.sha-1735135.with-local-changes
+ * @license Angular v9.0.0-rc.0+75.sha-114317c.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations'), require('@angular/animations/browser'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-browser/animations', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations', '@angular/animations/browser', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformBrowser = global.ng.platformBrowser || {}, global.ng.platformBrowser.animations = {}), global.ng.core, global.ng.platformBrowser, global.ng.animations, global.ng.animations.browser, global.ng.common));
-}(this, function (exports, core, platformBrowser, animations, browser, common) { 'use strict';
+}(this, (function (exports, core, platformBrowser, animations, browser, common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -653,22 +653,22 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.ɵangular_packages_platform_browser_animations_animations_f = BaseAnimationRenderer;
-    exports.ɵangular_packages_platform_browser_animations_animations_d = BROWSER_ANIMATIONS_PROVIDERS;
-    exports.ɵangular_packages_platform_browser_animations_animations_e = BROWSER_NOOP_ANIMATIONS_PROVIDERS;
-    exports.ɵangular_packages_platform_browser_animations_animations_b = instantiateDefaultStyleNormalizer;
-    exports.ɵangular_packages_platform_browser_animations_animations_c = instantiateRendererFactory;
-    exports.ɵangular_packages_platform_browser_animations_animations_a = instantiateSupportedAnimationDriver;
+    exports.ANIMATION_MODULE_TYPE = ANIMATION_MODULE_TYPE;
     exports.BrowserAnimationsModule = BrowserAnimationsModule;
     exports.NoopAnimationsModule = NoopAnimationsModule;
-    exports.ANIMATION_MODULE_TYPE = ANIMATION_MODULE_TYPE;
-    exports.ɵBrowserAnimationBuilder = BrowserAnimationBuilder;
-    exports.ɵBrowserAnimationFactory = BrowserAnimationFactory;
     exports.ɵAnimationRenderer = AnimationRenderer;
     exports.ɵAnimationRendererFactory = AnimationRendererFactory;
+    exports.ɵBrowserAnimationBuilder = BrowserAnimationBuilder;
+    exports.ɵBrowserAnimationFactory = BrowserAnimationFactory;
     exports.ɵInjectableAnimationEngine = InjectableAnimationEngine;
+    exports.ɵangular_packages_platform_browser_animations_animations_a = instantiateSupportedAnimationDriver;
+    exports.ɵangular_packages_platform_browser_animations_animations_b = instantiateDefaultStyleNormalizer;
+    exports.ɵangular_packages_platform_browser_animations_animations_c = instantiateRendererFactory;
+    exports.ɵangular_packages_platform_browser_animations_animations_d = BROWSER_ANIMATIONS_PROVIDERS;
+    exports.ɵangular_packages_platform_browser_animations_animations_e = BROWSER_NOOP_ANIMATIONS_PROVIDERS;
+    exports.ɵangular_packages_platform_browser_animations_animations_f = BaseAnimationRenderer;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=platform-browser-animations.umd.js.map
