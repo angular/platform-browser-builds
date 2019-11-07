@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.0+76.sha-814ed31.with-local-changes
+ * @license Angular v9.0.0-rc.1.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -240,7 +240,7 @@ function stringifyElement(el /** TODO #9100 */) {
     return result;
 }
 function createNgZone() {
-    return new NgZone({ enableLongStackTrace: true });
+    return new NgZone({ enableLongStackTrace: true, shouldCoalesceEventChangeDetection: false });
 }
 function isCommentNode(node) {
     return node.nodeType === Node.COMMENT_NODE;
