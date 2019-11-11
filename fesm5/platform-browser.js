@@ -1,13 +1,13 @@
 /**
- * @license Angular v9.0.0-rc.1+50.sha-b3c3000.with-local-changes
+ * @license Angular v9.0.0-rc.1+54.sha-e511bfc.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { __extends, __assign, __decorate, __param, __metadata } from 'tslib';
-import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵsetDocument, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @license
@@ -786,218 +786,26 @@ var ShadowDomRenderer = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ɵ0$3 = function () { return (typeof Zone !== 'undefined') && Zone['__symbol__'] ||
-    function (v) { return '__zone_symbol__' + v; }; };
-/**
- * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
- * since Angular can do much more
- * efficient bookkeeping than Zone can, because we have additional information. This speeds up
- * addEventListener by 3x.
- */
-var __symbol__ = (ɵ0$3)();
-var ADD_EVENT_LISTENER = __symbol__('addEventListener');
-var REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
-var symbolNames = {};
-var FALSE = 'FALSE';
-var ANGULAR = 'ANGULAR';
-var NATIVE_ADD_LISTENER = 'addEventListener';
-var NATIVE_REMOVE_LISTENER = 'removeEventListener';
-// use the same symbol string which is used in zone.js
-var stopSymbol = '__zone_symbol__propagationStopped';
-var stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
-var ɵ1 = function () {
-    var unpatchedEvents = (typeof Zone !== 'undefined') && Zone[__symbol__('UNPATCHED_EVENTS')];
-    if (unpatchedEvents) {
-        var unpatchedEventMap_1 = {};
-        unpatchedEvents.forEach(function (eventName) { unpatchedEventMap_1[eventName] = eventName; });
-        return unpatchedEventMap_1;
-    }
-    return undefined;
-};
-var unpatchedMap = (ɵ1)();
-var isUnpatchedEvent = function (eventName) {
-    if (!unpatchedMap) {
-        return false;
-    }
-    return unpatchedMap.hasOwnProperty(eventName);
-};
-var ɵ2 = isUnpatchedEvent;
-// a global listener to handle all dom event,
-// so we do not need to create a closure every time
-var globalListener = function (event) {
-    var symbolName = symbolNames[event.type];
-    if (!symbolName) {
-        return;
-    }
-    var taskDatas = this[symbolName];
-    if (!taskDatas) {
-        return;
-    }
-    var args = [event];
-    if (taskDatas.length === 1) {
-        // if taskDatas only have one element, just invoke it
-        var taskData = taskDatas[0];
-        if (taskData.zone !== Zone.current) {
-            // only use Zone.run when Zone.current not equals to stored zone
-            return taskData.zone.run(taskData.handler, this, args);
-        }
-        else {
-            return taskData.handler.apply(this, args);
-        }
-    }
-    else {
-        // copy tasks as a snapshot to avoid event handlers remove
-        // itself or others
-        var copiedTasks = taskDatas.slice();
-        for (var i = 0; i < copiedTasks.length; i++) {
-            // if other listener call event.stopImmediatePropagation
-            // just break
-            if (event[stopSymbol] === true) {
-                break;
-            }
-            var taskData = copiedTasks[i];
-            if (taskData.zone !== Zone.current) {
-                // only use Zone.run when Zone.current not equals to stored zone
-                taskData.zone.run(taskData.handler, this, args);
-            }
-            else {
-                taskData.handler.apply(this, args);
-            }
-        }
-    }
-};
-var ɵ3 = globalListener;
 var DomEventsPlugin = /** @class */ (function (_super) {
     __extends(DomEventsPlugin, _super);
-    function DomEventsPlugin(doc, ngZone, platformId) {
-        var _this = _super.call(this, doc) || this;
-        _this.ngZone = ngZone;
-        if (!platformId || !isPlatformServer(platformId)) {
-            _this.patchEvent();
-        }
-        return _this;
+    function DomEventsPlugin(doc) {
+        return _super.call(this, doc) || this;
     }
-    DomEventsPlugin.prototype.patchEvent = function () {
-        if (typeof Event === 'undefined' || !Event || !Event.prototype) {
-            return;
-        }
-        if (Event.prototype[stopMethodSymbol]) {
-            // already patched by zone.js
-            return;
-        }
-        var delegate = Event.prototype[stopMethodSymbol] =
-            Event.prototype.stopImmediatePropagation;
-        Event.prototype.stopImmediatePropagation = function () {
-            if (this) {
-                this[stopSymbol] = true;
-            }
-            // We should call native delegate in case in some environment part of
-            // the application will not use the patched Event. Also we cast the
-            // "arguments" to any since "stopImmediatePropagation" technically does not
-            // accept any arguments, but we don't know what developers pass through the
-            // function and we want to not break these calls.
-            delegate && delegate.apply(this, arguments);
-        };
-    };
     // This plugin should come last in the list of plugins, because it accepts all
     // events.
     DomEventsPlugin.prototype.supports = function (eventName) { return true; };
     DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
         var _this = this;
-        /**
-         * This code is about to add a listener to the DOM. If Zone.js is present, than
-         * `addEventListener` has been patched. The patched code adds overhead in both
-         * memory and speed (3x slower) than native. For this reason if we detect that
-         * Zone.js is present we use a simple version of zone aware addEventListener instead.
-         * The result is faster registration and the zone will be restored.
-         * But ZoneSpec.onScheduleTask, ZoneSpec.onInvokeTask, ZoneSpec.onCancelTask
-         * will not be invoked
-         * We also do manual zone restoration in element.ts renderEventHandlerClosure method.
-         *
-         * NOTE: it is possible that the element is from different iframe, and so we
-         * have to check before we execute the method.
-         */
-        var self = this;
-        var zoneJsLoaded = element[ADD_EVENT_LISTENER];
-        var callback = handler;
-        // if zonejs is loaded and current zone is not ngZone
-        // we keep Zone.current on target for later restoration.
-        if (zoneJsLoaded && (!NgZone.isInAngularZone() || isUnpatchedEvent(eventName))) {
-            var symbolName = symbolNames[eventName];
-            if (!symbolName) {
-                symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
-            }
-            var taskDatas = element[symbolName];
-            var globalListenerRegistered = taskDatas && taskDatas.length > 0;
-            if (!taskDatas) {
-                taskDatas = element[symbolName] = [];
-            }
-            var zone = isUnpatchedEvent(eventName) ? Zone.root : Zone.current;
-            if (taskDatas.length === 0) {
-                taskDatas.push({ zone: zone, handler: callback });
-            }
-            else {
-                var callbackRegistered = false;
-                for (var i = 0; i < taskDatas.length; i++) {
-                    if (taskDatas[i].handler === callback) {
-                        callbackRegistered = true;
-                        break;
-                    }
-                }
-                if (!callbackRegistered) {
-                    taskDatas.push({ zone: zone, handler: callback });
-                }
-            }
-            if (!globalListenerRegistered) {
-                element[ADD_EVENT_LISTENER](eventName, globalListener, false);
-            }
-        }
-        else {
-            element[NATIVE_ADD_LISTENER](eventName, callback, false);
-        }
-        return function () { return _this.removeEventListener(element, eventName, callback); };
+        element.addEventListener(eventName, handler, false);
+        return function () { return _this.removeEventListener(element, eventName, handler); };
     };
     DomEventsPlugin.prototype.removeEventListener = function (target, eventName, callback) {
-        var underlyingRemove = target[REMOVE_EVENT_LISTENER];
-        // zone.js not loaded, use native removeEventListener
-        if (!underlyingRemove) {
-            return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
-        }
-        var symbolName = symbolNames[eventName];
-        var taskDatas = symbolName && target[symbolName];
-        if (!taskDatas) {
-            // addEventListener not using patched version
-            // just call native removeEventListener
-            return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
-        }
-        // fix issue 20532, should be able to remove
-        // listener which was added inside of ngZone
-        var found = false;
-        for (var i = 0; i < taskDatas.length; i++) {
-            // remove listener from taskDatas if the callback equals
-            if (taskDatas[i].handler === callback) {
-                found = true;
-                taskDatas.splice(i, 1);
-                break;
-            }
-        }
-        if (found) {
-            if (taskDatas.length === 0) {
-                // all listeners are removed, we can remove the globalListener from target
-                underlyingRemove.apply(target, [eventName, globalListener, false]);
-            }
-        }
-        else {
-            // not found in taskDatas, the callback may be added inside of ngZone
-            // use native remove listener to remove the callback
-            target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
-        }
+        return target.removeEventListener(eventName, callback);
     };
     DomEventsPlugin = __decorate([
         Injectable(),
         __param(0, Inject(DOCUMENT)),
-        __param(2, Optional()), __param(2, Inject(PLATFORM_ID)),
-        __metadata("design:paramtypes", [Object, NgZone, Object])
+        __metadata("design:paramtypes", [Object])
     ], DomEventsPlugin);
     return DomEventsPlugin;
 }(EventManagerPlugin));
@@ -1291,15 +1099,15 @@ var _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
-var ɵ0$4 = function (event) { return event.altKey; }, ɵ1$1 = function (event) { return event.ctrlKey; }, ɵ2$1 = function (event) { return event.metaKey; }, ɵ3$1 = function (event) { return event.shiftKey; };
+var ɵ0$3 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
 /**
  * Retrieves modifiers from key-event objects.
  */
 var MODIFIER_KEY_GETTERS = {
-    'alt': ɵ0$4,
-    'control': ɵ1$1,
-    'meta': ɵ2$1,
-    'shift': ɵ3$1
+    'alt': ɵ0$3,
+    'control': ɵ1,
+    'meta': ɵ2,
+    'shift': ɵ3
 };
 /**
  * @publicApi
@@ -1548,9 +1356,9 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ɵ0$5 = ɵPLATFORM_BROWSER_ID;
+var ɵ0$4 = ɵPLATFORM_BROWSER_ID;
 var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: PLATFORM_ID, useValue: ɵ0$5 },
+    { provide: PLATFORM_ID, useValue: ɵ0$4 },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
@@ -1578,6 +1386,8 @@ function errorHandler() {
     return new ErrorHandler();
 }
 function _document() {
+    // Tell ivy about the global document
+    ɵsetDocument(document);
     return document;
 }
 var BROWSER_MODULE_PROVIDERS = [
@@ -2118,7 +1928,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+50.sha-b3c3000.with-local-changes');
+var VERSION = new Version('9.0.0-rc.1+54.sha-e511bfc.with-local-changes');
 
 /**
  * @license
