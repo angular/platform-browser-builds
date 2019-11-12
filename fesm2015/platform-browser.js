@@ -1,12 +1,12 @@
 /**
- * @license Angular v9.0.0-rc.1+51.sha-c540061.with-local-changes
+ * @license Angular v9.0.0-rc.1+58.sha-6615743.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, isPlatformServer, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, PLATFORM_ID, ɵConsole, NgModule, forwardRef, ɵɵdefineInjectable, ɵɵinject, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, forwardRef, ɵɵdefineInjectable, ɵɵinject, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵsetDocument, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -1392,184 +1392,12 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-const ɵ0$3 = /**
- * @return {?}
- */
-() => (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))['__symbol__'] ||
-    (/**
-     * @param {?} v
-     * @return {?}
-     */
-    function (v) { return '__zone_symbol__' + v; });
-/**
- * Detect if Zone is present. If it is then use simple zone aware 'addEventListener'
- * since Angular can do much more
- * efficient bookkeeping than Zone can, because we have additional information. This speeds up
- * addEventListener by 3x.
- * @type {?}
- */
-const __symbol__ = ((ɵ0$3))();
-/** @type {?} */
-const ADD_EVENT_LISTENER = __symbol__('addEventListener');
-/** @type {?} */
-const REMOVE_EVENT_LISTENER = __symbol__('removeEventListener');
-/** @type {?} */
-const symbolNames = {};
-/** @type {?} */
-const FALSE = 'FALSE';
-/** @type {?} */
-const ANGULAR = 'ANGULAR';
-/** @type {?} */
-const NATIVE_ADD_LISTENER = 'addEventListener';
-/** @type {?} */
-const NATIVE_REMOVE_LISTENER = 'removeEventListener';
-// use the same symbol string which is used in zone.js
-/** @type {?} */
-const stopSymbol = '__zone_symbol__propagationStopped';
-/** @type {?} */
-const stopMethodSymbol = '__zone_symbol__stopImmediatePropagation';
-const ɵ1 = /**
- * @return {?}
- */
-() => {
-    /** @type {?} */
-    const unpatchedEvents = (typeof Zone !== 'undefined') && ((/** @type {?} */ (Zone)))[__symbol__('UNPATCHED_EVENTS')];
-    if (unpatchedEvents) {
-        /** @type {?} */
-        const unpatchedEventMap = {};
-        unpatchedEvents.forEach((/**
-         * @param {?} eventName
-         * @return {?}
-         */
-        (eventName) => { unpatchedEventMap[eventName] = eventName; }));
-        return unpatchedEventMap;
-    }
-    return undefined;
-};
-/** @type {?} */
-const unpatchedMap = ((ɵ1))();
-/** @type {?} */
-const isUnpatchedEvent = (/**
- * @param {?} eventName
- * @return {?}
- */
-function (eventName) {
-    if (!unpatchedMap) {
-        return false;
-    }
-    return unpatchedMap.hasOwnProperty(eventName);
-});
-const ɵ2 = isUnpatchedEvent;
-/**
- * @record
- */
-function TaskData() { }
-if (false) {
-    /** @type {?} */
-    TaskData.prototype.zone;
-    /** @type {?} */
-    TaskData.prototype.handler;
-}
-// a global listener to handle all dom event,
-// so we do not need to create a closure every time
-/** @type {?} */
-const globalListener = (/**
- * @this {?}
- * @param {?} event
- * @return {?}
- */
-function (event) {
-    /** @type {?} */
-    const symbolName = symbolNames[event.type];
-    if (!symbolName) {
-        return;
-    }
-    /** @type {?} */
-    const taskDatas = this[symbolName];
-    if (!taskDatas) {
-        return;
-    }
-    /** @type {?} */
-    const args = [event];
-    if (taskDatas.length === 1) {
-        // if taskDatas only have one element, just invoke it
-        /** @type {?} */
-        const taskData = taskDatas[0];
-        if (taskData.zone !== Zone.current) {
-            // only use Zone.run when Zone.current not equals to stored zone
-            return taskData.zone.run(taskData.handler, this, args);
-        }
-        else {
-            return taskData.handler.apply(this, args);
-        }
-    }
-    else {
-        // copy tasks as a snapshot to avoid event handlers remove
-        // itself or others
-        /** @type {?} */
-        const copiedTasks = taskDatas.slice();
-        for (let i = 0; i < copiedTasks.length; i++) {
-            // if other listener call event.stopImmediatePropagation
-            // just break
-            if (((/** @type {?} */ (event)))[stopSymbol] === true) {
-                break;
-            }
-            /** @type {?} */
-            const taskData = copiedTasks[i];
-            if (taskData.zone !== Zone.current) {
-                // only use Zone.run when Zone.current not equals to stored zone
-                taskData.zone.run(taskData.handler, this, args);
-            }
-            else {
-                taskData.handler.apply(this, args);
-            }
-        }
-    }
-});
-const ɵ3 = globalListener;
 class DomEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
-     * @param {?} ngZone
-     * @param {?} platformId
      */
-    constructor(doc, ngZone, platformId) {
+    constructor(doc) {
         super(doc);
-        this.ngZone = ngZone;
-        if (!platformId || !isPlatformServer(platformId)) {
-            this.patchEvent();
-        }
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    patchEvent() {
-        if (typeof Event === 'undefined' || !Event || !Event.prototype) {
-            return;
-        }
-        if (((/** @type {?} */ (Event.prototype)))[stopMethodSymbol]) {
-            // already patched by zone.js
-            return;
-        }
-        /** @type {?} */
-        const delegate = ((/** @type {?} */ (Event.prototype)))[stopMethodSymbol] =
-            Event.prototype.stopImmediatePropagation;
-        Event.prototype.stopImmediatePropagation = (/**
-         * @this {?}
-         * @return {?}
-         */
-        function () {
-            if (this) {
-                this[stopSymbol] = true;
-            }
-            // We should call native delegate in case in some environment part of
-            // the application will not use the patched Event. Also we cast the
-            // "arguments" to any since "stopImmediatePropagation" technically does not
-            // accept any arguments, but we don't know what developers pass through the
-            // function and we want to not break these calls.
-            delegate && delegate.apply(this, (/** @type {?} */ (arguments)));
-        });
     }
     // This plugin should come last in the list of plugins, because it accepts all
     // events.
@@ -1585,69 +1413,11 @@ class DomEventsPlugin extends EventManagerPlugin {
      * @return {?}
      */
     addEventListener(element, eventName, handler) {
-        /**
-         * This code is about to add a listener to the DOM. If Zone.js is present, than
-         * `addEventListener` has been patched. The patched code adds overhead in both
-         * memory and speed (3x slower) than native. For this reason if we detect that
-         * Zone.js is present we use a simple version of zone aware addEventListener instead.
-         * The result is faster registration and the zone will be restored.
-         * But ZoneSpec.onScheduleTask, ZoneSpec.onInvokeTask, ZoneSpec.onCancelTask
-         * will not be invoked
-         * We also do manual zone restoration in element.ts renderEventHandlerClosure method.
-         *
-         * NOTE: it is possible that the element is from different iframe, and so we
-         * have to check before we execute the method.
-         * @type {?}
-         */
-        const self = this;
-        /** @type {?} */
-        const zoneJsLoaded = element[ADD_EVENT_LISTENER];
-        /** @type {?} */
-        let callback = (/** @type {?} */ (handler));
-        // if zonejs is loaded and current zone is not ngZone
-        // we keep Zone.current on target for later restoration.
-        if (zoneJsLoaded && (!NgZone.isInAngularZone() || isUnpatchedEvent(eventName))) {
-            /** @type {?} */
-            let symbolName = symbolNames[eventName];
-            if (!symbolName) {
-                symbolName = symbolNames[eventName] = __symbol__(ANGULAR + eventName + FALSE);
-            }
-            /** @type {?} */
-            let taskDatas = ((/** @type {?} */ (element)))[symbolName];
-            /** @type {?} */
-            const globalListenerRegistered = taskDatas && taskDatas.length > 0;
-            if (!taskDatas) {
-                taskDatas = ((/** @type {?} */ (element)))[symbolName] = [];
-            }
-            /** @type {?} */
-            const zone = isUnpatchedEvent(eventName) ? Zone.root : Zone.current;
-            if (taskDatas.length === 0) {
-                taskDatas.push({ zone: zone, handler: callback });
-            }
-            else {
-                /** @type {?} */
-                let callbackRegistered = false;
-                for (let i = 0; i < taskDatas.length; i++) {
-                    if (taskDatas[i].handler === callback) {
-                        callbackRegistered = true;
-                        break;
-                    }
-                }
-                if (!callbackRegistered) {
-                    taskDatas.push({ zone: zone, handler: callback });
-                }
-            }
-            if (!globalListenerRegistered) {
-                element[ADD_EVENT_LISTENER](eventName, globalListener, false);
-            }
-        }
-        else {
-            element[NATIVE_ADD_LISTENER](eventName, callback, false);
-        }
+        element.addEventListener(eventName, (/** @type {?} */ (handler)), false);
         return (/**
          * @return {?}
          */
-        () => this.removeEventListener(element, eventName, callback));
+        () => this.removeEventListener(element, eventName, (/** @type {?} */ (handler))));
     }
     /**
      * @param {?} target
@@ -1656,44 +1426,7 @@ class DomEventsPlugin extends EventManagerPlugin {
      * @return {?}
      */
     removeEventListener(target, eventName, callback) {
-        /** @type {?} */
-        let underlyingRemove = target[REMOVE_EVENT_LISTENER];
-        // zone.js not loaded, use native removeEventListener
-        if (!underlyingRemove) {
-            return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
-        }
-        /** @type {?} */
-        let symbolName = symbolNames[eventName];
-        /** @type {?} */
-        let taskDatas = symbolName && target[symbolName];
-        if (!taskDatas) {
-            // addEventListener not using patched version
-            // just call native removeEventListener
-            return target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
-        }
-        // fix issue 20532, should be able to remove
-        // listener which was added inside of ngZone
-        /** @type {?} */
-        let found = false;
-        for (let i = 0; i < taskDatas.length; i++) {
-            // remove listener from taskDatas if the callback equals
-            if (taskDatas[i].handler === callback) {
-                found = true;
-                taskDatas.splice(i, 1);
-                break;
-            }
-        }
-        if (found) {
-            if (taskDatas.length === 0) {
-                // all listeners are removed, we can remove the globalListener from target
-                underlyingRemove.apply(target, [eventName, globalListener, false]);
-            }
-        }
-        else {
-            // not found in taskDatas, the callback may be added inside of ngZone
-            // use native remove listener to remove the callback
-            target[NATIVE_REMOVE_LISTENER].apply(target, [eventName, callback, false]);
-        }
+        return target.removeEventListener(eventName, (/** @type {?} */ (callback)));
     }
 }
 DomEventsPlugin.decorators = [
@@ -1701,17 +1434,8 @@ DomEventsPlugin.decorators = [
 ];
 /** @nocollapse */
 DomEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-    { type: NgZone },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [PLATFORM_ID,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    DomEventsPlugin.prototype.ngZone;
-}
 
 /**
  * @fileoverview added by tsickle
@@ -2133,19 +1857,19 @@ const _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
-const ɵ0$4 = /**
+const ɵ0$3 = /**
  * @param {?} event
  * @return {?}
  */
-(event) => event.altKey, ɵ1$1 = /**
+(event) => event.altKey, ɵ1 = /**
  * @param {?} event
  * @return {?}
  */
-(event) => event.ctrlKey, ɵ2$1 = /**
+(event) => event.ctrlKey, ɵ2 = /**
  * @param {?} event
  * @return {?}
  */
-(event) => event.metaKey, ɵ3$1 = /**
+(event) => event.metaKey, ɵ3 = /**
  * @param {?} event
  * @return {?}
  */
@@ -2155,10 +1879,10 @@ const ɵ0$4 = /**
  * @type {?}
  */
 const MODIFIER_KEY_GETTERS = {
-    'alt': (ɵ0$4),
-    'control': (ɵ1$1),
-    'meta': (ɵ2$1),
-    'shift': (ɵ3$1)
+    'alt': (ɵ0$3),
+    'control': (ɵ1),
+    'meta': (ɵ2),
+    'shift': (ɵ3)
 };
 /**
  * \@publicApi
@@ -2603,10 +2327,10 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-const ɵ0$5 = ɵPLATFORM_BROWSER_ID;
+const ɵ0$4 = ɵPLATFORM_BROWSER_ID;
 /** @type {?} */
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: PLATFORM_ID, useValue: ɵ0$5 },
+    { provide: PLATFORM_ID, useValue: ɵ0$4 },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
@@ -2647,6 +2371,8 @@ function errorHandler() {
  * @return {?}
  */
 function _document() {
+    // Tell ivy about the global document
+    ɵsetDocument(document);
     return document;
 }
 /** @type {?} */
@@ -3390,7 +3116,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.1+51.sha-c540061.with-local-changes');
+const VERSION = new Version('9.0.0-rc.1+58.sha-6615743.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

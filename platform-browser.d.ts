@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+51.sha-c540061.with-local-changes
+ * @license Angular v9.0.0-rc.1+58.sha-6615743.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -659,9 +659,7 @@ export declare class ɵBrowserGetTestability implements GetTestability {
 }
 
 export declare class ɵDomEventsPlugin extends ɵangular_packages_platform_browser_platform_browser_g {
-    private ngZone;
-    constructor(doc: any, ngZone: NgZone, platformId: {} | null);
-    private patchEvent;
+    constructor(doc: any);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     removeEventListener(target: any, eventName: string, callback: Function): void;
