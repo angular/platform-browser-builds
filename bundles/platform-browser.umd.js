@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+51.sha-d8be830.with-local-changes
+ * @license Angular v9.0.0-rc.1+56.sha-942e2eb.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1584,6 +1584,8 @@
         return new i0.ErrorHandler();
     }
     function _document() {
+        // Tell ivy about the global document
+        i0.ɵsetDocument(document);
         return document;
     }
     var BROWSER_MODULE_PROVIDERS = [
@@ -2124,7 +2126,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.1+51.sha-d8be830.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-rc.1+56.sha-942e2eb.with-local-changes');
 
     /**
      * @license
