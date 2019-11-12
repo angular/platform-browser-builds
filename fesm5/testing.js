@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.12+25.sha-083d4b8.with-local-changes
+ * @license Angular v9.0.0-rc.1+58.sha-dbd55fc.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -240,7 +240,7 @@ function stringifyElement(el /** TODO #9100 */) {
     return result;
 }
 function createNgZone() {
-    return new NgZone({ enableLongStackTrace: true });
+    return new NgZone({ enableLongStackTrace: true, shouldCoalesceEventChangeDetection: false });
 }
 function isCommentNode(node) {
     return node.nodeType === Node.COMMENT_NODE;
@@ -352,5 +352,5 @@ var BrowserTestingModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { createNgZone as ɵangular_packages_platform_browser_testing_testing_a, platformBrowserTesting, BrowserTestingModule, ɵ0 };
+export { BrowserTestingModule, platformBrowserTesting, ɵ0, createNgZone as ɵangular_packages_platform_browser_testing_testing_a };
 //# sourceMappingURL=testing.js.map

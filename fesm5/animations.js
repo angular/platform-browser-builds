@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.12+25.sha-083d4b8.with-local-changes
+ * @license Angular v9.0.0-rc.1+58.sha-dbd55fc.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -457,5 +457,5 @@ var NoopAnimationsModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { BaseAnimationRenderer as ɵangular_packages_platform_browser_animations_animations_f, BROWSER_ANIMATIONS_PROVIDERS as ɵangular_packages_platform_browser_animations_animations_d, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵangular_packages_platform_browser_animations_animations_e, instantiateDefaultStyleNormalizer as ɵangular_packages_platform_browser_animations_animations_b, instantiateRendererFactory as ɵangular_packages_platform_browser_animations_animations_c, instantiateSupportedAnimationDriver as ɵangular_packages_platform_browser_animations_animations_a, BrowserAnimationsModule, NoopAnimationsModule, ANIMATION_MODULE_TYPE, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, InjectableAnimationEngine as ɵInjectableAnimationEngine };
+export { ANIMATION_MODULE_TYPE, BrowserAnimationsModule, NoopAnimationsModule, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, InjectableAnimationEngine as ɵInjectableAnimationEngine, instantiateSupportedAnimationDriver as ɵangular_packages_platform_browser_animations_animations_a, instantiateDefaultStyleNormalizer as ɵangular_packages_platform_browser_animations_animations_b, instantiateRendererFactory as ɵangular_packages_platform_browser_animations_animations_c, BROWSER_ANIMATIONS_PROVIDERS as ɵangular_packages_platform_browser_animations_animations_d, BROWSER_NOOP_ANIMATIONS_PROVIDERS as ɵangular_packages_platform_browser_animations_animations_e, BaseAnimationRenderer as ɵangular_packages_platform_browser_animations_animations_f };
 //# sourceMappingURL=animations.js.map
