@@ -1,12 +1,12 @@
 /**
- * @license Angular v9.0.0-rc.1+51.sha-d8be830.with-local-changes
+ * @license Angular v9.0.0-rc.1+56.sha-942e2eb.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, ɵɵsetNgModuleScope, SkipSelf, Version } from '@angular/core';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵsetDocument, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, ɵɵsetNgModuleScope, SkipSelf, Version } from '@angular/core';
 import { __extends, __assign } from 'tslib';
 
 /**
@@ -1383,6 +1383,8 @@ function errorHandler() {
     return new ErrorHandler();
 }
 function _document() {
+    // Tell ivy about the global document
+    ɵsetDocument(document);
     return document;
 }
 var BROWSER_MODULE_PROVIDERS = [
@@ -1963,7 +1965,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+51.sha-d8be830.with-local-changes');
+var VERSION = new Version('9.0.0-rc.1+56.sha-942e2eb.with-local-changes');
 
 /**
  * @license
