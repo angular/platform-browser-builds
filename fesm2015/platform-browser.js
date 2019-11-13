@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+89.sha-f1b3284.with-local-changes
+ * @license Angular v9.0.0-rc.1+100.sha-b30bb8d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2262,10 +2262,10 @@ DomSanitizer.decorators = [
 ];
 /** @nocollapse */ DomSanitizer.ɵfac = function DomSanitizer_Factory(t) { return new (t || DomSanitizer)(); };
 /** @nocollapse */ DomSanitizer.ɵprov = ɵɵdefineInjectable({ token: DomSanitizer, factory: function DomSanitizer_Factory(t) { var r = null; if (t) {
-        (r = new (t || DomSanitizer)());
+        r = new (t || DomSanitizer)();
     }
     else {
-        (r = ɵɵinject(DomSanitizerImpl));
+        r = ɵɵinject(DomSanitizerImpl);
     } return r; }, providedIn: 'root' });
 /*@__PURE__*/ ɵsetClassMetadata(DomSanitizer, [{
         type: Injectable,
@@ -2439,10 +2439,10 @@ DomSanitizerImpl.ctorParameters = () => [
 ];
 /** @nocollapse */ DomSanitizerImpl.ɵfac = function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { var r = null; if (t) {
-        (r = new t());
+        r = new t();
     }
     else {
-        (r = domSanitizerImplFactory(ɵɵinject(Injector)));
+        r = domSanitizerImplFactory(ɵɵinject(Injector));
     } return r; }, providedIn: 'root' });
 /*@__PURE__*/ ɵsetClassMetadata(DomSanitizerImpl, [{
         type: Injectable,
@@ -2785,10 +2785,10 @@ Meta.ctorParameters = () => [
 ];
 /** @nocollapse */ Meta.ɵfac = function Meta_Factory(t) { return new (t || Meta)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ Meta.ɵprov = ɵɵdefineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
-        (r = new t());
+        r = new t();
     }
     else {
-        (r = createMeta());
+        r = createMeta();
     } return r; }, providedIn: 'root' });
 /*@__PURE__*/ ɵsetClassMetadata(Meta, [{
         type: Injectable,
@@ -2866,10 +2866,10 @@ Title.ctorParameters = () => [
 ];
 /** @nocollapse */ Title.ɵfac = function Title_Factory(t) { return new (t || Title)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ Title.ɵprov = ɵɵdefineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
-        (r = new t());
+        r = new t();
     }
     else {
-        (r = createTitle());
+        r = createTitle();
     } return r; }, providedIn: 'root' });
 /*@__PURE__*/ ɵsetClassMetadata(Title, [{
         type: Injectable,
@@ -3332,7 +3332,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.1+89.sha-f1b3284.with-local-changes');
+const VERSION = new Version('9.0.0-rc.1+100.sha-b30bb8d.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+89.sha-f1b3284.with-local-changes
+ * @license Angular v9.0.0-rc.1+100.sha-b30bb8d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1264,10 +1264,10 @@ var DomSanitizer = /** @class */ (function () {
     }
     DomSanitizer.ɵfac = function DomSanitizer_Factory(t) { return new (t || DomSanitizer)(); };
     DomSanitizer.ɵprov = ɵɵdefineInjectable({ token: DomSanitizer, factory: function DomSanitizer_Factory(t) { var r = null; if (t) {
-            (r = new (t || DomSanitizer)());
+            r = new (t || DomSanitizer)();
         }
         else {
-            (r = ɵɵinject(DomSanitizerImpl));
+            r = ɵɵinject(DomSanitizerImpl);
         } return r; }, providedIn: 'root' });
     return DomSanitizer;
 }());
@@ -1332,10 +1332,10 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
     };
     DomSanitizerImpl.ɵfac = function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(ɵɵinject(DOCUMENT)); };
     DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { var r = null; if (t) {
-            (r = new t());
+            r = new t();
         }
         else {
-            (r = domSanitizerImplFactory(ɵɵinject(Injector)));
+            r = domSanitizerImplFactory(ɵɵinject(Injector));
         } return r; }, providedIn: 'root' });
     return DomSanitizerImpl;
 }(DomSanitizer));
@@ -1559,10 +1559,10 @@ var Meta = /** @class */ (function () {
     };
     Meta.ɵfac = function Meta_Factory(t) { return new (t || Meta)(ɵɵinject(DOCUMENT)); };
     Meta.ɵprov = ɵɵdefineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
-            (r = new t());
+            r = new t();
         }
         else {
-            (r = createMeta());
+            r = createMeta();
         } return r; }, providedIn: 'root' });
     return Meta;
 }());
@@ -1612,10 +1612,10 @@ var Title = /** @class */ (function () {
     Title.prototype.setTitle = function (newTitle) { this._doc.title = newTitle || ''; };
     Title.ɵfac = function Title_Factory(t) { return new (t || Title)(ɵɵinject(DOCUMENT)); };
     Title.ɵprov = ɵɵdefineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
-            (r = new t());
+            r = new t();
         }
         else {
-            (r = createTitle());
+            r = createTitle();
         } return r; }, providedIn: 'root' });
     return Title;
 }());
@@ -1965,7 +1965,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+89.sha-f1b3284.with-local-changes');
+var VERSION = new Version('9.0.0-rc.1+100.sha-b30bb8d.with-local-changes');
 
 /**
  * @license
