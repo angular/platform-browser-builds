@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -634,12 +634,12 @@ EventManager.ctorParameters = () => [
 ];
 /** @nocollapse */ EventManager.ɵfac = function EventManager_Factory(t) { return new (t || EventManager)(ɵɵinject(EVENT_MANAGER_PLUGINS), ɵɵinject(NgZone)); };
 /** @nocollapse */ EventManager.ɵprov = ɵɵdefineInjectable({ token: EventManager, factory: function (t) { return EventManager.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(EventManager, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(EventManager, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [EVENT_MANAGER_PLUGINS]
-            }] }, { type: NgZone }]; }, null);
+            }] }, { type: NgZone }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -758,9 +758,9 @@ SharedStylesHost.decorators = [
 ];
 /** @nocollapse */ SharedStylesHost.ɵfac = function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); };
 /** @nocollapse */ SharedStylesHost.ɵprov = ɵɵdefineInjectable({ token: SharedStylesHost, factory: function (t) { return SharedStylesHost.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(SharedStylesHost, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(SharedStylesHost, [{
         type: Injectable
-    }], null, null);
+    }], null, null); })();
 if (false) {
     /**
      * \@internal
@@ -840,12 +840,12 @@ DomSharedStylesHost.ctorParameters = () => [
 ];
 /** @nocollapse */ DomSharedStylesHost.ɵfac = function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ DomSharedStylesHost.ɵprov = ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: function (t) { return DomSharedStylesHost.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(DomSharedStylesHost, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomSharedStylesHost, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -1019,12 +1019,12 @@ DomRendererFactory2.ctorParameters = () => [
 ];
 /** @nocollapse */ DomRendererFactory2.ɵfac = function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(DomSharedStylesHost), ɵɵinject(APP_ID)); };
 /** @nocollapse */ DomRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: DomRendererFactory2, factory: function (t) { return DomRendererFactory2.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(DomRendererFactory2, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomRendererFactory2, [{
         type: Injectable
     }], function () { return [{ type: EventManager }, { type: DomSharedStylesHost }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [APP_ID]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -1492,12 +1492,12 @@ DomEventsPlugin.ctorParameters = () => [
 ];
 /** @nocollapse */ DomEventsPlugin.ɵfac = function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ DomEventsPlugin.ɵprov = ɵɵdefineInjectable({ token: DomEventsPlugin, factory: function (t) { return DomEventsPlugin.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(DomEventsPlugin, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomEventsPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 /**
  * @fileoverview added by tsickle
@@ -1642,9 +1642,9 @@ HammerGestureConfig.decorators = [
 ];
 /** @nocollapse */ HammerGestureConfig.ɵfac = function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); };
 /** @nocollapse */ HammerGestureConfig.ɵprov = ɵɵdefineInjectable({ token: HammerGestureConfig, factory: function (t) { return HammerGestureConfig.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(HammerGestureConfig, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(HammerGestureConfig, [{
         type: Injectable
-    }], null, null);
+    }], null, null); })();
 if (false) {
     /**
      * A set of supported event names for gestures to be used in Angular.
@@ -1825,7 +1825,7 @@ HammerGesturesPlugin.ctorParameters = () => [
 ];
 /** @nocollapse */ HammerGesturesPlugin.ɵfac = function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(HAMMER_GESTURE_CONFIG), ɵɵinject(ɵConsole), ɵɵinject(HAMMER_LOADER, 8)); };
 /** @nocollapse */ HammerGesturesPlugin.ɵprov = ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: function (t) { return HammerGesturesPlugin.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(HammerGesturesPlugin, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(HammerGesturesPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
@@ -1838,7 +1838,7 @@ HammerGesturesPlugin.ctorParameters = () => [
             }, {
                 type: Inject,
                 args: [HAMMER_LOADER]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -1896,10 +1896,10 @@ HammerModule.decorators = [
 ];
 /** @nocollapse */ HammerModule.ɵmod = ɵɵdefineNgModule({ type: HammerModule });
 /** @nocollapse */ HammerModule.ɵinj = ɵɵdefineInjector({ factory: function HammerModule_Factory(t) { return new (t || HammerModule)(); }, providers: HAMMER_PROVIDERS__PRE_R3__ });
-/*@__PURE__*/ ɵsetClassMetadata(HammerModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(HammerModule, [{
         type: NgModule,
         args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ }]
-    }], null, null);
+    }], null, null); })();
 
 /**
  * @fileoverview added by tsickle
@@ -2140,12 +2140,12 @@ KeyEventsPlugin.ctorParameters = () => [
 ];
 /** @nocollapse */ KeyEventsPlugin.ɵfac = function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ KeyEventsPlugin.ɵprov = ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: function (t) { return KeyEventsPlugin.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(KeyEventsPlugin, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(KeyEventsPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 /**
  * @param {?} event
  * @return {?}
@@ -2267,13 +2267,13 @@ DomSanitizer.decorators = [
     else {
         r = ɵɵinject(DomSanitizerImpl);
     } return r; }, providedIn: 'root' });
-/*@__PURE__*/ ɵsetClassMetadata(DomSanitizer, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomSanitizer, [{
         type: Injectable,
         args: [{ providedIn: 'root', useExisting: forwardRef(/**
                  * @return {?}
                  */
                 () => DomSanitizerImpl) }]
-    }], null, null);
+    }], null, null); })();
 if (false) {
     /**
      * Sanitizes a value for use in the given SecurityContext.
@@ -2444,13 +2444,13 @@ DomSanitizerImpl.ctorParameters = () => [
     else {
         r = domSanitizerImplFactory(ɵɵinject(Injector));
     } return r; }, providedIn: 'root' });
-/*@__PURE__*/ ɵsetClassMetadata(DomSanitizerImpl, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomSanitizerImpl, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] }]
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -2589,7 +2589,7 @@ BrowserModule.ctorParameters = () => [
 /** @nocollapse */ BrowserModule.ɵmod = ɵɵdefineNgModule({ type: BrowserModule });
 /** @nocollapse */ BrowserModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(ɵɵinject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserModule, { exports: [CommonModule, ApplicationModule] }); })();
-/*@__PURE__*/ ɵsetClassMetadata(BrowserModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserModule, [{
         type: NgModule,
         args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]
     }], function () { return [{ type: BrowserModule, decorators: [{
@@ -2599,7 +2599,7 @@ BrowserModule.ctorParameters = () => [
             }, {
                 type: Inject,
                 args: [BrowserModule]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 /**
  * @fileoverview added by tsickle
@@ -2790,13 +2790,13 @@ Meta.ctorParameters = () => [
     else {
         r = createMeta();
     } return r; }, providedIn: 'root' });
-/*@__PURE__*/ ɵsetClassMetadata(Meta, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(Meta, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -2871,13 +2871,13 @@ Title.ctorParameters = () => [
     else {
         r = createTitle();
     } return r; }, providedIn: 'root' });
-/*@__PURE__*/ ɵsetClassMetadata(Title, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(Title, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -3184,9 +3184,9 @@ TransferState.decorators = [
 ];
 /** @nocollapse */ TransferState.ɵfac = function TransferState_Factory(t) { return new (t || TransferState)(); };
 /** @nocollapse */ TransferState.ɵprov = ɵɵdefineInjectable({ token: TransferState, factory: function (t) { return TransferState.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(TransferState, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(TransferState, [{
         type: Injectable
-    }], null, null);
+    }], null, null); })();
 if (false) {
     /**
      * @type {?}
@@ -3236,12 +3236,12 @@ BrowserTransferStateModule.decorators = [
 ];
 /** @nocollapse */ BrowserTransferStateModule.ɵmod = ɵɵdefineNgModule({ type: BrowserTransferStateModule });
 /** @nocollapse */ BrowserTransferStateModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }] });
-/*@__PURE__*/ ɵsetClassMetadata(BrowserTransferStateModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserTransferStateModule, [{
         type: NgModule,
         args: [{
                 providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
             }]
-    }], null, null);
+    }], null, null); })();
 
 /**
  * @fileoverview added by tsickle
@@ -3332,7 +3332,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.1+188.sha-b54ed98.with-local-changes');
+const VERSION = new Version('9.0.0-rc.1+197.sha-55748db.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

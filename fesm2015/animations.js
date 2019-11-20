@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -55,12 +55,12 @@ BrowserAnimationBuilder.ctorParameters = () => [
 ];
 /** @nocollapse */ BrowserAnimationBuilder.ɵfac = function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(ɵɵinject(RendererFactory2), ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ BrowserAnimationBuilder.ɵprov = ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: function (t) { return BrowserAnimationBuilder.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationBuilder, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserAnimationBuilder, [{
         type: Injectable
     }], function () { return [{ type: RendererFactory2 }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -413,9 +413,9 @@ AnimationRendererFactory.ctorParameters = () => [
 ];
 /** @nocollapse */ AnimationRendererFactory.ɵfac = function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(ɵɵinject(RendererFactory2), ɵɵinject(ɵAnimationEngine), ɵɵinject(NgZone)); };
 /** @nocollapse */ AnimationRendererFactory.ɵprov = ɵɵdefineInjectable({ token: AnimationRendererFactory, factory: function (t) { return AnimationRendererFactory.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(AnimationRendererFactory, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(AnimationRendererFactory, [{
         type: Injectable
-    }], function () { return [{ type: RendererFactory2 }, { type: ɵAnimationEngine }, { type: NgZone }]; }, null);
+    }], function () { return [{ type: RendererFactory2 }, { type: ɵAnimationEngine }, { type: NgZone }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -786,12 +786,12 @@ InjectableAnimationEngine.ctorParameters = () => [
 ];
 /** @nocollapse */ InjectableAnimationEngine.ɵfac = function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(ɵɵinject(DOCUMENT), ɵɵinject(AnimationDriver), ɵɵinject(ɵAnimationStyleNormalizer)); };
 /** @nocollapse */ InjectableAnimationEngine.ɵprov = ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: function (t) { return InjectableAnimationEngine.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(InjectableAnimationEngine, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }, { type: AnimationDriver }, { type: ɵAnimationStyleNormalizer }]; }, null);
+            }] }, { type: AnimationDriver }, { type: ɵAnimationStyleNormalizer }]; }, null); })();
 /**
  * @return {?}
  */
@@ -867,13 +867,13 @@ BrowserAnimationsModule.decorators = [
 /** @nocollapse */ BrowserAnimationsModule.ɵmod = ɵɵdefineNgModule({ type: BrowserAnimationsModule });
 /** @nocollapse */ BrowserAnimationsModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] }); })();
-/*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationsModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserAnimationsModule, [{
         type: NgModule,
         args: [{
                 exports: [BrowserModule],
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
             }]
-    }], null, null);
+    }], null, null); })();
 /**
  * A null player that must be imported to allow disabling of animations.
  * \@publicApi
@@ -889,13 +889,13 @@ NoopAnimationsModule.decorators = [
 /** @nocollapse */ NoopAnimationsModule.ɵmod = ɵɵdefineNgModule({ type: NoopAnimationsModule });
 /** @nocollapse */ NoopAnimationsModule.ɵinj = ɵɵdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] }); })();
-/*@__PURE__*/ ɵsetClassMetadata(NoopAnimationsModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(NoopAnimationsModule, [{
         type: NgModule,
         args: [{
                 exports: [BrowserModule],
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             }]
-    }], null, null);
+    }], null, null); })();
 
 /**
  * @fileoverview added by tsickle

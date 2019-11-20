@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -612,12 +612,12 @@
         EventManager.ɵprov = i0.ɵɵdefineInjectable({ token: EventManager, factory: function (t) { return EventManager.ɵfac(t); }, providedIn: null });
         return EventManager;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(EventManager, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(EventManager, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [EVENT_MANAGER_PLUGINS]
-                }] }, { type: i0.NgZone }]; }, null);
+                }] }, { type: i0.NgZone }]; }, null); })();
     var EventManagerPlugin = /** @class */ (function () {
         function EventManagerPlugin(_doc) {
             this._doc = _doc;
@@ -654,9 +654,9 @@
         SharedStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: SharedStylesHost, factory: function (t) { return SharedStylesHost.ɵfac(t); }, providedIn: null });
         return SharedStylesHost;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(SharedStylesHost, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(SharedStylesHost, [{
             type: i0.Injectable
-        }], null, null);
+        }], null, null); })();
     var DomSharedStylesHost = /** @class */ (function (_super) {
         __extends(DomSharedStylesHost, _super);
         function DomSharedStylesHost(_doc) {
@@ -689,12 +689,12 @@
         DomSharedStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: function (t) { return DomSharedStylesHost.ɵfac(t); }, providedIn: null });
         return DomSharedStylesHost;
     }(SharedStylesHost));
-    /*@__PURE__*/ i0.ɵsetClassMetadata(DomSharedStylesHost, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(DomSharedStylesHost, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }] }]; }, null);
+                }] }]; }, null); })();
 
     var NAMESPACE_URIS = {
         'svg': 'http://www.w3.org/2000/svg',
@@ -784,12 +784,12 @@
         DomRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: DomRendererFactory2, factory: function (t) { return DomRendererFactory2.ɵfac(t); }, providedIn: null });
         return DomRendererFactory2;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(DomRendererFactory2, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(DomRendererFactory2, [{
             type: i0.Injectable
         }], function () { return [{ type: EventManager }, { type: DomSharedStylesHost }, { type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [i0.APP_ID]
-                }] }]; }, null);
+                }] }]; }, null); })();
     var DefaultDomRenderer2 = /** @class */ (function () {
         function DefaultDomRenderer2(eventManager) {
             this.eventManager = eventManager;
@@ -984,12 +984,12 @@
         DomEventsPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: DomEventsPlugin, factory: function (t) { return DomEventsPlugin.ɵfac(t); }, providedIn: null });
         return DomEventsPlugin;
     }(EventManagerPlugin));
-    /*@__PURE__*/ i0.ɵsetClassMetadata(DomEventsPlugin, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(DomEventsPlugin, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }] }]; }, null);
+                }] }]; }, null); })();
 
     /**
      * Supported HammerJS recognizer event names.
@@ -1095,9 +1095,9 @@
         HammerGestureConfig.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGestureConfig, factory: function (t) { return HammerGestureConfig.ɵfac(t); }, providedIn: null });
         return HammerGestureConfig;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(HammerGestureConfig, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(HammerGestureConfig, [{
             type: i0.Injectable
-        }], null, null);
+        }], null, null); })();
     /**
      * Event plugin that adds Hammer support to an application.
      *
@@ -1180,7 +1180,7 @@
         HammerGesturesPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: function (t) { return HammerGesturesPlugin.ɵfac(t); }, providedIn: null });
         return HammerGesturesPlugin;
     }(EventManagerPlugin));
-    /*@__PURE__*/ i0.ɵsetClassMetadata(HammerGesturesPlugin, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(HammerGesturesPlugin, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
@@ -1193,7 +1193,7 @@
                 }, {
                     type: i0.Inject,
                     args: [HAMMER_LOADER]
-                }] }]; }, null);
+                }] }]; }, null); })();
     /**
      * In Ivy, support for Hammer gestures is optional, so applications must
      * import the `HammerModule` at root to turn on support. This means that
@@ -1231,10 +1231,10 @@
         HammerModule.ɵinj = i0.ɵɵdefineInjector({ factory: function HammerModule_Factory(t) { return new (t || HammerModule)(); }, providers: HAMMER_PROVIDERS__PRE_R3__ });
         return HammerModule;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(HammerModule, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(HammerModule, [{
             type: i0.NgModule,
             args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ }]
-        }], null, null);
+        }], null, null); })();
 
     /**
      * Defines supported modifiers for key events.
@@ -1397,12 +1397,12 @@
         KeyEventsPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: function (t) { return KeyEventsPlugin.ɵfac(t); }, providedIn: null });
         return KeyEventsPlugin;
     }(EventManagerPlugin));
-    /*@__PURE__*/ i0.ɵsetClassMetadata(KeyEventsPlugin, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(KeyEventsPlugin, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }] }]; }, null);
+                }] }]; }, null); })();
     function getEventKey(event) {
         var key = event.key;
         if (key == null) {
@@ -1469,10 +1469,10 @@
             } return r; }, providedIn: 'root' });
         return DomSanitizer;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(DomSanitizer, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(DomSanitizer, [{
             type: i0.Injectable,
             args: [{ providedIn: 'root', useExisting: i0.forwardRef(function () { return DomSanitizerImpl; }) }]
-        }], null, null);
+        }], null, null); })();
     function domSanitizerImplFactory(injector) {
         return new DomSanitizerImpl(injector.get(common.DOCUMENT));
     }
@@ -1537,13 +1537,13 @@
             } return r; }, providedIn: 'root' });
         return DomSanitizerImpl;
     }(DomSanitizer));
-    /*@__PURE__*/ i0.ɵsetClassMetadata(DomSanitizerImpl, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(DomSanitizerImpl, [{
             type: i0.Injectable,
             args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [i0.Injector] }]
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }] }]; }, null);
+                }] }]; }, null); })();
 
     /**
      * @license
@@ -1647,7 +1647,7 @@
         return BrowserModule;
     }());
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserModule, { exports: [common.CommonModule, i0.ApplicationModule] }); })();
-    /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserModule, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(BrowserModule, [{
             type: i0.NgModule,
             args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] }]
         }], function () { return [{ type: BrowserModule, decorators: [{
@@ -1657,7 +1657,7 @@
                 }, {
                     type: i0.Inject,
                     args: [BrowserModule]
-                }] }]; }, null);
+                }] }]; }, null); })();
 
     /**
      * @license
@@ -1764,13 +1764,13 @@
             } return r; }, providedIn: 'root' });
         return Meta;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(Meta, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(Meta, [{
             type: i0.Injectable,
             args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }] }]; }, null);
+                }] }]; }, null); })();
 
     /**
      * @license
@@ -1817,13 +1817,13 @@
             } return r; }, providedIn: 'root' });
         return Title;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(Title, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(Title, [{
             type: i0.Injectable,
             args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }] }]; }, null);
+                }] }]; }, null); })();
 
     /**
      * @license
@@ -2046,9 +2046,9 @@
         TransferState.ɵprov = i0.ɵɵdefineInjectable({ token: TransferState, factory: function (t) { return TransferState.ɵfac(t); }, providedIn: null });
         return TransferState;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(TransferState, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(TransferState, [{
             type: i0.Injectable
-        }], null, null);
+        }], null, null); })();
     function initTransferState(doc, appId) {
         // Locate the script tag with the JSON data transferred from the server.
         // The id of the script tag is set to the Angular appId + 'state'.
@@ -2077,12 +2077,12 @@
         BrowserTransferStateModule.ɵinj = i0.ɵɵdefineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, i0.APP_ID] }] });
         return BrowserTransferStateModule;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserTransferStateModule, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(BrowserTransferStateModule, [{
             type: i0.NgModule,
             args: [{
                     providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, i0.APP_ID] }],
                 }]
-        }], null, null);
+        }], null, null); })();
 
     /**
      * @license
@@ -2163,7 +2163,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.1+188.sha-b54ed98.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-rc.1+197.sha-55748db.with-local-changes');
 
     /**
      * @license

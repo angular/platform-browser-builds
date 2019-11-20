@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -414,12 +414,12 @@ var EventManager = /** @class */ (function () {
     EventManager.ɵprov = ɵɵdefineInjectable({ token: EventManager, factory: function (t) { return EventManager.ɵfac(t); }, providedIn: null });
     return EventManager;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(EventManager, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(EventManager, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [EVENT_MANAGER_PLUGINS]
-            }] }, { type: NgZone }]; }, null);
+            }] }, { type: NgZone }]; }, null); })();
 var EventManagerPlugin = /** @class */ (function () {
     function EventManagerPlugin(_doc) {
         this._doc = _doc;
@@ -456,9 +456,9 @@ var SharedStylesHost = /** @class */ (function () {
     SharedStylesHost.ɵprov = ɵɵdefineInjectable({ token: SharedStylesHost, factory: function (t) { return SharedStylesHost.ɵfac(t); }, providedIn: null });
     return SharedStylesHost;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(SharedStylesHost, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(SharedStylesHost, [{
         type: Injectable
-    }], null, null);
+    }], null, null); })();
 var DomSharedStylesHost = /** @class */ (function (_super) {
     __extends(DomSharedStylesHost, _super);
     function DomSharedStylesHost(_doc) {
@@ -491,12 +491,12 @@ var DomSharedStylesHost = /** @class */ (function (_super) {
     DomSharedStylesHost.ɵprov = ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: function (t) { return DomSharedStylesHost.ɵfac(t); }, providedIn: null });
     return DomSharedStylesHost;
 }(SharedStylesHost));
-/*@__PURE__*/ ɵsetClassMetadata(DomSharedStylesHost, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomSharedStylesHost, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 var NAMESPACE_URIS = {
     'svg': 'http://www.w3.org/2000/svg',
@@ -586,12 +586,12 @@ var DomRendererFactory2 = /** @class */ (function () {
     DomRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: DomRendererFactory2, factory: function (t) { return DomRendererFactory2.ɵfac(t); }, providedIn: null });
     return DomRendererFactory2;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(DomRendererFactory2, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomRendererFactory2, [{
         type: Injectable
     }], function () { return [{ type: EventManager }, { type: DomSharedStylesHost }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [APP_ID]
-            }] }]; }, null);
+            }] }]; }, null); })();
 var DefaultDomRenderer2 = /** @class */ (function () {
     function DefaultDomRenderer2(eventManager) {
         this.eventManager = eventManager;
@@ -786,12 +786,12 @@ var DomEventsPlugin = /** @class */ (function (_super) {
     DomEventsPlugin.ɵprov = ɵɵdefineInjectable({ token: DomEventsPlugin, factory: function (t) { return DomEventsPlugin.ɵfac(t); }, providedIn: null });
     return DomEventsPlugin;
 }(EventManagerPlugin));
-/*@__PURE__*/ ɵsetClassMetadata(DomEventsPlugin, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomEventsPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 /**
  * Supported HammerJS recognizer event names.
@@ -897,9 +897,9 @@ var HammerGestureConfig = /** @class */ (function () {
     HammerGestureConfig.ɵprov = ɵɵdefineInjectable({ token: HammerGestureConfig, factory: function (t) { return HammerGestureConfig.ɵfac(t); }, providedIn: null });
     return HammerGestureConfig;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(HammerGestureConfig, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(HammerGestureConfig, [{
         type: Injectable
-    }], null, null);
+    }], null, null); })();
 /**
  * Event plugin that adds Hammer support to an application.
  *
@@ -982,7 +982,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
     HammerGesturesPlugin.ɵprov = ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: function (t) { return HammerGesturesPlugin.ɵfac(t); }, providedIn: null });
     return HammerGesturesPlugin;
 }(EventManagerPlugin));
-/*@__PURE__*/ ɵsetClassMetadata(HammerGesturesPlugin, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(HammerGesturesPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
@@ -995,7 +995,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
             }, {
                 type: Inject,
                 args: [HAMMER_LOADER]
-            }] }]; }, null);
+            }] }]; }, null); })();
 /**
  * In Ivy, support for Hammer gestures is optional, so applications must
  * import the `HammerModule` at root to turn on support. This means that
@@ -1033,10 +1033,10 @@ var HammerModule = /** @class */ (function () {
     HammerModule.ɵinj = ɵɵdefineInjector({ factory: function HammerModule_Factory(t) { return new (t || HammerModule)(); }, providers: HAMMER_PROVIDERS__PRE_R3__ });
     return HammerModule;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(HammerModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(HammerModule, [{
         type: NgModule,
         args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ }]
-    }], null, null);
+    }], null, null); })();
 
 /**
  * Defines supported modifiers for key events.
@@ -1199,12 +1199,12 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
     KeyEventsPlugin.ɵprov = ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: function (t) { return KeyEventsPlugin.ɵfac(t); }, providedIn: null });
     return KeyEventsPlugin;
 }(EventManagerPlugin));
-/*@__PURE__*/ ɵsetClassMetadata(KeyEventsPlugin, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(KeyEventsPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 function getEventKey(event) {
     var key = event.key;
     if (key == null) {
@@ -1271,10 +1271,10 @@ var DomSanitizer = /** @class */ (function () {
         } return r; }, providedIn: 'root' });
     return DomSanitizer;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(DomSanitizer, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomSanitizer, [{
         type: Injectable,
         args: [{ providedIn: 'root', useExisting: forwardRef(function () { return DomSanitizerImpl; }) }]
-    }], null, null);
+    }], null, null); })();
 function domSanitizerImplFactory(injector) {
     return new DomSanitizerImpl(injector.get(DOCUMENT));
 }
@@ -1339,13 +1339,13 @@ var DomSanitizerImpl = /** @class */ (function (_super) {
         } return r; }, providedIn: 'root' });
     return DomSanitizerImpl;
 }(DomSanitizer));
-/*@__PURE__*/ ɵsetClassMetadata(DomSanitizerImpl, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(DomSanitizerImpl, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] }]
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 /**
  * @license
@@ -1449,7 +1449,7 @@ var BrowserModule = /** @class */ (function () {
     return BrowserModule;
 }());
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserModule, { exports: [CommonModule, ApplicationModule] }); })();
-/*@__PURE__*/ ɵsetClassMetadata(BrowserModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserModule, [{
         type: NgModule,
         args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]
     }], function () { return [{ type: BrowserModule, decorators: [{
@@ -1459,7 +1459,7 @@ var BrowserModule = /** @class */ (function () {
             }, {
                 type: Inject,
                 args: [BrowserModule]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 /**
  * @license
@@ -1566,13 +1566,13 @@ var Meta = /** @class */ (function () {
         } return r; }, providedIn: 'root' });
     return Meta;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(Meta, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(Meta, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 /**
  * @license
@@ -1619,13 +1619,13 @@ var Title = /** @class */ (function () {
         } return r; }, providedIn: 'root' });
     return Title;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(Title, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(Title, [{
         type: Injectable,
         args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 /**
  * @license
@@ -1848,9 +1848,9 @@ var TransferState = /** @class */ (function () {
     TransferState.ɵprov = ɵɵdefineInjectable({ token: TransferState, factory: function (t) { return TransferState.ɵfac(t); }, providedIn: null });
     return TransferState;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(TransferState, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(TransferState, [{
         type: Injectable
-    }], null, null);
+    }], null, null); })();
 function initTransferState(doc, appId) {
     // Locate the script tag with the JSON data transferred from the server.
     // The id of the script tag is set to the Angular appId + 'state'.
@@ -1879,12 +1879,12 @@ var BrowserTransferStateModule = /** @class */ (function () {
     BrowserTransferStateModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserTransferStateModule_Factory(t) { return new (t || BrowserTransferStateModule)(); }, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }] });
     return BrowserTransferStateModule;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(BrowserTransferStateModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserTransferStateModule, [{
         type: NgModule,
         args: [{
                 providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
             }]
-    }], null, null);
+    }], null, null); })();
 
 /**
  * @license
@@ -1965,7 +1965,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+188.sha-b54ed98.with-local-changes');
+var VERSION = new Version('9.0.0-rc.1+197.sha-55748db.with-local-changes');
 
 /**
  * @license

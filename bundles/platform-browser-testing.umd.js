@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -524,7 +524,7 @@
         return BrowserTestingModule;
     }());
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserTestingModule, { exports: [platformBrowser.BrowserModule] }); })();
-    /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserTestingModule, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(BrowserTestingModule, [{
             type: i0.NgModule,
             args: [{
                     exports: [platformBrowser.BrowserModule],
@@ -534,7 +534,7 @@
                         { provide: i0.NgZone, useFactory: createNgZone },
                     ]
                 }]
-        }], null, null);
+        }], null, null); })();
 
     /**
      * @license
