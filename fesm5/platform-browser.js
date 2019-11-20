@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+186.sha-97fbdab.with-local-changes
+ * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1448,7 +1448,7 @@ var BrowserModule = /** @class */ (function () {
     BrowserModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(ɵɵinject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
     return BrowserModule;
 }());
-/*@__PURE__*/ ɵɵsetNgModuleScope(BrowserModule, { exports: [CommonModule, ApplicationModule] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserModule, { exports: [CommonModule, ApplicationModule] }); })();
 /*@__PURE__*/ ɵsetClassMetadata(BrowserModule, [{
         type: NgModule,
         args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]
@@ -1965,7 +1965,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+186.sha-97fbdab.with-local-changes');
+var VERSION = new Version('9.0.0-rc.1+188.sha-b54ed98.with-local-changes');
 
 /**
  * @license

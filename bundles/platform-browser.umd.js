@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+186.sha-97fbdab.with-local-changes
+ * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1646,7 +1646,7 @@
         BrowserModule.ɵinj = i0.ɵɵdefineInjector({ factory: function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.ɵɵinject(BrowserModule, 12)); }, providers: BROWSER_MODULE_PROVIDERS, imports: [common.CommonModule, i0.ApplicationModule] });
         return BrowserModule;
     }());
-    /*@__PURE__*/ i0.ɵɵsetNgModuleScope(BrowserModule, { exports: [common.CommonModule, i0.ApplicationModule] });
+    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserModule, { exports: [common.CommonModule, i0.ApplicationModule] }); })();
     /*@__PURE__*/ i0.ɵsetClassMetadata(BrowserModule, [{
             type: i0.NgModule,
             args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] }]
@@ -2163,7 +2163,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.1+186.sha-97fbdab.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-rc.1+188.sha-b54ed98.with-local-changes');
 
     /**
      * @license

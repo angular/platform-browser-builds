@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+186.sha-97fbdab.with-local-changes
+ * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -408,7 +408,7 @@ var BrowserAnimationsModule = /** @class */ (function () {
     BrowserAnimationsModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
     return BrowserAnimationsModule;
 }());
-/*@__PURE__*/ ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] }); })();
 /*@__PURE__*/ ɵsetClassMetadata(BrowserAnimationsModule, [{
         type: NgModule,
         args: [{
@@ -427,7 +427,7 @@ var NoopAnimationsModule = /** @class */ (function () {
     NoopAnimationsModule.ɵinj = ɵɵdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
     return NoopAnimationsModule;
 }());
-/*@__PURE__*/ ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] }); })();
 /*@__PURE__*/ ɵsetClassMetadata(NoopAnimationsModule, [{
         type: NgModule,
         args: [{
