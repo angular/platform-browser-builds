@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+226.sha-a37bf9a.with-local-changes
+ * @license Angular v9.0.0-rc.1+227.sha-3c335c3.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -12,6 +12,7 @@ import { DOCUMENT } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/animations/src/animation_builder.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class BrowserAnimationBuilder extends AnimationBuilder {
@@ -232,6 +233,7 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/animations/src/animation_renderer.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -756,6 +758,7 @@ function parseTriggerCallbackName(triggerName) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/animations/src/providers.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -849,6 +852,7 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/animations/src/module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -899,21 +903,25 @@ NoopAnimationsModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/animations/src/private_export.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/animations/src/animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/animations/public_api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/animations/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
