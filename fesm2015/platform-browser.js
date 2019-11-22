@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.3+35.sha-ad9b9a3.with-local-changes
+ * @license Angular v9.0.0-rc.3+42.sha-99e68d0.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10,6 +10,7 @@ import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injec
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/generic_browser_adapter.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -29,6 +30,7 @@ class GenericBrowserDomAdapter extends ɵDomAdapter {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/browser_adapter.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 const ɵ0 = /**
@@ -251,6 +253,7 @@ function relativePath(url) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/server-transition.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -305,6 +308,7 @@ const SERVER_TRANSITION_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/testability.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class BrowserGetTestability {
@@ -402,6 +406,7 @@ class BrowserGetTestability {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/dom/util.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -452,6 +457,7 @@ function exportNgVar(name, value) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/dom/debug/ng_probe.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 const ɵ0$1 = /**
@@ -529,6 +535,7 @@ const ELEMENT_PROBE_PROVIDERS = ELEMENT_PROBE_PROVIDERS__PRE_R3__;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/dom/events/event_manager.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -695,6 +702,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/dom/shared_styles_host.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class SharedStylesHost {
@@ -833,6 +841,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/dom/dom_renderer.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -1390,6 +1399,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/dom/events/dom_events.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class DomEventsPlugin extends EventManagerPlugin {
@@ -1439,6 +1449,7 @@ DomEventsPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/dom/events/hammer_gestures.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1807,6 +1818,7 @@ HammerModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/dom/events/key_events.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2066,6 +2078,7 @@ function getEventKey(event) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/security/dom_sanitization_service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2325,6 +2338,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 const ɵ0$4 = ɵPLATFORM_BROWSER_ID;
@@ -2447,6 +2461,7 @@ BrowserModule.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/meta.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2636,6 +2651,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/title.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2692,6 +2708,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/tools/browser.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2706,6 +2723,7 @@ const win = typeof window !== 'undefined' && window || (/** @type {?} */ ({}));
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/tools/common_tools.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ChangeDetectionPerfRecord {
@@ -2790,6 +2808,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/tools/tools.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -2826,6 +2845,7 @@ function disableDebugTools() {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/browser/transfer_state.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -3029,6 +3049,7 @@ BrowserTransferStateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/dom/debug/by.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -3105,31 +3126,36 @@ function elementMatches(n, selector) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/private_export.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/version.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.3+35.sha-ad9b9a3.with-local-changes');
+const VERSION = new Version('9.0.0-rc.3+42.sha-99e68d0.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/src/platform-browser.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/public_api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-browser/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
