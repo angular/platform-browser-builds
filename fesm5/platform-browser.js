@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+329.sha-02958c0.with-local-changes
+ * @license Angular v9.0.0-rc.1+330.sha-755d2d5.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -411,7 +411,7 @@ var EventManager = /** @class */ (function () {
         throw new Error("No event manager plugin found for event " + eventName);
     };
     EventManager.ɵfac = function EventManager_Factory(t) { return new (t || EventManager)(ɵɵinject(EVENT_MANAGER_PLUGINS), ɵɵinject(NgZone)); };
-    EventManager.ɵprov = ɵɵdefineInjectable({ token: EventManager, factory: function (t) { return EventManager.ɵfac(t); }, providedIn: null });
+    EventManager.ɵprov = ɵɵdefineInjectable({ token: EventManager, factory: EventManager.ɵfac, providedIn: null });
     return EventManager;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(EventManager, [{
@@ -453,7 +453,7 @@ var SharedStylesHost = /** @class */ (function () {
     SharedStylesHost.prototype.onStylesAdded = function (additions) { };
     SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
     SharedStylesHost.ɵfac = function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); };
-    SharedStylesHost.ɵprov = ɵɵdefineInjectable({ token: SharedStylesHost, factory: function (t) { return SharedStylesHost.ɵfac(t); }, providedIn: null });
+    SharedStylesHost.ɵprov = ɵɵdefineInjectable({ token: SharedStylesHost, factory: SharedStylesHost.ɵfac, providedIn: null });
     return SharedStylesHost;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(SharedStylesHost, [{
@@ -488,7 +488,7 @@ var DomSharedStylesHost = /** @class */ (function (_super) {
     };
     DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return ɵgetDOM().remove(styleNode); }); };
     DomSharedStylesHost.ɵfac = function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(ɵɵinject(DOCUMENT)); };
-    DomSharedStylesHost.ɵprov = ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: function (t) { return DomSharedStylesHost.ɵfac(t); }, providedIn: null });
+    DomSharedStylesHost.ɵprov = ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: DomSharedStylesHost.ɵfac, providedIn: null });
     return DomSharedStylesHost;
 }(SharedStylesHost));
 /*@__PURE__*/ (function () { ɵsetClassMetadata(DomSharedStylesHost, [{
@@ -583,7 +583,7 @@ var DomRendererFactory2 = /** @class */ (function () {
     DomRendererFactory2.prototype.begin = function () { };
     DomRendererFactory2.prototype.end = function () { };
     DomRendererFactory2.ɵfac = function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(DomSharedStylesHost), ɵɵinject(APP_ID)); };
-    DomRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: DomRendererFactory2, factory: function (t) { return DomRendererFactory2.ɵfac(t); }, providedIn: null });
+    DomRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: DomRendererFactory2, factory: DomRendererFactory2.ɵfac, providedIn: null });
     return DomRendererFactory2;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(DomRendererFactory2, [{
@@ -783,7 +783,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
         return target.removeEventListener(eventName, callback);
     };
     DomEventsPlugin.ɵfac = function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(ɵɵinject(DOCUMENT)); };
-    DomEventsPlugin.ɵprov = ɵɵdefineInjectable({ token: DomEventsPlugin, factory: function (t) { return DomEventsPlugin.ɵfac(t); }, providedIn: null });
+    DomEventsPlugin.ɵprov = ɵɵdefineInjectable({ token: DomEventsPlugin, factory: DomEventsPlugin.ɵfac, providedIn: null });
     return DomEventsPlugin;
 }(EventManagerPlugin));
 /*@__PURE__*/ (function () { ɵsetClassMetadata(DomEventsPlugin, [{
@@ -894,7 +894,7 @@ var HammerGestureConfig = /** @class */ (function () {
         return mc;
     };
     HammerGestureConfig.ɵfac = function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); };
-    HammerGestureConfig.ɵprov = ɵɵdefineInjectable({ token: HammerGestureConfig, factory: function (t) { return HammerGestureConfig.ɵfac(t); }, providedIn: null });
+    HammerGestureConfig.ɵprov = ɵɵdefineInjectable({ token: HammerGestureConfig, factory: HammerGestureConfig.ɵfac, providedIn: null });
     return HammerGestureConfig;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(HammerGestureConfig, [{
@@ -979,7 +979,7 @@ var HammerGesturesPlugin = /** @class */ (function (_super) {
     };
     HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
     HammerGesturesPlugin.ɵfac = function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(ɵɵinject(DOCUMENT), ɵɵinject(HAMMER_GESTURE_CONFIG), ɵɵinject(ɵConsole), ɵɵinject(HAMMER_LOADER, 8)); };
-    HammerGesturesPlugin.ɵprov = ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: function (t) { return HammerGesturesPlugin.ɵfac(t); }, providedIn: null });
+    HammerGesturesPlugin.ɵprov = ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: HammerGesturesPlugin.ɵfac, providedIn: null });
     return HammerGesturesPlugin;
 }(EventManagerPlugin));
 /*@__PURE__*/ (function () { ɵsetClassMetadata(HammerGesturesPlugin, [{
@@ -1196,7 +1196,7 @@ var KeyEventsPlugin = /** @class */ (function (_super) {
         }
     };
     KeyEventsPlugin.ɵfac = function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(ɵɵinject(DOCUMENT)); };
-    KeyEventsPlugin.ɵprov = ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: function (t) { return KeyEventsPlugin.ɵfac(t); }, providedIn: null });
+    KeyEventsPlugin.ɵprov = ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: KeyEventsPlugin.ɵfac, providedIn: null });
     return KeyEventsPlugin;
 }(EventManagerPlugin));
 /*@__PURE__*/ (function () { ɵsetClassMetadata(KeyEventsPlugin, [{
@@ -1845,7 +1845,7 @@ var TransferState = /** @class */ (function () {
         return JSON.stringify(this.store);
     };
     TransferState.ɵfac = function TransferState_Factory(t) { return new (t || TransferState)(); };
-    TransferState.ɵprov = ɵɵdefineInjectable({ token: TransferState, factory: function (t) { return TransferState.ɵfac(t); }, providedIn: null });
+    TransferState.ɵprov = ɵɵdefineInjectable({ token: TransferState, factory: TransferState.ɵfac, providedIn: null });
     return TransferState;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(TransferState, [{
@@ -1965,7 +1965,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+329.sha-02958c0.with-local-changes');
+var VERSION = new Version('9.0.0-rc.1+330.sha-755d2d5.with-local-changes');
 
 /**
  * @license
