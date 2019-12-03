@@ -145,7 +145,7 @@ HammerGestureConfig.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */ HammerGestureConfig.ɵfac = function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); };
-/** @nocollapse */ HammerGestureConfig.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGestureConfig, factory: HammerGestureConfig.ɵfac, providedIn: null });
+/** @nocollapse */ HammerGestureConfig.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGestureConfig, factory: HammerGestureConfig.ɵfac });
 /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(HammerGestureConfig, [{
         type: Injectable
     }], null, null); })();
@@ -328,7 +328,7 @@ HammerGesturesPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
 ];
 /** @nocollapse */ HammerGesturesPlugin.ɵfac = function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(i0.ɵɵinject(DOCUMENT), i0.ɵɵinject(HAMMER_GESTURE_CONFIG), i0.ɵɵinject(i0.ɵConsole), i0.ɵɵinject(HAMMER_LOADER, 8)); };
-/** @nocollapse */ HammerGesturesPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: HammerGesturesPlugin.ɵfac, providedIn: null });
+/** @nocollapse */ HammerGesturesPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: HammerGesturesPlugin.ɵfac });
 /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(HammerGesturesPlugin, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{

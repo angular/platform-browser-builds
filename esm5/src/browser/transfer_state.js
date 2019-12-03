@@ -111,7 +111,7 @@ var TransferState = /** @class */ (function () {
         return JSON.stringify(this.store);
     };
     TransferState.ɵfac = function TransferState_Factory(t) { return new (t || TransferState)(); };
-    TransferState.ɵprov = i0.ɵɵdefineInjectable({ token: TransferState, factory: TransferState.ɵfac, providedIn: null });
+    TransferState.ɵprov = i0.ɵɵdefineInjectable({ token: TransferState, factory: TransferState.ɵfac });
     return TransferState;
 }());
 export { TransferState };

@@ -159,7 +159,7 @@ DomRendererFactory2.ctorParameters = () => [
     { type: String, decorators: [{ type: Inject, args: [APP_ID,] }] }
 ];
 /** @nocollapse */ DomRendererFactory2.ɵfac = function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(i0.ɵɵinject(i1.EventManager), i0.ɵɵinject(i2.DomSharedStylesHost), i0.ɵɵinject(APP_ID)); };
-/** @nocollapse */ DomRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: DomRendererFactory2, factory: DomRendererFactory2.ɵfac, providedIn: null });
+/** @nocollapse */ DomRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: DomRendererFactory2, factory: DomRendererFactory2.ɵfac });
 /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(DomRendererFactory2, [{
         type: Injectable
     }], function () { return [{ type: i1.EventManager }, { type: i2.DomSharedStylesHost }, { type: undefined, decorators: [{

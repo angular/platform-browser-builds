@@ -27,7 +27,7 @@ var DomEventsPlugin = /** @class */ (function (_super) {
         return target.removeEventListener(eventName, callback);
     };
     DomEventsPlugin.ɵfac = function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(i0.ɵɵinject(DOCUMENT)); };
-    DomEventsPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: DomEventsPlugin, factory: DomEventsPlugin.ɵfac, providedIn: null });
+    DomEventsPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: DomEventsPlugin, factory: DomEventsPlugin.ɵfac });
     return DomEventsPlugin;
 }(EventManagerPlugin));
 export { DomEventsPlugin };

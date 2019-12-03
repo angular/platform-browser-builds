@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+335.sha-56f4e56.with-local-changes
+ * @license Angular v9.0.0-rc.1+336.sha-67eac73.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -609,7 +609,7 @@
             throw new Error("No event manager plugin found for event " + eventName);
         };
         EventManager.ɵfac = function EventManager_Factory(t) { return new (t || EventManager)(i0.ɵɵinject(EVENT_MANAGER_PLUGINS), i0.ɵɵinject(i0.NgZone)); };
-        EventManager.ɵprov = i0.ɵɵdefineInjectable({ token: EventManager, factory: EventManager.ɵfac, providedIn: null });
+        EventManager.ɵprov = i0.ɵɵdefineInjectable({ token: EventManager, factory: EventManager.ɵfac });
         return EventManager;
     }());
     /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(EventManager, [{
@@ -651,7 +651,7 @@
         SharedStylesHost.prototype.onStylesAdded = function (additions) { };
         SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
         SharedStylesHost.ɵfac = function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); };
-        SharedStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: SharedStylesHost, factory: SharedStylesHost.ɵfac, providedIn: null });
+        SharedStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: SharedStylesHost, factory: SharedStylesHost.ɵfac });
         return SharedStylesHost;
     }());
     /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(SharedStylesHost, [{
@@ -686,7 +686,7 @@
         };
         DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return common.ɵgetDOM().remove(styleNode); }); };
         DomSharedStylesHost.ɵfac = function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(i0.ɵɵinject(common.DOCUMENT)); };
-        DomSharedStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: DomSharedStylesHost.ɵfac, providedIn: null });
+        DomSharedStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: DomSharedStylesHost.ɵfac });
         return DomSharedStylesHost;
     }(SharedStylesHost));
     /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(DomSharedStylesHost, [{
@@ -781,7 +781,7 @@
         DomRendererFactory2.prototype.begin = function () { };
         DomRendererFactory2.prototype.end = function () { };
         DomRendererFactory2.ɵfac = function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(i0.ɵɵinject(EventManager), i0.ɵɵinject(DomSharedStylesHost), i0.ɵɵinject(i0.APP_ID)); };
-        DomRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: DomRendererFactory2, factory: DomRendererFactory2.ɵfac, providedIn: null });
+        DomRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: DomRendererFactory2, factory: DomRendererFactory2.ɵfac });
         return DomRendererFactory2;
     }());
     /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(DomRendererFactory2, [{
@@ -981,7 +981,7 @@
             return target.removeEventListener(eventName, callback);
         };
         DomEventsPlugin.ɵfac = function DomEventsPlugin_Factory(t) { return new (t || DomEventsPlugin)(i0.ɵɵinject(common.DOCUMENT)); };
-        DomEventsPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: DomEventsPlugin, factory: DomEventsPlugin.ɵfac, providedIn: null });
+        DomEventsPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: DomEventsPlugin, factory: DomEventsPlugin.ɵfac });
         return DomEventsPlugin;
     }(EventManagerPlugin));
     /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(DomEventsPlugin, [{
@@ -1092,7 +1092,7 @@
             return mc;
         };
         HammerGestureConfig.ɵfac = function HammerGestureConfig_Factory(t) { return new (t || HammerGestureConfig)(); };
-        HammerGestureConfig.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGestureConfig, factory: HammerGestureConfig.ɵfac, providedIn: null });
+        HammerGestureConfig.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGestureConfig, factory: HammerGestureConfig.ɵfac });
         return HammerGestureConfig;
     }());
     /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(HammerGestureConfig, [{
@@ -1177,7 +1177,7 @@
         };
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
         HammerGesturesPlugin.ɵfac = function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(HAMMER_GESTURE_CONFIG), i0.ɵɵinject(i0.ɵConsole), i0.ɵɵinject(HAMMER_LOADER, 8)); };
-        HammerGesturesPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: HammerGesturesPlugin.ɵfac, providedIn: null });
+        HammerGesturesPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: HammerGesturesPlugin.ɵfac });
         return HammerGesturesPlugin;
     }(EventManagerPlugin));
     /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(HammerGesturesPlugin, [{
@@ -1394,7 +1394,7 @@
             }
         };
         KeyEventsPlugin.ɵfac = function KeyEventsPlugin_Factory(t) { return new (t || KeyEventsPlugin)(i0.ɵɵinject(common.DOCUMENT)); };
-        KeyEventsPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: KeyEventsPlugin.ɵfac, providedIn: null });
+        KeyEventsPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: KeyEventsPlugin, factory: KeyEventsPlugin.ɵfac });
         return KeyEventsPlugin;
     }(EventManagerPlugin));
     /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(KeyEventsPlugin, [{
@@ -2043,7 +2043,7 @@
             return JSON.stringify(this.store);
         };
         TransferState.ɵfac = function TransferState_Factory(t) { return new (t || TransferState)(); };
-        TransferState.ɵprov = i0.ɵɵdefineInjectable({ token: TransferState, factory: TransferState.ɵfac, providedIn: null });
+        TransferState.ɵprov = i0.ɵɵdefineInjectable({ token: TransferState, factory: TransferState.ɵfac });
         return TransferState;
     }());
     /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(TransferState, [{
@@ -2163,7 +2163,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.1+335.sha-56f4e56.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-rc.1+336.sha-67eac73.with-local-changes');
 
     /**
      * @license

@@ -32,7 +32,7 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
         return new BrowserAnimationFactory(id, this._renderer);
     };
     BrowserAnimationBuilder.ɵfac = function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(i0.ɵɵinject(i0.RendererFactory2), i0.ɵɵinject(DOCUMENT)); };
-    BrowserAnimationBuilder.ɵprov = i0.ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: BrowserAnimationBuilder.ɵfac, providedIn: null });
+    BrowserAnimationBuilder.ɵprov = i0.ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: BrowserAnimationBuilder.ɵfac });
     return BrowserAnimationBuilder;
 }(AnimationBuilder));
 export { BrowserAnimationBuilder };

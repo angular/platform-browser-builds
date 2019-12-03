@@ -97,7 +97,7 @@ var DomRendererFactory2 = /** @class */ (function () {
     DomRendererFactory2.prototype.begin = function () { };
     DomRendererFactory2.prototype.end = function () { };
     DomRendererFactory2.ɵfac = function DomRendererFactory2_Factory(t) { return new (t || DomRendererFactory2)(i0.ɵɵinject(i1.EventManager), i0.ɵɵinject(i2.DomSharedStylesHost), i0.ɵɵinject(APP_ID)); };
-    DomRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: DomRendererFactory2, factory: DomRendererFactory2.ɵfac, providedIn: null });
+    DomRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: DomRendererFactory2, factory: DomRendererFactory2.ɵfac });
     return DomRendererFactory2;
 }());
 export { DomRendererFactory2 };

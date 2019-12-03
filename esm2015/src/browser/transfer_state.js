@@ -165,7 +165,7 @@ TransferState.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */ TransferState.ɵfac = function TransferState_Factory(t) { return new (t || TransferState)(); };
-/** @nocollapse */ TransferState.ɵprov = i0.ɵɵdefineInjectable({ token: TransferState, factory: TransferState.ɵfac, providedIn: null });
+/** @nocollapse */ TransferState.ɵprov = i0.ɵɵdefineInjectable({ token: TransferState, factory: TransferState.ɵfac });
 /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(TransferState, [{
         type: Injectable
     }], null, null); })();

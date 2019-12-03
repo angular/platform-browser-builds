@@ -21,7 +21,7 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
         return _super.call(this, doc.body, driver, normalizer) || this;
     }
     InjectableAnimationEngine.ɵfac = function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(i0.ɵɵinject(DOCUMENT), i0.ɵɵinject(i1.AnimationDriver), i0.ɵɵinject(i1.ɵAnimationStyleNormalizer)); };
-    InjectableAnimationEngine.ɵprov = i0.ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: InjectableAnimationEngine.ɵfac, providedIn: null });
+    InjectableAnimationEngine.ɵprov = i0.ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: InjectableAnimationEngine.ɵfac });
     return InjectableAnimationEngine;
 }(AnimationEngine));
 export { InjectableAnimationEngine };

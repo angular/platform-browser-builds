@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+335.sha-56f4e56.with-local-changes
+ * @license Angular v9.0.0-rc.1+336.sha-67eac73.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -33,7 +33,7 @@ var BrowserAnimationBuilder = /** @class */ (function (_super) {
         return new BrowserAnimationFactory(id, this._renderer);
     };
     BrowserAnimationBuilder.ɵfac = function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(ɵɵinject(RendererFactory2), ɵɵinject(DOCUMENT)); };
-    BrowserAnimationBuilder.ɵprov = ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: BrowserAnimationBuilder.ɵfac, providedIn: null });
+    BrowserAnimationBuilder.ɵprov = ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: BrowserAnimationBuilder.ɵfac });
     return BrowserAnimationBuilder;
 }(AnimationBuilder));
 /*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserAnimationBuilder, [{
@@ -199,7 +199,7 @@ var AnimationRendererFactory = /** @class */ (function () {
     };
     AnimationRendererFactory.prototype.whenRenderingDone = function () { return this.engine.whenRenderingDone(); };
     AnimationRendererFactory.ɵfac = function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(ɵɵinject(RendererFactory2), ɵɵinject(ɵAnimationEngine), ɵɵinject(NgZone)); };
-    AnimationRendererFactory.ɵprov = ɵɵdefineInjectable({ token: AnimationRendererFactory, factory: AnimationRendererFactory.ɵfac, providedIn: null });
+    AnimationRendererFactory.ɵprov = ɵɵdefineInjectable({ token: AnimationRendererFactory, factory: AnimationRendererFactory.ɵfac });
     return AnimationRendererFactory;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(AnimationRendererFactory, [{
@@ -341,7 +341,7 @@ var InjectableAnimationEngine = /** @class */ (function (_super) {
         return _super.call(this, doc.body, driver, normalizer) || this;
     }
     InjectableAnimationEngine.ɵfac = function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(ɵɵinject(DOCUMENT), ɵɵinject(AnimationDriver), ɵɵinject(ɵAnimationStyleNormalizer)); };
-    InjectableAnimationEngine.ɵprov = ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: InjectableAnimationEngine.ɵfac, providedIn: null });
+    InjectableAnimationEngine.ɵprov = ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: InjectableAnimationEngine.ɵfac });
     return InjectableAnimationEngine;
 }(ɵAnimationEngine));
 /*@__PURE__*/ (function () { ɵsetClassMetadata(InjectableAnimationEngine, [{
