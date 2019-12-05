@@ -6,11 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { NgZone } from '@angular/core';
-export declare let browserDetection: BrowserDetection;
 export declare class BrowserDetection {
     private _overrideUa;
     private readonly _ua;
-    static setup(): void;
+    static setup(): BrowserDetection;
     constructor(ua: string | null);
     readonly isFirefox: boolean;
     readonly isAndroid: boolean;
@@ -28,6 +27,7 @@ export declare class BrowserDetection {
     readonly supportsShadowDom: boolean;
     readonly supportsDeprecatedShadowDomV0: boolean;
 }
+export declare const browserDetection: BrowserDetection;
 export declare function dispatchEvent(element: any, eventType: any): void;
 export declare function createMouseEvent(eventType: string): MouseEvent;
 export declare function el(html: string): HTMLElement;
