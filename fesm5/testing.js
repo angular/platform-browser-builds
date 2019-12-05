@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+377.sha-542f236.with-local-changes
+ * @license Angular v9.0.0-rc.1+378.sha-37bb901.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -16,7 +16,6 @@ import { ɵgetDOM } from '@angular/common';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var browserDetection;
 var BrowserDetection = /** @class */ (function () {
     function BrowserDetection(ua) {
         this._overrideUa = ua;
@@ -31,7 +30,7 @@ var BrowserDetection = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    BrowserDetection.setup = function () { browserDetection = new BrowserDetection(null); };
+    BrowserDetection.setup = function () { return new BrowserDetection(null); };
     Object.defineProperty(BrowserDetection.prototype, "isFirefox", {
         get: function () { return this._ua.indexOf('Firefox') > -1; },
         enumerable: true,
@@ -141,7 +140,7 @@ var BrowserDetection = /** @class */ (function () {
     });
     return BrowserDetection;
 }());
-BrowserDetection.setup();
+var browserDetection = BrowserDetection.setup();
 function dispatchEvent(element, eventType) {
     var evt = ɵgetDOM().getDefaultDocument().createEvent('Event');
     evt.initEvent(eventType, true, true);
