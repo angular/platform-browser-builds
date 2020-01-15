@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.8+119.sha-fa39a8c
+ * @license Angular v9.0.0-rc.8+132.sha-76a84bf
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -67,7 +67,7 @@ export declare class ɵangular_packages_platform_browser_animations_animations_f
     delegate: Renderer2;
     engine: ɵAnimationEngine;
     constructor(namespaceId: string, delegate: Renderer2, engine: ɵAnimationEngine);
-    readonly data: {
+    get data(): {
         [key: string]: any;
     };
     destroyNode: ((n: any) => void) | null;
