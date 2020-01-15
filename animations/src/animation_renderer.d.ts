@@ -25,7 +25,7 @@ export declare class BaseAnimationRenderer implements Renderer2 {
     delegate: Renderer2;
     engine: AnimationEngine;
     constructor(namespaceId: string, delegate: Renderer2, engine: AnimationEngine);
-    readonly data: {
+    get data(): {
         [key: string]: any;
     };
     destroyNode: ((n: any) => void) | null;
