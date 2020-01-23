@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+760.sha-d15cf60
+ * @license Angular v9.0.0-rc.1+761.sha-32b72f3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -530,10 +530,16 @@ function flattenStyles(compId, styles, target) {
     return target;
 }
 function decoratePreventDefault(eventHandler) {
+    // `DebugNode.triggerEventHandler` needs to know if the listener was created with
+    // decoratePreventDefault or is a listener added outside the Angular context so it can handle the
+    // two differently. In the first case, the special '__ngUnwrap__' token is passed to the unwrap
+    // the listener (see below).
     return function (event) {
-        // Ivy uses `Function` as a special token that allows us to unwrap the function
-        // so that it can be invoked programmatically by `DebugNode.triggerEventHandler`.
-        if (event === Function) {
+        // Ivy uses '__ngUnwrap__' as a special token that allows us to unwrap the function
+        // so that it can be invoked programmatically by `DebugNode.triggerEventHandler`. The debug_node
+        // can inspect the listener toString contents for the existence of this special token. Because
+        // the token is a string literal, it is ensured to not be modified by compiled code.
+        if (event === '__ngUnwrap__') {
             return eventHandler;
         }
         var allowDefaultBehavior = eventHandler(event);
@@ -1965,7 +1971,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+760.sha-d15cf60');
+var VERSION = new Version('9.0.0-rc.1+761.sha-32b72f3');
 
 /**
  * @license
