@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.10+67.sha-2e1a16b
+ * @license Angular v9.0.0-rc.11+4.sha-8fca9b6
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -13,8 +13,6 @@ import { ɵgetDOM } from '@angular/common';
  * Generated from: packages/platform-browser/testing/src/browser_util.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-let browserDetection;
 class BrowserDetection {
     /**
      * @param {?} ua
@@ -33,7 +31,7 @@ class BrowserDetection {
     /**
      * @return {?}
      */
-    static setup() { browserDetection = new BrowserDetection(null); }
+    static setup() { return new BrowserDetection(null); }
     /**
      * @return {?}
      */
@@ -136,7 +134,8 @@ if (false) {
      */
     BrowserDetection.prototype._overrideUa;
 }
-BrowserDetection.setup();
+/** @type {?} */
+const browserDetection = BrowserDetection.setup();
 /**
  * @param {?} element
  * @param {?} eventType
