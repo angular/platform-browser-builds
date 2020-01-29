@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.11+35.sha-fd03709
+ * @license Angular v9.0.0-rc.11+40.sha-23c0147
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import { __extends, __assign, __decorate, __param, __metadata } from 'tslib';
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵsetDocument, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵsetDocument, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @license
@@ -309,13 +309,13 @@ var CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
  * null if the given native element does not have an Angular view associated
  * with it.
  */
-function inspectNativeElement(element) {
-    return getDebugNode(element);
+function inspectNativeElementR2(element) {
+    return ɵgetDebugNodeR2(element);
 }
-function _createNgProbe(coreTokens) {
-    exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
+function _createNgProbeR2(coreTokens) {
+    exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElementR2);
     exportNgVar(CORE_TOKENS_GLOBAL_NAME, __assign(__assign({}, CORE_TOKENS), _ngProbeTokensToMap(coreTokens || [])));
-    return function () { return inspectNativeElement; };
+    return function () { return inspectNativeElementR2; };
 }
 function _ngProbeTokensToMap(tokens) {
     return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
@@ -334,7 +334,7 @@ var ELEMENT_PROBE_PROVIDERS__POST_R3__ = [];
 var ELEMENT_PROBE_PROVIDERS__PRE_R3__ = [
     {
         provide: APP_INITIALIZER,
-        useFactory: _createNgProbe,
+        useFactory: _createNgProbeR2,
         deps: [
             [NgProbeToken, new Optional()],
         ],
@@ -1934,7 +1934,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.11+35.sha-fd03709');
+var VERSION = new Version('9.0.0-rc.11+40.sha-23c0147');
 
 /**
  * @license
@@ -1965,5 +1965,5 @@ var VERSION = new Version('9.0.0-rc.11+35.sha-fd03709');
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserModule, BrowserTransferStateModule, By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, Meta, Title, TransferState, VERSION, disableDebugTools, enableDebugTools, makeStateKey, platformBrowser, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, DomSharedStylesHost as ɵDomSharedStylesHost, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, HAMMER_PROVIDERS__POST_R3__ as ɵHAMMER_PROVIDERS__POST_R3__, HammerGesturesPlugin as ɵHammerGesturesPlugin, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, KeyEventsPlugin as ɵKeyEventsPlugin, NAMESPACE_URIS as ɵNAMESPACE_URIS, SharedStylesHost as ɵSharedStylesHost, TRANSITION_ID as ɵTRANSITION_ID, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, _document as ɵangular_packages_platform_browser_platform_browser_b, BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, createMeta as ɵangular_packages_platform_browser_platform_browser_d, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, HAMMER_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_h, HAMMER_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, domSanitizerImplFactory as ɵangular_packages_platform_browser_platform_browser_j, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_k, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_l, _createNgProbe as ɵangular_packages_platform_browser_platform_browser_m, ELEMENT_PROBE_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_n, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_o, escapeHtml as ɵescapeHtml, flattenStyles as ɵflattenStyles, initDomAdapter as ɵinitDomAdapter, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute };
+export { BrowserModule, BrowserTransferStateModule, By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, Meta, Title, TransferState, VERSION, disableDebugTools, enableDebugTools, makeStateKey, platformBrowser, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, DomSharedStylesHost as ɵDomSharedStylesHost, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, HAMMER_PROVIDERS__POST_R3__ as ɵHAMMER_PROVIDERS__POST_R3__, HammerGesturesPlugin as ɵHammerGesturesPlugin, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, KeyEventsPlugin as ɵKeyEventsPlugin, NAMESPACE_URIS as ɵNAMESPACE_URIS, SharedStylesHost as ɵSharedStylesHost, TRANSITION_ID as ɵTRANSITION_ID, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, _document as ɵangular_packages_platform_browser_platform_browser_b, BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, createMeta as ɵangular_packages_platform_browser_platform_browser_d, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, HAMMER_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_h, HAMMER_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, domSanitizerImplFactory as ɵangular_packages_platform_browser_platform_browser_j, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_k, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_l, _createNgProbeR2 as ɵangular_packages_platform_browser_platform_browser_m, ELEMENT_PROBE_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_n, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_o, escapeHtml as ɵescapeHtml, flattenStyles as ɵflattenStyles, initDomAdapter as ɵinitDomAdapter, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute };
 //# sourceMappingURL=platform-browser.js.map

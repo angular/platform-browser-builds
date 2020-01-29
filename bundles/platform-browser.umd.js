@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.11+35.sha-fd03709
+ * @license Angular v9.0.0-rc.11+40.sha-23c0147
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -507,13 +507,13 @@
      * null if the given native element does not have an Angular view associated
      * with it.
      */
-    function inspectNativeElement(element) {
-        return i0.getDebugNode(element);
+    function inspectNativeElementR2(element) {
+        return i0.ɵgetDebugNodeR2(element);
     }
-    function _createNgProbe(coreTokens) {
-        exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
+    function _createNgProbeR2(coreTokens) {
+        exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElementR2);
         exportNgVar(CORE_TOKENS_GLOBAL_NAME, __assign(__assign({}, CORE_TOKENS), _ngProbeTokensToMap(coreTokens || [])));
-        return function () { return inspectNativeElement; };
+        return function () { return inspectNativeElementR2; };
     }
     function _ngProbeTokensToMap(tokens) {
         return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
@@ -532,7 +532,7 @@
     var ELEMENT_PROBE_PROVIDERS__PRE_R3__ = [
         {
             provide: i0.APP_INITIALIZER,
-            useFactory: _createNgProbe,
+            useFactory: _createNgProbeR2,
             deps: [
                 [i0.NgProbeToken, new i0.Optional()],
             ],
@@ -2132,7 +2132,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.11+35.sha-fd03709');
+    var VERSION = new i0.Version('9.0.0-rc.11+40.sha-23c0147');
 
     /**
      * @license
@@ -2216,7 +2216,7 @@
     exports.ɵangular_packages_platform_browser_platform_browser_j = domSanitizerImplFactory;
     exports.ɵangular_packages_platform_browser_platform_browser_k = appInitializerFactory;
     exports.ɵangular_packages_platform_browser_platform_browser_l = SERVER_TRANSITION_PROVIDERS;
-    exports.ɵangular_packages_platform_browser_platform_browser_m = _createNgProbe;
+    exports.ɵangular_packages_platform_browser_platform_browser_m = _createNgProbeR2;
     exports.ɵangular_packages_platform_browser_platform_browser_n = ELEMENT_PROBE_PROVIDERS__PRE_R3__;
     exports.ɵangular_packages_platform_browser_platform_browser_o = GenericBrowserDomAdapter;
     exports.ɵescapeHtml = escapeHtml;
