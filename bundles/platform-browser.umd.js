@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+840.sha-bd61cd0
+ * @license Angular v9.0.0-rc.1+844.sha-669df70
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -498,13 +498,13 @@
      * null if the given native element does not have an Angular view associated
      * with it.
      */
-    function inspectNativeElement(element) {
-        return i0.getDebugNode(element);
+    function inspectNativeElementR2(element) {
+        return i0.ɵgetDebugNodeR2(element);
     }
-    function _createNgProbe(coreTokens) {
-        exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
+    function _createNgProbeR2(coreTokens) {
+        exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElementR2);
         exportNgVar(CORE_TOKENS_GLOBAL_NAME, __assign(__assign({}, CORE_TOKENS), _ngProbeTokensToMap(coreTokens || [])));
-        return function () { return inspectNativeElement; };
+        return function () { return inspectNativeElementR2; };
     }
     function _ngProbeTokensToMap(tokens) {
         return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
@@ -523,7 +523,7 @@
     var ELEMENT_PROBE_PROVIDERS__PRE_R3__ = [
         {
             provide: i0.APP_INITIALIZER,
-            useFactory: _createNgProbe,
+            useFactory: _createNgProbeR2,
             deps: [
                 [i0.NgProbeToken, new i0.Optional()],
             ],
@@ -2169,7 +2169,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.1+840.sha-bd61cd0');
+    var VERSION = new i0.Version('9.0.0-rc.1+844.sha-669df70');
 
     /**
      * @license

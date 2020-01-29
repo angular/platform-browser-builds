@@ -1,12 +1,12 @@
 /**
- * @license Angular v9.0.0-rc.1+840.sha-bd61cd0
+ * @license Angular v9.0.0-rc.1+844.sha-669df70
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, getDebugNode, NgProbeToken, Optional, ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵsetDocument, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, ɵɵsetNgModuleScope, SkipSelf, Version } from '@angular/core';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵsetDocument, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, ɵɵsetNgModuleScope, SkipSelf, Version } from '@angular/core';
 import { __extends, __assign } from 'tslib';
 
 /**
@@ -300,13 +300,13 @@ var CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
  * null if the given native element does not have an Angular view associated
  * with it.
  */
-function inspectNativeElement(element) {
-    return getDebugNode(element);
+function inspectNativeElementR2(element) {
+    return ɵgetDebugNodeR2(element);
 }
-function _createNgProbe(coreTokens) {
-    exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElement);
+function _createNgProbeR2(coreTokens) {
+    exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElementR2);
     exportNgVar(CORE_TOKENS_GLOBAL_NAME, __assign(__assign({}, CORE_TOKENS), _ngProbeTokensToMap(coreTokens || [])));
-    return function () { return inspectNativeElement; };
+    return function () { return inspectNativeElementR2; };
 }
 function _ngProbeTokensToMap(tokens) {
     return tokens.reduce(function (prev, t) { return (prev[t.name] = t.token, prev); }, {});
@@ -325,7 +325,7 @@ var ELEMENT_PROBE_PROVIDERS__POST_R3__ = [];
 var ELEMENT_PROBE_PROVIDERS__PRE_R3__ = [
     {
         provide: APP_INITIALIZER,
-        useFactory: _createNgProbe,
+        useFactory: _createNgProbeR2,
         deps: [
             [NgProbeToken, new Optional()],
         ],
@@ -1971,7 +1971,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+840.sha-bd61cd0');
+var VERSION = new Version('9.0.0-rc.1+844.sha-669df70');
 
 /**
  * @license

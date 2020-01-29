@@ -11,8 +11,8 @@ import { DebugNode, NgProbeToken, Provider } from '@angular/core';
  * null if the given native element does not have an Angular view associated
  * with it.
  */
-export declare function inspectNativeElement(element: any): DebugNode | null;
-export declare function _createNgProbe(coreTokens: NgProbeToken[]): any;
+export declare function inspectNativeElementR2(element: any): DebugNode | null;
+export declare function _createNgProbeR2(coreTokens: NgProbeToken[]): any;
 /**
  * In Ivy, we don't support NgProbe because we have our own set of testing utilities
  * with more robust functionality.
