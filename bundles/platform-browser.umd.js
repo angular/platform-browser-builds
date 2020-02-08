@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0+36.sha-18ed9dc
+ * @license Angular v9.0.0+37.sha-480a4c3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -851,7 +851,7 @@
         DefaultDomRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
             if (namespace) {
                 name = namespace + ':' + name;
-                // TODO(benlesh): Ivy may cause issues here because it's passing around
+                // TODO(FW-811): Ivy may cause issues here because it's passing around
                 // full URIs for namespaces, therefore this lookup will fail.
                 var namespaceUri = NAMESPACE_URIS[namespace];
                 if (namespaceUri) {
@@ -867,14 +867,14 @@
         };
         DefaultDomRenderer2.prototype.removeAttribute = function (el, name, namespace) {
             if (namespace) {
-                // TODO(benlesh): Ivy may cause issues here because it's passing around
+                // TODO(FW-811): Ivy may cause issues here because it's passing around
                 // full URIs for namespaces, therefore this lookup will fail.
                 var namespaceUri = NAMESPACE_URIS[namespace];
                 if (namespaceUri) {
                     el.removeAttributeNS(namespaceUri, name);
                 }
                 else {
-                    // TODO(benlesh): Since ivy is passing around full URIs for namespaces
+                    // TODO(FW-811): Since ivy is passing around full URIs for namespaces
                     // this could result in properties like `http://www.w3.org/2000/svg:cx="123"`,
                     // which is wrong.
                     el.removeAttribute(namespace + ":" + name);
@@ -2132,7 +2132,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0+36.sha-18ed9dc');
+    var VERSION = new i0.Version('9.0.0+37.sha-480a4c3');
 
     /**
      * @license
