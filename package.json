@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "9.0.2+47.sha-8cac5fe",
+  "version": "9.0.2+54.sha-d690488",
   "description": "Angular - library for using Angular in a web browser",
   "main": "./bundles/platform-browser.umd.js",
   "module": "./fesm5/platform-browser.js",
@@ -13,13 +13,14 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "9.0.2+47.sha-8cac5fe",
-    "@angular/common": "9.0.2+47.sha-8cac5fe",
+    "@angular/core": "9.0.2+54.sha-d690488",
+    "@angular/common": "9.0.2+54.sha-d690488",
     "tslib": "^1.10.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular/angular.git"
+    "url": "https://github.com/angular/angular.git",
+    "directory": "packages/platform-browser"
   },
   "ng-update": {
     "packageGroup": [
