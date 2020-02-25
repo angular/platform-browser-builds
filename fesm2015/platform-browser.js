@@ -1,12 +1,12 @@
 /**
- * @license Angular v9.1.0-next.1+60.sha-294e56d
+ * @license Angular v9.1.0-next.1+58.sha-0a1a989
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineNgModule, ɵɵdefineInjector, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, ɵɵsetNgModuleScope, Version } from '@angular/core';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineNgModule, ɵɵdefineInjector, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ErrorHandler, ɵsetDocument, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, ɵɵsetNgModuleScope, Version } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -2490,27 +2490,6 @@ if (false) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @return {?}
- */
-function initDomAdapter() {
-    BrowserDomAdapter.makeCurrent();
-    BrowserGetTestability.init();
-}
-/**
- * @return {?}
- */
-function errorHandler() {
-    return new ErrorHandler();
-}
-/**
- * @return {?}
- */
-function _document() {
-    // Tell ivy about the global document
-    ɵsetDocument(document);
-    return document;
-}
 /** @type {?} */
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
@@ -2537,6 +2516,27 @@ const BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__POST_R3__
  * @type {?}
  */
 const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
+/**
+ * @return {?}
+ */
+function initDomAdapter() {
+    BrowserDomAdapter.makeCurrent();
+    BrowserGetTestability.init();
+}
+/**
+ * @return {?}
+ */
+function errorHandler() {
+    return new ErrorHandler();
+}
+/**
+ * @return {?}
+ */
+function _document() {
+    // Tell ivy about the global document
+    ɵsetDocument(document);
+    return document;
+}
 /** @type {?} */
 const BROWSER_MODULE_PROVIDERS = [
     BROWSER_SANITIZATION_PROVIDERS,
@@ -3361,7 +3361,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.1.0-next.1+60.sha-294e56d');
+const VERSION = new Version('9.1.0-next.1+58.sha-0a1a989');
 
 /**
  * @fileoverview added by tsickle

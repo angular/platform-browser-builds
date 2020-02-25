@@ -1,9 +1,6 @@
 import { ErrorHandler, ModuleWithProviders, PlatformRef, StaticProvider } from '@angular/core';
 import * as i0 from "@angular/core";
 import * as i1 from "@angular/common";
-export declare function initDomAdapter(): void;
-export declare function errorHandler(): ErrorHandler;
-export declare function _document(): any;
 export declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
 export declare const BROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
 /**
@@ -17,6 +14,9 @@ export declare const BROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
  * @publicApi
  */
 export declare const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef;
+export declare function initDomAdapter(): void;
+export declare function errorHandler(): ErrorHandler;
+export declare function _document(): any;
 export declare const BROWSER_MODULE_PROVIDERS: StaticProvider[];
 /**
  * Exports required infrastructure for all Angular apps.
