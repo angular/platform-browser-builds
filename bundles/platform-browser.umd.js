@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.1.0-next.1+58.sha-0a1a989
+ * @license Angular v9.1.0-next.1+61.sha-1e20b2c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1558,6 +1558,18 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    function initDomAdapter() {
+        BrowserDomAdapter.makeCurrent();
+        BrowserGetTestability.init();
+    }
+    function errorHandler() {
+        return new i0.ErrorHandler();
+    }
+    function _document() {
+        // Tell ivy about the global document
+        i0.ɵsetDocument(document);
+        return document;
+    }
     var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
         { provide: i0.PLATFORM_ID, useValue: common.ɵPLATFORM_BROWSER_ID },
         { provide: i0.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
@@ -1579,18 +1591,6 @@
      * @publicApi
      */
     var platformBrowser = i0.createPlatformFactory(i0.platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
-    function initDomAdapter() {
-        BrowserDomAdapter.makeCurrent();
-        BrowserGetTestability.init();
-    }
-    function errorHandler() {
-        return new i0.ErrorHandler();
-    }
-    function _document() {
-        // Tell ivy about the global document
-        i0.ɵsetDocument(document);
-        return document;
-    }
     var BROWSER_MODULE_PROVIDERS = [
         BROWSER_SANITIZATION_PROVIDERS,
         { provide: i0.ɵINJECTOR_SCOPE, useValue: 'root' },
@@ -2169,7 +2169,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.1.0-next.1+58.sha-0a1a989');
+    var VERSION = new i0.Version('9.1.0-next.1+61.sha-1e20b2c');
 
     /**
      * @license
