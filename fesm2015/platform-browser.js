@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.1.0-next.2+128.sha-c98c6e8
+ * @license Angular v9.1.0-next.2+129.sha-95c729f
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1466,9 +1466,7 @@ class DomEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
      */
-    constructor(doc) {
-        super(doc);
-    }
+    constructor(doc) { super(doc); }
     // This plugin should come last in the list of plugins, because it accepts all
     // events.
     /**
@@ -2013,9 +2011,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
      * Initializes an instance of the browser plug-in.
      * @param {?} doc The document in which key events will be detected.
      */
-    constructor(doc) {
-        super(doc);
-    }
+    constructor(doc) { super(doc); }
     /**
      * Reports whether a named key event is supported.
      * @param {?} eventName The event name to query.
@@ -3361,7 +3357,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.1.0-next.2+128.sha-c98c6e8');
+const VERSION = new Version('9.1.0-next.2+129.sha-95c729f');
 
 /**
  * @fileoverview added by tsickle
