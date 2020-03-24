@@ -14,7 +14,7 @@ export declare class BrowserAnimationBuilder extends AnimationBuilder {
     private _renderer;
     constructor(rootRenderer: RendererFactory2, doc: any);
     build(animation: AnimationMetadata | AnimationMetadata[]): AnimationFactory;
-    static ɵfac: i0.ɵɵFactoryDef<BrowserAnimationBuilder>;
+    static ɵfac: i0.ɵɵFactoryDef<BrowserAnimationBuilder, never>;
     static ɵprov: i0.ɵɵInjectableDef<BrowserAnimationBuilder>;
 }
 export declare class BrowserAnimationFactory extends AnimationFactory {

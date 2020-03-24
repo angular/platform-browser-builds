@@ -4,7 +4,7 @@ export declare class SharedStylesHost {
     addStyles(styles: string[]): void;
     onStylesAdded(additions: Set<string>): void;
     getAllStyles(): string[];
-    static ɵfac: i0.ɵɵFactoryDef<SharedStylesHost>;
+    static ɵfac: i0.ɵɵFactoryDef<SharedStylesHost, never>;
     static ɵprov: i0.ɵɵInjectableDef<SharedStylesHost>;
 }
 export declare class DomSharedStylesHost extends SharedStylesHost implements OnDestroy {
@@ -17,6 +17,6 @@ export declare class DomSharedStylesHost extends SharedStylesHost implements OnD
     removeHost(hostNode: Node): void;
     onStylesAdded(additions: Set<string>): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDef<DomSharedStylesHost>;
+    static ɵfac: i0.ɵɵFactoryDef<DomSharedStylesHost, never>;
     static ɵprov: i0.ɵɵInjectableDef<DomSharedStylesHost>;
 }

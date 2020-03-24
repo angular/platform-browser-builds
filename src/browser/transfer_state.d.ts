@@ -73,7 +73,7 @@ export declare class TransferState {
      * Serialize the current state of the store to JSON.
      */
     toJson(): string;
-    static ɵfac: i0.ɵɵFactoryDef<TransferState>;
+    static ɵfac: i0.ɵɵFactoryDef<TransferState, never>;
     static ɵprov: i0.ɵɵInjectableDef<TransferState>;
 }
 export declare function initTransferState(doc: Document, appId: string): TransferState;
