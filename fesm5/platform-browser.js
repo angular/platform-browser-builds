@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.1+11.sha-99b93e5
+ * @license Angular v10.0.0-next.1+13.sha-078b0be
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1934,7 +1934,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-var VERSION = new Version('10.0.0-next.1+11.sha-99b93e5');
+var VERSION = new Version('10.0.0-next.1+13.sha-078b0be');
 
 /**
  * @license

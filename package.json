@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "10.0.0-next.1+11.sha-99b93e5",
+  "version": "10.0.0-next.1+13.sha-078b0be",
   "description": "Angular - library for using Angular in a web browser",
   "main": "./bundles/platform-browser.umd.js",
   "module": "./fesm5/platform-browser.js",
@@ -13,9 +13,9 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "10.0.0-next.1+11.sha-99b93e5",
-    "@angular/core": "10.0.0-next.1+11.sha-99b93e5",
-    "@angular/common": "10.0.0-next.1+11.sha-99b93e5",
+    "@angular/animations": "10.0.0-next.1+13.sha-078b0be",
+    "@angular/core": "10.0.0-next.1+13.sha-078b0be",
+    "@angular/common": "10.0.0-next.1+13.sha-078b0be",
     "tslib": "^1.10.0"
   },
   "peerDependenciesMeta": {
