@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.1+32.sha-5e80e7e
+ * @license Angular v10.0.0-next.1+33.sha-698b028
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -24,12 +24,7 @@ class BrowserAnimationBuilder extends AnimationBuilder {
         super();
         this._nextAnimationId = 0;
         /** @type {?} */
-        const typeData = (/** @type {?} */ ({
-            id: '0',
-            encapsulation: ViewEncapsulation.None,
-            styles: [],
-            data: { animation: [] }
-        }));
+        const typeData = (/** @type {?} */ ({ id: '0', encapsulation: ViewEncapsulation.None, styles: [], data: { animation: [] } }));
         this._renderer = (/** @type {?} */ (rootRenderer.createRenderer(doc.body, typeData)));
     }
     /**
@@ -143,25 +138,35 @@ class RendererAnimationPlayer {
      * @param {?} fn
      * @return {?}
      */
-    onDone(fn) { this._listen('done', fn); }
+    onDone(fn) {
+        this._listen('done', fn);
+    }
     /**
      * @param {?} fn
      * @return {?}
      */
-    onStart(fn) { this._listen('start', fn); }
+    onStart(fn) {
+        this._listen('start', fn);
+    }
     /**
      * @param {?} fn
      * @return {?}
      */
-    onDestroy(fn) { this._listen('destroy', fn); }
+    onDestroy(fn) {
+        this._listen('destroy', fn);
+    }
     /**
      * @return {?}
      */
-    init() { this._command('init'); }
+    init() {
+        this._command('init');
+    }
     /**
      * @return {?}
      */
-    hasStarted() { return this._started; }
+    hasStarted() {
+        return this._started;
+    }
     /**
      * @return {?}
      */
@@ -172,32 +177,46 @@ class RendererAnimationPlayer {
     /**
      * @return {?}
      */
-    pause() { this._command('pause'); }
+    pause() {
+        this._command('pause');
+    }
     /**
      * @return {?}
      */
-    restart() { this._command('restart'); }
+    restart() {
+        this._command('restart');
+    }
     /**
      * @return {?}
      */
-    finish() { this._command('finish'); }
+    finish() {
+        this._command('finish');
+    }
     /**
      * @return {?}
      */
-    destroy() { this._command('destroy'); }
+    destroy() {
+        this._command('destroy');
+    }
     /**
      * @return {?}
      */
-    reset() { this._command('reset'); }
+    reset() {
+        this._command('reset');
+    }
     /**
      * @param {?} p
      * @return {?}
      */
-    setPosition(p) { this._command('setPosition', p); }
+    setPosition(p) {
+        this._command('setPosition', p);
+    }
     /**
      * @return {?}
      */
-    getPosition() { return 0; }
+    getPosition() {
+        return 0;
+    }
 }
 if (false) {
     /** @type {?} */
@@ -339,7 +358,9 @@ class AnimationRendererFactory {
         this.promise.then((/**
          * @return {?}
          */
-        () => { this._microtaskId++; }));
+        () => {
+            this._microtaskId++;
+        }));
     }
     /**
      * \@internal
@@ -402,7 +423,9 @@ class AnimationRendererFactory {
     /**
      * @return {?}
      */
-    whenRenderingDone() { return this.engine.whenRenderingDone(); }
+    whenRenderingDone() {
+        return this.engine.whenRenderingDone();
+    }
 }
 AnimationRendererFactory.decorators = [
     { type: Injectable },
@@ -484,7 +507,9 @@ class BaseAnimationRenderer {
     /**
      * @return {?}
      */
-    get data() { return this.delegate.data; }
+    get data() {
+        return this.delegate.data;
+    }
     /**
      * @return {?}
      */
@@ -504,12 +529,16 @@ class BaseAnimationRenderer {
      * @param {?} value
      * @return {?}
      */
-    createComment(value) { return this.delegate.createComment(value); }
+    createComment(value) {
+        return this.delegate.createComment(value);
+    }
     /**
      * @param {?} value
      * @return {?}
      */
-    createText(value) { return this.delegate.createText(value); }
+    createText(value) {
+        return this.delegate.createText(value);
+    }
     /**
      * @param {?} parent
      * @param {?} newChild
@@ -550,12 +579,16 @@ class BaseAnimationRenderer {
      * @param {?} node
      * @return {?}
      */
-    parentNode(node) { return this.delegate.parentNode(node); }
+    parentNode(node) {
+        return this.delegate.parentNode(node);
+    }
     /**
      * @param {?} node
      * @return {?}
      */
-    nextSibling(node) { return this.delegate.nextSibling(node); }
+    nextSibling(node) {
+        return this.delegate.nextSibling(node);
+    }
     /**
      * @param {?} el
      * @param {?} name
@@ -580,13 +613,17 @@ class BaseAnimationRenderer {
      * @param {?} name
      * @return {?}
      */
-    addClass(el, name) { this.delegate.addClass(el, name); }
+    addClass(el, name) {
+        this.delegate.addClass(el, name);
+    }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    removeClass(el, name) { this.delegate.removeClass(el, name); }
+    removeClass(el, name) {
+        this.delegate.removeClass(el, name);
+    }
     /**
      * @param {?} el
      * @param {?} style
@@ -625,7 +662,9 @@ class BaseAnimationRenderer {
      * @param {?} value
      * @return {?}
      */
-    setValue(node, value) { this.delegate.setValue(node, value); }
+    setValue(node, value) {
+        this.delegate.setValue(node, value);
+    }
     /**
      * @param {?} target
      * @param {?} eventName

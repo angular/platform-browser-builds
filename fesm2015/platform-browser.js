@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.1+32.sha-5e80e7e
+ * @license Angular v10.0.0-next.1+33.sha-698b028
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -21,11 +21,15 @@ import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injec
  * @abstract
  */
 class GenericBrowserDomAdapter extends ɵDomAdapter {
-    constructor() { super(); }
+    constructor() {
+        super();
+    }
     /**
      * @return {?}
      */
-    supportsDOMEvents() { return true; }
+    supportsDOMEvents() {
+        return true;
+    }
 }
 
 /**
@@ -61,13 +65,17 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @return {?}
      */
-    static makeCurrent() { ɵsetRootDomAdapter(new BrowserDomAdapter()); }
+    static makeCurrent() {
+        ɵsetRootDomAdapter(new BrowserDomAdapter());
+    }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    getProperty(el, name) { return ((/** @type {?} */ (el)))[name]; }
+    getProperty(el, name) {
+        return ((/** @type {?} */ (el)))[name];
+    }
     /**
      * @param {?} error
      * @return {?}
@@ -107,14 +115,18 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return (/**
          * @return {?}
          */
-        () => { el.removeEventListener(evt, listener, false); });
+        () => {
+            el.removeEventListener(evt, listener, false);
+        });
     }
     /**
      * @param {?} el
      * @param {?} evt
      * @return {?}
      */
-    dispatchEvent(el, evt) { el.dispatchEvent(evt); }
+    dispatchEvent(el, evt) {
+        el.dispatchEvent(evt);
+    }
     /**
      * @param {?} node
      * @return {?}
@@ -129,7 +141,9 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
      * @param {?} el
      * @return {?}
      */
-    getValue(el) { return el.value; }
+    getValue(el) {
+        return el.value;
+    }
     /**
      * @param {?} tagName
      * @param {?=} doc
@@ -148,17 +162,23 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @return {?}
      */
-    getDefaultDocument() { return document; }
+    getDefaultDocument() {
+        return document;
+    }
     /**
      * @param {?} node
      * @return {?}
      */
-    isElementNode(node) { return node.nodeType === Node.ELEMENT_NODE; }
+    isElementNode(node) {
+        return node.nodeType === Node.ELEMENT_NODE;
+    }
     /**
      * @param {?} node
      * @return {?}
      */
-    isShadowRoot(node) { return node instanceof DocumentFragment; }
+    isShadowRoot(node) {
+        return node instanceof DocumentFragment;
+    }
     /**
      * @param {?} doc
      * @param {?} target
@@ -179,11 +199,15 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @return {?}
      */
-    getHistory() { return window.history; }
+    getHistory() {
+        return window.history;
+    }
     /**
      * @return {?}
      */
-    getLocation() { return window.location; }
+    getLocation() {
+        return window.location;
+    }
     /**
      * @param {?} doc
      * @return {?}
@@ -196,11 +220,15 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @return {?}
      */
-    resetBaseElement() { baseElement = null; }
+    resetBaseElement() {
+        baseElement = null;
+    }
     /**
      * @return {?}
      */
-    getUserAgent() { return window.navigator.userAgent; }
+    getUserAgent() {
+        return window.navigator.userAgent;
+    }
     /**
      * @return {?}
      */
@@ -213,12 +241,16 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     /**
      * @return {?}
      */
-    supportsCookies() { return true; }
+    supportsCookies() {
+        return true;
+    }
     /**
      * @param {?} name
      * @return {?}
      */
-    getCookie(name) { return ɵparseCookieValue(document.cookie, name); }
+    getCookie(name) {
+        return ɵparseCookieValue(document.cookie, name);
+    }
 }
 /** @type {?} */
 let baseElement = null;
@@ -314,7 +346,9 @@ class BrowserGetTestability {
     /**
      * @return {?}
      */
-    static init() { setTestabilityGetter(new BrowserGetTestability()); }
+    static init() {
+        setTestabilityGetter(new BrowserGetTestability());
+    }
     /**
      * @param {?} registry
      * @return {?}
@@ -606,7 +640,9 @@ class EventManager {
      * Retrieves the compilation zone in which event listeners are registered.
      * @return {?}
      */
-    getZone() { return this._zone; }
+    getZone() {
+        return this._zone;
+    }
     /**
      * \@internal
      * @param {?} eventName
@@ -759,7 +795,9 @@ class SharedStylesHost {
     /**
      * @return {?}
      */
-    getAllStyles() { return Array.from(this._stylesSet); }
+    getAllStyles() {
+        return Array.from(this._stylesSet);
+    }
 }
 SharedStylesHost.decorators = [
     { type: Injectable },
@@ -818,7 +856,9 @@ class DomSharedStylesHost extends SharedStylesHost {
      * @param {?} hostNode
      * @return {?}
      */
-    removeHost(hostNode) { this._hostNodes.delete(hostNode); }
+    removeHost(hostNode) {
+        this._hostNodes.delete(hostNode);
+    }
     /**
      * @param {?} additions
      * @return {?}
@@ -833,11 +873,13 @@ class DomSharedStylesHost extends SharedStylesHost {
     /**
      * @return {?}
      */
-    ngOnDestroy() { this._styleNodes.forEach((/**
-     * @param {?} styleNode
-     * @return {?}
-     */
-    styleNode => ɵgetDOM().remove(styleNode))); }
+    ngOnDestroy() {
+        this._styleNodes.forEach((/**
+         * @param {?} styleNode
+         * @return {?}
+         */
+        styleNode => ɵgetDOM().remove(styleNode)));
+    }
 }
 DomSharedStylesHost.decorators = [
     { type: Injectable },
@@ -1096,18 +1138,24 @@ class DefaultDomRenderer2 {
      * @param {?} value
      * @return {?}
      */
-    createComment(value) { return document.createComment(value); }
+    createComment(value) {
+        return document.createComment(value);
+    }
     /**
      * @param {?} value
      * @return {?}
      */
-    createText(value) { return document.createTextNode(value); }
+    createText(value) {
+        return document.createTextNode(value);
+    }
     /**
      * @param {?} parent
      * @param {?} newChild
      * @return {?}
      */
-    appendChild(parent, newChild) { parent.appendChild(newChild); }
+    appendChild(parent, newChild) {
+        parent.appendChild(newChild);
+    }
     /**
      * @param {?} parent
      * @param {?} newChild
@@ -1150,12 +1198,16 @@ class DefaultDomRenderer2 {
      * @param {?} node
      * @return {?}
      */
-    parentNode(node) { return node.parentNode; }
+    parentNode(node) {
+        return node.parentNode;
+    }
     /**
      * @param {?} node
      * @return {?}
      */
-    nextSibling(node) { return node.nextSibling; }
+    nextSibling(node) {
+        return node.nextSibling;
+    }
     /**
      * @param {?} el
      * @param {?} name
@@ -1212,13 +1264,17 @@ class DefaultDomRenderer2 {
      * @param {?} name
      * @return {?}
      */
-    addClass(el, name) { el.classList.add(name); }
+    addClass(el, name) {
+        el.classList.add(name);
+    }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    removeClass(el, name) { el.classList.remove(name); }
+    removeClass(el, name) {
+        el.classList.remove(name);
+    }
     /**
      * @param {?} el
      * @param {?} style
@@ -1265,7 +1321,9 @@ class DefaultDomRenderer2 {
      * @param {?} value
      * @return {?}
      */
-    setValue(node, value) { node.nodeValue = value; }
+    setValue(node, value) {
+        node.nodeValue = value;
+    }
     /**
      * @param {?} target
      * @param {?} event
@@ -1326,7 +1384,9 @@ class EmulatedEncapsulationDomRenderer2 extends DefaultDomRenderer2 {
      * @param {?} element
      * @return {?}
      */
-    applyToHost(element) { super.setAttribute(element, this.hostAttr, ''); }
+    applyToHost(element) {
+        super.setAttribute(element, this.hostAttr, '');
+    }
     /**
      * @param {?} parent
      * @param {?} name
@@ -1389,11 +1449,15 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
      * @param {?} node
      * @return {?}
      */
-    nodeOrShadowRoot(node) { return node === this.hostEl ? this.shadowRoot : node; }
+    nodeOrShadowRoot(node) {
+        return node === this.hostEl ? this.shadowRoot : node;
+    }
     /**
      * @return {?}
      */
-    destroy() { this.sharedStylesHost.removeHost(this.shadowRoot); }
+    destroy() {
+        this.sharedStylesHost.removeHost(this.shadowRoot);
+    }
     /**
      * @param {?} parent
      * @param {?} newChild
@@ -1466,14 +1530,18 @@ class DomEventsPlugin extends EventManagerPlugin {
     /**
      * @param {?} doc
      */
-    constructor(doc) { super(doc); }
+    constructor(doc) {
+        super(doc);
+    }
     // This plugin should come last in the list of plugins, because it accepts all
     // events.
     /**
      * @param {?} eventName
      * @return {?}
      */
-    supports(eventName) { return true; }
+    supports(eventName) {
+        return true;
+    }
     /**
      * @param {?} element
      * @param {?} eventName
@@ -1751,7 +1819,9 @@ class HammerGesturesPlugin extends EventManagerPlugin {
             let deregister = (/**
              * @return {?}
              */
-            () => { cancelRegistration = true; });
+            () => {
+                cancelRegistration = true;
+            });
             this.loader()
                 .then((/**
              * @return {?}
@@ -1789,7 +1859,9 @@ class HammerGesturesPlugin extends EventManagerPlugin {
             return (/**
              * @return {?}
              */
-            () => { deregister(); });
+            () => {
+                deregister();
+            });
         }
         return zone.runOutsideAngular((/**
          * @return {?}
@@ -1807,7 +1879,9 @@ class HammerGesturesPlugin extends EventManagerPlugin {
                 zone.runGuarded((/**
                  * @return {?}
                  */
-                function () { handler(eventObj); }));
+                function () {
+                    handler(eventObj);
+                }));
             });
             mc.on(eventName, callback);
             return (/**
@@ -1826,7 +1900,9 @@ class HammerGesturesPlugin extends EventManagerPlugin {
      * @param {?} eventName
      * @return {?}
      */
-    isCustomEvent(eventName) { return this._config.events.indexOf(eventName) > -1; }
+    isCustomEvent(eventName) {
+        return this._config.events.indexOf(eventName) > -1;
+    }
 }
 HammerGesturesPlugin.decorators = [
     { type: Injectable },
@@ -2011,13 +2087,17 @@ class KeyEventsPlugin extends EventManagerPlugin {
      * Initializes an instance of the browser plug-in.
      * @param {?} doc The document in which key events will be detected.
      */
-    constructor(doc) { super(doc); }
+    constructor(doc) {
+        super(doc);
+    }
     /**
      * Reports whether a named key event is supported.
      * @param {?} eventName The event name to query.
      * @return {?} True if the named key event is supported.
      */
-    supports(eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; }
+    supports(eventName) {
+        return KeyEventsPlugin.parseEventName(eventName) != null;
+    }
     /**
      * Registers a handler for a specific element and key event.
      * @param {?} element The HTML element to receive event notifications.
@@ -2419,12 +2499,16 @@ class DomSanitizerImpl extends DomSanitizer {
      * @param {?} value
      * @return {?}
      */
-    bypassSecurityTrustHtml(value) { return ɵbypassSanitizationTrustHtml(value); }
+    bypassSecurityTrustHtml(value) {
+        return ɵbypassSanitizationTrustHtml(value);
+    }
     /**
      * @param {?} value
      * @return {?}
      */
-    bypassSecurityTrustStyle(value) { return ɵbypassSanitizationTrustStyle(value); }
+    bypassSecurityTrustStyle(value) {
+        return ɵbypassSanitizationTrustStyle(value);
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -2436,7 +2520,9 @@ class DomSanitizerImpl extends DomSanitizer {
      * @param {?} value
      * @return {?}
      */
-    bypassSecurityTrustUrl(value) { return ɵbypassSanitizationTrustUrl(value); }
+    bypassSecurityTrustUrl(value) {
+        return ɵbypassSanitizationTrustUrl(value);
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -2719,7 +2805,9 @@ class Meta {
      * @param {?} attrSelector
      * @return {?}
      */
-    removeTag(attrSelector) { this.removeTagElement((/** @type {?} */ (this.getTag(attrSelector)))); }
+    removeTag(attrSelector) {
+        this.removeTagElement((/** @type {?} */ (this.getTag(attrSelector))));
+    }
     /**
      * @param {?} meta
      * @return {?}
@@ -2867,13 +2955,17 @@ class Title {
      * Get the title of the current HTML document.
      * @return {?}
      */
-    getTitle() { return this._doc.title; }
+    getTitle() {
+        return this._doc.title;
+    }
     /**
      * Set the title of the current HTML document.
      * @param {?} newTitle
      * @return {?}
      */
-    setTitle(newTitle) { this._doc.title = newTitle || ''; }
+    setTitle(newTitle) {
+        this._doc.title = newTitle || '';
+    }
 }
 Title.decorators = [
     { type: Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] },
@@ -2948,7 +3040,9 @@ class AngularProfiler {
     /**
      * @param {?} ref
      */
-    constructor(ref) { this.appRef = ref.injector.get(ApplicationRef); }
+    constructor(ref) {
+        this.appRef = ref.injector.get(ApplicationRef);
+    }
     // tslint:disable:no-console
     /**
      * Exercises change detection in a loop and then prints the average amount of
@@ -3157,21 +3251,27 @@ class TransferState {
      * @param {?} value
      * @return {?}
      */
-    set(key, value) { this.store[key] = value; }
+    set(key, value) {
+        this.store[key] = value;
+    }
     /**
      * Remove a key from the store.
      * @template T
      * @param {?} key
      * @return {?}
      */
-    remove(key) { delete this.store[key]; }
+    remove(key) {
+        delete this.store[key];
+    }
     /**
      * Test whether a key exists in the store.
      * @template T
      * @param {?} key
      * @return {?}
      */
-    hasKey(key) { return this.store.hasOwnProperty(key); }
+    hasKey(key) {
+        return this.store.hasOwnProperty(key);
+    }
     /**
      * Register a callback to provide the value for a key when `toJson` is called.
      * @template T
@@ -3285,10 +3385,12 @@ class By {
      * {\@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
      * @return {?}
      */
-    static all() { return (/**
-     * @return {?}
-     */
-    () => true); }
+    static all() {
+        return (/**
+         * @return {?}
+         */
+        () => true);
+    }
     /**
      * Match elements by the given CSS selector.
      *
@@ -3357,7 +3459,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('10.0.0-next.1+32.sha-5e80e7e');
+const VERSION = new Version('10.0.0-next.1+33.sha-698b028');
 
 /**
  * @fileoverview added by tsickle

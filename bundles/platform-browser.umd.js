@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.1+32.sha-5e80e7e
+ * @license Angular v10.0.0-next.1+33.sha-698b028
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -242,7 +242,9 @@
         function GenericBrowserDomAdapter() {
             return _super.call(this) || this;
         }
-        GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () { return true; };
+        GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () {
+            return true;
+        };
         return GenericBrowserDomAdapter;
     }(common.ɵDomAdapter));
 
@@ -273,8 +275,12 @@
         function BrowserDomAdapter() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        BrowserDomAdapter.makeCurrent = function () { common.ɵsetRootDomAdapter(new BrowserDomAdapter()); };
-        BrowserDomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
+        BrowserDomAdapter.makeCurrent = function () {
+            common.ɵsetRootDomAdapter(new BrowserDomAdapter());
+        };
+        BrowserDomAdapter.prototype.getProperty = function (el, name) {
+            return el[name];
+        };
         BrowserDomAdapter.prototype.log = function (error) {
             if (window.console) {
                 window.console.log && window.console.log(error);
@@ -294,16 +300,22 @@
             el.addEventListener(evt, listener, false);
             // Needed to follow Dart's subscription semantic, until fix of
             // https://code.google.com/p/dart/issues/detail?id=17406
-            return function () { el.removeEventListener(evt, listener, false); };
+            return function () {
+                el.removeEventListener(evt, listener, false);
+            };
         };
-        BrowserDomAdapter.prototype.dispatchEvent = function (el, evt) { el.dispatchEvent(evt); };
+        BrowserDomAdapter.prototype.dispatchEvent = function (el, evt) {
+            el.dispatchEvent(evt);
+        };
         BrowserDomAdapter.prototype.remove = function (node) {
             if (node.parentNode) {
                 node.parentNode.removeChild(node);
             }
             return node;
         };
-        BrowserDomAdapter.prototype.getValue = function (el) { return el.value; };
+        BrowserDomAdapter.prototype.getValue = function (el) {
+            return el.value;
+        };
         BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
             doc = doc || this.getDefaultDocument();
             return doc.createElement(tagName);
@@ -311,9 +323,15 @@
         BrowserDomAdapter.prototype.createHtmlDocument = function () {
             return document.implementation.createHTMLDocument('fakeTitle');
         };
-        BrowserDomAdapter.prototype.getDefaultDocument = function () { return document; };
-        BrowserDomAdapter.prototype.isElementNode = function (node) { return node.nodeType === Node.ELEMENT_NODE; };
-        BrowserDomAdapter.prototype.isShadowRoot = function (node) { return node instanceof DocumentFragment; };
+        BrowserDomAdapter.prototype.getDefaultDocument = function () {
+            return document;
+        };
+        BrowserDomAdapter.prototype.isElementNode = function (node) {
+            return node.nodeType === Node.ELEMENT_NODE;
+        };
+        BrowserDomAdapter.prototype.isShadowRoot = function (node) {
+            return node instanceof DocumentFragment;
+        };
         BrowserDomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target === 'window') {
                 return window;
@@ -326,22 +344,34 @@
             }
             return null;
         };
-        BrowserDomAdapter.prototype.getHistory = function () { return window.history; };
-        BrowserDomAdapter.prototype.getLocation = function () { return window.location; };
+        BrowserDomAdapter.prototype.getHistory = function () {
+            return window.history;
+        };
+        BrowserDomAdapter.prototype.getLocation = function () {
+            return window.location;
+        };
         BrowserDomAdapter.prototype.getBaseHref = function (doc) {
             var href = getBaseElementHref();
             return href == null ? null : relativePath(href);
         };
-        BrowserDomAdapter.prototype.resetBaseElement = function () { baseElement = null; };
-        BrowserDomAdapter.prototype.getUserAgent = function () { return window.navigator.userAgent; };
+        BrowserDomAdapter.prototype.resetBaseElement = function () {
+            baseElement = null;
+        };
+        BrowserDomAdapter.prototype.getUserAgent = function () {
+            return window.navigator.userAgent;
+        };
         BrowserDomAdapter.prototype.performanceNow = function () {
             // performance.now() is not available in all browsers, see
             // http://caniuse.com/#search=performance.now
             return window.performance && window.performance.now ? window.performance.now() :
                 new Date().getTime();
         };
-        BrowserDomAdapter.prototype.supportsCookies = function () { return true; };
-        BrowserDomAdapter.prototype.getCookie = function (name) { return common.ɵparseCookieValue(document.cookie, name); };
+        BrowserDomAdapter.prototype.supportsCookies = function () {
+            return true;
+        };
+        BrowserDomAdapter.prototype.getCookie = function (name) {
+            return common.ɵparseCookieValue(document.cookie, name);
+        };
         return BrowserDomAdapter;
     }(GenericBrowserDomAdapter));
     var baseElement = null;
@@ -408,7 +438,9 @@
     var BrowserGetTestability = /** @class */ (function () {
         function BrowserGetTestability() {
         }
-        BrowserGetTestability.init = function () { i0.setTestabilityGetter(new BrowserGetTestability()); };
+        BrowserGetTestability.init = function () {
+            i0.setTestabilityGetter(new BrowserGetTestability());
+        };
         BrowserGetTestability.prototype.addToWindow = function (registry) {
             i0.ɵglobal['getAngularTestability'] = function (elem, findInAncestors) {
                 if (findInAncestors === void 0) { findInAncestors = true; }
@@ -608,7 +640,9 @@
         /**
          * Retrieves the compilation zone in which event listeners are registered.
          */
-        EventManager.prototype.getZone = function () { return this._zone; };
+        EventManager.prototype.getZone = function () {
+            return this._zone;
+        };
         /** @internal */
         EventManager.prototype._findPluginFor = function (eventName) {
             var plugin = this._eventNameToPlugin.get(eventName);
@@ -666,7 +700,9 @@
             this.onStylesAdded(additions);
         };
         SharedStylesHost.prototype.onStylesAdded = function (additions) { };
-        SharedStylesHost.prototype.getAllStyles = function () { return Array.from(this._stylesSet); };
+        SharedStylesHost.prototype.getAllStyles = function () {
+            return Array.from(this._stylesSet);
+        };
         SharedStylesHost.ɵfac = function SharedStylesHost_Factory(t) { return new (t || SharedStylesHost)(); };
         SharedStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: SharedStylesHost, factory: SharedStylesHost.ɵfac });
         return SharedStylesHost;
@@ -696,12 +732,16 @@
             this._addStylesToHost(this._stylesSet, hostNode);
             this._hostNodes.add(hostNode);
         };
-        DomSharedStylesHost.prototype.removeHost = function (hostNode) { this._hostNodes.delete(hostNode); };
+        DomSharedStylesHost.prototype.removeHost = function (hostNode) {
+            this._hostNodes.delete(hostNode);
+        };
         DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
             var _this = this;
             this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
         };
-        DomSharedStylesHost.prototype.ngOnDestroy = function () { this._styleNodes.forEach(function (styleNode) { return common.ɵgetDOM().remove(styleNode); }); };
+        DomSharedStylesHost.prototype.ngOnDestroy = function () {
+            this._styleNodes.forEach(function (styleNode) { return common.ɵgetDOM().remove(styleNode); });
+        };
         DomSharedStylesHost.ɵfac = function DomSharedStylesHost_Factory(t) { return new (t || DomSharedStylesHost)(i0.ɵɵinject(common.DOCUMENT)); };
         DomSharedStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: DomSharedStylesHost, factory: DomSharedStylesHost.ɵfac });
         return DomSharedStylesHost;
@@ -827,9 +867,15 @@
             }
             return document.createElement(name);
         };
-        DefaultDomRenderer2.prototype.createComment = function (value) { return document.createComment(value); };
-        DefaultDomRenderer2.prototype.createText = function (value) { return document.createTextNode(value); };
-        DefaultDomRenderer2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
+        DefaultDomRenderer2.prototype.createComment = function (value) {
+            return document.createComment(value);
+        };
+        DefaultDomRenderer2.prototype.createText = function (value) {
+            return document.createTextNode(value);
+        };
+        DefaultDomRenderer2.prototype.appendChild = function (parent, newChild) {
+            parent.appendChild(newChild);
+        };
         DefaultDomRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
             if (parent) {
                 parent.insertBefore(newChild, refChild);
@@ -851,8 +897,12 @@
             }
             return el;
         };
-        DefaultDomRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
-        DefaultDomRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
+        DefaultDomRenderer2.prototype.parentNode = function (node) {
+            return node.parentNode;
+        };
+        DefaultDomRenderer2.prototype.nextSibling = function (node) {
+            return node.nextSibling;
+        };
         DefaultDomRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
             if (namespace) {
                 name = namespace + ':' + name;
@@ -889,8 +939,12 @@
                 el.removeAttribute(name);
             }
         };
-        DefaultDomRenderer2.prototype.addClass = function (el, name) { el.classList.add(name); };
-        DefaultDomRenderer2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
+        DefaultDomRenderer2.prototype.addClass = function (el, name) {
+            el.classList.add(name);
+        };
+        DefaultDomRenderer2.prototype.removeClass = function (el, name) {
+            el.classList.remove(name);
+        };
         DefaultDomRenderer2.prototype.setStyle = function (el, style, value, flags) {
             if (flags & i0.RendererStyleFlags2.DashCase) {
                 el.style.setProperty(style, value, !!(flags & i0.RendererStyleFlags2.Important) ? 'important' : '');
@@ -913,7 +967,9 @@
             NG_DEV_MODE && checkNoSyntheticProp(name, 'property');
             el[name] = value;
         };
-        DefaultDomRenderer2.prototype.setValue = function (node, value) { node.nodeValue = value; };
+        DefaultDomRenderer2.prototype.setValue = function (node, value) {
+            node.nodeValue = value;
+        };
         DefaultDomRenderer2.prototype.listen = function (target, event, callback) {
             NG_DEV_MODE && checkNoSyntheticProp(event, 'listener');
             if (typeof target === 'string') {
@@ -940,7 +996,9 @@
             _this.hostAttr = shimHostAttribute(appId + '-' + component.id);
             return _this;
         }
-        EmulatedEncapsulationDomRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
+        EmulatedEncapsulationDomRenderer2.prototype.applyToHost = function (element) {
+            _super.prototype.setAttribute.call(this, element, this.hostAttr, '');
+        };
         EmulatedEncapsulationDomRenderer2.prototype.createElement = function (parent, name) {
             var el = _super.prototype.createElement.call(this, parent, name);
             _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
@@ -970,8 +1028,12 @@
             }
             return _this;
         }
-        ShadowDomRenderer.prototype.nodeOrShadowRoot = function (node) { return node === this.hostEl ? this.shadowRoot : node; };
-        ShadowDomRenderer.prototype.destroy = function () { this.sharedStylesHost.removeHost(this.shadowRoot); };
+        ShadowDomRenderer.prototype.nodeOrShadowRoot = function (node) {
+            return node === this.hostEl ? this.shadowRoot : node;
+        };
+        ShadowDomRenderer.prototype.destroy = function () {
+            this.sharedStylesHost.removeHost(this.shadowRoot);
+        };
         ShadowDomRenderer.prototype.appendChild = function (parent, newChild) {
             return _super.prototype.appendChild.call(this, this.nodeOrShadowRoot(parent), newChild);
         };
@@ -994,7 +1056,9 @@
         }
         // This plugin should come last in the list of plugins, because it accepts all
         // events.
-        DomEventsPlugin.prototype.supports = function (eventName) { return true; };
+        DomEventsPlugin.prototype.supports = function (eventName) {
+            return true;
+        };
         DomEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
             var _this = this;
             element.addEventListener(eventName, handler, false);
@@ -1082,21 +1146,21 @@
              */
             this.events = [];
             /**
-            * Maps gesture event names to a set of configuration options
-            * that specify overrides to the default values for specific properties.
-            *
-            * The key is a supported event name to be configured,
-            * and the options object contains a set of properties, with override values
-            * to be applied to the named recognizer event.
-            * For example, to disable recognition of the rotate event, specify
-            *  `{"rotate": {"enable": false}}`.
-            *
-            * Properties that are not present take the HammerJS default values.
-            * For information about which properties are supported for which events,
-            * and their allowed and default values, see
-            * [HammerJS documentation](http://hammerjs.github.io/).
-            *
-            */
+             * Maps gesture event names to a set of configuration options
+             * that specify overrides to the default values for specific properties.
+             *
+             * The key is a supported event name to be configured,
+             * and the options object contains a set of properties, with override values
+             * to be applied to the named recognizer event.
+             * For example, to disable recognition of the rotate event, specify
+             *  `{"rotate": {"enable": false}}`.
+             *
+             * Properties that are not present take the HammerJS default values.
+             * For information about which properties are supported for which events,
+             * and their allowed and default values, see
+             * [HammerJS documentation](http://hammerjs.github.io/).
+             *
+             */
             this.overrides = {};
         }
         /**
@@ -1157,7 +1221,9 @@
                 // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
                 // than remove anything.
                 var cancelRegistration_1 = false;
-                var deregister_1 = function () { cancelRegistration_1 = true; };
+                var deregister_1 = function () {
+                    cancelRegistration_1 = true;
+                };
                 this.loader()
                     .then(function () {
                     // If Hammer isn't actually loaded when the custom loader resolves, give up.
@@ -1180,13 +1246,17 @@
                 // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
                 // can change the behavior of `deregister` once the listener is added. Using a closure in
                 // this way allows us to avoid any additional data structures to track listener removal.
-                return function () { deregister_1(); };
+                return function () {
+                    deregister_1();
+                };
             }
             return zone.runOutsideAngular(function () {
                 // Creating the manager bind events, must be done outside of angular
                 var mc = _this._config.buildHammer(element);
                 var callback = function (eventObj) {
-                    zone.runGuarded(function () { handler(eventObj); });
+                    zone.runGuarded(function () {
+                        handler(eventObj);
+                    });
                 };
                 mc.on(eventName, callback);
                 return function () {
@@ -1198,7 +1268,9 @@
                 };
             });
         };
-        HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) { return this._config.events.indexOf(eventName) > -1; };
+        HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) {
+            return this._config.events.indexOf(eventName) > -1;
+        };
         HammerGesturesPlugin.ɵfac = function HammerGesturesPlugin_Factory(t) { return new (t || HammerGesturesPlugin)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(HAMMER_GESTURE_CONFIG), i0.ɵɵinject(i0.ɵConsole), i0.ɵɵinject(HAMMER_LOADER, 8)); };
         HammerGesturesPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: HammerGesturesPlugin, factory: HammerGesturesPlugin.ɵfac });
         return HammerGesturesPlugin;
@@ -1326,11 +1398,13 @@
             return _super.call(this, doc) || this;
         }
         /**
-          * Reports whether a named key event is supported.
-          * @param eventName The event name to query.
-          * @return True if the named key event is supported.
+         * Reports whether a named key event is supported.
+         * @param eventName The event name to query.
+         * @return True if the named key event is supported.
          */
-        KeyEventsPlugin.prototype.supports = function (eventName) { return KeyEventsPlugin.parseEventName(eventName) != null; };
+        KeyEventsPlugin.prototype.supports = function (eventName) {
+            return KeyEventsPlugin.parseEventName(eventName) != null;
+        };
         /**
          * Registers a handler for a specific element and key event.
          * @param element The HTML element to receive event notifications.
@@ -1338,7 +1412,7 @@
          * @param handler A function to call when the notification occurs. Receives the
          * event object as an argument.
          * @returns The key event that was registered.
-        */
+         */
         KeyEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
             var parsedEvent = KeyEventsPlugin.parseEventName(eventName);
             var outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
@@ -1542,12 +1616,18 @@
                     throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
             }
         };
-        DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) { return i0.ɵbypassSanitizationTrustHtml(value); };
-        DomSanitizerImpl.prototype.bypassSecurityTrustStyle = function (value) { return i0.ɵbypassSanitizationTrustStyle(value); };
+        DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) {
+            return i0.ɵbypassSanitizationTrustHtml(value);
+        };
+        DomSanitizerImpl.prototype.bypassSecurityTrustStyle = function (value) {
+            return i0.ɵbypassSanitizationTrustStyle(value);
+        };
         DomSanitizerImpl.prototype.bypassSecurityTrustScript = function (value) {
             return i0.ɵbypassSanitizationTrustScript(value);
         };
-        DomSanitizerImpl.prototype.bypassSecurityTrustUrl = function (value) { return i0.ɵbypassSanitizationTrustUrl(value); };
+        DomSanitizerImpl.prototype.bypassSecurityTrustUrl = function (value) {
+            return i0.ɵbypassSanitizationTrustUrl(value);
+        };
         DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
             return i0.ɵbypassSanitizationTrustResourceUrl(value);
         };
@@ -1744,7 +1824,9 @@
             }
             return this._getOrCreateElement(tag, true);
         };
-        Meta.prototype.removeTag = function (attrSelector) { this.removeTagElement(this.getTag(attrSelector)); };
+        Meta.prototype.removeTag = function (attrSelector) {
+            this.removeTagElement(this.getTag(attrSelector));
+        };
         Meta.prototype.removeTagElement = function (meta) {
             if (meta) {
                 this._dom.remove(meta);
@@ -1825,12 +1907,16 @@
         /**
          * Get the title of the current HTML document.
          */
-        Title.prototype.getTitle = function () { return this._doc.title; };
+        Title.prototype.getTitle = function () {
+            return this._doc.title;
+        };
         /**
          * Set the title of the current HTML document.
          * @param newTitle
          */
-        Title.prototype.setTitle = function (newTitle) { this._doc.title = newTitle || ''; };
+        Title.prototype.setTitle = function (newTitle) {
+            this._doc.title = newTitle || '';
+        };
         Title.ɵfac = function Title_Factory(t) { return new (t || Title)(i0.ɵɵinject(common.DOCUMENT)); };
         Title.ɵprov = i0.ɵɵdefineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
                 r = new t();
@@ -2033,15 +2119,21 @@
         /**
          * Set the value corresponding to a key.
          */
-        TransferState.prototype.set = function (key, value) { this.store[key] = value; };
+        TransferState.prototype.set = function (key, value) {
+            this.store[key] = value;
+        };
         /**
          * Remove a key from the store.
          */
-        TransferState.prototype.remove = function (key) { delete this.store[key]; };
+        TransferState.prototype.remove = function (key) {
+            delete this.store[key];
+        };
         /**
          * Test whether a key exists in the store.
          */
-        TransferState.prototype.hasKey = function (key) { return this.store.hasOwnProperty(key); };
+        TransferState.prototype.hasKey = function (key) {
+            return this.store.hasOwnProperty(key);
+        };
         /**
          * Register a callback to provide the value for a key when `toJson` is called.
          */
@@ -2130,7 +2222,9 @@
          *
          * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
          */
-        By.all = function () { return function () { return true; }; };
+        By.all = function () {
+            return function () { return true; };
+        };
         /**
          * Match elements by the given CSS selector.
          *
@@ -2186,7 +2280,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.0.0-next.1+32.sha-5e80e7e');
+    var VERSION = new i0.Version('10.0.0-next.1+33.sha-698b028');
 
     /**
      * @license

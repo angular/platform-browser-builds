@@ -12,9 +12,9 @@ export declare class KeyEventsPlugin extends EventManagerPlugin {
      */
     constructor(doc: any);
     /**
-      * Reports whether a named key event is supported.
-      * @param eventName The event name to query.
-      * @return True if the named key event is supported.
+     * Reports whether a named key event is supported.
+     * @param eventName The event name to query.
+     * @return True if the named key event is supported.
      */
     supports(eventName: string): boolean;
     /**
@@ -24,7 +24,7 @@ export declare class KeyEventsPlugin extends EventManagerPlugin {
      * @param handler A function to call when the notification occurs. Receives the
      * event object as an argument.
      * @returns The key event that was registered.
-    */
+     */
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     static parseEventName(eventName: string): {
         [key: string]: string;
