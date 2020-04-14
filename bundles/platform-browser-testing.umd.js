@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.1+32.sha-5e80e7e
+ * @license Angular v10.0.0-next.1+33.sha-698b028
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -245,9 +245,13 @@
             enumerable: true,
             configurable: true
         });
-        BrowserDetection.setup = function () { return new BrowserDetection(null); };
+        BrowserDetection.setup = function () {
+            return new BrowserDetection(null);
+        };
         Object.defineProperty(BrowserDetection.prototype, "isFirefox", {
-            get: function () { return this._ua.indexOf('Firefox') > -1; },
+            get: function () {
+                return this._ua.indexOf('Firefox') > -1;
+            },
             enumerable: true,
             configurable: true
         });
@@ -261,12 +265,16 @@
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isEdge", {
-            get: function () { return this._ua.indexOf('Edge') > -1; },
+            get: function () {
+                return this._ua.indexOf('Edge') > -1;
+            },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isIE", {
-            get: function () { return this._ua.indexOf('Trident') > -1; },
+            get: function () {
+                return this._ua.indexOf('Trident') > -1;
+            },
             enumerable: true,
             configurable: true
         });
@@ -287,7 +295,9 @@
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isSlow", {
-            get: function () { return this.isAndroid || this.isIE || this.isIOS7; },
+            get: function () {
+                return this.isAndroid || this.isIE || this.isIOS7;
+            },
             enumerable: true,
             configurable: true
         });
@@ -321,7 +331,9 @@
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "supportsCustomElements", {
-            get: function () { return (typeof core.ɵglobal.customElements !== 'undefined'); },
+            get: function () {
+                return (typeof core.ɵglobal.customElements !== 'undefined');
+            },
             enumerable: true,
             configurable: true
         });
@@ -333,7 +345,9 @@
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "supportsRegExUnicodeFlag", {
-            get: function () { return RegExp.prototype.hasOwnProperty('unicode'); },
+            get: function () {
+                return RegExp.prototype.hasOwnProperty('unicode');
+            },
             enumerable: true,
             configurable: true
         });
