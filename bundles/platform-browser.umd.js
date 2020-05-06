@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.5+53.sha-3c6c00d
+ * @license Angular v10.0.0-next.5+54.sha-420b9be
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1595,7 +1595,7 @@
                     if (i0.ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
                         return i0.ɵunwrapSafeValue(value);
                     }
-                    return i0.ɵ_sanitizeStyle(value);
+                    return value;
                 case i0.SecurityContext.SCRIPT:
                     if (i0.ɵallowSanitizationBypassAndThrow(value, "Script" /* Script */)) {
                         return i0.ɵunwrapSafeValue(value);
@@ -2280,7 +2280,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.0.0-next.5+53.sha-3c6c00d');
+    var VERSION = new i0.Version('10.0.0-next.5+54.sha-420b9be');
 
     /**
      * @license
