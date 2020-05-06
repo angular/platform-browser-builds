@@ -1,12 +1,12 @@
 /**
- * @license Angular v10.0.0-next.5+53.sha-3c6c00d
+ * @license Angular v10.0.0-next.5+54.sha-420b9be
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, forwardRef, ɵɵdefineInjectable, ɵɵinject, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeStyle, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, forwardRef, ɵɵdefineInjectable, ɵɵinject, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -2350,7 +2350,7 @@ class DomSanitizerImpl extends DomSanitizer {
                 if (ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
                     return ɵunwrapSafeValue(value);
                 }
-                return ɵ_sanitizeStyle((/** @type {?} */ (value)));
+                return (/** @type {?} */ (value));
             case SecurityContext.SCRIPT:
                 if (ɵallowSanitizationBypassAndThrow(value, "Script" /* Script */)) {
                     return ɵunwrapSafeValue(value);
@@ -3243,7 +3243,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('10.0.0-next.5+53.sha-3c6c00d');
+const VERSION = new Version('10.0.0-next.5+54.sha-420b9be');
 
 /**
  * @fileoverview added by tsickle
