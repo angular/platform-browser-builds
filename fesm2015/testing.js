@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.7+17.sha-2418c6a
+ * @license Angular v10.0.0-next.7+43.sha-f16ca1c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -413,24 +413,32 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  *
  * \@publicApi
  */
-class BrowserTestingModule {
-}
-BrowserTestingModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [BrowserModule],
-                providers: [
-                    { provide: APP_ID, useValue: 'a' },
-                    ɵELEMENT_PROBE_PROVIDERS,
-                    { provide: NgZone, useFactory: createNgZone },
-                ]
-            },] },
-];
-/** @nocollapse */ BrowserTestingModule.ɵmod = ɵɵdefineNgModule({ type: BrowserTestingModule });
-/** @nocollapse */ BrowserTestingModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
-        { provide: APP_ID, useValue: 'a' },
-        ɵELEMENT_PROBE_PROVIDERS,
-        { provide: NgZone, useFactory: createNgZone },
-    ], imports: [BrowserModule] });
+let BrowserTestingModule = /** @class */ (() => {
+    /**
+     * NgModule for testing.
+     *
+     * \@publicApi
+     */
+    class BrowserTestingModule {
+    }
+    BrowserTestingModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserModule],
+                    providers: [
+                        { provide: APP_ID, useValue: 'a' },
+                        ɵELEMENT_PROBE_PROVIDERS,
+                        { provide: NgZone, useFactory: createNgZone },
+                    ]
+                },] },
+    ];
+    /** @nocollapse */ BrowserTestingModule.ɵmod = ɵɵdefineNgModule({ type: BrowserTestingModule });
+    /** @nocollapse */ BrowserTestingModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
+            { provide: APP_ID, useValue: 'a' },
+            ɵELEMENT_PROBE_PROVIDERS,
+            { provide: NgZone, useFactory: createNgZone },
+        ], imports: [BrowserModule] });
+    return BrowserTestingModule;
+})();
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserTestingModule, { exports: [BrowserModule] }); })();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserTestingModule, [{
         type: NgModule,
