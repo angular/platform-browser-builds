@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.7+17.sha-2418c6a
+ * @license Angular v10.0.0-next.7+43.sha-f16ca1c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -242,7 +242,7 @@
                 }
                 return common.ɵgetDOM() ? common.ɵgetDOM().getUserAgent() : '';
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         BrowserDetection.setup = function () {
@@ -252,7 +252,7 @@
             get: function () {
                 return this._ua.indexOf('Firefox') > -1;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isAndroid", {
@@ -261,21 +261,21 @@
                     this._ua.indexOf('AppleWebKit') > -1 && this._ua.indexOf('Chrome') == -1 &&
                     this._ua.indexOf('IEMobile') == -1;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isEdge", {
             get: function () {
                 return this._ua.indexOf('Edge') > -1;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isIE", {
             get: function () {
                 return this._ua.indexOf('Trident') > -1;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isWebkit", {
@@ -283,7 +283,7 @@
                 return this._ua.indexOf('AppleWebKit') > -1 && this._ua.indexOf('Edge') == -1 &&
                     this._ua.indexOf('IEMobile') == -1;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isIOS7", {
@@ -291,14 +291,14 @@
                 return (this._ua.indexOf('iPhone OS 7') > -1 || this._ua.indexOf('iPad OS 7') > -1) &&
                     this._ua.indexOf('IEMobile') == -1;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isSlow", {
             get: function () {
                 return this.isAndroid || this.isIE || this.isIOS7;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "supportsNativeIntlApi", {
@@ -309,7 +309,7 @@
             get: function () {
                 return !!core.ɵglobal.Intl && core.ɵglobal.Intl !== core.ɵglobal.IntlPolyfill;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isChromeDesktop", {
@@ -317,7 +317,7 @@
                 return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 &&
                     this._ua.indexOf('Edge') == -1;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "isOldChrome", {
@@ -327,28 +327,28 @@
                 return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
                     this._ua.indexOf('Edge') == -1;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "supportsCustomElements", {
             get: function () {
                 return (typeof core.ɵglobal.customElements !== 'undefined');
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "supportsDeprecatedCustomCustomElementsV0", {
             get: function () {
                 return (typeof document.registerElement !== 'undefined');
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "supportsRegExUnicodeFlag", {
             get: function () {
                 return RegExp.prototype.hasOwnProperty('unicode');
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "supportsShadowDom", {
@@ -356,7 +356,7 @@
                 var testEl = document.createElement('div');
                 return (typeof testEl.attachShadow !== 'undefined');
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(BrowserDetection.prototype, "supportsDeprecatedShadowDomV0", {
@@ -364,7 +364,7 @@
                 var testEl = document.createElement('div');
                 return (typeof testEl.createShadowRoot !== 'undefined');
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         return BrowserDetection;

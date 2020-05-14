@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.7+17.sha-2418c6a
+ * @license Angular v10.0.0-next.7+43.sha-f16ca1c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -585,91 +585,100 @@ const EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
  *
  * \@publicApi
  */
-class EventManager {
+let EventManager = /** @class */ (() => {
     /**
-     * Initializes an instance of the event-manager service.
-     * @param {?} plugins
-     * @param {?} _zone
+     * An injectable service that provides event management for Angular
+     * through a browser plug-in.
+     *
+     * \@publicApi
      */
-    constructor(plugins, _zone) {
-        this._zone = _zone;
-        this._eventNameToPlugin = new Map();
-        plugins.forEach((/**
-         * @template THIS
-         * @this {THIS}
-         * @param {?} p
-         * @return {THIS}
+    class EventManager {
+        /**
+         * Initializes an instance of the event-manager service.
+         * @param {?} plugins
+         * @param {?} _zone
          */
-        p => p.manager = this));
-        this._plugins = plugins.slice().reverse();
-    }
-    /**
-     * Registers a handler for a specific element and event.
-     *
-     * @param {?} element The HTML element to receive event notifications.
-     * @param {?} eventName The name of the event to listen for.
-     * @param {?} handler A function to call when the notification occurs. Receives the
-     * event object as an argument.
-     * @return {?} A callback function that can be used to remove the handler.
-     */
-    addEventListener(element, eventName, handler) {
-        /** @type {?} */
-        const plugin = this._findPluginFor(eventName);
-        return plugin.addEventListener(element, eventName, handler);
-    }
-    /**
-     * Registers a global handler for an event in a target view.
-     *
-     * @param {?} target A target for global event notifications. One of "window", "document", or "body".
-     * @param {?} eventName The name of the event to listen for.
-     * @param {?} handler A function to call when the notification occurs. Receives the
-     * event object as an argument.
-     * @return {?} A callback function that can be used to remove the handler.
-     */
-    addGlobalEventListener(target, eventName, handler) {
-        /** @type {?} */
-        const plugin = this._findPluginFor(eventName);
-        return plugin.addGlobalEventListener(target, eventName, handler);
-    }
-    /**
-     * Retrieves the compilation zone in which event listeners are registered.
-     * @return {?}
-     */
-    getZone() {
-        return this._zone;
-    }
-    /**
-     * \@internal
-     * @param {?} eventName
-     * @return {?}
-     */
-    _findPluginFor(eventName) {
-        /** @type {?} */
-        const plugin = this._eventNameToPlugin.get(eventName);
-        if (plugin) {
-            return plugin;
+        constructor(plugins, _zone) {
+            this._zone = _zone;
+            this._eventNameToPlugin = new Map();
+            plugins.forEach((/**
+             * @template THIS
+             * @this {THIS}
+             * @param {?} p
+             * @return {THIS}
+             */
+            p => p.manager = this));
+            this._plugins = plugins.slice().reverse();
         }
-        /** @type {?} */
-        const plugins = this._plugins;
-        for (let i = 0; i < plugins.length; i++) {
+        /**
+         * Registers a handler for a specific element and event.
+         *
+         * @param {?} element The HTML element to receive event notifications.
+         * @param {?} eventName The name of the event to listen for.
+         * @param {?} handler A function to call when the notification occurs. Receives the
+         * event object as an argument.
+         * @return {?} A callback function that can be used to remove the handler.
+         */
+        addEventListener(element, eventName, handler) {
             /** @type {?} */
-            const plugin = plugins[i];
-            if (plugin.supports(eventName)) {
-                this._eventNameToPlugin.set(eventName, plugin);
+            const plugin = this._findPluginFor(eventName);
+            return plugin.addEventListener(element, eventName, handler);
+        }
+        /**
+         * Registers a global handler for an event in a target view.
+         *
+         * @param {?} target A target for global event notifications. One of "window", "document", or "body".
+         * @param {?} eventName The name of the event to listen for.
+         * @param {?} handler A function to call when the notification occurs. Receives the
+         * event object as an argument.
+         * @return {?} A callback function that can be used to remove the handler.
+         */
+        addGlobalEventListener(target, eventName, handler) {
+            /** @type {?} */
+            const plugin = this._findPluginFor(eventName);
+            return plugin.addGlobalEventListener(target, eventName, handler);
+        }
+        /**
+         * Retrieves the compilation zone in which event listeners are registered.
+         * @return {?}
+         */
+        getZone() {
+            return this._zone;
+        }
+        /**
+         * \@internal
+         * @param {?} eventName
+         * @return {?}
+         */
+        _findPluginFor(eventName) {
+            /** @type {?} */
+            const plugin = this._eventNameToPlugin.get(eventName);
+            if (plugin) {
                 return plugin;
             }
+            /** @type {?} */
+            const plugins = this._plugins;
+            for (let i = 0; i < plugins.length; i++) {
+                /** @type {?} */
+                const plugin = plugins[i];
+                if (plugin.supports(eventName)) {
+                    this._eventNameToPlugin.set(eventName, plugin);
+                    return plugin;
+                }
+            }
+            throw new Error(`No event manager plugin found for event ${eventName}`);
         }
-        throw new Error(`No event manager plugin found for event ${eventName}`);
     }
-}
-EventManager.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-EventManager.ctorParameters = () => [
-    { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
-    { type: NgZone }
-];
+    EventManager.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    EventManager.ctorParameters = () => [
+        { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
+        { type: NgZone }
+    ];
+    return EventManager;
+})();
 if (false) {
     /**
      * @type {?}
@@ -741,47 +750,50 @@ if (false) {
  * Generated from: packages/platform-browser/src/dom/shared_styles_host.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class SharedStylesHost {
-    constructor() {
+let SharedStylesHost = /** @class */ (() => {
+    class SharedStylesHost {
+        constructor() {
+            /**
+             * \@internal
+             */
+            this._stylesSet = new Set();
+        }
         /**
-         * \@internal
-         */
-        this._stylesSet = new Set();
-    }
-    /**
-     * @param {?} styles
-     * @return {?}
-     */
-    addStyles(styles) {
-        /** @type {?} */
-        const additions = new Set();
-        styles.forEach((/**
-         * @param {?} style
+         * @param {?} styles
          * @return {?}
          */
-        style => {
-            if (!this._stylesSet.has(style)) {
-                this._stylesSet.add(style);
-                additions.add(style);
-            }
-        }));
-        this.onStylesAdded(additions);
+        addStyles(styles) {
+            /** @type {?} */
+            const additions = new Set();
+            styles.forEach((/**
+             * @param {?} style
+             * @return {?}
+             */
+            style => {
+                if (!this._stylesSet.has(style)) {
+                    this._stylesSet.add(style);
+                    additions.add(style);
+                }
+            }));
+            this.onStylesAdded(additions);
+        }
+        /**
+         * @param {?} additions
+         * @return {?}
+         */
+        onStylesAdded(additions) { }
+        /**
+         * @return {?}
+         */
+        getAllStyles() {
+            return Array.from(this._stylesSet);
+        }
     }
-    /**
-     * @param {?} additions
-     * @return {?}
-     */
-    onStylesAdded(additions) { }
-    /**
-     * @return {?}
-     */
-    getAllStyles() {
-        return Array.from(this._stylesSet);
-    }
-}
-SharedStylesHost.decorators = [
-    { type: Injectable }
-];
+    SharedStylesHost.decorators = [
+        { type: Injectable }
+    ];
+    return SharedStylesHost;
+})();
 if (false) {
     /**
      * \@internal
@@ -790,79 +802,82 @@ if (false) {
      */
     SharedStylesHost.prototype._stylesSet;
 }
-class DomSharedStylesHost extends SharedStylesHost {
-    /**
-     * @param {?} _doc
-     */
-    constructor(_doc) {
-        super();
-        this._doc = _doc;
-        this._hostNodes = new Set();
-        this._styleNodes = new Set();
-        this._hostNodes.add(_doc.head);
-    }
-    /**
-     * @private
-     * @param {?} styles
-     * @param {?} host
-     * @return {?}
-     */
-    _addStylesToHost(styles, host) {
-        styles.forEach((/**
-         * @param {?} style
+let DomSharedStylesHost = /** @class */ (() => {
+    class DomSharedStylesHost extends SharedStylesHost {
+        /**
+         * @param {?} _doc
+         */
+        constructor(_doc) {
+            super();
+            this._doc = _doc;
+            this._hostNodes = new Set();
+            this._styleNodes = new Set();
+            this._hostNodes.add(_doc.head);
+        }
+        /**
+         * @private
+         * @param {?} styles
+         * @param {?} host
          * @return {?}
          */
-        (style) => {
-            /** @type {?} */
-            const styleEl = this._doc.createElement('style');
-            styleEl.textContent = style;
-            this._styleNodes.add(host.appendChild(styleEl));
-        }));
-    }
-    /**
-     * @param {?} hostNode
-     * @return {?}
-     */
-    addHost(hostNode) {
-        this._addStylesToHost(this._stylesSet, hostNode);
-        this._hostNodes.add(hostNode);
-    }
-    /**
-     * @param {?} hostNode
-     * @return {?}
-     */
-    removeHost(hostNode) {
-        this._hostNodes.delete(hostNode);
-    }
-    /**
-     * @param {?} additions
-     * @return {?}
-     */
-    onStylesAdded(additions) {
-        this._hostNodes.forEach((/**
+        _addStylesToHost(styles, host) {
+            styles.forEach((/**
+             * @param {?} style
+             * @return {?}
+             */
+            (style) => {
+                /** @type {?} */
+                const styleEl = this._doc.createElement('style');
+                styleEl.textContent = style;
+                this._styleNodes.add(host.appendChild(styleEl));
+            }));
+        }
+        /**
          * @param {?} hostNode
          * @return {?}
          */
-        hostNode => this._addStylesToHost(additions, hostNode)));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._styleNodes.forEach((/**
-         * @param {?} styleNode
+        addHost(hostNode) {
+            this._addStylesToHost(this._stylesSet, hostNode);
+            this._hostNodes.add(hostNode);
+        }
+        /**
+         * @param {?} hostNode
          * @return {?}
          */
-        styleNode => ɵgetDOM().remove(styleNode)));
+        removeHost(hostNode) {
+            this._hostNodes.delete(hostNode);
+        }
+        /**
+         * @param {?} additions
+         * @return {?}
+         */
+        onStylesAdded(additions) {
+            this._hostNodes.forEach((/**
+             * @param {?} hostNode
+             * @return {?}
+             */
+            hostNode => this._addStylesToHost(additions, hostNode)));
+        }
+        /**
+         * @return {?}
+         */
+        ngOnDestroy() {
+            this._styleNodes.forEach((/**
+             * @param {?} styleNode
+             * @return {?}
+             */
+            styleNode => ɵgetDOM().remove(styleNode)));
+        }
     }
-}
-DomSharedStylesHost.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-DomSharedStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-];
+    DomSharedStylesHost.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    DomSharedStylesHost.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
+    return DomSharedStylesHost;
+})();
 if (false) {
     /**
      * @type {?}
@@ -969,71 +984,74 @@ function decoratePreventDefault(eventHandler) {
         return undefined;
     });
 }
-class DomRendererFactory2 {
-    /**
-     * @param {?} eventManager
-     * @param {?} sharedStylesHost
-     * @param {?} appId
-     */
-    constructor(eventManager, sharedStylesHost, appId) {
-        this.eventManager = eventManager;
-        this.sharedStylesHost = sharedStylesHost;
-        this.appId = appId;
-        this.rendererByCompId = new Map();
-        this.defaultRenderer = new DefaultDomRenderer2(eventManager);
-    }
-    /**
-     * @param {?} element
-     * @param {?} type
-     * @return {?}
-     */
-    createRenderer(element, type) {
-        if (!element || !type) {
-            return this.defaultRenderer;
+let DomRendererFactory2 = /** @class */ (() => {
+    class DomRendererFactory2 {
+        /**
+         * @param {?} eventManager
+         * @param {?} sharedStylesHost
+         * @param {?} appId
+         */
+        constructor(eventManager, sharedStylesHost, appId) {
+            this.eventManager = eventManager;
+            this.sharedStylesHost = sharedStylesHost;
+            this.appId = appId;
+            this.rendererByCompId = new Map();
+            this.defaultRenderer = new DefaultDomRenderer2(eventManager);
         }
-        switch (type.encapsulation) {
-            case ViewEncapsulation.Emulated: {
-                /** @type {?} */
-                let renderer = this.rendererByCompId.get(type.id);
-                if (!renderer) {
-                    renderer = new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type, this.appId);
-                    this.rendererByCompId.set(type.id, renderer);
-                }
-                ((/** @type {?} */ (renderer))).applyToHost(element);
-                return renderer;
-            }
-            case ViewEncapsulation.Native:
-            case ViewEncapsulation.ShadowDom:
-                return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
-            default: {
-                if (!this.rendererByCompId.has(type.id)) {
-                    /** @type {?} */
-                    const styles = flattenStyles(type.id, type.styles, []);
-                    this.sharedStylesHost.addStyles(styles);
-                    this.rendererByCompId.set(type.id, this.defaultRenderer);
-                }
+        /**
+         * @param {?} element
+         * @param {?} type
+         * @return {?}
+         */
+        createRenderer(element, type) {
+            if (!element || !type) {
                 return this.defaultRenderer;
             }
+            switch (type.encapsulation) {
+                case ViewEncapsulation.Emulated: {
+                    /** @type {?} */
+                    let renderer = this.rendererByCompId.get(type.id);
+                    if (!renderer) {
+                        renderer = new EmulatedEncapsulationDomRenderer2(this.eventManager, this.sharedStylesHost, type, this.appId);
+                        this.rendererByCompId.set(type.id, renderer);
+                    }
+                    ((/** @type {?} */ (renderer))).applyToHost(element);
+                    return renderer;
+                }
+                case ViewEncapsulation.Native:
+                case ViewEncapsulation.ShadowDom:
+                    return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
+                default: {
+                    if (!this.rendererByCompId.has(type.id)) {
+                        /** @type {?} */
+                        const styles = flattenStyles(type.id, type.styles, []);
+                        this.sharedStylesHost.addStyles(styles);
+                        this.rendererByCompId.set(type.id, this.defaultRenderer);
+                    }
+                    return this.defaultRenderer;
+                }
+            }
         }
+        /**
+         * @return {?}
+         */
+        begin() { }
+        /**
+         * @return {?}
+         */
+        end() { }
     }
-    /**
-     * @return {?}
-     */
-    begin() { }
-    /**
-     * @return {?}
-     */
-    end() { }
-}
-DomRendererFactory2.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-DomRendererFactory2.ctorParameters = () => [
-    { type: EventManager },
-    { type: DomSharedStylesHost },
-    { type: String, decorators: [{ type: Inject, args: [APP_ID,] }] }
-];
+    DomRendererFactory2.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    DomRendererFactory2.ctorParameters = () => [
+        { type: EventManager },
+        { type: DomSharedStylesHost },
+        { type: String, decorators: [{ type: Inject, args: [APP_ID,] }] }
+    ];
+    return DomRendererFactory2;
+})();
 if (false) {
     /**
      * @type {?}
@@ -1472,52 +1490,55 @@ if (false) {
  * Generated from: packages/platform-browser/src/dom/events/dom_events.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class DomEventsPlugin extends EventManagerPlugin {
-    /**
-     * @param {?} doc
-     */
-    constructor(doc) {
-        super(doc);
-    }
-    // This plugin should come last in the list of plugins, because it accepts all
-    // events.
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    supports(eventName) {
-        return true;
-    }
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    addEventListener(element, eventName, handler) {
-        element.addEventListener(eventName, (/** @type {?} */ (handler)), false);
-        return (/**
+let DomEventsPlugin = /** @class */ (() => {
+    class DomEventsPlugin extends EventManagerPlugin {
+        /**
+         * @param {?} doc
+         */
+        constructor(doc) {
+            super(doc);
+        }
+        // This plugin should come last in the list of plugins, because it accepts all
+        // events.
+        /**
+         * @param {?} eventName
          * @return {?}
          */
-        () => this.removeEventListener(element, eventName, (/** @type {?} */ (handler))));
+        supports(eventName) {
+            return true;
+        }
+        /**
+         * @param {?} element
+         * @param {?} eventName
+         * @param {?} handler
+         * @return {?}
+         */
+        addEventListener(element, eventName, handler) {
+            element.addEventListener(eventName, (/** @type {?} */ (handler)), false);
+            return (/**
+             * @return {?}
+             */
+            () => this.removeEventListener(element, eventName, (/** @type {?} */ (handler))));
+        }
+        /**
+         * @param {?} target
+         * @param {?} eventName
+         * @param {?} callback
+         * @return {?}
+         */
+        removeEventListener(target, eventName, callback) {
+            return target.removeEventListener(eventName, (/** @type {?} */ (callback)));
+        }
     }
-    /**
-     * @param {?} target
-     * @param {?} eventName
-     * @param {?} callback
-     * @return {?}
-     */
-    removeEventListener(target, eventName, callback) {
-        return target.removeEventListener(eventName, (/** @type {?} */ (callback)));
-    }
-}
-DomEventsPlugin.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-DomEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-];
+    DomEventsPlugin.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    DomEventsPlugin.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
+    return DomEventsPlugin;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -1608,52 +1629,60 @@ if (false) {
  * for gesture recognition. Configures specific event recognition.
  * \@publicApi
  */
-class HammerGestureConfig {
-    constructor() {
-        /**
-         * A set of supported event names for gestures to be used in Angular.
-         * Angular supports all built-in recognizers, as listed in
-         * [HammerJS documentation](http://hammerjs.github.io/).
-         */
-        this.events = [];
-        /**
-         * Maps gesture event names to a set of configuration options
-         * that specify overrides to the default values for specific properties.
-         *
-         * The key is a supported event name to be configured,
-         * and the options object contains a set of properties, with override values
-         * to be applied to the named recognizer event.
-         * For example, to disable recognition of the rotate event, specify
-         *  `{"rotate": {"enable": false}}`.
-         *
-         * Properties that are not present take the HammerJS default values.
-         * For information about which properties are supported for which events,
-         * and their allowed and default values, see
-         * [HammerJS documentation](http://hammerjs.github.io/).
-         *
-         */
-        this.overrides = {};
-    }
+let HammerGestureConfig = /** @class */ (() => {
     /**
-     * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
-     * and attaches it to a given HTML element.
-     * @param {?} element The element that will recognize gestures.
-     * @return {?} A HammerJS event-manager object.
+     * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+     * for gesture recognition. Configures specific event recognition.
+     * \@publicApi
      */
-    buildHammer(element) {
-        /** @type {?} */
-        const mc = new (/** @type {?} */ (Hammer))(element, this.options);
-        mc.get('pinch').set({ enable: true });
-        mc.get('rotate').set({ enable: true });
-        for (const eventName in this.overrides) {
-            mc.get(eventName).set(this.overrides[eventName]);
+    class HammerGestureConfig {
+        constructor() {
+            /**
+             * A set of supported event names for gestures to be used in Angular.
+             * Angular supports all built-in recognizers, as listed in
+             * [HammerJS documentation](http://hammerjs.github.io/).
+             */
+            this.events = [];
+            /**
+             * Maps gesture event names to a set of configuration options
+             * that specify overrides to the default values for specific properties.
+             *
+             * The key is a supported event name to be configured,
+             * and the options object contains a set of properties, with override values
+             * to be applied to the named recognizer event.
+             * For example, to disable recognition of the rotate event, specify
+             *  `{"rotate": {"enable": false}}`.
+             *
+             * Properties that are not present take the HammerJS default values.
+             * For information about which properties are supported for which events,
+             * and their allowed and default values, see
+             * [HammerJS documentation](http://hammerjs.github.io/).
+             *
+             */
+            this.overrides = {};
         }
-        return mc;
+        /**
+         * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+         * and attaches it to a given HTML element.
+         * @param {?} element The element that will recognize gestures.
+         * @return {?} A HammerJS event-manager object.
+         */
+        buildHammer(element) {
+            /** @type {?} */
+            const mc = new (/** @type {?} */ (Hammer))(element, this.options);
+            mc.get('pinch').set({ enable: true });
+            mc.get('rotate').set({ enable: true });
+            for (const eventName in this.overrides) {
+                mc.get(eventName).set(this.overrides[eventName]);
+            }
+            return mc;
+        }
     }
-}
-HammerGestureConfig.decorators = [
-    { type: Injectable }
-];
+    HammerGestureConfig.decorators = [
+        { type: Injectable }
+    ];
+    return HammerGestureConfig;
+})();
 if (false) {
     /**
      * A set of supported event names for gestures to be used in Angular.
@@ -1695,151 +1724,159 @@ if (false) {
  *
  * \@ngModule HammerModule
  */
-class HammerGesturesPlugin extends EventManagerPlugin {
+let HammerGesturesPlugin = /** @class */ (() => {
     /**
-     * @param {?} doc
-     * @param {?} _config
-     * @param {?} console
-     * @param {?=} loader
+     * Event plugin that adds Hammer support to an application.
+     *
+     * \@ngModule HammerModule
      */
-    constructor(doc, _config, console, loader) {
-        super(doc);
-        this._config = _config;
-        this.console = console;
-        this.loader = loader;
-    }
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    supports(eventName) {
-        if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
-            return false;
+    class HammerGesturesPlugin extends EventManagerPlugin {
+        /**
+         * @param {?} doc
+         * @param {?} _config
+         * @param {?} console
+         * @param {?=} loader
+         */
+        constructor(doc, _config, console, loader) {
+            super(doc);
+            this._config = _config;
+            this.console = console;
+            this.loader = loader;
         }
-        if (!((/** @type {?} */ (window))).Hammer && !this.loader) {
-            this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
-                `loaded and no custom loader has been specified.`);
-            return false;
+        /**
+         * @param {?} eventName
+         * @return {?}
+         */
+        supports(eventName) {
+            if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
+                return false;
+            }
+            if (!((/** @type {?} */ (window))).Hammer && !this.loader) {
+                this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
+                    `loaded and no custom loader has been specified.`);
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    addEventListener(element, eventName, handler) {
-        /** @type {?} */
-        const zone = this.manager.getZone();
-        eventName = eventName.toLowerCase();
-        // If Hammer is not present but a loader is specified, we defer adding the event listener
-        // until Hammer is loaded.
-        if (!((/** @type {?} */ (window))).Hammer && this.loader) {
-            // This `addEventListener` method returns a function to remove the added listener.
-            // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
-            // than remove anything.
+        /**
+         * @param {?} element
+         * @param {?} eventName
+         * @param {?} handler
+         * @return {?}
+         */
+        addEventListener(element, eventName, handler) {
             /** @type {?} */
-            let cancelRegistration = false;
-            /** @type {?} */
-            let deregister = (/**
-             * @return {?}
-             */
-            () => {
-                cancelRegistration = true;
-            });
-            this.loader()
-                .then((/**
-             * @return {?}
-             */
-            () => {
-                // If Hammer isn't actually loaded when the custom loader resolves, give up.
-                if (!((/** @type {?} */ (window))).Hammer) {
-                    this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+            const zone = this.manager.getZone();
+            eventName = eventName.toLowerCase();
+            // If Hammer is not present but a loader is specified, we defer adding the event listener
+            // until Hammer is loaded.
+            if (!((/** @type {?} */ (window))).Hammer && this.loader) {
+                // This `addEventListener` method returns a function to remove the added listener.
+                // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
+                // than remove anything.
+                /** @type {?} */
+                let cancelRegistration = false;
+                /** @type {?} */
+                let deregister = (/**
+                 * @return {?}
+                 */
+                () => {
+                    cancelRegistration = true;
+                });
+                this.loader()
+                    .then((/**
+                 * @return {?}
+                 */
+                () => {
+                    // If Hammer isn't actually loaded when the custom loader resolves, give up.
+                    if (!((/** @type {?} */ (window))).Hammer) {
+                        this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+                        deregister = (/**
+                         * @return {?}
+                         */
+                        () => { });
+                        return;
+                    }
+                    if (!cancelRegistration) {
+                        // Now that Hammer is loaded and the listener is being loaded for real,
+                        // the deregistration function changes from canceling registration to removal.
+                        deregister = this.addEventListener(element, eventName, handler);
+                    }
+                }))
+                    .catch((/**
+                 * @return {?}
+                 */
+                () => {
+                    this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
+                        `Hammer.JS loader failed.`);
                     deregister = (/**
                      * @return {?}
                      */
                     () => { });
-                    return;
-                }
-                if (!cancelRegistration) {
-                    // Now that Hammer is loaded and the listener is being loaded for real,
-                    // the deregistration function changes from canceling registration to removal.
-                    deregister = this.addEventListener(element, eventName, handler);
-                }
-            }))
-                .catch((/**
-             * @return {?}
-             */
-            () => {
-                this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
-                    `Hammer.JS loader failed.`);
-                deregister = (/**
+                }));
+                // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
+                // can change the behavior of `deregister` once the listener is added. Using a closure in
+                // this way allows us to avoid any additional data structures to track listener removal.
+                return (/**
                  * @return {?}
                  */
-                () => { });
-            }));
-            // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
-            // can change the behavior of `deregister` once the listener is added. Using a closure in
-            // this way allows us to avoid any additional data structures to track listener removal.
-            return (/**
+                () => {
+                    deregister();
+                });
+            }
+            return zone.runOutsideAngular((/**
              * @return {?}
              */
             () => {
-                deregister();
-            });
+                // Creating the manager bind events, must be done outside of angular
+                /** @type {?} */
+                const mc = this._config.buildHammer(element);
+                /** @type {?} */
+                const callback = (/**
+                 * @param {?} eventObj
+                 * @return {?}
+                 */
+                function (eventObj) {
+                    zone.runGuarded((/**
+                     * @return {?}
+                     */
+                    function () {
+                        handler(eventObj);
+                    }));
+                });
+                mc.on(eventName, callback);
+                return (/**
+                 * @return {?}
+                 */
+                () => {
+                    mc.off(eventName, callback);
+                    // destroy mc to prevent memory leak
+                    if (typeof mc.destroy === 'function') {
+                        mc.destroy();
+                    }
+                });
+            }));
         }
-        return zone.runOutsideAngular((/**
+        /**
+         * @param {?} eventName
          * @return {?}
          */
-        () => {
-            // Creating the manager bind events, must be done outside of angular
-            /** @type {?} */
-            const mc = this._config.buildHammer(element);
-            /** @type {?} */
-            const callback = (/**
-             * @param {?} eventObj
-             * @return {?}
-             */
-            function (eventObj) {
-                zone.runGuarded((/**
-                 * @return {?}
-                 */
-                function () {
-                    handler(eventObj);
-                }));
-            });
-            mc.on(eventName, callback);
-            return (/**
-             * @return {?}
-             */
-            () => {
-                mc.off(eventName, callback);
-                // destroy mc to prevent memory leak
-                if (typeof mc.destroy === 'function') {
-                    mc.destroy();
-                }
-            });
-        }));
+        isCustomEvent(eventName) {
+            return this._config.events.indexOf(eventName) > -1;
+        }
     }
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    isCustomEvent(eventName) {
-        return this._config.events.indexOf(eventName) > -1;
-    }
-}
-HammerGesturesPlugin.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-HammerGesturesPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-    { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
-    { type: ɵConsole },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
-];
+    HammerGesturesPlugin.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    HammerGesturesPlugin.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
+        { type: ɵConsole },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
+    ];
+    return HammerGesturesPlugin;
+})();
 if (false) {
     /**
      * @type {?}
@@ -1890,11 +1927,25 @@ const HAMMER_PROVIDERS = HAMMER_PROVIDERS__PRE_R3__;
  *
  * \@publicApi
  */
-class HammerModule {
-}
-HammerModule.decorators = [
-    { type: NgModule, args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ },] }
-];
+let HammerModule = /** @class */ (() => {
+    /**
+     * Adds support for HammerJS.
+     *
+     * Import this module at the root of your application so that Angular can work with
+     * HammerJS to detect gesture events.
+     *
+     * Note that applications still need to include the HammerJS script itself. This module
+     * simply sets up the coordination layer between HammerJS and Angular's EventManager.
+     *
+     * \@publicApi
+     */
+    class HammerModule {
+    }
+    HammerModule.decorators = [
+        { type: NgModule, args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ },] }
+    ];
+    return HammerModule;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -1980,156 +2031,163 @@ const MODIFIER_KEY_GETTERS = {
  * \@publicApi
  * A browser plug-in that provides support for handling of key events in Angular.
  */
-class KeyEventsPlugin extends EventManagerPlugin {
+let KeyEventsPlugin = /** @class */ (() => {
     /**
-     * Initializes an instance of the browser plug-in.
-     * @param {?} doc The document in which key events will be detected.
+     * \@publicApi
+     * A browser plug-in that provides support for handling of key events in Angular.
      */
-    constructor(doc) {
-        super(doc);
-    }
-    /**
-     * Reports whether a named key event is supported.
-     * @param {?} eventName The event name to query.
-     * @return {?} True if the named key event is supported.
-     */
-    supports(eventName) {
-        return KeyEventsPlugin.parseEventName(eventName) != null;
-    }
-    /**
-     * Registers a handler for a specific element and key event.
-     * @param {?} element The HTML element to receive event notifications.
-     * @param {?} eventName The name of the key event to listen for.
-     * @param {?} handler A function to call when the notification occurs. Receives the
-     * event object as an argument.
-     * @return {?} The key event that was registered.
-     */
-    addEventListener(element, eventName, handler) {
-        /** @type {?} */
-        const parsedEvent = (/** @type {?} */ (KeyEventsPlugin.parseEventName(eventName)));
-        /** @type {?} */
-        const outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
-        return this.manager.getZone().runOutsideAngular((/**
-         * @return {?}
+    class KeyEventsPlugin extends EventManagerPlugin {
+        /**
+         * Initializes an instance of the browser plug-in.
+         * @param {?} doc The document in which key events will be detected.
          */
-        () => {
-            return ɵgetDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
-        }));
-    }
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    static parseEventName(eventName) {
-        /** @type {?} */
-        const parts = eventName.toLowerCase().split('.');
-        /** @type {?} */
-        const domEventName = parts.shift();
-        if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
-            return null;
+        constructor(doc) {
+            super(doc);
         }
-        /** @type {?} */
-        const key = KeyEventsPlugin._normalizeKey((/** @type {?} */ (parts.pop())));
-        /** @type {?} */
-        let fullKey = '';
-        MODIFIER_KEYS.forEach((/**
-         * @param {?} modifierName
-         * @return {?}
+        /**
+         * Reports whether a named key event is supported.
+         * @param {?} eventName The event name to query.
+         * @return {?} True if the named key event is supported.
          */
-        modifierName => {
+        supports(eventName) {
+            return KeyEventsPlugin.parseEventName(eventName) != null;
+        }
+        /**
+         * Registers a handler for a specific element and key event.
+         * @param {?} element The HTML element to receive event notifications.
+         * @param {?} eventName The name of the key event to listen for.
+         * @param {?} handler A function to call when the notification occurs. Receives the
+         * event object as an argument.
+         * @return {?} The key event that was registered.
+         */
+        addEventListener(element, eventName, handler) {
             /** @type {?} */
-            const index = parts.indexOf(modifierName);
-            if (index > -1) {
-                parts.splice(index, 1);
-                fullKey += modifierName + '.';
-            }
-        }));
-        fullKey += key;
-        if (parts.length != 0 || key.length === 0) {
-            // returning null instead of throwing to let another plugin process the event
-            return null;
+            const parsedEvent = (/** @type {?} */ (KeyEventsPlugin.parseEventName(eventName)));
+            /** @type {?} */
+            const outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
+            return this.manager.getZone().runOutsideAngular((/**
+             * @return {?}
+             */
+            () => {
+                return ɵgetDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
+            }));
         }
-        /** @type {?} */
-        const result = {};
-        result['domEventName'] = domEventName;
-        result['fullKey'] = fullKey;
-        return result;
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    static getEventFullKey(event) {
-        /** @type {?} */
-        let fullKey = '';
-        /** @type {?} */
-        let key = getEventKey(event);
-        key = key.toLowerCase();
-        if (key === ' ') {
-            key = 'space'; // for readability
-        }
-        else if (key === '.') {
-            key = 'dot'; // because '.' is used as a separator in event names
-        }
-        MODIFIER_KEYS.forEach((/**
-         * @param {?} modifierName
+        /**
+         * @param {?} eventName
          * @return {?}
          */
-        modifierName => {
-            if (modifierName != key) {
+        static parseEventName(eventName) {
+            /** @type {?} */
+            const parts = eventName.toLowerCase().split('.');
+            /** @type {?} */
+            const domEventName = parts.shift();
+            if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
+                return null;
+            }
+            /** @type {?} */
+            const key = KeyEventsPlugin._normalizeKey((/** @type {?} */ (parts.pop())));
+            /** @type {?} */
+            let fullKey = '';
+            MODIFIER_KEYS.forEach((/**
+             * @param {?} modifierName
+             * @return {?}
+             */
+            modifierName => {
                 /** @type {?} */
-                const modifierGetter = MODIFIER_KEY_GETTERS[modifierName];
-                if (modifierGetter(event)) {
+                const index = parts.indexOf(modifierName);
+                if (index > -1) {
+                    parts.splice(index, 1);
                     fullKey += modifierName + '.';
                 }
+            }));
+            fullKey += key;
+            if (parts.length != 0 || key.length === 0) {
+                // returning null instead of throwing to let another plugin process the event
+                return null;
             }
-        }));
-        fullKey += key;
-        return fullKey;
-    }
-    /**
-     * Configures a handler callback for a key event.
-     * @param {?} fullKey The event name that combines all simultaneous keystrokes.
-     * @param {?} handler The function that responds to the key event.
-     * @param {?} zone The zone in which the event occurred.
-     * @return {?} A callback function.
-     */
-    static eventCallback(fullKey, handler, zone) {
-        return (/**
+            /** @type {?} */
+            const result = {};
+            result['domEventName'] = domEventName;
+            result['fullKey'] = fullKey;
+            return result;
+        }
+        /**
          * @param {?} event
          * @return {?}
          */
-        (event /** TODO #9100 */) => {
-            if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
-                zone.runGuarded((/**
-                 * @return {?}
-                 */
-                () => handler(event)));
+        static getEventFullKey(event) {
+            /** @type {?} */
+            let fullKey = '';
+            /** @type {?} */
+            let key = getEventKey(event);
+            key = key.toLowerCase();
+            if (key === ' ') {
+                key = 'space'; // for readability
             }
-        });
-    }
-    /**
-     * \@internal
-     * @param {?} keyName
-     * @return {?}
-     */
-    static _normalizeKey(keyName) {
-        // TODO: switch to a Map if the mapping grows too much
-        switch (keyName) {
-            case 'esc':
-                return 'escape';
-            default:
-                return keyName;
+            else if (key === '.') {
+                key = 'dot'; // because '.' is used as a separator in event names
+            }
+            MODIFIER_KEYS.forEach((/**
+             * @param {?} modifierName
+             * @return {?}
+             */
+            modifierName => {
+                if (modifierName != key) {
+                    /** @type {?} */
+                    const modifierGetter = MODIFIER_KEY_GETTERS[modifierName];
+                    if (modifierGetter(event)) {
+                        fullKey += modifierName + '.';
+                    }
+                }
+            }));
+            fullKey += key;
+            return fullKey;
+        }
+        /**
+         * Configures a handler callback for a key event.
+         * @param {?} fullKey The event name that combines all simultaneous keystrokes.
+         * @param {?} handler The function that responds to the key event.
+         * @param {?} zone The zone in which the event occurred.
+         * @return {?} A callback function.
+         */
+        static eventCallback(fullKey, handler, zone) {
+            return (/**
+             * @param {?} event
+             * @return {?}
+             */
+            (event /** TODO #9100 */) => {
+                if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
+                    zone.runGuarded((/**
+                     * @return {?}
+                     */
+                    () => handler(event)));
+                }
+            });
+        }
+        /**
+         * \@internal
+         * @param {?} keyName
+         * @return {?}
+         */
+        static _normalizeKey(keyName) {
+            // TODO: switch to a Map if the mapping grows too much
+            switch (keyName) {
+                case 'esc':
+                    return 'escape';
+                default:
+                    return keyName;
+            }
         }
     }
-}
-KeyEventsPlugin.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-KeyEventsPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-];
+    KeyEventsPlugin.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    KeyEventsPlugin.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
+    return KeyEventsPlugin;
+})();
 /**
  * @param {?} event
  * @return {?}
@@ -2237,15 +2295,50 @@ function SafeResourceUrl() { }
  * \@publicApi
  * @abstract
  */
-class DomSanitizer {
-}
-DomSanitizer.decorators = [
-    { type: Injectable, args: [{ providedIn: 'root', useExisting: forwardRef((/**
-                 * @return {?}
-                 */
-                () => DomSanitizerImpl)) },] }
-];
-/** @nocollapse */ DomSanitizer.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
+let DomSanitizer = /** @class */ (() => {
+    /**
+     * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
+     * values to be safe to use in the different DOM contexts.
+     *
+     * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
+     * sanitized so that an attacker cannot inject e.g. a `javascript:` URL that would execute code on
+     * the website.
+     *
+     * In specific situations, it might be necessary to disable sanitization, for example if the
+     * application genuinely needs to produce a `javascript:` style link with a dynamic value in it.
+     * Users can bypass security by constructing a value with one of the `bypassSecurityTrust...`
+     * methods, and then binding to that value from the template.
+     *
+     * These situations should be very rare, and extraordinary care must be taken to avoid creating a
+     * Cross Site Scripting (XSS) security bug!
+     *
+     * When using `bypassSecurityTrust...`, make sure to call the method as early as possible and as
+     * close as possible to the source of the value, to make it easy to verify no security bug is
+     * created by its use.
+     *
+     * It is not required (and not recommended) to bypass security if the value is safe, e.g. a URL that
+     * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
+     * code. The sanitizer leaves safe values intact.
+     *
+     * \@security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
+     * sanitization for the value passed in. Carefully check and audit all values and code paths going
+     * into this call. Make sure any user data is appropriately escaped for this security context.
+     * For more detail, see the [Security Guide](http://g.co/ng/security).
+     *
+     * \@publicApi
+     * @abstract
+     */
+    class DomSanitizer {
+    }
+    DomSanitizer.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root', useExisting: forwardRef((/**
+                     * @return {?}
+                     */
+                    () => DomSanitizerImpl)) },] }
+    ];
+    /** @nocollapse */ DomSanitizer.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
+    return DomSanitizer;
+})();
 if (false) {
     /**
      * Sanitizes a value for use in the given SecurityContext.
@@ -2322,100 +2415,103 @@ if (false) {
 function domSanitizerImplFactory(injector) {
     return new DomSanitizerImpl(injector.get(DOCUMENT));
 }
-class DomSanitizerImpl extends DomSanitizer {
-    /**
-     * @param {?} _doc
-     */
-    constructor(_doc) {
-        super();
-        this._doc = _doc;
-    }
-    /**
-     * @param {?} ctx
-     * @param {?} value
-     * @return {?}
-     */
-    sanitize(ctx, value) {
-        if (value == null)
-            return null;
-        switch (ctx) {
-            case SecurityContext.NONE:
-                return (/** @type {?} */ (value));
-            case SecurityContext.HTML:
-                if (ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                return ɵ_sanitizeHtml(this._doc, String(value));
-            case SecurityContext.STYLE:
-                if (ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                return (/** @type {?} */ (value));
-            case SecurityContext.SCRIPT:
-                if (ɵallowSanitizationBypassAndThrow(value, "Script" /* Script */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                throw new Error('unsafe value used in a script context');
-            case SecurityContext.URL:
-                /** @type {?} */
-                const type = ɵgetSanitizationBypassType(value);
-                if (ɵallowSanitizationBypassAndThrow(value, "URL" /* Url */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                return ɵ_sanitizeUrl(String(value));
-            case SecurityContext.RESOURCE_URL:
-                if (ɵallowSanitizationBypassAndThrow(value, "ResourceURL" /* ResourceUrl */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
-            default:
-                throw new Error(`Unexpected SecurityContext ${ctx} (see http://g.co/ng/security#xss)`);
+let DomSanitizerImpl = /** @class */ (() => {
+    class DomSanitizerImpl extends DomSanitizer {
+        /**
+         * @param {?} _doc
+         */
+        constructor(_doc) {
+            super();
+            this._doc = _doc;
+        }
+        /**
+         * @param {?} ctx
+         * @param {?} value
+         * @return {?}
+         */
+        sanitize(ctx, value) {
+            if (value == null)
+                return null;
+            switch (ctx) {
+                case SecurityContext.NONE:
+                    return (/** @type {?} */ (value));
+                case SecurityContext.HTML:
+                    if (ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
+                        return ɵunwrapSafeValue(value);
+                    }
+                    return ɵ_sanitizeHtml(this._doc, String(value));
+                case SecurityContext.STYLE:
+                    if (ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
+                        return ɵunwrapSafeValue(value);
+                    }
+                    return (/** @type {?} */ (value));
+                case SecurityContext.SCRIPT:
+                    if (ɵallowSanitizationBypassAndThrow(value, "Script" /* Script */)) {
+                        return ɵunwrapSafeValue(value);
+                    }
+                    throw new Error('unsafe value used in a script context');
+                case SecurityContext.URL:
+                    /** @type {?} */
+                    const type = ɵgetSanitizationBypassType(value);
+                    if (ɵallowSanitizationBypassAndThrow(value, "URL" /* Url */)) {
+                        return ɵunwrapSafeValue(value);
+                    }
+                    return ɵ_sanitizeUrl(String(value));
+                case SecurityContext.RESOURCE_URL:
+                    if (ɵallowSanitizationBypassAndThrow(value, "ResourceURL" /* ResourceUrl */)) {
+                        return ɵunwrapSafeValue(value);
+                    }
+                    throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
+                default:
+                    throw new Error(`Unexpected SecurityContext ${ctx} (see http://g.co/ng/security#xss)`);
+            }
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        bypassSecurityTrustHtml(value) {
+            return ɵbypassSanitizationTrustHtml(value);
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        bypassSecurityTrustStyle(value) {
+            return ɵbypassSanitizationTrustStyle(value);
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        bypassSecurityTrustScript(value) {
+            return ɵbypassSanitizationTrustScript(value);
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        bypassSecurityTrustUrl(value) {
+            return ɵbypassSanitizationTrustUrl(value);
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        bypassSecurityTrustResourceUrl(value) {
+            return ɵbypassSanitizationTrustResourceUrl(value);
         }
     }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    bypassSecurityTrustHtml(value) {
-        return ɵbypassSanitizationTrustHtml(value);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    bypassSecurityTrustStyle(value) {
-        return ɵbypassSanitizationTrustStyle(value);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    bypassSecurityTrustScript(value) {
-        return ɵbypassSanitizationTrustScript(value);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    bypassSecurityTrustUrl(value) {
-        return ɵbypassSanitizationTrustUrl(value);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    bypassSecurityTrustResourceUrl(value) {
-        return ɵbypassSanitizationTrustResourceUrl(value);
-    }
-}
-DomSanitizerImpl.decorators = [
-    { type: Injectable, args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] },] }
-];
-/** @nocollapse */
-DomSanitizerImpl.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-];
-/** @nocollapse */ DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
+    DomSanitizerImpl.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] },] }
+    ];
+    /** @nocollapse */
+    DomSanitizerImpl.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
+    /** @nocollapse */ DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
+    return DomSanitizerImpl;
+})();
 if (false) {
     /**
      * @type {?}
@@ -2511,41 +2607,53 @@ const BROWSER_MODULE_PROVIDERS = [
  *
  * \@publicApi
  */
-class BrowserModule {
+let BrowserModule = /** @class */ (() => {
     /**
-     * @param {?} parentModule
+     * Exports required infrastructure for all Angular apps.
+     * Included by default in all Angular apps created with the CLI
+     * `new` command.
+     * Re-exports `CommonModule` and `ApplicationModule`, making their
+     * exports and providers available to all apps.
+     *
+     * \@publicApi
      */
-    constructor(parentModule) {
-        if (parentModule) {
-            throw new Error(`BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.`);
+    class BrowserModule {
+        /**
+         * @param {?} parentModule
+         */
+        constructor(parentModule) {
+            if (parentModule) {
+                throw new Error(`BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.`);
+            }
+        }
+        /**
+         * Configures a browser-based app to transition from a server-rendered app, if
+         * one is present on the page.
+         *
+         * @param {?} params An object containing an identifier for the app to transition.
+         * The ID must match between the client and server versions of the app.
+         * @return {?} The reconfigured `BrowserModule` to import into the app's root `AppModule`.
+         */
+        static withServerTransition(params) {
+            return {
+                ngModule: BrowserModule,
+                providers: [
+                    { provide: APP_ID, useValue: params.appId },
+                    { provide: TRANSITION_ID, useExisting: APP_ID },
+                    SERVER_TRANSITION_PROVIDERS,
+                ],
+            };
         }
     }
-    /**
-     * Configures a browser-based app to transition from a server-rendered app, if
-     * one is present on the page.
-     *
-     * @param {?} params An object containing an identifier for the app to transition.
-     * The ID must match between the client and server versions of the app.
-     * @return {?} The reconfigured `BrowserModule` to import into the app's root `AppModule`.
-     */
-    static withServerTransition(params) {
-        return {
-            ngModule: BrowserModule,
-            providers: [
-                { provide: APP_ID, useValue: params.appId },
-                { provide: TRANSITION_ID, useExisting: APP_ID },
-                SERVER_TRANSITION_PROVIDERS,
-            ],
-        };
-    }
-}
-BrowserModule.decorators = [
-    { type: NgModule, args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] },] }
-];
-/** @nocollapse */
-BrowserModule.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
-];
+    BrowserModule.decorators = [
+        { type: NgModule, args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] },] }
+    ];
+    /** @nocollapse */
+    BrowserModule.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
+    ];
+    return BrowserModule;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -2564,168 +2672,176 @@ function createMeta() {
  *
  * \@publicApi
  */
-class Meta {
+let Meta = /** @class */ (() => {
     /**
-     * @param {?} _doc
+     * A service that can be used to get and add meta tags.
+     *
+     * \@publicApi
      */
-    constructor(_doc) {
-        this._doc = _doc;
-        this._dom = ɵgetDOM();
-    }
-    /**
-     * @param {?} tag
-     * @param {?=} forceCreation
-     * @return {?}
-     */
-    addTag(tag, forceCreation = false) {
-        if (!tag)
-            return null;
-        return this._getOrCreateElement(tag, forceCreation);
-    }
-    /**
-     * @param {?} tags
-     * @param {?=} forceCreation
-     * @return {?}
-     */
-    addTags(tags, forceCreation = false) {
-        if (!tags)
-            return [];
-        return tags.reduce((/**
-         * @param {?} result
+    class Meta {
+        /**
+         * @param {?} _doc
+         */
+        constructor(_doc) {
+            this._doc = _doc;
+            this._dom = ɵgetDOM();
+        }
+        /**
+         * @param {?} tag
+         * @param {?=} forceCreation
+         * @return {?}
+         */
+        addTag(tag, forceCreation = false) {
+            if (!tag)
+                return null;
+            return this._getOrCreateElement(tag, forceCreation);
+        }
+        /**
+         * @param {?} tags
+         * @param {?=} forceCreation
+         * @return {?}
+         */
+        addTags(tags, forceCreation = false) {
+            if (!tags)
+                return [];
+            return tags.reduce((/**
+             * @param {?} result
+             * @param {?} tag
+             * @return {?}
+             */
+            (result, tag) => {
+                if (tag) {
+                    result.push(this._getOrCreateElement(tag, forceCreation));
+                }
+                return result;
+            }), []);
+        }
+        /**
+         * @param {?} attrSelector
+         * @return {?}
+         */
+        getTag(attrSelector) {
+            if (!attrSelector)
+                return null;
+            return this._doc.querySelector(`meta[${attrSelector}]`) || null;
+        }
+        /**
+         * @param {?} attrSelector
+         * @return {?}
+         */
+        getTags(attrSelector) {
+            if (!attrSelector)
+                return [];
+            /** @type {?} */
+            const list /*NodeList*/ = this._doc.querySelectorAll(`meta[${attrSelector}]`);
+            return list ? [].slice.call(list) : [];
+        }
+        /**
+         * @param {?} tag
+         * @param {?=} selector
+         * @return {?}
+         */
+        updateTag(tag, selector) {
+            if (!tag)
+                return null;
+            selector = selector || this._parseSelector(tag);
+            /** @type {?} */
+            const meta = (/** @type {?} */ (this.getTag(selector)));
+            if (meta) {
+                return this._setMetaElementAttributes(tag, meta);
+            }
+            return this._getOrCreateElement(tag, true);
+        }
+        /**
+         * @param {?} attrSelector
+         * @return {?}
+         */
+        removeTag(attrSelector) {
+            this.removeTagElement((/** @type {?} */ (this.getTag(attrSelector))));
+        }
+        /**
+         * @param {?} meta
+         * @return {?}
+         */
+        removeTagElement(meta) {
+            if (meta) {
+                this._dom.remove(meta);
+            }
+        }
+        /**
+         * @private
+         * @param {?} meta
+         * @param {?=} forceCreation
+         * @return {?}
+         */
+        _getOrCreateElement(meta, forceCreation = false) {
+            if (!forceCreation) {
+                /** @type {?} */
+                const selector = this._parseSelector(meta);
+                /** @type {?} */
+                const elem = (/** @type {?} */ (this.getTag(selector)));
+                // It's allowed to have multiple elements with the same name so it's not enough to
+                // just check that element with the same name already present on the page. We also need to
+                // check if element has tag attributes
+                if (elem && this._containsAttributes(meta, elem))
+                    return elem;
+            }
+            /** @type {?} */
+            const element = (/** @type {?} */ (this._dom.createElement('meta')));
+            this._setMetaElementAttributes(meta, element);
+            /** @type {?} */
+            const head = this._doc.getElementsByTagName('head')[0];
+            head.appendChild(element);
+            return element;
+        }
+        /**
+         * @private
+         * @param {?} tag
+         * @param {?} el
+         * @return {?}
+         */
+        _setMetaElementAttributes(tag, el) {
+            Object.keys(tag).forEach((/**
+             * @param {?} prop
+             * @return {?}
+             */
+            (prop) => el.setAttribute(prop, tag[prop])));
+            return el;
+        }
+        /**
+         * @private
          * @param {?} tag
          * @return {?}
          */
-        (result, tag) => {
-            if (tag) {
-                result.push(this._getOrCreateElement(tag, forceCreation));
-            }
-            return result;
-        }), []);
-    }
-    /**
-     * @param {?} attrSelector
-     * @return {?}
-     */
-    getTag(attrSelector) {
-        if (!attrSelector)
-            return null;
-        return this._doc.querySelector(`meta[${attrSelector}]`) || null;
-    }
-    /**
-     * @param {?} attrSelector
-     * @return {?}
-     */
-    getTags(attrSelector) {
-        if (!attrSelector)
-            return [];
-        /** @type {?} */
-        const list /*NodeList*/ = this._doc.querySelectorAll(`meta[${attrSelector}]`);
-        return list ? [].slice.call(list) : [];
-    }
-    /**
-     * @param {?} tag
-     * @param {?=} selector
-     * @return {?}
-     */
-    updateTag(tag, selector) {
-        if (!tag)
-            return null;
-        selector = selector || this._parseSelector(tag);
-        /** @type {?} */
-        const meta = (/** @type {?} */ (this.getTag(selector)));
-        if (meta) {
-            return this._setMetaElementAttributes(tag, meta);
-        }
-        return this._getOrCreateElement(tag, true);
-    }
-    /**
-     * @param {?} attrSelector
-     * @return {?}
-     */
-    removeTag(attrSelector) {
-        this.removeTagElement((/** @type {?} */ (this.getTag(attrSelector))));
-    }
-    /**
-     * @param {?} meta
-     * @return {?}
-     */
-    removeTagElement(meta) {
-        if (meta) {
-            this._dom.remove(meta);
-        }
-    }
-    /**
-     * @private
-     * @param {?} meta
-     * @param {?=} forceCreation
-     * @return {?}
-     */
-    _getOrCreateElement(meta, forceCreation = false) {
-        if (!forceCreation) {
+        _parseSelector(tag) {
             /** @type {?} */
-            const selector = this._parseSelector(meta);
-            /** @type {?} */
-            const elem = (/** @type {?} */ (this.getTag(selector)));
-            // It's allowed to have multiple elements with the same name so it's not enough to
-            // just check that element with the same name already present on the page. We also need to
-            // check if element has tag attributes
-            if (elem && this._containsAttributes(meta, elem))
-                return elem;
+            const attr = tag.name ? 'name' : 'property';
+            return `${attr}="${tag[attr]}"`;
         }
-        /** @type {?} */
-        const element = (/** @type {?} */ (this._dom.createElement('meta')));
-        this._setMetaElementAttributes(meta, element);
-        /** @type {?} */
-        const head = this._doc.getElementsByTagName('head')[0];
-        head.appendChild(element);
-        return element;
-    }
-    /**
-     * @private
-     * @param {?} tag
-     * @param {?} el
-     * @return {?}
-     */
-    _setMetaElementAttributes(tag, el) {
-        Object.keys(tag).forEach((/**
-         * @param {?} prop
+        /**
+         * @private
+         * @param {?} tag
+         * @param {?} elem
          * @return {?}
          */
-        (prop) => el.setAttribute(prop, tag[prop])));
-        return el;
+        _containsAttributes(tag, elem) {
+            return Object.keys(tag).every((/**
+             * @param {?} key
+             * @return {?}
+             */
+            (key) => elem.getAttribute(key) === tag[key]));
+        }
     }
-    /**
-     * @private
-     * @param {?} tag
-     * @return {?}
-     */
-    _parseSelector(tag) {
-        /** @type {?} */
-        const attr = tag.name ? 'name' : 'property';
-        return `${attr}="${tag[attr]}"`;
-    }
-    /**
-     * @private
-     * @param {?} tag
-     * @param {?} elem
-     * @return {?}
-     */
-    _containsAttributes(tag, elem) {
-        return Object.keys(tag).every((/**
-         * @param {?} key
-         * @return {?}
-         */
-        (key) => elem.getAttribute(key) === tag[key]));
-    }
-}
-Meta.decorators = [
-    { type: Injectable, args: [{ providedIn: 'root', useFactory: createMeta, deps: [] },] }
-];
-/** @nocollapse */
-Meta.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-];
-/** @nocollapse */ Meta.ɵprov = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+    Meta.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root', useFactory: createMeta, deps: [] },] }
+    ];
+    /** @nocollapse */
+    Meta.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
+    /** @nocollapse */ Meta.ɵprov = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
+    return Meta;
+})();
 if (false) {
     /**
      * @type {?}
@@ -2761,37 +2877,50 @@ function createTitle() {
  *
  * \@publicApi
  */
-class Title {
+let Title = /** @class */ (() => {
     /**
-     * @param {?} _doc
+     * A service that can be used to get and set the title of a current HTML document.
+     *
+     * Since an Angular application can't be bootstrapped on the entire HTML document (`<html>` tag)
+     * it is not possible to bind to the `text` property of the `HTMLTitleElement` elements
+     * (representing the `<title>` tag). Instead, this service can be used to set and get the current
+     * title value.
+     *
+     * \@publicApi
      */
-    constructor(_doc) {
-        this._doc = _doc;
+    class Title {
+        /**
+         * @param {?} _doc
+         */
+        constructor(_doc) {
+            this._doc = _doc;
+        }
+        /**
+         * Get the title of the current HTML document.
+         * @return {?}
+         */
+        getTitle() {
+            return this._doc.title;
+        }
+        /**
+         * Set the title of the current HTML document.
+         * @param {?} newTitle
+         * @return {?}
+         */
+        setTitle(newTitle) {
+            this._doc.title = newTitle || '';
+        }
     }
-    /**
-     * Get the title of the current HTML document.
-     * @return {?}
-     */
-    getTitle() {
-        return this._doc.title;
-    }
-    /**
-     * Set the title of the current HTML document.
-     * @param {?} newTitle
-     * @return {?}
-     */
-    setTitle(newTitle) {
-        this._doc.title = newTitle || '';
-    }
-}
-Title.decorators = [
-    { type: Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] }
-];
-/** @nocollapse */
-Title.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-];
-/** @nocollapse */ Title.ɵprov = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+    Title.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] }
+    ];
+    /** @nocollapse */
+    Title.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
+    /** @nocollapse */ Title.ɵprov = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
+    return Title;
+})();
 if (false) {
     /**
      * @type {?}
@@ -3015,92 +3144,108 @@ function makeStateKey(key) {
  *
  * \@publicApi
  */
-class TransferState {
-    constructor() {
-        this.store = {};
-        this.onSerializeCallbacks = {};
-    }
+let TransferState = /** @class */ (() => {
     /**
-     * \@internal
-     * @param {?} initState
-     * @return {?}
+     * A key value store that is transferred from the application on the server side to the application
+     * on the client side.
+     *
+     * `TransferState` will be available as an injectable token. To use it import
+     * `ServerTransferStateModule` on the server and `BrowserTransferStateModule` on the client.
+     *
+     * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
+     * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
+     * non-lossy manner.
+     *
+     * \@publicApi
      */
-    static init(initState) {
-        /** @type {?} */
-        const transferState = new TransferState();
-        transferState.store = initState;
-        return transferState;
-    }
-    /**
-     * Get the value corresponding to a key. Return `defaultValue` if key is not found.
-     * @template T
-     * @param {?} key
-     * @param {?} defaultValue
-     * @return {?}
-     */
-    get(key, defaultValue) {
-        return this.store[key] !== undefined ? (/** @type {?} */ (this.store[key])) : defaultValue;
-    }
-    /**
-     * Set the value corresponding to a key.
-     * @template T
-     * @param {?} key
-     * @param {?} value
-     * @return {?}
-     */
-    set(key, value) {
-        this.store[key] = value;
-    }
-    /**
-     * Remove a key from the store.
-     * @template T
-     * @param {?} key
-     * @return {?}
-     */
-    remove(key) {
-        delete this.store[key];
-    }
-    /**
-     * Test whether a key exists in the store.
-     * @template T
-     * @param {?} key
-     * @return {?}
-     */
-    hasKey(key) {
-        return this.store.hasOwnProperty(key);
-    }
-    /**
-     * Register a callback to provide the value for a key when `toJson` is called.
-     * @template T
-     * @param {?} key
-     * @param {?} callback
-     * @return {?}
-     */
-    onSerialize(key, callback) {
-        this.onSerializeCallbacks[key] = callback;
-    }
-    /**
-     * Serialize the current state of the store to JSON.
-     * @return {?}
-     */
-    toJson() {
-        // Call the onSerialize callbacks and put those values into the store.
-        for (const key in this.onSerializeCallbacks) {
-            if (this.onSerializeCallbacks.hasOwnProperty(key)) {
-                try {
-                    this.store[key] = this.onSerializeCallbacks[key]();
-                }
-                catch (e) {
-                    console.warn('Exception in onSerialize callback: ', e);
+    class TransferState {
+        constructor() {
+            this.store = {};
+            this.onSerializeCallbacks = {};
+        }
+        /**
+         * \@internal
+         * @param {?} initState
+         * @return {?}
+         */
+        static init(initState) {
+            /** @type {?} */
+            const transferState = new TransferState();
+            transferState.store = initState;
+            return transferState;
+        }
+        /**
+         * Get the value corresponding to a key. Return `defaultValue` if key is not found.
+         * @template T
+         * @param {?} key
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        get(key, defaultValue) {
+            return this.store[key] !== undefined ? (/** @type {?} */ (this.store[key])) : defaultValue;
+        }
+        /**
+         * Set the value corresponding to a key.
+         * @template T
+         * @param {?} key
+         * @param {?} value
+         * @return {?}
+         */
+        set(key, value) {
+            this.store[key] = value;
+        }
+        /**
+         * Remove a key from the store.
+         * @template T
+         * @param {?} key
+         * @return {?}
+         */
+        remove(key) {
+            delete this.store[key];
+        }
+        /**
+         * Test whether a key exists in the store.
+         * @template T
+         * @param {?} key
+         * @return {?}
+         */
+        hasKey(key) {
+            return this.store.hasOwnProperty(key);
+        }
+        /**
+         * Register a callback to provide the value for a key when `toJson` is called.
+         * @template T
+         * @param {?} key
+         * @param {?} callback
+         * @return {?}
+         */
+        onSerialize(key, callback) {
+            this.onSerializeCallbacks[key] = callback;
+        }
+        /**
+         * Serialize the current state of the store to JSON.
+         * @return {?}
+         */
+        toJson() {
+            // Call the onSerialize callbacks and put those values into the store.
+            for (const key in this.onSerializeCallbacks) {
+                if (this.onSerializeCallbacks.hasOwnProperty(key)) {
+                    try {
+                        this.store[key] = this.onSerializeCallbacks[key]();
+                    }
+                    catch (e) {
+                        console.warn('Exception in onSerialize callback: ', e);
+                    }
                 }
             }
+            return JSON.stringify(this.store);
         }
-        return JSON.stringify(this.store);
     }
-}
-TransferState.decorators = [
-    { type: Injectable }
-];
+    TransferState.decorators = [
+        { type: Injectable }
+    ];
+    return TransferState;
+})();
 if (false) {
     /**
      * @type {?}
@@ -3141,13 +3286,22 @@ function initTransferState(doc, appId) {
  *
  * \@publicApi
  */
-class BrowserTransferStateModule {
-}
-BrowserTransferStateModule.decorators = [
-    { type: NgModule, args: [{
-                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
-            },] }
-];
+let BrowserTransferStateModule = /** @class */ (() => {
+    /**
+     * NgModule to install on the client side while using the `TransferState` to transfer state from
+     * server to client.
+     *
+     * \@publicApi
+     */
+    class BrowserTransferStateModule {
+    }
+    BrowserTransferStateModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
+                },] }
+    ];
+    return BrowserTransferStateModule;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -3243,7 +3397,7 @@ function elementMatches(n, selector) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('10.0.0-next.7+17.sha-2418c6a');
+const VERSION = new Version('10.0.0-next.7+43.sha-f16ca1c');
 
 /**
  * @fileoverview added by tsickle
