@@ -1,13 +1,12 @@
 /**
- * @license Angular v10.0.0-rc.0+22.sha-82761ec
+ * @license Angular v10.0.0-rc.0+23.sha-d16a7f3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { __decorate, __param, __metadata } from 'tslib';
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, forwardRef, ɵɵdefineInjectable, ɵɵinject, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @license
@@ -372,7 +371,7 @@ const EVENT_MANAGER_PLUGINS = new InjectionToken('EventManagerPlugins');
  * @publicApi
  */
 let EventManager = /** @class */ (() => {
-    let EventManager = class EventManager {
+    class EventManager {
         /**
          * Initializes an instance of the event-manager service.
          */
@@ -430,12 +429,15 @@ let EventManager = /** @class */ (() => {
             }
             throw new Error(`No event manager plugin found for event ${eventName}`);
         }
-    };
-    EventManager = __decorate([
-        Injectable(),
-        __param(0, Inject(EVENT_MANAGER_PLUGINS)),
-        __metadata("design:paramtypes", [Array, NgZone])
-    ], EventManager);
+    }
+    EventManager.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    EventManager.ctorParameters = () => [
+        { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
+        { type: NgZone }
+    ];
     return EventManager;
 })();
 class EventManagerPlugin {
@@ -459,7 +461,7 @@ class EventManagerPlugin {
  * found in the LICENSE file at https://angular.io/license
  */
 let SharedStylesHost = /** @class */ (() => {
-    let SharedStylesHost = class SharedStylesHost {
+    class SharedStylesHost {
         constructor() {
             /** @internal */
             this._stylesSet = new Set();
@@ -478,14 +480,14 @@ let SharedStylesHost = /** @class */ (() => {
         getAllStyles() {
             return Array.from(this._stylesSet);
         }
-    };
-    SharedStylesHost = __decorate([
-        Injectable()
-    ], SharedStylesHost);
+    }
+    SharedStylesHost.decorators = [
+        { type: Injectable }
+    ];
     return SharedStylesHost;
 })();
 let DomSharedStylesHost = /** @class */ (() => {
-    let DomSharedStylesHost = class DomSharedStylesHost extends SharedStylesHost {
+    class DomSharedStylesHost extends SharedStylesHost {
         constructor(_doc) {
             super();
             this._doc = _doc;
@@ -513,12 +515,14 @@ let DomSharedStylesHost = /** @class */ (() => {
         ngOnDestroy() {
             this._styleNodes.forEach(styleNode => ɵgetDOM().remove(styleNode));
         }
-    };
-    DomSharedStylesHost = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
-    ], DomSharedStylesHost);
+    }
+    DomSharedStylesHost.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    DomSharedStylesHost.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
     return DomSharedStylesHost;
 })();
 
@@ -583,7 +587,7 @@ function decoratePreventDefault(eventHandler) {
     };
 }
 let DomRendererFactory2 = /** @class */ (() => {
-    let DomRendererFactory2 = class DomRendererFactory2 {
+    class DomRendererFactory2 {
         constructor(eventManager, sharedStylesHost, appId) {
             this.eventManager = eventManager;
             this.sharedStylesHost = sharedStylesHost;
@@ -620,12 +624,16 @@ let DomRendererFactory2 = /** @class */ (() => {
         }
         begin() { }
         end() { }
-    };
-    DomRendererFactory2 = __decorate([
-        Injectable(),
-        __param(2, Inject(APP_ID)),
-        __metadata("design:paramtypes", [EventManager, DomSharedStylesHost, String])
-    ], DomRendererFactory2);
+    }
+    DomRendererFactory2.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    DomRendererFactory2.ctorParameters = () => [
+        { type: EventManager },
+        { type: DomSharedStylesHost },
+        { type: String, decorators: [{ type: Inject, args: [APP_ID,] }] }
+    ];
     return DomRendererFactory2;
 })();
 class DefaultDomRenderer2 {
@@ -826,7 +834,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
  * found in the LICENSE file at https://angular.io/license
  */
 let DomEventsPlugin = /** @class */ (() => {
-    let DomEventsPlugin = class DomEventsPlugin extends EventManagerPlugin {
+    class DomEventsPlugin extends EventManagerPlugin {
         constructor(doc) {
             super(doc);
         }
@@ -842,12 +850,14 @@ let DomEventsPlugin = /** @class */ (() => {
         removeEventListener(target, eventName, callback) {
             return target.removeEventListener(eventName, callback);
         }
-    };
-    DomEventsPlugin = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
-    ], DomEventsPlugin);
+    }
+    DomEventsPlugin.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    DomEventsPlugin.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
     return DomEventsPlugin;
 })();
 
@@ -918,7 +928,7 @@ const HAMMER_LOADER = new InjectionToken('HammerLoader');
  * @publicApi
  */
 let HammerGestureConfig = /** @class */ (() => {
-    let HammerGestureConfig = class HammerGestureConfig {
+    class HammerGestureConfig {
         constructor() {
             /**
              * A set of supported event names for gestures to be used in Angular.
@@ -959,10 +969,10 @@ let HammerGestureConfig = /** @class */ (() => {
             }
             return mc;
         }
-    };
-    HammerGestureConfig = __decorate([
-        Injectable()
-    ], HammerGestureConfig);
+    }
+    HammerGestureConfig.decorators = [
+        { type: Injectable }
+    ];
     return HammerGestureConfig;
 })();
 /**
@@ -971,7 +981,7 @@ let HammerGestureConfig = /** @class */ (() => {
  * @ngModule HammerModule
  */
 let HammerGesturesPlugin = /** @class */ (() => {
-    let HammerGesturesPlugin = class HammerGesturesPlugin extends EventManagerPlugin {
+    class HammerGesturesPlugin extends EventManagerPlugin {
         constructor(doc, _config, console, loader) {
             super(doc);
             this._config = _config;
@@ -1049,14 +1059,17 @@ let HammerGesturesPlugin = /** @class */ (() => {
         isCustomEvent(eventName) {
             return this._config.events.indexOf(eventName) > -1;
         }
-    };
-    HammerGesturesPlugin = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)),
-        __param(1, Inject(HAMMER_GESTURE_CONFIG)),
-        __param(3, Optional()), __param(3, Inject(HAMMER_LOADER)),
-        __metadata("design:paramtypes", [Object, HammerGestureConfig, ɵConsole, Object])
-    ], HammerGesturesPlugin);
+    }
+    HammerGesturesPlugin.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    HammerGesturesPlugin.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
+        { type: ɵConsole },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
+    ];
     return HammerGesturesPlugin;
 })();
 /**
@@ -1090,11 +1103,11 @@ const HAMMER_PROVIDERS = HAMMER_PROVIDERS__PRE_R3__;
  * @publicApi
  */
 let HammerModule = /** @class */ (() => {
-    let HammerModule = class HammerModule {
-    };
-    HammerModule = __decorate([
-        NgModule({ providers: HAMMER_PROVIDERS__PRE_R3__ })
-    ], HammerModule);
+    class HammerModule {
+    }
+    HammerModule.decorators = [
+        { type: NgModule, args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ },] }
+    ];
     return HammerModule;
 })();
 
@@ -1164,8 +1177,7 @@ const MODIFIER_KEY_GETTERS = {
  * A browser plug-in that provides support for handling of key events in Angular.
  */
 let KeyEventsPlugin = /** @class */ (() => {
-    var KeyEventsPlugin_1;
-    let KeyEventsPlugin = KeyEventsPlugin_1 = class KeyEventsPlugin extends EventManagerPlugin {
+    class KeyEventsPlugin extends EventManagerPlugin {
         /**
          * Initializes an instance of the browser plug-in.
          * @param doc The document in which key events will be detected.
@@ -1179,7 +1191,7 @@ let KeyEventsPlugin = /** @class */ (() => {
          * @return True if the named key event is supported.
          */
         supports(eventName) {
-            return KeyEventsPlugin_1.parseEventName(eventName) != null;
+            return KeyEventsPlugin.parseEventName(eventName) != null;
         }
         /**
          * Registers a handler for a specific element and key event.
@@ -1190,8 +1202,8 @@ let KeyEventsPlugin = /** @class */ (() => {
          * @returns The key event that was registered.
          */
         addEventListener(element, eventName, handler) {
-            const parsedEvent = KeyEventsPlugin_1.parseEventName(eventName);
-            const outsideHandler = KeyEventsPlugin_1.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
+            const parsedEvent = KeyEventsPlugin.parseEventName(eventName);
+            const outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
             return this.manager.getZone().runOutsideAngular(() => {
                 return ɵgetDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
             });
@@ -1202,7 +1214,7 @@ let KeyEventsPlugin = /** @class */ (() => {
             if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
                 return null;
             }
-            const key = KeyEventsPlugin_1._normalizeKey(parts.pop());
+            const key = KeyEventsPlugin._normalizeKey(parts.pop());
             let fullKey = '';
             MODIFIER_KEYS.forEach(modifierName => {
                 const index = parts.indexOf(modifierName);
@@ -1251,7 +1263,7 @@ let KeyEventsPlugin = /** @class */ (() => {
          */
         static eventCallback(fullKey, handler, zone) {
             return (event /** TODO #9100 */) => {
-                if (KeyEventsPlugin_1.getEventFullKey(event) === fullKey) {
+                if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
                     zone.runGuarded(() => handler(event));
                 }
             };
@@ -1266,12 +1278,14 @@ let KeyEventsPlugin = /** @class */ (() => {
                     return keyName;
             }
         }
-    };
-    KeyEventsPlugin = KeyEventsPlugin_1 = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
-    ], KeyEventsPlugin);
+    }
+    KeyEventsPlugin.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    KeyEventsPlugin.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
     return KeyEventsPlugin;
 })();
 function getEventKey(event) {
@@ -1297,6 +1311,13 @@ function getEventKey(event) {
     return _keyMap[key] || key;
 }
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.
@@ -1329,19 +1350,19 @@ function getEventKey(event) {
  * @publicApi
  */
 let DomSanitizer = /** @class */ (() => {
-    let DomSanitizer = class DomSanitizer {
-    };
+    class DomSanitizer {
+    }
+    DomSanitizer.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root', useExisting: forwardRef(() => DomSanitizerImpl) },] }
+    ];
     DomSanitizer.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
-    DomSanitizer = __decorate([
-        Injectable({ providedIn: 'root', useExisting: forwardRef(() => DomSanitizerImpl) })
-    ], DomSanitizer);
     return DomSanitizer;
 })();
 function domSanitizerImplFactory(injector) {
     return new DomSanitizerImpl(injector.get(DOCUMENT));
 }
 let DomSanitizerImpl = /** @class */ (() => {
-    let DomSanitizerImpl = class DomSanitizerImpl extends DomSanitizer {
+    class DomSanitizerImpl extends DomSanitizer {
         constructor(_doc) {
             super();
             this._doc = _doc;
@@ -1397,13 +1418,15 @@ let DomSanitizerImpl = /** @class */ (() => {
         bypassSecurityTrustResourceUrl(value) {
             return ɵbypassSanitizationTrustResourceUrl(value);
         }
-    };
+    }
+    DomSanitizerImpl.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] },] }
+    ];
+    /** @nocollapse */
+    DomSanitizerImpl.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
     DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
-    DomSanitizerImpl = __decorate([
-        Injectable({ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] }),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
-    ], DomSanitizerImpl);
     return DomSanitizerImpl;
 })();
 
@@ -1482,8 +1505,7 @@ const BROWSER_MODULE_PROVIDERS = [
  * @publicApi
  */
 let BrowserModule = /** @class */ (() => {
-    var BrowserModule_1;
-    let BrowserModule = BrowserModule_1 = class BrowserModule {
+    class BrowserModule {
         constructor(parentModule) {
             if (parentModule) {
                 throw new Error(`BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.`);
@@ -1499,7 +1521,7 @@ let BrowserModule = /** @class */ (() => {
          */
         static withServerTransition(params) {
             return {
-                ngModule: BrowserModule_1,
+                ngModule: BrowserModule,
                 providers: [
                     { provide: APP_ID, useValue: params.appId },
                     { provide: TRANSITION_ID, useExisting: APP_ID },
@@ -1507,15 +1529,24 @@ let BrowserModule = /** @class */ (() => {
                 ],
             };
         }
-    };
-    BrowserModule = BrowserModule_1 = __decorate([
-        NgModule({ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }),
-        __param(0, Optional()), __param(0, SkipSelf()), __param(0, Inject(BrowserModule_1)),
-        __metadata("design:paramtypes", [Object])
-    ], BrowserModule);
+    }
+    BrowserModule.decorators = [
+        { type: NgModule, args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] },] }
+    ];
+    /** @nocollapse */
+    BrowserModule.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
+    ];
     return BrowserModule;
 })();
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * Factory to create Meta service.
  */
@@ -1528,7 +1559,7 @@ function createMeta() {
  * @publicApi
  */
 let Meta = /** @class */ (() => {
-    let Meta = class Meta {
+    class Meta {
         constructor(_doc) {
             this._doc = _doc;
             this._dom = ɵgetDOM();
@@ -1604,16 +1635,25 @@ let Meta = /** @class */ (() => {
         _containsAttributes(tag, elem) {
             return Object.keys(tag).every((key) => elem.getAttribute(key) === tag[key]);
         }
-    };
+    }
+    Meta.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root', useFactory: createMeta, deps: [] },] }
+    ];
+    /** @nocollapse */
+    Meta.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
     Meta.ɵprov = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
-    Meta = __decorate([
-        Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
-    ], Meta);
     return Meta;
 })();
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * Factory to create Title service.
  */
@@ -1631,7 +1671,7 @@ function createTitle() {
  * @publicApi
  */
 let Title = /** @class */ (() => {
-    let Title = class Title {
+    class Title {
         constructor(_doc) {
             this._doc = _doc;
         }
@@ -1648,13 +1688,15 @@ let Title = /** @class */ (() => {
         setTitle(newTitle) {
             this._doc.title = newTitle || '';
         }
-    };
+    }
+    Title.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] }
+    ];
+    /** @nocollapse */
+    Title.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
     Title.ɵprov = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
-    Title = __decorate([
-        Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
-    ], Title);
     return Title;
 })();
 
@@ -1822,15 +1864,14 @@ function makeStateKey(key) {
  * @publicApi
  */
 let TransferState = /** @class */ (() => {
-    var TransferState_1;
-    let TransferState = TransferState_1 = class TransferState {
+    class TransferState {
         constructor() {
             this.store = {};
             this.onSerializeCallbacks = {};
         }
         /** @internal */
         static init(initState) {
-            const transferState = new TransferState_1();
+            const transferState = new TransferState();
             transferState.store = initState;
             return transferState;
         }
@@ -1881,10 +1922,10 @@ let TransferState = /** @class */ (() => {
             }
             return JSON.stringify(this.store);
         }
-    };
-    TransferState = TransferState_1 = __decorate([
-        Injectable()
-    ], TransferState);
+    }
+    TransferState.decorators = [
+        { type: Injectable }
+    ];
     return TransferState;
 })();
 function initTransferState(doc, appId) {
@@ -1909,13 +1950,13 @@ function initTransferState(doc, appId) {
  * @publicApi
  */
 let BrowserTransferStateModule = /** @class */ (() => {
-    let BrowserTransferStateModule = class BrowserTransferStateModule {
-    };
-    BrowserTransferStateModule = __decorate([
-        NgModule({
-            providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
-        })
-    ], BrowserTransferStateModule);
+    class BrowserTransferStateModule {
+    }
+    BrowserTransferStateModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
+                },] }
+    ];
     return BrowserTransferStateModule;
 })();
 
@@ -1997,7 +2038,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.0.0-rc.0+22.sha-82761ec');
+const VERSION = new Version('10.0.0-rc.0+23.sha-d16a7f3');
 
 /**
  * @license

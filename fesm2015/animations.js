@@ -1,18 +1,24 @@
 /**
- * @license Angular v10.0.0-rc.0+22.sha-82761ec
+ * @license Angular v10.0.0-rc.0+23.sha-d16a7f3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { __decorate, __param, __metadata } from 'tslib';
-import { ViewEncapsulation, Injectable, Inject, RendererFactory2, NgZone, InjectionToken, NgModule } from '@angular/core';
+import { ViewEncapsulation, Injectable, RendererFactory2, Inject, NgZone, InjectionToken, NgModule } from '@angular/core';
 import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { AnimationBuilder, sequence, AnimationFactory } from '@angular/animations';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer, ɵNoopAnimationDriver } from '@angular/animations/browser';
 import { DOCUMENT } from '@angular/common';
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 let BrowserAnimationBuilder = /** @class */ (() => {
-    let BrowserAnimationBuilder = class BrowserAnimationBuilder extends AnimationBuilder {
+    class BrowserAnimationBuilder extends AnimationBuilder {
         constructor(rootRenderer, doc) {
             super();
             this._nextAnimationId = 0;
@@ -26,12 +32,15 @@ let BrowserAnimationBuilder = /** @class */ (() => {
             issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
             return new BrowserAnimationFactory(id, this._renderer);
         }
-    };
-    BrowserAnimationBuilder = __decorate([
-        Injectable(),
-        __param(1, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [RendererFactory2, Object])
-    ], BrowserAnimationBuilder);
+    }
+    BrowserAnimationBuilder.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    BrowserAnimationBuilder.ctorParameters = () => [
+        { type: RendererFactory2 },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
     return BrowserAnimationBuilder;
 })();
 class BrowserAnimationFactory extends AnimationFactory {
@@ -108,7 +117,7 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 const ANIMATION_PREFIX = '@';
 const DISABLE_ANIMATIONS_FLAG = '@.disabled';
 let AnimationRendererFactory = /** @class */ (() => {
-    let AnimationRendererFactory = class AnimationRendererFactory {
+    class AnimationRendererFactory {
         constructor(delegate, engine, _zone) {
             this.delegate = delegate;
             this.engine = engine;
@@ -207,11 +216,16 @@ let AnimationRendererFactory = /** @class */ (() => {
         whenRenderingDone() {
             return this.engine.whenRenderingDone();
         }
-    };
-    AnimationRendererFactory = __decorate([
-        Injectable(),
-        __metadata("design:paramtypes", [RendererFactory2, ɵAnimationEngine, NgZone])
-    ], AnimationRendererFactory);
+    }
+    AnimationRendererFactory.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    AnimationRendererFactory.ctorParameters = () => [
+        { type: RendererFactory2 },
+        { type: ɵAnimationEngine },
+        { type: NgZone }
+    ];
     return AnimationRendererFactory;
 })();
 class BaseAnimationRenderer {
@@ -358,16 +372,20 @@ function parseTriggerCallbackName(triggerName) {
  * found in the LICENSE file at https://angular.io/license
  */
 let InjectableAnimationEngine = /** @class */ (() => {
-    let InjectableAnimationEngine = class InjectableAnimationEngine extends ɵAnimationEngine {
+    class InjectableAnimationEngine extends ɵAnimationEngine {
         constructor(doc, driver, normalizer) {
             super(doc.body, driver, normalizer);
         }
-    };
-    InjectableAnimationEngine = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object, AnimationDriver, ɵAnimationStyleNormalizer])
-    ], InjectableAnimationEngine);
+    }
+    InjectableAnimationEngine.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    InjectableAnimationEngine.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: AnimationDriver },
+        { type: ɵAnimationStyleNormalizer }
+    ];
     return InjectableAnimationEngine;
 })();
 function instantiateSupportedAnimationDriver() {
@@ -410,19 +428,26 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
 ];
 
 /**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
  * for use with animations. See [Animations](guide/animations).
  * @publicApi
  */
 let BrowserAnimationsModule = /** @class */ (() => {
-    let BrowserAnimationsModule = class BrowserAnimationsModule {
-    };
-    BrowserAnimationsModule = __decorate([
-        NgModule({
-            exports: [BrowserModule],
-            providers: BROWSER_ANIMATIONS_PROVIDERS,
-        })
-    ], BrowserAnimationsModule);
+    class BrowserAnimationsModule {
+    }
+    BrowserAnimationsModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserModule],
+                    providers: BROWSER_ANIMATIONS_PROVIDERS,
+                },] }
+    ];
     return BrowserAnimationsModule;
 })();
 /**
@@ -430,14 +455,14 @@ let BrowserAnimationsModule = /** @class */ (() => {
  * @publicApi
  */
 let NoopAnimationsModule = /** @class */ (() => {
-    let NoopAnimationsModule = class NoopAnimationsModule {
-    };
-    NoopAnimationsModule = __decorate([
-        NgModule({
-            exports: [BrowserModule],
-            providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
-        })
-    ], NoopAnimationsModule);
+    class NoopAnimationsModule {
+    }
+    NoopAnimationsModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserModule],
+                    providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
+                },] }
+    ];
     return NoopAnimationsModule;
 })();
 

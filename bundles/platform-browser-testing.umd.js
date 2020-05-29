@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+22.sha-82761ec
+ * @license Angular v10.0.0-rc.0+23.sha-d16a7f3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -533,6 +533,13 @@
         return res;
     }
 
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     function initBrowserTests() {
         platformBrowser.ɵBrowserDomAdapter.makeCurrent();
         BrowserDetection.setup();
@@ -553,16 +560,16 @@
     var BrowserTestingModule = /** @class */ (function () {
         function BrowserTestingModule() {
         }
-        BrowserTestingModule = __decorate([
-            core.NgModule({
-                exports: [platformBrowser.BrowserModule],
-                providers: [
-                    { provide: core.APP_ID, useValue: 'a' },
-                    platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
-                    { provide: core.NgZone, useFactory: ɵ0 },
-                ]
-            })
-        ], BrowserTestingModule);
+        BrowserTestingModule.decorators = [
+            { type: core.NgModule, args: [{
+                        exports: [platformBrowser.BrowserModule],
+                        providers: [
+                            { provide: core.APP_ID, useValue: 'a' },
+                            platformBrowser.ɵELEMENT_PROBE_PROVIDERS,
+                            { provide: core.NgZone, useFactory: ɵ0 },
+                        ]
+                    },] }
+        ];
         return BrowserTestingModule;
     }());
 
