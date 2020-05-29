@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+34.sha-bd7393f
+ * @license Angular v10.0.0-rc.0+35.sha-4d0e175
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -682,11 +682,14 @@
             }
             throw new Error("No event manager plugin found for event " + eventName);
         };
-        EventManager = __decorate([
-            i0.Injectable(),
-            __param(0, i0.Inject(EVENT_MANAGER_PLUGINS)),
-            __metadata("design:paramtypes", [Array, i0.NgZone])
-        ], EventManager);
+        EventManager.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        EventManager.ctorParameters = function () { return [
+            { type: Array, decorators: [{ type: i0.Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
+            { type: i0.NgZone }
+        ]; };
         return EventManager;
     }());
     var EventManagerPlugin = /** @class */ (function () {
@@ -730,9 +733,9 @@
         SharedStylesHost.prototype.getAllStyles = function () {
             return Array.from(this._stylesSet);
         };
-        SharedStylesHost = __decorate([
-            i0.Injectable()
-        ], SharedStylesHost);
+        SharedStylesHost.decorators = [
+            { type: i0.Injectable }
+        ];
         return SharedStylesHost;
     }());
     var DomSharedStylesHost = /** @class */ (function (_super) {
@@ -767,11 +770,13 @@
         DomSharedStylesHost.prototype.ngOnDestroy = function () {
             this._styleNodes.forEach(function (styleNode) { return common.ɵgetDOM().remove(styleNode); });
         };
-        DomSharedStylesHost = __decorate([
-            i0.Injectable(),
-            __param(0, i0.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [Object])
-        ], DomSharedStylesHost);
+        DomSharedStylesHost.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        DomSharedStylesHost.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
         return DomSharedStylesHost;
     }(SharedStylesHost));
 
@@ -872,11 +877,15 @@
         };
         DomRendererFactory2.prototype.begin = function () { };
         DomRendererFactory2.prototype.end = function () { };
-        DomRendererFactory2 = __decorate([
-            i0.Injectable(),
-            __param(2, i0.Inject(i0.APP_ID)),
-            __metadata("design:paramtypes", [EventManager, DomSharedStylesHost, String])
-        ], DomRendererFactory2);
+        DomRendererFactory2.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        DomRendererFactory2.ctorParameters = function () { return [
+            { type: EventManager },
+            { type: DomSharedStylesHost },
+            { type: String, decorators: [{ type: i0.Inject, args: [i0.APP_ID,] }] }
+        ]; };
         return DomRendererFactory2;
     }());
     var DefaultDomRenderer2 = /** @class */ (function () {
@@ -1101,11 +1110,13 @@
         DomEventsPlugin.prototype.removeEventListener = function (target, eventName, callback) {
             return target.removeEventListener(eventName, callback);
         };
-        DomEventsPlugin = __decorate([
-            i0.Injectable(),
-            __param(0, i0.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [Object])
-        ], DomEventsPlugin);
+        DomEventsPlugin.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        DomEventsPlugin.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
         return DomEventsPlugin;
     }(EventManagerPlugin));
 
@@ -1216,9 +1227,9 @@
             }
             return mc;
         };
-        HammerGestureConfig = __decorate([
-            i0.Injectable()
-        ], HammerGestureConfig);
+        HammerGestureConfig.decorators = [
+            { type: i0.Injectable }
+        ];
         return HammerGestureConfig;
     }());
     /**
@@ -1307,13 +1318,16 @@
         HammerGesturesPlugin.prototype.isCustomEvent = function (eventName) {
             return this._config.events.indexOf(eventName) > -1;
         };
-        HammerGesturesPlugin = __decorate([
-            i0.Injectable(),
-            __param(0, i0.Inject(common.DOCUMENT)),
-            __param(1, i0.Inject(HAMMER_GESTURE_CONFIG)),
-            __param(3, i0.Optional()), __param(3, i0.Inject(HAMMER_LOADER)),
-            __metadata("design:paramtypes", [Object, HammerGestureConfig, i0.ɵConsole, Object])
-        ], HammerGesturesPlugin);
+        HammerGesturesPlugin.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        HammerGesturesPlugin.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] },
+            { type: HammerGestureConfig, decorators: [{ type: i0.Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
+            { type: i0.ɵConsole },
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [HAMMER_LOADER,] }] }
+        ]; };
         return HammerGesturesPlugin;
     }(EventManagerPlugin));
     /**
@@ -1349,9 +1363,9 @@
     var HammerModule = /** @class */ (function () {
         function HammerModule() {
         }
-        HammerModule = __decorate([
-            i0.NgModule({ providers: HAMMER_PROVIDERS__PRE_R3__ })
-        ], HammerModule);
+        HammerModule.decorators = [
+            { type: i0.NgModule, args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ },] }
+        ];
         return HammerModule;
     }());
 
@@ -1429,14 +1443,13 @@
         function KeyEventsPlugin(doc) {
             return _super.call(this, doc) || this;
         }
-        KeyEventsPlugin_1 = KeyEventsPlugin;
         /**
          * Reports whether a named key event is supported.
          * @param eventName The event name to query.
          * @return True if the named key event is supported.
          */
         KeyEventsPlugin.prototype.supports = function (eventName) {
-            return KeyEventsPlugin_1.parseEventName(eventName) != null;
+            return KeyEventsPlugin.parseEventName(eventName) != null;
         };
         /**
          * Registers a handler for a specific element and key event.
@@ -1447,8 +1460,8 @@
          * @returns The key event that was registered.
          */
         KeyEventsPlugin.prototype.addEventListener = function (element, eventName, handler) {
-            var parsedEvent = KeyEventsPlugin_1.parseEventName(eventName);
-            var outsideHandler = KeyEventsPlugin_1.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
+            var parsedEvent = KeyEventsPlugin.parseEventName(eventName);
+            var outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
             return this.manager.getZone().runOutsideAngular(function () {
                 return common.ɵgetDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler);
             });
@@ -1459,7 +1472,7 @@
             if ((parts.length === 0) || !(domEventName === 'keydown' || domEventName === 'keyup')) {
                 return null;
             }
-            var key = KeyEventsPlugin_1._normalizeKey(parts.pop());
+            var key = KeyEventsPlugin._normalizeKey(parts.pop());
             var fullKey = '';
             MODIFIER_KEYS.forEach(function (modifierName) {
                 var index = parts.indexOf(modifierName);
@@ -1508,7 +1521,7 @@
          */
         KeyEventsPlugin.eventCallback = function (fullKey, handler, zone) {
             return function (event /** TODO #9100 */) {
-                if (KeyEventsPlugin_1.getEventFullKey(event) === fullKey) {
+                if (KeyEventsPlugin.getEventFullKey(event) === fullKey) {
                     zone.runGuarded(function () { return handler(event); });
                 }
             };
@@ -1523,12 +1536,13 @@
                     return keyName;
             }
         };
-        var KeyEventsPlugin_1;
-        KeyEventsPlugin = KeyEventsPlugin_1 = __decorate([
-            i0.Injectable(),
-            __param(0, i0.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [Object])
-        ], KeyEventsPlugin);
+        KeyEventsPlugin.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        KeyEventsPlugin.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
         return KeyEventsPlugin;
     }(EventManagerPlugin));
     function getEventKey(event) {
@@ -1588,10 +1602,10 @@
     var DomSanitizer = /** @class */ (function () {
         function DomSanitizer() {
         }
+        DomSanitizer.decorators = [
+            { type: i0.Injectable, args: [{ providedIn: 'root', useExisting: i0.forwardRef(function () { return DomSanitizerImpl; }) },] }
+        ];
         DomSanitizer.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return i0.ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
-        DomSanitizer = __decorate([
-            i0.Injectable({ providedIn: 'root', useExisting: i0.forwardRef(function () { return DomSanitizerImpl; }) })
-        ], DomSanitizer);
         return DomSanitizer;
     }());
     function domSanitizerImplFactory(injector) {
@@ -1655,12 +1669,14 @@
         DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
             return i0.ɵbypassSanitizationTrustResourceUrl(value);
         };
+        DomSanitizerImpl.decorators = [
+            { type: i0.Injectable, args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [i0.Injector] },] }
+        ];
+        /** @nocollapse */
+        DomSanitizerImpl.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
         DomSanitizerImpl.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(i0.ɵɵinject(i0.INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
-        DomSanitizerImpl = __decorate([
-            i0.Injectable({ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [i0.Injector] }),
-            __param(0, i0.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [Object])
-        ], DomSanitizerImpl);
         return DomSanitizerImpl;
     }(DomSanitizer));
 
@@ -1744,7 +1760,6 @@
                 throw new Error("BrowserModule has already been loaded. If you need access to common directives such as NgIf and NgFor from a lazy loaded module, import CommonModule instead.");
             }
         }
-        BrowserModule_1 = BrowserModule;
         /**
          * Configures a browser-based app to transition from a server-rendered app, if
          * one is present on the page.
@@ -1755,7 +1770,7 @@
          */
         BrowserModule.withServerTransition = function (params) {
             return {
-                ngModule: BrowserModule_1,
+                ngModule: BrowserModule,
                 providers: [
                     { provide: i0.APP_ID, useValue: params.appId },
                     { provide: TRANSITION_ID, useExisting: i0.APP_ID },
@@ -1763,15 +1778,23 @@
                 ],
             };
         };
-        var BrowserModule_1;
-        BrowserModule = BrowserModule_1 = __decorate([
-            i0.NgModule({ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] }),
-            __param(0, i0.Optional()), __param(0, i0.SkipSelf()), __param(0, i0.Inject(BrowserModule_1)),
-            __metadata("design:paramtypes", [Object])
-        ], BrowserModule);
+        BrowserModule.decorators = [
+            { type: i0.NgModule, args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] },] }
+        ];
+        /** @nocollapse */
+        BrowserModule.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }, { type: i0.Inject, args: [BrowserModule,] }] }
+        ]; };
         return BrowserModule;
     }());
 
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     /**
      * Factory to create Meta service.
      */
@@ -1863,15 +1886,24 @@
         Meta.prototype._containsAttributes = function (tag, elem) {
             return Object.keys(tag).every(function (key) { return elem.getAttribute(key) === tag[key]; });
         };
+        Meta.decorators = [
+            { type: i0.Injectable, args: [{ providedIn: 'root', useFactory: createMeta, deps: [] },] }
+        ];
+        /** @nocollapse */
+        Meta.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
         Meta.ɵprov = i0.ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
-        Meta = __decorate([
-            i0.Injectable({ providedIn: 'root', useFactory: createMeta, deps: [] }),
-            __param(0, i0.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [Object])
-        ], Meta);
         return Meta;
     }());
 
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     /**
      * Factory to create Title service.
      */
@@ -1905,12 +1937,14 @@
         Title.prototype.setTitle = function (newTitle) {
             this._doc.title = newTitle || '';
         };
+        Title.decorators = [
+            { type: i0.Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] }
+        ];
+        /** @nocollapse */
+        Title.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
         Title.ɵprov = i0.ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
-        Title = __decorate([
-            i0.Injectable({ providedIn: 'root', useFactory: createTitle, deps: [] }),
-            __param(0, i0.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [Object])
-        ], Title);
         return Title;
     }());
 
@@ -2084,10 +2118,9 @@
             this.store = {};
             this.onSerializeCallbacks = {};
         }
-        TransferState_1 = TransferState;
         /** @internal */
         TransferState.init = function (initState) {
-            var transferState = new TransferState_1();
+            var transferState = new TransferState();
             transferState.store = initState;
             return transferState;
         };
@@ -2138,10 +2171,9 @@
             }
             return JSON.stringify(this.store);
         };
-        var TransferState_1;
-        TransferState = TransferState_1 = __decorate([
-            i0.Injectable()
-        ], TransferState);
+        TransferState.decorators = [
+            { type: i0.Injectable }
+        ];
         return TransferState;
     }());
     function initTransferState(doc, appId) {
@@ -2168,11 +2200,11 @@
     var BrowserTransferStateModule = /** @class */ (function () {
         function BrowserTransferStateModule() {
         }
-        BrowserTransferStateModule = __decorate([
-            i0.NgModule({
-                providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, i0.APP_ID] }],
-            })
-        ], BrowserTransferStateModule);
+        BrowserTransferStateModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        providers: [{ provide: TransferState, useFactory: initTransferState, deps: [common.DOCUMENT, i0.APP_ID] }],
+                    },] }
+        ];
         return BrowserTransferStateModule;
     }());
 
@@ -2257,7 +2289,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.0.0-rc.0+34.sha-bd7393f');
+    var VERSION = new i0.Version('10.0.0-rc.0+35.sha-4d0e175');
 
     /**
      * @license

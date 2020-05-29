@@ -1,10 +1,9 @@
 /**
- * @license Angular v10.0.0-rc.0+34.sha-bd7393f
+ * @license Angular v10.0.0-rc.0+35.sha-4d0e175
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { __decorate } from 'tslib';
 import { ɵglobal, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, NgModule, APP_ID } from '@angular/core';
 import { ɵBrowserDomAdapter, BrowserModule, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 import { ɵgetDOM } from '@angular/common';
@@ -216,6 +215,13 @@ function childNodesAsList(el) {
     return res;
 }
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -234,18 +240,18 @@ const ɵ0 = createNgZone;
  * @publicApi
  */
 let BrowserTestingModule = /** @class */ (() => {
-    let BrowserTestingModule = class BrowserTestingModule {
-    };
-    BrowserTestingModule = __decorate([
-        NgModule({
-            exports: [BrowserModule],
-            providers: [
-                { provide: APP_ID, useValue: 'a' },
-                ɵELEMENT_PROBE_PROVIDERS,
-                { provide: NgZone, useFactory: ɵ0 },
-            ]
-        })
-    ], BrowserTestingModule);
+    class BrowserTestingModule {
+    }
+    BrowserTestingModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserModule],
+                    providers: [
+                        { provide: APP_ID, useValue: 'a' },
+                        ɵELEMENT_PROBE_PROVIDERS,
+                        { provide: NgZone, useFactory: ɵ0 },
+                    ]
+                },] }
+    ];
     return BrowserTestingModule;
 })();
 

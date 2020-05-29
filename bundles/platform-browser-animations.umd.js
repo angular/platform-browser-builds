@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+34.sha-bd7393f
+ * @license Angular v10.0.0-rc.0+35.sha-4d0e175
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -254,11 +254,14 @@
             issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
             return new BrowserAnimationFactory(id, this._renderer);
         };
-        BrowserAnimationBuilder = __decorate([
-            core.Injectable(),
-            __param(1, core.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [core.RendererFactory2, Object])
-        ], BrowserAnimationBuilder);
+        BrowserAnimationBuilder.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        BrowserAnimationBuilder.ctorParameters = function () { return [
+            { type: core.RendererFactory2 },
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
         return BrowserAnimationBuilder;
     }(animations.AnimationBuilder));
     var BrowserAnimationFactory = /** @class */ (function (_super) {
@@ -445,10 +448,15 @@
         AnimationRendererFactory.prototype.whenRenderingDone = function () {
             return this.engine.whenRenderingDone();
         };
-        AnimationRendererFactory = __decorate([
-            core.Injectable(),
-            __metadata("design:paramtypes", [core.RendererFactory2, browser.ɵAnimationEngine, core.NgZone])
-        ], AnimationRendererFactory);
+        AnimationRendererFactory.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        AnimationRendererFactory.ctorParameters = function () { return [
+            { type: core.RendererFactory2 },
+            { type: browser.ɵAnimationEngine },
+            { type: core.NgZone }
+        ]; };
         return AnimationRendererFactory;
     }());
     var BaseAnimationRenderer = /** @class */ (function () {
@@ -609,11 +617,15 @@
         function InjectableAnimationEngine(doc, driver, normalizer) {
             return _super.call(this, doc.body, driver, normalizer) || this;
         }
-        InjectableAnimationEngine = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [Object, browser.AnimationDriver, browser.ɵAnimationStyleNormalizer])
-        ], InjectableAnimationEngine);
+        InjectableAnimationEngine.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        InjectableAnimationEngine.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+            { type: browser.AnimationDriver },
+            { type: browser.ɵAnimationStyleNormalizer }
+        ]; };
         return InjectableAnimationEngine;
     }(browser.ɵAnimationEngine));
     function instantiateSupportedAnimationDriver() {
@@ -656,6 +668,13 @@
     ], SHARED_ANIMATION_PROVIDERS);
 
     /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
      * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
      * for use with animations. See [Animations](guide/animations).
      * @publicApi
@@ -663,12 +682,12 @@
     var BrowserAnimationsModule = /** @class */ (function () {
         function BrowserAnimationsModule() {
         }
-        BrowserAnimationsModule = __decorate([
-            core.NgModule({
-                exports: [platformBrowser.BrowserModule],
-                providers: BROWSER_ANIMATIONS_PROVIDERS,
-            })
-        ], BrowserAnimationsModule);
+        BrowserAnimationsModule.decorators = [
+            { type: core.NgModule, args: [{
+                        exports: [platformBrowser.BrowserModule],
+                        providers: BROWSER_ANIMATIONS_PROVIDERS,
+                    },] }
+        ];
         return BrowserAnimationsModule;
     }());
     /**
@@ -678,12 +697,12 @@
     var NoopAnimationsModule = /** @class */ (function () {
         function NoopAnimationsModule() {
         }
-        NoopAnimationsModule = __decorate([
-            core.NgModule({
-                exports: [platformBrowser.BrowserModule],
-                providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
-            })
-        ], NoopAnimationsModule);
+        NoopAnimationsModule.decorators = [
+            { type: core.NgModule, args: [{
+                        exports: [platformBrowser.BrowserModule],
+                        providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
+                    },] }
+        ];
         return NoopAnimationsModule;
     }());
 
