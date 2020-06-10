@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+113.sha-0a1d078
+ * @license Angular v10.0.0-rc.0+114.sha-401ef71
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -257,7 +257,6 @@
         BrowserAnimationBuilder.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         BrowserAnimationBuilder.ctorParameters = function () { return [
             { type: core.RendererFactory2 },
             { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
@@ -451,7 +450,6 @@
         AnimationRendererFactory.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         AnimationRendererFactory.ctorParameters = function () { return [
             { type: core.RendererFactory2 },
             { type: browser.ɵAnimationEngine },
@@ -620,7 +618,6 @@
         InjectableAnimationEngine.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         InjectableAnimationEngine.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
             { type: browser.AnimationDriver },
