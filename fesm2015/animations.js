@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.3+14.sha-9d397eb
+ * @license Angular v10.0.0-rc.3+16.sha-742f3d6
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,6 @@ let BrowserAnimationBuilder = /** @class */ (() => {
     BrowserAnimationBuilder.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     BrowserAnimationBuilder.ctorParameters = () => [
         { type: RendererFactory2 },
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
@@ -220,7 +219,6 @@ let AnimationRendererFactory = /** @class */ (() => {
     AnimationRendererFactory.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     AnimationRendererFactory.ctorParameters = () => [
         { type: RendererFactory2 },
         { type: ɵAnimationEngine },
@@ -380,7 +378,6 @@ let InjectableAnimationEngine = /** @class */ (() => {
     InjectableAnimationEngine.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     InjectableAnimationEngine.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
         { type: AnimationDriver },

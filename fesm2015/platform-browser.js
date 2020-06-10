@@ -1,12 +1,12 @@
 /**
- * @license Angular v10.0.0-rc.3+14.sha-9d397eb
+ * @license Angular v10.0.0-rc.3+16.sha-742f3d6
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, forwardRef, ɵɵdefineInjectable, ɵɵinject, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
+import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @license
@@ -433,7 +433,6 @@ let EventManager = /** @class */ (() => {
     EventManager.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     EventManager.ctorParameters = () => [
         { type: Array, decorators: [{ type: Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
         { type: NgZone }
@@ -519,7 +518,6 @@ let DomSharedStylesHost = /** @class */ (() => {
     DomSharedStylesHost.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     DomSharedStylesHost.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ];
@@ -628,7 +626,6 @@ let DomRendererFactory2 = /** @class */ (() => {
     DomRendererFactory2.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     DomRendererFactory2.ctorParameters = () => [
         { type: EventManager },
         { type: DomSharedStylesHost },
@@ -854,7 +851,6 @@ let DomEventsPlugin = /** @class */ (() => {
     DomEventsPlugin.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     DomEventsPlugin.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ];
@@ -1063,7 +1059,6 @@ let HammerGesturesPlugin = /** @class */ (() => {
     HammerGesturesPlugin.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     HammerGesturesPlugin.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
         { type: HammerGestureConfig, decorators: [{ type: Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
@@ -1282,7 +1277,6 @@ let KeyEventsPlugin = /** @class */ (() => {
     KeyEventsPlugin.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     KeyEventsPlugin.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ];
@@ -1352,10 +1346,10 @@ function getEventKey(event) {
 let DomSanitizer = /** @class */ (() => {
     class DomSanitizer {
     }
+    DomSanitizer.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
     DomSanitizer.decorators = [
         { type: Injectable, args: [{ providedIn: 'root', useExisting: forwardRef(() => DomSanitizerImpl) },] }
     ];
-    DomSanitizer.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
     return DomSanitizer;
 })();
 function domSanitizerImplFactory(injector) {
@@ -1419,14 +1413,13 @@ let DomSanitizerImpl = /** @class */ (() => {
             return ɵbypassSanitizationTrustResourceUrl(value);
         }
     }
+    DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
     DomSanitizerImpl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] },] }
     ];
-    /** @nocollapse */
     DomSanitizerImpl.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ];
-    DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(ɵɵinject(INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
     return DomSanitizerImpl;
 })();
 
@@ -1533,9 +1526,8 @@ let BrowserModule = /** @class */ (() => {
     BrowserModule.decorators = [
         { type: NgModule, args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] },] }
     ];
-    /** @nocollapse */
     BrowserModule.ctorParameters = () => [
-        { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
+        { type: BrowserModule, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [BrowserModule,] }] }
     ];
     return BrowserModule;
 })();
@@ -1636,14 +1628,13 @@ let Meta = /** @class */ (() => {
             return Object.keys(tag).every((key) => elem.getAttribute(key) === tag[key]);
         }
     }
+    Meta.ɵprov = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
     Meta.decorators = [
         { type: Injectable, args: [{ providedIn: 'root', useFactory: createMeta, deps: [] },] }
     ];
-    /** @nocollapse */
     Meta.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ];
-    Meta.ɵprov = ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
     return Meta;
 })();
 
@@ -1689,14 +1680,13 @@ let Title = /** @class */ (() => {
             this._doc.title = newTitle || '';
         }
     }
+    Title.ɵprov = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
     Title.decorators = [
         { type: Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] }
     ];
-    /** @nocollapse */
     Title.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ];
-    Title.ɵprov = ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
     return Title;
 })();
 
@@ -2038,7 +2028,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.0.0-rc.3+14.sha-9d397eb');
+const VERSION = new Version('10.0.0-rc.3+16.sha-742f3d6');
 
 /**
  * @license

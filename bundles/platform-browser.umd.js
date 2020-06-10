@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.3+14.sha-9d397eb
+ * @license Angular v10.0.0-rc.3+16.sha-742f3d6
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -685,7 +685,6 @@
         EventManager.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         EventManager.ctorParameters = function () { return [
             { type: Array, decorators: [{ type: i0.Inject, args: [EVENT_MANAGER_PLUGINS,] }] },
             { type: i0.NgZone }
@@ -773,7 +772,6 @@
         DomSharedStylesHost.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         DomSharedStylesHost.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
         ]; };
@@ -880,7 +878,6 @@
         DomRendererFactory2.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         DomRendererFactory2.ctorParameters = function () { return [
             { type: EventManager },
             { type: DomSharedStylesHost },
@@ -1113,7 +1110,6 @@
         DomEventsPlugin.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         DomEventsPlugin.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
         ]; };
@@ -1321,7 +1317,6 @@
         HammerGesturesPlugin.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         HammerGesturesPlugin.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] },
             { type: HammerGestureConfig, decorators: [{ type: i0.Inject, args: [HAMMER_GESTURE_CONFIG,] }] },
@@ -1539,7 +1534,6 @@
         KeyEventsPlugin.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         KeyEventsPlugin.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
         ]; };
@@ -1602,10 +1596,10 @@
     var DomSanitizer = /** @class */ (function () {
         function DomSanitizer() {
         }
+        DomSanitizer.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return i0.ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
         DomSanitizer.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root', useExisting: i0.forwardRef(function () { return DomSanitizerImpl; }) },] }
         ];
-        DomSanitizer.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizer_Factory() { return i0.ɵɵinject(DomSanitizerImpl); }, token: DomSanitizer, providedIn: "root" });
         return DomSanitizer;
     }());
     function domSanitizerImplFactory(injector) {
@@ -1669,14 +1663,13 @@
         DomSanitizerImpl.prototype.bypassSecurityTrustResourceUrl = function (value) {
             return i0.ɵbypassSanitizationTrustResourceUrl(value);
         };
+        DomSanitizerImpl.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(i0.ɵɵinject(i0.INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
         DomSanitizerImpl.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [i0.Injector] },] }
         ];
-        /** @nocollapse */
         DomSanitizerImpl.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
         ]; };
-        DomSanitizerImpl.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomSanitizerImpl_Factory() { return domSanitizerImplFactory(i0.ɵɵinject(i0.INJECTOR)); }, token: DomSanitizerImpl, providedIn: "root" });
         return DomSanitizerImpl;
     }(DomSanitizer));
 
@@ -1781,9 +1774,8 @@
         BrowserModule.decorators = [
             { type: i0.NgModule, args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [common.CommonModule, i0.ApplicationModule] },] }
         ];
-        /** @nocollapse */
         BrowserModule.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }, { type: i0.Inject, args: [BrowserModule,] }] }
+            { type: BrowserModule, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }, { type: i0.Inject, args: [BrowserModule,] }] }
         ]; };
         return BrowserModule;
     }());
@@ -1886,14 +1878,13 @@
         Meta.prototype._containsAttributes = function (tag, elem) {
             return Object.keys(tag).every(function (key) { return elem.getAttribute(key) === tag[key]; });
         };
+        Meta.ɵprov = i0.ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
         Meta.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root', useFactory: createMeta, deps: [] },] }
         ];
-        /** @nocollapse */
         Meta.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
         ]; };
-        Meta.ɵprov = i0.ɵɵdefineInjectable({ factory: createMeta, token: Meta, providedIn: "root" });
         return Meta;
     }());
 
@@ -1937,14 +1928,13 @@
         Title.prototype.setTitle = function (newTitle) {
             this._doc.title = newTitle || '';
         };
+        Title.ɵprov = i0.ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
         Title.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root', useFactory: createTitle, deps: [] },] }
         ];
-        /** @nocollapse */
         Title.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
         ]; };
-        Title.ɵprov = i0.ɵɵdefineInjectable({ factory: createTitle, token: Title, providedIn: "root" });
         return Title;
     }());
 
@@ -2289,7 +2279,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.0.0-rc.3+14.sha-9d397eb');
+    var VERSION = new i0.Version('10.0.0-rc.3+16.sha-742f3d6');
 
     /**
      * @license
