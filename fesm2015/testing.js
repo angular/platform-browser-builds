@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.4+6.sha-c2f4a9b
+ * @license Angular v10.0.0-rc.4+14.sha-38c48be
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -239,21 +239,18 @@ const ɵ0 = createNgZone;
  *
  * @publicApi
  */
-let BrowserTestingModule = /** @class */ (() => {
-    class BrowserTestingModule {
-    }
-    BrowserTestingModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    providers: [
-                        { provide: APP_ID, useValue: 'a' },
-                        ɵELEMENT_PROBE_PROVIDERS,
-                        { provide: NgZone, useFactory: ɵ0 },
-                    ]
-                },] }
-    ];
-    return BrowserTestingModule;
-})();
+class BrowserTestingModule {
+}
+BrowserTestingModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BrowserModule],
+                providers: [
+                    { provide: APP_ID, useValue: 'a' },
+                    ɵELEMENT_PROBE_PROVIDERS,
+                    { provide: NgZone, useFactory: ɵ0 },
+                ]
+            },] }
+];
 
 /**
  * @license
