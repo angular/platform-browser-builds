@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+130.sha-8c682c5
+ * @license Angular v10.0.0-rc.0+134.sha-a937889
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -238,17 +238,14 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  *
  * @publicApi
  */
-let BrowserTestingModule = /** @class */ (() => {
-    class BrowserTestingModule {
-    }
-    BrowserTestingModule.ɵmod = ɵɵdefineNgModule({ type: BrowserTestingModule });
-    BrowserTestingModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
-            { provide: APP_ID, useValue: 'a' },
-            ɵELEMENT_PROBE_PROVIDERS,
-            { provide: NgZone, useFactory: createNgZone },
-        ], imports: [BrowserModule] });
-    return BrowserTestingModule;
-})();
+class BrowserTestingModule {
+}
+BrowserTestingModule.ɵmod = ɵɵdefineNgModule({ type: BrowserTestingModule });
+BrowserTestingModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserTestingModule_Factory(t) { return new (t || BrowserTestingModule)(); }, providers: [
+        { provide: APP_ID, useValue: 'a' },
+        ɵELEMENT_PROBE_PROVIDERS,
+        { provide: NgZone, useFactory: createNgZone },
+    ], imports: [BrowserModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserTestingModule, { exports: [BrowserModule] }); })();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserTestingModule, [{
         type: NgModule,

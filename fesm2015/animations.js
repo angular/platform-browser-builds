@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+130.sha-8c682c5
+ * @license Angular v10.0.0-rc.0+134.sha-a937889
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -17,26 +17,23 @@ import { DOCUMENT } from '@angular/common';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let BrowserAnimationBuilder = /** @class */ (() => {
-    class BrowserAnimationBuilder extends AnimationBuilder {
-        constructor(rootRenderer, doc) {
-            super();
-            this._nextAnimationId = 0;
-            const typeData = { id: '0', encapsulation: ViewEncapsulation.None, styles: [], data: { animation: [] } };
-            this._renderer = rootRenderer.createRenderer(doc.body, typeData);
-        }
-        build(animation) {
-            const id = this._nextAnimationId.toString();
-            this._nextAnimationId++;
-            const entry = Array.isArray(animation) ? sequence(animation) : animation;
-            issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
-            return new BrowserAnimationFactory(id, this._renderer);
-        }
+class BrowserAnimationBuilder extends AnimationBuilder {
+    constructor(rootRenderer, doc) {
+        super();
+        this._nextAnimationId = 0;
+        const typeData = { id: '0', encapsulation: ViewEncapsulation.None, styles: [], data: { animation: [] } };
+        this._renderer = rootRenderer.createRenderer(doc.body, typeData);
     }
-    BrowserAnimationBuilder.ɵfac = function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(ɵɵinject(RendererFactory2), ɵɵinject(DOCUMENT)); };
-    BrowserAnimationBuilder.ɵprov = ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: BrowserAnimationBuilder.ɵfac });
-    return BrowserAnimationBuilder;
-})();
+    build(animation) {
+        const id = this._nextAnimationId.toString();
+        this._nextAnimationId++;
+        const entry = Array.isArray(animation) ? sequence(animation) : animation;
+        issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
+        return new BrowserAnimationFactory(id, this._renderer);
+    }
+}
+BrowserAnimationBuilder.ɵfac = function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(ɵɵinject(RendererFactory2), ɵɵinject(DOCUMENT)); };
+BrowserAnimationBuilder.ɵprov = ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: BrowserAnimationBuilder.ɵfac });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserAnimationBuilder, [{
         type: Injectable
     }], function () { return [{ type: RendererFactory2 }, { type: undefined, decorators: [{
@@ -116,111 +113,108 @@ function issueAnimationCommand(renderer, element, id, command, args) {
 
 const ANIMATION_PREFIX = '@';
 const DISABLE_ANIMATIONS_FLAG = '@.disabled';
-let AnimationRendererFactory = /** @class */ (() => {
-    class AnimationRendererFactory {
-        constructor(delegate, engine, _zone) {
-            this.delegate = delegate;
-            this.engine = engine;
-            this._zone = _zone;
-            this._currentId = 0;
-            this._microtaskId = 1;
-            this._animationCallbacksBuffer = [];
-            this._rendererCache = new Map();
-            this._cdRecurDepth = 0;
-            this.promise = Promise.resolve(0);
-            engine.onRemovalComplete = (element, delegate) => {
-                // Note: if an component element has a leave animation, and the component
-                // a host leave animation, the view engine will call `removeChild` for the parent
-                // component renderer as well as for the child component renderer.
-                // Therefore, we need to check if we already removed the element.
-                if (delegate && delegate.parentNode(element)) {
-                    delegate.removeChild(element.parentNode, element);
-                }
-            };
-        }
-        createRenderer(hostElement, type) {
-            const EMPTY_NAMESPACE_ID = '';
-            // cache the delegates to find out which cached delegate can
-            // be used by which cached renderer
-            const delegate = this.delegate.createRenderer(hostElement, type);
-            if (!hostElement || !type || !type.data || !type.data['animation']) {
-                let renderer = this._rendererCache.get(delegate);
-                if (!renderer) {
-                    renderer = new BaseAnimationRenderer(EMPTY_NAMESPACE_ID, delegate, this.engine);
-                    // only cache this result when the base renderer is used
-                    this._rendererCache.set(delegate, renderer);
-                }
-                return renderer;
+class AnimationRendererFactory {
+    constructor(delegate, engine, _zone) {
+        this.delegate = delegate;
+        this.engine = engine;
+        this._zone = _zone;
+        this._currentId = 0;
+        this._microtaskId = 1;
+        this._animationCallbacksBuffer = [];
+        this._rendererCache = new Map();
+        this._cdRecurDepth = 0;
+        this.promise = Promise.resolve(0);
+        engine.onRemovalComplete = (element, delegate) => {
+            // Note: if an component element has a leave animation, and the component
+            // a host leave animation, the view engine will call `removeChild` for the parent
+            // component renderer as well as for the child component renderer.
+            // Therefore, we need to check if we already removed the element.
+            if (delegate && delegate.parentNode(element)) {
+                delegate.removeChild(element.parentNode, element);
             }
-            const componentId = type.id;
-            const namespaceId = type.id + '-' + this._currentId;
-            this._currentId++;
-            this.engine.register(namespaceId, hostElement);
-            const registerTrigger = (trigger) => {
-                if (Array.isArray(trigger)) {
-                    trigger.forEach(registerTrigger);
-                }
-                else {
-                    this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger);
-                }
-            };
-            const animationTriggers = type.data['animation'];
-            animationTriggers.forEach(registerTrigger);
-            return new AnimationRenderer(this, namespaceId, delegate, this.engine);
-        }
-        begin() {
-            this._cdRecurDepth++;
-            if (this.delegate.begin) {
-                this.delegate.begin();
+        };
+    }
+    createRenderer(hostElement, type) {
+        const EMPTY_NAMESPACE_ID = '';
+        // cache the delegates to find out which cached delegate can
+        // be used by which cached renderer
+        const delegate = this.delegate.createRenderer(hostElement, type);
+        if (!hostElement || !type || !type.data || !type.data['animation']) {
+            let renderer = this._rendererCache.get(delegate);
+            if (!renderer) {
+                renderer = new BaseAnimationRenderer(EMPTY_NAMESPACE_ID, delegate, this.engine);
+                // only cache this result when the base renderer is used
+                this._rendererCache.set(delegate, renderer);
             }
+            return renderer;
         }
-        _scheduleCountTask() {
-            // always use promise to schedule microtask instead of use Zone
-            this.promise.then(() => {
-                this._microtaskId++;
-            });
-        }
-        /** @internal */
-        scheduleListenerCallback(count, fn, data) {
-            if (count >= 0 && count < this._microtaskId) {
-                this._zone.run(() => fn(data));
-                return;
+        const componentId = type.id;
+        const namespaceId = type.id + '-' + this._currentId;
+        this._currentId++;
+        this.engine.register(namespaceId, hostElement);
+        const registerTrigger = (trigger) => {
+            if (Array.isArray(trigger)) {
+                trigger.forEach(registerTrigger);
             }
-            if (this._animationCallbacksBuffer.length == 0) {
-                Promise.resolve(null).then(() => {
-                    this._zone.run(() => {
-                        this._animationCallbacksBuffer.forEach(tuple => {
-                            const [fn, data] = tuple;
-                            fn(data);
-                        });
-                        this._animationCallbacksBuffer = [];
-                    });
-                });
+            else {
+                this.engine.registerTrigger(componentId, namespaceId, hostElement, trigger.name, trigger);
             }
-            this._animationCallbacksBuffer.push([fn, data]);
-        }
-        end() {
-            this._cdRecurDepth--;
-            // this is to prevent animations from running twice when an inner
-            // component does CD when a parent component instead has inserted it
-            if (this._cdRecurDepth == 0) {
-                this._zone.runOutsideAngular(() => {
-                    this._scheduleCountTask();
-                    this.engine.flush(this._microtaskId);
-                });
-            }
-            if (this.delegate.end) {
-                this.delegate.end();
-            }
-        }
-        whenRenderingDone() {
-            return this.engine.whenRenderingDone();
+        };
+        const animationTriggers = type.data['animation'];
+        animationTriggers.forEach(registerTrigger);
+        return new AnimationRenderer(this, namespaceId, delegate, this.engine);
+    }
+    begin() {
+        this._cdRecurDepth++;
+        if (this.delegate.begin) {
+            this.delegate.begin();
         }
     }
-    AnimationRendererFactory.ɵfac = function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(ɵɵinject(RendererFactory2), ɵɵinject(ɵAnimationEngine), ɵɵinject(NgZone)); };
-    AnimationRendererFactory.ɵprov = ɵɵdefineInjectable({ token: AnimationRendererFactory, factory: AnimationRendererFactory.ɵfac });
-    return AnimationRendererFactory;
-})();
+    _scheduleCountTask() {
+        // always use promise to schedule microtask instead of use Zone
+        this.promise.then(() => {
+            this._microtaskId++;
+        });
+    }
+    /** @internal */
+    scheduleListenerCallback(count, fn, data) {
+        if (count >= 0 && count < this._microtaskId) {
+            this._zone.run(() => fn(data));
+            return;
+        }
+        if (this._animationCallbacksBuffer.length == 0) {
+            Promise.resolve(null).then(() => {
+                this._zone.run(() => {
+                    this._animationCallbacksBuffer.forEach(tuple => {
+                        const [fn, data] = tuple;
+                        fn(data);
+                    });
+                    this._animationCallbacksBuffer = [];
+                });
+            });
+        }
+        this._animationCallbacksBuffer.push([fn, data]);
+    }
+    end() {
+        this._cdRecurDepth--;
+        // this is to prevent animations from running twice when an inner
+        // component does CD when a parent component instead has inserted it
+        if (this._cdRecurDepth == 0) {
+            this._zone.runOutsideAngular(() => {
+                this._scheduleCountTask();
+                this.engine.flush(this._microtaskId);
+            });
+        }
+        if (this.delegate.end) {
+            this.delegate.end();
+        }
+    }
+    whenRenderingDone() {
+        return this.engine.whenRenderingDone();
+    }
+}
+AnimationRendererFactory.ɵfac = function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(ɵɵinject(RendererFactory2), ɵɵinject(ɵAnimationEngine), ɵɵinject(NgZone)); };
+AnimationRendererFactory.ɵprov = ɵɵdefineInjectable({ token: AnimationRendererFactory, factory: AnimationRendererFactory.ɵfac });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(AnimationRendererFactory, [{
         type: Injectable
     }], function () { return [{ type: RendererFactory2 }, { type: ɵAnimationEngine }, { type: NgZone }]; }, null); })();
@@ -367,16 +361,13 @@ function parseTriggerCallbackName(triggerName) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let InjectableAnimationEngine = /** @class */ (() => {
-    class InjectableAnimationEngine extends ɵAnimationEngine {
-        constructor(doc, driver, normalizer) {
-            super(doc.body, driver, normalizer);
-        }
+class InjectableAnimationEngine extends ɵAnimationEngine {
+    constructor(doc, driver, normalizer) {
+        super(doc.body, driver, normalizer);
     }
-    InjectableAnimationEngine.ɵfac = function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(ɵɵinject(DOCUMENT), ɵɵinject(AnimationDriver), ɵɵinject(ɵAnimationStyleNormalizer)); };
-    InjectableAnimationEngine.ɵprov = ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: InjectableAnimationEngine.ɵfac });
-    return InjectableAnimationEngine;
-})();
+}
+InjectableAnimationEngine.ɵfac = function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(ɵɵinject(DOCUMENT), ɵɵinject(AnimationDriver), ɵɵinject(ɵAnimationStyleNormalizer)); };
+InjectableAnimationEngine.ɵprov = ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: InjectableAnimationEngine.ɵfac });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(InjectableAnimationEngine, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -434,13 +425,10 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
  * for use with animations. See [Animations](guide/animations).
  * @publicApi
  */
-let BrowserAnimationsModule = /** @class */ (() => {
-    class BrowserAnimationsModule {
-    }
-    BrowserAnimationsModule.ɵmod = ɵɵdefineNgModule({ type: BrowserAnimationsModule });
-    BrowserAnimationsModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
-    return BrowserAnimationsModule;
-})();
+class BrowserAnimationsModule {
+}
+BrowserAnimationsModule.ɵmod = ɵɵdefineNgModule({ type: BrowserAnimationsModule });
+BrowserAnimationsModule.ɵinj = ɵɵdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] }); })();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(BrowserAnimationsModule, [{
         type: NgModule,
@@ -453,13 +441,10 @@ let BrowserAnimationsModule = /** @class */ (() => {
  * A null player that must be imported to allow disabling of animations.
  * @publicApi
  */
-let NoopAnimationsModule = /** @class */ (() => {
-    class NoopAnimationsModule {
-    }
-    NoopAnimationsModule.ɵmod = ɵɵdefineNgModule({ type: NoopAnimationsModule });
-    NoopAnimationsModule.ɵinj = ɵɵdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
-    return NoopAnimationsModule;
-})();
+class NoopAnimationsModule {
+}
+NoopAnimationsModule.ɵmod = ɵɵdefineNgModule({ type: NoopAnimationsModule });
+NoopAnimationsModule.ɵinj = ɵɵdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] }); })();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(NoopAnimationsModule, [{
         type: NgModule,
