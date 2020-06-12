@@ -14,6 +14,9 @@ export declare const BROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
  */
 export declare const BROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
 /**
+ * A factory function that returns a `PlatformRef` instance associated with browser service
+ * providers.
+ *
  * @publicApi
  */
 export declare const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef;
