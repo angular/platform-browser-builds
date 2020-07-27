@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.1.0-next.2+42.sha-5d3ba8d
+ * @license Angular v10.1.0-next.2+43.sha-174aac6
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1546,10 +1546,7 @@
                 // returning null instead of throwing to let another plugin process the event
                 return null;
             }
-            var result = {};
-            result['domEventName'] = domEventName;
-            result['fullKey'] = fullKey;
-            return result;
+            return { domEventName: domEventName, fullKey: fullKey };
         };
         KeyEventsPlugin.getEventFullKey = function (event) {
             var fullKey = '';
@@ -2496,7 +2493,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.1.0-next.2+42.sha-5d3ba8d');
+    var VERSION = new i0.Version('10.1.0-next.2+43.sha-174aac6');
 
     /**
      * @license
