@@ -27,8 +27,7 @@ export declare class KeyEventsPlugin extends EventManagerPlugin {
      */
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     static parseEventName(eventName: string): {
-        fullKey: string;
-        domEventName: string;
+        [key: string]: string;
     } | null;
     static getEventFullKey(event: KeyboardEvent): string;
     /**
