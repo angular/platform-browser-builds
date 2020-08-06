@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.1.0-next.4+9.sha-bb88c9f
+ * @license Angular v10.1.0-next.4+10.sha-0c24903
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1213,6 +1213,9 @@ class KeyEventsPlugin extends EventManagerPlugin {
             // returning null instead of throwing to let another plugin process the event
             return null;
         }
+        // NOTE: Please don't rewrite this as so, as it will break JSCompiler property renaming.
+        //       The code must remain in the `result['domEventName']` form.
+        // return {domEventName, fullKey};
         const result = {};
         result['domEventName'] = domEventName;
         result['fullKey'] = fullKey;
@@ -2105,7 +2108,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.1.0-next.4+9.sha-bb88c9f');
+const VERSION = new Version('10.1.0-next.4+10.sha-0c24903');
 
 /**
  * @license
