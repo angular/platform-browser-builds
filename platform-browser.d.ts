@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.8+6.sha-4151314
+ * @license Angular v10.0.8+8.sha-db897f4
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -841,7 +841,8 @@ export declare class ɵKeyEventsPlugin extends ɵangular_packages_platform_brows
      */
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     static parseEventName(eventName: string): {
-        [key: string]: string;
+        fullKey: string;
+        domEventName: string;
     } | null;
     static getEventFullKey(event: KeyboardEvent): string;
     /**
