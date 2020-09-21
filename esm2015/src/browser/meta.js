@@ -162,7 +162,7 @@ export class Meta {
     }
 }
 Meta.ɵfac = function Meta_Factory(t) { return new (t || Meta)(i0.ɵɵinject(DOCUMENT)); };
-Meta.ɵprov = i0.ɵɵdefineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
+Meta.ɵprov = i0.ɵɵdefineInjectable({ token: Meta, factory: function Meta_Factory(t) { let r = null; if (t) {
         r = new t();
     }
     else {

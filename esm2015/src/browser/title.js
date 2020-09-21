@@ -43,7 +43,7 @@ export class Title {
     }
 }
 Title.ɵfac = function Title_Factory(t) { return new (t || Title)(i0.ɵɵinject(DOCUMENT)); };
-Title.ɵprov = i0.ɵɵdefineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
+Title.ɵprov = i0.ɵɵdefineInjectable({ token: Title, factory: function Title_Factory(t) { let r = null; if (t) {
         r = new t();
     }
     else {

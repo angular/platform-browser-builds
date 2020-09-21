@@ -43,7 +43,7 @@ export { SecurityContext };
 export class DomSanitizer {
 }
 DomSanitizer.ɵfac = function DomSanitizer_Factory(t) { return new (t || DomSanitizer)(); };
-DomSanitizer.ɵprov = i0.ɵɵdefineInjectable({ token: DomSanitizer, factory: function DomSanitizer_Factory(t) { var r = null; if (t) {
+DomSanitizer.ɵprov = i0.ɵɵdefineInjectable({ token: DomSanitizer, factory: function DomSanitizer_Factory(t) { let r = null; if (t) {
         r = new (t || DomSanitizer)();
     }
     else {
@@ -114,7 +114,7 @@ export class DomSanitizerImpl extends DomSanitizer {
     }
 }
 DomSanitizerImpl.ɵfac = function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(i0.ɵɵinject(DOCUMENT)); };
-DomSanitizerImpl.ɵprov = i0.ɵɵdefineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { var r = null; if (t) {
+DomSanitizerImpl.ɵprov = i0.ɵɵdefineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { let r = null; if (t) {
         r = new t();
     }
     else {

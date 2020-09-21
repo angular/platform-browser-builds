@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.2+40.sha-6ae3b68
+ * @license Angular v11.0.0-next.2+47.sha-297b123
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1339,7 +1339,7 @@ function getEventKey(event) {
 class DomSanitizer {
 }
 DomSanitizer.ɵfac = function DomSanitizer_Factory(t) { return new (t || DomSanitizer)(); };
-DomSanitizer.ɵprov = ɵɵdefineInjectable({ token: DomSanitizer, factory: function DomSanitizer_Factory(t) { var r = null; if (t) {
+DomSanitizer.ɵprov = ɵɵdefineInjectable({ token: DomSanitizer, factory: function DomSanitizer_Factory(t) { let r = null; if (t) {
         r = new (t || DomSanitizer)();
     }
     else {
@@ -1410,7 +1410,7 @@ class DomSanitizerImpl extends DomSanitizer {
     }
 }
 DomSanitizerImpl.ɵfac = function DomSanitizerImpl_Factory(t) { return new (t || DomSanitizerImpl)(ɵɵinject(DOCUMENT)); };
-DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { var r = null; if (t) {
+DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({ token: DomSanitizerImpl, factory: function DomSanitizerImpl_Factory(t) { let r = null; if (t) {
         r = new t();
     }
     else {
@@ -1701,7 +1701,7 @@ class Meta {
     }
 }
 Meta.ɵfac = function Meta_Factory(t) { return new (t || Meta)(ɵɵinject(DOCUMENT)); };
-Meta.ɵprov = ɵɵdefineInjectable({ token: Meta, factory: function Meta_Factory(t) { var r = null; if (t) {
+Meta.ɵprov = ɵɵdefineInjectable({ token: Meta, factory: function Meta_Factory(t) { let r = null; if (t) {
         r = new t();
     }
     else {
@@ -1757,7 +1757,7 @@ class Title {
     }
 }
 Title.ɵfac = function Title_Factory(t) { return new (t || Title)(ɵɵinject(DOCUMENT)); };
-Title.ɵprov = ɵɵdefineInjectable({ token: Title, factory: function Title_Factory(t) { var r = null; if (t) {
+Title.ɵprov = ɵɵdefineInjectable({ token: Title, factory: function Title_Factory(t) { let r = null; if (t) {
         r = new t();
     }
     else {
@@ -2108,7 +2108,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.0.0-next.2+40.sha-6ae3b68');
+const VERSION = new Version('11.0.0-next.2+47.sha-297b123');
 
 /**
  * @license
