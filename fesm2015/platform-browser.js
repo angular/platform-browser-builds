@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.5+13.sha-4a1c12c
+ * @license Angular v11.0.0-next.5+11.sha-0a16e60
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -578,7 +578,6 @@ function decoratePreventDefault(eventHandler) {
         return undefined;
     };
 }
-let hasLoggedNativeEncapsulationWarning = false;
 class DomRendererFactory2 {
     constructor(eventManager, sharedStylesHost, appId) {
         this.eventManager = eventManager;
@@ -601,14 +600,8 @@ class DomRendererFactory2 {
                 renderer.applyToHost(element);
                 return renderer;
             }
-            case 1:
+            case ViewEncapsulation.Native:
             case ViewEncapsulation.ShadowDom:
-                // TODO(FW-2290): remove the `case 1:` fallback logic and the warning in v12.
-                if ((typeof ngDevMode === 'undefined' || ngDevMode) &&
-                    !hasLoggedNativeEncapsulationWarning && type.encapsulation === 1) {
-                    hasLoggedNativeEncapsulationWarning = true;
-                    console.warn('ViewEncapsulation.Native is no longer supported. Falling back to ViewEncapsulation.ShadowDom. The fallback will be removed in v12.');
-                }
                 return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
@@ -785,7 +778,13 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         super(eventManager);
         this.sharedStylesHost = sharedStylesHost;
         this.hostEl = hostEl;
-        this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
+        this.component = component;
+        if (component.encapsulation === ViewEncapsulation.ShadowDom) {
+            this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
+        }
+        else {
+            this.shadowRoot = hostEl.createShadowRoot();
+        }
         this.sharedStylesHost.addHost(this.shadowRoot);
         const styles = flattenStyles(component.id, component.styles, []);
         for (let i = 0; i < styles.length; i++) {
@@ -2109,7 +2108,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.0.0-next.5+13.sha-4a1c12c');
+const VERSION = new Version('11.0.0-next.5+11.sha-0a16e60');
 
 /**
  * @license
