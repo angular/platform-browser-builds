@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.5+55.sha-584f37c
+ * @license Angular v11.0.0-next.5+62.sha-8fd25d9
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1770,7 +1770,7 @@ class AngularProfiler {
     timeChangeDetection(config) {
         const record = config && config['record'];
         const profileName = 'Change Detection';
-        // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
+        // Profiler is not available in Android browsers without dev tools opened
         const isProfilerAvailable = win.console.profile != null;
         if (record && isProfilerAvailable) {
             win.console.profile(profileName);
@@ -2052,7 +2052,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.0.0-next.5+55.sha-584f37c');
+const VERSION = new Version('11.0.0-next.5+62.sha-8fd25d9');
 
 /**
  * @license
