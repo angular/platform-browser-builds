@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.6+29.sha-765fa33
+ * @license Angular v11.0.0-next.6+33.sha-81aa119
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1368,7 +1368,7 @@ class DomSanitizerImpl extends DomSanitizer {
                 if (ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
                     return ɵunwrapSafeValue(value);
                 }
-                return ɵ_sanitizeHtml(this._doc, String(value));
+                return ɵ_sanitizeHtml(this._doc, String(value)).toString();
             case SecurityContext.STYLE:
                 if (ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
                     return ɵunwrapSafeValue(value);
@@ -2109,7 +2109,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.0.0-next.6+29.sha-765fa33');
+const VERSION = new Version('11.0.0-next.6+33.sha-81aa119');
 
 /**
  * @license
