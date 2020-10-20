@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.5+2.sha-a8c0972
+ * @license Angular v11.0.0-next.6+52.sha-0f1a18e
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -883,6 +883,7 @@
             return undefined;
         };
     }
+    var hasLoggedNativeEncapsulationWarning = false;
     var DomRendererFactory2 = /** @class */ (function () {
         function DomRendererFactory2(eventManager, sharedStylesHost, appId) {
             this.eventManager = eventManager;
@@ -905,8 +906,14 @@
                     renderer.applyToHost(element);
                     return renderer;
                 }
-                case i0.ViewEncapsulation.Native:
+                case 1:
                 case i0.ViewEncapsulation.ShadowDom:
+                    // TODO(FW-2290): remove the `case 1:` fallback logic and the warning in v12.
+                    if ((typeof ngDevMode === 'undefined' || ngDevMode) &&
+                        !hasLoggedNativeEncapsulationWarning && type.encapsulation === 1) {
+                        hasLoggedNativeEncapsulationWarning = true;
+                        console.warn('ViewEncapsulation.Native is no longer supported. Falling back to ViewEncapsulation.ShadowDom. The fallback will be removed in v12.');
+                    }
                     return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
                 default: {
                     if (!this.rendererByCompId.has(type.id)) {
@@ -1090,13 +1097,7 @@
             var _this = _super.call(this, eventManager) || this;
             _this.sharedStylesHost = sharedStylesHost;
             _this.hostEl = hostEl;
-            _this.component = component;
-            if (component.encapsulation === i0.ViewEncapsulation.ShadowDom) {
-                _this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
-            }
-            else {
-                _this.shadowRoot = hostEl.createShadowRoot();
-            }
+            _this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
             _this.sharedStylesHost.addHost(_this.shadowRoot);
             var styles = flattenStyles(component.id, component.styles, []);
             for (var i = 0; i < styles.length; i++) {
@@ -1649,7 +1650,7 @@
                     if (i0.ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
                         return i0.ɵunwrapSafeValue(value);
                     }
-                    return i0.ɵ_sanitizeHtml(this._doc, String(value));
+                    return i0.ɵ_sanitizeHtml(this._doc, String(value)).toString();
                 case i0.SecurityContext.STYLE:
                     if (i0.ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
                         return i0.ɵunwrapSafeValue(value);
@@ -2084,7 +2085,7 @@
         AngularProfiler.prototype.timeChangeDetection = function (config) {
             var record = config && config['record'];
             var profileName = 'Change Detection';
-            // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
+            // Profiler is not available in Android browsers without dev tools opened
             var isProfilerAvailable = win.console.profile != null;
             if (record && isProfilerAvailable) {
                 win.console.profile(profileName);
@@ -2374,7 +2375,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('11.0.0-next.5+2.sha-a8c0972');
+    var VERSION = new i0.Version('11.0.0-next.6+52.sha-0f1a18e');
 
     /**
      * @license

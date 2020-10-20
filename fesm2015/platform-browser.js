@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.5+2.sha-a8c0972
+ * @license Angular v11.0.0-next.6+52.sha-0f1a18e
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -575,6 +575,7 @@ function decoratePreventDefault(eventHandler) {
         return undefined;
     };
 }
+let hasLoggedNativeEncapsulationWarning = false;
 class DomRendererFactory2 {
     constructor(eventManager, sharedStylesHost, appId) {
         this.eventManager = eventManager;
@@ -597,8 +598,14 @@ class DomRendererFactory2 {
                 renderer.applyToHost(element);
                 return renderer;
             }
-            case ViewEncapsulation.Native:
+            case 1:
             case ViewEncapsulation.ShadowDom:
+                // TODO(FW-2290): remove the `case 1:` fallback logic and the warning in v12.
+                if ((typeof ngDevMode === 'undefined' || ngDevMode) &&
+                    !hasLoggedNativeEncapsulationWarning && type.encapsulation === 1) {
+                    hasLoggedNativeEncapsulationWarning = true;
+                    console.warn('ViewEncapsulation.Native is no longer supported. Falling back to ViewEncapsulation.ShadowDom. The fallback will be removed in v12.');
+                }
                 return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
@@ -776,13 +783,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         super(eventManager);
         this.sharedStylesHost = sharedStylesHost;
         this.hostEl = hostEl;
-        this.component = component;
-        if (component.encapsulation === ViewEncapsulation.ShadowDom) {
-            this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
-        }
-        else {
-            this.shadowRoot = hostEl.createShadowRoot();
-        }
+        this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
         this.sharedStylesHost.addHost(this.shadowRoot);
         const styles = flattenStyles(component.id, component.styles, []);
         for (let i = 0; i < styles.length; i++) {
@@ -1343,7 +1344,7 @@ class DomSanitizerImpl extends DomSanitizer {
                 if (ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
                     return ɵunwrapSafeValue(value);
                 }
-                return ɵ_sanitizeHtml(this._doc, String(value));
+                return ɵ_sanitizeHtml(this._doc, String(value)).toString();
             case SecurityContext.STYLE:
                 if (ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
                     return ɵunwrapSafeValue(value);
@@ -1769,7 +1770,7 @@ class AngularProfiler {
     timeChangeDetection(config) {
         const record = config && config['record'];
         const profileName = 'Change Detection';
-        // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
+        // Profiler is not available in Android browsers without dev tools opened
         const isProfilerAvailable = win.console.profile != null;
         if (record && isProfilerAvailable) {
             win.console.profile(profileName);
@@ -2051,7 +2052,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.0.0-next.5+2.sha-a8c0972');
+const VERSION = new Version('11.0.0-next.6+52.sha-0f1a18e');
 
 /**
  * @license
