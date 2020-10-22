@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.6+69.sha-eb4c05d
+ * @license Angular v11.0.0-next.6+81.sha-08f3d62
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -247,9 +247,10 @@ class BaseAnimationRenderer {
         this.delegate.appendChild(parent, newChild);
         this.engine.onInsert(this.namespaceId, newChild, parent, false);
     }
-    insertBefore(parent, newChild, refChild) {
+    insertBefore(parent, newChild, refChild, isMove = true) {
         this.delegate.insertBefore(parent, newChild, refChild);
-        this.engine.onInsert(this.namespaceId, newChild, parent, true);
+        // If `isMove` true than we should animate this insert.
+        this.engine.onInsert(this.namespaceId, newChild, parent, isMove);
     }
     removeChild(parent, oldChild, isHostElement) {
         this.engine.onRemove(this.namespaceId, oldChild, this.delegate, isHostElement);
