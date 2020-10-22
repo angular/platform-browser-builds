@@ -34,7 +34,7 @@ export declare class BaseAnimationRenderer implements Renderer2 {
     createComment(value: string): any;
     createText(value: string): any;
     appendChild(parent: any, newChild: any): void;
-    insertBefore(parent: any, newChild: any, refChild: any): void;
+    insertBefore(parent: any, newChild: any, refChild: any, isMove?: boolean): void;
     removeChild(parent: any, oldChild: any, isHostElement: boolean): void;
     selectRootElement(selectorOrNode: any, preserveContent?: boolean): any;
     parentNode(node: any): any;
