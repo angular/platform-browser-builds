@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-rc.0+1.sha-7f79e77
+ * @license Angular v11.0.0-rc.0+29.sha-6669571
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -76,7 +76,7 @@ export declare class ɵangular_packages_platform_browser_animations_animations_f
     createComment(value: string): any;
     createText(value: string): any;
     appendChild(parent: any, newChild: any): void;
-    insertBefore(parent: any, newChild: any, refChild: any): void;
+    insertBefore(parent: any, newChild: any, refChild: any, isMove?: boolean): void;
     removeChild(parent: any, oldChild: any, isHostElement: boolean): void;
     selectRootElement(selectorOrNode: any, preserveContent?: boolean): any;
     parentNode(node: any): any;
