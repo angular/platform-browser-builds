@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0+1.sha-92900d5
+ * @license Angular v11.0.0+6.sha-050cea9
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1030,8 +1030,8 @@
             el.classList.remove(name);
         };
         DefaultDomRenderer2.prototype.setStyle = function (el, style, value, flags) {
-            if (flags & i0.RendererStyleFlags2.DashCase) {
-                el.style.setProperty(style, value, !!(flags & i0.RendererStyleFlags2.Important) ? 'important' : '');
+            if (flags & (i0.RendererStyleFlags2.DashCase | i0.RendererStyleFlags2.Important)) {
+                el.style.setProperty(style, value, flags & i0.RendererStyleFlags2.Important ? 'important' : '');
             }
             else {
                 el.style[style] = value;
@@ -2375,7 +2375,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('11.0.0+1.sha-92900d5');
+    var VERSION = new i0.Version('11.0.0+6.sha-050cea9');
 
     /**
      * @license
