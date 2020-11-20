@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.1.0-next.0+46.sha-ff0a90e
+ * @license Angular v11.1.0-next.0+51.sha-3e1e5a1
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -140,7 +140,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     }
     performanceNow() {
         // performance.now() is not available in all browsers, see
-        // http://caniuse.com/#search=performance.now
+        // https://caniuse.com/high-resolution-time
         return window.performance && window.performance.now ? window.performance.now() :
             new Date().getTime();
     }
@@ -895,7 +895,7 @@ const EVENT_NAMES = {
     'tap': true,
 };
 /**
- * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
+ * DI token for providing [HammerJS](https://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
  * @ngModule HammerModule
@@ -909,7 +909,7 @@ const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
  */
 const HAMMER_LOADER = new InjectionToken('HammerLoader');
 /**
- * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+ * An injectable [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
  * for gesture recognition. Configures specific event recognition.
  * @publicApi
  */
@@ -918,7 +918,7 @@ class HammerGestureConfig {
         /**
          * A set of supported event names for gestures to be used in Angular.
          * Angular supports all built-in recognizers, as listed in
-         * [HammerJS documentation](http://hammerjs.github.io/).
+         * [HammerJS documentation](https://hammerjs.github.io/).
          */
         this.events = [];
         /**
@@ -934,13 +934,13 @@ class HammerGestureConfig {
          * Properties that are not present take the HammerJS default values.
          * For information about which properties are supported for which events,
          * and their allowed and default values, see
-         * [HammerJS documentation](http://hammerjs.github.io/).
+         * [HammerJS documentation](https://hammerjs.github.io/).
          *
          */
         this.overrides = {};
     }
     /**
-     * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+     * Creates a [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
      * and attaches it to a given HTML element.
      * @param element The element that will recognize gestures.
      * @returns A HammerJS event-manager object.
@@ -1114,7 +1114,7 @@ const DOM_KEY_LOCATION_NUMPAD = 3;
 // Map to convert some key or keyIdentifier values to what will be returned by getEventKey
 const _keyMap = {
     // The following values are here for cross-browser compatibility and to match the W3C standard
-    // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
+    // cf https://www.w3.org/TR/DOM-Level-3-Events-key/
     '\b': 'Backspace',
     '\t': 'Tab',
     '\x7F': 'Delete',
@@ -1282,7 +1282,7 @@ function getEventKey(event) {
         key = event.keyIdentifier;
         // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
         // Safari cf
-        // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
+        // https://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
         if (key == null) {
             return 'Unidentified';
         }
@@ -1333,7 +1333,7 @@ function getEventKey(event) {
  * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
  * sanitization for the value passed in. Carefully check and audit all values and code paths going
  * into this call. Make sure any user data is appropriately escaped for this security context.
- * For more detail, see the [Security Guide](http://g.co/ng/security).
+ * For more detail, see the [Security Guide](https://g.co/ng/security).
  *
  * @publicApi
  */
@@ -1389,9 +1389,9 @@ class DomSanitizerImpl extends DomSanitizer {
                 if (ɵallowSanitizationBypassAndThrow(value, "ResourceURL" /* ResourceUrl */)) {
                     return ɵunwrapSafeValue(value);
                 }
-                throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
+                throw new Error('unsafe value used in a resource URL context (see https://g.co/ng/security#xss)');
             default:
-                throw new Error(`Unexpected SecurityContext ${ctx} (see http://g.co/ng/security#xss)`);
+                throw new Error(`Unexpected SecurityContext ${ctx} (see https://g.co/ng/security#xss)`);
         }
     }
     bypassSecurityTrustHtml(value) {
@@ -1457,7 +1457,7 @@ const BROWSER_SANITIZATION_PROVIDERS__POST_R3__ = [];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
- * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
+ * application to XSS risks. For more detail, see the [Security Guide](https://g.co/ng/security).
  * @publicApi
  */
 const BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__POST_R3__;
@@ -2118,7 +2118,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.1.0-next.0+46.sha-ff0a90e');
+const VERSION = new Version('11.1.0-next.0+51.sha-3e1e5a1');
 
 /**
  * @license
