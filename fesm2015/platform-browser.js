@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.1.0-next.0+44.sha-9aaa869
+ * @license Angular v11.1.0-next.0+46.sha-ff0a90e
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1690,7 +1690,7 @@ class Meta {
         return element;
     }
     _setMetaElementAttributes(tag, el) {
-        Object.keys(tag).forEach((prop) => el.setAttribute(prop, tag[prop]));
+        Object.keys(tag).forEach((prop) => el.setAttribute(this._getMetaKeyMap(prop), tag[prop]));
         return el;
     }
     _parseSelector(tag) {
@@ -1698,7 +1698,10 @@ class Meta {
         return `${attr}="${tag[attr]}"`;
     }
     _containsAttributes(tag, elem) {
-        return Object.keys(tag).every((key) => elem.getAttribute(key) === tag[key]);
+        return Object.keys(tag).every((key) => elem.getAttribute(this._getMetaKeyMap(key)) === tag[key]);
+    }
+    _getMetaKeyMap(prop) {
+        return META_KEYS_MAP[prop] || prop;
     }
 }
 Meta.ɵfac = function Meta_Factory(t) { return new (t || Meta)(ɵɵinject(DOCUMENT)); };
@@ -1715,6 +1718,12 @@ Meta.ɵprov = ɵɵdefineInjectable({ token: Meta, factory: function Meta_Factory
                 type: Inject,
                 args: [DOCUMENT]
             }] }]; }, null); })();
+/**
+ * Mapping for MetaDefinition properties with their correct meta attribute names
+ */
+const META_KEYS_MAP = {
+    httpEquiv: 'http-equiv'
+};
 
 /**
  * @license
@@ -2109,7 +2118,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.1.0-next.0+44.sha-9aaa869');
+const VERSION = new Version('11.1.0-next.0+46.sha-ff0a90e');
 
 /**
  * @license
