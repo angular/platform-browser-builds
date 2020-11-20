@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.2+31.sha-3114b0a
+ * @license Angular v11.0.2+36.sha-e32fe1a
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -134,7 +134,7 @@ export declare function disableDebugTools(): void;
  * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
  * sanitization for the value passed in. Carefully check and audit all values and code paths going
  * into this call. Make sure any user data is appropriately escaped for this security context.
- * For more detail, see the [Security Guide](http://g.co/ng/security).
+ * For more detail, see the [Security Guide](https://g.co/ng/security).
  *
  * @publicApi
  */
@@ -252,7 +252,7 @@ export declare class EventManager {
 }
 
 /**
- * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
+ * DI token for providing [HammerJS](https://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
  * @ngModule HammerModule
@@ -268,7 +268,7 @@ export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
 export declare const HAMMER_LOADER: InjectionToken<HammerLoader>;
 
 /**
- * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+ * An injectable [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
  * for gesture recognition. Configures specific event recognition.
  * @publicApi
  */
@@ -276,7 +276,7 @@ export declare class HammerGestureConfig {
     /**
      * A set of supported event names for gestures to be used in Angular.
      * Angular supports all built-in recognizers, as listed in
-     * [HammerJS documentation](http://hammerjs.github.io/).
+     * [HammerJS documentation](https://hammerjs.github.io/).
      */
     events: string[];
     /**
@@ -292,7 +292,7 @@ export declare class HammerGestureConfig {
      * Properties that are not present take the HammerJS default values.
      * For information about which properties are supported for which events,
      * and their allowed and default values, see
-     * [HammerJS documentation](http://hammerjs.github.io/).
+     * [HammerJS documentation](https://hammerjs.github.io/).
      *
      */
     overrides: {
@@ -303,7 +303,7 @@ export declare class HammerGestureConfig {
      * Different sets of properties apply to different events.
      * For information about which properties are supported for which events,
      * and their allowed and default values, see
-     * [HammerJS documentation](http://hammerjs.github.io/).
+     * [HammerJS documentation](https://hammerjs.github.io/).
      */
     options?: {
         cssProps?: any;
@@ -316,7 +316,7 @@ export declare class HammerGestureConfig {
         inputTarget?: EventTarget;
     };
     /**
-     * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+     * Creates a [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
      * and attaches it to a given HTML element.
      * @param element The element that will recognize gestures.
      * @returns A HammerJS event-manager object.
@@ -686,7 +686,7 @@ export declare abstract class ɵangular_packages_platform_browser_platform_brows
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
- * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
+ * application to XSS risks. For more detail, see the [Security Guide](https://g.co/ng/security).
  * @publicApi
  */
 export declare const ɵBROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
