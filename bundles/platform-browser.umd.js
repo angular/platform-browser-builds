@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.1.0-next.0+44.sha-9aaa869
+ * @license Angular v11.1.0-next.0+46.sha-ff0a90e
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1964,7 +1964,8 @@
             return element;
         };
         Meta.prototype._setMetaElementAttributes = function (tag, el) {
-            Object.keys(tag).forEach(function (prop) { return el.setAttribute(prop, tag[prop]); });
+            var _this = this;
+            Object.keys(tag).forEach(function (prop) { return el.setAttribute(_this._getMetaKeyMap(prop), tag[prop]); });
             return el;
         };
         Meta.prototype._parseSelector = function (tag) {
@@ -1972,7 +1973,11 @@
             return attr + "=\"" + tag[attr] + "\"";
         };
         Meta.prototype._containsAttributes = function (tag, elem) {
-            return Object.keys(tag).every(function (key) { return elem.getAttribute(key) === tag[key]; });
+            var _this = this;
+            return Object.keys(tag).every(function (key) { return elem.getAttribute(_this._getMetaKeyMap(key)) === tag[key]; });
+        };
+        Meta.prototype._getMetaKeyMap = function (prop) {
+            return META_KEYS_MAP[prop] || prop;
         };
         return Meta;
     }());
@@ -1983,6 +1988,12 @@
     Meta.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
     ]; };
+    /**
+     * Mapping for MetaDefinition properties with their correct meta attribute names
+     */
+    var META_KEYS_MAP = {
+        httpEquiv: 'http-equiv'
+    };
 
     /**
      * @license
@@ -2375,7 +2386,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('11.1.0-next.0+44.sha-9aaa869');
+    var VERSION = new i0.Version('11.1.0-next.0+46.sha-ff0a90e');
 
     /**
      * @license
