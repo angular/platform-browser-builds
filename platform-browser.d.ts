@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.3+56.sha-19309b5
+ * @license Angular v11.0.3+63.sha-65e93ea
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -585,7 +585,7 @@ export declare class Title {
  * `ServerTransferStateModule` on the server and `BrowserTransferStateModule` on the client.
  *
  * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
- * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
+ * boolean, number, string, null and non-class objects will be serialized and deserialized in a
  * non-lossy manner.
  *
  * @publicApi
