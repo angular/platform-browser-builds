@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.3+63.sha-65e93ea
+ * @license Angular v11.0.3+66.sha-5a765f0
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -103,7 +103,8 @@ class RendererAnimationPlayer {
         this._command('setPosition', p);
     }
     getPosition() {
-        return 0;
+        var _a, _b;
+        return (_b = (_a = this._renderer.engine.players[+this.id]) === null || _a === void 0 ? void 0 : _a.getPosition()) !== null && _b !== void 0 ? _b : 0;
     }
 }
 function issueAnimationCommand(renderer, element, id, command, args) {

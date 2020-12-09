@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.3+63.sha-65e93ea
+ * @license Angular v11.0.3+66.sha-5a765f0
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -407,7 +407,8 @@
             this._command('setPosition', p);
         };
         RendererAnimationPlayer.prototype.getPosition = function () {
-            return 0;
+            var _a, _b;
+            return (_b = (_a = this._renderer.engine.players[+this.id]) === null || _a === void 0 ? void 0 : _a.getPosition()) !== null && _b !== void 0 ? _b : 0;
         };
         return RendererAnimationPlayer;
     }());
