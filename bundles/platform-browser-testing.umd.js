@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.1.0-next.2+8.sha-85b07ad
+ * @license Angular v11.1.0-next.2+9.sha-1f73af7
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -634,8 +634,8 @@
             { provide: i0.NgZone, useFactory: createNgZone },
         ], imports: [platformBrowser.BrowserModule] });
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserTestingModule, { exports: [platformBrowser.BrowserModule] }); })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(BrowserTestingModule, [{
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(BrowserTestingModule, [{
                 type: i0.NgModule,
                 args: [{
                         exports: [platformBrowser.BrowserModule],
