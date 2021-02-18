@@ -18,7 +18,6 @@ export declare class BrowserDetection {
     get isWebkit(): boolean;
     get isIOS7(): boolean;
     get isSlow(): boolean;
-    get supportsNativeIntlApi(): boolean;
     get isChromeDesktop(): boolean;
     get isOldChrome(): boolean;
     get supportsCustomElements(): boolean;
