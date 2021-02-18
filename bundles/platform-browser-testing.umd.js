@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.2.1+3.sha-a970c19
+ * @license Angular v11.2.1+9.sha-170692c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -377,17 +377,6 @@
         Object.defineProperty(BrowserDetection.prototype, "isSlow", {
             get: function () {
                 return this.isAndroid || this.isIE || this.isIOS7;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(BrowserDetection.prototype, "supportsNativeIntlApi", {
-            // The Intl API is only natively supported in Chrome, Firefox, IE11 and Edge.
-            // This detector is needed in tests to make the difference between:
-            // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
-            // 2) IE9/IE10: they use the polyfill, and so no discrepancies
-            get: function () {
-                return !!core.ɵglobal.Intl && core.ɵglobal.Intl !== core.ɵglobal.IntlPolyfill;
             },
             enumerable: false,
             configurable: true
