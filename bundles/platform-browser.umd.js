@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.2.1+10.sha-4e84b2f
+ * @license Angular v11.2.1+30.sha-dcbf600
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1273,6 +1273,7 @@
             _this._config = _config;
             _this.console = console;
             _this.loader = loader;
+            _this._loaderPromise = null;
             return _this;
         }
         HammerGesturesPlugin.prototype.supports = function (eventName) {
@@ -1280,8 +1281,10 @@
                 return false;
             }
             if (!window.Hammer && !this.loader) {
-                this.console.warn("The \"" + eventName + "\" event cannot be bound because Hammer.JS is not " +
-                    "loaded and no custom loader has been specified.");
+                if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                    this.console.warn("The \"" + eventName + "\" event cannot be bound because Hammer.JS is not " +
+                        "loaded and no custom loader has been specified.");
+                }
                 return false;
             }
             return true;
@@ -1293,6 +1296,7 @@
             // If Hammer is not present but a loader is specified, we defer adding the event listener
             // until Hammer is loaded.
             if (!window.Hammer && this.loader) {
+                this._loaderPromise = this._loaderPromise || this.loader();
                 // This `addEventListener` method returns a function to remove the added listener.
                 // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
                 // than remove anything.
@@ -1300,11 +1304,13 @@
                 var deregister_1 = function () {
                     cancelRegistration_1 = true;
                 };
-                this.loader()
+                this._loaderPromise
                     .then(function () {
                     // If Hammer isn't actually loaded when the custom loader resolves, give up.
                     if (!window.Hammer) {
-                        _this.console.warn("The custom HAMMER_LOADER completed, but Hammer.JS is not present.");
+                        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                            _this.console.warn("The custom HAMMER_LOADER completed, but Hammer.JS is not present.");
+                        }
                         deregister_1 = function () { };
                         return;
                     }
@@ -1315,8 +1321,10 @@
                     }
                 })
                     .catch(function () {
-                    _this.console.warn("The \"" + eventName + "\" event cannot be bound because the custom " +
-                        "Hammer.JS loader failed.");
+                    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                        _this.console.warn("The \"" + eventName + "\" event cannot be bound because the custom " +
+                            "Hammer.JS loader failed.");
+                    }
                     deregister_1 = function () { };
                 });
                 // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
@@ -2387,7 +2395,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('11.2.1+10.sha-4e84b2f');
+    var VERSION = new i0.Version('11.2.1+30.sha-dcbf600');
 
     /**
      * @license
