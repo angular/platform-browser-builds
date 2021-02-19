@@ -93,6 +93,7 @@ export declare class HammerGesturesPlugin extends EventManagerPlugin {
     private _config;
     private console;
     private loader?;
+    private _loaderPromise;
     constructor(doc: any, _config: HammerGestureConfig, console: Console, loader?: HammerLoader | null | undefined);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
