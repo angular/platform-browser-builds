@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.0+37.sha-1646f8d
+ * @license Angular v12.0.0-next.1+38.sha-44ffa8c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52,13 +52,6 @@ class BrowserDetection {
     }
     get isSlow() {
         return this.isAndroid || this.isIE || this.isIOS7;
-    }
-    // The Intl API is only natively supported in Chrome, Firefox, IE11 and Edge.
-    // This detector is needed in tests to make the difference between:
-    // 1) IE11/Edge: they have a native Intl API, but with some discrepancies
-    // 2) IE9/IE10: they use the polyfill, and so no discrepancies
-    get supportsNativeIntlApi() {
-        return !!ɵglobal.Intl && ɵglobal.Intl !== ɵglobal.IntlPolyfill;
     }
     get isChromeDesktop() {
         return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 &&

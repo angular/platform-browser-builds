@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.0+37.sha-1646f8d
+ * @license Angular v12.0.0-next.1+38.sha-44ffa8c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -806,6 +806,7 @@ export declare class ɵHammerGesturesPlugin extends ɵangular_packages_platform_
     private _config;
     private console;
     private loader?;
+    private _loaderPromise;
     constructor(doc: any, _config: HammerGestureConfig, console: ɵConsole, loader?: HammerLoader | null | undefined);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
