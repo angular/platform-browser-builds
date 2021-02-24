@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.2+5.sha-3c24136
+ * @license Angular v12.0.0-next.2+6.sha-29d8a0a
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -748,6 +748,29 @@
     var BrowserAnimationsModule = /** @class */ (function () {
         function BrowserAnimationsModule() {
         }
+        /**
+         * Configures the module based on the specified object.
+         *
+         * @param config Object used to configure the behavior of the `BrowserAnimationsModule`.
+         * @see `BrowserAnimationsModuleConfig`
+         *
+         * @usageNotes
+         * When registering the `BrowserAnimationsModule`, you can use the `withConfig`
+         * function as follows:
+         * ```
+         * @NgModule({
+         *   imports: [BrowserAnimationsModule.withConfig(config)]
+         * })
+         * class MyNgModule {}
+         * ```
+         */
+        BrowserAnimationsModule.withConfig = function (config) {
+            return {
+                ngModule: BrowserAnimationsModule,
+                providers: config.disableAnimations ? BROWSER_NOOP_ANIMATIONS_PROVIDERS :
+                    BROWSER_ANIMATIONS_PROVIDERS
+            };
+        };
         return BrowserAnimationsModule;
     }());
     BrowserAnimationsModule.decorators = [
