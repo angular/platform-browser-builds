@@ -10,6 +10,6 @@
  * @description
  * Entry point for all animation APIs of the animation browser package.
  */
-export { BrowserAnimationsModule, NoopAnimationsModule } from './module';
+export { BrowserAnimationsModule, BrowserAnimationsModuleConfig, NoopAnimationsModule } from './module';
 export { ANIMATION_MODULE_TYPE } from './providers';
 export * from './private_export';
