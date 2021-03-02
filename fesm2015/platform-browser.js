@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.2+43.sha-3370ade
+ * @license Angular v12.0.0-next.2+42.sha-198e841
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1970,7 +1970,6 @@ function initTransferState(doc, appId) {
     let initialState = {};
     if (script && script.textContent) {
         try {
-            // Avoid using any here as it triggers lint errors in google3 (any is not allowed).
             initialState = JSON.parse(unescapeHtml(script.textContent));
         }
         catch (e) {
@@ -2071,7 +2070,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.0.0-next.2+43.sha-3370ade');
+const VERSION = new Version('12.0.0-next.2+42.sha-198e841');
 
 /**
  * @license
