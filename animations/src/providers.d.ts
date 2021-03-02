@@ -1,11 +1,10 @@
 import { AnimationDriver, ɵAnimationEngine as AnimationEngine, ɵAnimationStyleNormalizer as AnimationStyleNormalizer, ɵCssKeyframesDriver as CssKeyframesDriver, ɵWebAnimationsDriver as WebAnimationsDriver, ɵWebAnimationsStyleNormalizer as WebAnimationsStyleNormalizer } from '@angular/animations/browser';
-import { InjectionToken, NgZone, OnDestroy, Provider } from '@angular/core';
+import { InjectionToken, NgZone, Provider } from '@angular/core';
 import { ɵDomRendererFactory2 as DomRendererFactory2 } from '@angular/platform-browser';
 import { AnimationRendererFactory } from './animation_renderer';
 import * as i0 from "@angular/core";
-export declare class InjectableAnimationEngine extends AnimationEngine implements OnDestroy {
+export declare class InjectableAnimationEngine extends AnimationEngine {
     constructor(doc: any, driver: AnimationDriver, normalizer: AnimationStyleNormalizer);
-    ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDef<InjectableAnimationEngine, never>;
     static ɵprov: i0.ɵɵInjectableDef<InjectableAnimationEngine>;
 }
