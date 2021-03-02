@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.2+43.sha-3370ade
+ * @license Angular v12.0.0-next.2+42.sha-198e841
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2409,7 +2409,6 @@
         var initialState = {};
         if (script && script.textContent) {
             try {
-                // Avoid using any here as it triggers lint errors in google3 (any is not allowed).
                 initialState = JSON.parse(unescapeHtml(script.textContent));
             }
             catch (e) {
@@ -2521,7 +2520,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.0.0-next.2+43.sha-3370ade');
+    var VERSION = new i0.Version('12.0.0-next.2+42.sha-198e841');
 
     /**
      * @license
