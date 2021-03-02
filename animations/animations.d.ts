@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.2+42.sha-198e841
+ * @license Angular v12.0.0-next.2+44.sha-96f15f0
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -13,7 +13,6 @@ import { AnimationPlayer } from '@angular/animations';
 import { InjectionToken } from '@angular/core';
 import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
@@ -163,9 +162,8 @@ export declare class ɵBrowserAnimationFactory extends AnimationFactory {
     create(element: any, options?: AnimationOptions): AnimationPlayer;
 }
 
-export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine implements OnDestroy {
+export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine {
     constructor(doc: any, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer);
-    ngOnDestroy(): void;
 }
 
 export { }

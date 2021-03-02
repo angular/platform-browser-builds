@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.2+42.sha-198e841
+ * @license Angular v12.0.0-next.2+44.sha-96f15f0
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -684,9 +684,6 @@
         function InjectableAnimationEngine(doc, driver, normalizer) {
             return _super.call(this, doc.body, driver, normalizer) || this;
         }
-        InjectableAnimationEngine.prototype.ngOnDestroy = function () {
-            this.flush();
-        };
         return InjectableAnimationEngine;
     }(browser.ɵAnimationEngine));
     InjectableAnimationEngine.decorators = [
