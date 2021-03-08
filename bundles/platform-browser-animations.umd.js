@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.3+33.sha-1735430
+ * @license Angular v12.0.0-next.3+36.sha-03d47d5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -330,7 +330,7 @@
         return BrowserAnimationBuilder;
     }(animations.AnimationBuilder));
     BrowserAnimationBuilder.ɵfac = function BrowserAnimationBuilder_Factory(t) { return new (t || BrowserAnimationBuilder)(i0.ɵɵinject(i0.RendererFactory2), i0.ɵɵinject(common.DOCUMENT)); };
-    BrowserAnimationBuilder.ɵprov = i0.ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: BrowserAnimationBuilder.ɵfac });
+    BrowserAnimationBuilder.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: BrowserAnimationBuilder, factory: BrowserAnimationBuilder.ɵfac });
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(BrowserAnimationBuilder, [{
                 type: i0.Injectable
@@ -529,7 +529,7 @@
         return AnimationRendererFactory;
     }());
     AnimationRendererFactory.ɵfac = function AnimationRendererFactory_Factory(t) { return new (t || AnimationRendererFactory)(i0.ɵɵinject(i0.RendererFactory2), i0.ɵɵinject(i1.ɵAnimationEngine), i0.ɵɵinject(i0.NgZone)); };
-    AnimationRendererFactory.ɵprov = i0.ɵɵdefineInjectable({ token: AnimationRendererFactory, factory: AnimationRendererFactory.ɵfac });
+    AnimationRendererFactory.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: AnimationRendererFactory, factory: AnimationRendererFactory.ɵfac });
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(AnimationRendererFactory, [{
                 type: i0.Injectable
@@ -691,7 +691,7 @@
         return InjectableAnimationEngine;
     }(i1.ɵAnimationEngine));
     InjectableAnimationEngine.ɵfac = function InjectableAnimationEngine_Factory(t) { return new (t || InjectableAnimationEngine)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(i1.AnimationDriver), i0.ɵɵinject(i1.ɵAnimationStyleNormalizer)); };
-    InjectableAnimationEngine.ɵprov = i0.ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: InjectableAnimationEngine.ɵfac });
+    InjectableAnimationEngine.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: InjectableAnimationEngine, factory: InjectableAnimationEngine.ɵfac });
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(InjectableAnimationEngine, [{
                 type: i0.Injectable
@@ -781,8 +781,8 @@
         };
         return BrowserAnimationsModule;
     }());
-    BrowserAnimationsModule.ɵmod = i0.ɵɵdefineNgModule({ type: BrowserAnimationsModule });
-    BrowserAnimationsModule.ɵinj = i0.ɵɵdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
+    BrowserAnimationsModule.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: BrowserAnimationsModule });
+    BrowserAnimationsModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [platformBrowser.BrowserModule] }); })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(BrowserAnimationsModule, [{
@@ -802,8 +802,8 @@
         }
         return NoopAnimationsModule;
     }());
-    NoopAnimationsModule.ɵmod = i0.ɵɵdefineNgModule({ type: NoopAnimationsModule });
-    NoopAnimationsModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
+    NoopAnimationsModule.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: NoopAnimationsModule });
+    NoopAnimationsModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [platformBrowser.BrowserModule] }); })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NoopAnimationsModule, [{
