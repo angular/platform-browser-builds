@@ -84,6 +84,7 @@ export declare function initTransferState(doc: Document, appId: string): Transfe
  * @publicApi
  */
 export declare class BrowserTransferStateModule {
+    static ɵfac: i0.ɵɵFactoryDef<BrowserTransferStateModule, never>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<BrowserTransferStateModule, never, never, never>;
     static ɵinj: i0.ɵɵInjectorDef<BrowserTransferStateModule>;
 }

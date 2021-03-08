@@ -42,6 +42,7 @@ export declare class BrowserAnimationsModule {
      * ```
      */
     static withConfig(config: BrowserAnimationsModuleConfig): ModuleWithProviders<BrowserAnimationsModule>;
+    static ɵfac: i0.ɵɵFactoryDef<BrowserAnimationsModule, never>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
     static ɵinj: i0.ɵɵInjectorDef<BrowserAnimationsModule>;
 }
@@ -50,6 +51,7 @@ export declare class BrowserAnimationsModule {
  * @publicApi
  */
 export declare class NoopAnimationsModule {
+    static ɵfac: i0.ɵɵFactoryDef<NoopAnimationsModule, never>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
     static ɵinj: i0.ɵɵInjectorDef<NoopAnimationsModule>;
 }

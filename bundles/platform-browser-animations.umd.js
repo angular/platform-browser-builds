@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.3+40.sha-bdf13fe
+ * @license Angular v12.0.0-next.3+42.sha-2ebe2bc
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -781,8 +781,9 @@
         };
         return BrowserAnimationsModule;
     }());
+    BrowserAnimationsModule.ɵfac = function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); };
     BrowserAnimationsModule.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: BrowserAnimationsModule });
-    BrowserAnimationsModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ factory: function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); }, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
+    BrowserAnimationsModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [platformBrowser.BrowserModule] }); })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(BrowserAnimationsModule, [{
@@ -802,8 +803,9 @@
         }
         return NoopAnimationsModule;
     }());
+    NoopAnimationsModule.ɵfac = function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); };
     NoopAnimationsModule.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: NoopAnimationsModule });
-    NoopAnimationsModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ factory: function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); }, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
+    NoopAnimationsModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [platformBrowser.BrowserModule] }); })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NoopAnimationsModule, [{
