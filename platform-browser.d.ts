@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.4+3.sha-4c79b8a
+ * @license Angular v12.0.0-next.4+4.sha-3c66b10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -679,8 +679,7 @@ export declare const ɵangular_packages_platform_browser_platform_browser_n: Pro
  * can introduce XSS risks.
  */
 export declare abstract class ɵangular_packages_platform_browser_platform_browser_o extends ɵDomAdapter {
-    constructor();
-    supportsDOMEvents(): boolean;
+    readonly supportsDOMEvents: boolean;
 }
 
 /**
@@ -701,27 +700,18 @@ export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
  */
 export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_o {
     static makeCurrent(): void;
-    getProperty(el: Node, name: string): any;
-    log(error: string): void;
-    logGroup(error: string): void;
-    logGroupEnd(): void;
     onAndCancel(el: Node, evt: any, listener: any): Function;
     dispatchEvent(el: Node, evt: any): void;
-    remove(node: Node): Node;
-    getValue(el: any): string;
+    remove(node: Node): void;
     createElement(tagName: string, doc?: Document): HTMLElement;
     createHtmlDocument(): HTMLDocument;
     getDefaultDocument(): Document;
     isElementNode(node: Node): boolean;
     isShadowRoot(node: any): boolean;
     getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
-    getHistory(): History;
-    getLocation(): Location;
     getBaseHref(doc: Document): string | null;
     resetBaseElement(): void;
     getUserAgent(): string;
-    performanceNow(): number;
-    supportsCookies(): boolean;
     getCookie(name: string): string | null;
 }
 

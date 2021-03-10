@@ -1,12 +1,12 @@
 /**
- * @license Angular v12.0.0-next.4+3.sha-4c79b8a
+ * @license Angular v12.0.0-next.4+4.sha-3c66b10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
+import { InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ɵglobal, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @license
@@ -23,10 +23,8 @@ import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injec
  */
 class GenericBrowserDomAdapter extends ɵDomAdapter {
     constructor() {
-        super();
-    }
-    supportsDOMEvents() {
-        return true;
+        super(...arguments);
+        this.supportsDOMEvents = true;
     }
 }
 
@@ -37,15 +35,6 @@ class GenericBrowserDomAdapter extends ɵDomAdapter {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const ɵ0 = () => {
-    if (ɵglobal['Node']) {
-        return ɵglobal['Node'].prototype.contains || function (node) {
-            return !!(this.compareDocumentPosition(node) & 16);
-        };
-    }
-    return undefined;
-};
-const nodeContains = (ɵ0)();
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
@@ -56,24 +45,6 @@ const nodeContains = (ɵ0)();
 class BrowserDomAdapter extends GenericBrowserDomAdapter {
     static makeCurrent() {
         ɵsetRootDomAdapter(new BrowserDomAdapter());
-    }
-    getProperty(el, name) {
-        return el[name];
-    }
-    log(error) {
-        if (window.console) {
-            window.console.log && window.console.log(error);
-        }
-    }
-    logGroup(error) {
-        if (window.console) {
-            window.console.group && window.console.group(error);
-        }
-    }
-    logGroupEnd() {
-        if (window.console) {
-            window.console.groupEnd && window.console.groupEnd();
-        }
     }
     onAndCancel(el, evt, listener) {
         el.addEventListener(evt, listener, false);
@@ -90,10 +61,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         if (node.parentNode) {
             node.parentNode.removeChild(node);
         }
-        return node;
-    }
-    getValue(el) {
-        return el.value;
     }
     createElement(tagName, doc) {
         doc = doc || this.getDefaultDocument();
@@ -123,12 +90,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         }
         return null;
     }
-    getHistory() {
-        return window.history;
-    }
-    getLocation() {
-        return window.location;
-    }
     getBaseHref(doc) {
         const href = getBaseElementHref();
         return href == null ? null : relativePath(href);
@@ -139,38 +100,22 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     getUserAgent() {
         return window.navigator.userAgent;
     }
-    performanceNow() {
-        // performance.now() is not available in all browsers, see
-        // https://caniuse.com/high-resolution-time
-        return window.performance && window.performance.now ? window.performance.now() :
-            new Date().getTime();
-    }
-    supportsCookies() {
-        return true;
-    }
     getCookie(name) {
         return ɵparseCookieValue(document.cookie, name);
     }
 }
 let baseElement = null;
 function getBaseElementHref() {
-    if (!baseElement) {
-        baseElement = document.querySelector('base');
-        if (!baseElement) {
-            return null;
-        }
-    }
-    return baseElement.getAttribute('href');
+    baseElement = baseElement || document.querySelector('base');
+    return baseElement ? baseElement.getAttribute('href') : null;
 }
 // based on urlUtils.js in AngularJS 1
 let urlParsingNode;
 function relativePath(url) {
-    if (!urlParsingNode) {
-        urlParsingNode = document.createElement('a');
-    }
+    urlParsingNode = urlParsingNode || document.createElement('a');
     urlParsingNode.setAttribute('href', url);
-    return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
-        '/' + urlParsingNode.pathname;
+    const pathName = urlParsingNode.pathname;
+    return pathName.charAt(0) === '/' ? pathName : `/${pathName}`;
 }
 
 /**
@@ -305,11 +250,11 @@ function exportNgVar(name, value) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const ɵ0$1 = () => ({
+const ɵ0 = () => ({
     'ApplicationRef': ApplicationRef,
     'NgZone': NgZone,
 });
-const CORE_TOKENS = (ɵ0$1)();
+const CORE_TOKENS = (ɵ0)();
 const INSPECT_GLOBAL_NAME = 'probe';
 const CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
 /**
@@ -753,8 +698,8 @@ class DefaultDomRenderer2 {
         return this.eventManager.addEventListener(target, event, decoratePreventDefault(callback));
     }
 }
-const ɵ0$2 = () => '@'.charCodeAt(0);
-const AT_CHARCODE = (ɵ0$2)();
+const ɵ0$1 = () => '@'.charCodeAt(0);
+const AT_CHARCODE = (ɵ0$1)();
 function checkNoSyntheticProp(name, nameKind) {
     if (name.charCodeAt(0) === AT_CHARCODE) {
         throw new Error(`Found the synthetic ${nameKind} ${name}. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.`);
@@ -1143,12 +1088,12 @@ const _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
-const ɵ0$3 = (event) => event.altKey, ɵ1 = (event) => event.ctrlKey, ɵ2 = (event) => event.metaKey, ɵ3 = (event) => event.shiftKey;
+const ɵ0$2 = (event) => event.altKey, ɵ1 = (event) => event.ctrlKey, ɵ2 = (event) => event.metaKey, ɵ3 = (event) => event.shiftKey;
 /**
  * Retrieves modifiers from key-event objects.
  */
 const MODIFIER_KEY_GETTERS = {
-    'alt': ɵ0$3,
+    'alt': ɵ0$2,
     'control': ɵ1,
     'meta': ɵ2,
     'shift': ɵ3
@@ -1422,9 +1367,9 @@ function _document() {
     ɵsetDocument(document);
     return document;
 }
-const ɵ0$4 = ɵPLATFORM_BROWSER_ID;
+const ɵ0$3 = ɵPLATFORM_BROWSER_ID;
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: PLATFORM_ID, useValue: ɵ0$4 },
+    { provide: PLATFORM_ID, useValue: ɵ0$3 },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
@@ -1793,13 +1738,13 @@ class AngularProfiler {
         if (record && isProfilerAvailable) {
             win.console.profile(profileName);
         }
-        const start = ɵgetDOM().performanceNow();
+        const start = performanceNow();
         let numTicks = 0;
-        while (numTicks < 5 || (ɵgetDOM().performanceNow() - start) < 500) {
+        while (numTicks < 5 || (performanceNow() - start) < 500) {
             this.appRef.tick();
             numTicks++;
         }
-        const end = ɵgetDOM().performanceNow();
+        const end = performanceNow();
         if (record && isProfilerAvailable) {
             win.console.profileEnd(profileName);
         }
@@ -1808,6 +1753,10 @@ class AngularProfiler {
         win.console.log(`${msPerTick.toFixed(2)} ms per check`);
         return new ChangeDetectionPerfRecord(msPerTick, numTicks);
     }
+}
+function performanceNow() {
+    return win.performance && win.performance.now ? win.performance.now() :
+        new Date().getTime();
 }
 
 /**
@@ -2071,7 +2020,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.0.0-next.4+3.sha-4c79b8a');
+const VERSION = new Version('12.0.0-next.4+4.sha-3c66b10');
 
 /**
  * @license

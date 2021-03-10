@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.4+3.sha-4c79b8a
+ * @license Angular v12.0.0-next.4+4.sha-3c66b10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -320,23 +320,13 @@
     var GenericBrowserDomAdapter = /** @class */ (function (_super) {
         __extends(GenericBrowserDomAdapter, _super);
         function GenericBrowserDomAdapter() {
-            return _super.call(this) || this;
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this.supportsDOMEvents = true;
+            return _this;
         }
-        GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () {
-            return true;
-        };
         return GenericBrowserDomAdapter;
     }(common.ɵDomAdapter));
 
-    var ɵ0 = function () {
-        if (i0.ɵglobal['Node']) {
-            return i0.ɵglobal['Node'].prototype.contains || function (node) {
-                return !!(this.compareDocumentPosition(node) & 16);
-            };
-        }
-        return undefined;
-    };
-    var nodeContains = (ɵ0)();
     /**
      * A `DomAdapter` powered by full browser DOM APIs.
      *
@@ -351,24 +341,6 @@
         }
         BrowserDomAdapter.makeCurrent = function () {
             common.ɵsetRootDomAdapter(new BrowserDomAdapter());
-        };
-        BrowserDomAdapter.prototype.getProperty = function (el, name) {
-            return el[name];
-        };
-        BrowserDomAdapter.prototype.log = function (error) {
-            if (window.console) {
-                window.console.log && window.console.log(error);
-            }
-        };
-        BrowserDomAdapter.prototype.logGroup = function (error) {
-            if (window.console) {
-                window.console.group && window.console.group(error);
-            }
-        };
-        BrowserDomAdapter.prototype.logGroupEnd = function () {
-            if (window.console) {
-                window.console.groupEnd && window.console.groupEnd();
-            }
         };
         BrowserDomAdapter.prototype.onAndCancel = function (el, evt, listener) {
             el.addEventListener(evt, listener, false);
@@ -385,10 +357,6 @@
             if (node.parentNode) {
                 node.parentNode.removeChild(node);
             }
-            return node;
-        };
-        BrowserDomAdapter.prototype.getValue = function (el) {
-            return el.value;
         };
         BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
             doc = doc || this.getDefaultDocument();
@@ -418,12 +386,6 @@
             }
             return null;
         };
-        BrowserDomAdapter.prototype.getHistory = function () {
-            return window.history;
-        };
-        BrowserDomAdapter.prototype.getLocation = function () {
-            return window.location;
-        };
         BrowserDomAdapter.prototype.getBaseHref = function (doc) {
             var href = getBaseElementHref();
             return href == null ? null : relativePath(href);
@@ -434,15 +396,6 @@
         BrowserDomAdapter.prototype.getUserAgent = function () {
             return window.navigator.userAgent;
         };
-        BrowserDomAdapter.prototype.performanceNow = function () {
-            // performance.now() is not available in all browsers, see
-            // https://caniuse.com/high-resolution-time
-            return window.performance && window.performance.now ? window.performance.now() :
-                new Date().getTime();
-        };
-        BrowserDomAdapter.prototype.supportsCookies = function () {
-            return true;
-        };
         BrowserDomAdapter.prototype.getCookie = function (name) {
             return common.ɵparseCookieValue(document.cookie, name);
         };
@@ -450,23 +403,16 @@
     }(GenericBrowserDomAdapter));
     var baseElement = null;
     function getBaseElementHref() {
-        if (!baseElement) {
-            baseElement = document.querySelector('base');
-            if (!baseElement) {
-                return null;
-            }
-        }
-        return baseElement.getAttribute('href');
+        baseElement = baseElement || document.querySelector('base');
+        return baseElement ? baseElement.getAttribute('href') : null;
     }
     // based on urlUtils.js in AngularJS 1
     var urlParsingNode;
     function relativePath(url) {
-        if (!urlParsingNode) {
-            urlParsingNode = document.createElement('a');
-        }
+        urlParsingNode = urlParsingNode || document.createElement('a');
         urlParsingNode.setAttribute('href', url);
-        return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
-            '/' + urlParsingNode.pathname;
+        var pathName = urlParsingNode.pathname;
+        return pathName.charAt(0) === '/' ? pathName : "/" + pathName;
     }
 
     /**
@@ -617,11 +563,11 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var ɵ0$1 = function () { return ({
+    var ɵ0 = function () { return ({
         'ApplicationRef': i0.ApplicationRef,
         'NgZone': i0.NgZone,
     }); };
-    var CORE_TOKENS = (ɵ0$1)();
+    var CORE_TOKENS = (ɵ0)();
     var INSPECT_GLOBAL_NAME = 'probe';
     var CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
     /**
@@ -1063,8 +1009,8 @@
         };
         return DefaultDomRenderer2;
     }());
-    var ɵ0$2 = function () { return '@'.charCodeAt(0); };
-    var AT_CHARCODE = (ɵ0$2)();
+    var ɵ0$1 = function () { return '@'.charCodeAt(0); };
+    var AT_CHARCODE = (ɵ0$1)();
     function checkNoSyntheticProp(name, nameKind) {
         if (name.charCodeAt(0) === AT_CHARCODE) {
             throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
@@ -1449,12 +1395,12 @@
         '\x60': '0',
         '\x90': 'NumLock'
     };
-    var ɵ0$3 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
+    var ɵ0$2 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
     /**
      * Retrieves modifiers from key-event objects.
      */
     var MODIFIER_KEY_GETTERS = {
-        'alt': ɵ0$3,
+        'alt': ɵ0$2,
         'control': ɵ1,
         'meta': ɵ2,
         'shift': ɵ3
@@ -1729,9 +1675,9 @@
         i0.ɵsetDocument(document);
         return document;
     }
-    var ɵ0$4 = common.ɵPLATFORM_BROWSER_ID;
+    var ɵ0$3 = common.ɵPLATFORM_BROWSER_ID;
     var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-        { provide: i0.PLATFORM_ID, useValue: ɵ0$4 },
+        { provide: i0.PLATFORM_ID, useValue: ɵ0$3 },
         { provide: i0.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
         { provide: common.DOCUMENT, useFactory: _document, deps: [] },
     ];
@@ -2110,13 +2056,13 @@
             if (record && isProfilerAvailable) {
                 win.console.profile(profileName);
             }
-            var start = common.ɵgetDOM().performanceNow();
+            var start = performanceNow();
             var numTicks = 0;
-            while (numTicks < 5 || (common.ɵgetDOM().performanceNow() - start) < 500) {
+            while (numTicks < 5 || (performanceNow() - start) < 500) {
                 this.appRef.tick();
                 numTicks++;
             }
-            var end = common.ɵgetDOM().performanceNow();
+            var end = performanceNow();
             if (record && isProfilerAvailable) {
                 win.console.profileEnd(profileName);
             }
@@ -2127,6 +2073,10 @@
         };
         return AngularProfiler;
     }());
+    function performanceNow() {
+        return win.performance && win.performance.now ? win.performance.now() :
+            new Date().getTime();
+    }
 
     /**
      * @license
@@ -2396,7 +2346,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.0.0-next.4+3.sha-4c79b8a');
+    var VERSION = new i0.Version('12.0.0-next.4+4.sha-3c66b10');
 
     /**
      * @license
