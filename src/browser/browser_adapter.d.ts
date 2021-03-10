@@ -14,26 +14,17 @@ import { GenericBrowserDomAdapter } from './generic_browser_adapter';
  */
 export declare class BrowserDomAdapter extends GenericBrowserDomAdapter {
     static makeCurrent(): void;
-    getProperty(el: Node, name: string): any;
-    log(error: string): void;
-    logGroup(error: string): void;
-    logGroupEnd(): void;
     onAndCancel(el: Node, evt: any, listener: any): Function;
     dispatchEvent(el: Node, evt: any): void;
-    remove(node: Node): Node;
-    getValue(el: any): string;
+    remove(node: Node): void;
     createElement(tagName: string, doc?: Document): HTMLElement;
     createHtmlDocument(): HTMLDocument;
     getDefaultDocument(): Document;
     isElementNode(node: Node): boolean;
     isShadowRoot(node: any): boolean;
     getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
-    getHistory(): History;
-    getLocation(): Location;
     getBaseHref(doc: Document): string | null;
     resetBaseElement(): void;
     getUserAgent(): string;
-    performanceNow(): number;
-    supportsCookies(): boolean;
     getCookie(name: string): string | null;
 }

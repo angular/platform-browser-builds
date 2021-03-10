@@ -13,6 +13,5 @@ import { ɵDomAdapter as DomAdapter } from '@angular/common';
  * can introduce XSS risks.
  */
 export declare abstract class GenericBrowserDomAdapter extends DomAdapter {
-    constructor();
-    supportsDOMEvents(): boolean;
+    readonly supportsDOMEvents: boolean;
 }
