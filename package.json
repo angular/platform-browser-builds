@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "11.2.5+17.sha-60ac964",
+  "version": "11.2.5+18.sha-5908eda",
   "description": "Angular - library for using Angular in a web browser",
   "author": "angular",
   "license": "MIT",
@@ -8,9 +8,9 @@
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/animations": "11.2.5+17.sha-60ac964",
-    "@angular/core": "11.2.5+17.sha-60ac964",
-    "@angular/common": "11.2.5+17.sha-60ac964"
+    "@angular/animations": "11.2.5+18.sha-5908eda",
+    "@angular/core": "11.2.5+18.sha-5908eda",
+    "@angular/common": "11.2.5+18.sha-5908eda"
   },
   "peerDependenciesMeta": {
     "@angular/animations": {
