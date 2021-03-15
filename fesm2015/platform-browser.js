@@ -1,12 +1,12 @@
 /**
- * @license Angular v12.0.0-next.4+26.sha-cc75e1d
+ * @license Angular v12.0.0-next.4+34.sha-1a9f526
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ɵglobal, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, ɵɵsetNgModuleScope, SkipSelf, Version } from '@angular/core';
+import { InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ɵglobal, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, ɵɵsetNgModuleScope, Version } from '@angular/core';
 
 /**
  * @license
@@ -1485,7 +1485,6 @@ class BrowserModule {
 BrowserModule.ɵfac = function BrowserModule_Factory(t) { return new (t || BrowserModule)(ɵɵinject(BrowserModule, 12)); };
 BrowserModule.ɵmod = /*@__PURE__*/ ɵɵdefineNgModule({ type: BrowserModule });
 BrowserModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserModule, { exports: [CommonModule, ApplicationModule] }); })();
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(BrowserModule, [{
         type: NgModule,
         args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]
@@ -1497,6 +1496,7 @@ BrowserModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: BROWSER_MODU
                 type: Inject,
                 args: [BrowserModule]
             }] }]; }, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserModule, { exports: [CommonModule, ApplicationModule] }); })();
 
 /**
  * @license
@@ -2081,7 +2081,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.0.0-next.4+26.sha-cc75e1d');
+const VERSION = new Version('12.0.0-next.4+34.sha-1a9f526');
 
 /**
  * @license

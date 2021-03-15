@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.4+26.sha-cc75e1d
+ * @license Angular v12.0.0-next.4+34.sha-1a9f526
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -784,7 +784,6 @@
     BrowserAnimationsModule.ɵfac = function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); };
     BrowserAnimationsModule.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: BrowserAnimationsModule });
     BrowserAnimationsModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [platformBrowser.BrowserModule] }); })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(BrowserAnimationsModule, [{
                 type: i0.NgModule,
@@ -794,6 +793,7 @@
                     }]
             }], null, null);
     })();
+    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [platformBrowser.BrowserModule] }); })();
     /**
      * A null player that must be imported to allow disabling of animations.
      * @publicApi
@@ -806,7 +806,6 @@
     NoopAnimationsModule.ɵfac = function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); };
     NoopAnimationsModule.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: NoopAnimationsModule });
     NoopAnimationsModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [platformBrowser.BrowserModule] });
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [platformBrowser.BrowserModule] }); })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NoopAnimationsModule, [{
                 type: i0.NgModule,
@@ -816,6 +815,7 @@
                     }]
             }], null, null);
     })();
+    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [platformBrowser.BrowserModule] }); })();
 
     /**
      * @license

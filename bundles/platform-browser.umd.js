@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.4+26.sha-cc75e1d
+ * @license Angular v12.0.0-next.4+34.sha-1a9f526
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1838,7 +1838,6 @@
     BrowserModule.ɵfac = function BrowserModule_Factory(t) { return new (t || BrowserModule)(i0.ɵɵinject(BrowserModule, 12)); };
     BrowserModule.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: BrowserModule });
     BrowserModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: BROWSER_MODULE_PROVIDERS, imports: [common.CommonModule, i0.ApplicationModule] });
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserModule, { exports: [common.CommonModule, i0.ApplicationModule] }); })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(BrowserModule, [{
                 type: i0.NgModule,
@@ -1854,6 +1853,7 @@
                         }] }];
         }, null);
     })();
+    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(BrowserModule, { exports: [common.CommonModule, i0.ApplicationModule] }); })();
 
     /**
      * @license
@@ -2475,7 +2475,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.0.0-next.4+26.sha-cc75e1d');
+    var VERSION = new i0.Version('12.0.0-next.4+34.sha-1a9f526');
 
     /**
      * @license

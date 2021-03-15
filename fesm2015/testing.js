@@ -1,10 +1,10 @@
 /**
- * @license Angular v12.0.0-next.4+26.sha-cc75e1d
+ * @license Angular v12.0.0-next.4+34.sha-1a9f526
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵglobal, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵɵdefineNgModule, ɵɵdefineInjector, APP_ID, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { ɵglobal, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵɵdefineNgModule, ɵɵdefineInjector, APP_ID, ɵsetClassMetadata, NgModule, ɵɵsetNgModuleScope } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵELEMENT_PROBE_PROVIDERS, BrowserModule } from '@angular/platform-browser';
 import { ɵgetDOM } from '@angular/common';
 
@@ -240,7 +240,6 @@ BrowserTestingModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: [
         ɵELEMENT_PROBE_PROVIDERS,
         { provide: NgZone, useFactory: createNgZone },
     ], imports: [BrowserModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserTestingModule, { exports: [BrowserModule] }); })();
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(BrowserTestingModule, [{
         type: NgModule,
         args: [{
@@ -252,6 +251,7 @@ BrowserTestingModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: [
                 ]
             }]
     }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserTestingModule, { exports: [BrowserModule] }); })();
 
 /**
  * @license

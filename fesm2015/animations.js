@@ -1,10 +1,10 @@
 /**
- * @license Angular v12.0.0-next.4+26.sha-cc75e1d
+ * @license Angular v12.0.0-next.4+34.sha-1a9f526
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ViewEncapsulation, ɵɵinject, RendererFactory2, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, NgZone, InjectionToken, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
+import { ViewEncapsulation, ɵɵinject, RendererFactory2, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, NgZone, InjectionToken, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule, ɵɵsetNgModuleScope } from '@angular/core';
 import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import { AnimationBuilder, sequence, AnimationFactory } from '@angular/animations';
 import { ɵAnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer, ɵsupportsWebAnimations, ɵWebAnimationsDriver, ɵCssKeyframesDriver, ɵWebAnimationsStyleNormalizer, ɵNoopAnimationDriver } from '@angular/animations/browser';
@@ -455,7 +455,6 @@ class BrowserAnimationsModule {
 BrowserAnimationsModule.ɵfac = function BrowserAnimationsModule_Factory(t) { return new (t || BrowserAnimationsModule)(); };
 BrowserAnimationsModule.ɵmod = /*@__PURE__*/ ɵɵdefineNgModule({ type: BrowserAnimationsModule });
 BrowserAnimationsModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] }); })();
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(BrowserAnimationsModule, [{
         type: NgModule,
         args: [{
@@ -463,6 +462,7 @@ BrowserAnimationsModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: BR
                 providers: BROWSER_ANIMATIONS_PROVIDERS,
             }]
     }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(BrowserAnimationsModule, { exports: [BrowserModule] }); })();
 /**
  * A null player that must be imported to allow disabling of animations.
  * @publicApi
@@ -472,7 +472,6 @@ class NoopAnimationsModule {
 NoopAnimationsModule.ɵfac = function NoopAnimationsModule_Factory(t) { return new (t || NoopAnimationsModule)(); };
 NoopAnimationsModule.ɵmod = /*@__PURE__*/ ɵɵdefineNgModule({ type: NoopAnimationsModule });
 NoopAnimationsModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] }); })();
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(NoopAnimationsModule, [{
         type: NgModule,
         args: [{
@@ -480,6 +479,7 @@ NoopAnimationsModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: BROWS
                 providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
             }]
     }], null, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NoopAnimationsModule, { exports: [BrowserModule] }); })();
 
 /**
  * @license
