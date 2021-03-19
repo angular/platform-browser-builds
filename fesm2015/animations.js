@@ -1,6 +1,6 @@
 /**
- * @license Angular v10.1.0-next.4+26.sha-6248d6c
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.5+9.sha-bff0d8f
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -103,7 +103,8 @@ class RendererAnimationPlayer {
         this._command('setPosition', p);
     }
     getPosition() {
-        return 0;
+        var _a, _b;
+        return (_b = (_a = this._renderer.engine.players[+this.id]) === null || _a === void 0 ? void 0 : _a.getPosition()) !== null && _b !== void 0 ? _b : 0;
     }
 }
 function issueAnimationCommand(renderer, element, id, command, args) {
@@ -247,9 +248,10 @@ class BaseAnimationRenderer {
         this.delegate.appendChild(parent, newChild);
         this.engine.onInsert(this.namespaceId, newChild, parent, false);
     }
-    insertBefore(parent, newChild, refChild) {
+    insertBefore(parent, newChild, refChild, isMove = true) {
         this.delegate.insertBefore(parent, newChild, refChild);
-        this.engine.onInsert(this.namespaceId, newChild, parent, true);
+        // If `isMove` true than we should animate this insert.
+        this.engine.onInsert(this.namespaceId, newChild, parent, isMove);
     }
     removeChild(parent, oldChild, isHostElement) {
         this.engine.onRemove(this.namespaceId, oldChild, this.delegate, isHostElement);
@@ -428,6 +430,29 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
  * @publicApi
  */
 class BrowserAnimationsModule {
+    /**
+     * Configures the module based on the specified object.
+     *
+     * @param config Object used to configure the behavior of the `BrowserAnimationsModule`.
+     * @see `BrowserAnimationsModuleConfig`
+     *
+     * @usageNotes
+     * When registering the `BrowserAnimationsModule`, you can use the `withConfig`
+     * function as follows:
+     * ```
+     * @NgModule({
+     *   imports: [BrowserAnimationsModule.withConfig(config)]
+     * })
+     * class MyNgModule {}
+     * ```
+     */
+    static withConfig(config) {
+        return {
+            ngModule: BrowserAnimationsModule,
+            providers: config.disableAnimations ? BROWSER_NOOP_ANIMATIONS_PROVIDERS :
+                BROWSER_ANIMATIONS_PROVIDERS
+        };
+    }
 }
 BrowserAnimationsModule.decorators = [
     { type: NgModule, args: [{

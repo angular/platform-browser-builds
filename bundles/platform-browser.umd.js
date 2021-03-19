@@ -1,6 +1,6 @@
 /**
- * @license Angular v10.1.0-next.4+26.sha-6248d6c
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.5+9.sha-bff0d8f
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -29,11 +29,13 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
     function __extends(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -176,10 +178,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, exports) {
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                __createBinding(exports, m, p);
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -219,11 +221,13 @@
         }
         return ar;
     }
+    /** @deprecated */
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
+    /** @deprecated */
     function __spreadArrays() {
         for (var s = 0, i = 0, il = arguments.length; i < il; i++)
             s += arguments[i].length;
@@ -232,7 +236,11 @@
                 r[k] = a[j];
         return r;
     }
-    ;
+    function __spreadArray(to, from) {
+        for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+            to[j] = from[i];
+        return to;
+    }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
@@ -289,7 +297,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
@@ -320,23 +328,13 @@
     var GenericBrowserDomAdapter = /** @class */ (function (_super) {
         __extends(GenericBrowserDomAdapter, _super);
         function GenericBrowserDomAdapter() {
-            return _super.call(this) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            _this.supportsDOMEvents = true;
+            return _this;
         }
-        GenericBrowserDomAdapter.prototype.supportsDOMEvents = function () {
-            return true;
-        };
         return GenericBrowserDomAdapter;
     }(common.ɵDomAdapter));
 
-    var ɵ0 = function () {
-        if (i0.ɵglobal['Node']) {
-            return i0.ɵglobal['Node'].prototype.contains || function (node) {
-                return !!(this.compareDocumentPosition(node) & 16);
-            };
-        }
-        return undefined;
-    };
-    var nodeContains = (ɵ0)();
     /**
      * A `DomAdapter` powered by full browser DOM APIs.
      *
@@ -351,24 +349,6 @@
         }
         BrowserDomAdapter.makeCurrent = function () {
             common.ɵsetRootDomAdapter(new BrowserDomAdapter());
-        };
-        BrowserDomAdapter.prototype.getProperty = function (el, name) {
-            return el[name];
-        };
-        BrowserDomAdapter.prototype.log = function (error) {
-            if (window.console) {
-                window.console.log && window.console.log(error);
-            }
-        };
-        BrowserDomAdapter.prototype.logGroup = function (error) {
-            if (window.console) {
-                window.console.group && window.console.group(error);
-            }
-        };
-        BrowserDomAdapter.prototype.logGroupEnd = function () {
-            if (window.console) {
-                window.console.groupEnd && window.console.groupEnd();
-            }
         };
         BrowserDomAdapter.prototype.onAndCancel = function (el, evt, listener) {
             el.addEventListener(evt, listener, false);
@@ -385,10 +365,6 @@
             if (node.parentNode) {
                 node.parentNode.removeChild(node);
             }
-            return node;
-        };
-        BrowserDomAdapter.prototype.getValue = function (el) {
-            return el.value;
         };
         BrowserDomAdapter.prototype.createElement = function (tagName, doc) {
             doc = doc || this.getDefaultDocument();
@@ -418,12 +394,6 @@
             }
             return null;
         };
-        BrowserDomAdapter.prototype.getHistory = function () {
-            return window.history;
-        };
-        BrowserDomAdapter.prototype.getLocation = function () {
-            return window.location;
-        };
         BrowserDomAdapter.prototype.getBaseHref = function (doc) {
             var href = getBaseElementHref();
             return href == null ? null : relativePath(href);
@@ -434,15 +404,6 @@
         BrowserDomAdapter.prototype.getUserAgent = function () {
             return window.navigator.userAgent;
         };
-        BrowserDomAdapter.prototype.performanceNow = function () {
-            // performance.now() is not available in all browsers, see
-            // http://caniuse.com/#search=performance.now
-            return window.performance && window.performance.now ? window.performance.now() :
-                new Date().getTime();
-        };
-        BrowserDomAdapter.prototype.supportsCookies = function () {
-            return true;
-        };
         BrowserDomAdapter.prototype.getCookie = function (name) {
             return common.ɵparseCookieValue(document.cookie, name);
         };
@@ -450,23 +411,16 @@
     }(GenericBrowserDomAdapter));
     var baseElement = null;
     function getBaseElementHref() {
-        if (!baseElement) {
-            baseElement = document.querySelector('base');
-            if (!baseElement) {
-                return null;
-            }
-        }
-        return baseElement.getAttribute('href');
+        baseElement = baseElement || document.querySelector('base');
+        return baseElement ? baseElement.getAttribute('href') : null;
     }
     // based on urlUtils.js in AngularJS 1
     var urlParsingNode;
     function relativePath(url) {
-        if (!urlParsingNode) {
-            urlParsingNode = document.createElement('a');
-        }
+        urlParsingNode = urlParsingNode || document.createElement('a');
         urlParsingNode.setAttribute('href', url);
-        return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
-            '/' + urlParsingNode.pathname;
+        var pathName = urlParsingNode.pathname;
+        return pathName.charAt(0) === '/' ? pathName : "/" + pathName;
     }
 
     /**
@@ -617,11 +571,11 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var ɵ0$1 = function () { return ({
+    var ɵ0 = function () { return ({
         'ApplicationRef': i0.ApplicationRef,
         'NgZone': i0.NgZone,
     }); };
-    var CORE_TOKENS = (ɵ0$1)();
+    var CORE_TOKENS = (ɵ0)();
     var INSPECT_GLOBAL_NAME = 'probe';
     var CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
     /**
@@ -883,6 +837,7 @@
             return undefined;
         };
     }
+    var hasLoggedNativeEncapsulationWarning = false;
     var DomRendererFactory2 = /** @class */ (function () {
         function DomRendererFactory2(eventManager, sharedStylesHost, appId) {
             this.eventManager = eventManager;
@@ -905,8 +860,14 @@
                     renderer.applyToHost(element);
                     return renderer;
                 }
-                case i0.ViewEncapsulation.Native:
+                case 1:
                 case i0.ViewEncapsulation.ShadowDom:
+                    // TODO(FW-2290): remove the `case 1:` fallback logic and the warning in v12.
+                    if ((typeof ngDevMode === 'undefined' || ngDevMode) &&
+                        !hasLoggedNativeEncapsulationWarning && type.encapsulation === 1) {
+                        hasLoggedNativeEncapsulationWarning = true;
+                        console.warn('ViewEncapsulation.Native is no longer supported. Falling back to ViewEncapsulation.ShadowDom. The fallback will be removed in v12.');
+                    }
                     return new ShadowDomRenderer(this.eventManager, this.sharedStylesHost, element, type);
                 default: {
                     if (!this.rendererByCompId.has(type.id)) {
@@ -1023,8 +984,8 @@
             el.classList.remove(name);
         };
         DefaultDomRenderer2.prototype.setStyle = function (el, style, value, flags) {
-            if (flags & i0.RendererStyleFlags2.DashCase) {
-                el.style.setProperty(style, value, !!(flags & i0.RendererStyleFlags2.Important) ? 'important' : '');
+            if (flags & (i0.RendererStyleFlags2.DashCase | i0.RendererStyleFlags2.Important)) {
+                el.style.setProperty(style, value, flags & i0.RendererStyleFlags2.Important ? 'important' : '');
             }
             else {
                 el.style[style] = value;
@@ -1056,8 +1017,8 @@
         };
         return DefaultDomRenderer2;
     }());
-    var ɵ0$2 = function () { return '@'.charCodeAt(0); };
-    var AT_CHARCODE = (ɵ0$2)();
+    var ɵ0$1 = function () { return '@'.charCodeAt(0); };
+    var AT_CHARCODE = (ɵ0$1)();
     function checkNoSyntheticProp(name, nameKind) {
         if (name.charCodeAt(0) === AT_CHARCODE) {
             throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
@@ -1090,13 +1051,7 @@
             var _this = _super.call(this, eventManager) || this;
             _this.sharedStylesHost = sharedStylesHost;
             _this.hostEl = hostEl;
-            _this.component = component;
-            if (component.encapsulation === i0.ViewEncapsulation.ShadowDom) {
-                _this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
-            }
-            else {
-                _this.shadowRoot = hostEl.createShadowRoot();
-            }
+            _this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
             _this.sharedStylesHost.addHost(_this.shadowRoot);
             var styles = flattenStyles(component.id, component.styles, []);
             for (var i = 0; i < styles.length; i++) {
@@ -1193,9 +1148,10 @@
         'swipedown': true,
         // tap
         'tap': true,
+        'doubletap': true
     };
     /**
-     * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
+     * DI token for providing [HammerJS](https://hammerjs.github.io/) support to Angular.
      * @see `HammerGestureConfig`
      *
      * @ngModule HammerModule
@@ -1209,7 +1165,7 @@
      */
     var HAMMER_LOADER = new i0.InjectionToken('HammerLoader');
     /**
-     * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+     * An injectable [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
      * for gesture recognition. Configures specific event recognition.
      * @publicApi
      */
@@ -1218,7 +1174,7 @@
             /**
              * A set of supported event names for gestures to be used in Angular.
              * Angular supports all built-in recognizers, as listed in
-             * [HammerJS documentation](http://hammerjs.github.io/).
+             * [HammerJS documentation](https://hammerjs.github.io/).
              */
             this.events = [];
             /**
@@ -1234,13 +1190,13 @@
              * Properties that are not present take the HammerJS default values.
              * For information about which properties are supported for which events,
              * and their allowed and default values, see
-             * [HammerJS documentation](http://hammerjs.github.io/).
+             * [HammerJS documentation](https://hammerjs.github.io/).
              *
              */
             this.overrides = {};
         }
         /**
-         * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+         * Creates a [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
          * and attaches it to a given HTML element.
          * @param element The element that will recognize gestures.
          * @returns A HammerJS event-manager object.
@@ -1271,6 +1227,7 @@
             _this._config = _config;
             _this.console = console;
             _this.loader = loader;
+            _this._loaderPromise = null;
             return _this;
         }
         HammerGesturesPlugin.prototype.supports = function (eventName) {
@@ -1278,8 +1235,10 @@
                 return false;
             }
             if (!window.Hammer && !this.loader) {
-                this.console.warn("The \"" + eventName + "\" event cannot be bound because Hammer.JS is not " +
-                    "loaded and no custom loader has been specified.");
+                if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                    this.console.warn("The \"" + eventName + "\" event cannot be bound because Hammer.JS is not " +
+                        "loaded and no custom loader has been specified.");
+                }
                 return false;
             }
             return true;
@@ -1291,6 +1250,7 @@
             // If Hammer is not present but a loader is specified, we defer adding the event listener
             // until Hammer is loaded.
             if (!window.Hammer && this.loader) {
+                this._loaderPromise = this._loaderPromise || this.loader();
                 // This `addEventListener` method returns a function to remove the added listener.
                 // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
                 // than remove anything.
@@ -1298,11 +1258,13 @@
                 var deregister_1 = function () {
                     cancelRegistration_1 = true;
                 };
-                this.loader()
+                this._loaderPromise
                     .then(function () {
                     // If Hammer isn't actually loaded when the custom loader resolves, give up.
                     if (!window.Hammer) {
-                        _this.console.warn("The custom HAMMER_LOADER completed, but Hammer.JS is not present.");
+                        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                            _this.console.warn("The custom HAMMER_LOADER completed, but Hammer.JS is not present.");
+                        }
                         deregister_1 = function () { };
                         return;
                     }
@@ -1313,8 +1275,10 @@
                     }
                 })
                     .catch(function () {
-                    _this.console.warn("The \"" + eventName + "\" event cannot be bound because the custom " +
-                        "Hammer.JS loader failed.");
+                    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                        _this.console.warn("The \"" + eventName + "\" event cannot be bound because the custom " +
+                            "Hammer.JS loader failed.");
+                    }
                     deregister_1 = function () { };
                 });
                 // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
@@ -1403,7 +1367,7 @@
     // Map to convert some key or keyIdentifier values to what will be returned by getEventKey
     var _keyMap = {
         // The following values are here for cross-browser compatibility and to match the W3C standard
-        // cf http://www.w3.org/TR/DOM-Level-3-Events-key/
+        // cf https://www.w3.org/TR/DOM-Level-3-Events-key/
         '\b': 'Backspace',
         '\t': 'Tab',
         '\x7F': 'Delete',
@@ -1439,12 +1403,12 @@
         '\x60': '0',
         '\x90': 'NumLock'
     };
-    var ɵ0$3 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
+    var ɵ0$2 = function (event) { return event.altKey; }, ɵ1 = function (event) { return event.ctrlKey; }, ɵ2 = function (event) { return event.metaKey; }, ɵ3 = function (event) { return event.shiftKey; };
     /**
      * Retrieves modifiers from key-event objects.
      */
     var MODIFIER_KEY_GETTERS = {
-        'alt': ɵ0$3,
+        'alt': ɵ0$2,
         'control': ɵ1,
         'meta': ɵ2,
         'shift': ɵ3
@@ -1572,7 +1536,7 @@
             key = event.keyIdentifier;
             // keyIdentifier is defined in the old draft of DOM Level 3 Events implemented by Chrome and
             // Safari cf
-            // http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
+            // https://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/events.html#Events-KeyboardEvents-Interfaces
             if (key == null) {
                 return 'Unidentified';
             }
@@ -1616,7 +1580,7 @@
      * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
      * sanitization for the value passed in. Carefully check and audit all values and code paths going
      * into this call. Make sure any user data is appropriately escaped for this security context.
-     * For more detail, see the [Security Guide](http://g.co/ng/security).
+     * For more detail, see the [Security Guide](https://g.co/ng/security).
      *
      * @publicApi
      */
@@ -1649,7 +1613,7 @@
                     if (i0.ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
                         return i0.ɵunwrapSafeValue(value);
                     }
-                    return i0.ɵ_sanitizeHtml(this._doc, String(value));
+                    return i0.ɵ_sanitizeHtml(this._doc, String(value)).toString();
                 case i0.SecurityContext.STYLE:
                     if (i0.ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
                         return i0.ɵunwrapSafeValue(value);
@@ -1670,9 +1634,9 @@
                     if (i0.ɵallowSanitizationBypassAndThrow(value, "ResourceURL" /* ResourceUrl */)) {
                         return i0.ɵunwrapSafeValue(value);
                     }
-                    throw new Error('unsafe value used in a resource URL context (see http://g.co/ng/security#xss)');
+                    throw new Error('unsafe value used in a resource URL context (see https://g.co/ng/security#xss)');
                 default:
-                    throw new Error("Unexpected SecurityContext " + ctx + " (see http://g.co/ng/security#xss)");
+                    throw new Error("Unexpected SecurityContext " + ctx + " (see https://g.co/ng/security#xss)");
             }
         };
         DomSanitizerImpl.prototype.bypassSecurityTrustHtml = function (value) {
@@ -1719,9 +1683,9 @@
         i0.ɵsetDocument(document);
         return document;
     }
-    var ɵ0$4 = common.ɵPLATFORM_BROWSER_ID;
+    var ɵ0$3 = common.ɵPLATFORM_BROWSER_ID;
     var INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-        { provide: i0.PLATFORM_ID, useValue: ɵ0$4 },
+        { provide: i0.PLATFORM_ID, useValue: ɵ0$3 },
         { provide: i0.PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
         { provide: common.DOCUMENT, useFactory: _document, deps: [] },
     ];
@@ -1733,7 +1697,7 @@
     /**
      * @security Replacing built-in sanitization providers exposes the application to XSS risks.
      * Attacker-controlled data introduced by an unsanitized provider could expose your
-     * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
+     * application to XSS risks. For more detail, see the [Security Guide](https://g.co/ng/security).
      * @publicApi
      */
     var BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__PRE_R3__;
@@ -1963,7 +1927,8 @@
             return element;
         };
         Meta.prototype._setMetaElementAttributes = function (tag, el) {
-            Object.keys(tag).forEach(function (prop) { return el.setAttribute(prop, tag[prop]); });
+            var _this = this;
+            Object.keys(tag).forEach(function (prop) { return el.setAttribute(_this._getMetaKeyMap(prop), tag[prop]); });
             return el;
         };
         Meta.prototype._parseSelector = function (tag) {
@@ -1971,7 +1936,11 @@
             return attr + "=\"" + tag[attr] + "\"";
         };
         Meta.prototype._containsAttributes = function (tag, elem) {
-            return Object.keys(tag).every(function (key) { return elem.getAttribute(key) === tag[key]; });
+            var _this = this;
+            return Object.keys(tag).every(function (key) { return elem.getAttribute(_this._getMetaKeyMap(key)) === tag[key]; });
+        };
+        Meta.prototype._getMetaKeyMap = function (prop) {
+            return META_KEYS_MAP[prop] || prop;
         };
         return Meta;
     }());
@@ -1982,6 +1951,12 @@
     Meta.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
     ]; };
+    /**
+     * Mapping for MetaDefinition properties with their correct meta attribute names
+     */
+    var META_KEYS_MAP = {
+        httpEquiv: 'http-equiv'
+    };
 
     /**
      * @license
@@ -2084,18 +2059,18 @@
         AngularProfiler.prototype.timeChangeDetection = function (config) {
             var record = config && config['record'];
             var profileName = 'Change Detection';
-            // Profiler is not available in Android browsers, nor in IE 9 without dev tools opened
+            // Profiler is not available in Android browsers without dev tools opened
             var isProfilerAvailable = win.console.profile != null;
             if (record && isProfilerAvailable) {
                 win.console.profile(profileName);
             }
-            var start = common.ɵgetDOM().performanceNow();
+            var start = performanceNow();
             var numTicks = 0;
-            while (numTicks < 5 || (common.ɵgetDOM().performanceNow() - start) < 500) {
+            while (numTicks < 5 || (performanceNow() - start) < 500) {
                 this.appRef.tick();
                 numTicks++;
             }
-            var end = common.ɵgetDOM().performanceNow();
+            var end = performanceNow();
             if (record && isProfilerAvailable) {
                 win.console.profileEnd(profileName);
             }
@@ -2106,6 +2081,10 @@
         };
         return AngularProfiler;
     }());
+    function performanceNow() {
+        return win.performance && win.performance.now ? win.performance.now() :
+            new Date().getTime();
+    }
 
     /**
      * @license
@@ -2193,7 +2172,7 @@
      * `ServerTransferStateModule` on the server and `BrowserTransferStateModule` on the client.
      *
      * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
-     * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
+     * boolean, number, string, null and non-class objects will be serialized and deserialized in a
      * non-lossy manner.
      *
      * @publicApi
@@ -2268,6 +2247,7 @@
         var initialState = {};
         if (script && script.textContent) {
             try {
+                // Avoid using any here as it triggers lint errors in google3 (any is not allowed).
                 initialState = JSON.parse(unescapeHtml(script.textContent));
             }
             catch (e) {
@@ -2374,7 +2354,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.1.0-next.4+26.sha-6248d6c');
+    var VERSION = new i0.Version('12.0.0-next.5+9.sha-bff0d8f');
 
     /**
      * @license

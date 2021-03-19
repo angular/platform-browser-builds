@@ -1,6 +1,6 @@
 /**
- * @license Angular v10.1.0-next.4+26.sha-6248d6c
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.5+9.sha-bff0d8f
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -134,7 +134,7 @@ export declare function disableDebugTools(): void;
  * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
  * sanitization for the value passed in. Carefully check and audit all values and code paths going
  * into this call. Make sure any user data is appropriately escaped for this security context.
- * For more detail, see the [Security Guide](http://g.co/ng/security).
+ * For more detail, see the [Security Guide](https://g.co/ng/security).
  *
  * @publicApi
  */
@@ -252,7 +252,7 @@ export declare class EventManager {
 }
 
 /**
- * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
+ * DI token for providing [HammerJS](https://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
  * @ngModule HammerModule
@@ -268,7 +268,7 @@ export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
 export declare const HAMMER_LOADER: InjectionToken<HammerLoader>;
 
 /**
- * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+ * An injectable [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
  * for gesture recognition. Configures specific event recognition.
  * @publicApi
  */
@@ -276,7 +276,7 @@ export declare class HammerGestureConfig {
     /**
      * A set of supported event names for gestures to be used in Angular.
      * Angular supports all built-in recognizers, as listed in
-     * [HammerJS documentation](http://hammerjs.github.io/).
+     * [HammerJS documentation](https://hammerjs.github.io/).
      */
     events: string[];
     /**
@@ -292,7 +292,7 @@ export declare class HammerGestureConfig {
      * Properties that are not present take the HammerJS default values.
      * For information about which properties are supported for which events,
      * and their allowed and default values, see
-     * [HammerJS documentation](http://hammerjs.github.io/).
+     * [HammerJS documentation](https://hammerjs.github.io/).
      *
      */
     overrides: {
@@ -303,7 +303,7 @@ export declare class HammerGestureConfig {
      * Different sets of properties apply to different events.
      * For information about which properties are supported for which events,
      * and their allowed and default values, see
-     * [HammerJS documentation](http://hammerjs.github.io/).
+     * [HammerJS documentation](https://hammerjs.github.io/).
      */
     options?: {
         cssProps?: any;
@@ -316,7 +316,7 @@ export declare class HammerGestureConfig {
         inputTarget?: EventTarget;
     };
     /**
-     * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+     * Creates a [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
      * and attaches it to a given HTML element.
      * @param element The element that will recognize gestures.
      * @returns A HammerJS event-manager object.
@@ -452,6 +452,7 @@ export declare class Meta {
     private _setMetaElementAttributes;
     private _parseSelector;
     private _containsAttributes;
+    private _getMetaKeyMap;
 }
 
 
@@ -584,7 +585,7 @@ export declare class Title {
  * `ServerTransferStateModule` on the server and `BrowserTransferStateModule` on the client.
  *
  * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
- * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
+ * boolean, number, string, null and non-class objects will be serialized and deserialized in a
  * non-lossy manner.
  *
  * @publicApi
@@ -678,14 +679,13 @@ export declare const ɵangular_packages_platform_browser_platform_browser_n: Pro
  * can introduce XSS risks.
  */
 export declare abstract class ɵangular_packages_platform_browser_platform_browser_o extends ɵDomAdapter {
-    constructor();
-    supportsDOMEvents(): boolean;
+    readonly supportsDOMEvents: boolean;
 }
 
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
- * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
+ * application to XSS risks. For more detail, see the [Security Guide](https://g.co/ng/security).
  * @publicApi
  */
 export declare const ɵBROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
@@ -700,27 +700,18 @@ export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
  */
 export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_o {
     static makeCurrent(): void;
-    getProperty(el: Node, name: string): any;
-    log(error: string): void;
-    logGroup(error: string): void;
-    logGroupEnd(): void;
     onAndCancel(el: Node, evt: any, listener: any): Function;
     dispatchEvent(el: Node, evt: any): void;
-    remove(node: Node): Node;
-    getValue(el: any): string;
+    remove(node: Node): void;
     createElement(tagName: string, doc?: Document): HTMLElement;
     createHtmlDocument(): HTMLDocument;
     getDefaultDocument(): Document;
     isElementNode(node: Node): boolean;
     isShadowRoot(node: any): boolean;
     getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
-    getHistory(): History;
-    getLocation(): Location;
     getBaseHref(doc: Document): string | null;
     resetBaseElement(): void;
     getUserAgent(): string;
-    performanceNow(): number;
-    supportsCookies(): boolean;
     getCookie(name: string): string | null;
 }
 
@@ -805,6 +796,7 @@ export declare class ɵHammerGesturesPlugin extends ɵangular_packages_platform_
     private _config;
     private console;
     private loader?;
+    private _loaderPromise;
     constructor(doc: any, _config: HammerGestureConfig, console: ɵConsole, loader?: HammerLoader | null | undefined);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;

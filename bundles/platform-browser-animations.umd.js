@@ -1,6 +1,6 @@
 /**
- * @license Angular v10.1.0-next.4+26.sha-6248d6c
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.5+9.sha-bff0d8f
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -29,11 +29,13 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
     function __extends(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -176,10 +178,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, exports) {
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                __createBinding(exports, m, p);
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -219,11 +221,13 @@
         }
         return ar;
     }
+    /** @deprecated */
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
+    /** @deprecated */
     function __spreadArrays() {
         for (var s = 0, i = 0, il = arguments.length; i < il; i++)
             s += arguments[i].length;
@@ -232,7 +236,11 @@
                 r[k] = a[j];
         return r;
     }
-    ;
+    function __spreadArray(to, from) {
+        for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+            to[j] = from[i];
+        return to;
+    }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
@@ -289,7 +297,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
@@ -407,7 +415,8 @@
             this._command('setPosition', p);
         };
         RendererAnimationPlayer.prototype.getPosition = function () {
-            return 0;
+            var _a, _b;
+            return (_b = (_a = this._renderer.engine.players[+this.id]) === null || _a === void 0 ? void 0 : _a.getPosition()) !== null && _b !== void 0 ? _b : 0;
         };
         return RendererAnimationPlayer;
     }());
@@ -561,9 +570,11 @@
             this.delegate.appendChild(parent, newChild);
             this.engine.onInsert(this.namespaceId, newChild, parent, false);
         };
-        BaseAnimationRenderer.prototype.insertBefore = function (parent, newChild, refChild) {
+        BaseAnimationRenderer.prototype.insertBefore = function (parent, newChild, refChild, isMove) {
+            if (isMove === void 0) { isMove = true; }
             this.delegate.insertBefore(parent, newChild, refChild);
-            this.engine.onInsert(this.namespaceId, newChild, parent, true);
+            // If `isMove` true than we should animate this insert.
+            this.engine.onInsert(this.namespaceId, newChild, parent, isMove);
         };
         BaseAnimationRenderer.prototype.removeChild = function (parent, oldChild, isHostElement) {
             this.engine.onRemove(this.namespaceId, oldChild, this.delegate, isHostElement);
@@ -717,18 +728,18 @@
      * Separate providers from the actual module so that we can do a local modification in Google3 to
      * include them in the BrowserModule.
      */
-    var BROWSER_ANIMATIONS_PROVIDERS = __spread([
+    var BROWSER_ANIMATIONS_PROVIDERS = __spreadArray([
         { provide: browser.AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
         { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' }
-    ], SHARED_ANIMATION_PROVIDERS);
+    ], __read(SHARED_ANIMATION_PROVIDERS));
     /**
      * Separate providers from the actual module so that we can do a local modification in Google3 to
      * include them in the BrowserTestingModule.
      */
-    var BROWSER_NOOP_ANIMATIONS_PROVIDERS = __spread([
+    var BROWSER_NOOP_ANIMATIONS_PROVIDERS = __spreadArray([
         { provide: browser.AnimationDriver, useClass: browser.ɵNoopAnimationDriver },
         { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' }
-    ], SHARED_ANIMATION_PROVIDERS);
+    ], __read(SHARED_ANIMATION_PROVIDERS));
 
     /**
      * @license
@@ -745,6 +756,29 @@
     var BrowserAnimationsModule = /** @class */ (function () {
         function BrowserAnimationsModule() {
         }
+        /**
+         * Configures the module based on the specified object.
+         *
+         * @param config Object used to configure the behavior of the `BrowserAnimationsModule`.
+         * @see `BrowserAnimationsModuleConfig`
+         *
+         * @usageNotes
+         * When registering the `BrowserAnimationsModule`, you can use the `withConfig`
+         * function as follows:
+         * ```
+         * @NgModule({
+         *   imports: [BrowserAnimationsModule.withConfig(config)]
+         * })
+         * class MyNgModule {}
+         * ```
+         */
+        BrowserAnimationsModule.withConfig = function (config) {
+            return {
+                ngModule: BrowserAnimationsModule,
+                providers: config.disableAnimations ? BROWSER_NOOP_ANIMATIONS_PROVIDERS :
+                    BROWSER_ANIMATIONS_PROVIDERS
+            };
+        };
         return BrowserAnimationsModule;
     }());
     BrowserAnimationsModule.decorators = [
