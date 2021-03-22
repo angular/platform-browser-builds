@@ -111,6 +111,6 @@ export declare class Meta {
     private _parseSelector;
     private _containsAttributes;
     private _getMetaKeyMap;
-    static ɵfac: i0.ɵɵFactoryDef<Meta, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<Meta, never>;
     static ɵprov: i0.ɵɵInjectableDef<Meta>;
 }

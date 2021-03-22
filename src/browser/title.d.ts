@@ -25,6 +25,6 @@ export declare class Title {
      * @param newTitle
      */
     setTitle(newTitle: string): void;
-    static ɵfac: i0.ɵɵFactoryDef<Title, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<Title, never>;
     static ɵprov: i0.ɵɵInjectableDef<Title>;
 }

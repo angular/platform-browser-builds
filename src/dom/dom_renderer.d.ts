@@ -28,6 +28,6 @@ export declare class DomRendererFactory2 implements RendererFactory2 {
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     begin(): void;
     end(): void;
-    static ɵfac: i0.ɵɵFactoryDef<DomRendererFactory2, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<DomRendererFactory2, never>;
     static ɵprov: i0.ɵɵInjectableDef<DomRendererFactory2>;
 }

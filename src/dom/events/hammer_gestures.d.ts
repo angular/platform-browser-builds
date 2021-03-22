@@ -81,7 +81,7 @@ export declare class HammerGestureConfig {
      * @returns A HammerJS event-manager object.
      */
     buildHammer(element: HTMLElement): HammerInstance;
-    static ɵfac: i0.ɵɵFactoryDef<HammerGestureConfig, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<HammerGestureConfig, never>;
     static ɵprov: i0.ɵɵInjectableDef<HammerGestureConfig>;
 }
 /**
@@ -98,7 +98,7 @@ export declare class HammerGesturesPlugin extends EventManagerPlugin {
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
-    static ɵfac: i0.ɵɵFactoryDef<HammerGesturesPlugin, [null, null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<HammerGesturesPlugin, [null, null, null, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDef<HammerGesturesPlugin>;
 }
 /**
@@ -124,7 +124,7 @@ export declare const HAMMER_PROVIDERS: Provider[];
  * @publicApi
  */
 export declare class HammerModule {
-    static ɵfac: i0.ɵɵFactoryDef<HammerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<HammerModule, never, never, never>;
-    static ɵinj: i0.ɵɵInjectorDef<HammerModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<HammerModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<HammerModule, never, never, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<HammerModule>;
 }

@@ -73,7 +73,7 @@ export declare class TransferState {
      * Serialize the current state of the store to JSON.
      */
     toJson(): string;
-    static ɵfac: i0.ɵɵFactoryDef<TransferState, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TransferState, never>;
     static ɵprov: i0.ɵɵInjectableDef<TransferState>;
 }
 export declare function initTransferState(doc: Document, appId: string): TransferState;
@@ -84,7 +84,7 @@ export declare function initTransferState(doc: Document, appId: string): Transfe
  * @publicApi
  */
 export declare class BrowserTransferStateModule {
-    static ɵfac: i0.ɵɵFactoryDef<BrowserTransferStateModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<BrowserTransferStateModule, never, never, never>;
-    static ɵinj: i0.ɵɵInjectorDef<BrowserTransferStateModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserTransferStateModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserTransferStateModule, never, never, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserTransferStateModule>;
 }

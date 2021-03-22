@@ -43,7 +43,7 @@ export declare class BrowserModule {
     static withServerTransition(params: {
         appId: string;
     }): ModuleWithProviders<BrowserModule>;
-    static ɵfac: i0.ɵɵFactoryDef<BrowserModule, [{ optional: true; skipSelf: true; }]>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<BrowserModule, never, never, [typeof i1.CommonModule, typeof i0.ApplicationModule]>;
-    static ɵinj: i0.ɵɵInjectorDef<BrowserModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserModule, [{ optional: true; skipSelf: true; }]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserModule, never, never, [typeof i1.CommonModule, typeof i0.ApplicationModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserModule>;
 }

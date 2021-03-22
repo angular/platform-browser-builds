@@ -42,16 +42,16 @@ export declare class BrowserAnimationsModule {
      * ```
      */
     static withConfig(config: BrowserAnimationsModuleConfig): ModuleWithProviders<BrowserAnimationsModule>;
-    static ɵfac: i0.ɵɵFactoryDef<BrowserAnimationsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
-    static ɵinj: i0.ɵɵInjectorDef<BrowserAnimationsModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserAnimationsModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserAnimationsModule>;
 }
 /**
  * A null player that must be imported to allow disabling of animations.
  * @publicApi
  */
 export declare class NoopAnimationsModule {
-    static ɵfac: i0.ɵɵFactoryDef<NoopAnimationsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
-    static ɵinj: i0.ɵɵInjectorDef<NoopAnimationsModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NoopAnimationsModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<NoopAnimationsModule>;
 }

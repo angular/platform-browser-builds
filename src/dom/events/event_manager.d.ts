@@ -44,7 +44,7 @@ export declare class EventManager {
      * Retrieves the compilation zone in which event listeners are registered.
      */
     getZone(): NgZone;
-    static ɵfac: i0.ɵɵFactoryDef<EventManager, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<EventManager, never>;
     static ɵprov: i0.ɵɵInjectableDef<EventManager>;
 }
 export declare abstract class EventManagerPlugin {
