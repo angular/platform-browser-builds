@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.6+3.sha-b61c009
+ * @license Angular v12.0.0-next.6+36.sha-18bc9ff
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -518,6 +518,25 @@
         };
         return BrowserGetTestability;
     }());
+
+    /**
+     * A factory for `HttpXhrBackend` that uses the `XMLHttpRequest` browser API.
+     */
+    var BrowserXhr = /** @class */ (function () {
+        function BrowserXhr() {
+        }
+        BrowserXhr.prototype.build = function () {
+            return new XMLHttpRequest();
+        };
+        return BrowserXhr;
+    }());
+    BrowserXhr.ɵfac = function BrowserXhr_Factory(t) { return new (t || BrowserXhr)(); };
+    BrowserXhr.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: BrowserXhr, factory: BrowserXhr.ɵfac });
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(BrowserXhr, [{
+                type: i0.Injectable
+            }], null, null);
+    })();
 
     /**
      * @license
@@ -1806,6 +1825,7 @@
         { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [common.DOCUMENT] },
         { provide: i0.Testability, useClass: i0.Testability, deps: [i0.NgZone] },
         { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, i0.NgZone] },
+        { provide: common.XhrFactory, useClass: BrowserXhr, deps: [] },
         ELEMENT_PROBE_PROVIDERS,
     ];
     /**
@@ -2483,7 +2503,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.0.0-next.6+3.sha-b61c009');
+    var VERSION = new i0.Version('12.0.0-next.6+36.sha-18bc9ff');
 
     /**
      * @license
