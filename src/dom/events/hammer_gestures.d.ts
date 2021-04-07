@@ -82,7 +82,7 @@ export declare class HammerGestureConfig {
      */
     buildHammer(element: HTMLElement): HammerInstance;
     static ɵfac: i0.ɵɵFactoryDeclaration<HammerGestureConfig, never>;
-    static ɵprov: i0.ɵɵInjectableDef<HammerGestureConfig>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<HammerGestureConfig>;
 }
 /**
  * Event plugin that adds Hammer support to an application.
@@ -99,7 +99,7 @@ export declare class HammerGesturesPlugin extends EventManagerPlugin {
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<HammerGesturesPlugin, [null, null, null, { optional: true; }]>;
-    static ɵprov: i0.ɵɵInjectableDef<HammerGesturesPlugin>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<HammerGesturesPlugin>;
 }
 /**
  * In Ivy, support for Hammer gestures is optional, so applications must

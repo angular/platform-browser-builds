@@ -13,5 +13,5 @@ import * as i0 from "@angular/core";
 export declare class BrowserXhr implements XhrFactory {
     build(): XMLHttpRequest;
     static ɵfac: i0.ɵɵFactoryDeclaration<BrowserXhr, never>;
-    static ɵprov: i0.ɵɵInjectableDef<BrowserXhr>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<BrowserXhr>;
 }

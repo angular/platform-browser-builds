@@ -74,7 +74,7 @@ export declare class TransferState {
      */
     toJson(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<TransferState, never>;
-    static ɵprov: i0.ɵɵInjectableDef<TransferState>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<TransferState>;
 }
 export declare function initTransferState(doc: Document, appId: string): TransferState;
 /**

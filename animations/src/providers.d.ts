@@ -7,7 +7,7 @@ export declare class InjectableAnimationEngine extends AnimationEngine implement
     constructor(doc: any, driver: AnimationDriver, normalizer: AnimationStyleNormalizer);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<InjectableAnimationEngine, never>;
-    static ɵprov: i0.ɵɵInjectableDef<InjectableAnimationEngine>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<InjectableAnimationEngine>;
 }
 export declare function instantiateSupportedAnimationDriver(): WebAnimationsDriver | CssKeyframesDriver;
 export declare function instantiateDefaultStyleNormalizer(): WebAnimationsStyleNormalizer;

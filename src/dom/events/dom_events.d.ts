@@ -6,5 +6,5 @@ export declare class DomEventsPlugin extends EventManagerPlugin {
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     removeEventListener(target: any, eventName: string, callback: Function): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<DomEventsPlugin, never>;
-    static ɵprov: i0.ɵɵInjectableDef<DomEventsPlugin>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<DomEventsPlugin>;
 }

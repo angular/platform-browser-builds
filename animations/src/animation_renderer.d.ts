@@ -18,7 +18,7 @@ export declare class AnimationRendererFactory implements RendererFactory2 {
     end(): void;
     whenRenderingDone(): Promise<any>;
     static ɵfac: i0.ɵɵFactoryDeclaration<AnimationRendererFactory, never>;
-    static ɵprov: i0.ɵɵInjectableDef<AnimationRendererFactory>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AnimationRendererFactory>;
 }
 export declare class BaseAnimationRenderer implements Renderer2 {
     protected namespaceId: string;

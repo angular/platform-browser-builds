@@ -112,5 +112,5 @@ export declare class Meta {
     private _containsAttributes;
     private _getMetaKeyMap;
     static ɵfac: i0.ɵɵFactoryDeclaration<Meta, never>;
-    static ɵprov: i0.ɵɵInjectableDef<Meta>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<Meta>;
 }
