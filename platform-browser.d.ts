@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.4+10.sha-69afeb3
+ * @license Angular v12.0.0-next.8+99.sha-886bf37
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -28,6 +28,7 @@ import { Testability } from '@angular/core';
 import { TestabilityRegistry } from '@angular/core';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
+import { XhrFactory } from '@angular/common';
 import { ɵConsole } from '@angular/core';
 import { ɵDomAdapter } from '@angular/common';
 import { ɵgetDOM } from '@angular/common';
@@ -673,12 +674,19 @@ export declare function ɵangular_packages_platform_browser_platform_browser_m(c
 export declare const ɵangular_packages_platform_browser_platform_browser_n: Provider[];
 
 /**
+ * A factory for `HttpXhrBackend` that uses the `XMLHttpRequest` browser API.
+ */
+export declare class ɵangular_packages_platform_browser_platform_browser_o implements XhrFactory {
+    build(): XMLHttpRequest;
+}
+
+/**
  * Provides DOM operations in any browser environment.
  *
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare abstract class ɵangular_packages_platform_browser_platform_browser_o extends ɵDomAdapter {
+export declare abstract class ɵangular_packages_platform_browser_platform_browser_p extends ɵDomAdapter {
     readonly supportsDOMEvents: boolean;
 }
 
@@ -698,7 +706,7 @@ export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_o {
+export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_p {
     static makeCurrent(): void;
     onAndCancel(el: Node, evt: any, listener: any): Function;
     dispatchEvent(el: Node, evt: any): void;

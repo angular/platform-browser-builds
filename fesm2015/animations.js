@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.4+10.sha-69afeb3
+ * @license Angular v12.0.0-next.8+99.sha-886bf37
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -368,6 +368,9 @@ function parseTriggerCallbackName(triggerName) {
 class InjectableAnimationEngine extends ɵAnimationEngine {
     constructor(doc, driver, normalizer) {
         super(doc.body, driver, normalizer);
+    }
+    ngOnDestroy() {
+        this.flush();
     }
 }
 InjectableAnimationEngine.decorators = [
