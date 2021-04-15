@@ -1,6 +1,6 @@
 /**
- * @license Angular v9.0.0-next.12+69.sha-1f498ab.with-local-changes
- * (c) 2010-2019 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.8+121.sha-72c4288
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -28,6 +28,7 @@ import { Testability } from '@angular/core';
 import { TestabilityRegistry } from '@angular/core';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
+import { XhrFactory } from '@angular/common';
 import { ɵConsole } from '@angular/core';
 import { ɵDomAdapter } from '@angular/common';
 import { ɵgetDOM } from '@angular/common';
@@ -134,7 +135,7 @@ export declare function disableDebugTools(): void;
  * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
  * sanitization for the value passed in. Carefully check and audit all values and code paths going
  * into this call. Make sure any user data is appropriately escaped for this security context.
- * For more detail, see the [Security Guide](http://g.co/ng/security).
+ * For more detail, see the [Security Guide](https://g.co/ng/security).
  *
  * @publicApi
  */
@@ -252,7 +253,7 @@ export declare class EventManager {
 }
 
 /**
- * DI token for providing [HammerJS](http://hammerjs.github.io/) support to Angular.
+ * DI token for providing [HammerJS](https://hammerjs.github.io/) support to Angular.
  * @see `HammerGestureConfig`
  *
  * @ngModule HammerModule
@@ -268,7 +269,7 @@ export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
 export declare const HAMMER_LOADER: InjectionToken<HammerLoader>;
 
 /**
- * An injectable [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+ * An injectable [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
  * for gesture recognition. Configures specific event recognition.
  * @publicApi
  */
@@ -276,25 +277,25 @@ export declare class HammerGestureConfig {
     /**
      * A set of supported event names for gestures to be used in Angular.
      * Angular supports all built-in recognizers, as listed in
-     * [HammerJS documentation](http://hammerjs.github.io/).
+     * [HammerJS documentation](https://hammerjs.github.io/).
      */
     events: string[];
     /**
-    * Maps gesture event names to a set of configuration options
-    * that specify overrides to the default values for specific properties.
-    *
-    * The key is a supported event name to be configured,
-    * and the options object contains a set of properties, with override values
-    * to be applied to the named recognizer event.
-    * For example, to disable recognition of the rotate event, specify
-    *  `{"rotate": {"enable": false}}`.
-    *
-    * Properties that are not present take the HammerJS default values.
-    * For information about which properties are supported for which events,
-    * and their allowed and default values, see
-    * [HammerJS documentation](http://hammerjs.github.io/).
-    *
-    */
+     * Maps gesture event names to a set of configuration options
+     * that specify overrides to the default values for specific properties.
+     *
+     * The key is a supported event name to be configured,
+     * and the options object contains a set of properties, with override values
+     * to be applied to the named recognizer event.
+     * For example, to disable recognition of the rotate event, specify
+     *  `{"rotate": {"enable": false}}`.
+     *
+     * Properties that are not present take the HammerJS default values.
+     * For information about which properties are supported for which events,
+     * and their allowed and default values, see
+     * [HammerJS documentation](https://hammerjs.github.io/).
+     *
+     */
     overrides: {
         [key: string]: Object;
     };
@@ -303,7 +304,7 @@ export declare class HammerGestureConfig {
      * Different sets of properties apply to different events.
      * For information about which properties are supported for which events,
      * and their allowed and default values, see
-     * [HammerJS documentation](http://hammerjs.github.io/).
+     * [HammerJS documentation](https://hammerjs.github.io/).
      */
     options?: {
         cssProps?: any;
@@ -316,7 +317,7 @@ export declare class HammerGestureConfig {
         inputTarget?: EventTarget;
     };
     /**
-     * Creates a [HammerJS Manager](http://hammerjs.github.io/api/#hammer.manager)
+     * Creates a [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
      * and attaches it to a given HTML element.
      * @param element The element that will recognize gestures.
      * @returns A HammerJS event-manager object.
@@ -368,7 +369,24 @@ export declare class HammerModule {
 export declare function makeStateKey<T = void>(key: string): StateKey<T>;
 
 /**
- * A service that can be used to get and add meta tags.
+ * A service for managing HTML `<meta>` tags.
+ *
+ * Properties of the `MetaDefinition` object match the attributes of the
+ * HTML `<meta>` tag. These tags define document metadata that is important for
+ * things like configuring a Content Security Policy, defining browser compatibility
+ * and security settings, setting HTTP Headers, defining rich content for social sharing,
+ * and Search Engine Optimization (SEO).
+ *
+ * To identify specific `<meta>` tags in a document, use an attribute selection
+ * string in the format `"tag_attribute='value string'"`.
+ * For example, an `attrSelector` value of `"name='description'"` matches a tag
+ * whose `name` attribute has the value `"description"`.
+ * Selectors are used with the `querySelector()` Document method,
+ * in the format `meta[{attrSelector}]`.
+ *
+ * @see [HTML meta tag](https://developer.mozilla.org/docs/Web/HTML/Element/meta)
+ * @see [Document.querySelector()](https://developer.mozilla.org/docs/Web/API/Document/querySelector)
+ *
  *
  * @publicApi
  */
@@ -376,22 +394,75 @@ export declare class Meta {
     private _doc;
     private _dom;
     constructor(_doc: any);
+    /**
+     * Retrieves or creates a specific `<meta>` tag element in the current HTML document.
+     * In searching for an existing tag, Angular attempts to match the `name` or `property` attribute
+     * values in the provided tag definition, and verifies that all other attribute values are equal.
+     * If an existing element is found, it is returned and is not modified in any way.
+     * @param tag The definition of a `<meta>` element to match or create.
+     * @param forceCreation True to create a new element without checking whether one already exists.
+     * @returns The existing element with the same attributes and values if found,
+     * the new element if no match is found, or `null` if the tag parameter is not defined.
+     */
     addTag(tag: MetaDefinition, forceCreation?: boolean): HTMLMetaElement | null;
+    /**
+     * Retrieves or creates a set of `<meta>` tag elements in the current HTML document.
+     * In searching for an existing tag, Angular attempts to match the `name` or `property` attribute
+     * values in the provided tag definition, and verifies that all other attribute values are equal.
+     * @param tags An array of tag definitions to match or create.
+     * @param forceCreation True to create new elements without checking whether they already exist.
+     * @returns The matching elements if found, or the new elements.
+     */
     addTags(tags: MetaDefinition[], forceCreation?: boolean): HTMLMetaElement[];
+    /**
+     * Retrieves a `<meta>` tag element in the current HTML document.
+     * @param attrSelector The tag attribute and value to match against, in the format
+     * `"tag_attribute='value string'"`.
+     * @returns The matching element, if any.
+     */
     getTag(attrSelector: string): HTMLMetaElement | null;
+    /**
+     * Retrieves a set of `<meta>` tag elements in the current HTML document.
+     * @param attrSelector The tag attribute and value to match against, in the format
+     * `"tag_attribute='value string'"`.
+     * @returns The matching elements, if any.
+     */
     getTags(attrSelector: string): HTMLMetaElement[];
+    /**
+     * Modifies an existing `<meta>` tag element in the current HTML document.
+     * @param tag The tag description with which to replace the existing tag content.
+     * @param selector A tag attribute and value to match against, to identify
+     * an existing tag. A string in the format `"tag_attribute=`value string`"`.
+     * If not supplied, matches a tag with the same `name` or `property` attribute value as the
+     * replacement tag.
+     * @return The modified element.
+     */
     updateTag(tag: MetaDefinition, selector?: string): HTMLMetaElement | null;
+    /**
+     * Removes an existing `<meta>` tag element from the current HTML document.
+     * @param attrSelector A tag attribute and value to match against, to identify
+     * an existing tag. A string in the format `"tag_attribute=`value string`"`.
+     */
     removeTag(attrSelector: string): void;
+    /**
+     * Removes an existing `<meta>` tag element from the current HTML document.
+     * @param meta The tag definition to match against to identify an existing tag.
+     */
     removeTagElement(meta: HTMLMetaElement): void;
     private _getOrCreateElement;
     private _setMetaElementAttributes;
     private _parseSelector;
     private _containsAttributes;
+    private _getMetaKeyMap;
 }
 
 
 /**
- * Represents a meta element.
+ * Represents the attributes of an HTML `<meta>` element. The element itself is
+ * represented by the internal `HTMLMetaElement`.
+ *
+ * @see [HTML meta tag](https://developer.mozilla.org/docs/Web/HTML/Element/meta)
+ * @see `Meta`
  *
  * @publicApi
  */
@@ -410,6 +481,9 @@ export declare type MetaDefinition = {
 };
 
 /**
+ * A factory function that returns a `PlatformRef` instance associated with browser service
+ * providers.
+ *
  * @publicApi
  */
 export declare const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef;
@@ -512,7 +586,7 @@ export declare class Title {
  * `ServerTransferStateModule` on the server and `BrowserTransferStateModule` on the client.
  *
  * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
- * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
+ * boolean, number, string, null and non-class objects will be serialized and deserialized in a
  * non-lossy manner.
  *
  * @publicApi
@@ -558,7 +632,7 @@ export declare function ɵangular_packages_platform_browser_platform_browser_b()
 export declare const ɵangular_packages_platform_browser_platform_browser_c: StaticProvider[];
 
 /**
- * Factory to create Meta service.
+ * Factory to create a `Meta` service instance for the current DOM document.
  */
 export declare function ɵangular_packages_platform_browser_platform_browser_d(): Meta;
 
@@ -600,20 +674,26 @@ export declare function ɵangular_packages_platform_browser_platform_browser_m(c
 export declare const ɵangular_packages_platform_browser_platform_browser_n: Provider[];
 
 /**
+ * A factory for `HttpXhrBackend` that uses the `XMLHttpRequest` browser API.
+ */
+export declare class ɵangular_packages_platform_browser_platform_browser_o implements XhrFactory {
+    build(): XMLHttpRequest;
+}
+
+/**
  * Provides DOM operations in any browser environment.
  *
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare abstract class ɵangular_packages_platform_browser_platform_browser_o extends ɵDomAdapter {
-    constructor();
-    supportsDOMEvents(): boolean;
+export declare abstract class ɵangular_packages_platform_browser_platform_browser_p extends ɵDomAdapter {
+    readonly supportsDOMEvents: boolean;
 }
 
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
- * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
+ * application to XSS risks. For more detail, see the [Security Guide](https://g.co/ng/security).
  * @publicApi
  */
 export declare const ɵBROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
@@ -626,29 +706,20 @@ export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_o {
+export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_p {
     static makeCurrent(): void;
-    getProperty(el: Node, name: string): any;
-    log(error: string): void;
-    logGroup(error: string): void;
-    logGroupEnd(): void;
     onAndCancel(el: Node, evt: any, listener: any): Function;
     dispatchEvent(el: Node, evt: any): void;
-    remove(node: Node): Node;
-    getValue(el: any): string;
+    remove(node: Node): void;
     createElement(tagName: string, doc?: Document): HTMLElement;
     createHtmlDocument(): HTMLDocument;
     getDefaultDocument(): Document;
     isElementNode(node: Node): boolean;
     isShadowRoot(node: any): boolean;
     getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
-    getHistory(): History;
-    getLocation(): Location;
     getBaseHref(doc: Document): string | null;
     resetBaseElement(): void;
     getUserAgent(): string;
-    performanceNow(): number;
-    supportsCookies(): boolean;
     getCookie(name: string): string | null;
 }
 
@@ -659,9 +730,7 @@ export declare class ɵBrowserGetTestability implements GetTestability {
 }
 
 export declare class ɵDomEventsPlugin extends ɵangular_packages_platform_browser_platform_browser_g {
-    private ngZone;
-    constructor(doc: any, ngZone: NgZone, platformId: {} | null);
-    private patchEvent;
+    constructor(doc: any);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     removeEventListener(target: any, eventName: string, callback: Function): void;
@@ -735,6 +804,7 @@ export declare class ɵHammerGesturesPlugin extends ɵangular_packages_platform_
     private _config;
     private console;
     private loader?;
+    private _loaderPromise;
     constructor(doc: any, _config: HammerGestureConfig, console: ɵConsole, loader?: HammerLoader | null | undefined);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
@@ -756,9 +826,9 @@ export declare class ɵKeyEventsPlugin extends ɵangular_packages_platform_brows
      */
     constructor(doc: any);
     /**
-      * Reports whether a named key event is supported.
-      * @param eventName The event name to query.
-      * @return True if the named key event is supported.
+     * Reports whether a named key event is supported.
+     * @param eventName The event name to query.
+     * @return True if the named key event is supported.
      */
     supports(eventName: string): boolean;
     /**
@@ -768,10 +838,11 @@ export declare class ɵKeyEventsPlugin extends ɵangular_packages_platform_brows
      * @param handler A function to call when the notification occurs. Receives the
      * event object as an argument.
      * @returns The key event that was registered.
-    */
+     */
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     static parseEventName(eventName: string): {
-        [key: string]: string;
+        fullKey: string;
+        domEventName: string;
     } | null;
     static getEventFullKey(event: KeyboardEvent): string;
     /**
