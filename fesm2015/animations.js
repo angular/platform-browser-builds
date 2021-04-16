@@ -1,6 +1,6 @@
 /**
- * @license Angular v11.1.0-next.4+175.sha-02ff4ed
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.8+133.sha-d5b13ce
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -369,6 +369,9 @@ class InjectableAnimationEngine extends ɵAnimationEngine {
     constructor(doc, driver, normalizer) {
         super(doc.body, driver, normalizer);
     }
+    ngOnDestroy() {
+        this.flush();
+    }
 }
 InjectableAnimationEngine.decorators = [
     { type: Injectable }
@@ -430,6 +433,29 @@ const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
  * @publicApi
  */
 class BrowserAnimationsModule {
+    /**
+     * Configures the module based on the specified object.
+     *
+     * @param config Object used to configure the behavior of the `BrowserAnimationsModule`.
+     * @see `BrowserAnimationsModuleConfig`
+     *
+     * @usageNotes
+     * When registering the `BrowserAnimationsModule`, you can use the `withConfig`
+     * function as follows:
+     * ```
+     * @NgModule({
+     *   imports: [BrowserAnimationsModule.withConfig(config)]
+     * })
+     * class MyNgModule {}
+     * ```
+     */
+    static withConfig(config) {
+        return {
+            ngModule: BrowserAnimationsModule,
+            providers: config.disableAnimations ? BROWSER_NOOP_ANIMATIONS_PROVIDERS :
+                BROWSER_ANIMATIONS_PROVIDERS
+        };
+    }
 }
 BrowserAnimationsModule.decorators = [
     { type: NgModule, args: [{

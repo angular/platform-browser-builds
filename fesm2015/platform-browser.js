@@ -1,12 +1,12 @@
 /**
- * @license Angular v11.1.0-next.4+175.sha-02ff4ed
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.8+133.sha-d5b13ce
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, CommonModule } from '@angular/common';
+import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, XhrFactory, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
-import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
+import { InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ɵglobal, Injectable, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, ɵɵdefineInjectable, ɵɵinject, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, INJECTOR, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, Version } from '@angular/core';
 
 /**
  * @license
@@ -23,10 +23,8 @@ import { ɵglobal, InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injec
  */
 class GenericBrowserDomAdapter extends ɵDomAdapter {
     constructor() {
-        super();
-    }
-    supportsDOMEvents() {
-        return true;
+        super(...arguments);
+        this.supportsDOMEvents = true;
     }
 }
 
@@ -37,15 +35,6 @@ class GenericBrowserDomAdapter extends ɵDomAdapter {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const ɵ0 = () => {
-    if (ɵglobal['Node']) {
-        return ɵglobal['Node'].prototype.contains || function (node) {
-            return !!(this.compareDocumentPosition(node) & 16);
-        };
-    }
-    return undefined;
-};
-const nodeContains = (ɵ0)();
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
@@ -56,24 +45,6 @@ const nodeContains = (ɵ0)();
 class BrowserDomAdapter extends GenericBrowserDomAdapter {
     static makeCurrent() {
         ɵsetRootDomAdapter(new BrowserDomAdapter());
-    }
-    getProperty(el, name) {
-        return el[name];
-    }
-    log(error) {
-        if (window.console) {
-            window.console.log && window.console.log(error);
-        }
-    }
-    logGroup(error) {
-        if (window.console) {
-            window.console.group && window.console.group(error);
-        }
-    }
-    logGroupEnd() {
-        if (window.console) {
-            window.console.groupEnd && window.console.groupEnd();
-        }
     }
     onAndCancel(el, evt, listener) {
         el.addEventListener(evt, listener, false);
@@ -90,10 +61,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         if (node.parentNode) {
             node.parentNode.removeChild(node);
         }
-        return node;
-    }
-    getValue(el) {
-        return el.value;
     }
     createElement(tagName, doc) {
         doc = doc || this.getDefaultDocument();
@@ -123,12 +90,6 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         }
         return null;
     }
-    getHistory() {
-        return window.history;
-    }
-    getLocation() {
-        return window.location;
-    }
     getBaseHref(doc) {
         const href = getBaseElementHref();
         return href == null ? null : relativePath(href);
@@ -139,38 +100,22 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
     getUserAgent() {
         return window.navigator.userAgent;
     }
-    performanceNow() {
-        // performance.now() is not available in all browsers, see
-        // https://caniuse.com/high-resolution-time
-        return window.performance && window.performance.now ? window.performance.now() :
-            new Date().getTime();
-    }
-    supportsCookies() {
-        return true;
-    }
     getCookie(name) {
         return ɵparseCookieValue(document.cookie, name);
     }
 }
 let baseElement = null;
 function getBaseElementHref() {
-    if (!baseElement) {
-        baseElement = document.querySelector('base');
-        if (!baseElement) {
-            return null;
-        }
-    }
-    return baseElement.getAttribute('href');
+    baseElement = baseElement || document.querySelector('base');
+    return baseElement ? baseElement.getAttribute('href') : null;
 }
 // based on urlUtils.js in AngularJS 1
 let urlParsingNode;
 function relativePath(url) {
-    if (!urlParsingNode) {
-        urlParsingNode = document.createElement('a');
-    }
+    urlParsingNode = urlParsingNode || document.createElement('a');
     urlParsingNode.setAttribute('href', url);
-    return (urlParsingNode.pathname.charAt(0) === '/') ? urlParsingNode.pathname :
-        '/' + urlParsingNode.pathname;
+    const pathName = urlParsingNode.pathname;
+    return pathName.charAt(0) === '/' ? pathName : `/${pathName}`;
 }
 
 /**
@@ -272,6 +217,25 @@ class BrowserGetTestability {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * A factory for `HttpXhrBackend` that uses the `XMLHttpRequest` browser API.
+ */
+class BrowserXhr {
+    build() {
+        return new XMLHttpRequest();
+    }
+}
+BrowserXhr.decorators = [
+    { type: Injectable }
+];
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 const CAMEL_CASE_REGEXP = /([A-Z])/g;
 const DASH_CASE_REGEXP = /-([a-z])/g;
 function camelCaseToDashCase(input) {
@@ -305,11 +269,11 @@ function exportNgVar(name, value) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const ɵ0$1 = () => ({
+const ɵ0 = () => ({
     'ApplicationRef': ApplicationRef,
     'NgZone': NgZone,
 });
-const CORE_TOKENS = (ɵ0$1)();
+const CORE_TOKENS = (ɵ0)();
 const INSPECT_GLOBAL_NAME = 'probe';
 const CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
 /**
@@ -753,8 +717,8 @@ class DefaultDomRenderer2 {
         return this.eventManager.addEventListener(target, event, decoratePreventDefault(callback));
     }
 }
-const ɵ0$2 = () => '@'.charCodeAt(0);
-const AT_CHARCODE = (ɵ0$2)();
+const ɵ0$1 = () => '@'.charCodeAt(0);
+const AT_CHARCODE = (ɵ0$1)();
 function checkNoSyntheticProp(name, nameKind) {
     if (name.charCodeAt(0) === AT_CHARCODE) {
         throw new Error(`Found the synthetic ${nameKind} ${name}. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.`);
@@ -966,14 +930,17 @@ class HammerGesturesPlugin extends EventManagerPlugin {
         this._config = _config;
         this.console = console;
         this.loader = loader;
+        this._loaderPromise = null;
     }
     supports(eventName) {
         if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
             return false;
         }
         if (!window.Hammer && !this.loader) {
-            this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
-                `loaded and no custom loader has been specified.`);
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
+                    `loaded and no custom loader has been specified.`);
+            }
             return false;
         }
         return true;
@@ -984,6 +951,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
         // If Hammer is not present but a loader is specified, we defer adding the event listener
         // until Hammer is loaded.
         if (!window.Hammer && this.loader) {
+            this._loaderPromise = this._loaderPromise || this.loader();
             // This `addEventListener` method returns a function to remove the added listener.
             // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
             // than remove anything.
@@ -991,11 +959,13 @@ class HammerGesturesPlugin extends EventManagerPlugin {
             let deregister = () => {
                 cancelRegistration = true;
             };
-            this.loader()
+            this._loaderPromise
                 .then(() => {
                 // If Hammer isn't actually loaded when the custom loader resolves, give up.
                 if (!window.Hammer) {
-                    this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+                    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                        this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+                    }
                     deregister = () => { };
                     return;
                 }
@@ -1006,8 +976,10 @@ class HammerGesturesPlugin extends EventManagerPlugin {
                 }
             })
                 .catch(() => {
-                this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
-                    `Hammer.JS loader failed.`);
+                if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                    this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
+                        `Hammer.JS loader failed.`);
+                }
                 deregister = () => { };
             });
             // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
@@ -1135,12 +1107,12 @@ const _chromeNumKeyPadMap = {
     '\x60': '0',
     '\x90': 'NumLock'
 };
-const ɵ0$3 = (event) => event.altKey, ɵ1 = (event) => event.ctrlKey, ɵ2 = (event) => event.metaKey, ɵ3 = (event) => event.shiftKey;
+const ɵ0$2 = (event) => event.altKey, ɵ1 = (event) => event.ctrlKey, ɵ2 = (event) => event.metaKey, ɵ3 = (event) => event.shiftKey;
 /**
  * Retrieves modifiers from key-event objects.
  */
 const MODIFIER_KEY_GETTERS = {
-    'alt': ɵ0$3,
+    'alt': ɵ0$2,
     'control': ɵ1,
     'meta': ɵ2,
     'shift': ɵ3
@@ -1414,9 +1386,9 @@ function _document() {
     ɵsetDocument(document);
     return document;
 }
-const ɵ0$4 = ɵPLATFORM_BROWSER_ID;
+const ɵ0$3 = ɵPLATFORM_BROWSER_ID;
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: PLATFORM_ID, useValue: ɵ0$4 },
+    { provide: PLATFORM_ID, useValue: ɵ0$3 },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
@@ -1461,6 +1433,7 @@ const BROWSER_MODULE_PROVIDERS = [
     { provide: DomSharedStylesHost, useClass: DomSharedStylesHost, deps: [DOCUMENT] },
     { provide: Testability, useClass: Testability, deps: [NgZone] },
     { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, NgZone] },
+    { provide: XhrFactory, useClass: BrowserXhr, deps: [] },
     ELEMENT_PROBE_PROVIDERS,
 ];
 /**
@@ -1785,13 +1758,13 @@ class AngularProfiler {
         if (record && isProfilerAvailable) {
             win.console.profile(profileName);
         }
-        const start = ɵgetDOM().performanceNow();
+        const start = performanceNow();
         let numTicks = 0;
-        while (numTicks < 5 || (ɵgetDOM().performanceNow() - start) < 500) {
+        while (numTicks < 5 || (performanceNow() - start) < 500) {
             this.appRef.tick();
             numTicks++;
         }
-        const end = ɵgetDOM().performanceNow();
+        const end = performanceNow();
         if (record && isProfilerAvailable) {
             win.console.profileEnd(profileName);
         }
@@ -1800,6 +1773,10 @@ class AngularProfiler {
         win.console.log(`${msPerTick.toFixed(2)} ms per check`);
         return new ChangeDetectionPerfRecord(msPerTick, numTicks);
     }
+}
+function performanceNow() {
+    return win.performance && win.performance.now ? win.performance.now() :
+        new Date().getTime();
 }
 
 /**
@@ -1962,6 +1939,7 @@ function initTransferState(doc, appId) {
     let initialState = {};
     if (script && script.textContent) {
         try {
+            // Avoid using any here as it triggers lint errors in google3 (any is not allowed).
             initialState = JSON.parse(unescapeHtml(script.textContent));
         }
         catch (e) {
@@ -2062,7 +2040,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.1.0-next.4+175.sha-02ff4ed');
+const VERSION = new Version('12.0.0-next.8+133.sha-d5b13ce');
 
 /**
  * @license
@@ -2093,5 +2071,5 @@ const VERSION = new Version('11.1.0-next.4+175.sha-02ff4ed');
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserModule, BrowserTransferStateModule, By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, Meta, Title, TransferState, VERSION, disableDebugTools, enableDebugTools, makeStateKey, platformBrowser, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, DomSharedStylesHost as ɵDomSharedStylesHost, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, HAMMER_PROVIDERS__POST_R3__ as ɵHAMMER_PROVIDERS__POST_R3__, HammerGesturesPlugin as ɵHammerGesturesPlugin, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, KeyEventsPlugin as ɵKeyEventsPlugin, NAMESPACE_URIS as ɵNAMESPACE_URIS, SharedStylesHost as ɵSharedStylesHost, TRANSITION_ID as ɵTRANSITION_ID, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, _document as ɵangular_packages_platform_browser_platform_browser_b, BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, createMeta as ɵangular_packages_platform_browser_platform_browser_d, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, HAMMER_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_h, HAMMER_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, domSanitizerImplFactory as ɵangular_packages_platform_browser_platform_browser_j, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_k, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_l, _createNgProbeR2 as ɵangular_packages_platform_browser_platform_browser_m, ELEMENT_PROBE_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_n, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_o, escapeHtml as ɵescapeHtml, flattenStyles as ɵflattenStyles, initDomAdapter as ɵinitDomAdapter, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute };
+export { BrowserModule, BrowserTransferStateModule, By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, Meta, Title, TransferState, VERSION, disableDebugTools, enableDebugTools, makeStateKey, platformBrowser, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, DomSharedStylesHost as ɵDomSharedStylesHost, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, HAMMER_PROVIDERS__POST_R3__ as ɵHAMMER_PROVIDERS__POST_R3__, HammerGesturesPlugin as ɵHammerGesturesPlugin, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, KeyEventsPlugin as ɵKeyEventsPlugin, NAMESPACE_URIS as ɵNAMESPACE_URIS, SharedStylesHost as ɵSharedStylesHost, TRANSITION_ID as ɵTRANSITION_ID, errorHandler as ɵangular_packages_platform_browser_platform_browser_a, _document as ɵangular_packages_platform_browser_platform_browser_b, BROWSER_MODULE_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_c, createMeta as ɵangular_packages_platform_browser_platform_browser_d, createTitle as ɵangular_packages_platform_browser_platform_browser_e, initTransferState as ɵangular_packages_platform_browser_platform_browser_f, EventManagerPlugin as ɵangular_packages_platform_browser_platform_browser_g, HAMMER_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_h, HAMMER_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_i, domSanitizerImplFactory as ɵangular_packages_platform_browser_platform_browser_j, appInitializerFactory as ɵangular_packages_platform_browser_platform_browser_k, SERVER_TRANSITION_PROVIDERS as ɵangular_packages_platform_browser_platform_browser_l, _createNgProbeR2 as ɵangular_packages_platform_browser_platform_browser_m, ELEMENT_PROBE_PROVIDERS__PRE_R3__ as ɵangular_packages_platform_browser_platform_browser_n, BrowserXhr as ɵangular_packages_platform_browser_platform_browser_o, GenericBrowserDomAdapter as ɵangular_packages_platform_browser_platform_browser_p, escapeHtml as ɵescapeHtml, flattenStyles as ɵflattenStyles, initDomAdapter as ɵinitDomAdapter, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute };
 //# sourceMappingURL=platform-browser.js.map

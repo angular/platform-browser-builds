@@ -1,6 +1,6 @@
 /**
- * @license Angular v11.1.0-next.4+175.sha-02ff4ed
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.8+133.sha-d5b13ce
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -11,7 +11,9 @@ import { AnimationMetadata } from '@angular/animations';
 import { AnimationOptions } from '@angular/animations';
 import { AnimationPlayer } from '@angular/animations';
 import { InjectionToken } from '@angular/core';
+import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
@@ -35,6 +37,35 @@ export declare const ANIMATION_MODULE_TYPE: InjectionToken<"NoopAnimations" | "B
  * @publicApi
  */
 export declare class BrowserAnimationsModule {
+    /**
+     * Configures the module based on the specified object.
+     *
+     * @param config Object used to configure the behavior of the `BrowserAnimationsModule`.
+     * @see `BrowserAnimationsModuleConfig`
+     *
+     * @usageNotes
+     * When registering the `BrowserAnimationsModule`, you can use the `withConfig`
+     * function as follows:
+     * ```
+     * @NgModule({
+     *   imports: [BrowserAnimationsModule.withConfig(config)]
+     * })
+     * class MyNgModule {}
+     * ```
+     */
+    static withConfig(config: BrowserAnimationsModuleConfig): ModuleWithProviders<BrowserAnimationsModule>;
+}
+
+/**
+ * Object used to configure the behavior of {@link BrowserAnimationsModule}
+ * @publicApi
+ */
+export declare interface BrowserAnimationsModuleConfig {
+    /**
+     *  Whether animations should be disabled. Passing this is identical to providing the
+     * `NoopAnimationsModule`, but it can be controlled based on a runtime value.
+     */
+    disableAnimations?: boolean;
 }
 
 /**
@@ -132,8 +163,9 @@ export declare class ɵBrowserAnimationFactory extends AnimationFactory {
     create(element: any, options?: AnimationOptions): AnimationPlayer;
 }
 
-export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine {
+export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine implements OnDestroy {
     constructor(doc: any, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer);
+    ngOnDestroy(): void;
 }
 
 export { }

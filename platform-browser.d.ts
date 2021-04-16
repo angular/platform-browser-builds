@@ -1,6 +1,6 @@
 /**
- * @license Angular v11.1.0-next.4+175.sha-02ff4ed
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.8+133.sha-d5b13ce
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -28,6 +28,7 @@ import { Testability } from '@angular/core';
 import { TestabilityRegistry } from '@angular/core';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
+import { XhrFactory } from '@angular/common';
 import { ɵConsole } from '@angular/core';
 import { ɵDomAdapter } from '@angular/common';
 import { ɵgetDOM } from '@angular/common';
@@ -673,14 +674,20 @@ export declare function ɵangular_packages_platform_browser_platform_browser_m(c
 export declare const ɵangular_packages_platform_browser_platform_browser_n: Provider[];
 
 /**
+ * A factory for `HttpXhrBackend` that uses the `XMLHttpRequest` browser API.
+ */
+export declare class ɵangular_packages_platform_browser_platform_browser_o implements XhrFactory {
+    build(): XMLHttpRequest;
+}
+
+/**
  * Provides DOM operations in any browser environment.
  *
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare abstract class ɵangular_packages_platform_browser_platform_browser_o extends ɵDomAdapter {
-    constructor();
-    supportsDOMEvents(): boolean;
+export declare abstract class ɵangular_packages_platform_browser_platform_browser_p extends ɵDomAdapter {
+    readonly supportsDOMEvents: boolean;
 }
 
 /**
@@ -699,29 +706,20 @@ export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_o {
+export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_p {
     static makeCurrent(): void;
-    getProperty(el: Node, name: string): any;
-    log(error: string): void;
-    logGroup(error: string): void;
-    logGroupEnd(): void;
     onAndCancel(el: Node, evt: any, listener: any): Function;
     dispatchEvent(el: Node, evt: any): void;
-    remove(node: Node): Node;
-    getValue(el: any): string;
+    remove(node: Node): void;
     createElement(tagName: string, doc?: Document): HTMLElement;
     createHtmlDocument(): HTMLDocument;
     getDefaultDocument(): Document;
     isElementNode(node: Node): boolean;
     isShadowRoot(node: any): boolean;
     getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
-    getHistory(): History;
-    getLocation(): Location;
     getBaseHref(doc: Document): string | null;
     resetBaseElement(): void;
     getUserAgent(): string;
-    performanceNow(): number;
-    supportsCookies(): boolean;
     getCookie(name: string): string | null;
 }
 
@@ -806,6 +804,7 @@ export declare class ɵHammerGesturesPlugin extends ɵangular_packages_platform_
     private _config;
     private console;
     private loader?;
+    private _loaderPromise;
     constructor(doc: any, _config: HammerGestureConfig, console: ɵConsole, loader?: HammerLoader | null | undefined);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
