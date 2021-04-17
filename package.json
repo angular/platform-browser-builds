@@ -1,25 +1,26 @@
 {
   "name": "@angular/platform-browser",
-  "version": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
+  "version": "12.0.0-next.8+77.sha-917664e",
   "description": "Angular - library for using Angular in a web browser",
-  "main": "./bundles/platform-browser.umd.js",
-  "module": "./fesm5/platform-browser.js",
-  "es2015": "./fesm2015/platform-browser.js",
-  "esm5": "./esm5/platform-browser.js",
-  "esm2015": "./esm2015/platform-browser.js",
-  "fesm5": "./fesm5/platform-browser.js",
-  "fesm2015": "./fesm2015/platform-browser.js",
-  "typings": "./platform-browser.d.ts",
   "author": "angular",
   "license": "MIT",
+  "dependencies": {
+    "tslib": "^2.1.0"
+  },
   "peerDependencies": {
-    "@angular/core": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
-    "@angular/common": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
-    "tslib": "^1.10.0"
+    "@angular/animations": "12.0.0-next.8+77.sha-917664e",
+    "@angular/core": "12.0.0-next.8+77.sha-917664e",
+    "@angular/common": "12.0.0-next.8+77.sha-917664e"
+  },
+  "peerDependenciesMeta": {
+    "@angular/animations": {
+      "optional": true
+    }
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular/angular.git"
+    "url": "https://github.com/angular/angular.git",
+    "directory": "packages/platform-browser"
   },
   "ng-update": {
     "packageGroup": [
@@ -34,8 +35,6 @@
       "@angular/platform-browser-dynamic",
       "@angular/forms",
       "@angular/platform-server",
-      "@angular/platform-webworker",
-      "@angular/platform-webworker-dynamic",
       "@angular/upgrade",
       "@angular/router",
       "@angular/language-service",
@@ -46,5 +45,11 @@
   "sideEffects": false,
   "publishConfig": {
     "registry": "https://wombat-dressing-room.appspot.com"
-  }
+  },
+  "main": "./bundles/platform-browser.umd.js",
+  "fesm2015": "./fesm2015/platform-browser.js",
+  "esm2015": "./esm2015/platform-browser.js",
+  "typings": "./platform-browser.d.ts",
+  "module": "./fesm2015/platform-browser.js",
+  "es2015": "./fesm2015/platform-browser.js"
 }
