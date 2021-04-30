@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.8+295.sha-2dd96e0
+ * @license Angular v12.0.0-next.8+296.sha-6581a1b
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -385,6 +385,7 @@
         BrowserDomAdapter.prototype.isShadowRoot = function (node) {
             return node instanceof DocumentFragment;
         };
+        /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
         BrowserDomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target === 'window') {
                 return window;
@@ -693,6 +694,7 @@
          * @param handler A function to call when the notification occurs. Receives the
          * event object as an argument.
          * @returns A callback function that can be used to remove the handler.
+         * @deprecated No longer being used in Ivy code. To be removed in version 14.
          */
         EventManager.prototype.addGlobalEventListener = function (target, eventName, handler) {
             var plugin = this._findPluginFor(eventName);
@@ -2380,7 +2382,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.0.0-next.8+295.sha-2dd96e0');
+    var VERSION = new i0.Version('12.0.0-next.8+296.sha-6581a1b');
 
     /**
      * @license
