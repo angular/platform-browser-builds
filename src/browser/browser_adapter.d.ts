@@ -22,6 +22,7 @@ export declare class BrowserDomAdapter extends GenericBrowserDomAdapter {
     getDefaultDocument(): Document;
     isElementNode(node: Node): boolean;
     isShadowRoot(node: any): boolean;
+    /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
     getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
     getBaseHref(doc: Document): string | null;
     resetBaseElement(): void;

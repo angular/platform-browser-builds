@@ -38,6 +38,7 @@ export declare class EventManager {
      * @param handler A function to call when the notification occurs. Receives the
      * event object as an argument.
      * @returns A callback function that can be used to remove the handler.
+     * @deprecated No longer being used in Ivy code. To be removed in version 14.
      */
     addGlobalEventListener(target: string, eventName: string, handler: Function): Function;
     /**
