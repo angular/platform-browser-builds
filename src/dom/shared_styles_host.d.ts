@@ -10,7 +10,6 @@ export declare class SharedStylesHost {
 export declare class DomSharedStylesHost extends SharedStylesHost implements OnDestroy {
     private _doc;
     private _hostNodes;
-    private _styleNodes;
     constructor(_doc: any);
     private _addStylesToHost;
     addHost(hostNode: Node): void;
