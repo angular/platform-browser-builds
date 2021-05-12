@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.2.13+24.sha-b075481
+ * @license Angular v11.2.13+29.sha-5f7a401
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -794,32 +794,39 @@
         function DomSharedStylesHost(_doc) {
             var _this = _super.call(this) || this;
             _this._doc = _doc;
-            _this._hostNodes = new Set();
-            _this._styleNodes = new Set();
-            _this._hostNodes.add(_doc.head);
+            // Maps all registered host nodes to a list of style nodes that have been added to the host node.
+            _this._hostNodes = new Map();
+            _this._hostNodes.set(_doc.head, []);
             return _this;
         }
-        DomSharedStylesHost.prototype._addStylesToHost = function (styles, host) {
+        DomSharedStylesHost.prototype._addStylesToHost = function (styles, host, styleNodes) {
             var _this = this;
             styles.forEach(function (style) {
                 var styleEl = _this._doc.createElement('style');
                 styleEl.textContent = style;
-                _this._styleNodes.add(host.appendChild(styleEl));
+                styleNodes.push(host.appendChild(styleEl));
             });
         };
         DomSharedStylesHost.prototype.addHost = function (hostNode) {
-            this._addStylesToHost(this._stylesSet, hostNode);
-            this._hostNodes.add(hostNode);
+            var styleNodes = [];
+            this._addStylesToHost(this._stylesSet, hostNode, styleNodes);
+            this._hostNodes.set(hostNode, styleNodes);
         };
         DomSharedStylesHost.prototype.removeHost = function (hostNode) {
+            var styleNodes = this._hostNodes.get(hostNode);
+            if (styleNodes) {
+                styleNodes.forEach(removeStyle);
+            }
             this._hostNodes.delete(hostNode);
         };
         DomSharedStylesHost.prototype.onStylesAdded = function (additions) {
             var _this = this;
-            this._hostNodes.forEach(function (hostNode) { return _this._addStylesToHost(additions, hostNode); });
+            this._hostNodes.forEach(function (styleNodes, hostNode) {
+                _this._addStylesToHost(additions, hostNode, styleNodes);
+            });
         };
         DomSharedStylesHost.prototype.ngOnDestroy = function () {
-            this._styleNodes.forEach(function (styleNode) { return common.ɵgetDOM().remove(styleNode); });
+            this._hostNodes.forEach(function (styleNodes) { return styleNodes.forEach(removeStyle); });
         };
         return DomSharedStylesHost;
     }(SharedStylesHost));
@@ -829,6 +836,9 @@
     DomSharedStylesHost.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
     ]; };
+    function removeStyle(styleNode) {
+        common.ɵgetDOM().remove(styleNode);
+    }
 
     var NAMESPACE_URIS = {
         'svg': 'http://www.w3.org/2000/svg',
@@ -2396,7 +2406,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('11.2.13+24.sha-b075481');
+    var VERSION = new i0.Version('11.2.13+29.sha-5f7a401');
 
     /**
      * @license

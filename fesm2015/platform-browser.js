@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.2.13+24.sha-b075481
+ * @license Angular v11.2.13+29.sha-5f7a401
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -483,29 +483,36 @@ class DomSharedStylesHost extends SharedStylesHost {
     constructor(_doc) {
         super();
         this._doc = _doc;
-        this._hostNodes = new Set();
-        this._styleNodes = new Set();
-        this._hostNodes.add(_doc.head);
+        // Maps all registered host nodes to a list of style nodes that have been added to the host node.
+        this._hostNodes = new Map();
+        this._hostNodes.set(_doc.head, []);
     }
-    _addStylesToHost(styles, host) {
+    _addStylesToHost(styles, host, styleNodes) {
         styles.forEach((style) => {
             const styleEl = this._doc.createElement('style');
             styleEl.textContent = style;
-            this._styleNodes.add(host.appendChild(styleEl));
+            styleNodes.push(host.appendChild(styleEl));
         });
     }
     addHost(hostNode) {
-        this._addStylesToHost(this._stylesSet, hostNode);
-        this._hostNodes.add(hostNode);
+        const styleNodes = [];
+        this._addStylesToHost(this._stylesSet, hostNode, styleNodes);
+        this._hostNodes.set(hostNode, styleNodes);
     }
     removeHost(hostNode) {
+        const styleNodes = this._hostNodes.get(hostNode);
+        if (styleNodes) {
+            styleNodes.forEach(removeStyle);
+        }
         this._hostNodes.delete(hostNode);
     }
     onStylesAdded(additions) {
-        this._hostNodes.forEach(hostNode => this._addStylesToHost(additions, hostNode));
+        this._hostNodes.forEach((styleNodes, hostNode) => {
+            this._addStylesToHost(additions, hostNode, styleNodes);
+        });
     }
     ngOnDestroy() {
-        this._styleNodes.forEach(styleNode => ɵgetDOM().remove(styleNode));
+        this._hostNodes.forEach(styleNodes => styleNodes.forEach(removeStyle));
     }
 }
 DomSharedStylesHost.decorators = [
@@ -514,6 +521,9 @@ DomSharedStylesHost.decorators = [
 DomSharedStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
+function removeStyle(styleNode) {
+    ɵgetDOM().remove(styleNode);
+}
 
 /**
  * @license
@@ -2071,7 +2081,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.2.13+24.sha-b075481');
+const VERSION = new Version('11.2.13+29.sha-5f7a401');
 
 /**
  * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.2.13+24.sha-b075481
+ * @license Angular v11.2.13+29.sha-5f7a401
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -764,7 +764,6 @@ export declare class ɵDomSanitizerImpl extends DomSanitizer {
 export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements OnDestroy {
     private _doc;
     private _hostNodes;
-    private _styleNodes;
     constructor(_doc: any);
     private _addStylesToHost;
     addHost(hostNode: Node): void;
