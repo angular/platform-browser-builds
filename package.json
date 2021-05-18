@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "12.0.0+34.sha-a20ef16",
+  "version": "12.0.0+37.sha-aa9a86c",
   "description": "Angular - library for using Angular in a web browser",
   "author": "angular",
   "license": "MIT",
@@ -11,9 +11,9 @@
     "tslib": "^2.1.0"
   },
   "peerDependencies": {
-    "@angular/animations": "12.0.0+34.sha-a20ef16",
-    "@angular/core": "12.0.0+34.sha-a20ef16",
-    "@angular/common": "12.0.0+34.sha-a20ef16"
+    "@angular/animations": "12.0.0+37.sha-aa9a86c",
+    "@angular/core": "12.0.0+37.sha-aa9a86c",
+    "@angular/common": "12.0.0+37.sha-aa9a86c"
   },
   "peerDependenciesMeta": {
     "@angular/animations": {
@@ -46,9 +46,6 @@
     ]
   },
   "sideEffects": false,
-  "publishConfig": {
-    "registry": "https://wombat-dressing-room.appspot.com"
-  },
   "main": "./bundles/platform-browser.umd.js",
   "fesm2015": "./fesm2015/platform-browser.js",
   "esm2015": "./esm2015/platform-browser.js",
