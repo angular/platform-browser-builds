@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.1.0-next.2+68.sha-d7768c6
+ * @license Angular v12.1.0-next.2+69.sha-3a6af8e
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -418,6 +418,7 @@
         };
         RendererAnimationPlayer.prototype.reset = function () {
             this._command('reset');
+            this._started = false;
         };
         RendererAnimationPlayer.prototype.setPosition = function (p) {
             this._command('setPosition', p);
