@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.2.0-next.0+21.sha-f3965ff
+ * @license Angular v12.2.0-next.0+22.sha-234b5ed
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -2045,14 +2045,15 @@
             }
         };
         Meta.prototype._getOrCreateElement = function (meta, forceCreation) {
+            var _this = this;
             if (forceCreation === void 0) { forceCreation = false; }
             if (!forceCreation) {
                 var selector = this._parseSelector(meta);
-                var elem = this.getTag(selector);
                 // It's allowed to have multiple elements with the same name so it's not enough to
                 // just check that element with the same name already present on the page. We also need to
                 // check if element has tag attributes
-                if (elem && this._containsAttributes(meta, elem))
+                var elem = this.getTags(selector).filter(function (elem) { return _this._containsAttributes(meta, elem); })[0];
+                if (elem !== undefined)
                     return elem;
             }
             var element = this._dom.createElement('meta');
@@ -2529,7 +2530,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.2.0-next.0+21.sha-f3965ff');
+    var VERSION = new i0.Version('12.2.0-next.0+22.sha-234b5ed');
 
     /**
      * @license
