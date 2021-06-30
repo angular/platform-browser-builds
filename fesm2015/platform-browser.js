@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.1.0+17.sha-c380d56
+ * @license Angular v12.1.0+18.sha-d19ddd1
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1629,11 +1629,11 @@ class Meta {
     _getOrCreateElement(meta, forceCreation = false) {
         if (!forceCreation) {
             const selector = this._parseSelector(meta);
-            const elem = this.getTag(selector);
             // It's allowed to have multiple elements with the same name so it's not enough to
             // just check that element with the same name already present on the page. We also need to
             // check if element has tag attributes
-            if (elem && this._containsAttributes(meta, elem))
+            const elem = this.getTags(selector).filter(elem => this._containsAttributes(meta, elem))[0];
+            if (elem !== undefined)
                 return elem;
         }
         const element = this._dom.createElement('meta');
@@ -2057,7 +2057,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.1.0+17.sha-c380d56');
+const VERSION = new Version('12.1.0+18.sha-d19ddd1');
 
 /**
  * @license
