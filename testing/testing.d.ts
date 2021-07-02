@@ -1,4 +1,30 @@
 /**
- * Generated bundle index. Do not edit.
+ * @license Angular v12.2.0-next.1+15.sha-4c78984
+ * (c) 2010-2021 Google LLC. https://angular.io/
+ * License: MIT
  */
-export * from './index';
+
+import * as i0 from '@angular/core';
+import * as i1 from '@angular/platform-browser';
+import { PlatformRef } from '@angular/core';
+import { StaticProvider } from '@angular/core';
+
+/**
+ * NgModule for testing.
+ *
+ * @publicApi
+ */
+export declare class BrowserTestingModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserTestingModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserTestingModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserTestingModule>;
+}
+
+/**
+ * Platform for testing
+ *
+ * @publicApi
+ */
+export declare const platformBrowserTesting: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;
+
+export { }
