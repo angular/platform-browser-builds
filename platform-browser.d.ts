@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.2.0-next.1+50.sha-3791ae0
+ * @license Angular v12.2.0-next.1+53.sha-9d58ebf
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -766,6 +766,7 @@ export declare const ɵELEMENT_PROBE_PROVIDERS__POST_R3__: never[];
 export declare function ɵescapeHtml(text: string): string;
 
 export declare function ɵflattenStyles(compId: string, styles: Array<any | any[]>, target: string[]): string[];
+
 export { ɵgetDOM }
 
 /**
