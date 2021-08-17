@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.2.1+26.sha-bb65559.with-local-changes
+ * @license Angular v12.2.1+29.sha-545972e.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -137,9 +137,10 @@ function appInitializerFactory(transitionId, document, injector) {
         // the server.
         injector.get(ApplicationInitStatus).donePromise.then(() => {
             const dom = ɵgetDOM();
-            const styles = Array.prototype.slice.apply(document.querySelectorAll(`style[ng-transition]`));
-            styles.filter(el => el.getAttribute('ng-transition') === transitionId)
-                .forEach(el => dom.remove(el));
+            const styles = document.querySelectorAll(`style[ng-transition="${transitionId}"]`);
+            for (let i = 0; i < styles.length; i++) {
+                dom.remove(styles[i]);
+            }
         });
     };
 }
@@ -2057,7 +2058,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.2.1+26.sha-bb65559.with-local-changes');
+const VERSION = new Version('12.2.1+29.sha-545972e.with-local-changes');
 
 /**
  * @license
