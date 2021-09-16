@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.2.6+15.sha-def6315.with-local-changes
+ * @license Angular v12.2.6+21.sha-b43f21b.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1070,7 +1070,7 @@
     var AT_CHARCODE = (ɵ0$1)();
     function checkNoSyntheticProp(name, nameKind) {
         if (name.charCodeAt(0) === AT_CHARCODE) {
-            throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
+            throw new Error("Unexpected synthetic " + nameKind + " " + name + " found. Please make sure that:\n  - Either `BrowserAnimationsModule` or `NoopAnimationsModule` are imported in your application.\n  - There is corresponding configuration for the animation named `" + name + "` defined in the `animations` field of the `@Component` decorator (see https://angular.io/api/core/Component#animations).");
         }
     }
     var EmulatedEncapsulationDomRenderer2 = /** @class */ (function (_super) {
@@ -2405,7 +2405,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.2.6+15.sha-def6315.with-local-changes');
+    var VERSION = new i0.Version('12.2.6+21.sha-b43f21b.with-local-changes');
 
     /**
      * @license
