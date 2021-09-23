@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.0.0-next.7+10.sha-cc427d1.with-local-changes
+ * @license Angular v13.0.0-next.7+11.sha-ea61ec2.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -752,7 +752,7 @@
     var BROWSER_ANIMATIONS_PROVIDERS = __spreadArray([
         { provide: i1.AnimationDriver, useFactory: instantiateSupportedAnimationDriver },
         { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' }
-    ], __read(SHARED_ANIMATION_PROVIDERS));
+    ], __read(SHARED_ANIMATION_PROVIDERS), false);
     /**
      * Separate providers from the actual module so that we can do a local modification in Google3 to
      * include them in the BrowserTestingModule.
@@ -760,7 +760,7 @@
     var BROWSER_NOOP_ANIMATIONS_PROVIDERS = __spreadArray([
         { provide: i1.AnimationDriver, useClass: i1.ɵNoopAnimationDriver },
         { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' }
-    ], __read(SHARED_ANIMATION_PROVIDERS));
+    ], __read(SHARED_ANIMATION_PROVIDERS), false);
 
     /**
      * @license
