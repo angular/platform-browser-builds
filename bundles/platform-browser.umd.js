@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.0.0-next.7+10.sha-cc427d1.with-local-changes
+ * @license Angular v13.0.0-next.7+11.sha-ea61ec2.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -337,7 +337,7 @@
     var GenericBrowserDomAdapter = /** @class */ (function (_super) {
         __extends(GenericBrowserDomAdapter, _super);
         function GenericBrowserDomAdapter() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this.supportsDOMEvents = true;
             return _this;
         }
@@ -944,6 +944,7 @@
         function DefaultDomRenderer2(eventManager) {
             this.eventManager = eventManager;
             this.data = Object.create(null);
+            this.destroyNode = null;
         }
         DefaultDomRenderer2.prototype.destroy = function () { };
         DefaultDomRenderer2.prototype.createElement = function (name, namespace) {
@@ -2405,7 +2406,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('13.0.0-next.7+10.sha-cc427d1.with-local-changes');
+    var VERSION = new i0.Version('13.0.0-next.7+11.sha-ea61ec2.with-local-changes');
 
     /**
      * @license
