@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.0.0-next.9+10.sha-9eba260.with-local-changes
+ * @license Angular v13.0.0-next.9+84.sha-c15b8c7.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10,90 +10,25 @@ import { AnimationFactory } from '@angular/animations';
 import { AnimationMetadata } from '@angular/animations';
 import { AnimationOptions } from '@angular/animations';
 import { AnimationPlayer } from '@angular/animations';
+import * as i0 from '@angular/core';
+import * as i1 from '@angular/platform-browser';
 import { InjectionToken } from '@angular/core';
 import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererStyleFlags2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵAnimationStyleNormalizer } from '@angular/animations/browser';
-import { ɵCssKeyframesDriver } from '@angular/animations/browser';
-import { ɵDomRendererFactory2 } from '@angular/platform-browser';
-import { ɵWebAnimationsDriver } from '@angular/animations/browser';
-import { ɵWebAnimationsStyleNormalizer } from '@angular/animations/browser';
 
 /**
  * @publicApi
  */
 export declare const ANIMATION_MODULE_TYPE: InjectionToken<"NoopAnimations" | "BrowserAnimations">;
 
-/**
- * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
- * for use with animations. See [Animations](guide/animations).
- * @publicApi
- */
-export declare class BrowserAnimationsModule {
-    /**
-     * Configures the module based on the specified object.
-     *
-     * @param config Object used to configure the behavior of the `BrowserAnimationsModule`.
-     * @see `BrowserAnimationsModuleConfig`
-     *
-     * @usageNotes
-     * When registering the `BrowserAnimationsModule`, you can use the `withConfig`
-     * function as follows:
-     * ```
-     * @NgModule({
-     *   imports: [BrowserAnimationsModule.withConfig(config)]
-     * })
-     * class MyNgModule {}
-     * ```
-     */
-    static withConfig(config: BrowserAnimationsModuleConfig): ModuleWithProviders<BrowserAnimationsModule>;
-}
-
-/**
- * Object used to configure the behavior of {@link BrowserAnimationsModule}
- * @publicApi
- */
-export declare interface BrowserAnimationsModuleConfig {
-    /**
-     *  Whether animations should be disabled. Passing this is identical to providing the
-     * `NoopAnimationsModule`, but it can be controlled based on a runtime value.
-     */
-    disableAnimations?: boolean;
-}
-
-/**
- * A null player that must be imported to allow disabling of animations.
- * @publicApi
- */
-export declare class NoopAnimationsModule {
-}
-
-export declare function ɵangular_packages_platform_browser_animations_animations_a(): ɵWebAnimationsDriver | ɵCssKeyframesDriver;
-
-export declare function ɵangular_packages_platform_browser_animations_animations_b(): ɵWebAnimationsStyleNormalizer;
-
-export declare function ɵangular_packages_platform_browser_animations_animations_c(renderer: ɵDomRendererFactory2, engine: ɵAnimationEngine, zone: NgZone): ɵAnimationRendererFactory;
-
-/**
- * Separate providers from the actual module so that we can do a local modification in Google3 to
- * include them in the BrowserModule.
- */
-export declare const ɵangular_packages_platform_browser_animations_animations_d: Provider[];
-
-/**
- * Separate providers from the actual module so that we can do a local modification in Google3 to
- * include them in the BrowserTestingModule.
- */
-export declare const ɵangular_packages_platform_browser_animations_animations_e: Provider[];
-
-export declare class ɵangular_packages_platform_browser_animations_animations_f implements Renderer2 {
+declare class BaseAnimationRenderer implements Renderer2 {
     protected namespaceId: string;
     delegate: Renderer2;
     engine: ɵAnimationEngine;
@@ -124,7 +59,57 @@ export declare class ɵangular_packages_platform_browser_animations_animations_f
     protected disableAnimations(element: any, value: boolean): void;
 }
 
-export declare class ɵAnimationRenderer extends ɵangular_packages_platform_browser_animations_animations_f implements Renderer2 {
+/**
+ * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
+ * for use with animations. See [Animations](guide/animations).
+ * @publicApi
+ */
+export declare class BrowserAnimationsModule {
+    /**
+     * Configures the module based on the specified object.
+     *
+     * @param config Object used to configure the behavior of the `BrowserAnimationsModule`.
+     * @see `BrowserAnimationsModuleConfig`
+     *
+     * @usageNotes
+     * When registering the `BrowserAnimationsModule`, you can use the `withConfig`
+     * function as follows:
+     * ```
+     * @NgModule({
+     *   imports: [BrowserAnimationsModule.withConfig(config)]
+     * })
+     * class MyNgModule {}
+     * ```
+     */
+    static withConfig(config: BrowserAnimationsModuleConfig): ModuleWithProviders<BrowserAnimationsModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserAnimationsModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserAnimationsModule>;
+}
+
+/**
+ * Object used to configure the behavior of {@link BrowserAnimationsModule}
+ * @publicApi
+ */
+export declare interface BrowserAnimationsModuleConfig {
+    /**
+     *  Whether animations should be disabled. Passing this is identical to providing the
+     * `NoopAnimationsModule`, but it can be controlled based on a runtime value.
+     */
+    disableAnimations?: boolean;
+}
+
+/**
+ * A null player that must be imported to allow disabling of animations.
+ * @publicApi
+ */
+export declare class NoopAnimationsModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<NoopAnimationsModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<NoopAnimationsModule>;
+}
+
+export declare class ɵAnimationRenderer extends BaseAnimationRenderer implements Renderer2 {
     factory: ɵAnimationRendererFactory;
     constructor(factory: ɵAnimationRendererFactory, namespaceId: string, delegate: Renderer2, engine: ɵAnimationEngine);
     setProperty(el: any, name: string, value: any): void;
@@ -147,6 +132,8 @@ export declare class ɵAnimationRendererFactory implements RendererFactory2 {
     private _scheduleCountTask;
     end(): void;
     whenRenderingDone(): Promise<any>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵAnimationRendererFactory, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵAnimationRendererFactory>;
 }
 
 export declare class ɵBrowserAnimationBuilder extends AnimationBuilder {
@@ -154,6 +141,8 @@ export declare class ɵBrowserAnimationBuilder extends AnimationBuilder {
     private _renderer;
     constructor(rootRenderer: RendererFactory2, doc: any);
     build(animation: AnimationMetadata | AnimationMetadata[]): AnimationFactory;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵBrowserAnimationBuilder, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵBrowserAnimationBuilder>;
 }
 
 export declare class ɵBrowserAnimationFactory extends AnimationFactory {
@@ -166,6 +155,8 @@ export declare class ɵBrowserAnimationFactory extends AnimationFactory {
 export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine implements OnDestroy {
     constructor(doc: any, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer);
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵInjectableAnimationEngine, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵInjectableAnimationEngine>;
 }
 
 export { }

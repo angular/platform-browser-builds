@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.0.0-next.9+10.sha-9eba260.with-local-changes
+ * @license Angular v13.0.0-next.9+84.sha-c15b8c7.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,12 +7,11 @@
 import { ComponentRef } from '@angular/core';
 import { DebugElement } from '@angular/core';
 import { DebugNode } from '@angular/core';
-import { ErrorHandler } from '@angular/core';
 import { GetTestability } from '@angular/core';
+import * as i0 from '@angular/core';
+import * as i1 from '@angular/common';
 import { InjectionToken } from '@angular/core';
-import { Injector } from '@angular/core';
 import { ModuleWithProviders } from '@angular/core';
-import { NgProbeToken } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { PlatformRef } from '@angular/core';
@@ -28,7 +27,6 @@ import { Testability } from '@angular/core';
 import { TestabilityRegistry } from '@angular/core';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
-import { XhrFactory } from '@angular/common';
 import { ɵConsole } from '@angular/core';
 import { ɵDomAdapter } from '@angular/common';
 import { ɵgetDOM } from '@angular/common';
@@ -55,6 +53,9 @@ export declare class BrowserModule {
     static withServerTransition(params: {
         appId: string;
     }): ModuleWithProviders<BrowserModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserModule, [{ optional: true; skipSelf: true; }]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserModule, never, never, [typeof i1.CommonModule, typeof i0.ApplicationModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserModule>;
 }
 
 /**
@@ -64,6 +65,9 @@ export declare class BrowserModule {
  * @publicApi
  */
 export declare class BrowserTransferStateModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserTransferStateModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserTransferStateModule, never, never, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserTransferStateModule>;
 }
 
 /**
@@ -188,6 +192,8 @@ export declare abstract class DomSanitizer implements Sanitizer {
      * security risks!
      */
     abstract bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
+    static ɵfac: i0.ɵɵFactoryDeclaration<DomSanitizer, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<DomSanitizer>;
 }
 
 /**
@@ -210,7 +216,7 @@ export declare function enableDebugTools<T>(ref: ComponentRef<T>): ComponentRef<
  *
  * @publicApi
  */
-export declare const EVENT_MANAGER_PLUGINS: InjectionToken<ɵangular_packages_platform_browser_platform_browser_g[]>;
+export declare const EVENT_MANAGER_PLUGINS: InjectionToken<EventManagerPlugin[]>;
 
 /**
  * An injectable service that provides event management for Angular
@@ -225,7 +231,7 @@ export declare class EventManager {
     /**
      * Initializes an instance of the event-manager service.
      */
-    constructor(plugins: ɵangular_packages_platform_browser_platform_browser_g[], _zone: NgZone);
+    constructor(plugins: EventManagerPlugin[], _zone: NgZone);
     /**
      * Registers a handler for a specific element and event.
      *
@@ -251,6 +257,27 @@ export declare class EventManager {
      * Retrieves the compilation zone in which event listeners are registered.
      */
     getZone(): NgZone;
+    static ɵfac: i0.ɵɵFactoryDeclaration<EventManager, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<EventManager>;
+}
+
+declare abstract class EventManagerPlugin {
+    private _doc;
+    constructor(_doc: any);
+    manager: EventManager;
+    abstract supports(eventName: string): boolean;
+    abstract addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
+    addGlobalEventListener(element: string, eventName: string, handler: Function): Function;
+}
+
+/**
+ * Provides DOM operations in any browser environment.
+ *
+ * @security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
+ */
+declare abstract class GenericBrowserDomAdapter extends ɵDomAdapter {
+    readonly supportsDOMEvents: boolean;
 }
 
 /**
@@ -324,6 +351,8 @@ export declare class HammerGestureConfig {
      * @returns A HammerJS event-manager object.
      */
     buildHammer(element: HTMLElement): HammerInstance;
+    static ɵfac: i0.ɵɵFactoryDeclaration<HammerGestureConfig, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<HammerGestureConfig>;
 }
 
 declare interface HammerInstance {
@@ -351,6 +380,9 @@ export declare type HammerLoader = () => Promise<void>;
  * @publicApi
  */
 export declare class HammerModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<HammerModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<HammerModule, never, never, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<HammerModule>;
 }
 
 /**
@@ -455,8 +487,9 @@ export declare class Meta {
     private _parseSelector;
     private _containsAttributes;
     private _getMetaKeyMap;
+    static ɵfac: i0.ɵɵFactoryDeclaration<Meta, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<Meta>;
 }
-
 
 /**
  * Represents the attributes of an HTML `<meta>` element. The element itself is
@@ -577,6 +610,8 @@ export declare class Title {
      * @param newTitle
      */
     setTitle(newTitle: string): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<Title, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<Title>;
 }
 
 /**
@@ -619,77 +654,14 @@ export declare class TransferState {
      * Serialize the current state of the store to JSON.
      */
     toJson(): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TransferState, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<TransferState>;
 }
 
 /**
  * @publicApi
  */
 export declare const VERSION: Version;
-
-export declare function ɵangular_packages_platform_browser_platform_browser_a(): ErrorHandler;
-
-export declare function ɵangular_packages_platform_browser_platform_browser_b(): any;
-
-export declare const ɵangular_packages_platform_browser_platform_browser_c: StaticProvider[];
-
-/**
- * Factory to create a `Meta` service instance for the current DOM document.
- */
-export declare function ɵangular_packages_platform_browser_platform_browser_d(): Meta;
-
-
-/**
- * Factory to create Title service.
- */
-export declare function ɵangular_packages_platform_browser_platform_browser_e(): Title;
-
-export declare function ɵangular_packages_platform_browser_platform_browser_f(doc: Document, appId: string): TransferState;
-
-export declare abstract class ɵangular_packages_platform_browser_platform_browser_g {
-    private _doc;
-    constructor(_doc: any);
-    manager: EventManager;
-    abstract supports(eventName: string): boolean;
-    abstract addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
-    addGlobalEventListener(element: string, eventName: string, handler: Function): Function;
-}
-
-/**
- * In View Engine, support for Hammer gestures is built-in by default.
- */
-export declare const ɵangular_packages_platform_browser_platform_browser_h: Provider[];
-
-export declare const ɵangular_packages_platform_browser_platform_browser_i: Provider[];
-
-export declare function ɵangular_packages_platform_browser_platform_browser_j(injector: Injector): ɵDomSanitizerImpl;
-
-export declare function ɵangular_packages_platform_browser_platform_browser_k(transitionId: string, document: any, injector: Injector): () => void;
-
-export declare const ɵangular_packages_platform_browser_platform_browser_l: StaticProvider[];
-
-export declare function ɵangular_packages_platform_browser_platform_browser_m(coreTokens: NgProbeToken[]): any;
-
-/**
- * Providers which support debugging Angular applications (e.g. via `ng.probe`).
- */
-export declare const ɵangular_packages_platform_browser_platform_browser_n: Provider[];
-
-/**
- * A factory for `HttpXhrBackend` that uses the `XMLHttpRequest` browser API.
- */
-export declare class ɵangular_packages_platform_browser_platform_browser_o implements XhrFactory {
-    build(): XMLHttpRequest;
-}
-
-/**
- * Provides DOM operations in any browser environment.
- *
- * @security Tread carefully! Interacting with the DOM directly is dangerous and
- * can introduce XSS risks.
- */
-export declare abstract class ɵangular_packages_platform_browser_platform_browser_p extends ɵDomAdapter {
-    readonly supportsDOMEvents: boolean;
-}
 
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
@@ -707,7 +679,7 @@ export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export declare class ɵBrowserDomAdapter extends ɵangular_packages_platform_browser_platform_browser_p {
+export declare class ɵBrowserDomAdapter extends GenericBrowserDomAdapter {
     static makeCurrent(): void;
     onAndCancel(el: Node, evt: any, listener: any): Function;
     dispatchEvent(el: Node, evt: any): void;
@@ -731,11 +703,13 @@ export declare class ɵBrowserGetTestability implements GetTestability {
     findTestabilityInTree(registry: TestabilityRegistry, elem: any, findInAncestors: boolean): Testability | null;
 }
 
-export declare class ɵDomEventsPlugin extends ɵangular_packages_platform_browser_platform_browser_g {
+export declare class ɵDomEventsPlugin extends EventManagerPlugin {
     constructor(doc: any);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     removeEventListener(target: any, eventName: string, callback: Function): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomEventsPlugin, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomEventsPlugin>;
 }
 
 export declare class ɵDomRendererFactory2 implements RendererFactory2 {
@@ -748,6 +722,8 @@ export declare class ɵDomRendererFactory2 implements RendererFactory2 {
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     begin(): void;
     end(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomRendererFactory2, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomRendererFactory2>;
 }
 
 export declare class ɵDomSanitizerImpl extends DomSanitizer {
@@ -759,6 +735,8 @@ export declare class ɵDomSanitizerImpl extends DomSanitizer {
     bypassSecurityTrustScript(value: string): SafeScript;
     bypassSecurityTrustUrl(value: string): SafeUrl;
     bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomSanitizerImpl, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomSanitizerImpl>;
 }
 
 export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements OnDestroy {
@@ -770,6 +748,8 @@ export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements
     removeHost(hostNode: Node): void;
     onStylesAdded(additions: Set<string>): void;
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomSharedStylesHost, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomSharedStylesHost>;
 }
 
 export declare const ɵELEMENT_PROBE_PROVIDERS: Provider[];
@@ -782,7 +762,6 @@ export declare const ɵELEMENT_PROBE_PROVIDERS: Provider[];
  * tree-shaking properly.
  */
 export declare const ɵELEMENT_PROBE_PROVIDERS__POST_R3__: never[];
-
 
 export declare function ɵescapeHtml(text: string): string;
 
@@ -802,7 +781,7 @@ export declare const ɵHAMMER_PROVIDERS__POST_R3__: never[];
  *
  * @ngModule HammerModule
  */
-export declare class ɵHammerGesturesPlugin extends ɵangular_packages_platform_browser_platform_browser_g {
+export declare class ɵHammerGesturesPlugin extends EventManagerPlugin {
     private _config;
     private console;
     private loader?;
@@ -811,6 +790,8 @@ export declare class ɵHammerGesturesPlugin extends ɵangular_packages_platform_
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵHammerGesturesPlugin, [null, null, null, { optional: true; }]>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵHammerGesturesPlugin>;
 }
 
 export declare function ɵinitDomAdapter(): void;
@@ -821,7 +802,7 @@ export declare const ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
  * @publicApi
  * A browser plug-in that provides support for handling of key events in Angular.
  */
-export declare class ɵKeyEventsPlugin extends ɵangular_packages_platform_browser_platform_browser_g {
+export declare class ɵKeyEventsPlugin extends EventManagerPlugin {
     /**
      * Initializes an instance of the browser plug-in.
      * @param doc The document in which key events will be detected.
@@ -855,6 +836,8 @@ export declare class ɵKeyEventsPlugin extends ɵangular_packages_platform_brows
      * @returns A callback function.
      */
     static eventCallback(fullKey: any, handler: Function, zone: NgZone): Function;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵKeyEventsPlugin, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵKeyEventsPlugin>;
 }
 
 export declare const ɵNAMESPACE_URIS: {
@@ -865,6 +848,8 @@ export declare class ɵSharedStylesHost {
     addStyles(styles: string[]): void;
     onStylesAdded(additions: Set<string>): void;
     getAllStyles(): string[];
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵSharedStylesHost>;
 }
 
 export declare function ɵshimContentAttribute(componentShortId: string): string;
