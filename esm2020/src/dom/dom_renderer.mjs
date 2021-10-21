@@ -114,9 +114,9 @@ export class DomRendererFactory2 {
     begin() { }
     end() { }
 }
-DomRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.1+3.sha-0039b71.with-local-changes", ngImport: i0, type: DomRendererFactory2, deps: [{ token: i1.EventManager }, { token: i2.DomSharedStylesHost }, { token: APP_ID }], target: i0.ɵɵFactoryTarget.Injectable });
-DomRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-rc.1+3.sha-0039b71.with-local-changes", ngImport: i0, type: DomRendererFactory2 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.1+3.sha-0039b71.with-local-changes", ngImport: i0, type: DomRendererFactory2, decorators: [{
+DomRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.1+4.sha-22009f6.with-local-changes", ngImport: i0, type: DomRendererFactory2, deps: [{ token: i1.EventManager }, { token: i2.DomSharedStylesHost }, { token: APP_ID }], target: i0.ɵɵFactoryTarget.Injectable });
+DomRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-rc.1+4.sha-22009f6.with-local-changes", ngImport: i0, type: DomRendererFactory2 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.1+4.sha-22009f6.with-local-changes", ngImport: i0, type: DomRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i1.EventManager }, { type: i2.DomSharedStylesHost }, { type: undefined, decorators: [{
                     type: Inject,
