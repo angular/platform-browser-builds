@@ -117,9 +117,9 @@ export class TransferState {
         return JSON.stringify(this.store);
     }
 }
-TransferState.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.1+21.sha-59e56e7.with-local-changes", ngImport: i0, type: TransferState, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-TransferState.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-rc.1+21.sha-59e56e7.with-local-changes", ngImport: i0, type: TransferState });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.1+21.sha-59e56e7.with-local-changes", ngImport: i0, type: TransferState, decorators: [{
+TransferState.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.1+23.sha-fa7693f.with-local-changes", ngImport: i0, type: TransferState, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+TransferState.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-rc.1+23.sha-fa7693f.with-local-changes", ngImport: i0, type: TransferState });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.1+23.sha-fa7693f.with-local-changes", ngImport: i0, type: TransferState, decorators: [{
             type: Injectable
         }] });
 export function initTransferState(doc, appId) {
@@ -146,10 +146,10 @@ export function initTransferState(doc, appId) {
  */
 export class BrowserTransferStateModule {
 }
-BrowserTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.1+21.sha-59e56e7.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-rc.1+21.sha-59e56e7.with-local-changes", ngImport: i0, type: BrowserTransferStateModule });
-BrowserTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-rc.1+21.sha-59e56e7.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.1+21.sha-59e56e7.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, decorators: [{
+BrowserTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.1+23.sha-fa7693f.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-rc.1+23.sha-fa7693f.with-local-changes", ngImport: i0, type: BrowserTransferStateModule });
+BrowserTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-rc.1+23.sha-fa7693f.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.1+23.sha-fa7693f.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
