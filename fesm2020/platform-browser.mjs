@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.1.0-next.2+36.sha-f44cb57.with-local-changes
+ * @license Angular v13.1.0-next.2+39.sha-8c71b9f.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID, XhrFactory, CommonModule } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ɵglobal, Injectable, ApplicationRef, NgZone, ɵgetDebugNodeR2, NgProbeToken, Optional, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵConsole, NgModule, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, Sanitizer, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, RendererFactory2, Testability, ApplicationModule, SkipSelf, ɵɵinject, Version } from '@angular/core';
+import { InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, setTestabilityGetter, ɵglobal, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵINJECTOR_SCOPE, NgZone, RendererFactory2, Testability, ApplicationModule, NgModule, Optional, SkipSelf, ɵɵinject, ApplicationRef, ɵConsole, forwardRef, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵgetSanitizationBypassType, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, Version } from '@angular/core';
 
 /**
  * @license
@@ -221,96 +221,11 @@ class BrowserXhr {
         return new XMLHttpRequest();
     }
 }
-BrowserXhr.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-BrowserXhr.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserXhr });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserXhr, decorators: [{
+BrowserXhr.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+BrowserXhr.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserXhr });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserXhr, decorators: [{
             type: Injectable
         }] });
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-const CAMEL_CASE_REGEXP = /([A-Z])/g;
-const DASH_CASE_REGEXP = /-([a-z])/g;
-function camelCaseToDashCase(input) {
-    return input.replace(CAMEL_CASE_REGEXP, (...m) => '-' + m[1].toLowerCase());
-}
-function dashCaseToCamelCase(input) {
-    return input.replace(DASH_CASE_REGEXP, (...m) => m[1].toUpperCase());
-}
-/**
- * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
- * `name` is `'probe'`.
- * @param name Name under which it will be exported. Keep in mind this will be a property of the
- * global `ng` object.
- * @param value The value to export.
- */
-function exportNgVar(name, value) {
-    if (typeof COMPILED === 'undefined' || !COMPILED) {
-        // Note: we can't export `ng` when using closure enhanced optimization as:
-        // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
-        // - we can't declare a closure extern as the namespace `ng` is already used within Google
-        //   for typings for angularJS (via `goog.provide('ng....')`).
-        const ng = ɵglobal['ng'] = ɵglobal['ng'] || {};
-        ng[name] = value;
-    }
-}
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-const CORE_TOKENS = (() => ({
-    'ApplicationRef': ApplicationRef,
-    'NgZone': NgZone,
-}))();
-const INSPECT_GLOBAL_NAME = 'probe';
-const CORE_TOKENS_GLOBAL_NAME = 'coreTokens';
-/**
- * Returns a {@link DebugElement} for the given native DOM element, or
- * null if the given native element does not have an Angular view associated
- * with it.
- */
-function inspectNativeElementR2(element) {
-    return ɵgetDebugNodeR2(element);
-}
-function _createNgProbeR2(coreTokens) {
-    exportNgVar(INSPECT_GLOBAL_NAME, inspectNativeElementR2);
-    exportNgVar(CORE_TOKENS_GLOBAL_NAME, { ...CORE_TOKENS, ..._ngProbeTokensToMap(coreTokens || []) });
-    return () => inspectNativeElementR2;
-}
-function _ngProbeTokensToMap(tokens) {
-    return tokens.reduce((prev, t) => (prev[t.name] = t.token, prev), {});
-}
-/**
- * In Ivy, we don't support NgProbe because we have our own set of testing utilities
- * with more robust functionality.
- *
- * We shouldn't bring in NgProbe because it prevents DebugNode and friends from
- * tree-shaking properly.
- */
-const ELEMENT_PROBE_PROVIDERS__POST_R3__ = [];
-/**
- * Providers which support debugging Angular applications (e.g. via `ng.probe`).
- */
-const ELEMENT_PROBE_PROVIDERS__PRE_R3__ = [
-    {
-        provide: APP_INITIALIZER,
-        useFactory: _createNgProbeR2,
-        deps: [
-            [NgProbeToken, new Optional()],
-        ],
-        multi: true,
-    },
-];
-const ELEMENT_PROBE_PROVIDERS = ELEMENT_PROBE_PROVIDERS__POST_R3__;
 
 /**
  * @license
@@ -391,9 +306,9 @@ class EventManager {
         throw new Error(`No event manager plugin found for event ${eventName}`);
     }
 }
-EventManager.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
-EventManager.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: EventManager });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: EventManager, decorators: [{
+EventManager.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
+EventManager.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: EventManager });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: EventManager, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -439,9 +354,9 @@ class SharedStylesHost {
         return Array.from(this._stylesSet);
     }
 }
-SharedStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: SharedStylesHost, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-SharedStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: SharedStylesHost });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: SharedStylesHost, decorators: [{
+SharedStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: SharedStylesHost, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+SharedStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: SharedStylesHost });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: SharedStylesHost, decorators: [{
             type: Injectable
         }] });
 class DomSharedStylesHost extends SharedStylesHost {
@@ -480,9 +395,9 @@ class DomSharedStylesHost extends SharedStylesHost {
         this._hostNodes.forEach(styleNodes => styleNodes.forEach(removeStyle));
     }
 }
-DomSharedStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomSharedStylesHost, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-DomSharedStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomSharedStylesHost });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomSharedStylesHost, decorators: [{
+DomSharedStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomSharedStylesHost, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+DomSharedStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomSharedStylesHost });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomSharedStylesHost, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -602,9 +517,9 @@ class DomRendererFactory2 {
     begin() { }
     end() { }
 }
-DomRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: DomSharedStylesHost }, { token: APP_ID }], target: i0.ɵɵFactoryTarget.Injectable });
-DomRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomRendererFactory2 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomRendererFactory2, decorators: [{
+DomRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: DomSharedStylesHost }, { token: APP_ID }], target: i0.ɵɵFactoryTarget.Injectable });
+DomRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomRendererFactory2 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: EventManager }, { type: DomSharedStylesHost }, { type: undefined, decorators: [{
                     type: Inject,
@@ -820,276 +735,14 @@ class DomEventsPlugin extends EventManagerPlugin {
         return target.removeEventListener(eventName, callback);
     }
 }
-DomEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-DomEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomEventsPlugin });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomEventsPlugin, decorators: [{
+DomEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+DomEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomEventsPlugin });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [DOCUMENT]
                 }] }]; } });
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Supported HammerJS recognizer event names.
- */
-const EVENT_NAMES = {
-    // pan
-    'pan': true,
-    'panstart': true,
-    'panmove': true,
-    'panend': true,
-    'pancancel': true,
-    'panleft': true,
-    'panright': true,
-    'panup': true,
-    'pandown': true,
-    // pinch
-    'pinch': true,
-    'pinchstart': true,
-    'pinchmove': true,
-    'pinchend': true,
-    'pinchcancel': true,
-    'pinchin': true,
-    'pinchout': true,
-    // press
-    'press': true,
-    'pressup': true,
-    // rotate
-    'rotate': true,
-    'rotatestart': true,
-    'rotatemove': true,
-    'rotateend': true,
-    'rotatecancel': true,
-    // swipe
-    'swipe': true,
-    'swipeleft': true,
-    'swiperight': true,
-    'swipeup': true,
-    'swipedown': true,
-    // tap
-    'tap': true,
-    'doubletap': true
-};
-/**
- * DI token for providing [HammerJS](https://hammerjs.github.io/) support to Angular.
- * @see `HammerGestureConfig`
- *
- * @ngModule HammerModule
- * @publicApi
- */
-const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
-/**
- * Injection token used to provide a {@link HammerLoader} to Angular.
- *
- * @publicApi
- */
-const HAMMER_LOADER = new InjectionToken('HammerLoader');
-/**
- * An injectable [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
- * for gesture recognition. Configures specific event recognition.
- * @publicApi
- */
-class HammerGestureConfig {
-    constructor() {
-        /**
-         * A set of supported event names for gestures to be used in Angular.
-         * Angular supports all built-in recognizers, as listed in
-         * [HammerJS documentation](https://hammerjs.github.io/).
-         */
-        this.events = [];
-        /**
-         * Maps gesture event names to a set of configuration options
-         * that specify overrides to the default values for specific properties.
-         *
-         * The key is a supported event name to be configured,
-         * and the options object contains a set of properties, with override values
-         * to be applied to the named recognizer event.
-         * For example, to disable recognition of the rotate event, specify
-         *  `{"rotate": {"enable": false}}`.
-         *
-         * Properties that are not present take the HammerJS default values.
-         * For information about which properties are supported for which events,
-         * and their allowed and default values, see
-         * [HammerJS documentation](https://hammerjs.github.io/).
-         *
-         */
-        this.overrides = {};
-    }
-    /**
-     * Creates a [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
-     * and attaches it to a given HTML element.
-     * @param element The element that will recognize gestures.
-     * @returns A HammerJS event-manager object.
-     */
-    buildHammer(element) {
-        const mc = new Hammer(element, this.options);
-        mc.get('pinch').set({ enable: true });
-        mc.get('rotate').set({ enable: true });
-        for (const eventName in this.overrides) {
-            mc.get(eventName).set(this.overrides[eventName]);
-        }
-        return mc;
-    }
-}
-HammerGestureConfig.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerGestureConfig, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-HammerGestureConfig.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerGestureConfig });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerGestureConfig, decorators: [{
-            type: Injectable
-        }] });
-/**
- * Event plugin that adds Hammer support to an application.
- *
- * @ngModule HammerModule
- */
-class HammerGesturesPlugin extends EventManagerPlugin {
-    constructor(doc, _config, console, loader) {
-        super(doc);
-        this._config = _config;
-        this.console = console;
-        this.loader = loader;
-        this._loaderPromise = null;
-    }
-    supports(eventName) {
-        if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
-            return false;
-        }
-        if (!window.Hammer && !this.loader) {
-            if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
-                    `loaded and no custom loader has been specified.`);
-            }
-            return false;
-        }
-        return true;
-    }
-    addEventListener(element, eventName, handler) {
-        const zone = this.manager.getZone();
-        eventName = eventName.toLowerCase();
-        // If Hammer is not present but a loader is specified, we defer adding the event listener
-        // until Hammer is loaded.
-        if (!window.Hammer && this.loader) {
-            this._loaderPromise = this._loaderPromise || this.loader();
-            // This `addEventListener` method returns a function to remove the added listener.
-            // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
-            // than remove anything.
-            let cancelRegistration = false;
-            let deregister = () => {
-                cancelRegistration = true;
-            };
-            this._loaderPromise
-                .then(() => {
-                // If Hammer isn't actually loaded when the custom loader resolves, give up.
-                if (!window.Hammer) {
-                    if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                        this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
-                    }
-                    deregister = () => { };
-                    return;
-                }
-                if (!cancelRegistration) {
-                    // Now that Hammer is loaded and the listener is being loaded for real,
-                    // the deregistration function changes from canceling registration to removal.
-                    deregister = this.addEventListener(element, eventName, handler);
-                }
-            })
-                .catch(() => {
-                if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                    this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
-                        `Hammer.JS loader failed.`);
-                }
-                deregister = () => { };
-            });
-            // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
-            // can change the behavior of `deregister` once the listener is added. Using a closure in
-            // this way allows us to avoid any additional data structures to track listener removal.
-            return () => {
-                deregister();
-            };
-        }
-        return zone.runOutsideAngular(() => {
-            // Creating the manager bind events, must be done outside of angular
-            const mc = this._config.buildHammer(element);
-            const callback = function (eventObj) {
-                zone.runGuarded(function () {
-                    handler(eventObj);
-                });
-            };
-            mc.on(eventName, callback);
-            return () => {
-                mc.off(eventName, callback);
-                // destroy mc to prevent memory leak
-                if (typeof mc.destroy === 'function') {
-                    mc.destroy();
-                }
-            };
-        });
-    }
-    isCustomEvent(eventName) {
-        return this._config.events.indexOf(eventName) > -1;
-    }
-}
-HammerGesturesPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerGesturesPlugin, deps: [{ token: DOCUMENT }, { token: HAMMER_GESTURE_CONFIG }, { token: i0.ɵConsole }, { token: HAMMER_LOADER, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-HammerGesturesPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerGesturesPlugin });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerGesturesPlugin, decorators: [{
-            type: Injectable
-        }], ctorParameters: function () { return [{ type: undefined, decorators: [{
-                    type: Inject,
-                    args: [DOCUMENT]
-                }] }, { type: HammerGestureConfig, decorators: [{
-                    type: Inject,
-                    args: [HAMMER_GESTURE_CONFIG]
-                }] }, { type: i0.ɵConsole }, { type: undefined, decorators: [{
-                    type: Optional
-                }, {
-                    type: Inject,
-                    args: [HAMMER_LOADER]
-                }] }]; } });
-/**
- * In Ivy, support for Hammer gestures is optional, so applications must
- * import the `HammerModule` at root to turn on support. This means that
- * Hammer-specific code can be tree-shaken away if not needed.
- */
-const HAMMER_PROVIDERS__POST_R3__ = [];
-/**
- * In View Engine, support for Hammer gestures is built-in by default.
- */
-const HAMMER_PROVIDERS__PRE_R3__ = [
-    {
-        provide: EVENT_MANAGER_PLUGINS,
-        useClass: HammerGesturesPlugin,
-        multi: true,
-        deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
-    },
-    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
-];
-const HAMMER_PROVIDERS = HAMMER_PROVIDERS__POST_R3__;
-/**
- * Adds support for HammerJS.
- *
- * Import this module at the root of your application so that Angular can work with
- * HammerJS to detect gesture events.
- *
- * Note that applications still need to include the HammerJS script itself. This module
- * simply sets up the coordination layer between HammerJS and Angular's EventManager.
- *
- * @publicApi
- */
-class HammerModule {
-}
-HammerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-HammerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerModule });
-HammerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerModule, providers: HAMMER_PROVIDERS__PRE_R3__ });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: HammerModule, decorators: [{
-            type: NgModule,
-            args: [{ providers: HAMMER_PROVIDERS__PRE_R3__ }]
-        }] });
 
 /**
  * @license
@@ -1260,9 +913,9 @@ class KeyEventsPlugin extends EventManagerPlugin {
         }
     }
 }
-KeyEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-KeyEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: KeyEventsPlugin });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: KeyEventsPlugin, decorators: [{
+KeyEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+KeyEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: KeyEventsPlugin });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: KeyEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -1298,122 +951,6 @@ function getEventKey(event) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
- * values to be safe to use in the different DOM contexts.
- *
- * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
- * sanitized so that an attacker cannot inject e.g. a `javascript:` URL that would execute code on
- * the website.
- *
- * In specific situations, it might be necessary to disable sanitization, for example if the
- * application genuinely needs to produce a `javascript:` style link with a dynamic value in it.
- * Users can bypass security by constructing a value with one of the `bypassSecurityTrust...`
- * methods, and then binding to that value from the template.
- *
- * These situations should be very rare, and extraordinary care must be taken to avoid creating a
- * Cross Site Scripting (XSS) security bug!
- *
- * When using `bypassSecurityTrust...`, make sure to call the method as early as possible and as
- * close as possible to the source of the value, to make it easy to verify no security bug is
- * created by its use.
- *
- * It is not required (and not recommended) to bypass security if the value is safe, e.g. a URL that
- * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
- * code. The sanitizer leaves safe values intact.
- *
- * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
- * sanitization for the value passed in. Carefully check and audit all values and code paths going
- * into this call. Make sure any user data is appropriately escaped for this security context.
- * For more detail, see the [Security Guide](https://g.co/ng/security).
- *
- * @publicApi
- */
-class DomSanitizer {
-}
-DomSanitizer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomSanitizer, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-DomSanitizer.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomSanitizer, providedIn: 'root', useExisting: i0.forwardRef(function () { return DomSanitizerImpl; }) });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomSanitizer, decorators: [{
-            type: Injectable,
-            args: [{ providedIn: 'root', useExisting: forwardRef(() => DomSanitizerImpl) }]
-        }] });
-function domSanitizerImplFactory(injector) {
-    return new DomSanitizerImpl(injector.get(DOCUMENT));
-}
-class DomSanitizerImpl extends DomSanitizer {
-    constructor(_doc) {
-        super();
-        this._doc = _doc;
-    }
-    sanitize(ctx, value) {
-        if (value == null)
-            return null;
-        switch (ctx) {
-            case SecurityContext.NONE:
-                return value;
-            case SecurityContext.HTML:
-                if (ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                return ɵ_sanitizeHtml(this._doc, String(value)).toString();
-            case SecurityContext.STYLE:
-                if (ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                return value;
-            case SecurityContext.SCRIPT:
-                if (ɵallowSanitizationBypassAndThrow(value, "Script" /* Script */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                throw new Error('unsafe value used in a script context');
-            case SecurityContext.URL:
-                const type = ɵgetSanitizationBypassType(value);
-                if (ɵallowSanitizationBypassAndThrow(value, "URL" /* Url */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                return ɵ_sanitizeUrl(String(value));
-            case SecurityContext.RESOURCE_URL:
-                if (ɵallowSanitizationBypassAndThrow(value, "ResourceURL" /* ResourceUrl */)) {
-                    return ɵunwrapSafeValue(value);
-                }
-                throw new Error('unsafe value used in a resource URL context (see https://g.co/ng/security#xss)');
-            default:
-                throw new Error(`Unexpected SecurityContext ${ctx} (see https://g.co/ng/security#xss)`);
-        }
-    }
-    bypassSecurityTrustHtml(value) {
-        return ɵbypassSanitizationTrustHtml(value);
-    }
-    bypassSecurityTrustStyle(value) {
-        return ɵbypassSanitizationTrustStyle(value);
-    }
-    bypassSecurityTrustScript(value) {
-        return ɵbypassSanitizationTrustScript(value);
-    }
-    bypassSecurityTrustUrl(value) {
-        return ɵbypassSanitizationTrustUrl(value);
-    }
-    bypassSecurityTrustResourceUrl(value) {
-        return ɵbypassSanitizationTrustResourceUrl(value);
-    }
-}
-DomSanitizerImpl.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomSanitizerImpl, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-DomSanitizerImpl.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomSanitizerImpl, providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [{ token: Injector }] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: DomSanitizerImpl, decorators: [{
-            type: Injectable,
-            args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] }]
-        }], ctorParameters: function () { return [{ type: undefined, decorators: [{
-                    type: Inject,
-                    args: [DOCUMENT]
-                }] }]; } });
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 function initDomAdapter() {
     BrowserDomAdapter.makeCurrent();
     BrowserGetTestability.init();
@@ -1431,18 +968,6 @@ const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
-const BROWSER_SANITIZATION_PROVIDERS__PRE_R3__ = [
-    { provide: Sanitizer, useExisting: DomSanitizer },
-    { provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT] },
-];
-const BROWSER_SANITIZATION_PROVIDERS__POST_R3__ = [];
-/**
- * @security Replacing built-in sanitization providers exposes the application to XSS risks.
- * Attacker-controlled data introduced by an unsanitized provider could expose your
- * application to XSS risks. For more detail, see the [Security Guide](https://g.co/ng/security).
- * @publicApi
- */
-const BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__POST_R3__;
 /**
  * A factory function that returns a `PlatformRef` instance associated with browser service
  * providers.
@@ -1451,7 +976,6 @@ const BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__POST_R3__
  */
 const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 const BROWSER_MODULE_PROVIDERS = [
-    BROWSER_SANITIZATION_PROVIDERS,
     { provide: ɵINJECTOR_SCOPE, useValue: 'root' },
     { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
     {
@@ -1461,7 +985,6 @@ const BROWSER_MODULE_PROVIDERS = [
         deps: [DOCUMENT, NgZone, PLATFORM_ID]
     },
     { provide: EVENT_MANAGER_PLUGINS, useClass: KeyEventsPlugin, multi: true, deps: [DOCUMENT] },
-    HAMMER_PROVIDERS,
     {
         provide: DomRendererFactory2,
         useClass: DomRendererFactory2,
@@ -1473,7 +996,6 @@ const BROWSER_MODULE_PROVIDERS = [
     { provide: Testability, useClass: Testability, deps: [NgZone] },
     { provide: EventManager, useClass: EventManager, deps: [EVENT_MANAGER_PLUGINS, NgZone] },
     { provide: XhrFactory, useClass: BrowserXhr, deps: [] },
-    ELEMENT_PROBE_PROVIDERS,
 ];
 /**
  * Exports required infrastructure for all Angular apps.
@@ -1509,10 +1031,10 @@ class BrowserModule {
         };
     }
 }
-BrowserModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserModule, deps: [{ token: BrowserModule, optional: true, skipSelf: true }], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
-BrowserModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserModule, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserModule, decorators: [{
+BrowserModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserModule, deps: [{ token: BrowserModule, optional: true, skipSelf: true }], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
+BrowserModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserModule, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserModule, decorators: [{
             type: NgModule,
             args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]
         }], ctorParameters: function () { return [{ type: BrowserModule, decorators: [{
@@ -1687,9 +1209,9 @@ class Meta {
         return META_KEYS_MAP[prop] || prop;
     }
 }
-Meta.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-Meta.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: Meta, providedIn: 'root', useFactory: createMeta, deps: [] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: Meta, decorators: [{
+Meta.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+Meta.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: Meta, providedIn: 'root', useFactory: createMeta, deps: [] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: Meta, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
@@ -1744,15 +1266,48 @@ class Title {
         this._doc.title = newTitle || '';
     }
 }
-Title.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-Title.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: Title, providedIn: 'root', useFactory: createTitle, deps: [] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: Title, decorators: [{
+Title.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+Title.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: Title, providedIn: 'root', useFactory: createTitle, deps: [] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: Title, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [DOCUMENT]
                 }] }]; } });
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const CAMEL_CASE_REGEXP = /([A-Z])/g;
+const DASH_CASE_REGEXP = /-([a-z])/g;
+function camelCaseToDashCase(input) {
+    return input.replace(CAMEL_CASE_REGEXP, (...m) => '-' + m[1].toLowerCase());
+}
+function dashCaseToCamelCase(input) {
+    return input.replace(DASH_CASE_REGEXP, (...m) => m[1].toUpperCase());
+}
+/**
+ * Exports the value under a given `name` in the global property `ng`. For example `ng.probe` if
+ * `name` is `'probe'`.
+ * @param name Name under which it will be exported. Keep in mind this will be a property of the
+ * global `ng` object.
+ * @param value The value to export.
+ */
+function exportNgVar(name, value) {
+    if (typeof COMPILED === 'undefined' || !COMPILED) {
+        // Note: we can't export `ng` when using closure enhanced optimization as:
+        // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
+        // - we can't declare a closure extern as the namespace `ng` is already used within Google
+        //   for typings for angularJS (via `goog.provide('ng....')`).
+        const ng = ɵglobal['ng'] = ɵglobal['ng'] || {};
+        ng[name] = value;
+    }
+}
 
 /**
  * @license
@@ -1980,9 +1535,9 @@ class TransferState {
         return JSON.stringify(this.store);
     }
 }
-TransferState.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: TransferState, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-TransferState.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: TransferState });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: TransferState, decorators: [{
+TransferState.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: TransferState, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+TransferState.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: TransferState });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: TransferState, decorators: [{
             type: Injectable
         }] });
 function initTransferState(doc, appId) {
@@ -2009,10 +1564,10 @@ function initTransferState(doc, appId) {
  */
 class BrowserTransferStateModule {
 }
-BrowserTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserTransferStateModule });
-BrowserTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, decorators: [{
+BrowserTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserTransferStateModule });
+BrowserTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserTransferStateModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [{ provide: TransferState, useFactory: initTransferState, deps: [DOCUMENT, APP_ID] }],
@@ -2086,6 +1641,383 @@ function elementMatches(n, selector) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Supported HammerJS recognizer event names.
+ */
+const EVENT_NAMES = {
+    // pan
+    'pan': true,
+    'panstart': true,
+    'panmove': true,
+    'panend': true,
+    'pancancel': true,
+    'panleft': true,
+    'panright': true,
+    'panup': true,
+    'pandown': true,
+    // pinch
+    'pinch': true,
+    'pinchstart': true,
+    'pinchmove': true,
+    'pinchend': true,
+    'pinchcancel': true,
+    'pinchin': true,
+    'pinchout': true,
+    // press
+    'press': true,
+    'pressup': true,
+    // rotate
+    'rotate': true,
+    'rotatestart': true,
+    'rotatemove': true,
+    'rotateend': true,
+    'rotatecancel': true,
+    // swipe
+    'swipe': true,
+    'swipeleft': true,
+    'swiperight': true,
+    'swipeup': true,
+    'swipedown': true,
+    // tap
+    'tap': true,
+    'doubletap': true
+};
+/**
+ * DI token for providing [HammerJS](https://hammerjs.github.io/) support to Angular.
+ * @see `HammerGestureConfig`
+ *
+ * @ngModule HammerModule
+ * @publicApi
+ */
+const HAMMER_GESTURE_CONFIG = new InjectionToken('HammerGestureConfig');
+/**
+ * Injection token used to provide a {@link HammerLoader} to Angular.
+ *
+ * @publicApi
+ */
+const HAMMER_LOADER = new InjectionToken('HammerLoader');
+/**
+ * An injectable [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
+ * for gesture recognition. Configures specific event recognition.
+ * @publicApi
+ */
+class HammerGestureConfig {
+    constructor() {
+        /**
+         * A set of supported event names for gestures to be used in Angular.
+         * Angular supports all built-in recognizers, as listed in
+         * [HammerJS documentation](https://hammerjs.github.io/).
+         */
+        this.events = [];
+        /**
+         * Maps gesture event names to a set of configuration options
+         * that specify overrides to the default values for specific properties.
+         *
+         * The key is a supported event name to be configured,
+         * and the options object contains a set of properties, with override values
+         * to be applied to the named recognizer event.
+         * For example, to disable recognition of the rotate event, specify
+         *  `{"rotate": {"enable": false}}`.
+         *
+         * Properties that are not present take the HammerJS default values.
+         * For information about which properties are supported for which events,
+         * and their allowed and default values, see
+         * [HammerJS documentation](https://hammerjs.github.io/).
+         *
+         */
+        this.overrides = {};
+    }
+    /**
+     * Creates a [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
+     * and attaches it to a given HTML element.
+     * @param element The element that will recognize gestures.
+     * @returns A HammerJS event-manager object.
+     */
+    buildHammer(element) {
+        const mc = new Hammer(element, this.options);
+        mc.get('pinch').set({ enable: true });
+        mc.get('rotate').set({ enable: true });
+        for (const eventName in this.overrides) {
+            mc.get(eventName).set(this.overrides[eventName]);
+        }
+        return mc;
+    }
+}
+HammerGestureConfig.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerGestureConfig, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+HammerGestureConfig.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerGestureConfig });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerGestureConfig, decorators: [{
+            type: Injectable
+        }] });
+/**
+ * Event plugin that adds Hammer support to an application.
+ *
+ * @ngModule HammerModule
+ */
+class HammerGesturesPlugin extends EventManagerPlugin {
+    constructor(doc, _config, console, loader) {
+        super(doc);
+        this._config = _config;
+        this.console = console;
+        this.loader = loader;
+        this._loaderPromise = null;
+    }
+    supports(eventName) {
+        if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
+            return false;
+        }
+        if (!window.Hammer && !this.loader) {
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
+                    `loaded and no custom loader has been specified.`);
+            }
+            return false;
+        }
+        return true;
+    }
+    addEventListener(element, eventName, handler) {
+        const zone = this.manager.getZone();
+        eventName = eventName.toLowerCase();
+        // If Hammer is not present but a loader is specified, we defer adding the event listener
+        // until Hammer is loaded.
+        if (!window.Hammer && this.loader) {
+            this._loaderPromise = this._loaderPromise || this.loader();
+            // This `addEventListener` method returns a function to remove the added listener.
+            // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
+            // than remove anything.
+            let cancelRegistration = false;
+            let deregister = () => {
+                cancelRegistration = true;
+            };
+            this._loaderPromise
+                .then(() => {
+                // If Hammer isn't actually loaded when the custom loader resolves, give up.
+                if (!window.Hammer) {
+                    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                        this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+                    }
+                    deregister = () => { };
+                    return;
+                }
+                if (!cancelRegistration) {
+                    // Now that Hammer is loaded and the listener is being loaded for real,
+                    // the deregistration function changes from canceling registration to removal.
+                    deregister = this.addEventListener(element, eventName, handler);
+                }
+            })
+                .catch(() => {
+                if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                    this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
+                        `Hammer.JS loader failed.`);
+                }
+                deregister = () => { };
+            });
+            // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
+            // can change the behavior of `deregister` once the listener is added. Using a closure in
+            // this way allows us to avoid any additional data structures to track listener removal.
+            return () => {
+                deregister();
+            };
+        }
+        return zone.runOutsideAngular(() => {
+            // Creating the manager bind events, must be done outside of angular
+            const mc = this._config.buildHammer(element);
+            const callback = function (eventObj) {
+                zone.runGuarded(function () {
+                    handler(eventObj);
+                });
+            };
+            mc.on(eventName, callback);
+            return () => {
+                mc.off(eventName, callback);
+                // destroy mc to prevent memory leak
+                if (typeof mc.destroy === 'function') {
+                    mc.destroy();
+                }
+            };
+        });
+    }
+    isCustomEvent(eventName) {
+        return this._config.events.indexOf(eventName) > -1;
+    }
+}
+HammerGesturesPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerGesturesPlugin, deps: [{ token: DOCUMENT }, { token: HAMMER_GESTURE_CONFIG }, { token: i0.ɵConsole }, { token: HAMMER_LOADER, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+HammerGesturesPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerGesturesPlugin });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerGesturesPlugin, decorators: [{
+            type: Injectable
+        }], ctorParameters: function () { return [{ type: undefined, decorators: [{
+                    type: Inject,
+                    args: [DOCUMENT]
+                }] }, { type: HammerGestureConfig, decorators: [{
+                    type: Inject,
+                    args: [HAMMER_GESTURE_CONFIG]
+                }] }, { type: i0.ɵConsole }, { type: undefined, decorators: [{
+                    type: Optional
+                }, {
+                    type: Inject,
+                    args: [HAMMER_LOADER]
+                }] }]; } });
+/**
+ * Adds support for HammerJS.
+ *
+ * Import this module at the root of your application so that Angular can work with
+ * HammerJS to detect gesture events.
+ *
+ * Note that applications still need to include the HammerJS script itself. This module
+ * simply sets up the coordination layer between HammerJS and Angular's EventManager.
+ *
+ * @publicApi
+ */
+class HammerModule {
+}
+HammerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+HammerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerModule });
+HammerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerModule, providers: [
+        {
+            provide: EVENT_MANAGER_PLUGINS,
+            useClass: HammerGesturesPlugin,
+            multi: true,
+            deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
+        },
+        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
+    ] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: HammerModule, decorators: [{
+            type: NgModule,
+            args: [{
+                    providers: [
+                        {
+                            provide: EVENT_MANAGER_PLUGINS,
+                            useClass: HammerGesturesPlugin,
+                            multi: true,
+                            deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, ɵConsole, [new Optional(), HAMMER_LOADER]]
+                        },
+                        { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
+                    ]
+                }]
+        }] });
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
+ * values to be safe to use in the different DOM contexts.
+ *
+ * For example, when binding a URL in an `<a [href]="someValue">` hyperlink, `someValue` will be
+ * sanitized so that an attacker cannot inject e.g. a `javascript:` URL that would execute code on
+ * the website.
+ *
+ * In specific situations, it might be necessary to disable sanitization, for example if the
+ * application genuinely needs to produce a `javascript:` style link with a dynamic value in it.
+ * Users can bypass security by constructing a value with one of the `bypassSecurityTrust...`
+ * methods, and then binding to that value from the template.
+ *
+ * These situations should be very rare, and extraordinary care must be taken to avoid creating a
+ * Cross Site Scripting (XSS) security bug!
+ *
+ * When using `bypassSecurityTrust...`, make sure to call the method as early as possible and as
+ * close as possible to the source of the value, to make it easy to verify no security bug is
+ * created by its use.
+ *
+ * It is not required (and not recommended) to bypass security if the value is safe, e.g. a URL that
+ * does not start with a suspicious protocol, or an HTML snippet that does not contain dangerous
+ * code. The sanitizer leaves safe values intact.
+ *
+ * @security Calling any of the `bypassSecurityTrust...` APIs disables Angular's built-in
+ * sanitization for the value passed in. Carefully check and audit all values and code paths going
+ * into this call. Make sure any user data is appropriately escaped for this security context.
+ * For more detail, see the [Security Guide](https://g.co/ng/security).
+ *
+ * @publicApi
+ */
+class DomSanitizer {
+}
+DomSanitizer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomSanitizer, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+DomSanitizer.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomSanitizer, providedIn: 'root', useExisting: i0.forwardRef(function () { return DomSanitizerImpl; }) });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomSanitizer, decorators: [{
+            type: Injectable,
+            args: [{ providedIn: 'root', useExisting: forwardRef(() => DomSanitizerImpl) }]
+        }] });
+function domSanitizerImplFactory(injector) {
+    return new DomSanitizerImpl(injector.get(DOCUMENT));
+}
+class DomSanitizerImpl extends DomSanitizer {
+    constructor(_doc) {
+        super();
+        this._doc = _doc;
+    }
+    sanitize(ctx, value) {
+        if (value == null)
+            return null;
+        switch (ctx) {
+            case SecurityContext.NONE:
+                return value;
+            case SecurityContext.HTML:
+                if (ɵallowSanitizationBypassAndThrow(value, "HTML" /* Html */)) {
+                    return ɵunwrapSafeValue(value);
+                }
+                return ɵ_sanitizeHtml(this._doc, String(value)).toString();
+            case SecurityContext.STYLE:
+                if (ɵallowSanitizationBypassAndThrow(value, "Style" /* Style */)) {
+                    return ɵunwrapSafeValue(value);
+                }
+                return value;
+            case SecurityContext.SCRIPT:
+                if (ɵallowSanitizationBypassAndThrow(value, "Script" /* Script */)) {
+                    return ɵunwrapSafeValue(value);
+                }
+                throw new Error('unsafe value used in a script context');
+            case SecurityContext.URL:
+                const type = ɵgetSanitizationBypassType(value);
+                if (ɵallowSanitizationBypassAndThrow(value, "URL" /* Url */)) {
+                    return ɵunwrapSafeValue(value);
+                }
+                return ɵ_sanitizeUrl(String(value));
+            case SecurityContext.RESOURCE_URL:
+                if (ɵallowSanitizationBypassAndThrow(value, "ResourceURL" /* ResourceUrl */)) {
+                    return ɵunwrapSafeValue(value);
+                }
+                throw new Error('unsafe value used in a resource URL context (see https://g.co/ng/security#xss)');
+            default:
+                throw new Error(`Unexpected SecurityContext ${ctx} (see https://g.co/ng/security#xss)`);
+        }
+    }
+    bypassSecurityTrustHtml(value) {
+        return ɵbypassSanitizationTrustHtml(value);
+    }
+    bypassSecurityTrustStyle(value) {
+        return ɵbypassSanitizationTrustStyle(value);
+    }
+    bypassSecurityTrustScript(value) {
+        return ɵbypassSanitizationTrustScript(value);
+    }
+    bypassSecurityTrustUrl(value) {
+        return ɵbypassSanitizationTrustUrl(value);
+    }
+    bypassSecurityTrustResourceUrl(value) {
+        return ɵbypassSanitizationTrustResourceUrl(value);
+    }
+}
+DomSanitizerImpl.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomSanitizerImpl, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+DomSanitizerImpl.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomSanitizerImpl, providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [{ token: Injector }] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: DomSanitizerImpl, decorators: [{
+            type: Injectable,
+            args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] }]
+        }], ctorParameters: function () { return [{ type: undefined, decorators: [{
+                    type: Inject,
+                    args: [DOCUMENT]
+                }] }]; } });
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
 /**
  * @license
@@ -2097,7 +2029,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new Version('13.1.0-next.2+36.sha-f44cb57.with-local-changes');
+const VERSION = new Version('13.1.0-next.2+39.sha-8c71b9f.with-local-changes');
 
 /**
  * @license
@@ -2128,5 +2060,5 @@ const VERSION = new Version('13.1.0-next.2+36.sha-f44cb57.with-local-changes');
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserModule, BrowserTransferStateModule, By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, Meta, Title, TransferState, VERSION, disableDebugTools, enableDebugTools, makeStateKey, platformBrowser, BROWSER_SANITIZATION_PROVIDERS as ɵBROWSER_SANITIZATION_PROVIDERS, BROWSER_SANITIZATION_PROVIDERS__POST_R3__ as ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, DomSharedStylesHost as ɵDomSharedStylesHost, ELEMENT_PROBE_PROVIDERS as ɵELEMENT_PROBE_PROVIDERS, ELEMENT_PROBE_PROVIDERS__POST_R3__ as ɵELEMENT_PROBE_PROVIDERS__POST_R3__, HAMMER_PROVIDERS__POST_R3__ as ɵHAMMER_PROVIDERS__POST_R3__, HammerGesturesPlugin as ɵHammerGesturesPlugin, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, KeyEventsPlugin as ɵKeyEventsPlugin, NAMESPACE_URIS as ɵNAMESPACE_URIS, SharedStylesHost as ɵSharedStylesHost, TRANSITION_ID as ɵTRANSITION_ID, escapeHtml as ɵescapeHtml, flattenStyles as ɵflattenStyles, initDomAdapter as ɵinitDomAdapter, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute };
+export { BrowserModule, BrowserTransferStateModule, By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, Meta, Title, TransferState, VERSION, disableDebugTools, enableDebugTools, makeStateKey, platformBrowser, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, DomSharedStylesHost as ɵDomSharedStylesHost, HammerGesturesPlugin as ɵHammerGesturesPlugin, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, KeyEventsPlugin as ɵKeyEventsPlugin, NAMESPACE_URIS as ɵNAMESPACE_URIS, SharedStylesHost as ɵSharedStylesHost, TRANSITION_ID as ɵTRANSITION_ID, escapeHtml as ɵescapeHtml, flattenStyles as ɵflattenStyles, initDomAdapter as ɵinitDomAdapter, shimContentAttribute as ɵshimContentAttribute, shimHostAttribute as ɵshimHostAttribute };
 //# sourceMappingURL=platform-browser.mjs.map

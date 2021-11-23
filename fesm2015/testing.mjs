@@ -1,12 +1,12 @@
 /**
- * @license Angular v13.1.0-next.2+36.sha-f44cb57.with-local-changes
+ * @license Angular v13.1.0-next.2+39.sha-8c71b9f.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
 import { ɵglobal, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, APP_ID, NgModule } from '@angular/core';
-import { ɵBrowserDomAdapter, BrowserModule, ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
+import { ɵBrowserDomAdapter, BrowserModule } from '@angular/platform-browser';
 import { ɵgetDOM } from '@angular/common';
 
 /**
@@ -234,20 +234,18 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  */
 class BrowserTestingModule {
 }
-BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserTestingModule, providers: [
+BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserTestingModule, providers: [
         { provide: APP_ID, useValue: 'a' },
-        ɵELEMENT_PROBE_PROVIDERS,
         { provide: NgZone, useFactory: createNgZone },
     ], imports: [BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+36.sha-f44cb57.with-local-changes", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0-next.2+39.sha-8c71b9f.with-local-changes", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
                     providers: [
                         { provide: APP_ID, useValue: 'a' },
-                        ɵELEMENT_PROBE_PROVIDERS,
                         { provide: NgZone, useFactory: createNgZone },
                     ]
                 }]

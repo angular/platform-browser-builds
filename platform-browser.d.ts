@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.1.0-next.2+36.sha-f44cb57.with-local-changes
+ * @license Angular v13.1.0-next.2+39.sha-8c71b9f.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -16,7 +16,6 @@ import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { PlatformRef } from '@angular/core';
 import { Predicate } from '@angular/core';
-import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
@@ -664,16 +663,6 @@ export declare class TransferState {
 export declare const VERSION: Version;
 
 /**
- * @security Replacing built-in sanitization providers exposes the application to XSS risks.
- * Attacker-controlled data introduced by an unsanitized provider could expose your
- * application to XSS risks. For more detail, see the [Security Guide](https://g.co/ng/security).
- * @publicApi
- */
-export declare const ɵBROWSER_SANITIZATION_PROVIDERS: StaticProvider[];
-
-export declare const ɵBROWSER_SANITIZATION_PROVIDERS__POST_R3__: never[];
-
-/**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
@@ -752,29 +741,11 @@ export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomSharedStylesHost>;
 }
 
-export declare const ɵELEMENT_PROBE_PROVIDERS: Provider[];
-
-/**
- * In Ivy, we don't support NgProbe because we have our own set of testing utilities
- * with more robust functionality.
- *
- * We shouldn't bring in NgProbe because it prevents DebugNode and friends from
- * tree-shaking properly.
- */
-export declare const ɵELEMENT_PROBE_PROVIDERS__POST_R3__: never[];
-
 export declare function ɵescapeHtml(text: string): string;
 
 export declare function ɵflattenStyles(compId: string, styles: Array<any | any[]>, target: string[]): string[];
 
 export { ɵgetDOM }
-
-/**
- * In Ivy, support for Hammer gestures is optional, so applications must
- * import the `HammerModule` at root to turn on support. This means that
- * Hammer-specific code can be tree-shaken away if not needed.
- */
-export declare const ɵHAMMER_PROVIDERS__POST_R3__: never[];
 
 /**
  * Event plugin that adds Hammer support to an application.
