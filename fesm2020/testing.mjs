@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.0.2+35.sha-84ef01d.with-local-changes
+ * @license Angular v13.0.2+38.sha-b9362f0.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -234,13 +234,13 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  */
 class BrowserTestingModule {
 }
-BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.2+35.sha-84ef01d.with-local-changes", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.2+35.sha-84ef01d.with-local-changes", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.2+35.sha-84ef01d.with-local-changes", ngImport: i0, type: BrowserTestingModule, providers: [
+BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.2+38.sha-b9362f0.with-local-changes", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.2+38.sha-b9362f0.with-local-changes", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.2+38.sha-b9362f0.with-local-changes", ngImport: i0, type: BrowserTestingModule, providers: [
         { provide: APP_ID, useValue: 'a' },
         { provide: NgZone, useFactory: createNgZone },
     ], imports: [BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2+35.sha-84ef01d.with-local-changes", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.2+38.sha-b9362f0.with-local-changes", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
