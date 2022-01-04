@@ -97,10 +97,10 @@ export class BrowserModule {
         };
     }
 }
-BrowserModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.1+24.sha-bfd94b3.with-local-changes", ngImport: i0, type: BrowserModule, deps: [{ token: BrowserModule, optional: true, skipSelf: true }], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0-next.1+24.sha-bfd94b3.with-local-changes", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
-BrowserModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0-next.1+24.sha-bfd94b3.with-local-changes", ngImport: i0, type: BrowserModule, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.1+24.sha-bfd94b3.with-local-changes", ngImport: i0, type: BrowserModule, decorators: [{
+BrowserModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.1+26.sha-f0b4c70.with-local-changes", ngImport: i0, type: BrowserModule, deps: [{ token: BrowserModule, optional: true, skipSelf: true }], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0-next.1+26.sha-f0b4c70.with-local-changes", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
+BrowserModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0-next.1+26.sha-f0b4c70.with-local-changes", ngImport: i0, type: BrowserModule, providers: BROWSER_MODULE_PROVIDERS, imports: [CommonModule, ApplicationModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.1+26.sha-f0b4c70.with-local-changes", ngImport: i0, type: BrowserModule, decorators: [{
             type: NgModule,
             args: [{ providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule] }]
         }], ctorParameters: function () { return [{ type: BrowserModule, decorators: [{
