@@ -26,9 +26,9 @@ export class DomEventsPlugin extends EventManagerPlugin {
         return target.removeEventListener(eventName, callback);
     }
 }
-DomEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.1+94.sha-af2a131.with-local-changes", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-DomEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0-next.1+94.sha-af2a131.with-local-changes", ngImport: i0, type: DomEventsPlugin });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.1+94.sha-af2a131.with-local-changes", ngImport: i0, type: DomEventsPlugin, decorators: [{
+DomEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.1+95.sha-a4ab6d6.with-local-changes", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+DomEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0-next.1+95.sha-a4ab6d6.with-local-changes", ngImport: i0, type: DomEventsPlugin });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.1+95.sha-a4ab6d6.with-local-changes", ngImport: i0, type: DomEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
