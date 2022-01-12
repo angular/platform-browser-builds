@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.1.1+97.sha-d1762c7.with-local-changes
+ * @license Angular v13.1.2+4.sha-ec95631.with-local-changes
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -40,9 +40,6 @@ class BrowserDetection {
     get isEdge() {
         return this._ua.indexOf('Edge') > -1;
     }
-    get isIE() {
-        return this._ua.indexOf('Trident') > -1;
-    }
     get isWebkit() {
         return this._ua.indexOf('AppleWebKit') > -1 && this._ua.indexOf('Edge') == -1 &&
             this._ua.indexOf('IEMobile') == -1;
@@ -52,7 +49,7 @@ class BrowserDetection {
             this._ua.indexOf('IEMobile') == -1;
     }
     get isSlow() {
-        return this.isAndroid || this.isIE || this.isIOS7;
+        return this.isAndroid || this.isIOS7;
     }
     get isChromeDesktop() {
         return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Mobile Safari') == -1 &&
@@ -234,13 +231,13 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  */
 class BrowserTestingModule {
 }
-BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.1+97.sha-d1762c7.with-local-changes", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.1+97.sha-d1762c7.with-local-changes", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.1+97.sha-d1762c7.with-local-changes", ngImport: i0, type: BrowserTestingModule, providers: [
+BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.2+4.sha-ec95631.with-local-changes", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.2+4.sha-ec95631.with-local-changes", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.2+4.sha-ec95631.with-local-changes", ngImport: i0, type: BrowserTestingModule, providers: [
         { provide: APP_ID, useValue: 'a' },
         { provide: NgZone, useFactory: createNgZone },
     ], imports: [BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.1+97.sha-d1762c7.with-local-changes", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.2+4.sha-ec95631.with-local-changes", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
