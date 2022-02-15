@@ -1,9 +1,10 @@
 /**
- * @license Angular v14.0.0-next.2+29.sha-bedb257.with-local-changes
+ * @license Angular v14.0.0-next.2+34.sha-787eaa7.with-local-changes
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
+import { ANIMATION_MODULE_TYPE } from '@angular/core';
 import { AnimationBuilder } from '@angular/animations';
 import { AnimationDriver } from '@angular/animations/browser';
 import { AnimationFactory } from '@angular/animations';
@@ -12,7 +13,6 @@ import { AnimationOptions } from '@angular/animations';
 import { AnimationPlayer } from '@angular/animations';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/platform-browser';
-import { InjectionToken } from '@angular/core';
 import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -23,10 +23,7 @@ import { RendererType2 } from '@angular/core';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵAnimationStyleNormalizer } from '@angular/animations/browser';
 
-/**
- * @publicApi
- */
-export declare const ANIMATION_MODULE_TYPE: InjectionToken<"NoopAnimations" | "BrowserAnimations">;
+export { ANIMATION_MODULE_TYPE }
 
 declare class BaseAnimationRenderer implements Renderer2 {
     protected namespaceId: string;
