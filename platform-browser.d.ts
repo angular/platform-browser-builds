@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.0.0-next.5+30.sha-6eaaefd
+ * @license Angular v14.0.0-next.5+32.sha-ba0efd1
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -675,7 +675,7 @@ export declare class ɵBrowserDomAdapter extends GenericBrowserDomAdapter {
     dispatchEvent(el: Node, evt: any): void;
     remove(node: Node): void;
     createElement(tagName: string, doc?: Document): HTMLElement;
-    createHtmlDocument(): HTMLDocument;
+    createHtmlDocument(): Document;
     getDefaultDocument(): Document;
     isElementNode(node: Node): boolean;
     isShadowRoot(node: any): boolean;
