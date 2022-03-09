@@ -24,9 +24,9 @@ export class BrowserAnimationBuilder extends AnimationBuilder {
         return new BrowserAnimationFactory(id, this._renderer);
     }
 }
-BrowserAnimationBuilder.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5+24.sha-6f1c941", ngImport: i0, type: BrowserAnimationBuilder, deps: [{ token: i0.RendererFactory2 }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-BrowserAnimationBuilder.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.5+24.sha-6f1c941", ngImport: i0, type: BrowserAnimationBuilder });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5+24.sha-6f1c941", ngImport: i0, type: BrowserAnimationBuilder, decorators: [{
+BrowserAnimationBuilder.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.6+2.sha-6336b8e", ngImport: i0, type: BrowserAnimationBuilder, deps: [{ token: i0.RendererFactory2 }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+BrowserAnimationBuilder.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.6+2.sha-6336b8e", ngImport: i0, type: BrowserAnimationBuilder });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.6+2.sha-6336b8e", ngImport: i0, type: BrowserAnimationBuilder, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i0.RendererFactory2 }, { type: undefined, decorators: [{
                     type: Inject,
