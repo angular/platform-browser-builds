@@ -1,10 +1,11 @@
 /**
- * @license Angular v14.0.0-next.14+16.sha-612d6e0
+ * @license Angular v14.0.0-next.14+18.sha-3e46a42
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 
+import { ApplicationRef } from '@angular/core';
 import { ComponentRef } from '@angular/core';
 import { DebugElement } from '@angular/core';
 import { DebugNode } from '@angular/core';
@@ -17,6 +18,7 @@ import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { PlatformRef } from '@angular/core';
 import { Predicate } from '@angular/core';
+import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
@@ -30,6 +32,45 @@ import { Version } from '@angular/core';
 import { ɵConsole } from '@angular/core';
 import { ɵDomAdapter } from '@angular/common';
 import { ɵgetDOM } from '@angular/common';
+
+/**
+ * Set of config options available during the bootstrap operation via `bootstrapApplication` call.
+ *
+ * @publicApi
+ */
+export declare interface ApplicationConfig {
+    /**
+     * List of providers that should be available to the root component and all its children.
+     */
+    providers: Provider[];
+}
+
+/**
+ * Bootstraps an instance of an Angular application and renders a root component.
+ *
+ * Note: the root component passed into this function *must* be a standalone one (should have the
+ * `standalone: true` flag in the `@Component` decorator config).
+ *
+ * ```typescript
+ * @Component({
+ *   standalone: true,
+ *   template: 'Hello world!'
+ * })
+ * class RootComponent {}
+ *
+ * const appRef: ApplicationRef = await bootstrapApplication(RootComponent);
+ * ```
+ *
+ * @param rootComponent A reference to a Standalone Component that should be rendered.
+ * @param options Additional configuration for the bootstrap operation, see `ApplicationConfig` for
+ *     additional info.
+ * @returns A promise that returns an `ApplicationRef` instance once resolved.
+ *
+ * @publicApi
+ */
+declare function bootstrapApplication(rootComponent: Type<unknown>, options?: ApplicationConfig): Promise<ApplicationRef>;
+export { bootstrapApplication }
+export { bootstrapApplication as ɵbootstrapApplication }
 
 /**
  * Exports required infrastructure for all Angular apps.
