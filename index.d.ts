@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.0.0-next.15+sha-a521571
+ * @license Angular v14.0.0-next.15+sha-d322052
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -12,6 +12,7 @@ import { DebugNode } from '@angular/core';
 import { GetTestability } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
+import { ImportedNgModuleProviders } from '@angular/core';
 import { InjectionToken } from '@angular/core';
 import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
@@ -42,7 +43,7 @@ export declare interface ApplicationConfig {
     /**
      * List of providers that should be available to the root component and all its children.
      */
-    providers: Provider[];
+    providers: Array<Provider | ImportedNgModuleProviders>;
 }
 
 /**
