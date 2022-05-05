@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.1.0-next.0+sha-0483c74
+ * @license Angular v14.1.0-next.0+sha-d380bb4
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -69,9 +69,7 @@ export declare interface ApplicationConfig {
  *
  * @publicApi
  */
-declare function bootstrapApplication(rootComponent: Type<unknown>, options?: ApplicationConfig): Promise<ApplicationRef>;
-export { bootstrapApplication }
-export { bootstrapApplication as ɵbootstrapApplication }
+export declare function bootstrapApplication(rootComponent: Type<unknown>, options?: ApplicationConfig): Promise<ApplicationRef>;
 
 /**
  * Exports required infrastructure for all Angular apps.
