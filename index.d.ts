@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.1.0-next.0+sha-e441ff4
+ * @license Angular v14.1.0-next.0+sha-3165fa3
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -60,6 +60,17 @@ export declare interface ApplicationConfig {
  * class RootComponent {}
  *
  * const appRef: ApplicationRef = await bootstrapApplication(RootComponent);
+ * ```
+ *
+ * Note: this bootstrap method doesn't include [Testability](api/core/Testability) by default.
+ * You can add [Testability](api/core/Testability) by getting the list of necessary providers
+ * using `provideProtractorTestingSupport()` function and add them into the `options.providers`
+ * array. Example:
+ *
+ * ```typescript
+ * import {provideProtractorTestingSupport} from '@angular/platform-browser';
+ *
+ * await bootstrapApplication(RootComponent, providers: [provideProtractorTestingSupport()]);
  * ```
  *
  * @param rootComponent A reference to a Standalone Component that should be rendered.
@@ -561,6 +572,19 @@ export declare type MetaDefinition = {
  * @publicApi
  */
 export declare const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef;
+
+/**
+ * Returns a set of providers required to setup [Testability](api/core/Testability) for an
+ * application bootstrapped using the `bootstrapApplication` function. The set of providers is
+ * needed to support testing an application with Protractor (which relies on the Testability APIs
+ * to be present).
+ *
+ * @returns An array of providers required to setup Testability for an application and make it
+ *     available for testing using Protractor.
+ *
+ * @publicApi
+ */
+export declare function provideProtractorTestingSupport(): Provider[];
 
 /**
  * Marker interface for a value that's safe to use as HTML.
