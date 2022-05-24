@@ -1,19 +1,19 @@
 {
   "name": "@angular/platform-browser",
-  "version": "14.1.0-next.0+sha-8629f2d",
+  "version": "13.3.9+18.sha-3e3f8fc",
   "description": "Angular - library for using Angular in a web browser",
   "author": "angular",
   "license": "MIT",
   "engines": {
-    "node": "^14.15.0 || >=16.10.0"
+    "node": "^12.20.0 || ^14.15.0 || >=16.10.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/animations": "14.1.0-next.0+sha-8629f2d",
-    "@angular/core": "14.1.0-next.0+sha-8629f2d",
-    "@angular/common": "14.1.0-next.0+sha-8629f2d"
+    "@angular/animations": "13.3.9+18.sha-3e3f8fc",
+    "@angular/core": "13.3.9+18.sha-3e3f8fc",
+    "@angular/common": "13.3.9+18.sha-3e3f8fc"
   },
   "peerDependenciesMeta": {
     "@angular/animations": {
@@ -49,7 +49,7 @@
   "fesm2020": "./fesm2020/platform-browser.mjs",
   "fesm2015": "./fesm2015/platform-browser.mjs",
   "esm2020": "./esm2020/platform-browser.mjs",
-  "typings": "./index.d.ts",
+  "typings": "./platform-browser.d.ts",
   "module": "./fesm2015/platform-browser.mjs",
   "es2020": "./fesm2020/platform-browser.mjs",
   "type": "module",
@@ -58,7 +58,7 @@
       "default": "./package.json"
     },
     ".": {
-      "types": "./index.d.ts",
+      "types": "./platform-browser.d.ts",
       "esm2020": "./esm2020/platform-browser.mjs",
       "es2020": "./fesm2020/platform-browser.mjs",
       "es2015": "./fesm2015/platform-browser.mjs",
@@ -66,7 +66,7 @@
       "default": "./fesm2020/platform-browser.mjs"
     },
     "./animations": {
-      "types": "./animations/index.d.ts",
+      "types": "./animations/animations.d.ts",
       "esm2020": "./esm2020/animations/animations.mjs",
       "es2020": "./fesm2020/animations.mjs",
       "es2015": "./fesm2015/animations.mjs",
@@ -74,7 +74,7 @@
       "default": "./fesm2020/animations.mjs"
     },
     "./testing": {
-      "types": "./testing/index.d.ts",
+      "types": "./testing/testing.d.ts",
       "esm2020": "./esm2020/testing/testing.mjs",
       "es2020": "./fesm2020/testing.mjs",
       "es2015": "./fesm2015/testing.mjs",
