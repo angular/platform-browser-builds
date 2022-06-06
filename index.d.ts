@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.1.0-next.0+sha-612b408
+ * @license Angular v14.1.0-next.0+sha-aa2e8ac
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -37,6 +37,7 @@ import { ɵgetDOM } from '@angular/common';
 /**
  * Set of config options available during the bootstrap operation via `bootstrapApplication` call.
  *
+ * @developerPreview
  * @publicApi
  */
 export declare interface ApplicationConfig {
@@ -608,6 +609,7 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  * @returns An array of providers required to setup Testability for an application and make it
  *     available for testing using Protractor.
  *
+ * @developerPreview
  * @publicApi
  */
 export declare function provideProtractorTestingSupport(): Provider[];
