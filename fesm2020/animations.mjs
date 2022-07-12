@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.1.0-next.4+sha-93c65e7
+ * @license Angular v14.1.0-next.4+sha-55308f2
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -35,9 +35,9 @@ class BrowserAnimationBuilder extends AnimationBuilder {
         return new BrowserAnimationFactory(id, this._renderer);
     }
 }
-BrowserAnimationBuilder.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: BrowserAnimationBuilder, deps: [{ token: i0.RendererFactory2 }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-BrowserAnimationBuilder.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: BrowserAnimationBuilder });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: BrowserAnimationBuilder, decorators: [{
+BrowserAnimationBuilder.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: BrowserAnimationBuilder, deps: [{ token: i0.RendererFactory2 }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+BrowserAnimationBuilder.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: BrowserAnimationBuilder });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: BrowserAnimationBuilder, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i0.RendererFactory2 }, { type: undefined, decorators: [{
                     type: Inject,
@@ -218,9 +218,9 @@ class AnimationRendererFactory {
         return this.engine.whenRenderingDone();
     }
 }
-AnimationRendererFactory.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: AnimationRendererFactory, deps: [{ token: i0.RendererFactory2 }, { token: i1.ɵAnimationEngine }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
-AnimationRendererFactory.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: AnimationRendererFactory });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: AnimationRendererFactory, decorators: [{
+AnimationRendererFactory.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: AnimationRendererFactory, deps: [{ token: i0.RendererFactory2 }, { token: i1.ɵAnimationEngine }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
+AnimationRendererFactory.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: AnimationRendererFactory });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: AnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i0.RendererFactory2 }, { type: i1.ɵAnimationEngine }, { type: i0.NgZone }]; } });
 class BaseAnimationRenderer {
@@ -378,9 +378,9 @@ class InjectableAnimationEngine extends ɵAnimationEngine {
         this.flush();
     }
 }
-InjectableAnimationEngine.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }, { token: i0.ApplicationRef }], target: i0.ɵɵFactoryTarget.Injectable });
-InjectableAnimationEngine.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: InjectableAnimationEngine });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
+InjectableAnimationEngine.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }, { token: i0.ApplicationRef }], target: i0.ɵɵFactoryTarget.Injectable });
+InjectableAnimationEngine.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: InjectableAnimationEngine });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -455,10 +455,10 @@ class BrowserAnimationsModule {
         };
     }
 }
-BrowserAnimationsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserAnimationsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] });
-BrowserAnimationsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
+BrowserAnimationsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserAnimationsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] });
+BrowserAnimationsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -466,21 +466,76 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sh
                 }]
         }] });
 /**
+ * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * to enable animations in an application. See [animations guide](guide/animations)
+ * to learn more about animations in Angular.
+ *
+ * @usageNotes
+ *
+ * The function is useful when you want to enable animations in an application
+ * bootstrapped using the `bootstrapApplication` function. In this scenario there
+ * is no need to import the `BrowserAnimationsModule` NgModule at all, just add
+ * providers returned by this function to the `providers` list as show below.
+ *
+ * ```typescript
+ * bootstrapApplication(RootComponent, {
+ *   providers: [
+ *     provideAnimations()
+ *   ]
+ * });
+ * ```
+ *
+ * @publicApi
+ * @developerPreview
+ */
+function provideAnimations() {
+    // Return a copy to prevent changes to the original array in case any in-place
+    // alterations are performed to the `provideAnimations` call results in app code.
+    return [...BROWSER_ANIMATIONS_PROVIDERS];
+}
+/**
  * A null player that must be imported to allow disabling of animations.
  * @publicApi
  */
 class NoopAnimationsModule {
 }
-NoopAnimationsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-NoopAnimationsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] });
-NoopAnimationsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-93c65e7", ngImport: i0, type: NoopAnimationsModule, decorators: [{
+NoopAnimationsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+NoopAnimationsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] });
+NoopAnimationsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sha-55308f2", ngImport: i0, type: NoopAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
                     providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
                 }]
         }] });
+/**
+ * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * to disable animations in an application. See [animations guide](guide/animations)
+ * to learn more about animations in Angular.
+ *
+ * @usageNotes
+ *
+ * The function is useful when you want to bootstrap an application using
+ * the `bootstrapApplication` function, but you need to disable animations
+ * (for example, when running tests).
+ *
+ * ```typescript
+ * bootstrapApplication(RootComponent, {
+ *   providers: [
+ *     provideNoopAnimations()
+ *   ]
+ * });
+ * ```
+ *
+ * @publicApi
+ * @developerPreview
+ */
+function provideNoopAnimations() {
+    // Return a copy to prevent changes to the original array in case any in-place
+    // alterations are performed to the `provideNoopAnimations` call results in app code.
+    return [...BROWSER_NOOP_ANIMATIONS_PROVIDERS];
+}
 
 /**
  * @license
@@ -518,5 +573,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.4+sh
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserAnimationsModule, NoopAnimationsModule, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, InjectableAnimationEngine as ɵInjectableAnimationEngine };
+export { BrowserAnimationsModule, NoopAnimationsModule, provideAnimations, provideNoopAnimations, AnimationRenderer as ɵAnimationRenderer, AnimationRendererFactory as ɵAnimationRendererFactory, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, BrowserAnimationFactory as ɵBrowserAnimationFactory, InjectableAnimationEngine as ɵInjectableAnimationEngine };
 //# sourceMappingURL=animations.mjs.map

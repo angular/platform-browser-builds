@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.1.0-next.4+sha-93c65e7
+ * @license Angular v14.1.0-next.4+sha-55308f2
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -18,6 +18,7 @@ import * as i1 from '@angular/platform-browser';
 import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
+import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererStyleFlags2 } from '@angular/core';
@@ -107,6 +108,55 @@ export declare class NoopAnimationsModule {
     static ɵmod: i0.ɵɵNgModuleDeclaration<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<NoopAnimationsModule>;
 }
+
+/**
+ * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * to enable animations in an application. See [animations guide](guide/animations)
+ * to learn more about animations in Angular.
+ *
+ * @usageNotes
+ *
+ * The function is useful when you want to enable animations in an application
+ * bootstrapped using the `bootstrapApplication` function. In this scenario there
+ * is no need to import the `BrowserAnimationsModule` NgModule at all, just add
+ * providers returned by this function to the `providers` list as show below.
+ *
+ * ```typescript
+ * bootstrapApplication(RootComponent, {
+ *   providers: [
+ *     provideAnimations()
+ *   ]
+ * });
+ * ```
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function provideAnimations(): Provider[];
+
+/**
+ * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * to disable animations in an application. See [animations guide](guide/animations)
+ * to learn more about animations in Angular.
+ *
+ * @usageNotes
+ *
+ * The function is useful when you want to bootstrap an application using
+ * the `bootstrapApplication` function, but you need to disable animations
+ * (for example, when running tests).
+ *
+ * ```typescript
+ * bootstrapApplication(RootComponent, {
+ *   providers: [
+ *     provideNoopAnimations()
+ *   ]
+ * });
+ * ```
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function provideNoopAnimations(): Provider[];
 
 export declare class ɵAnimationRenderer extends BaseAnimationRenderer implements Renderer2 {
     factory: ɵAnimationRendererFactory;
