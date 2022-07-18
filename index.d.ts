@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.2.0-next.0+sha-6fed377
+ * @license Angular v14.2.0-next.0+sha-9285c66
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -35,7 +35,7 @@ import { ɵDomAdapter } from '@angular/common';
 import { ɵgetDOM } from '@angular/common';
 
 /**
- * Set of config options available during the bootstrap operation via `bootstrapApplication` call.
+ * Set of config options available during the application bootstrap operation.
  *
  * @developerPreview
  * @publicApi
@@ -182,6 +182,21 @@ export declare class By {
      */
     static directive(type: Type<any>): Predicate<DebugNode>;
 }
+
+/**
+ * Create an instance of an Angular application without bootstrapping any components. This is useful
+ * for the situation where one wants to decouple application environment creation (a platform and
+ * associated injectors) from rendering components on a screen. Components can be subsequently
+ * bootstrapped on the returned `ApplicationRef`.
+ *
+ * @param options Extra configuration for the application environment, see `ApplicationConfig` for
+ *     additional info.
+ * @returns A promise that returns an `ApplicationRef` instance once resolved.
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function createApplication(options?: ApplicationConfig): Promise<ApplicationRef>;
 
 /**
  * Disables Angular tools.
