@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.1.0-next.0+sha-1314b1c
+ * @license Angular v14.2.0-next.0+sha-186245a
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -12,11 +12,13 @@ import { AnimationFactory } from '@angular/animations';
 import { AnimationMetadata } from '@angular/animations';
 import { AnimationOptions } from '@angular/animations';
 import { AnimationPlayer } from '@angular/animations';
+import { ApplicationRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/platform-browser';
 import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
+import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererStyleFlags2 } from '@angular/core';
@@ -107,6 +109,55 @@ export declare class NoopAnimationsModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<NoopAnimationsModule>;
 }
 
+/**
+ * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * to enable animations in an application. See [animations guide](guide/animations)
+ * to learn more about animations in Angular.
+ *
+ * @usageNotes
+ *
+ * The function is useful when you want to enable animations in an application
+ * bootstrapped using the `bootstrapApplication` function. In this scenario there
+ * is no need to import the `BrowserAnimationsModule` NgModule at all, just add
+ * providers returned by this function to the `providers` list as show below.
+ *
+ * ```typescript
+ * bootstrapApplication(RootComponent, {
+ *   providers: [
+ *     provideAnimations()
+ *   ]
+ * });
+ * ```
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function provideAnimations(): Provider[];
+
+/**
+ * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * to disable animations in an application. See [animations guide](guide/animations)
+ * to learn more about animations in Angular.
+ *
+ * @usageNotes
+ *
+ * The function is useful when you want to bootstrap an application using
+ * the `bootstrapApplication` function, but you need to disable animations
+ * (for example, when running tests).
+ *
+ * ```typescript
+ * bootstrapApplication(RootComponent, {
+ *   providers: [
+ *     provideNoopAnimations()
+ *   ]
+ * });
+ * ```
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function provideNoopAnimations(): Provider[];
+
 export declare class ɵAnimationRenderer extends BaseAnimationRenderer implements Renderer2 {
     factory: ɵAnimationRendererFactory;
     constructor(factory: ɵAnimationRendererFactory, namespaceId: string, delegate: Renderer2, engine: ɵAnimationEngine);
@@ -151,7 +202,7 @@ export declare class ɵBrowserAnimationFactory extends AnimationFactory {
 }
 
 export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine implements OnDestroy {
-    constructor(doc: any, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer);
+    constructor(doc: any, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer, appRef: ApplicationRef);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵInjectableAnimationEngine, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵInjectableAnimationEngine>;

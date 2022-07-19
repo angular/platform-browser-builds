@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.1.0-next.0+sha-1314b1c
+ * @license Angular v14.2.0-next.0+sha-186245a
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -35,7 +35,7 @@ import { ɵDomAdapter } from '@angular/common';
 import { ɵgetDOM } from '@angular/common';
 
 /**
- * Set of config options available during the bootstrap operation via `bootstrapApplication` call.
+ * Set of config options available during the application bootstrap operation.
  *
  * @developerPreview
  * @publicApi
@@ -182,6 +182,21 @@ export declare class By {
      */
     static directive(type: Type<any>): Predicate<DebugNode>;
 }
+
+/**
+ * Create an instance of an Angular application without bootstrapping any components. This is useful
+ * for the situation where one wants to decouple application environment creation (a platform and
+ * associated injectors) from rendering components on a screen. Components can be subsequently
+ * bootstrapped on the returned `ApplicationRef`.
+ *
+ * @param options Extra configuration for the application environment, see `ApplicationConfig` for
+ *     additional info.
+ * @returns A promise that returns an `ApplicationRef` instance once resolved.
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function createApplication(options?: ApplicationConfig): Promise<ApplicationRef>;
 
 /**
  * Disables Angular tools.
@@ -887,11 +902,30 @@ export declare class ɵKeyEventsPlugin extends EventManagerPlugin {
      * @returns The key event that was registered.
      */
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
+    /**
+     * Parses the user provided full keyboard event definition and normalizes it for
+     * later internal use. It ensures the string is all lowercase, converts special
+     * characters to a standard spelling, and orders all the values consistently.
+     *
+     * @param eventName The name of the key event to listen for.
+     * @returns an object with the full, normalized string, and the dom event name
+     * or null in the case when the event doesn't match a keyboard event.
+     */
     static parseEventName(eventName: string): {
         fullKey: string;
         domEventName: string;
     } | null;
-    static getEventFullKey(event: KeyboardEvent): string;
+    /**
+     * Determines whether the actual keys pressed match the configured key code string.
+     * The `fullKeyCode` event is normalized in the `parseEventName` method when the
+     * event is attached to the DOM during the `addEventListener` call. This is unseen
+     * by the end user and is normalized for internal consistency and parsing.
+     *
+     * @param event The keyboard event.
+     * @param fullKeyCode The normalized user defined expected key event string
+     * @returns boolean.
+     */
+    static matchEventFullKeyCode(event: KeyboardEvent, fullKeyCode: string): boolean;
     /**
      * Configures a handler callback for a key event.
      * @param fullKey The event name that combines all simultaneous keystrokes.
@@ -899,7 +933,7 @@ export declare class ɵKeyEventsPlugin extends EventManagerPlugin {
      * @param zone The zone in which the event occurred.
      * @returns A callback function.
      */
-    static eventCallback(fullKey: any, handler: Function, zone: NgZone): Function;
+    static eventCallback(fullKey: string, handler: Function, zone: NgZone): Function;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵKeyEventsPlugin, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵKeyEventsPlugin>;
 }
