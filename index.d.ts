@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.2.0-next.0+sha-afa6050
+ * @license Angular v14.2.0-next.0+sha-07606e3
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -758,6 +758,10 @@ export declare class TransferState {
      * Test whether a key exists in the store.
      */
     hasKey<T>(key: StateKey<T>): boolean;
+    /**
+     * Indicates whether the state is empty.
+     */
+    get isEmpty(): boolean;
     /**
      * Register a callback to provide the value for a key when `toJson` is called.
      */
