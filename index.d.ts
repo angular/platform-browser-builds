@@ -1,5 +1,5 @@
 /**
- * @license Angular v15.0.0-next.6+sha-b6fd814
+ * @license Angular v15.0.0-next.6+sha-420d6b3
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -37,7 +37,6 @@ import { ɵgetDOM } from '@angular/common';
 /**
  * Set of config options available during the application bootstrap operation.
  *
- * @developerPreview
  * @publicApi
  */
 export declare interface ApplicationConfig {
@@ -105,7 +104,6 @@ export declare interface ApplicationConfig {
  * @returns A promise that returns an `ApplicationRef` instance once resolved.
  *
  * @publicApi
- * @developerPreview
  */
 export declare function bootstrapApplication(rootComponent: Type<unknown>, options?: ApplicationConfig): Promise<ApplicationRef>;
 
@@ -196,7 +194,6 @@ export declare class By {
  * @returns A promise that returns an `ApplicationRef` instance once resolved.
  *
  * @publicApi
- * @developerPreview
  */
 export declare function createApplication(options?: ApplicationConfig): Promise<ApplicationRef>;
 
@@ -626,7 +623,6 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  * @returns An array of providers required to setup Testability for an application and make it
  *     available for testing using Protractor.
  *
- * @developerPreview
  * @publicApi
  */
 export declare function provideProtractorTestingSupport(): Provider[];
