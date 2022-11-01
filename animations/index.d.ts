@@ -1,5 +1,5 @@
 /**
- * @license Angular v15.0.0-rc.1+sha-623602f
+ * @license Angular v15.0.0-rc.1+sha-e635747
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -32,7 +32,8 @@ declare class BaseAnimationRenderer implements Renderer2 {
     protected namespaceId: string;
     delegate: Renderer2;
     engine: ɵAnimationEngine;
-    constructor(namespaceId: string, delegate: Renderer2, engine: ɵAnimationEngine);
+    private _onDestroy?;
+    constructor(namespaceId: string, delegate: Renderer2, engine: ɵAnimationEngine, _onDestroy?: (() => void) | undefined);
     get data(): {
         [key: string]: any;
     };
@@ -158,7 +159,7 @@ export declare function provideNoopAnimations(): Provider[];
 
 export declare class ɵAnimationRenderer extends BaseAnimationRenderer implements Renderer2 {
     factory: ɵAnimationRendererFactory;
-    constructor(factory: ɵAnimationRendererFactory, namespaceId: string, delegate: Renderer2, engine: ɵAnimationEngine);
+    constructor(factory: ɵAnimationRendererFactory, namespaceId: string, delegate: Renderer2, engine: ɵAnimationEngine, onDestroy?: () => void);
     setProperty(el: any, name: string, value: any): void;
     listen(target: 'window' | 'document' | 'body' | any, eventName: string, callback: (event: any) => any): () => void;
 }
