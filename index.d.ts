@@ -1,5 +1,5 @@
 /**
- * @license Angular v15.1.0-next.1+sha-ccff7dc
+ * @license Angular v15.1.0-next.1+sha-4f7456c
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -855,7 +855,7 @@ export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements
 
 export declare function ɵescapeHtml(text: string): string;
 
-export declare function ɵflattenStyles(compId: string, styles: Array<any | any[]>, target: string[]): string[];
+export declare function ɵflattenStyles(compId: string, styles: Array<string | string[]>): string[];
 
 export { ɵgetDOM }
 
