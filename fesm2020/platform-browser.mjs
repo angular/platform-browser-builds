@@ -1,5 +1,5 @@
 /**
- * @license Angular v15.1.0-next.3+sha-cc284af
+ * @license Angular v15.1.0-next.3+sha-2d539e1
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9,13 +9,6 @@ export { ɵgetDOM } from '@angular/common';
 import * as i0 from '@angular/core';
 import { InjectionToken, ApplicationInitStatus, APP_INITIALIZER, Injector, ɵglobal, Injectable, Inject, ViewEncapsulation, APP_ID, RendererStyleFlags2, ɵinternalCreateApplication, ErrorHandler, ɵsetDocument, PLATFORM_ID, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵTESTABILITY_GETTER, ɵTESTABILITY, Testability, NgZone, TestabilityRegistry, ɵINJECTOR_SCOPE, RendererFactory2, ApplicationModule, NgModule, Optional, SkipSelf, ɵɵinject, ApplicationRef, inject, ɵConsole, forwardRef, ɵXSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, Version } from '@angular/core';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Provides DOM operations in any browser environment.
  *
@@ -29,13 +22,6 @@ class GenericBrowserDomAdapter extends ɵDomAdapter {
     }
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
@@ -121,13 +107,6 @@ function relativePath(url) {
 }
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * An id that identifies a particular application being bootstrapped, that should
  * match across the client/server boundary.
  */
@@ -154,13 +133,6 @@ const SERVER_TRANSITION_PROVIDERS = [
     },
 ];
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class BrowserGetTestability {
     addToWindow(registry) {
         ɵglobal['getAngularTestability'] = (elem, findInAncestors = true) => {
@@ -218,19 +190,12 @@ class BrowserXhr {
         return new XMLHttpRequest();
     }
 }
-BrowserXhr.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-BrowserXhr.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserXhr });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserXhr, decorators: [{
+BrowserXhr.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+BrowserXhr.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserXhr });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserXhr, decorators: [{
             type: Injectable
         }] });
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * The injection token for the event-manager plug-in service.
  *
@@ -303,9 +268,9 @@ class EventManager {
         throw new Error(`No event manager plugin found for event ${eventName}`);
     }
 }
-EventManager.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
-EventManager.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: EventManager });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: EventManager, decorators: [{
+EventManager.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
+EventManager.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: EventManager });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: EventManager, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -324,13 +289,6 @@ class EventManagerPlugin {
     }
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class SharedStylesHost {
     constructor() {
         /** @internal */
@@ -351,9 +309,9 @@ class SharedStylesHost {
         return Array.from(this._stylesSet);
     }
 }
-SharedStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: SharedStylesHost, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-SharedStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: SharedStylesHost });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: SharedStylesHost, decorators: [{
+SharedStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: SharedStylesHost, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+SharedStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: SharedStylesHost });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: SharedStylesHost, decorators: [{
             type: Injectable
         }] });
 class DomSharedStylesHost extends SharedStylesHost {
@@ -392,9 +350,9 @@ class DomSharedStylesHost extends SharedStylesHost {
         this._hostNodes.forEach(styleNodes => styleNodes.forEach(removeStyle));
     }
 }
-DomSharedStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomSharedStylesHost, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-DomSharedStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomSharedStylesHost });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomSharedStylesHost, decorators: [{
+DomSharedStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomSharedStylesHost, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+DomSharedStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomSharedStylesHost });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomSharedStylesHost, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -404,13 +362,6 @@ function removeStyle(styleNode) {
     ɵgetDOM().remove(styleNode);
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const NAMESPACE_URIS = {
     'svg': 'http://www.w3.org/2000/svg',
     'xhtml': 'http://www.w3.org/1999/xhtml',
@@ -494,9 +445,9 @@ class DomRendererFactory2 {
     begin() { }
     end() { }
 }
-DomRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: DomSharedStylesHost }, { token: APP_ID }], target: i0.ɵɵFactoryTarget.Injectable });
-DomRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomRendererFactory2 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomRendererFactory2, decorators: [{
+DomRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: DomSharedStylesHost }, { token: APP_ID }], target: i0.ɵɵFactoryTarget.Injectable });
+DomRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomRendererFactory2 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: EventManager }, { type: DomSharedStylesHost }, { type: undefined, decorators: [{
                     type: Inject,
@@ -693,13 +644,6 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
     }
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class DomEventsPlugin extends EventManagerPlugin {
     constructor(doc) {
         super(doc);
@@ -717,22 +661,15 @@ class DomEventsPlugin extends EventManagerPlugin {
         return target.removeEventListener(eventName, callback);
     }
 }
-DomEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-DomEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomEventsPlugin });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomEventsPlugin, decorators: [{
+DomEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+DomEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomEventsPlugin });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [DOCUMENT]
                 }] }]; } });
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Defines supported modifiers for key events.
  */
@@ -903,22 +840,15 @@ class KeyEventsPlugin extends EventManagerPlugin {
         }
     }
 }
-KeyEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-KeyEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: KeyEventsPlugin });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: KeyEventsPlugin, decorators: [{
+KeyEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+KeyEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: KeyEventsPlugin });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: KeyEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [DOCUMENT]
                 }] }]; } });
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const NG_DEV_MODE = typeof ngDevMode === 'undefined' || !!ngDevMode;
 /**
  * Bootstraps an instance of an Angular application and renders a standalone component as the
@@ -1124,13 +1054,13 @@ class BrowserModule {
         };
     }
 }
-BrowserModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserModule, deps: [{ token: BROWSER_MODULE_PROVIDERS_MARKER, optional: true, skipSelf: true }], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
-BrowserModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserModule, providers: [
+BrowserModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserModule, deps: [{ token: BROWSER_MODULE_PROVIDERS_MARKER, optional: true, skipSelf: true }], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
+BrowserModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserModule, providers: [
         ...BROWSER_MODULE_PROVIDERS,
         ...TESTABILITY_PROVIDERS
     ], imports: [CommonModule, ApplicationModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [
@@ -1148,13 +1078,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sh
                     args: [BROWSER_MODULE_PROVIDERS_MARKER]
                 }] }]; } });
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Factory to create a `Meta` service instance for the current DOM document.
  */
@@ -1311,9 +1234,9 @@ class Meta {
         return META_KEYS_MAP[prop] || prop;
     }
 }
-Meta.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-Meta.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: Meta, providedIn: 'root', useFactory: createMeta, deps: [] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: Meta, decorators: [{
+Meta.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+Meta.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: Meta, providedIn: 'root', useFactory: createMeta, deps: [] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: Meta, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
@@ -1327,13 +1250,6 @@ const META_KEYS_MAP = {
     httpEquiv: 'http-equiv'
 };
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Factory to create Title service.
  */
@@ -1368,9 +1284,9 @@ class Title {
         this._doc.title = newTitle || '';
     }
 }
-Title.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-Title.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: Title, providedIn: 'root', useFactory: createTitle, deps: [] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: Title, decorators: [{
+Title.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+Title.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: Title, providedIn: 'root', useFactory: createTitle, deps: [] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: Title, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
@@ -1378,13 +1294,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sh
                     args: [DOCUMENT]
                 }] }]; } });
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const CAMEL_CASE_REGEXP = /([A-Z])/g;
 const DASH_CASE_REGEXP = /-([a-z])/g;
 function camelCaseToDashCase(input) {
@@ -1411,22 +1320,8 @@ function exportNgVar(name, value) {
     }
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const win = typeof window !== 'undefined' && window || {};
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class ChangeDetectionPerfRecord {
     constructor(msPerTick, numTicks) {
         this.msPerTick = msPerTick;
@@ -1487,13 +1382,6 @@ function performanceNow() {
         new Date().getTime();
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const PROFILER_GLOBAL_NAME = 'profiler';
 /**
  * Enabled Angular debug tools that are accessible via your browser's
@@ -1521,13 +1409,6 @@ function disableDebugTools() {
     exportNgVar(PROFILER_GLOBAL_NAME, null);
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 function escapeHtml(text) {
     const escapedText = {
         '&': '&a;',
@@ -1639,15 +1520,15 @@ class TransferState {
         return JSON.stringify(this.store);
     }
 }
-TransferState.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: TransferState, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-TransferState.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: TransferState, providedIn: 'root', useFactory: () => {
+TransferState.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: TransferState, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+TransferState.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: TransferState, providedIn: 'root', useFactory: () => {
         const doc = inject(DOCUMENT);
         const appId = inject(APP_ID);
         const state = new TransferState();
         state.store = retrieveTransferredState(doc, appId);
         return state;
     } });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: TransferState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: TransferState, decorators: [{
             type: Injectable,
             args: [{
                     providedIn: 'root',
@@ -1686,21 +1567,14 @@ function retrieveTransferredState(doc, appId) {
  */
 class BrowserTransferStateModule {
 }
-BrowserTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserTransferStateModule });
-BrowserTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserTransferStateModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserTransferStateModule, decorators: [{
+BrowserTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserTransferStateModule });
+BrowserTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserTransferStateModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserTransferStateModule, decorators: [{
             type: NgModule,
             args: [{}]
         }] });
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Predicates for use with {@link DebugElement}'s query functions.
  *
@@ -1754,13 +1628,6 @@ function elementMatches(n, selector) {
     return false;
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Supported HammerJS recognizer event names.
  */
@@ -1863,9 +1730,9 @@ class HammerGestureConfig {
         return mc;
     }
 }
-HammerGestureConfig.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerGestureConfig, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-HammerGestureConfig.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerGestureConfig });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerGestureConfig, decorators: [{
+HammerGestureConfig.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerGestureConfig, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+HammerGestureConfig.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerGestureConfig });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerGestureConfig, decorators: [{
             type: Injectable
         }] });
 /**
@@ -1961,9 +1828,9 @@ class HammerGesturesPlugin extends EventManagerPlugin {
         return this._config.events.indexOf(eventName) > -1;
     }
 }
-HammerGesturesPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerGesturesPlugin, deps: [{ token: DOCUMENT }, { token: HAMMER_GESTURE_CONFIG }, { token: i0.ɵConsole }, { token: HAMMER_LOADER, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-HammerGesturesPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerGesturesPlugin });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerGesturesPlugin, decorators: [{
+HammerGesturesPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerGesturesPlugin, deps: [{ token: DOCUMENT }, { token: HAMMER_GESTURE_CONFIG }, { token: i0.ɵConsole }, { token: HAMMER_LOADER, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+HammerGesturesPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerGesturesPlugin });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerGesturesPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -1990,9 +1857,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sh
  */
 class HammerModule {
 }
-HammerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-HammerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerModule });
-HammerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerModule, providers: [
+HammerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+HammerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerModule });
+HammerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerModule, providers: [
         {
             provide: EVENT_MANAGER_PLUGINS,
             useClass: HammerGesturesPlugin,
@@ -2001,7 +1868,7 @@ HammerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "
         },
         { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
     ] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: HammerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: HammerModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [
@@ -2016,13 +1883,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sh
                 }]
         }] });
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * DomSanitizer helps preventing Cross Site Scripting Security bugs (XSS) by sanitizing
  * values to be safe to use in the different DOM contexts.
@@ -2056,9 +1916,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sh
  */
 class DomSanitizer {
 }
-DomSanitizer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomSanitizer, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-DomSanitizer.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomSanitizer, providedIn: 'root', useExisting: i0.forwardRef(function () { return DomSanitizerImpl; }) });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomSanitizer, decorators: [{
+DomSanitizer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomSanitizer, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+DomSanitizer.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomSanitizer, providedIn: 'root', useExisting: i0.forwardRef(function () { return DomSanitizerImpl; }) });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomSanitizer, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useExisting: forwardRef(() => DomSanitizerImpl) }]
         }] });
@@ -2121,9 +1981,9 @@ class DomSanitizerImpl extends DomSanitizer {
         return ɵbypassSanitizationTrustResourceUrl(value);
     }
 }
-DomSanitizerImpl.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomSanitizerImpl, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-DomSanitizerImpl.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomSanitizerImpl, providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [{ token: Injector }] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: DomSanitizerImpl, decorators: [{
+DomSanitizerImpl.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomSanitizerImpl, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+DomSanitizerImpl.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomSanitizerImpl, providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [{ token: Injector }] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: DomSanitizerImpl, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useFactory: domSanitizerImplFactory, deps: [Injector] }]
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
@@ -2132,49 +1992,23 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sh
                 }] }]; } });
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @module
+ * @description
+ * Entry point for all public APIs of the platform-browser package.
  */
 /**
  * @publicApi
  */
-const VERSION = new Version('15.1.0-next.3+sha-cc284af');
+const VERSION = new Version('15.1.0-next.3+sha-2d539e1');
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @module
+ * @description
+ * Entry point for all public APIs of this package.
  */
 // This file only reexports content of the `src` folder. Keep it that way.
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+// This file is not used to build this module. It is only used during editing
 
 /**
  * Generated bundle index. Do not edit.

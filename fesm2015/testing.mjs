@@ -1,5 +1,5 @@
 /**
- * @license Angular v15.1.0-next.3+sha-cc284af
+ * @license Angular v15.1.0-next.3+sha-2d539e1
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9,13 +9,6 @@ import { ɵglobal, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platform
 import { ɵBrowserDomAdapter, BrowserModule } from '@angular/platform-browser';
 import { ɵgetDOM } from '@angular/common';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class BrowserDetection {
     get _ua() {
         if (typeof this._overrideUa === 'string') {
@@ -211,13 +204,6 @@ function childNodesAsList(el) {
     return res;
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -236,13 +222,13 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  */
 class BrowserTestingModule {
 }
-BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserTestingModule, providers: [
+BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserTestingModule, providers: [
         { provide: APP_ID, useValue: 'a' },
         { provide: NgZone, useFactory: createNgZone },
     ], imports: [BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-cc284af", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sha-2d539e1", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -254,28 +240,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-next.3+sh
         }] });
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @module
+ * @description
+ * Entry point for all public APIs of the platform-browser/testing package.
  */
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+/// <reference types="jasmine" />
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+// This file is not used to build this module. It is only used during editing
 
 /**
  * Generated bundle index. Do not edit.
