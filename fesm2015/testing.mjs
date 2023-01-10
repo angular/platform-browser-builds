@@ -1,13 +1,14 @@
 /**
- * @license Angular v15.0.4+sha-993217e
+ * @license Angular v15.0.4+sha-aa31d61
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
+import { ɵgetDOM, PlatformLocation } from '@angular/common';
+import { MockPlatformLocation } from '@angular/common/testing';
 import * as i0 from '@angular/core';
 import { ɵglobal, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, APP_ID, NgModule } from '@angular/core';
 import { ɵBrowserDomAdapter, BrowserModule } from '@angular/platform-browser';
-import { ɵgetDOM } from '@angular/common';
 
 class BrowserDetection {
     constructor(ua) {
@@ -204,6 +205,16 @@ function childNodesAsList(el) {
     return res;
 }
 
+/**
+ * Controls whether the `MockPlatformLocation` class should be used
+ * as the `PlatformLocation` implementation when the `BrowserTestingModule`
+ * is imported.
+ *
+ * In v16, the value of this flag will be switched to `true` to enable
+ * the `MockPlatformLocation` by default.
+ */
+const ENABLE_MOCK_PLATFORM_LOCATION = false;
+
 function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
     BrowserDetection.setup();
@@ -222,19 +233,23 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  */
 class BrowserTestingModule {
 }
-BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4+sha-993217e", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4+sha-993217e", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4+sha-993217e", ngImport: i0, type: BrowserTestingModule, providers: [
+BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4+sha-aa31d61", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4+sha-aa31d61", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4+sha-aa31d61", ngImport: i0, type: BrowserTestingModule, providers: [
         { provide: APP_ID, useValue: 'a' },
         { provide: NgZone, useFactory: createNgZone },
+        (ENABLE_MOCK_PLATFORM_LOCATION ? [{ provide: PlatformLocation, useClass: MockPlatformLocation }] :
+            []),
     ], imports: [BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4+sha-993217e", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4+sha-aa31d61", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
                     providers: [
                         { provide: APP_ID, useValue: 'a' },
                         { provide: NgZone, useFactory: createNgZone },
+                        (ENABLE_MOCK_PLATFORM_LOCATION ? [{ provide: PlatformLocation, useClass: MockPlatformLocation }] :
+                            []),
                     ]
                 }]
         }] });
