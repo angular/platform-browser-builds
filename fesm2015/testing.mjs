@@ -1,5 +1,5 @@
 /**
- * @license Angular v15.2.0-next.1+sha-402fcc5
+ * @license Angular v15.2.0-next.1+sha-87fe316
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import { ɵgetDOM, PlatformLocation } from '@angular/common';
 import { MockPlatformLocation } from '@angular/common/testing';
 import * as i0 from '@angular/core';
-import { ɵglobal, NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, APP_ID, NgModule } from '@angular/core';
+import { NgZone, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, APP_ID, NgModule } from '@angular/core';
 import { ɵBrowserDomAdapter, BrowserModule } from '@angular/platform-browser';
 
 class BrowserDetection {
@@ -55,26 +55,9 @@ class BrowserDetection {
         return this._ua.indexOf('Chrome') > -1 && this._ua.indexOf('Chrome/3') > -1 &&
             this._ua.indexOf('Edge') == -1;
     }
-    get supportsCustomElements() {
-        return (typeof ɵglobal.customElements !== 'undefined');
-    }
-    get supportsDeprecatedCustomCustomElementsV0() {
-        return (typeof document.registerElement !== 'undefined');
-    }
-    get supportsRegExUnicodeFlag() {
-        return RegExp.prototype.hasOwnProperty('unicode');
-    }
     get supportsShadowDom() {
         const testEl = document.createElement('div');
         return (typeof testEl.attachShadow !== 'undefined');
-    }
-    get supportsDeprecatedShadowDomV0() {
-        const testEl = document.createElement('div');
-        return (typeof testEl.createShadowRoot !== 'undefined');
-    }
-    get supportsTemplateElement() {
-        const testEl = document.createElement('template');
-        return (typeof testEl.content !== 'undefined');
     }
 }
 const browserDetection = BrowserDetection.setup();
@@ -170,9 +153,6 @@ function setCookie(name, value) {
     // not clear other cookies.
     document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
 }
-function supportsWebAnimation() {
-    return typeof Element.prototype['animate'] === 'function';
-}
 function hasStyle(element, styleName, styleValue) {
     const value = element.style[styleName] || '';
     return styleValue ? value == styleValue : value.length > 0;
@@ -225,15 +205,15 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  */
 class BrowserTestingModule {
 }
-BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.2.0-next.1+sha-402fcc5", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.2.0-next.1+sha-402fcc5", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.2.0-next.1+sha-402fcc5", ngImport: i0, type: BrowserTestingModule, providers: [
+BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.2.0-next.1+sha-87fe316", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.2.0-next.1+sha-87fe316", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.2.0-next.1+sha-87fe316", ngImport: i0, type: BrowserTestingModule, providers: [
         { provide: APP_ID, useValue: 'a' },
         { provide: NgZone, useFactory: createNgZone },
         (ENABLE_MOCK_PLATFORM_LOCATION ? [{ provide: PlatformLocation, useClass: MockPlatformLocation }] :
             []),
     ], imports: [BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.2.0-next.1+sha-402fcc5", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.2.0-next.1+sha-87fe316", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
