@@ -25,9 +25,9 @@ export class InjectableAnimationEngine extends AnimationEngine {
         this.flush();
     }
 }
-InjectableAnimationEngine.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.4+sha-c120fe5", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }, { token: i0.ApplicationRef }], target: i0.ɵɵFactoryTarget.Injectable });
-InjectableAnimationEngine.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.4+sha-c120fe5", ngImport: i0, type: InjectableAnimationEngine });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.4+sha-c120fe5", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
+InjectableAnimationEngine.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.4+sha-b9b5838", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }, { token: i0.ApplicationRef }], target: i0.ɵɵFactoryTarget.Injectable });
+InjectableAnimationEngine.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.1.4+sha-b9b5838", ngImport: i0, type: InjectableAnimationEngine });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.4+sha-b9b5838", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
