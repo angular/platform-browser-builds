@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.0+sha-3a6aebf
+ * @license Angular v16.0.0-next.0+sha-06605cc
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -629,6 +629,15 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
 export declare function provideProtractorTestingSupport(): Provider[];
 
 /**
+ * A [DI token](guide/glossary#di-token "DI token definition") that indicates whether styles
+ * of destroyed components should be removed from DOM.
+ *
+ * By default, the value is set to `false`. This will be changed in the next major version.
+ * @publicApi
+ */
+export declare const REMOVE_STYLES_ON_COMPONENT_DESTROY: InjectionToken<boolean>;
+
+/**
  * Marker interface for a value that's safe to use as HTML.
  *
  * @publicApi
@@ -814,14 +823,17 @@ export declare class ɵDomEventsPlugin extends EventManagerPlugin {
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomEventsPlugin>;
 }
 
-export declare class ɵDomRendererFactory2 implements RendererFactory2 {
+export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestroy {
     private eventManager;
     private sharedStylesHost;
     private appId;
+    private removeStylesOnCompDestory;
     private rendererByCompId;
     private defaultRenderer;
-    constructor(eventManager: EventManager, sharedStylesHost: ɵDomSharedStylesHost, appId: string);
+    constructor(eventManager: EventManager, sharedStylesHost: ɵDomSharedStylesHost, appId: string, removeStylesOnCompDestory: boolean);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
+    private getOrCreateRenderer;
+    ngOnDestroy(): void;
     begin(): void;
     end(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomRendererFactory2, never>;
@@ -842,14 +854,17 @@ export declare class ɵDomSanitizerImpl extends DomSanitizer {
 }
 
 export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements OnDestroy {
-    private _doc;
-    private _hostNodes;
-    constructor(_doc: any);
-    private _addStylesToHost;
+    private readonly doc;
+    private readonly styleRef;
+    private hostNodes;
+    constructor(doc: any);
+    onStyleAdded(style: string): void;
+    onStyleRemoved(style: string): void;
+    ngOnDestroy(): void;
     addHost(hostNode: Node): void;
     removeHost(hostNode: Node): void;
-    onStylesAdded(additions: Set<string>): void;
-    ngOnDestroy(): void;
+    private addStyleToHost;
+    private resetHostNodes;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomSharedStylesHost, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomSharedStylesHost>;
 }
@@ -947,10 +962,15 @@ export declare const ɵNAMESPACE_URIS: {
     [ns: string]: string;
 };
 
-export declare class ɵSharedStylesHost {
+export declare class ɵSharedStylesHost implements OnDestroy {
+    private readonly usageCount;
     addStyles(styles: string[]): void;
-    onStylesAdded(additions: Set<string>): void;
-    getAllStyles(): string[];
+    removeStyles(styles: string[]): void;
+    onStyleRemoved(style: string): void;
+    onStyleAdded(style: string): void;
+    getAllStyles(): IterableIterator<string>;
+    private changeUsageCount;
+    ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵSharedStylesHost>;
 }
