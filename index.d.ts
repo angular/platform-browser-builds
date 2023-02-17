@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.0+sha-18c7fac
+ * @license Angular v16.0.0-next.0+sha-9b9c818
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -871,8 +871,6 @@ export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements
 
 export declare function ɵescapeHtml(text: string): string;
 
-export declare function ɵflattenStyles(compId: string, styles: Array<string | string[]>): string[];
-
 export { ɵgetDOM }
 
 /**
@@ -978,6 +976,8 @@ export declare class ɵSharedStylesHost implements OnDestroy {
 export declare function ɵshimContentAttribute(componentShortId: string): string;
 
 export declare function ɵshimHostAttribute(componentShortId: string): string;
+
+export declare function ɵshimStyles(compId: string, styles: string[]): string[];
 
 /**
  * An id that identifies a particular application being bootstrapped, that should
