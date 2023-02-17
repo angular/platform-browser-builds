@@ -164,9 +164,9 @@ export class Meta {
         return META_KEYS_MAP[prop] || prop;
     }
 }
-Meta.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.2.0-rc.0+sha-25e220a", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-Meta.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.2.0-rc.0+sha-25e220a", ngImport: i0, type: Meta, providedIn: 'root', useFactory: createMeta, deps: [] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.2.0-rc.0+sha-25e220a", ngImport: i0, type: Meta, decorators: [{
+Meta.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.2.0-rc.0+sha-8ed653b", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+Meta.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.2.0-rc.0+sha-8ed653b", ngImport: i0, type: Meta, providedIn: 'root', useFactory: createMeta, deps: [] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.2.0-rc.0+sha-8ed653b", ngImport: i0, type: Meta, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
