@@ -109,9 +109,9 @@ export class AnimationRendererFactory {
         return this.engine.whenRenderingDone();
     }
 }
-AnimationRendererFactory.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-b0c995a", ngImport: i0, type: AnimationRendererFactory, deps: [{ token: i0.RendererFactory2 }, { token: i1.ɵAnimationEngine }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
-AnimationRendererFactory.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-b0c995a", ngImport: i0, type: AnimationRendererFactory });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-b0c995a", ngImport: i0, type: AnimationRendererFactory, decorators: [{
+AnimationRendererFactory.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-02cd490", ngImport: i0, type: AnimationRendererFactory, deps: [{ token: i0.RendererFactory2 }, { token: i1.ɵAnimationEngine }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
+AnimationRendererFactory.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-02cd490", ngImport: i0, type: AnimationRendererFactory });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-02cd490", ngImport: i0, type: AnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i0.RendererFactory2 }, { type: i1.ɵAnimationEngine }, { type: i0.NgZone }]; } });
 export class BaseAnimationRenderer {
