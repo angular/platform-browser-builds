@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.0+sha-76731ae
+ * @license Angular v16.0.0-next.0+sha-74258f3
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -748,6 +748,7 @@ export declare class Title {
 export declare class TransferState {
     private store;
     private onSerializeCallbacks;
+    constructor();
     /**
      * Get the value corresponding to a key. Return `defaultValue` if key is not found.
      */
