@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.0+sha-455c728
+ * @license Angular v16.0.0-next.0+sha-459fbb3
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -14,6 +14,7 @@ import { GetTestability } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
 import { InjectionToken } from '@angular/core';
+import { ɵmakeStateKey as makeStateKey } from '@angular/core';
 import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -25,9 +26,11 @@ import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
 import { Sanitizer } from '@angular/core';
 import { SecurityContext } from '@angular/core';
+import { ɵStateKey as StateKey } from '@angular/core';
 import { StaticProvider } from '@angular/core';
 import { Testability } from '@angular/core';
 import { TestabilityRegistry } from '@angular/core';
+import { ɵTransferState as TransferState } from '@angular/core';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
 import { ɵConsole } from '@angular/core';
@@ -478,21 +481,7 @@ export declare class HammerModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<HammerModule>;
 }
 
-/**
- * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
- *
- * Example:
- *
- * ```
- * const COUNTER_KEY = makeStateKey<number>('counter');
- * let value = 10;
- *
- * transferState.set(COUNTER_KEY, value);
- * ```
- *
- * @publicApi
- */
-export declare function makeStateKey<T = void>(key: string): StateKey<T>;
+export { makeStateKey }
 
 /**
  * A service for managing HTML `<meta>` tags.
@@ -685,24 +674,7 @@ export declare interface SafeUrl extends SafeValue {
 export declare interface SafeValue {
 }
 
-/**
- * A type-safe key to use with `TransferState`.
- *
- * Example:
- *
- * ```
- * const COUNTER_KEY = makeStateKey<number>('counter');
- * let value = 10;
- *
- * transferState.set(COUNTER_KEY, value);
- * ```
- *
- * @publicApi
- */
-export declare type StateKey<T> = string & {
-    __not_a_string: never;
-    __value_type?: T;
-};
+export { StateKey }
 
 /**
  * A service that can be used to get and set the title of a current HTML document.
@@ -730,56 +702,7 @@ export declare class Title {
     static ɵprov: i0.ɵɵInjectableDeclaration<Title>;
 }
 
-/**
- * A key value store that is transferred from the application on the server side to the application
- * on the client side.
- *
- * The `TransferState` is available as an injectable token.
- * On the client, just inject this token using DI and use it, it will be lazily initialized.
- * On the server it's already included if `renderApplication` function is used. Otherwise, import
- * the `ServerTransferStateModule` module to make the `TransferState` available.
- *
- * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
- * boolean, number, string, null and non-class objects will be serialized and deserialized in a
- * non-lossy manner.
- *
- * @publicApi
- */
-export declare class TransferState {
-    private store;
-    private onSerializeCallbacks;
-    constructor();
-    /**
-     * Get the value corresponding to a key. Return `defaultValue` if key is not found.
-     */
-    get<T>(key: StateKey<T>, defaultValue: T): T;
-    /**
-     * Set the value corresponding to a key.
-     */
-    set<T>(key: StateKey<T>, value: T): void;
-    /**
-     * Remove a key from the store.
-     */
-    remove<T>(key: StateKey<T>): void;
-    /**
-     * Test whether a key exists in the store.
-     */
-    hasKey<T>(key: StateKey<T>): boolean;
-    /**
-     * Indicates whether the state is empty.
-     */
-    get isEmpty(): boolean;
-    /**
-     * Register a callback to provide the value for a key when `toJson` is called.
-     */
-    onSerialize<T>(key: StateKey<T>, callback: () => T): void;
-    /**
-     * Serialize the current state of the store to JSON.
-     */
-    toJson(): string;
-    static ɵfac: i0.ɵɵFactoryDeclaration<TransferState, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<TransferState>;
-}
+export { TransferState }
 
 /**
  * @publicApi
@@ -869,8 +792,6 @@ export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomSharedStylesHost, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomSharedStylesHost>;
 }
-
-export declare function ɵescapeHtml(text: string): string;
 
 export { ɵgetDOM }
 
