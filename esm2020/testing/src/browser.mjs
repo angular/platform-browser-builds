@@ -29,15 +29,15 @@ export const platformBrowserTesting = createPlatformFactory(platformCore, 'brows
  */
 class BrowserTestingModule {
 }
-BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-0c805f1", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.0+sha-0c805f1", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-0c805f1", ngImport: i0, type: BrowserTestingModule, providers: [
+BrowserTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-f594725", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.0+sha-f594725", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+BrowserTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-f594725", ngImport: i0, type: BrowserTestingModule, providers: [
         { provide: APP_ID, useValue: 'a' },
         { provide: NgZone, useFactory: createNgZone },
         { provide: PlatformLocation, useClass: MockPlatformLocation },
     ], imports: [BrowserModule] });
 export { BrowserTestingModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-0c805f1", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.0+sha-f594725", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
