@@ -1,15 +1,15 @@
 /**
- * @license Angular v16.0.0-next.1+sha-41bed34
+ * @license Angular v16.0.0-next.1+sha-4e9531f
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 
+import { ApplicationConfig as ApplicationConfig_2 } from '@angular/core';
 import { ApplicationRef } from '@angular/core';
 import { ComponentRef } from '@angular/core';
 import { DebugElement } from '@angular/core';
 import { DebugNode } from '@angular/core';
-import { EnvironmentProviders } from '@angular/core';
 import { GetTestability } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
@@ -41,13 +41,11 @@ import { ɵgetDOM } from '@angular/common';
  * Set of config options available during the application bootstrap operation.
  *
  * @publicApi
+ *
+ * @deprecated
+ * `ApplicationConfig` has moved, please import `ApplicationConfig` from `@angular/core` instead.
  */
-export declare interface ApplicationConfig {
-    /**
-     * List of providers that should be available to the root component and all its children.
-     */
-    providers: Array<Provider | EnvironmentProviders>;
-}
+export declare type ApplicationConfig = ApplicationConfig_2;
 
 /**
  * Bootstraps an instance of an Angular application and renders a standalone component as the
