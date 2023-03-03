@@ -39,11 +39,11 @@ class BrowserAnimationsModule {
         };
     }
 }
-BrowserAnimationsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-9737df3", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-BrowserAnimationsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.1+sha-9737df3", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] });
-BrowserAnimationsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-9737df3", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+BrowserAnimationsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-e1355e7", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+BrowserAnimationsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.1+sha-e1355e7", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] });
+BrowserAnimationsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-e1355e7", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 export { BrowserAnimationsModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-9737df3", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-e1355e7", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -83,11 +83,11 @@ export function provideAnimations() {
  */
 class NoopAnimationsModule {
 }
-NoopAnimationsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-9737df3", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-NoopAnimationsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.1+sha-9737df3", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] });
-NoopAnimationsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-9737df3", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+NoopAnimationsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-e1355e7", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+NoopAnimationsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.1+sha-e1355e7", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] });
+NoopAnimationsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-e1355e7", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 export { NoopAnimationsModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-9737df3", ngImport: i0, type: NoopAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.1+sha-e1355e7", ngImport: i0, type: NoopAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
