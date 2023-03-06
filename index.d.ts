@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.1+sha-10ffd03
+ * @license Angular v16.0.0-next.1+sha-2312eb5
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -871,7 +871,7 @@ export declare class ɵKeyEventsPlugin extends EventManagerPlugin {
      * @param zone The zone in which the event occurred.
      * @returns A callback function.
      */
-    static eventCallback(fullKey: string, handler: Function, zone: NgZone): Function;
+    static eventCallback(fullKey: string, handler: Function): Function;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵKeyEventsPlugin, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵKeyEventsPlugin>;
 }
