@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.2+sha-0b71b0a
+ * @license Angular v16.0.0-next.2+sha-86fc4d3
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -777,14 +777,18 @@ export declare class ɵDomSanitizerImpl extends DomSanitizer {
 
 export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements OnDestroy {
     private readonly doc;
+    private appId;
     private readonly styleRef;
     private hostNodes;
-    constructor(doc: any);
+    private styleNodesInDOM;
+    constructor(doc: Document, appId: string);
     onStyleAdded(style: string): void;
     onStyleRemoved(style: string): void;
     ngOnDestroy(): void;
     addHost(hostNode: Node): void;
     removeHost(hostNode: Node): void;
+    private collectServerRenderedStyles;
+    private getStyleElement;
     private addStyleToHost;
     private resetHostNodes;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomSharedStylesHost, never>;
@@ -898,11 +902,5 @@ export declare function ɵshimContentAttribute(componentShortId: string): string
 export declare function ɵshimHostAttribute(componentShortId: string): string;
 
 export declare function ɵshimStyles(compId: string, styles: string[]): string[];
-
-/**
- * An id that identifies a particular application being bootstrapped, that should
- * match across the client/server boundary.
- */
-export declare const ɵTRANSITION_ID: InjectionToken<unknown>;
 
 export { }
