@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.2+sha-64067a1
+ * @license Angular v16.0.0-next.2+sha-cf98777
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -126,6 +126,8 @@ export declare class BrowserModule {
      * @param params An object containing an identifier for the app to transition.
      * The ID must match between the client and server versions of the app.
      * @returns The reconfigured `BrowserModule` to import into the app's root `AppModule`.
+     *
+     * @deprecated Use {@link APP_ID} instead to set the application ID.
      */
     static withServerTransition(params: {
         appId: string;
