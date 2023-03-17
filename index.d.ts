@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.3+sha-13dd614
+ * @license Angular v16.0.0-next.3+sha-17e9862
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -752,15 +752,16 @@ export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestro
     private sharedStylesHost;
     private appId;
     private removeStylesOnCompDestory;
+    private nonce?;
     private rendererByCompId;
     private defaultRenderer;
-    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestory: boolean);
+    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestory: boolean, nonce?: string | null | undefined);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
     ngOnDestroy(): void;
     begin(): void;
     end(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomRendererFactory2, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomRendererFactory2, [null, null, null, null, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomRendererFactory2>;
 }
 
@@ -878,10 +879,11 @@ export declare const ɵNAMESPACE_URIS: {
 export declare class ɵSharedStylesHost implements OnDestroy {
     private readonly doc;
     private readonly appId;
+    private nonce?;
     private readonly styleRef;
     private readonly hostNodes;
     private readonly styleNodesInDOM;
-    constructor(doc: Document, appId: string);
+    constructor(doc: Document, appId: string, nonce?: string | null | undefined);
     addStyles(styles: string[]): void;
     removeStyles(styles: string[]): void;
     ngOnDestroy(): void;
@@ -895,7 +897,7 @@ export declare class ɵSharedStylesHost implements OnDestroy {
     private getStyleElement;
     private addStyleToHost;
     private resetHostNodes;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, [null, null, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵSharedStylesHost>;
 }
 
