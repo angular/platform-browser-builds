@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.3+sha-fa023dd
+ * @license Angular v16.0.0-next.3+sha-9636910
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -754,7 +754,7 @@ export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestro
     private removeStylesOnCompDestory;
     private rendererByCompId;
     private defaultRenderer;
-    constructor(eventManager: EventManager, sharedStylesHost: ɵDomSharedStylesHost, appId: string, removeStylesOnCompDestory: boolean);
+    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestory: boolean);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
     ngOnDestroy(): void;
@@ -777,22 +777,11 @@ export declare class ɵDomSanitizerImpl extends DomSanitizer {
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomSanitizerImpl>;
 }
 
-export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost implements OnDestroy {
-    private readonly doc;
-    private appId;
-    private readonly styleRef;
-    private hostNodes;
-    private styleNodesInDOM;
-    constructor(doc: Document, appId: string);
-    onStyleAdded(style: string): void;
-    onStyleRemoved(style: string): void;
-    ngOnDestroy(): void;
-    addHost(hostNode: Node): void;
-    removeHost(hostNode: Node): void;
-    private collectServerRenderedStyles;
-    private getStyleElement;
-    private addStyleToHost;
-    private resetHostNodes;
+/**
+ * Interm G3 workaround for usages of private `DomSharedStylesHost`.
+ * TODO(alanagius): delete once all usages in G3 are removed.
+ */
+export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost {
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomSharedStylesHost, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomSharedStylesHost>;
 }
@@ -887,14 +876,25 @@ export declare const ɵNAMESPACE_URIS: {
 };
 
 export declare class ɵSharedStylesHost implements OnDestroy {
-    private readonly usageCount;
+    private readonly doc;
+    private readonly appId;
+    private readonly styleRef;
+    private readonly hostNodes;
+    private readonly styleNodesInDOM;
+    constructor(doc: Document, appId: string);
     addStyles(styles: string[]): void;
     removeStyles(styles: string[]): void;
-    onStyleRemoved(style: string): void;
-    onStyleAdded(style: string): void;
-    getAllStyles(): IterableIterator<string>;
-    private changeUsageCount;
     ngOnDestroy(): void;
+    addHost(hostNode: Node): void;
+    removeHost(hostNode: Node): void;
+    private getAllStyles;
+    private onStyleAdded;
+    private onStyleRemoved;
+    private collectServerRenderedStyles;
+    private changeUsageCount;
+    private getStyleElement;
+    private addStyleToHost;
+    private resetHostNodes;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵSharedStylesHost>;
 }
