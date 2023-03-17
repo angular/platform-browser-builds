@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.3+sha-20f7187
+ * @license Angular v16.0.0-next.3+sha-c934a8e
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -880,10 +880,12 @@ export declare class ɵSharedStylesHost implements OnDestroy {
     private readonly doc;
     private readonly appId;
     private nonce?;
+    readonly platformId: object;
     private readonly styleRef;
     private readonly hostNodes;
     private readonly styleNodesInDOM;
-    constructor(doc: Document, appId: string, nonce?: string | null | undefined);
+    private readonly platformIsServer;
+    constructor(doc: Document, appId: string, nonce?: string | null | undefined, platformId?: object);
     addStyles(styles: string[]): void;
     removeStyles(styles: string[]): void;
     ngOnDestroy(): void;
@@ -897,7 +899,7 @@ export declare class ɵSharedStylesHost implements OnDestroy {
     private getStyleElement;
     private addStyleToHost;
     private resetHostNodes;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, [null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, [null, null, { optional: true; }, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵSharedStylesHost>;
 }
 
