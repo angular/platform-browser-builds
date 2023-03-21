@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.3+sha-81b9e85
+ * @license Angular v16.0.0-next.3+sha-e2d3da5
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -776,15 +776,6 @@ export declare class ɵDomSanitizerImpl extends DomSanitizer {
     bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomSanitizerImpl, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomSanitizerImpl>;
-}
-
-/**
- * Interm G3 workaround for usages of private `DomSharedStylesHost`.
- * TODO(alanagius): delete once all usages in G3 are removed.
- */
-export declare class ɵDomSharedStylesHost extends ɵSharedStylesHost {
-    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomSharedStylesHost, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomSharedStylesHost>;
 }
 
 export { ɵgetDOM }
