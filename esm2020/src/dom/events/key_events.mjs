@@ -179,10 +179,10 @@ class KeyEventsPlugin extends EventManagerPlugin {
         }
     }
 }
-KeyEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.3+sha-66f8ed1", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-KeyEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.3+sha-66f8ed1", ngImport: i0, type: KeyEventsPlugin });
+KeyEventsPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.3+sha-f0f1e7d", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+KeyEventsPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.3+sha-f0f1e7d", ngImport: i0, type: KeyEventsPlugin });
 export { KeyEventsPlugin };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.3+sha-66f8ed1", ngImport: i0, type: KeyEventsPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.3+sha-f0f1e7d", ngImport: i0, type: KeyEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
