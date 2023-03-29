@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.4+sha-e8e3681
+ * @license Angular v16.0.0-next.4+sha-c024574
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -14,7 +14,7 @@ import { GetTestability } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
 import { InjectionToken } from '@angular/core';
-import { ɵmakeStateKey as makeStateKey } from '@angular/core';
+import { makeStateKey as makeStateKey_2 } from '@angular/core';
 import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -26,11 +26,11 @@ import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
 import { Sanitizer } from '@angular/core';
 import { SecurityContext } from '@angular/core';
-import { ɵStateKey as StateKey } from '@angular/core';
+import { StateKey as StateKey_2 } from '@angular/core';
 import { StaticProvider } from '@angular/core';
 import { Testability } from '@angular/core';
 import { TestabilityRegistry } from '@angular/core';
-import { ɵTransferState as TransferState } from '@angular/core';
+import { TransferState as TransferState_2 } from '@angular/core';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
 import { ɵConsole } from '@angular/core';
@@ -481,7 +481,22 @@ export declare class HammerModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<HammerModule>;
 }
 
-export { makeStateKey }
+/**
+ * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
+ *
+ * Example:
+ *
+ * ```
+ * const COUNTER_KEY = makeStateKey<number>('counter');
+ * let value = 10;
+ *
+ * transferState.set(COUNTER_KEY, value);
+ * ```
+ *
+ * @publicApi
+ * @deprecated `makeStateKey` has moved, please import `makeStateKey` from `@angular/core` instead.
+ */
+export declare const makeStateKey: typeof makeStateKey_2;
 
 /**
  * A service for managing HTML `<meta>` tags.
@@ -674,7 +689,22 @@ export declare interface SafeUrl extends SafeValue {
 export declare interface SafeValue {
 }
 
-export { StateKey }
+/**
+ * A type-safe key to use with `TransferState`.
+ *
+ * Example:
+ *
+ * ```
+ * const COUNTER_KEY = makeStateKey<number>('counter');
+ * let value = 10;
+ *
+ * transferState.set(COUNTER_KEY, value);
+ * ```
+ * @publicApi
+ *
+ * @deprecated `StateKey` has moved, please import `StateKey` from `@angular/core` instead.
+ */
+export declare type StateKey<T> = StateKey_2<T>;
 
 /**
  * A service that can be used to get and set the title of a current HTML document.
@@ -702,7 +732,28 @@ export declare class Title {
     static ɵprov: i0.ɵɵInjectableDeclaration<Title>;
 }
 
-export { TransferState }
+/**
+ *
+ * A key value store that is transferred from the application on the server side to the application
+ * on the client side.
+ *
+ * The `TransferState` is available as an injectable token.
+ * On the client, just inject this token using DI and use it, it will be lazily initialized.
+ * On the server it's already included if `renderApplication` function is used. Otherwise, import
+ * the `ServerTransferStateModule` module to make the `TransferState` available.
+ *
+ * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
+ * boolean, number, string, null and non-class objects will be serialized and deserialized in a
+ * non-lossy manner.
+ *
+ * @publicApi
+ *
+ * @deprecated `TransferState` has moved, please import `TransferState` from `@angular/core`
+ *     instead.
+ */
+export declare const TransferState: {
+    new (): TransferState_2;
+};
 
 /**
  * @publicApi
