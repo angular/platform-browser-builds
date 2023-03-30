@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.5+sha-d786856
+ * @license Angular v16.0.0-next.5+sha-9d96487
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -339,17 +339,6 @@ export declare class EventManager {
      */
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     /**
-     * Registers a global handler for an event in a target view.
-     *
-     * @param target A target for global event notifications. One of "window", "document", or "body".
-     * @param eventName The name of the event to listen for.
-     * @param handler A function to call when the notification occurs. Receives the
-     * event object as an argument.
-     * @returns A callback function that can be used to remove the handler.
-     * @deprecated No longer being used in Ivy code. To be removed in version 14.
-     */
-    addGlobalEventListener(target: string, eventName: string, handler: Function): Function;
-    /**
      * Retrieves the compilation zone in which event listeners are registered.
      */
     getZone(): NgZone;
@@ -363,7 +352,6 @@ declare abstract class EventManagerPlugin {
     manager: EventManager;
     abstract supports(eventName: string): boolean;
     abstract addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
-    addGlobalEventListener(element: string, eventName: string, handler: Function): Function;
 }
 
 /**
