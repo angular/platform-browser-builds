@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.6+sha-b35fa73
+ * @license Angular v16.0.0-next.6+sha-b203e4c
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -482,24 +482,16 @@ export declare interface HydrationFeature<FeatureKind extends HydrationFeatureKi
 }
 
 /**
- * The list of features as an enum to uniquely type each feature.
- */
-declare const enum HydrationFeatureKind {
-    NoDomReuseFeature = 0
-}
-
-/**
- * A type alias that represents all Hydration features available for use with
- * `provideClientHydration`. Features can be enabled by adding special functions to the
- * `provideClientHydration` call. See documentation for each symbol to find corresponding
- * function name. See also `provideClientHydration` documentation on how to use those functions.
- *
- * @see `provideClientHydration`
+ * The list of features as an enum to uniquely type each `HydrationFeature`.
+ * @see HydrationFeature
  *
  * @publicApi
  * @developerPreview
  */
-export declare type HydrationFeatures = NoDomReuseFeature;
+export declare const enum HydrationFeatureKind {
+    NoDomReuseFeature = 0,
+    NoHttpTransferCache = 1
+}
 
 /**
  * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
@@ -632,19 +624,6 @@ export declare type MetaDefinition = {
 };
 
 /**
- * A type alias that represents a feature which disables DOM reuse during hydration
- * (effectively making Angular re-render the whole application from scratch).
- * The type is used to describe the return value of the `withoutDomReuse` function.
- *
- * @see `withoutDomReuse`
- * @see `provideClientHydration`
- *
- * @publicApi
- * @developerPreview
- */
-export declare type NoDomReuseFeature = HydrationFeature<HydrationFeatureKind.NoDomReuseFeature>;
-
-/**
  * A factory function that returns a `PlatformRef` instance associated with browser service
  * providers.
  *
@@ -680,7 +659,8 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  * export class AppModule {}
  * ```
  *
- * @see `HydrationFeatures`
+ * @see `withNoDomReuse`
+ * @see `withNoHttpTransferCache`
  *
  * @param features Optional features to configure additional router behaviors.
  * @returns A set of providers to enable hydration.
@@ -688,7 +668,7 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  * @publicApi
  * @developerPreview
  */
-export declare function provideClientHydration(...features: HydrationFeatures[]): EnvironmentProviders;
+export declare function provideClientHydration(...features: HydrationFeature<HydrationFeatureKind>[]): EnvironmentProviders;
 
 /**
  * Returns a set of providers required to setup [Testability](api/core/Testability) for an
@@ -838,7 +818,16 @@ export declare const VERSION: Version;
  * @publicApi
  * @developerPreview
  */
-export declare function withoutDomReuse(): NoDomReuseFeature;
+export declare function withNoDomReuse(): HydrationFeature<HydrationFeatureKind.NoDomReuseFeature>;
+
+/**
+ * Disables HTTP transfer cache. Effectively causes HTTP requests to be performed twice: once on the
+ * server and other one on the browser.
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function withNoHttpTransferCache(): HydrationFeature<HydrationFeatureKind.NoHttpTransferCache>;
 
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
