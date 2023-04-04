@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.6+sha-b2327f4
+ * @license Angular v16.0.0-next.6+sha-761e02d
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10,6 +10,7 @@ import { ApplicationRef } from '@angular/core';
 import { ComponentRef } from '@angular/core';
 import { DebugElement } from '@angular/core';
 import { DebugNode } from '@angular/core';
+import { EnvironmentProviders } from '@angular/core';
 import { GetTestability } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
@@ -470,6 +471,37 @@ export declare class HammerModule {
 }
 
 /**
+ * Helper type to represent a Hydration feature.
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare interface HydrationFeature<FeatureKind extends HydrationFeatureKind> {
+    ɵkind: FeatureKind;
+    ɵproviders: Provider[];
+}
+
+/**
+ * The list of features as an enum to uniquely type each feature.
+ */
+declare const enum HydrationFeatureKind {
+    NoDomReuseFeature = 0
+}
+
+/**
+ * A type alias that represents all Hydration features available for use with
+ * `provideClientHydration`. Features can be enabled by adding special functions to the
+ * `provideClientHydration` call. See documentation for each symbol to find corresponding
+ * function name. See also `provideClientHydration` documentation on how to use those functions.
+ *
+ * @see `provideClientHydration`
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare type HydrationFeatures = NoDomReuseFeature;
+
+/**
  * Create a `StateKey<T>` that can be used to store value of type T with `TransferState`.
  *
  * Example:
@@ -600,12 +632,63 @@ export declare type MetaDefinition = {
 };
 
 /**
+ * A type alias that represents a feature which disables DOM reuse during hydration
+ * (effectively making Angular re-render the whole application from scratch).
+ * The type is used to describe the return value of the `withoutDomReuse` function.
+ *
+ * @see `withoutDomReuse`
+ * @see `provideClientHydration`
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare type NoDomReuseFeature = HydrationFeature<HydrationFeatureKind.NoDomReuseFeature>;
+
+/**
  * A factory function that returns a `PlatformRef` instance associated with browser service
  * providers.
  *
  * @publicApi
  */
 export declare const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef;
+
+/**
+ * Sets up providers necessary to enable hydration functionality for the application.
+ * By default, the function enables the recommended set of features for the optimal
+ * performance for most of the applications. You can enable/disable features by
+ * passing special functions (from the `HydrationFeatures` set) as arguments to the
+ * `provideClientHydration` function.
+ *
+ * @usageNotes
+ *
+ * Basic example of how you can enable hydration in your application when
+ * `bootstrapApplication` function is used:
+ * ```
+ * bootstrapApplication(AppComponent, {
+ *   providers: [provideClientHydration()]
+ * });
+ * ```
+ *
+ * Alternatively if you are using NgModules, you would add `provideClientHydration`
+ * to your root app module's provider list.
+ * ```
+ * @NgModule({
+ *   declarations: [RootCmp],
+ *   bootstrap: [RootCmp],
+ *   providers: [provideClientHydration()],
+ * })
+ * export class AppModule {}
+ * ```
+ *
+ * @see `HydrationFeatures`
+ *
+ * @param features Optional features to configure additional router behaviors.
+ * @returns A set of providers to enable hydration.
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function provideClientHydration(...features: HydrationFeatures[]): EnvironmentProviders;
 
 /**
  * Returns a set of providers required to setup [Testability](api/core/Testability) for an
@@ -747,6 +830,15 @@ export declare const TransferState: {
  * @publicApi
  */
 export declare const VERSION: Version;
+
+/**
+ * Disables DOM nodes reuse during hydration. Effectively makes
+ * Angular re-render an application from scratch on the client.
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function withoutDomReuse(): NoDomReuseFeature;
 
 /**
  * A `DomAdapter` powered by full browser DOM APIs.
