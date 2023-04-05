@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.6+sha-a6fc8b3
+ * @license Angular v16.0.0-next.6+sha-dc9651b
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -868,20 +868,22 @@ export declare class ɵDomEventsPlugin extends EventManagerPlugin {
 }
 
 export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestroy {
-    private eventManager;
-    private sharedStylesHost;
-    private appId;
+    private readonly eventManager;
+    private readonly sharedStylesHost;
+    private readonly appId;
     private removeStylesOnCompDestory;
-    private nonce?;
-    private rendererByCompId;
-    private defaultRenderer;
-    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestory: boolean, nonce?: string | null | undefined);
+    private readonly doc;
+    readonly platformId: Object;
+    readonly ngZone: NgZone;
+    private readonly nonce;
+    private readonly rendererByCompId;
+    private readonly defaultRenderer;
+    private readonly platformIsServer;
+    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestory: boolean, doc: Document, platformId: Object, ngZone: NgZone, nonce?: string | null);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
     ngOnDestroy(): void;
-    begin(): void;
-    end(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomRendererFactory2, [null, null, null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomRendererFactory2, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomRendererFactory2>;
 }
 
@@ -983,10 +985,6 @@ export declare class ɵKeyEventsPlugin extends EventManagerPlugin {
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵKeyEventsPlugin>;
 }
 
-export declare const ɵNAMESPACE_URIS: {
-    [ns: string]: string;
-};
-
 export declare class ɵSharedStylesHost implements OnDestroy {
     private readonly doc;
     private readonly appId;
@@ -1013,11 +1011,5 @@ export declare class ɵSharedStylesHost implements OnDestroy {
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, [null, null, { optional: true; }, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵSharedStylesHost>;
 }
-
-export declare function ɵshimContentAttribute(componentShortId: string): string;
-
-export declare function ɵshimHostAttribute(componentShortId: string): string;
-
-export declare function ɵshimStyles(compId: string, styles: string[]): string[];
 
 export { }
