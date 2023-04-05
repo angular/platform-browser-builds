@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.6+sha-dc9651b
+ * @license Angular v16.0.0-next.6+sha-9bd9a11
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -136,20 +136,6 @@ export declare class BrowserModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<BrowserModule, [{ optional: true; skipSelf: true; }]>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserModule, never, never, [typeof i1.CommonModule, typeof i0.ApplicationModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<BrowserModule>;
-}
-
-/**
- * NgModule to install on the client side while using the `TransferState` to transfer state from
- * server to client.
- *
- * @publicApi
- * @deprecated no longer needed, you can inject the `TransferState` in an app without providing
- *     this module.
- */
-export declare class BrowserTransferStateModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserTransferStateModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserTransferStateModule, never, never, never>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserTransferStateModule>;
 }
 
 /**
