@@ -25,11 +25,11 @@ class DomEventsPlugin extends EventManagerPlugin {
     removeEventListener(target, eventName, callback) {
         return target.removeEventListener(eventName, callback);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-a7dbb23", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-a7dbb23", ngImport: i0, type: DomEventsPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-78c76ce", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-78c76ce", ngImport: i0, type: DomEventsPlugin }); }
 }
 export { DomEventsPlugin };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-a7dbb23", ngImport: i0, type: DomEventsPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-78c76ce", ngImport: i0, type: DomEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
