@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.1.0-next.0+sha-08949c7
+ * @license Angular v16.1.0-next.0+sha-74194de
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -788,6 +788,8 @@ export declare class Title {
  * @deprecated `TransferState` has moved, please import `TransferState` from `@angular/core`
  *     instead.
  */
+export declare type TransferState = TransferState_2;
+
 export declare const TransferState: {
     new (): TransferState_2;
 };
