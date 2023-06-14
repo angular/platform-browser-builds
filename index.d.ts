@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.2.0-next.0+sha-1ad4d55
+ * @license Angular v16.2.0-next.0+sha-f199305
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -353,7 +353,7 @@ declare abstract class GenericBrowserDomAdapter extends ɵDomAdapter {
 
 /**
  * DI token for providing [HammerJS](https://hammerjs.github.io/) support to Angular.
- * @see `HammerGestureConfig`
+ * @see {@link HammerGestureConfig}
  *
  * @ngModule HammerModule
  * @publicApi
@@ -591,7 +591,7 @@ export declare class Meta {
  * represented by the internal `HTMLMetaElement`.
  *
  * @see [HTML meta tag](https://developer.mozilla.org/docs/Web/HTML/Element/meta)
- * @see `Meta`
+ * @see {@link Meta}
  *
  * @publicApi
  */
@@ -645,8 +645,8 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  * export class AppModule {}
  * ```
  *
- * @see `withNoDomReuse`
- * @see `withNoHttpTransferCache`
+ * @see {@link withNoDomReuse}
+ * @see {@link withNoHttpTransferCache}
  *
  * @param features Optional features to configure additional router behaviors.
  * @returns A set of providers to enable hydration.
@@ -824,8 +824,8 @@ export declare const VERSION: Version;
  * waiting for async guards and resolvers) are completed to avoid
  * clearing the DOM on the client too soon, thus causing content flicker.
  *
- * @see `provideRouter`
- * @see `withEnabledBlockingInitialNavigation`
+ * @see {@link provideRouter}
+ * @see {@link withEnabledBlockingInitialNavigation}
  *
  * @publicApi
  * @developerPreview
