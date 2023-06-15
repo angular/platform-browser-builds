@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.1.1+sha-1d3e96b
+ * @license Angular v16.1.1+sha-463e04c
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -173,7 +173,6 @@ export declare class ɵAnimationRendererFactory implements RendererFactory2 {
     private _animationCallbacksBuffer;
     private _rendererCache;
     private _cdRecurDepth;
-    private promise;
     constructor(delegate: RendererFactory2, engine: ɵAnimationEngine, _zone: NgZone);
     createRenderer(hostElement: any, type: RendererType2): Renderer2;
     begin(): void;
