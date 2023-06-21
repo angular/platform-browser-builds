@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.1.2+sha-00f293c
+ * @license Angular v16.1.2+sha-174f669
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -883,7 +883,7 @@ export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestro
     private readonly eventManager;
     private readonly sharedStylesHost;
     private readonly appId;
-    private removeStylesOnCompDestory;
+    private removeStylesOnCompDestroy;
     private readonly doc;
     readonly platformId: Object;
     readonly ngZone: NgZone;
@@ -891,7 +891,7 @@ export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestro
     private readonly rendererByCompId;
     private readonly defaultRenderer;
     private readonly platformIsServer;
-    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestory: boolean, doc: Document, platformId: Object, ngZone: NgZone, nonce?: string | null);
+    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestroy: boolean, doc: Document, platformId: Object, ngZone: NgZone, nonce?: string | null);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
     ngOnDestroy(): void;
