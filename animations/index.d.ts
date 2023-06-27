@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.1.2+sha-ec1f6e3
+ * @license Angular v16.1.2+sha-52f1dd9
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -37,7 +37,7 @@ declare class BaseAnimationRenderer implements Renderer2 {
     get data(): {
         [key: string]: any;
     };
-    destroyNode: ((n: any) => void) | null;
+    destroyNode(node: any): void;
     destroy(): void;
     createElement(name: string, namespace?: string | null | undefined): any;
     createComment(value: string): any;
