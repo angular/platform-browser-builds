@@ -138,10 +138,10 @@ export class SharedStylesHost {
         // Re-add the head element back since this is the default host.
         hostNodes.add(this.doc.head);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.0-next.1+sha-5d6ec03", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.2.0-next.1+sha-5d6ec03", ngImport: i0, type: SharedStylesHost }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.0-next.1+sha-ef45fa8", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.2.0-next.1+sha-ef45fa8", ngImport: i0, type: SharedStylesHost }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.0-next.1+sha-5d6ec03", ngImport: i0, type: SharedStylesHost, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.0-next.1+sha-ef45fa8", ngImport: i0, type: SharedStylesHost, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: Document, decorators: [{
                     type: Inject,
