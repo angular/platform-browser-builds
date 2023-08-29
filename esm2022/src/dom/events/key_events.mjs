@@ -171,10 +171,10 @@ export class KeyEventsPlugin extends EventManagerPlugin {
     static _normalizeKey(keyName) {
         return keyName === 'esc' ? 'escape' : keyName;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.1+sha-f6fa690", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.1+sha-f6fa690", ngImport: i0, type: KeyEventsPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.1+sha-7d4550b", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.1+sha-7d4550b", ngImport: i0, type: KeyEventsPlugin }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.1+sha-f6fa690", ngImport: i0, type: KeyEventsPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.1+sha-7d4550b", ngImport: i0, type: KeyEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
