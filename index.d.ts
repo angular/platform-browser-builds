@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.0-next.1+sha-006577f
+ * @license Angular v17.0.0-next.1+sha-c5daa6c
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -295,7 +295,7 @@ export declare abstract class DomSanitizer implements Sanitizer {
 export declare function enableDebugTools<T>(ref: ComponentRef<T>): ComponentRef<T>;
 
 /**
- * The injection token for the event-manager plug-in service.
+ * The injection token for plugins of the `EventManager` service.
  *
  * @publicApi
  */
@@ -333,11 +333,25 @@ export declare class EventManager {
     static ɵprov: i0.ɵɵInjectableDeclaration<EventManager>;
 }
 
-declare abstract class EventManagerPlugin {
+/**
+ * The plugin definition for the `EventManager` class
+ *
+ * It can be used as a base class to create custom manager plugins, i.e. you can create your own
+ * class that extends the `EventManagerPlugin` one.
+ *
+ * @publicApi
+ */
+export declare abstract class EventManagerPlugin {
     private _doc;
     constructor(_doc: any);
     manager: EventManager;
+    /**
+     * Should return `true` for every event name that should be supported by this plugin
+     */
     abstract supports(eventName: string): boolean;
+    /**
+     * Implement the behaviour for the supported events
+     */
     abstract addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
 }
 
@@ -446,7 +460,7 @@ export declare type HammerLoader = () => Promise<void>;
  * HammerJS to detect gesture events.
  *
  * Note that applications still need to include the HammerJS script itself. This module
- * simply sets up the coordination layer between HammerJS and Angular's EventManager.
+ * simply sets up the coordination layer between HammerJS and Angular's `EventManager`.
  *
  * @publicApi
  */
@@ -937,7 +951,6 @@ export declare function ɵinitDomAdapter(): void;
 export declare const ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
 
 /**
- * @publicApi
  * A browser plug-in that provides support for handling of key events in Angular.
  */
 export declare class ɵKeyEventsPlugin extends EventManagerPlugin {
