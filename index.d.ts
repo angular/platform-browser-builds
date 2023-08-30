@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.0-next.1+sha-0f86a0b
+ * @license Angular v17.0.0-next.1+sha-c340d6e
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -687,7 +687,7 @@ export declare function provideProtractorTestingSupport(): Provider[];
  * A [DI token](guide/glossary#di-token "DI token definition") that indicates whether styles
  * of destroyed components should be removed from DOM.
  *
- * By default, the value is set to `false`. This will be changed in the next major version.
+ * By default, the value is set to `true`.
  * @publicApi
  */
 export declare const REMOVE_STYLES_ON_COMPONENT_DESTROY: InjectionToken<boolean>;
