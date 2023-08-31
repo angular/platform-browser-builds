@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.0-next.2+sha-78afe88
+ * @license Angular v17.0.0-next.2+sha-a1bad49
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -186,7 +186,7 @@ export declare class ɵAnimationRendererFactory implements RendererFactory2 {
 export declare class ɵBrowserAnimationBuilder extends AnimationBuilder {
     private _nextAnimationId;
     private _renderer;
-    constructor(rootRenderer: RendererFactory2, doc: any);
+    constructor(rootRenderer: RendererFactory2, doc: Document);
     build(animation: AnimationMetadata | AnimationMetadata[]): AnimationFactory;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵBrowserAnimationBuilder, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵBrowserAnimationBuilder>;
@@ -200,7 +200,7 @@ export declare class ɵBrowserAnimationFactory extends AnimationFactory {
 }
 
 export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine implements OnDestroy {
-    constructor(doc: any, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer, appRef: ApplicationRef);
+    constructor(doc: Document, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer, appRef: ApplicationRef);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵInjectableAnimationEngine, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵInjectableAnimationEngine>;
