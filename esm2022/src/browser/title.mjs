@@ -41,10 +41,10 @@ export class Title {
     setTitle(newTitle) {
         this._doc.title = newTitle || '';
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.2+sha-525acbb", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.2+sha-525acbb", ngImport: i0, type: Title, providedIn: 'root', useFactory: createTitle, deps: [] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.2+sha-240b7cd", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.2+sha-240b7cd", ngImport: i0, type: Title, providedIn: 'root', useFactory: createTitle, deps: [] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.2+sha-525acbb", ngImport: i0, type: Title, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.2+sha-240b7cd", ngImport: i0, type: Title, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useFactory: createTitle, deps: [] }]
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
