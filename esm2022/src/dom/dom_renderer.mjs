@@ -109,12 +109,12 @@ export class DomRendererFactory2 {
     ngOnDestroy() {
         this.rendererByCompId.clear();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-baaaa6d", ngImport: i0, type: DomRendererFactory2, deps: [{ token: i1.EventManager }, { token: i2.SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-baaaa6d", ngImport: i0, type: DomRendererFactory2 }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-d6bfebe", ngImport: i0, type: DomRendererFactory2, deps: [{ token: i1.EventManager }, { token: i2.SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-d6bfebe", ngImport: i0, type: DomRendererFactory2 }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-baaaa6d", ngImport: i0, type: DomRendererFactory2, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-d6bfebe", ngImport: i0, type: DomRendererFactory2, decorators: [{
             type: Injectable
-        }], ctorParameters: function () { return [{ type: i1.EventManager }, { type: i2.SharedStylesHost }, { type: undefined, decorators: [{
+        }], ctorParameters: () => [{ type: i1.EventManager }, { type: i2.SharedStylesHost }, { type: undefined, decorators: [{
                     type: Inject,
                     args: [APP_ID]
                 }] }, { type: undefined, decorators: [{
@@ -129,7 +129,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.5+sh
                 }] }, { type: i0.NgZone }, { type: undefined, decorators: [{
                     type: Inject,
                     args: [CSP_NONCE]
-                }] }]; } });
+                }] }] });
 class DefaultDomRenderer2 {
     constructor(eventManager, doc, ngZone, platformIsServer) {
         this.eventManager = eventManager;

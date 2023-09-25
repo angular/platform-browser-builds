@@ -65,15 +65,15 @@ export class EventManager {
         this._eventNameToPlugin.set(eventName, plugin);
         return plugin;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-baaaa6d", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-baaaa6d", ngImport: i0, type: EventManager }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-d6bfebe", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-d6bfebe", ngImport: i0, type: EventManager }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-baaaa6d", ngImport: i0, type: EventManager, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-d6bfebe", ngImport: i0, type: EventManager, decorators: [{
             type: Injectable
-        }], ctorParameters: function () { return [{ type: undefined, decorators: [{
+        }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [EVENT_MANAGER_PLUGINS]
-                }] }, { type: i0.NgZone }]; } });
+                }] }, { type: i0.NgZone }] });
 /**
  * The plugin definition for the `EventManager` class
  *

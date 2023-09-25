@@ -163,16 +163,16 @@ export class Meta {
     _getMetaKeyMap(prop) {
         return META_KEYS_MAP[prop] || prop;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-baaaa6d", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-baaaa6d", ngImport: i0, type: Meta, providedIn: 'root', useFactory: createMeta, deps: [] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-d6bfebe", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-d6bfebe", ngImport: i0, type: Meta, providedIn: 'root', useFactory: createMeta, deps: [] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-baaaa6d", ngImport: i0, type: Meta, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.5+sha-d6bfebe", ngImport: i0, type: Meta, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useFactory: createMeta, deps: [] }]
-        }], ctorParameters: function () { return [{ type: undefined, decorators: [{
+        }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [DOCUMENT]
-                }] }]; } });
+                }] }] });
 /**
  * Mapping for MetaDefinition properties with their correct meta attribute names
  */
