@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.0-next.6+sha-e1728a2
+ * @license Angular v17.0.0-next.6+sha-81e7f5b
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10,8 +10,6 @@ import { AnimationBuilder } from '@angular/animations';
 import { AnimationDriver } from '@angular/animations/browser';
 import { AnimationFactory } from '@angular/animations';
 import { AnimationMetadata } from '@angular/animations';
-import { AnimationOptions } from '@angular/animations';
-import { AnimationPlayer } from '@angular/animations';
 import { ApplicationRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/platform-browser';
@@ -20,8 +18,6 @@ import { OnDestroy } from '@angular/core';
 import { Provider } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { ɵAnimationEngine } from '@angular/animations/browser';
-import { ɵAnimationRenderer } from '@angular/animations/browser';
-import { ɵAnimationRendererFactory } from '@angular/animations/browser';
 import { ɵAnimationStyleNormalizer } from '@angular/animations/browser';
 
 export { ANIMATION_MODULE_TYPE }
@@ -123,10 +119,6 @@ export declare function provideAnimations(): Provider[];
  */
 export declare function provideNoopAnimations(): Provider[];
 
-export { ɵAnimationRenderer }
-
-export { ɵAnimationRendererFactory }
-
 export declare class ɵBrowserAnimationBuilder extends AnimationBuilder {
     private _nextAnimationId;
     private _renderer;
@@ -134,13 +126,6 @@ export declare class ɵBrowserAnimationBuilder extends AnimationBuilder {
     build(animation: AnimationMetadata | AnimationMetadata[]): AnimationFactory;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵBrowserAnimationBuilder, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵBrowserAnimationBuilder>;
-}
-
-export declare class ɵBrowserAnimationFactory extends AnimationFactory {
-    private _id;
-    private _renderer;
-    constructor(_id: string, _renderer: ɵAnimationRenderer);
-    create(element: any, options?: AnimationOptions): AnimationPlayer;
 }
 
 export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine implements OnDestroy {
