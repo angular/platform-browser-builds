@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "17.0.0-next.6+sha-ee0d04b",
+  "version": "17.0.0-next.7+sha-0d3373b",
   "description": "Angular - library for using Angular in a web browser",
   "author": "angular",
   "license": "MIT",
@@ -11,9 +11,9 @@
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/animations": "17.0.0-next.6+sha-ee0d04b",
-    "@angular/core": "17.0.0-next.6+sha-ee0d04b",
-    "@angular/common": "17.0.0-next.6+sha-ee0d04b"
+    "@angular/animations": "17.0.0-next.7+sha-0d3373b",
+    "@angular/core": "17.0.0-next.7+sha-0d3373b",
+    "@angular/common": "17.0.0-next.7+sha-0d3373b"
   },
   "peerDependenciesMeta": {
     "@angular/animations": {
@@ -64,6 +64,12 @@
       "esm2022": "./esm2022/animations/animations.mjs",
       "esm": "./esm2022/animations/animations.mjs",
       "default": "./fesm2022/animations.mjs"
+    },
+    "./animations/async": {
+      "types": "./animations/async/index.d.ts",
+      "esm2022": "./esm2022/animations/async/async.mjs",
+      "esm": "./esm2022/animations/async/async.mjs",
+      "default": "./fesm2022/animations/async.mjs"
     },
     "./testing": {
       "types": "./testing/index.d.ts",

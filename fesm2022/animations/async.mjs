@@ -1,0 +1,223 @@
+/**
+ * @license Angular v17.0.0-next.7+sha-0d3373b
+ * (c) 2010-2022 Google LLC. https://angular.io/
+ * License: MIT
+ */
+
+import { DOCUMENT } from '@angular/common';
+import { RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
+import { ɵDomRendererFactory2 } from '@angular/platform-browser';
+
+class AsyncAnimationRendererFactory {
+    /**
+     *
+     * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
+     */
+    constructor(doc, delegate, zone, animationType, moduleImpl) {
+        this.doc = doc;
+        this.delegate = delegate;
+        this.zone = zone;
+        this.animationType = animationType;
+        this.moduleImpl = moduleImpl;
+        this._rendererFactoryPromise = null;
+    }
+    /**
+     * @internal
+     */
+    loadImpl() {
+        const moduleImpl = this.moduleImpl ?? import('@angular/animations/browser');
+        return moduleImpl
+            .catch((e) => {
+            // TODO: Create a runtime error
+            throw new Error('Failed to load the @angular/animations/browser module');
+        })
+            .then(({ ɵcreateEngine, ɵAnimationRendererFactory }) => {
+            // We can't create the renderer yet because we might need the hostElement and the type
+            // Both are provided in createRenderer().
+            const engine = ɵcreateEngine(this.animationType, this.doc);
+            const rendererFactory = new ɵAnimationRendererFactory(this.delegate, engine, this.zone);
+            this.delegate = rendererFactory;
+            return rendererFactory;
+        });
+    }
+    /**
+     * This method is delegating the renderer creation to the factories.
+     * It uses default factory while the animation factory isn't loaded
+     * and will rely on the animation factory once it is loaded.
+     *
+     * Calling this method will trigger as side effect the loading of the animation module
+     * if the renderered component uses animations.
+     */
+    createRenderer(hostElement, rendererType) {
+        const renderer = this.delegate.createRenderer(hostElement, rendererType);
+        if (renderer.isAnimationRenderer) {
+            // The factory is already loaded, this is an animation renderer
+            return renderer;
+        }
+        // We need to prevent the DomRenderer to throw an error because of synthetic properties
+        if (typeof renderer.throwOnSyntheticProps === 'boolean') {
+            renderer.throwOnSyntheticProps = false;
+        }
+        // Using a dynamic renderer to switch the renderer implementation once the module is loaded.
+        const dynamicRenderer = new DynamicDelegationRenderer(renderer);
+        // Kick off the module loading if the component uses animations but the module hasn't been
+        // loaded yet.
+        if (rendererType?.data?.['animation'] && !this._rendererFactoryPromise) {
+            this._rendererFactoryPromise = this.loadImpl();
+        }
+        this._rendererFactoryPromise?.then((animationRendererFactory) => {
+            const animationRenderer = animationRendererFactory.createRenderer(hostElement, rendererType);
+            dynamicRenderer.use(animationRenderer);
+        });
+        return dynamicRenderer;
+    }
+    begin() {
+        this.delegate.begin?.();
+    }
+    end() {
+        this.delegate.end?.();
+    }
+    whenRenderingDone() {
+        return this.delegate.whenRenderingDone?.() ?? Promise.resolve();
+    }
+}
+/**
+ * The class allows to dynamicly switch between different renderer implementations
+ * by changing the delegate renderer.
+ */
+class DynamicDelegationRenderer {
+    constructor(delegate) {
+        this.delegate = delegate;
+    }
+    use(impl) {
+        this.delegate = impl;
+    }
+    get data() {
+        return this.delegate.data;
+    }
+    destroy() {
+        this.delegate.destroy();
+    }
+    createElement(name, namespace) {
+        return this.delegate.createElement(name, namespace);
+    }
+    createComment(value) {
+        return this.delegate.createComment(value);
+    }
+    createText(value) {
+        return this.delegate.createText(value);
+    }
+    get destroyNode() {
+        return this.delegate.destroyNode;
+    }
+    appendChild(parent, newChild) {
+        this.delegate.appendChild(parent, newChild);
+    }
+    insertBefore(parent, newChild, refChild, isMove) {
+        this.delegate.insertBefore(parent, newChild, refChild, isMove);
+    }
+    removeChild(parent, oldChild, isHostElement) {
+        this.delegate.removeChild(parent, oldChild, isHostElement);
+    }
+    selectRootElement(selectorOrNode, preserveContent) {
+        return this.delegate.selectRootElement(selectorOrNode, preserveContent);
+    }
+    parentNode(node) {
+        return this.delegate.parentNode(node);
+    }
+    nextSibling(node) {
+        return this.delegate.nextSibling(node);
+    }
+    setAttribute(el, name, value, namespace) {
+        this.delegate.setAttribute(el, name, value, namespace);
+    }
+    removeAttribute(el, name, namespace) {
+        this.delegate.removeAttribute(el, name, namespace);
+    }
+    addClass(el, name) {
+        this.delegate.addClass(el, name);
+    }
+    removeClass(el, name) {
+        this.delegate.removeClass(el, name);
+    }
+    setStyle(el, style, value, flags) {
+        this.delegate.setStyle(el, style, value, flags);
+    }
+    removeStyle(el, style, flags) {
+        this.delegate.removeStyle(el, style, flags);
+    }
+    setProperty(el, name, value) {
+        this.delegate.setProperty(el, name, value);
+    }
+    setValue(node, value) {
+        this.delegate.setValue(node, value);
+    }
+    listen(target, eventName, callback) {
+        return this.delegate.listen(target, eventName, callback);
+    }
+}
+
+/**
+ * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * to enable animations in an application. See [animations guide](guide/animations)
+ * to learn more about animations in Angular.
+ *
+ * When you use this function instead of the eager `provideAnimations()`, animations won't be
+ * renderered until the renderer is loaded.
+ *
+ * @usageNotes
+ *
+ * The function is useful when you want to enable animations in an application
+ * bootstrapped using the `bootstrapApplication` function. In this scenario there
+ * is no need to import the `BrowserAnimationsModule` NgModule at all, just add
+ * providers returned by this function to the `providers` list as show below.
+ *
+ * ```typescript
+ * bootstrapApplication(RootComponent, {
+ *   providers: [
+ *     provideAnimationsAsync()
+ *   ]
+ * });
+ * ```
+ *
+ * @param type pass `'noop'` as argument to disable animations.
+ *
+ * @publicApi
+ * @developerPreview
+ */
+function provideAnimationsAsync(type = 'animations') {
+    return [
+        {
+            provide: RendererFactory2,
+            useFactory: (doc, renderer, zone) => {
+                return new AsyncAnimationRendererFactory(doc, renderer, zone, type);
+            },
+            deps: [DOCUMENT, ɵDomRendererFactory2, NgZone],
+        },
+        {
+            provide: ANIMATION_MODULE_TYPE,
+            useValue: type === 'noop' ? 'NoopAnimations' : 'BrowserAnimations',
+        },
+    ];
+}
+
+/**
+ * @module
+ * @description
+ * Entry point for all animation APIs of the animation browser package.
+ */
+
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of this package.
+ */
+
+// This file is not used to build this module. It is only used during editing
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+export { provideAnimationsAsync };
+//# sourceMappingURL=async.mjs.map
