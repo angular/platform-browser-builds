@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.0-next.7+sha-b6b9eae
+ * @license Angular v17.0.0-next.7+sha-048f400
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -12,6 +12,7 @@ import { DebugElement } from '@angular/core';
 import { DebugNode } from '@angular/core';
 import { EnvironmentProviders } from '@angular/core';
 import { GetTestability } from '@angular/core';
+import { HttpTransferCacheOptions } from '@angular/common/http';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
 import { InjectionToken } from '@angular/core';
@@ -490,7 +491,8 @@ export declare interface HydrationFeature<FeatureKind extends HydrationFeatureKi
  */
 export declare const enum HydrationFeatureKind {
     NoDomReuseFeature = 0,
-    NoHttpTransferCache = 1
+    NoHttpTransferCache = 1,
+    HttpTransferCacheOptions = 2
 }
 
 /**
@@ -644,10 +646,10 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  * transferring this cache to the client to avoid extra HTTP requests. Learn more about data caching
  * [here](/guide/universal#caching-data-when-using-httpclient).
  *
- * These functions functions will allow you to disable some of the default features:
+ * These functions allow you to disable some of the default features or configure features
  * * {@link withNoDomReuse} to disable DOM nodes reuse during hydration
  * * {@link withNoHttpTransferCache} to disable HTTP transfer cache
- *
+ * * {@link withHttpTransferCacheOptions} to configure some HTTP transfer cache options
  *
  * @usageNotes
  *
@@ -672,6 +674,7 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  *
  * @see {@link withNoDomReuse}
  * @see {@link withNoHttpTransferCache}
+ * @see {@link withHttpTransferCacheOptions}
  *
  * @param features Optional features to configure additional router behaviors.
  * @returns A set of providers to enable hydration.
@@ -825,6 +828,17 @@ export declare const TransferState: {
 export declare const VERSION: Version;
 
 /**
+ * The function accepts a an object, which allows to configure cache parameters,
+ * such as which headers should be included (no headers are included by default),
+ * wether POST requests should be cached or a callback function to determine if a
+ * particular request should be cached.
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function withHttpTransferCacheOptions(options: HttpTransferCacheOptions): HydrationFeature<HydrationFeatureKind.HttpTransferCacheOptions>;
+
+/**
  * Disables DOM nodes reuse during hydration. Effectively makes
  * Angular re-render an application from scratch on the client.
  *
@@ -848,6 +862,9 @@ export declare const VERSION: Version;
  * operations in the Router (such as lazy-loading of components,
  * waiting for async guards and resolvers) are completed to avoid
  * clearing the DOM on the client too soon, thus causing content flicker.
+ *
+ * The use of this function is discouraged, because it disables DOM nodes reuse during
+ * hydration.
  *
  * @see {@link provideRouter}
  * @see {@link withEnabledBlockingInitialNavigation}
