@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.0-next.7+sha-21b085d
+ * @license Angular v17.0.0-next.7+sha-75d610d
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -995,6 +995,25 @@ export declare class ɵKeyEventsPlugin extends EventManagerPlugin {
     static eventCallback(fullKey: string, handler: Function, zone: NgZone): Function;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵKeyEventsPlugin, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵKeyEventsPlugin>;
+}
+
+
+/**
+ * The list of error codes used in runtime code of the `platform-browser` package.
+ * Reserved error code range: 5000-5500.
+ */
+export declare const enum ɵRuntimeErrorCode {
+    UNSUPPORTED_ZONEJS_INSTANCE = -5000,
+    BROWER_MODULE_ALREADY_LOADED = 5100,
+    NO_PLUGIN_FOR_EVENT = 5101,
+    UNSUPPORTED_EVENT_TARGET = 5102,
+    TESTABILITY_NOT_FOUND = 5103,
+    ROOT_NODE_NOT_FOUND = -5104,
+    UNEXPECTED_SYNTHETIC_PROPERTY = 5105,
+    SANITIZATION_UNSAFE_SCRIPT = 5200,
+    SANITIZATION_UNSAFE_RESOURCE_URL = 5201,
+    SANITIZATION_UNEXPECTED_CTX = 5202,
+    ANIMATION_RENDERER_ASYNC_LOADING_FAILURE = 5300
 }
 
 export declare class ɵSharedStylesHost implements OnDestroy {
