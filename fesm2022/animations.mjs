@@ -1,112 +1,16 @@
 /**
- * @license Angular v17.0.0-next.8+sha-5c70148
+ * @license Angular v17.0.0-next.8+sha-0792424
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { ViewEncapsulation, Injectable, Inject, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE, NgModule } from '@angular/core';
+import { Injectable, Inject, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE, NgModule } from '@angular/core';
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
 import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
-import { AnimationBuilder, sequence, AnimationFactory } from '@angular/animations';
 import * as i1 from '@angular/animations/browser';
 import { ɵAnimationEngine, ɵWebAnimationsStyleNormalizer, ɵAnimationRendererFactory, ɵAnimationStyleNormalizer, AnimationDriver, ɵWebAnimationsDriver, NoopAnimationDriver } from '@angular/animations/browser';
 import { DOCUMENT } from '@angular/common';
-
-class BrowserAnimationBuilder extends AnimationBuilder {
-    constructor(rootRenderer, doc) {
-        super();
-        this._nextAnimationId = 0;
-        const typeData = { id: '0', encapsulation: ViewEncapsulation.None, styles: [], data: { animation: [] } };
-        this._renderer = rootRenderer.createRenderer(doc.body, typeData);
-    }
-    build(animation) {
-        const id = this._nextAnimationId.toString();
-        this._nextAnimationId++;
-        const entry = Array.isArray(animation) ? sequence(animation) : animation;
-        issueAnimationCommand(this._renderer, null, id, 'register', [entry]);
-        return new BrowserAnimationFactory(id, this._renderer);
-    }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: BrowserAnimationBuilder, deps: [{ token: i0.RendererFactory2 }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: BrowserAnimationBuilder }); }
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: BrowserAnimationBuilder, decorators: [{
-            type: Injectable
-        }], ctorParameters: () => [{ type: i0.RendererFactory2 }, { type: Document, decorators: [{
-                    type: Inject,
-                    args: [DOCUMENT]
-                }] }] });
-class BrowserAnimationFactory extends AnimationFactory {
-    constructor(_id, _renderer) {
-        super();
-        this._id = _id;
-        this._renderer = _renderer;
-    }
-    create(element, options) {
-        return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
-    }
-}
-class RendererAnimationPlayer {
-    constructor(id, element, options, _renderer) {
-        this.id = id;
-        this.element = element;
-        this._renderer = _renderer;
-        this.parentPlayer = null;
-        this._started = false;
-        this.totalTime = 0;
-        this._command('create', options);
-    }
-    _listen(eventName, callback) {
-        return this._renderer.listen(this.element, `@@${this.id}:${eventName}`, callback);
-    }
-    _command(command, ...args) {
-        return issueAnimationCommand(this._renderer, this.element, this.id, command, args);
-    }
-    onDone(fn) {
-        this._listen('done', fn);
-    }
-    onStart(fn) {
-        this._listen('start', fn);
-    }
-    onDestroy(fn) {
-        this._listen('destroy', fn);
-    }
-    init() {
-        this._command('init');
-    }
-    hasStarted() {
-        return this._started;
-    }
-    play() {
-        this._command('play');
-        this._started = true;
-    }
-    pause() {
-        this._command('pause');
-    }
-    restart() {
-        this._command('restart');
-    }
-    finish() {
-        this._command('finish');
-    }
-    destroy() {
-        this._command('destroy');
-    }
-    reset() {
-        this._command('reset');
-        this._started = false;
-    }
-    setPosition(p) {
-        this._command('setPosition', p);
-    }
-    getPosition() {
-        return this._renderer.engine.players[+this.id]?.getPosition() ?? 0;
-    }
-}
-function issueAnimationCommand(renderer, element, id, command, args) {
-    return renderer.setProperty(element, `@@${id}:${command}`, args);
-}
 
 class InjectableAnimationEngine extends ɵAnimationEngine {
     // The `ApplicationRef` is injected here explicitly to force the dependency ordering.
@@ -118,10 +22,10 @@ class InjectableAnimationEngine extends ɵAnimationEngine {
     ngOnDestroy() {
         this.flush();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }, { token: i0.ApplicationRef }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: InjectableAnimationEngine }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }, { token: i0.ApplicationRef }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: InjectableAnimationEngine }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document, decorators: [{
                     type: Inject,
@@ -134,7 +38,6 @@ function instantiateRendererFactory(renderer, engine, zone) {
     return new ɵAnimationRendererFactory(renderer, engine, zone);
 }
 const SHARED_ANIMATION_PROVIDERS = [
-    { provide: AnimationBuilder, useClass: BrowserAnimationBuilder },
     { provide: ɵAnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer },
     { provide: ɵAnimationEngine, useClass: InjectableAnimationEngine }, {
         provide: RendererFactory2,
@@ -188,11 +91,11 @@ class BrowserAnimationsModule {
                 BROWSER_ANIMATIONS_PROVIDERS
         };
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -231,11 +134,11 @@ function provideAnimations() {
  * @publicApi
  */
 class NoopAnimationsModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-5c70148", ngImport: i0, type: NoopAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.8+sha-0792424", ngImport: i0, type: NoopAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -287,5 +190,5 @@ function provideNoopAnimations() {
  * Generated bundle index. Do not edit.
  */
 
-export { BrowserAnimationsModule, NoopAnimationsModule, provideAnimations, provideNoopAnimations, BrowserAnimationBuilder as ɵBrowserAnimationBuilder, InjectableAnimationEngine as ɵInjectableAnimationEngine };
+export { BrowserAnimationsModule, NoopAnimationsModule, provideAnimations, provideNoopAnimations, InjectableAnimationEngine as ɵInjectableAnimationEngine };
 //# sourceMappingURL=animations.mjs.map
