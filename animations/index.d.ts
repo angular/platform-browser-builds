@@ -1,22 +1,18 @@
 /**
- * @license Angular v17.1.0-next.0+sha-f3eebaf
+ * @license Angular v17.1.0-next.0+sha-1c4a367
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 
 import { ANIMATION_MODULE_TYPE } from '@angular/core';
-import { AnimationBuilder } from '@angular/animations';
 import { AnimationDriver } from '@angular/animations/browser';
-import { AnimationFactory } from '@angular/animations';
-import { AnimationMetadata } from '@angular/animations';
 import { ApplicationRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/platform-browser';
 import { ModuleWithProviders } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Provider } from '@angular/core';
-import { RendererFactory2 } from '@angular/core';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵAnimationStyleNormalizer } from '@angular/animations/browser';
 
@@ -118,15 +114,6 @@ export declare function provideAnimations(): Provider[];
  * @publicApi
  */
 export declare function provideNoopAnimations(): Provider[];
-
-export declare class ɵBrowserAnimationBuilder extends AnimationBuilder {
-    private _nextAnimationId;
-    private _renderer;
-    constructor(rootRenderer: RendererFactory2, doc: Document);
-    build(animation: AnimationMetadata | AnimationMetadata[]): AnimationFactory;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ɵBrowserAnimationBuilder, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<ɵBrowserAnimationBuilder>;
-}
 
 export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine implements OnDestroy {
     constructor(doc: Document, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer, appRef: ApplicationRef);

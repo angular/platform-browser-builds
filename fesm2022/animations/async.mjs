@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0-next.0+sha-f3eebaf
+ * @license Angular v17.1.0-next.0+sha-1c4a367
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -53,7 +53,7 @@ class AsyncAnimationRendererFactory {
      */
     createRenderer(hostElement, rendererType) {
         const renderer = this.delegate.createRenderer(hostElement, rendererType);
-        if (renderer.isAnimationRenderer) {
+        if (renderer.ɵtype === 0 /* AnimationRendererType.Regular */) {
             // The factory is already loaded, this is an animation renderer
             return renderer;
         }
@@ -98,6 +98,7 @@ class DynamicDelegationRenderer {
         this.delegate = delegate;
         // List of callbacks that need to be replayed on the animation renderer once its loaded
         this.replay = [];
+        this.ɵtype = 1 /* AnimationRendererType.Delegated */;
     }
     use(impl) {
         this.delegate = impl;
