@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0-next.0+sha-6fefbe8
+ * @license Angular v17.1.0-next.0+sha-1640743
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -694,7 +694,7 @@ export declare function provideProtractorTestingSupport(): Provider[];
 
 /**
  * A [DI token](guide/glossary#di-token "DI token definition") that indicates whether styles
- * of destroyed components should be disabled.
+ * of destroyed components should be removed from DOM.
  *
  * By default, the value is set to `true`.
  * @publicApi
@@ -884,7 +884,7 @@ export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestro
     private readonly eventManager;
     private readonly sharedStylesHost;
     private readonly appId;
-    private disableStylesOnCompDestroy;
+    private removeStylesOnCompDestroy;
     private readonly doc;
     readonly platformId: Object;
     readonly ngZone: NgZone;
@@ -892,7 +892,7 @@ export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestro
     private readonly rendererByCompId;
     private readonly defaultRenderer;
     private readonly platformIsServer;
-    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, disableStylesOnCompDestroy: boolean, doc: Document, platformId: Object, ngZone: NgZone, nonce?: string | null);
+    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestroy: boolean, doc: Document, platformId: Object, ngZone: NgZone, nonce?: string | null);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
     ngOnDestroy(): void;
@@ -1027,13 +1027,13 @@ export declare class ɵSharedStylesHost implements OnDestroy {
     private readonly platformIsServer;
     constructor(doc: Document, appId: string, nonce?: string | null | undefined, platformId?: object);
     addStyles(styles: string[]): void;
-    disableStyles(styles: string[]): void;
-    visitStyleElement(style: string, callback: (node: HTMLStyleElement) => void): void;
+    removeStyles(styles: string[]): void;
     ngOnDestroy(): void;
     addHost(hostNode: Node): void;
     removeHost(hostNode: Node): void;
     private getAllStyles;
     private onStyleAdded;
+    private onStyleRemoved;
     private collectServerRenderedStyles;
     private changeUsageCount;
     private getStyleElement;
