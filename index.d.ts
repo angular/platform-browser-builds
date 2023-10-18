@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.0-next.8+sha-eccbf36
+ * @license Angular v17.0.0-next.8+sha-1091239
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -475,7 +475,6 @@ export declare class HammerModule {
  * Helper type to represent a Hydration feature.
  *
  * @publicApi
- * @developerPreview
  */
 export declare interface HydrationFeature<FeatureKind extends HydrationFeatureKind> {
     ɵkind: FeatureKind;
@@ -487,7 +486,6 @@ export declare interface HydrationFeature<FeatureKind extends HydrationFeatureKi
  * @see {@link HydrationFeature}
  *
  * @publicApi
- * @developerPreview
  */
 export declare const enum HydrationFeatureKind {
     NoHttpTransferCache = 0,
@@ -675,7 +673,6 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  * @returns A set of providers to enable hydration.
  *
  * @publicApi
- * @developerPreview
  */
 export declare function provideClientHydration(...features: HydrationFeature<HydrationFeatureKind>[]): EnvironmentProviders;
 
@@ -829,7 +826,6 @@ export declare const VERSION: Version;
  * particular request should be cached.
  *
  * @publicApi
- * @developerPreview
  */
 export declare function withHttpTransferCacheOptions(options: HttpTransferCacheOptions): HydrationFeature<HydrationFeatureKind.HttpTransferCacheOptions>;
 
@@ -838,7 +834,6 @@ export declare function withHttpTransferCacheOptions(options: HttpTransferCacheO
  * server and other one on the browser.
  *
  * @publicApi
- * @developerPreview
  */
 export declare function withNoHttpTransferCache(): HydrationFeature<HydrationFeatureKind.NoHttpTransferCache>;
 
