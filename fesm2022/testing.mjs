@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0-next.0+sha-16bf04b
+ * @license Angular v17.1.0-next.0+sha-31c7bc1
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -26,9 +26,9 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  * @publicApi
  */
 class BrowserTestingModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.0+sha-16bf04b", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.1.0-next.0+sha-16bf04b", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.1.0-next.0+sha-16bf04b", ngImport: i0, type: BrowserTestingModule, providers: [
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.0+sha-31c7bc1", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.1.0-next.0+sha-31c7bc1", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.1.0-next.0+sha-31c7bc1", ngImport: i0, type: BrowserTestingModule, providers: [
             { provide: APP_ID, useValue: 'a' },
             provideZoneChangeDetection(),
             { provide: PlatformLocation, useClass: MockPlatformLocation },
@@ -36,7 +36,7 @@ class BrowserTestingModule {
             { provide: ɵEffectScheduler, useExisting: ɵZoneAwareQueueingScheduler },
         ], imports: [BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.0+sha-16bf04b", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.0+sha-31c7bc1", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
