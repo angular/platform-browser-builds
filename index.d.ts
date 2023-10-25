@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0-next.0+sha-31c7bc1
+ * @license Angular v17.1.0-next.0+sha-fc9ba39
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -999,7 +999,7 @@ export declare class ɵKeyEventsPlugin extends EventManagerPlugin {
  */
 export declare const enum ɵRuntimeErrorCode {
     UNSUPPORTED_ZONEJS_INSTANCE = -5000,
-    BROWER_MODULE_ALREADY_LOADED = 5100,
+    BROWSER_MODULE_ALREADY_LOADED = 5100,
     NO_PLUGIN_FOR_EVENT = 5101,
     UNSUPPORTED_EVENT_TARGET = 5102,
     TESTABILITY_NOT_FOUND = 5103,
