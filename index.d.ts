@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0-next.0+sha-f1a020b
+ * @license Angular v17.1.0-next.0+sha-cb8a741
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -639,7 +639,7 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  * * Reconciling DOM hydration. Learn more about it [here](guide/hydration).
  * * [`HttpClient`](api/common/http/HttpClient) response caching while running on the server and
  * transferring this cache to the client to avoid extra HTTP requests. Learn more about data caching
- * [here](/guide/universal#caching-data-when-using-httpclient).
+ * [here](/guide/ssr#caching-data-when-using-httpclient).
  *
  * These functions allow you to disable some of the default features or configure features
  * * {@link withNoHttpTransferCache} to disable HTTP transfer cache
