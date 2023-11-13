@@ -1,11 +1,11 @@
 /**
- * @license Angular v17.0.2+sha-f5872c9
+ * @license Angular v17.0.2+sha-30757bd
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { DOCUMENT } from '@angular/common';
-import { ɵRuntimeError, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
+import { ɵRuntimeError, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
 import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 
 const ANIMATION_PREFIX = '@';
@@ -222,7 +222,7 @@ class DynamicDelegationRenderer {
  * @developerPreview
  */
 function provideAnimationsAsync(type = 'animations') {
-    return [
+    return makeEnvironmentProviders([
         {
             provide: RendererFactory2,
             useFactory: (doc, renderer, zone) => {
@@ -234,7 +234,7 @@ function provideAnimationsAsync(type = 'animations') {
             provide: ANIMATION_MODULE_TYPE,
             useValue: type === 'noop' ? 'NoopAnimations' : 'BrowserAnimations',
         },
-    ];
+    ]);
 }
 
 /**
