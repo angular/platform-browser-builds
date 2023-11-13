@@ -1,11 +1,17 @@
 /**
- * @license Angular v17.0.2+sha-7c066a4
+ * @license Angular v17.0.2+sha-f5872c9
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 
+import { NgZone } from '@angular/core';
 import { Provider } from '@angular/core';
+import { Renderer2 } from '@angular/core';
+import { RendererFactory2 } from '@angular/core';
+import { RendererType2 } from '@angular/core';
+import { ɵAnimationEngine } from '@angular/animations/browser';
+import { ɵAnimationRendererFactory } from '@angular/animations/browser';
 
 /**
  * Returns the set of [dependency-injection providers](guide/glossary#provider)
@@ -36,5 +42,34 @@ import { Provider } from '@angular/core';
  * @developerPreview
  */
 export declare function provideAnimationsAsync(type?: 'animations' | 'noop'): Provider[];
+
+export declare class ɵAsyncAnimationRendererFactory implements RendererFactory2 {
+    private doc;
+    private delegate;
+    private zone;
+    private animationType;
+    private moduleImpl?;
+    private _rendererFactoryPromise;
+    /**
+     *
+     * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
+     */
+    constructor(doc: Document, delegate: RendererFactory2, zone: NgZone, animationType: 'animations' | 'noop', moduleImpl?: Promise<{
+        ɵcreateEngine: (type: 'animations' | 'noop', doc: Document) => ɵAnimationEngine;
+        ɵAnimationRendererFactory: typeof ɵAnimationRendererFactory;
+    }> | undefined);
+    /**
+     * This method is delegating the renderer creation to the factories.
+     * It uses default factory while the animation factory isn't loaded
+     * and will rely on the animation factory once it is loaded.
+     *
+     * Calling this method will trigger as side effect the loading of the animation module
+     * if the renderered component uses animations.
+     */
+    createRenderer(hostElement: any, rendererType: RendererType2): Renderer2;
+    begin(): void;
+    end(): void;
+    whenRenderingDone?(): Promise<any>;
+}
 
 export { }

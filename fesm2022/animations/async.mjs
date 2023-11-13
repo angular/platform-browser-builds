@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.2+sha-7c066a4
+ * @license Angular v17.0.2+sha-f5872c9
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -255,5 +255,5 @@ function provideAnimationsAsync(type = 'animations') {
  * Generated bundle index. Do not edit.
  */
 
-export { provideAnimationsAsync };
+export { provideAnimationsAsync, AsyncAnimationRendererFactory as ɵAsyncAnimationRendererFactory };
 //# sourceMappingURL=async.mjs.map
