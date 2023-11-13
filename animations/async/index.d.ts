@@ -1,12 +1,12 @@
 /**
- * @license Angular v17.1.0-next.0+sha-5ee11a7
+ * @license Angular v17.1.0-next.0+sha-9135dba
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 
+import { EnvironmentProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
-import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
@@ -41,7 +41,7 @@ import { ɵAnimationRendererFactory } from '@angular/animations/browser';
  * @publicApi
  * @developerPreview
  */
-export declare function provideAnimationsAsync(type?: 'animations' | 'noop'): Provider[];
+export declare function provideAnimationsAsync(type?: 'animations' | 'noop'): EnvironmentProviders;
 
 export declare class ɵAsyncAnimationRendererFactory implements RendererFactory2 {
     private doc;
