@@ -26,9 +26,9 @@ export const platformBrowserTesting = createPlatformFactory(platformCore, 'brows
  * @publicApi
  */
 export class BrowserTestingModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.4+sha-ba6d7fe", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.4+sha-ba6d7fe", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.4+sha-ba6d7fe", ngImport: i0, type: BrowserTestingModule, providers: [
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.4+sha-df01a5c", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.4+sha-df01a5c", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.4+sha-df01a5c", ngImport: i0, type: BrowserTestingModule, providers: [
             { provide: APP_ID, useValue: 'a' },
             provideZoneChangeDetection(),
             { provide: PlatformLocation, useClass: MockPlatformLocation },
@@ -36,7 +36,7 @@ export class BrowserTestingModule {
             { provide: EffectScheduler, useExisting: ZoneAwareQueueingScheduler },
         ], imports: [BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.4+sha-ba6d7fe", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.4+sha-df01a5c", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
