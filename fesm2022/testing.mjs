@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.9+sha-425a8d3
+ * @license Angular v17.0.9+sha-198e64a
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import { PlatformLocation } from '@angular/common';
 import { MockPlatformLocation } from '@angular/common/testing';
 import * as i0 from '@angular/core';
-import { PLATFORM_INITIALIZER, createPlatformFactory, platformCore, APP_ID, provideZoneChangeDetection, ɵZoneAwareQueueingScheduler, ɵEffectScheduler, NgModule } from '@angular/core';
+import { PLATFORM_INITIALIZER, createPlatformFactory, platformCore, APP_ID, provideZoneChangeDetection, NgModule } from '@angular/core';
 import { ɵBrowserDomAdapter, BrowserModule } from '@angular/platform-browser';
 
 function initBrowserTests() {
@@ -26,17 +26,15 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  * @publicApi
  */
 class BrowserTestingModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.9+sha-425a8d3", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.9+sha-425a8d3", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.9+sha-425a8d3", ngImport: i0, type: BrowserTestingModule, providers: [
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.9+sha-198e64a", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.9+sha-198e64a", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.9+sha-198e64a", ngImport: i0, type: BrowserTestingModule, providers: [
             { provide: APP_ID, useValue: 'a' },
             provideZoneChangeDetection(),
             { provide: PlatformLocation, useClass: MockPlatformLocation },
-            { provide: ɵZoneAwareQueueingScheduler },
-            { provide: ɵEffectScheduler, useExisting: ɵZoneAwareQueueingScheduler },
         ], imports: [BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.9+sha-425a8d3", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.9+sha-198e64a", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -44,8 +42,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.9+sha-425a8
                         { provide: APP_ID, useValue: 'a' },
                         provideZoneChangeDetection(),
                         { provide: PlatformLocation, useClass: MockPlatformLocation },
-                        { provide: ɵZoneAwareQueueingScheduler },
-                        { provide: ɵEffectScheduler, useExisting: ɵZoneAwareQueueingScheduler },
                     ]
                 }]
         }] });
