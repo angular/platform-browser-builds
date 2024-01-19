@@ -1,11 +1,11 @@
 /**
- * @license Angular v17.1.0+sha-62ad2f0
+ * @license Angular v17.1.0+sha-7620f50
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { Injectable, Inject, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE, NgModule } from '@angular/core';
+import { inject, ɵChangeDetectionScheduler, Injectable, Inject, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE, NgModule } from '@angular/core';
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
 import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import * as i1 from '@angular/animations/browser';
@@ -16,21 +16,21 @@ class InjectableAnimationEngine extends ɵAnimationEngine {
     // The `ApplicationRef` is injected here explicitly to force the dependency ordering.
     // Since the `ApplicationRef` should be created earlier before the `AnimationEngine`, they
     // both have `ngOnDestroy` hooks and `flush()` must be called after all views are destroyed.
-    constructor(doc, driver, normalizer, appRef) {
-        super(doc, driver, normalizer);
+    constructor(doc, driver, normalizer) {
+        super(doc, driver, normalizer, inject(ɵChangeDetectionScheduler, { optional: true }));
     }
     ngOnDestroy() {
         this.flush();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }, { token: i0.ApplicationRef }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: InjectableAnimationEngine }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: InjectableAnimationEngine }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document, decorators: [{
                     type: Inject,
                     args: [DOCUMENT]
-                }] }, { type: i1.AnimationDriver }, { type: i1.ɵAnimationStyleNormalizer }, { type: i0.ApplicationRef }] });
+                }] }, { type: i1.AnimationDriver }, { type: i1.ɵAnimationStyleNormalizer }] });
 function instantiateDefaultStyleNormalizer() {
     return new ɵWebAnimationsStyleNormalizer();
 }
@@ -91,11 +91,11 @@ class BrowserAnimationsModule {
                 BROWSER_ANIMATIONS_PROVIDERS
         };
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -134,11 +134,11 @@ function provideAnimations() {
  * @publicApi
  */
 class NoopAnimationsModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0+sha-62ad2f0", ngImport: i0, type: NoopAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0+sha-7620f50", ngImport: i0, type: NoopAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],

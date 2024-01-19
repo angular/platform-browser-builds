@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0+sha-62ad2f0
+ * @license Angular v17.1.0+sha-7620f50
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,6 @@
 
 import { ANIMATION_MODULE_TYPE } from '@angular/core';
 import { AnimationDriver } from '@angular/animations/browser';
-import { ApplicationRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/platform-browser';
 import { ModuleWithProviders } from '@angular/core';
@@ -116,7 +115,7 @@ export declare function provideAnimations(): Provider[];
 export declare function provideNoopAnimations(): Provider[];
 
 export declare class ɵInjectableAnimationEngine extends ɵAnimationEngine implements OnDestroy {
-    constructor(doc: Document, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer, appRef: ApplicationRef);
+    constructor(doc: Document, driver: AnimationDriver, normalizer: ɵAnimationStyleNormalizer);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵInjectableAnimationEngine, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵInjectableAnimationEngine>;

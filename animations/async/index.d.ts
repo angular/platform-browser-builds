@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0+sha-62ad2f0
+ * @license Angular v17.1.0+sha-7620f50
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -12,6 +12,7 @@ import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵAnimationRendererFactory } from '@angular/animations/browser';
+import { ɵChangeDetectionScheduler } from '@angular/core';
 
 /**
  * Returns the set of [dependency-injection providers](guide/glossary#provider)
@@ -50,12 +51,13 @@ export declare class ɵAsyncAnimationRendererFactory implements RendererFactory2
     private animationType;
     private moduleImpl?;
     private _rendererFactoryPromise;
+    private readonly scheduler;
     /**
      *
      * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
      */
     constructor(doc: Document, delegate: RendererFactory2, zone: NgZone, animationType: 'animations' | 'noop', moduleImpl?: Promise<{
-        ɵcreateEngine: (type: 'animations' | 'noop', doc: Document) => ɵAnimationEngine;
+        ɵcreateEngine: (type: 'animations' | 'noop', doc: Document, scheduler: ɵChangeDetectionScheduler | null) => ɵAnimationEngine;
         ɵAnimationRendererFactory: typeof ɵAnimationRendererFactory;
     }> | undefined);
     /**

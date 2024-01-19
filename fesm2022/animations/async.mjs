@@ -1,11 +1,11 @@
 /**
- * @license Angular v17.1.0+sha-62ad2f0
+ * @license Angular v17.1.0+sha-7620f50
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { DOCUMENT } from '@angular/common';
-import { ɵRuntimeError, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
+import { inject, ɵChangeDetectionScheduler, ɵRuntimeError, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
 import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 
 const ANIMATION_PREFIX = '@';
@@ -21,6 +21,7 @@ class AsyncAnimationRendererFactory {
         this.animationType = animationType;
         this.moduleImpl = moduleImpl;
         this._rendererFactoryPromise = null;
+        this.scheduler = inject(ɵChangeDetectionScheduler, { optional: true });
     }
     /**
      * @internal
@@ -37,7 +38,7 @@ class AsyncAnimationRendererFactory {
             .then(({ ɵcreateEngine, ɵAnimationRendererFactory }) => {
             // We can't create the renderer yet because we might need the hostElement and the type
             // Both are provided in createRenderer().
-            const engine = ɵcreateEngine(this.animationType, this.doc);
+            const engine = ɵcreateEngine(this.animationType, this.doc, this.scheduler);
             const rendererFactory = new ɵAnimationRendererFactory(this.delegate, engine, this.zone);
             this.delegate = rendererFactory;
             return rendererFactory;
