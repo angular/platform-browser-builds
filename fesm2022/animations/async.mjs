@@ -1,11 +1,12 @@
 /**
- * @license Angular v17.2.0-next.0+sha-bd9c2c5
+ * @license Angular v17.2.0-next.0+sha-75aeae4
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { DOCUMENT } from '@angular/common';
-import { inject, ɵChangeDetectionScheduler, ɵRuntimeError, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
+import * as i0 from '@angular/core';
+import { inject, ɵChangeDetectionScheduler, ɵRuntimeError, Injectable, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
 import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 
 const ANIMATION_PREFIX = '@';
@@ -23,6 +24,16 @@ class AsyncAnimationRendererFactory {
         this._rendererFactoryPromise = null;
         this.scheduler = inject(ɵChangeDetectionScheduler, { optional: true });
     }
+    /** @nodoc */
+    ngOnDestroy() {
+        // When the root view is removed, the renderer defers the actual work to the
+        // `TransitionAnimationEngine` to do this, and the `TransitionAnimationEngine` doesn't actually
+        // remove the DOM node, but just calls `markElementAsRemoved()`. The actual DOM node is not
+        // removed until `TransitionAnimationEngine` "flushes".
+        // Note: we already flush on destroy within the `InjectableAnimationEngine`. The injectable
+        // engine is not provided when async animations are used.
+        this._engine?.flush();
+    }
     /**
      * @internal
      */
@@ -38,8 +49,8 @@ class AsyncAnimationRendererFactory {
             .then(({ ɵcreateEngine, ɵAnimationRendererFactory }) => {
             // We can't create the renderer yet because we might need the hostElement and the type
             // Both are provided in createRenderer().
-            const engine = ɵcreateEngine(this.animationType, this.doc, this.scheduler);
-            const rendererFactory = new ɵAnimationRendererFactory(this.delegate, engine, this.zone);
+            this._engine = ɵcreateEngine(this.animationType, this.doc, this.scheduler);
+            const rendererFactory = new ɵAnimationRendererFactory(this.delegate, this._engine, this.zone);
             this.delegate = rendererFactory;
             return rendererFactory;
         });
@@ -89,7 +100,12 @@ class AsyncAnimationRendererFactory {
     whenRenderingDone() {
         return this.delegate.whenRenderingDone?.() ?? Promise.resolve();
     }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.2.0-next.0+sha-75aeae4", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.2.0-next.0+sha-75aeae4", ngImport: i0, type: AsyncAnimationRendererFactory }); }
 }
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0-next.0+sha-75aeae4", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+            type: Injectable
+        }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
  * The class allows to dynamicly switch between different renderer implementations
  * by changing the delegate renderer.

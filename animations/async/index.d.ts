@@ -1,12 +1,14 @@
 /**
- * @license Angular v17.2.0-next.0+sha-bd9c2c5
+ * @license Angular v17.2.0-next.0+sha-75aeae4
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 
 import { EnvironmentProviders } from '@angular/core';
+import * as i0 from '@angular/core';
 import { NgZone } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
@@ -44,7 +46,7 @@ import { ɵChangeDetectionScheduler } from '@angular/core';
  */
 export declare function provideAnimationsAsync(type?: 'animations' | 'noop'): EnvironmentProviders;
 
-export declare class ɵAsyncAnimationRendererFactory implements RendererFactory2 {
+export declare class ɵAsyncAnimationRendererFactory implements OnDestroy, RendererFactory2 {
     private doc;
     private delegate;
     private zone;
@@ -52,6 +54,7 @@ export declare class ɵAsyncAnimationRendererFactory implements RendererFactory2
     private moduleImpl?;
     private _rendererFactoryPromise;
     private readonly scheduler;
+    private _engine?;
     /**
      *
      * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
@@ -60,6 +63,8 @@ export declare class ɵAsyncAnimationRendererFactory implements RendererFactory2
         ɵcreateEngine: (type: 'animations' | 'noop', doc: Document, scheduler: ɵChangeDetectionScheduler | null) => ɵAnimationEngine;
         ɵAnimationRendererFactory: typeof ɵAnimationRendererFactory;
     }> | undefined);
+    /** @nodoc */
+    ngOnDestroy(): void;
     /**
      * This method is delegating the renderer creation to the factories.
      * It uses default factory while the animation factory isn't loaded
@@ -72,6 +77,8 @@ export declare class ɵAsyncAnimationRendererFactory implements RendererFactory2
     begin(): void;
     end(): void;
     whenRenderingDone?(): Promise<any>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵAsyncAnimationRendererFactory, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵAsyncAnimationRendererFactory>;
 }
 
 export { }
