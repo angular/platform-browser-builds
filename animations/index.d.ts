@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-next.2+sha-914e453
+ * @license Angular v18.0.0-next.2+sha-b87b2fc
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -18,7 +18,7 @@ import { ɵAnimationStyleNormalizer } from '@angular/animations/browser';
 export { ANIMATION_MODULE_TYPE }
 
 /**
- * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
+ * Exports `BrowserModule` with additional dependency-injection providers
  * for use with animations. See [Animations](guide/animations).
  * @publicApi
  */
@@ -68,7 +68,7 @@ export declare class NoopAnimationsModule {
 }
 
 /**
- * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * Returns the set of dependency-injection providers
  * to enable animations in an application. See [animations guide](guide/animations)
  * to learn more about animations in Angular.
  *
@@ -92,7 +92,7 @@ export declare class NoopAnimationsModule {
 export declare function provideAnimations(): Provider[];
 
 /**
- * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * Returns the set of dependency-injection providers
  * to disable animations in an application. See [animations guide](guide/animations)
  * to learn more about animations in Angular.
  *

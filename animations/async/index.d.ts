@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-next.2+sha-914e453
+ * @license Angular v18.0.0-next.2+sha-b87b2fc
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -17,7 +17,7 @@ import { ɵAnimationRendererFactory } from '@angular/animations/browser';
 import { ɵChangeDetectionScheduler } from '@angular/core';
 
 /**
- * Returns the set of [dependency-injection providers](guide/glossary#provider)
+ * Returns the set of dependency-injection providers
  * to enable animations in an application. See [animations guide](guide/animations)
  * to learn more about animations in Angular.
  *
