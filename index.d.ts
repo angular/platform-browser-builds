@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-next.2+sha-f577319
+ * @license Angular v18.0.0-next.2+sha-45ae7a6
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -489,7 +489,8 @@ export declare interface HydrationFeature<FeatureKind extends HydrationFeatureKi
  */
 export declare enum HydrationFeatureKind {
     NoHttpTransferCache = 0,
-    HttpTransferCacheOptions = 1
+    HttpTransferCacheOptions = 1,
+    I18nSupport = 2
 }
 
 /**
@@ -828,6 +829,14 @@ export declare const VERSION: Version;
  * @publicApi
  */
 export declare function withHttpTransferCacheOptions(options: HttpTransferCacheOptions): HydrationFeature<HydrationFeatureKind.HttpTransferCacheOptions>;
+
+/**
+ * Enables support for hydrating i18n blocks.
+ *
+ * @developerPreview
+ * @publicApi
+ */
+export declare function withI18nSupport(): HydrationFeature<HydrationFeatureKind.I18nSupport>;
 
 /**
  * Disables HTTP transfer cache. Effectively causes HTTP requests to be performed twice: once on the
