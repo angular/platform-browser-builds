@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-next.3+sha-216199d
+ * @license Angular v18.0.0-next.3+sha-1c6553e
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52,7 +52,7 @@ export declare type ApplicationConfig = ApplicationConfig_2;
 /**
  * Bootstraps an instance of an Angular application and renders a standalone component as the
  * application's root component. More information about standalone components can be found in [this
- * guide](guide/standalone-components).
+ * guide](guide/components/importing).
  *
  * @usageNotes
  * The root component passed into this function *must* be a standalone one (should have the
@@ -640,7 +640,7 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  * * Reconciling DOM hydration. Learn more about it [here](guide/hydration).
  * * [`HttpClient`](api/common/http/HttpClient) response caching while running on the server and
  * transferring this cache to the client to avoid extra HTTP requests. Learn more about data caching
- * [here](/guide/ssr#caching-data-when-using-httpclient).
+ * [here](guide/ssr#caching-data-when-using-httpclient).
  *
  * These functions allow you to disable some of the default features or configure features
  * * {@link withNoHttpTransferCache} to disable HTTP transfer cache
