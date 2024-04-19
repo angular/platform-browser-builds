@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-next.5+sha-b67e11a
+ * @license Angular v18.0.0-next.5+sha-a730f09
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -490,7 +490,8 @@ export declare interface HydrationFeature<FeatureKind extends HydrationFeatureKi
 export declare enum HydrationFeatureKind {
     NoHttpTransferCache = 0,
     HttpTransferCacheOptions = 1,
-    I18nSupport = 2
+    I18nSupport = 2,
+    EventReplay = 3
 }
 
 /**
@@ -819,6 +820,14 @@ export declare const TransferState: {
  * @publicApi
  */
 export declare const VERSION: Version;
+
+/**
+ * Enables support for event replay
+ *
+ * @developerPreview
+ * @publicApi
+ */
+export declare function withEventReplay(): HydrationFeature<HydrationFeatureKind.EventReplay>;
 
 /**
  * The function accepts a an object, which allows to configure cache parameters,
