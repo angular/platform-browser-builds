@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-next.5+sha-ac863de
+ * @license Angular v18.0.0-next.5+sha-617bc33
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -84,8 +84,7 @@ class AsyncAnimationRendererFactory {
             ?.then((animationRendererFactory) => {
             const animationRenderer = animationRendererFactory.createRenderer(hostElement, rendererType);
             dynamicRenderer.use(animationRenderer);
-            // Applying animations might result in new DOM state and should rerun render hooks
-            this.scheduler?.notify(1 /* NotificationType.AfterRenderHooks */);
+            this.scheduler?.notify(9 /* NotificationSource.AsyncAnimationsLoaded */);
         })
             .catch((e) => {
             // Permanently use regular renderer when loading fails.
@@ -102,10 +101,10 @@ class AsyncAnimationRendererFactory {
     whenRenderingDone() {
         return this.delegate.whenRenderingDone?.() ?? Promise.resolve();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.5+sha-ac863de", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.5+sha-ac863de", ngImport: i0, type: AsyncAnimationRendererFactory }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.5+sha-617bc33", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.5+sha-617bc33", ngImport: i0, type: AsyncAnimationRendererFactory }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.5+sha-ac863de", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.5+sha-617bc33", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
