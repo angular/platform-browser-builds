@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.1.0-next.0+sha-3312727
+ * @license Angular v18.1.0-next.0+sha-024e9bf
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -14,7 +14,6 @@ import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵAnimationRendererFactory } from '@angular/animations/browser';
-import { ɵChangeDetectionScheduler } from '@angular/core';
 
 /**
  * Returns the set of dependency-injection providers
@@ -60,7 +59,7 @@ export declare class ɵAsyncAnimationRendererFactory implements OnDestroy, Rende
      * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
      */
     constructor(doc: Document, delegate: RendererFactory2, zone: NgZone, animationType: 'animations' | 'noop', moduleImpl?: Promise<{
-        ɵcreateEngine: (type: 'animations' | 'noop', doc: Document, scheduler: ɵChangeDetectionScheduler | null) => ɵAnimationEngine;
+        ɵcreateEngine: (type: 'animations' | 'noop', doc: Document) => ɵAnimationEngine;
         ɵAnimationRendererFactory: typeof ɵAnimationRendererFactory;
     }> | undefined);
     /** @nodoc */
