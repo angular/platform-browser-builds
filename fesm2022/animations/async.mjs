@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.1.0-next.0+sha-8f273ce
+ * @license Angular v18.1.0-next.0+sha-3e1d6e9
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -38,7 +38,10 @@ class AsyncAnimationRendererFactory {
      * @internal
      */
     loadImpl() {
-        const moduleImpl = this.moduleImpl ?? import('@angular/animations/browser');
+        // Note on the `.then(m => m)` part below: Closure compiler optimizations in g3 require
+        // `.then` to be present for a dynamic import (or an import should be `await`ed) to detect
+        // the set of imported symbols.
+        const moduleImpl = this.moduleImpl ?? import('@angular/animations/browser').then((m) => m);
         return moduleImpl
             .catch((e) => {
             throw new ɵRuntimeError(5300 /* RuntimeErrorCode.ANIMATION_RENDERER_ASYNC_LOADING_FAILURE */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
@@ -101,10 +104,10 @@ class AsyncAnimationRendererFactory {
     whenRenderingDone() {
         return this.delegate.whenRenderingDone?.() ?? Promise.resolve();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: AsyncAnimationRendererFactory }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: AsyncAnimationRendererFactory }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
