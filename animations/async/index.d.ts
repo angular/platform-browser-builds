@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.1.0-next.0+sha-1360110
+ * @license Angular v18.1.0-next.1+sha-567c2f6
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -21,7 +21,7 @@ import { ɵAnimationRendererFactory } from '@angular/animations/browser';
  * to learn more about animations in Angular.
  *
  * When you use this function instead of the eager `provideAnimations()`, animations won't be
- * renderered until the renderer is loaded.
+ * rendered until the renderer is loaded.
  *
  * @usageNotes
  *
@@ -41,7 +41,6 @@ import { ɵAnimationRendererFactory } from '@angular/animations/browser';
  * @param type pass `'noop'` as argument to disable animations.
  *
  * @publicApi
- * @developerPreview
  */
 export declare function provideAnimationsAsync(type?: 'animations' | 'noop'): EnvironmentProviders;
 
@@ -59,7 +58,7 @@ export declare class ɵAsyncAnimationRendererFactory implements OnDestroy, Rende
      * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
      */
     constructor(doc: Document, delegate: RendererFactory2, zone: NgZone, animationType: 'animations' | 'noop', moduleImpl?: Promise<{
-        ɵcreateEngine: (type: 'animations' | 'noop', doc: Document) => ɵAnimationEngine;
+        ɵcreateEngine: (type: "animations" | "noop", doc: Document) => ɵAnimationEngine;
         ɵAnimationRendererFactory: typeof ɵAnimationRendererFactory;
     }> | undefined);
     /** @nodoc */

@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.1.0-next.0+sha-1360110
+ * @license Angular v18.1.0-next.1+sha-567c2f6
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -760,10 +760,22 @@ export declare class Title {
 export declare const VERSION: Version;
 
 /**
- * Enables support for event replay
+ * Enables support for replaying user events (e.g. `click`s) that happened on a page
+ * before hydration logic has completed. Once an application is hydrated, all captured
+ * events are replayed and relevant event listeners are executed.
  *
+ * @usageNotes
+ *
+ * Basic example of how you can enable event replay in your application when
+ * `bootstrapApplication` function is used:
+ * ```
+ * bootstrapApplication(AppComponent, {
+ *   providers: [provideClientHydration(withEventReplay())]
+ * });
+ * ```
  * @developerPreview
  * @publicApi
+ * @see {@link provideClientHydration}
  */
 export declare function withEventReplay(): HydrationFeature<HydrationFeatureKind.EventReplay>;
 
@@ -876,7 +888,7 @@ export declare class ɵHammerGesturesPlugin extends EventManagerPlugin {
     private console;
     private loader?;
     private _loaderPromise;
-    constructor(doc: any, _config: HammerGestureConfig, console: ɵConsole, loader?: HammerLoader | null | undefined);
+    constructor(doc: any, _config: HammerGestureConfig, console: ɵConsole, loader?: (HammerLoader | null) | undefined);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
@@ -976,7 +988,7 @@ export declare class ɵSharedStylesHost implements OnDestroy {
     private readonly hostNodes;
     private readonly styleNodesInDOM;
     private readonly platformIsServer;
-    constructor(doc: Document, appId: string, nonce?: string | null | undefined, platformId?: object);
+    constructor(doc: Document, appId: string, nonce?: (string | null) | undefined, platformId?: object);
     addStyles(styles: string[]): void;
     removeStyles(styles: string[]): void;
     ngOnDestroy(): void;
