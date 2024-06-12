@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-rc.2+sha-69a8399
+ * @license Angular v18.0.2+sha-882cae1
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -760,10 +760,22 @@ export declare class Title {
 export declare const VERSION: Version;
 
 /**
- * Enables support for event replay
+ * Enables support for replaying user events (e.g. `click`s) that happened on a page
+ * before hydration logic has completed. Once an application is hydrated, all captured
+ * events are replayed and relevant event listeners are executed.
  *
+ * @usageNotes
+ *
+ * Basic example of how you can enable event replay in your application when
+ * `bootstrapApplication` function is used:
+ * ```
+ * bootstrapApplication(AppComponent, {
+ *   providers: [provideClientHydration(withEventReplay())]
+ * });
+ * ```
  * @developerPreview
  * @publicApi
+ * @see {@link provideClientHydration}
  */
 export declare function withEventReplay(): HydrationFeature<HydrationFeatureKind.EventReplay>;
 

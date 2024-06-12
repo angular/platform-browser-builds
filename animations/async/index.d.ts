@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-rc.2+sha-69a8399
+ * @license Angular v18.0.2+sha-882cae1
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -21,7 +21,7 @@ import { ɵAnimationRendererFactory } from '@angular/animations/browser';
  * to learn more about animations in Angular.
  *
  * When you use this function instead of the eager `provideAnimations()`, animations won't be
- * renderered until the renderer is loaded.
+ * rendered until the renderer is loaded.
  *
  * @usageNotes
  *
@@ -41,7 +41,6 @@ import { ɵAnimationRendererFactory } from '@angular/animations/browser';
  * @param type pass `'noop'` as argument to disable animations.
  *
  * @publicApi
- * @developerPreview
  */
 export declare function provideAnimationsAsync(type?: 'animations' | 'noop'): EnvironmentProviders;
 
