@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.5+sha-be6d9c5
+ * @license Angular v18.0.5+sha-fa9da56
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -28,16 +28,16 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  * @publicApi
  */
 class BrowserTestingModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.5+sha-be6d9c5", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.5+sha-be6d9c5", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.5+sha-be6d9c5", ngImport: i0, type: BrowserTestingModule, providers: [
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.5+sha-fa9da56", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.5+sha-fa9da56", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.5+sha-fa9da56", ngImport: i0, type: BrowserTestingModule, providers: [
             { provide: APP_ID, useValue: 'a' },
             ɵinternalProvideZoneChangeDetection({}),
             { provide: ɵChangeDetectionScheduler, useExisting: ɵChangeDetectionSchedulerImpl },
             { provide: PlatformLocation, useClass: MockPlatformLocation },
         ], imports: [BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.5+sha-be6d9c5", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.5+sha-fa9da56", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
