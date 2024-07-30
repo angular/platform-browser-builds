@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.1.2+sha-81b30dc
+ * @license Angular v18.1.2+sha-0fbcd6e
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -373,7 +373,9 @@ declare abstract class GenericBrowserDomAdapter extends ɵDomAdapter {
 export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
 
 /**
- * Injection token used to provide a {@link HammerLoader} to Angular.
+ * Injection token used to provide a HammerLoader to Angular.
+ *
+ * @see {@link HammerLoader}
  *
  * @publicApi
  */
