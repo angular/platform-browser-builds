@@ -157,10 +157,10 @@ export class Meta {
     _getMetaKeyMap(prop) {
         return META_KEYS_MAP[prop] || prop;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.3+sha-523f639", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.3+sha-523f639", ngImport: i0, type: Meta, providedIn: 'root' }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.3+sha-afb05ff", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.3+sha-afb05ff", ngImport: i0, type: Meta, providedIn: 'root' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.3+sha-523f639", ngImport: i0, type: Meta, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.3+sha-afb05ff", ngImport: i0, type: Meta, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
