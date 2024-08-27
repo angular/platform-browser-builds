@@ -1,12 +1,12 @@
 /**
- * @license Angular v19.0.0-next.1+sha-564a8d5
+ * @license Angular v19.0.0-next.1+sha-21445a2
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { inject, ɵChangeDetectionScheduler, ɵRuntimeError, Injectable, ɵperformanceMarkFeature, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
+import { inject, ɵChangeDetectionScheduler, ɵRuntimeError, Injectable, InjectionToken, ɵperformanceMarkFeature, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
 import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 
 const ANIMATION_PREFIX = '@';
@@ -23,6 +23,9 @@ class AsyncAnimationRendererFactory {
         this.moduleImpl = moduleImpl;
         this._rendererFactoryPromise = null;
         this.scheduler = inject(ɵChangeDetectionScheduler, { optional: true });
+        this.loadingSchedulerFn = inject(ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN, {
+            optional: true,
+        });
     }
     /** @nodoc */
     ngOnDestroy() {
@@ -41,8 +44,15 @@ class AsyncAnimationRendererFactory {
         // Note on the `.then(m => m)` part below: Closure compiler optimizations in g3 require
         // `.then` to be present for a dynamic import (or an import should be `await`ed) to detect
         // the set of imported symbols.
-        const moduleImpl = this.moduleImpl ?? import('@angular/animations/browser').then((m) => m);
-        return moduleImpl
+        const loadFn = () => this.moduleImpl ?? import('@angular/animations/browser').then((m) => m);
+        let moduleImplPromise;
+        if (this.loadingSchedulerFn) {
+            moduleImplPromise = this.loadingSchedulerFn(loadFn);
+        }
+        else {
+            moduleImplPromise = loadFn();
+        }
+        return moduleImplPromise
             .catch((e) => {
             throw new ɵRuntimeError(5300 /* RuntimeErrorCode.ANIMATION_RENDERER_ASYNC_LOADING_FAILURE */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
                 'Async loading for animations package was ' +
@@ -104,10 +114,10 @@ class AsyncAnimationRendererFactory {
     whenRenderingDone() {
         return this.delegate.whenRenderingDone?.() ?? Promise.resolve();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.1+sha-564a8d5", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.1+sha-564a8d5", ngImport: i0, type: AsyncAnimationRendererFactory }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.1+sha-21445a2", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.1+sha-21445a2", ngImport: i0, type: AsyncAnimationRendererFactory }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.1+sha-564a8d5", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.1+sha-21445a2", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
@@ -213,6 +223,12 @@ class DynamicDelegationRenderer {
         return this.replay !== null && propOrEventName.startsWith(ANIMATION_PREFIX);
     }
 }
+/**
+ * Provides a custom scheduler function for the async loading of the animation package.
+ *
+ * Private token for investigation purposes
+ */
+const ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN = new InjectionToken(ngDevMode ? 'async_animation_loading_scheduler_fn' : '');
 
 /**
  * Returns the set of dependency-injection providers
@@ -276,5 +292,5 @@ function provideAnimationsAsync(type = 'animations') {
  * Generated bundle index. Do not edit.
  */
 
-export { provideAnimationsAsync, AsyncAnimationRendererFactory as ɵAsyncAnimationRendererFactory };
+export { provideAnimationsAsync, ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN, AsyncAnimationRendererFactory as ɵAsyncAnimationRendererFactory };
 //# sourceMappingURL=async.mjs.map

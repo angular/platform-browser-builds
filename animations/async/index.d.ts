@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.1+sha-564a8d5
+ * @license Angular v19.0.0-next.1+sha-21445a2
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,6 +7,7 @@
 
 import { EnvironmentProviders } from '@angular/core';
 import * as i0 from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Renderer2 } from '@angular/core';
@@ -44,6 +45,13 @@ import { ɵAnimationRendererFactory } from '@angular/animations/browser';
  */
 export declare function provideAnimationsAsync(type?: 'animations' | 'noop'): EnvironmentProviders;
 
+/**
+ * Provides a custom scheduler function for the async loading of the animation package.
+ *
+ * Private token for investigation purposes
+ */
+export declare const ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN: InjectionToken<(<T>(loadFn: () => T) => T)>;
+
 export declare class ɵAsyncAnimationRendererFactory implements OnDestroy, RendererFactory2 {
     private doc;
     private delegate;
@@ -52,6 +60,7 @@ export declare class ɵAsyncAnimationRendererFactory implements OnDestroy, Rende
     private moduleImpl?;
     private _rendererFactoryPromise;
     private readonly scheduler;
+    private readonly loadingSchedulerFn;
     private _engine?;
     /**
      *
