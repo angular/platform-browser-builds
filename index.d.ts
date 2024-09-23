@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.6+sha-04a4873
+ * @license Angular v19.0.0-next.6+sha-7b2fda1
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -762,6 +762,15 @@ export declare class Title {
 }
 
 /**
+ * A record of usage for a specific style including all elements added to the DOM
+ * that contain a given style.
+ */
+declare interface UsageRecord<T> {
+    elements: T[];
+    usage: number;
+}
+
+/**
  * @publicApi
  */
 export declare const VERSION: Version;
@@ -988,26 +997,49 @@ export declare const enum ɵRuntimeErrorCode {
 export declare class ɵSharedStylesHost implements OnDestroy {
     private readonly doc;
     private readonly appId;
-    private nonce?;
-    readonly platformId: object;
-    private readonly styleRef;
-    private readonly hostNodes;
-    private readonly styleNodesInDOM;
-    private readonly platformIsServer;
+    private readonly nonce?;
+    /**
+     * Provides usage information for active embedded style content and associated HTML <style> elements.
+     * Embedded styles typically originate from the `styles` metadata of a rendered component.
+     */
+    private readonly embeddedStyles;
+    /**
+     * Set of host DOM nodes that will have styles attached.
+     */
+    private readonly hosts;
+    /**
+     * A lookup for server rendered styles if any are present in the DOM on initialization.
+     * `null` if no server rendered styles are present in the DOM.
+     */
+    private readonly serverStyles;
+    /**
+     * Whether the application code is currently executing on a server.
+     */
+    private readonly isServer;
     constructor(doc: Document, appId: string, nonce?: (string | null) | undefined, platformId?: object);
+    /**
+     * Adds embedded styles to the DOM via HTML `style` elements.
+     * @param styles An array of style content strings.
+     */
     addStyles(styles: string[]): void;
+    /**
+     * Removes embedded styles from the DOM that were added as HTML `style` elements.
+     * @param styles An array of style content strings.
+     */
     removeStyles(styles: string[]): void;
+    protected add<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>, creator: (host: Node, value: string) => T): void;
+    protected remove<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>): void;
     ngOnDestroy(): void;
+    /**
+     * Adds a host node to the set of style hosts and adds all existing style usage to
+     * the newly added host node.
+     *
+     * This is currently only used for Shadow DOM encapsulation mode.
+     */
     addHost(hostNode: Node): void;
     removeHost(hostNode: Node): void;
-    private getAllStyles;
-    private onStyleAdded;
-    private onStyleRemoved;
-    private collectServerRenderedStyles;
-    private changeUsageCount;
+    private addElement;
     private getStyleElement;
-    private addStyleToHost;
-    private resetHostNodes;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, [null, null, { optional: true; }, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵSharedStylesHost>;
 }

@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.6+sha-04a4873
+ * @license Angular v19.0.0-next.6+sha-7b2fda1
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -155,10 +155,10 @@ class BrowserXhr {
     build() {
         return new XMLHttpRequest();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: BrowserXhr }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: BrowserXhr }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: BrowserXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: BrowserXhr, decorators: [{
             type: Injectable
         }] });
 
@@ -220,10 +220,10 @@ class EventManager {
         this._eventNameToPlugin.set(eventName, plugin);
         return plugin;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: EventManager }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: EventManager }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: EventManager, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: EventManager, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -246,94 +246,138 @@ class EventManagerPlugin {
 
 /** The style elements attribute name used to set value of `APP_ID` token. */
 const APP_ID_ATTRIBUTE_NAME = 'ng-app-id';
+/**
+ * Removes all provided elements from the document.
+ * @param elements An array of HTML Elements.
+ */
+function removeAll(elements) {
+    for (const element of elements) {
+        element.remove();
+    }
+}
+/**
+ * Searches a DOM document's head element for style elements with a matching application
+ * identifier attribute (`ng-app-id`) to the provide identifier.
+ * @param doc An HTML DOM document instance.
+ * @param appId A string containing an Angular application identifer.
+ * @returns A map of style strings to style elements if found; Otherwise, `null`.
+ */
+function findServerStyles(doc, appId) {
+    const styleElements = doc.head?.querySelectorAll(`style[${APP_ID_ATTRIBUTE_NAME}="${appId}"]`);
+    let styles = null;
+    if (styleElements) {
+        for (const styleElement of styleElements) {
+            if (styleElement.textContent) {
+                styles ??= new Map();
+                styles.set(styleElement.textContent, styleElement);
+            }
+        }
+    }
+    return styles;
+}
 class SharedStylesHost {
     constructor(doc, appId, nonce, platformId = {}) {
         this.doc = doc;
         this.appId = appId;
         this.nonce = nonce;
-        this.platformId = platformId;
-        // Maps all registered host nodes to a list of style nodes that have been added to the host node.
-        this.styleRef = new Map();
-        this.hostNodes = new Set();
-        this.styleNodesInDOM = this.collectServerRenderedStyles();
-        this.platformIsServer = isPlatformServer(platformId);
-        this.resetHostNodes();
+        /**
+         * Provides usage information for active embedded style content and associated HTML <style> elements.
+         * Embedded styles typically originate from the `styles` metadata of a rendered component.
+         */
+        this.embeddedStyles = new Map();
+        /**
+         * Set of host DOM nodes that will have styles attached.
+         */
+        this.hosts = new Set();
+        this.isServer = isPlatformServer(platformId);
+        this.serverStyles = findServerStyles(doc, appId);
+        this.hosts.add(doc.head);
     }
+    /**
+     * Adds embedded styles to the DOM via HTML `style` elements.
+     * @param styles An array of style content strings.
+     */
     addStyles(styles) {
-        for (const style of styles) {
-            const usageCount = this.changeUsageCount(style, 1);
-            if (usageCount === 1) {
-                this.onStyleAdded(style);
-            }
+        const creator = this.getStyleElement.bind(this);
+        for (const value of styles) {
+            this.add(value, this.embeddedStyles, creator);
         }
     }
+    /**
+     * Removes embedded styles from the DOM that were added as HTML `style` elements.
+     * @param styles An array of style content strings.
+     */
     removeStyles(styles) {
-        for (const style of styles) {
-            const usageCount = this.changeUsageCount(style, -1);
-            if (usageCount <= 0) {
-                this.onStyleRemoved(style);
+        for (const value of styles) {
+            this.remove(value, this.embeddedStyles);
+        }
+    }
+    add(value, usages, creator) {
+        // Attempt to get any current usage of the value
+        const record = usages.get(value);
+        // If existing, just increment the usage count
+        if (record) {
+            record.usage++;
+        }
+        else {
+            // Otherwise, create an entry to track the elements and add element for each host
+            usages.set(value, { usage: 1, elements: [...this.hosts].map((host) => creator(host, value)) });
+        }
+    }
+    remove(value, usages) {
+        // Attempt to get any current usage of the value
+        const record = usages.get(value);
+        // If there is a record, reduce the usage count and if no longer used,
+        // remove from DOM and delete usage record.
+        if (record) {
+            record.usage--;
+            if (record.usage <= 0) {
+                removeAll(record.elements);
+                usages.delete(value);
             }
         }
     }
     ngOnDestroy() {
-        const styleNodesInDOM = this.styleNodesInDOM;
-        if (styleNodesInDOM) {
-            styleNodesInDOM.forEach((node) => node.remove());
-            styleNodesInDOM.clear();
+        const serverStyles = this.serverStyles;
+        if (serverStyles) {
+            removeAll(serverStyles.values());
+            serverStyles.clear();
         }
-        for (const style of this.getAllStyles()) {
-            this.onStyleRemoved(style);
+        for (const [, { elements }] of this.embeddedStyles) {
+            removeAll(elements);
         }
-        this.resetHostNodes();
+        this.hosts.clear();
     }
+    /**
+     * Adds a host node to the set of style hosts and adds all existing style usage to
+     * the newly added host node.
+     *
+     * This is currently only used for Shadow DOM encapsulation mode.
+     */
     addHost(hostNode) {
-        this.hostNodes.add(hostNode);
-        for (const style of this.getAllStyles()) {
-            this.addStyleToHost(hostNode, style);
+        this.hosts.add(hostNode);
+        for (const [style, { elements }] of this.embeddedStyles) {
+            elements.push(this.getStyleElement(hostNode, style));
         }
     }
     removeHost(hostNode) {
-        this.hostNodes.delete(hostNode);
+        this.hosts.delete(hostNode);
     }
-    getAllStyles() {
-        return this.styleRef.keys();
-    }
-    onStyleAdded(style) {
-        for (const host of this.hostNodes) {
-            this.addStyleToHost(host, style);
+    addElement(host, element) {
+        // Add a nonce if present
+        if (this.nonce) {
+            element.setAttribute('nonce', this.nonce);
         }
-    }
-    onStyleRemoved(style) {
-        const styleRef = this.styleRef;
-        styleRef.get(style)?.elements?.forEach((node) => node.remove());
-        styleRef.delete(style);
-    }
-    collectServerRenderedStyles() {
-        const styles = this.doc.head?.querySelectorAll(`style[${APP_ID_ATTRIBUTE_NAME}="${this.appId}"]`);
-        if (styles?.length) {
-            const styleMap = new Map();
-            styles.forEach((style) => {
-                if (style.textContent != null) {
-                    styleMap.set(style.textContent, style);
-                }
-            });
-            return styleMap;
+        // Add application identifier when on the server to support client-side reuse
+        if (this.isServer) {
+            element.setAttribute(APP_ID_ATTRIBUTE_NAME, this.appId);
         }
-        return null;
-    }
-    changeUsageCount(style, delta) {
-        const map = this.styleRef;
-        if (map.has(style)) {
-            const styleRefValue = map.get(style);
-            styleRefValue.usage += delta;
-            return styleRefValue.usage;
-        }
-        map.set(style, { usage: delta, elements: [] });
-        return delta;
+        // Insert the element into the DOM with the host node as parent
+        return host.appendChild(element);
     }
     getStyleElement(host, style) {
-        const styleNodesInDOM = this.styleNodesInDOM;
-        const styleEl = styleNodesInDOM?.get(style);
+        const styleNodesInDOM = this.serverStyles;
+        let styleEl = styleNodesInDOM?.get(style);
         if (styleEl?.parentNode === host) {
             // `styleNodesInDOM` cannot be undefined due to the above `styleNodesInDOM?.get`.
             styleNodesInDOM.delete(style);
@@ -342,42 +386,18 @@ class SharedStylesHost {
                 // This attribute is solely used for debugging purposes.
                 styleEl.setAttribute('ng-style-reused', '');
             }
-            return styleEl;
         }
         else {
-            const styleEl = this.doc.createElement('style');
-            if (this.nonce) {
-                styleEl.setAttribute('nonce', this.nonce);
-            }
+            styleEl = this.doc.createElement('style');
             styleEl.textContent = style;
-            if (this.platformIsServer) {
-                styleEl.setAttribute(APP_ID_ATTRIBUTE_NAME, this.appId);
-            }
-            host.appendChild(styleEl);
-            return styleEl;
+            this.addElement(host, styleEl);
         }
+        return styleEl;
     }
-    addStyleToHost(host, style) {
-        const styleEl = this.getStyleElement(host, style);
-        const styleRef = this.styleRef;
-        const styleElRef = styleRef.get(style)?.elements;
-        if (styleElRef) {
-            styleElRef.push(styleEl);
-        }
-        else {
-            styleRef.set(style, { elements: [styleEl], usage: 1 });
-        }
-    }
-    resetHostNodes() {
-        const hostNodes = this.hostNodes;
-        hostNodes.clear();
-        // Re-add the head element back since this is the default host.
-        hostNodes.add(this.doc.head);
-    }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: SharedStylesHost }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: SharedStylesHost }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: SharedStylesHost, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: SharedStylesHost, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document, decorators: [{
                     type: Inject,
@@ -491,10 +511,10 @@ class DomRendererFactory2 {
     ngOnDestroy() {
         this.rendererByCompId.clear();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomRendererFactory2 }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomRendererFactory2 }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomRendererFactory2, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: EventManager }, { type: SharedStylesHost }, { type: undefined, decorators: [{
                     type: Inject,
@@ -778,10 +798,10 @@ class DomEventsPlugin extends EventManagerPlugin {
     removeEventListener(target, eventName, callback) {
         return target.removeEventListener(eventName, callback);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomEventsPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomEventsPlugin }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomEventsPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -804,10 +824,10 @@ class EventDelegationPlugin extends EventManagerPlugin {
     removeEventListener(element, eventName, callback) {
         return this.delegate.removeEventListener(element, eventName, callback);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: EventDelegationPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: EventDelegationPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: EventDelegationPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: EventDelegationPlugin }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: EventDelegationPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: EventDelegationPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -976,10 +996,10 @@ class KeyEventsPlugin extends EventManagerPlugin {
     static _normalizeKey(keyName) {
         return keyName === 'esc' ? 'escape' : keyName;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: KeyEventsPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: KeyEventsPlugin }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: KeyEventsPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: KeyEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -1189,11 +1209,11 @@ class BrowserModule {
             providers: [{ provide: APP_ID, useValue: params.appId }],
         };
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: BrowserModule, deps: [{ token: BROWSER_MODULE_PROVIDERS_MARKER, optional: true, skipSelf: true }], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: BrowserModule, providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS], imports: [CommonModule, ApplicationModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: BrowserModule, deps: [{ token: BROWSER_MODULE_PROVIDERS_MARKER, optional: true, skipSelf: true }], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: BrowserModule, providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS], imports: [CommonModule, ApplicationModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: BrowserModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: BrowserModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS],
@@ -1357,10 +1377,10 @@ class Meta {
     _getMetaKeyMap(prop) {
         return META_KEYS_MAP[prop] || prop;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: Meta, providedIn: 'root' }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: Meta, providedIn: 'root' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: Meta, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: Meta, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
@@ -1401,10 +1421,10 @@ class Title {
     setTitle(newTitle) {
         this._doc.title = newTitle || '';
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: Title, providedIn: 'root' }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: Title, providedIn: 'root' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: Title, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: Title, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
@@ -1668,10 +1688,10 @@ class HammerGestureConfig {
         }
         return mc;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerGestureConfig, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerGestureConfig }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerGestureConfig, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerGestureConfig }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerGestureConfig, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerGestureConfig, decorators: [{
             type: Injectable
         }] });
 /**
@@ -1764,10 +1784,10 @@ class HammerGesturesPlugin extends EventManagerPlugin {
     isCustomEvent(eventName) {
         return this._config.events.indexOf(eventName) > -1;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerGesturesPlugin, deps: [{ token: DOCUMENT }, { token: HAMMER_GESTURE_CONFIG }, { token: i0.ɵConsole }, { token: HAMMER_LOADER, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerGesturesPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerGesturesPlugin, deps: [{ token: DOCUMENT }, { token: HAMMER_GESTURE_CONFIG }, { token: i0.ɵConsole }, { token: HAMMER_LOADER, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerGesturesPlugin }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerGesturesPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerGesturesPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -1793,9 +1813,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sh
  * @publicApi
  */
 class HammerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerModule }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerModule, providers: [
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerModule }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerModule, providers: [
             {
                 provide: EVENT_MANAGER_PLUGINS,
                 useClass: HammerGesturesPlugin,
@@ -1805,7 +1825,7 @@ class HammerModule {
             { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
         ] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: HammerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: HammerModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [
@@ -1852,10 +1872,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sh
  * @publicApi
  */
 class DomSanitizer {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomSanitizer, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomSanitizer, providedIn: 'root', useExisting: i0.forwardRef(() => DomSanitizerImpl) }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomSanitizer, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomSanitizer, providedIn: 'root', useExisting: i0.forwardRef(() => DomSanitizerImpl) }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomSanitizer, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomSanitizer, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useExisting: forwardRef(() => DomSanitizerImpl) }]
         }] });
@@ -1917,10 +1937,10 @@ class DomSanitizerImpl extends DomSanitizer {
     bypassSecurityTrustResourceUrl(value) {
         return ɵbypassSanitizationTrustResourceUrl(value);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomSanitizerImpl, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomSanitizerImpl, providedIn: 'root' }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomSanitizerImpl, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomSanitizerImpl, providedIn: 'root' }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-04a4873", ngImport: i0, type: DomSanitizerImpl, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.6+sha-7b2fda1", ngImport: i0, type: DomSanitizerImpl, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
@@ -2109,7 +2129,7 @@ function provideClientHydration(...features) {
 /**
  * @publicApi
  */
-const VERSION = new Version('19.0.0-next.6+sha-04a4873');
+const VERSION = new Version('19.0.0-next.6+sha-7b2fda1');
 
 /**
  * @module
