@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.7+sha-1549afe
+ * @license Angular v19.0.0-next.7+sha-0aae371
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1002,16 +1002,11 @@ export declare class ɵSharedStylesHost implements OnDestroy {
      * Provides usage information for active embedded style content and associated HTML <style> elements.
      * Embedded styles typically originate from the `styles` metadata of a rendered component.
      */
-    private readonly embeddedStyles;
+    private readonly styles;
     /**
      * Set of host DOM nodes that will have styles attached.
      */
     private readonly hosts;
-    /**
-     * A lookup for server rendered styles if any are present in the DOM on initialization.
-     * `null` if no server rendered styles are present in the DOM.
-     */
-    private readonly serverStyles;
     /**
      * Whether the application code is currently executing on a server.
      */
@@ -1027,8 +1022,8 @@ export declare class ɵSharedStylesHost implements OnDestroy {
      * @param styles An array of style content strings.
      */
     removeStyles(styles: string[]): void;
-    protected add<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>, creator: (host: Node, value: string) => T): void;
-    protected remove<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>): void;
+    protected addUsage<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>, creator: (value: string, doc: Document) => T): void;
+    protected removeUsage<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>): void;
     ngOnDestroy(): void;
     /**
      * Adds a host node to the set of style hosts and adds all existing style usage to
@@ -1039,7 +1034,6 @@ export declare class ɵSharedStylesHost implements OnDestroy {
     addHost(hostNode: Node): void;
     removeHost(hostNode: Node): void;
     private addElement;
-    private getStyleElement;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵSharedStylesHost, [null, null, { optional: true; }, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵSharedStylesHost>;
 }
