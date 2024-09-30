@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.7+sha-7d1998f
+ * @license Angular v19.0.0-next.7+sha-f2bea3b
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -999,10 +999,15 @@ export declare class ɵSharedStylesHost implements OnDestroy {
     private readonly appId;
     private readonly nonce?;
     /**
-     * Provides usage information for active embedded style content and associated HTML <style> elements.
+     * Provides usage information for active inline style content and associated HTML <style> elements.
      * Embedded styles typically originate from the `styles` metadata of a rendered component.
      */
-    private readonly styles;
+    private readonly inline;
+    /**
+     * Provides usage information for active external style URLs and the associated HTML <link> elements.
+     * External styles typically originate from the `ɵɵExternalStylesFeature` of a rendered component.
+     */
+    private readonly external;
     /**
      * Set of host DOM nodes that will have styles attached.
      */
@@ -1016,12 +1021,12 @@ export declare class ɵSharedStylesHost implements OnDestroy {
      * Adds embedded styles to the DOM via HTML `style` elements.
      * @param styles An array of style content strings.
      */
-    addStyles(styles: string[]): void;
+    addStyles(styles: string[], urls?: string[]): void;
     /**
      * Removes embedded styles from the DOM that were added as HTML `style` elements.
      * @param styles An array of style content strings.
      */
-    removeStyles(styles: string[]): void;
+    removeStyles(styles: string[], urls?: string[]): void;
     protected addUsage<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>, creator: (value: string, doc: Document) => T): void;
     protected removeUsage<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>): void;
     ngOnDestroy(): void;
