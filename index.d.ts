@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.8+sha-a36744e
+ * @license Angular v19.0.0-next.8+sha-6976349
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -16,7 +16,6 @@ import { HttpTransferCacheOptions } from '@angular/common/http';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
 import { InjectionToken } from '@angular/core';
-import { ModuleWithProviders } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { PlatformRef } from '@angular/core';
@@ -118,19 +117,6 @@ export declare function bootstrapApplication(rootComponent: Type<unknown>, optio
  */
 export declare class BrowserModule {
     constructor(providersAlreadyPresent: boolean | null);
-    /**
-     * Configures a browser-based app to transition from a server-rendered app, if
-     * one is present on the page.
-     *
-     * @param params An object containing an identifier for the app to transition.
-     * The ID must match between the client and server versions of the app.
-     * @returns The reconfigured `BrowserModule` to import into the app's root `AppModule`.
-     *
-     * @deprecated Use {@link APP_ID} instead to set the application ID.
-     */
-    static withServerTransition(params: {
-        appId: string;
-    }): ModuleWithProviders<BrowserModule>;
     static ɵfac: i0.ɵɵFactoryDeclaration<BrowserModule, [{ optional: true; skipSelf: true; }]>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserModule, never, never, [typeof i1.CommonModule, typeof i0.ApplicationModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<BrowserModule>;
