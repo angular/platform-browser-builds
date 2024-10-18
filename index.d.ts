@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.10+sha-d0c74f3
+ * @license Angular v19.0.0-next.10+sha-b542f15
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -781,9 +781,9 @@ export declare const VERSION: Version;
 export declare function withEventReplay(): HydrationFeature<HydrationFeatureKind.EventReplay>;
 
 /**
- * The function accepts a an object, which allows to configure cache parameters,
+ * The function accepts an object, which allows to configure cache parameters,
  * such as which headers should be included (no headers are included by default),
- * wether POST requests should be cached or a callback function to determine if a
+ * whether POST requests should be cached or a callback function to determine if a
  * particular request should be cached.
  *
  * @publicApi
