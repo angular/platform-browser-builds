@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.10+sha-8ddce80
+ * @license Angular v19.0.0-next.10+sha-1e9328e
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -798,6 +798,24 @@ export declare function withHttpTransferCacheOptions(options: HttpTransferCacheO
  * @publicApi
  */
 export declare function withI18nSupport(): HydrationFeature<HydrationFeatureKind.I18nSupport>;
+
+/**
+ * Enables support for incremental hydration using the `hydrate` trigger syntax.
+ *
+ * @usageNotes
+ *
+ * Basic example of how you can enable event replay in your application when
+ * `bootstrapApplication` function is used:
+ * ```
+ * bootstrapApplication(AppComponent, {
+ *   providers: [provideClientHydration(withIncrementalHydration())]
+ * });
+ * ```
+ * @experimental
+ * @publicApi
+ * @see {@link provideClientHydration}
+ */
+export declare function withIncrementalHydration(): HydrationFeature<HydrationFeatureKind.IncrementalHydration>;
 
 /**
  * Disables HTTP transfer cache. Effectively causes HTTP requests to be performed twice: once on the
