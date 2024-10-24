@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.1.0-next.0+sha-2f1f525
+ * @license Angular v19.1.0-next.0+sha-7ed5e6c
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -804,8 +804,8 @@ export declare function withI18nSupport(): HydrationFeature<HydrationFeatureKind
  *
  * @usageNotes
  *
- * Basic example of how you can enable event replay in your application when
- * `bootstrapApplication` function is used:
+ * Basic example of how you can enable incremental hydration in your application when
+ * the `bootstrapApplication` function is used:
  * ```
  * bootstrapApplication(AppComponent, {
  *   providers: [provideClientHydration(withIncrementalHydration())]
