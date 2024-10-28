@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.11+sha-395cb34
+ * @license Angular v19.0.0-next.11+sha-f815d7b
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -11,6 +11,17 @@ import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 
 const ANIMATION_PREFIX = '@';
 class AsyncAnimationRendererFactory {
+    doc;
+    delegate;
+    zone;
+    animationType;
+    moduleImpl;
+    _rendererFactoryPromise = null;
+    scheduler = inject(ɵChangeDetectionScheduler, { optional: true });
+    loadingSchedulerFn = inject(ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN, {
+        optional: true,
+    });
+    _engine;
     /**
      *
      * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
@@ -21,11 +32,6 @@ class AsyncAnimationRendererFactory {
         this.zone = zone;
         this.animationType = animationType;
         this.moduleImpl = moduleImpl;
-        this._rendererFactoryPromise = null;
-        this.scheduler = inject(ɵChangeDetectionScheduler, { optional: true });
-        this.loadingSchedulerFn = inject(ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN, {
-            optional: true,
-        });
     }
     /** @nodoc */
     ngOnDestroy() {
@@ -114,10 +120,10 @@ class AsyncAnimationRendererFactory {
     whenRenderingDone() {
         return this.delegate.whenRenderingDone?.() ?? Promise.resolve();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.11+sha-395cb34", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.11+sha-395cb34", ngImport: i0, type: AsyncAnimationRendererFactory }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.11+sha-f815d7b", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.11+sha-f815d7b", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.11+sha-395cb34", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.11+sha-f815d7b", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
@@ -125,11 +131,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.11+s
  * by changing the delegate renderer.
  */
 class DynamicDelegationRenderer {
+    delegate;
+    // List of callbacks that need to be replayed on the animation renderer once its loaded
+    replay = [];
+    ɵtype = 1 /* AnimationRendererType.Delegated */;
     constructor(delegate) {
         this.delegate = delegate;
-        // List of callbacks that need to be replayed on the animation renderer once its loaded
-        this.replay = [];
-        this.ɵtype = 1 /* AnimationRendererType.Delegated */;
     }
     use(impl) {
         this.delegate = impl;
