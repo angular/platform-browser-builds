@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.2+sha-6ae3ce7
+ * @license Angular v19.0.2+sha-5f3ba06
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54,7 +54,7 @@ export declare type ApplicationConfig = ApplicationConfig_2;
  * The root component passed into this function *must* be a standalone one (should have the
  * `standalone: true` flag in the `@Component` decorator config).
  *
- * ```typescript
+ * ```angular-ts
  * @Component({
  *   standalone: true,
  *   template: 'Hello world!'
@@ -67,7 +67,7 @@ export declare type ApplicationConfig = ApplicationConfig_2;
  * You can add the list of providers that should be available in the application injector by
  * specifying the `providers` field in an object passed as the second argument:
  *
- * ```typescript
+ * ```ts
  * await bootstrapApplication(RootComponent, {
  *   providers: [
  *     {provide: BACKEND_URL, useValue: 'https://yourdomain.com/api'}
@@ -78,7 +78,7 @@ export declare type ApplicationConfig = ApplicationConfig_2;
  * The `importProvidersFrom` helper method can be used to collect all providers from any
  * existing NgModule (and transitively from all NgModules that it imports):
  *
- * ```typescript
+ * ```ts
  * await bootstrapApplication(RootComponent, {
  *   providers: [
  *     importProvidersFrom(SomeNgModule)
@@ -91,7 +91,7 @@ export declare type ApplicationConfig = ApplicationConfig_2;
  * providers using `provideProtractorTestingSupport()` function and adding them into the `providers`
  * array, for example:
  *
- * ```typescript
+ * ```ts
  * import {provideProtractorTestingSupport} from '@angular/platform-browser';
  *
  * await bootstrapApplication(RootComponent, {providers: [provideProtractorTestingSupport()]});
@@ -623,7 +623,7 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  *
  * Basic example of how you can enable hydration in your application when
  * `bootstrapApplication` function is used:
- * ```
+ * ```ts
  * bootstrapApplication(AppComponent, {
  *   providers: [provideClientHydration()]
  * });
@@ -631,7 +631,7 @@ export declare const platformBrowser: (extraProviders?: StaticProvider[]) => Pla
  *
  * Alternatively if you are using NgModules, you would add `provideClientHydration`
  * to your root app module's provider list.
- * ```
+ * ```ts
  * @NgModule({
  *   declarations: [RootCmp],
  *   bootstrap: [RootCmp],
@@ -771,7 +771,7 @@ export declare const VERSION: Version;
  *
  * Basic example of how you can enable event replay in your application when
  * `bootstrapApplication` function is used:
- * ```
+ * ```ts
  * bootstrapApplication(AppComponent, {
  *   providers: [provideClientHydration(withEventReplay())]
  * });
@@ -806,7 +806,7 @@ export declare function withI18nSupport(): HydrationFeature<HydrationFeatureKind
  *
  * Basic example of how you can enable incremental hydration in your application when
  * the `bootstrapApplication` function is used:
- * ```
+ * ```ts
  * bootstrapApplication(AppComponent, {
  *   providers: [provideClientHydration(withIncrementalHydration())]
  * });

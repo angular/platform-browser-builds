@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.2+sha-6ae3ce7
+ * @license Angular v19.0.2+sha-5f3ba06
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -79,7 +79,7 @@ export declare class NoopAnimationsModule {
  * is no need to import the `BrowserAnimationsModule` NgModule at all, just add
  * providers returned by this function to the `providers` list as show below.
  *
- * ```typescript
+ * ```ts
  * bootstrapApplication(RootComponent, {
  *   providers: [
  *     provideAnimations()
@@ -102,7 +102,7 @@ export declare function provideAnimations(): Provider[];
  * the `bootstrapApplication` function, but you need to disable animations
  * (for example, when running tests).
  *
- * ```typescript
+ * ```ts
  * bootstrapApplication(RootComponent, {
  *   providers: [
  *     provideNoopAnimations()
