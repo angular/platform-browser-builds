@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.1.0-next.2+sha-46f00f9
+ * @license Angular v19.1.0-next.2+sha-f3729ce
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -16,6 +16,7 @@ import { HttpTransferCacheOptions } from '@angular/common/http';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
 import { InjectionToken } from '@angular/core';
+import { ListenerOptions } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { PlatformRef } from '@angular/core';
@@ -306,9 +307,10 @@ export declare class EventManager {
      * @param eventName The name of the event to listen for.
      * @param handler A function to call when the notification occurs. Receives the
      * event object as an argument.
+     * @param options Options that configure how the event listener is bound.
      * @returns  A callback function that can be used to remove the handler.
      */
-    addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
+    addEventListener(element: HTMLElement, eventName: string, handler: Function, options?: ListenerOptions): Function;
     /**
      * Retrieves the compilation zone in which event listeners are registered.
      */
@@ -336,7 +338,7 @@ export declare abstract class EventManagerPlugin {
     /**
      * Implement the behaviour for the supported events
      */
-    abstract addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
+    abstract addEventListener(element: HTMLElement, eventName: string, handler: Function, options?: ListenerOptions): Function;
 }
 
 /**
@@ -833,7 +835,7 @@ export declare function withNoHttpTransferCache(): HydrationFeature<HydrationFea
  */
 export declare class ɵBrowserDomAdapter extends GenericBrowserDomAdapter {
     static makeCurrent(): void;
-    onAndCancel(el: Node, evt: any, listener: any): Function;
+    onAndCancel(el: Node, evt: any, listener: any, options: any): Function;
     dispatchEvent(el: Node, evt: any): void;
     remove(node: Node): void;
     createElement(tagName: string, doc?: Document): HTMLElement;
@@ -857,8 +859,8 @@ export declare class ɵBrowserGetTestability implements GetTestability {
 export declare class ɵDomEventsPlugin extends EventManagerPlugin {
     constructor(doc: any);
     supports(eventName: string): boolean;
-    addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
-    removeEventListener(target: any, eventName: string, callback: Function): void;
+    addEventListener(element: HTMLElement, eventName: string, handler: Function, options?: ListenerOptions): Function;
+    removeEventListener(target: any, eventName: string, callback: Function, options?: ListenerOptions): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomEventsPlugin, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomEventsPlugin>;
 }
@@ -943,7 +945,7 @@ export declare class ɵKeyEventsPlugin extends EventManagerPlugin {
      * event object as an argument.
      * @returns The key event that was registered.
      */
-    addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
+    addEventListener(element: HTMLElement, eventName: string, handler: Function, options?: ListenerOptions): Function;
     /**
      * Parses the user provided full keyboard event definition and normalizes it for
      * later internal use. It ensures the string is all lowercase, converts special
