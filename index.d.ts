@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.1.0-next.2+sha-cfc1679
+ * @license Angular v19.1.0-next.3+sha-8230388
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -35,6 +35,8 @@ import { Version } from '@angular/core';
 import { ɵConsole } from '@angular/core';
 import { ɵDomAdapter } from '@angular/common';
 import { ɵgetDOM } from '@angular/common';
+import { ɵTracingService } from '@angular/core';
+import { ɵTracingSnapshot } from '@angular/core';
 
 /**
  * Set of config options available during the application bootstrap operation.
@@ -874,14 +876,15 @@ export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestro
     readonly platformId: Object;
     readonly ngZone: NgZone;
     private readonly nonce;
+    private readonly tracingService;
     private readonly rendererByCompId;
     private readonly defaultRenderer;
     private readonly platformIsServer;
-    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestroy: boolean, doc: Document, platformId: Object, ngZone: NgZone, nonce?: string | null);
+    constructor(eventManager: EventManager, sharedStylesHost: ɵSharedStylesHost, appId: string, removeStylesOnCompDestroy: boolean, doc: Document, platformId: Object, ngZone: NgZone, nonce?: string | null, tracingService?: ɵTracingService<ɵTracingSnapshot> | null);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomRendererFactory2, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomRendererFactory2, [null, null, null, null, null, null, null, null, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomRendererFactory2>;
 }
 
