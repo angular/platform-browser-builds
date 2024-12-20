@@ -1,12 +1,12 @@
 /**
- * @license Angular v19.1.0-next.4+sha-2c3630a
+ * @license Angular v19.1.0-next.4+sha-8c5db3c
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { inject, ɵChangeDetectionScheduler, ɵRuntimeError, Injectable, InjectionToken, ɵperformanceMarkFeature, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
+import { inject, Injector, ɵRuntimeError, ɵChangeDetectionScheduler, Injectable, InjectionToken, ɵperformanceMarkFeature, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
 import { ɵDomRendererFactory2 } from '@angular/platform-browser';
 
 const ANIMATION_PREFIX = '@';
@@ -17,7 +17,8 @@ class AsyncAnimationRendererFactory {
     animationType;
     moduleImpl;
     _rendererFactoryPromise = null;
-    scheduler = inject(ɵChangeDetectionScheduler, { optional: true });
+    scheduler = null;
+    injector = inject(Injector);
     loadingSchedulerFn = inject(ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN, {
         optional: true,
     });
@@ -103,6 +104,7 @@ class AsyncAnimationRendererFactory {
             ?.then((animationRendererFactory) => {
             const animationRenderer = animationRendererFactory.createRenderer(hostElement, rendererType);
             dynamicRenderer.use(animationRenderer);
+            this.scheduler ??= this.injector.get(ɵChangeDetectionScheduler, null, { optional: true });
             this.scheduler?.notify(11 /* NotificationSource.AsyncAnimationsLoaded */);
         })
             .catch((e) => {
@@ -120,10 +122,10 @@ class AsyncAnimationRendererFactory {
     whenRenderingDone() {
         return this.delegate.whenRenderingDone?.() ?? Promise.resolve();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.4+sha-2c3630a", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.0-next.4+sha-2c3630a", ngImport: i0, type: AsyncAnimationRendererFactory });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.4+sha-8c5db3c", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.0-next.4+sha-8c5db3c", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.4+sha-2c3630a", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.4+sha-8c5db3c", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**

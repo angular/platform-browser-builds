@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.1.0-next.4+sha-2c3630a
+ * @license Angular v19.1.0-next.4+sha-8c5db3c
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -59,7 +59,8 @@ export declare class ɵAsyncAnimationRendererFactory implements OnDestroy, Rende
     private animationType;
     private moduleImpl?;
     private _rendererFactoryPromise;
-    private readonly scheduler;
+    private scheduler;
+    private readonly injector;
     private readonly loadingSchedulerFn;
     private _engine?;
     /**
