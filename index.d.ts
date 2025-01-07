@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.5+sha-5c010a5
+ * @license Angular v19.0.5+sha-6d00efd
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -879,6 +879,11 @@ export declare class ɵDomRendererFactory2 implements RendererFactory2, OnDestro
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
     ngOnDestroy(): void;
+    /**
+     * Used during HMR to clear any cached data about a component.
+     * @param componentId ID of the component that is being replaced.
+     */
+    protected componentReplaced(componentId: string): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵDomRendererFactory2, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵDomRendererFactory2>;
 }
