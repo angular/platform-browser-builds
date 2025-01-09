@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.6+sha-57a98c3
+ * @license Angular v19.0.6+sha-068f4fb
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -16,6 +16,7 @@ import { HttpTransferCacheOptions } from '@angular/common/http';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
 import { InjectionToken } from '@angular/core';
+import { Injector } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { PlatformRef } from '@angular/core';
@@ -31,7 +32,6 @@ import { Testability } from '@angular/core';
 import { TestabilityRegistry } from '@angular/core';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
-import { ɵConsole } from '@angular/core';
 import { ɵDomAdapter } from '@angular/common';
 import { ɵgetDOM } from '@angular/common';
 
@@ -910,10 +910,10 @@ export { ɵgetDOM }
  */
 export declare class ɵHammerGesturesPlugin extends EventManagerPlugin {
     private _config;
-    private console;
+    private _injector;
     private loader?;
     private _loaderPromise;
-    constructor(doc: any, _config: HammerGestureConfig, console: ɵConsole, loader?: (HammerLoader | null) | undefined);
+    constructor(doc: any, _config: HammerGestureConfig, _injector: Injector, loader?: (HammerLoader | null) | undefined);
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     isCustomEvent(eventName: string): boolean;
