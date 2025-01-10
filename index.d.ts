@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.0-next.0+sha-e8df770
+ * @license Angular v19.2.0-next.0+sha-8496fb1
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -119,8 +119,8 @@ export declare function bootstrapApplication(rootComponent: Type<unknown>, optio
  * @publicApi
  */
 export declare class BrowserModule {
-    constructor(providersAlreadyPresent: boolean | null);
-    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserModule, [{ optional: true; skipSelf: true; }]>;
+    constructor();
+    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserModule, never, never, [typeof i1.CommonModule, typeof i0.ApplicationModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<BrowserModule>;
 }
