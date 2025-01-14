@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.0-next.0+sha-265265a
+ * @license Angular v19.2.0-next.0+sha-b9155b5
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -32,7 +32,7 @@ export declare class BrowserAnimationsModule {
      * @usageNotes
      * When registering the `BrowserAnimationsModule`, you can use the `withConfig`
      * function as follows:
-     * ```
+     * ```ts
      * @NgModule({
      *   imports: [BrowserAnimationsModule.withConfig(config)]
      * })
