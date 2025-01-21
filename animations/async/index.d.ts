@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.1.2+sha-67fe0b9
+ * @license Angular v19.1.2+sha-26f6d4c
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -85,6 +85,11 @@ export declare class ɵAsyncAnimationRendererFactory implements OnDestroy, Rende
     begin(): void;
     end(): void;
     whenRenderingDone?(): Promise<any>;
+    /**
+     * Used during HMR to clear any cached data about a component.
+     * @param componentId ID of the component that is being replaced.
+     */
+    protected componentReplaced(componentId: string): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ɵAsyncAnimationRendererFactory, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ɵAsyncAnimationRendererFactory>;
 }

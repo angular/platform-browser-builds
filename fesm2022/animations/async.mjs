@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.1.2+sha-67fe0b9
+ * @license Angular v19.1.2+sha-26f6d4c
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -122,10 +122,19 @@ class AsyncAnimationRendererFactory {
     whenRenderingDone() {
         return this.delegate.whenRenderingDone?.() ?? Promise.resolve();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.2+sha-67fe0b9", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.2+sha-67fe0b9", ngImport: i0, type: AsyncAnimationRendererFactory });
+    /**
+     * Used during HMR to clear any cached data about a component.
+     * @param componentId ID of the component that is being replaced.
+     */
+    componentReplaced(componentId) {
+        // Flush the engine since the renderer destruction waits for animations to be done.
+        this._engine?.flush();
+        this.delegate.componentReplaced?.(componentId);
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.2+sha-26f6d4c", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.2+sha-26f6d4c", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.2+sha-67fe0b9", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.2+sha-26f6d4c", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
