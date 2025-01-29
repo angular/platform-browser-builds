@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.0-next.0+sha-0c1ecb4
+ * @license Angular v19.2.0-next.0+sha-b5f9018
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9,7 +9,7 @@ import { Injectable, Inject, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE, Ng
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
 import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import * as i1 from '@angular/animations/browser';
-import { ɵAnimationEngine, ɵWebAnimationsStyleNormalizer, ɵAnimationRendererFactory, ɵAnimationStyleNormalizer, AnimationDriver, ɵWebAnimationsDriver, NoopAnimationDriver } from '@angular/animations/browser';
+import { ɵAnimationEngine, ɵWebAnimationsStyleNormalizer, ɵAnimationRendererFactory, ɵAnimationStyleNormalizer, AnimationDriver, NoopAnimationDriver, ɵWebAnimationsDriver } from '@angular/animations/browser';
 import { DOCUMENT } from '@angular/common';
 
 class InjectableAnimationEngine extends ɵAnimationEngine {
@@ -22,10 +22,10 @@ class InjectableAnimationEngine extends ɵAnimationEngine {
     ngOnDestroy() {
         this.flush();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: InjectableAnimationEngine });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: InjectableAnimationEngine });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document, decorators: [{
                     type: Inject,
@@ -48,20 +48,29 @@ const SHARED_ANIMATION_PROVIDERS = [
 ];
 /**
  * Separate providers from the actual module so that we can do a local modification in Google3 to
- * include them in the BrowserModule.
- */
-const BROWSER_ANIMATIONS_PROVIDERS = [
-    { provide: AnimationDriver, useFactory: () => new ɵWebAnimationsDriver() },
-    { provide: ANIMATION_MODULE_TYPE, useValue: 'BrowserAnimations' },
-    ...SHARED_ANIMATION_PROVIDERS,
-];
-/**
- * Separate providers from the actual module so that we can do a local modification in Google3 to
  * include them in the BrowserTestingModule.
  */
 const BROWSER_NOOP_ANIMATIONS_PROVIDERS = [
     { provide: AnimationDriver, useClass: NoopAnimationDriver },
     { provide: ANIMATION_MODULE_TYPE, useValue: 'NoopAnimations' },
+    ...SHARED_ANIMATION_PROVIDERS,
+];
+/**
+ * Separate providers from the actual module so that we can do a local modification in Google3 to
+ * include them in the BrowserModule.
+ */
+const BROWSER_ANIMATIONS_PROVIDERS = [
+    // Note: the `ngServerMode` happen inside factories to give the variable time to initialize.
+    {
+        provide: AnimationDriver,
+        useFactory: () => typeof ngServerMode !== 'undefined' && ngServerMode
+            ? new NoopAnimationDriver()
+            : new ɵWebAnimationsDriver(),
+    },
+    {
+        provide: ANIMATION_MODULE_TYPE,
+        useFactory: () => typeof ngServerMode !== 'undefined' && ngServerMode ? 'NoopAnimations' : 'BrowserAnimations',
+    },
     ...SHARED_ANIMATION_PROVIDERS,
 ];
 
@@ -95,11 +104,11 @@ class BrowserAnimationsModule {
                 : BROWSER_ANIMATIONS_PROVIDERS,
         };
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -139,11 +148,11 @@ function provideAnimations() {
  * @publicApi
  */
 class NoopAnimationsModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-0c1ecb4", ngImport: i0, type: NoopAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0-next.0+sha-b5f9018", ngImport: i0, type: NoopAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
