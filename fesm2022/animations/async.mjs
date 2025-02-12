@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.0-next.2+sha-4f3ad98
+ * @license Angular v19.2.0-next.2+sha-6789c7e
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -105,7 +105,7 @@ class AsyncAnimationRendererFactory {
             const animationRenderer = animationRendererFactory.createRenderer(hostElement, rendererType);
             dynamicRenderer.use(animationRenderer);
             this.scheduler ??= this.injector.get(ɵChangeDetectionScheduler, null, { optional: true });
-            this.scheduler?.notify(11 /* NotificationSource.AsyncAnimationsLoaded */);
+            this.scheduler?.notify(10 /* NotificationSource.AsyncAnimationsLoaded */);
         })
             .catch((e) => {
             // Permanently use regular renderer when loading fails.
@@ -131,10 +131,10 @@ class AsyncAnimationRendererFactory {
         this._engine?.flush();
         this.delegate.componentReplaced?.(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0-next.2+sha-4f3ad98", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.0-next.2+sha-4f3ad98", ngImport: i0, type: AsyncAnimationRendererFactory });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0-next.2+sha-6789c7e", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.0-next.2+sha-6789c7e", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0-next.2+sha-4f3ad98", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0-next.2+sha-6789c7e", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
