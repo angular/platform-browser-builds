@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.1.7+sha-33769c2
+ * @license Angular v19.1.7+sha-4f38429
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -131,10 +131,10 @@ class AsyncAnimationRendererFactory {
         this._engine?.flush();
         this.delegate.componentReplaced?.(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.7+sha-33769c2", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.7+sha-33769c2", ngImport: i0, type: AsyncAnimationRendererFactory });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.7+sha-4f38429", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.1.7+sha-4f38429", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.7+sha-33769c2", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.7+sha-4f38429", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
