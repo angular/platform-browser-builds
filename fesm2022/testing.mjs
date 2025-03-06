@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.1+sha-81fe053
+ * @license Angular v20.0.0-next.1+sha-1b91de3
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,8 +7,8 @@
 import { PlatformLocation } from '@angular/common';
 import { MockPlatformLocation } from '@angular/common/testing';
 import * as i0 from '@angular/core';
-import { PLATFORM_INITIALIZER, createPlatformFactory, platformCore, APP_ID, ɵinternalProvideZoneChangeDetection, ɵChangeDetectionScheduler, ɵChangeDetectionSchedulerImpl, NgModule } from '@angular/core';
-import { ɵBrowserDomAdapter, BrowserModule } from '@angular/platform-browser';
+import { createPlatformFactory, platformCore, APP_ID, ɵinternalProvideZoneChangeDetection, ɵChangeDetectionScheduler, ɵChangeDetectionSchedulerImpl, NgModule, PLATFORM_INITIALIZER } from '@angular/core';
+import { BrowserModule, ɵBrowserDomAdapter } from '@angular/platform-browser';
 
 function initBrowserTests() {
     ɵBrowserDomAdapter.makeCurrent();
@@ -28,16 +28,16 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  * @publicApi
  */
 class BrowserTestingModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-81fe053", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.1+sha-81fe053", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-81fe053", ngImport: i0, type: BrowserTestingModule, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-1b91de3", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.1+sha-1b91de3", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-1b91de3", ngImport: i0, type: BrowserTestingModule, providers: [
             { provide: APP_ID, useValue: 'a' },
             ɵinternalProvideZoneChangeDetection({}),
             { provide: ɵChangeDetectionScheduler, useExisting: ɵChangeDetectionSchedulerImpl },
             { provide: PlatformLocation, useClass: MockPlatformLocation },
         ], imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-81fe053", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-1b91de3", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -49,20 +49,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1+sh
                     ],
                 }]
         }] });
-
-/**
- * @module
- * @description
- * Entry point for all public APIs of the platform-browser/testing package.
- */
-
-/// <reference types="jasmine" />
-
-// This file is not used to build this module. It is only used during editing
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { BrowserTestingModule, platformBrowserTesting };
 //# sourceMappingURL=testing.mjs.map
