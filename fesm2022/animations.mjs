@@ -1,15 +1,15 @@
 /**
- * @license Angular v19.2.1+sha-dad02c6
+ * @license Angular v19.2.1+sha-48dc0d6
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { Injectable, Inject, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE, NgModule, ɵperformanceMarkFeature } from '@angular/core';
+import { Injectable, Inject, ANIMATION_MODULE_TYPE, RendererFactory2, NgZone, NgModule, ɵperformanceMarkFeature } from '@angular/core';
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
 import { ɵDomRendererFactory2, BrowserModule } from '@angular/platform-browser';
 import * as i1 from '@angular/animations/browser';
-import { ɵAnimationEngine, ɵWebAnimationsStyleNormalizer, ɵAnimationRendererFactory, ɵAnimationStyleNormalizer, AnimationDriver, NoopAnimationDriver, ɵWebAnimationsDriver } from '@angular/animations/browser';
+import { ɵAnimationEngine, AnimationDriver, NoopAnimationDriver, ɵWebAnimationsDriver, ɵAnimationStyleNormalizer, ɵWebAnimationsStyleNormalizer, ɵAnimationRendererFactory } from '@angular/animations/browser';
 import { DOCUMENT } from '@angular/common';
 
 class InjectableAnimationEngine extends ɵAnimationEngine {
@@ -22,10 +22,10 @@ class InjectableAnimationEngine extends ɵAnimationEngine {
     ngOnDestroy() {
         this.flush();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: InjectableAnimationEngine });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: InjectableAnimationEngine, deps: [{ token: DOCUMENT }, { token: i1.AnimationDriver }, { token: i1.ɵAnimationStyleNormalizer }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: InjectableAnimationEngine });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: InjectableAnimationEngine, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document, decorators: [{
                     type: Inject,
@@ -104,11 +104,11 @@ class BrowserAnimationsModule {
                 : BROWSER_ANIMATIONS_PROVIDERS,
         };
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: BrowserAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: BrowserAnimationsModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: BrowserAnimationsModule, providers: BROWSER_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: BrowserAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -148,11 +148,11 @@ function provideAnimations() {
  * @publicApi
  */
 class NoopAnimationsModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: NoopAnimationsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: NoopAnimationsModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: NoopAnimationsModule, providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS, imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: NoopAnimationsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: NoopAnimationsModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -185,24 +185,6 @@ function provideNoopAnimations() {
     // alterations are performed to the `provideNoopAnimations` call results in app code.
     return [...BROWSER_NOOP_ANIMATIONS_PROVIDERS];
 }
-
-/**
- * @module
- * @description
- * Entry point for all animation APIs of the animation browser package.
- */
-
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
-// This file is not used to build this module. It is only used during editing
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { BrowserAnimationsModule, NoopAnimationsModule, provideAnimations, provideNoopAnimations, InjectableAnimationEngine as ɵInjectableAnimationEngine };
 //# sourceMappingURL=animations.mjs.map
