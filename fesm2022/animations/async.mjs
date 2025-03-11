@@ -1,13 +1,13 @@
 /**
- * @license Angular v19.2.1+sha-56b551d
+ * @license Angular v19.2.1+sha-044dac9
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { inject, Injector, ɵRuntimeError, ɵChangeDetectionScheduler, Injectable, InjectionToken, ɵperformanceMarkFeature, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
-import { ɵDomRendererFactory2 } from '@angular/platform-browser';
+import { InjectionToken, inject, Injector, ɵRuntimeError as _RuntimeError, ɵChangeDetectionScheduler as _ChangeDetectionScheduler, Injectable, ɵperformanceMarkFeature as _performanceMarkFeature, makeEnvironmentProviders, NgZone, RendererFactory2, ANIMATION_MODULE_TYPE } from '@angular/core';
+import { ɵDomRendererFactory2 as _DomRendererFactory2 } from '@angular/platform-browser';
 
 const ANIMATION_PREFIX = '@';
 class AsyncAnimationRendererFactory {
@@ -61,7 +61,7 @@ class AsyncAnimationRendererFactory {
         }
         return moduleImplPromise
             .catch((e) => {
-            throw new ɵRuntimeError(5300 /* RuntimeErrorCode.ANIMATION_RENDERER_ASYNC_LOADING_FAILURE */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+            throw new _RuntimeError(5300 /* RuntimeErrorCode.ANIMATION_RENDERER_ASYNC_LOADING_FAILURE */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
                 'Async loading for animations package was ' +
                     'enabled, but loading failed. Angular falls back to using regular rendering. ' +
                     "No animations will be displayed and their styles won't be applied.");
@@ -104,7 +104,7 @@ class AsyncAnimationRendererFactory {
             ?.then((animationRendererFactory) => {
             const animationRenderer = animationRendererFactory.createRenderer(hostElement, rendererType);
             dynamicRenderer.use(animationRenderer);
-            this.scheduler ??= this.injector.get(ɵChangeDetectionScheduler, null, { optional: true });
+            this.scheduler ??= this.injector.get(_ChangeDetectionScheduler, null, { optional: true });
             this.scheduler?.notify(10 /* NotificationSource.AsyncAnimationsLoaded */);
         })
             .catch((e) => {
@@ -131,10 +131,10 @@ class AsyncAnimationRendererFactory {
         this._engine?.flush();
         this.delegate.componentReplaced?.(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: AsyncAnimationRendererFactory });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
@@ -276,7 +276,7 @@ const ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN = new InjectionToken(ngDevMode ? 'a
  * @publicApi
  */
 function provideAnimationsAsync(type = 'animations') {
-    ɵperformanceMarkFeature('NgAsyncAnimations');
+    _performanceMarkFeature('NgAsyncAnimations');
     // Animations don't work on the server so we switch them over to no-op automatically.
     if (typeof ngServerMode !== 'undefined' && ngServerMode) {
         type = 'noop';
@@ -287,7 +287,7 @@ function provideAnimationsAsync(type = 'animations') {
             useFactory: (doc, renderer, zone) => {
                 return new AsyncAnimationRendererFactory(doc, renderer, zone, type);
             },
-            deps: [DOCUMENT, ɵDomRendererFactory2, NgZone],
+            deps: [DOCUMENT, _DomRendererFactory2, NgZone],
         },
         {
             provide: ANIMATION_MODULE_TYPE,

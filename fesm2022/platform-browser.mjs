@@ -1,14 +1,14 @@
 /**
- * @license Angular v19.2.1+sha-56b551d
+ * @license Angular v19.2.1+sha-044dac9
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵDomAdapter, ɵsetRootDomAdapter, ɵparseCookieValue, ɵgetDOM, isPlatformServer, DOCUMENT, ɵPLATFORM_BROWSER_ID, XhrFactory, CommonModule } from '@angular/common';
+import { ɵDomAdapter as _DomAdapter, ɵsetRootDomAdapter as _setRootDomAdapter, ɵparseCookieValue as _parseCookieValue, ɵgetDOM as _getDOM, isPlatformServer, DOCUMENT, ɵPLATFORM_BROWSER_ID as _PLATFORM_BROWSER_ID, CommonModule, XhrFactory } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
 import * as i0 from '@angular/core';
-import { ɵglobal, ɵRuntimeError, Injectable, InjectionToken, Inject, APP_ID, CSP_NONCE, PLATFORM_ID, Optional, ViewEncapsulation, ɵTracingService, RendererStyleFlags2, ɵinternalCreateApplication, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, ɵTESTABILITY_GETTER, ɵTESTABILITY, Testability, NgZone, TestabilityRegistry, ɵINJECTOR_SCOPE, ErrorHandler, RendererFactory2, inject, ApplicationModule, NgModule, ɵsetDocument, ApplicationRef, ɵConsole, Injector, forwardRef, ɵXSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow, ɵunwrapSafeValue, ɵ_sanitizeUrl, ɵ_sanitizeHtml, ɵbypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl, ɵwithI18nSupport, ɵwithEventReplay, ɵwithIncrementalHydration, makeEnvironmentProviders, ɵwithDomHydration, ENVIRONMENT_INITIALIZER, ɵZONELESS_ENABLED, ɵformatRuntimeError, Version } from '@angular/core';
-import { ɵwithHttpTransferCache } from '@angular/common/http';
+import { ɵglobal as _global, ɵRuntimeError as _RuntimeError, Injectable, InjectionToken, Inject, APP_ID, CSP_NONCE, PLATFORM_ID, Optional, ViewEncapsulation, ɵTracingService as _TracingService, RendererStyleFlags2, createPlatformFactory, PLATFORM_INITIALIZER, ɵinternalCreateApplication as _internalCreateApplication, inject, ApplicationModule, ɵINJECTOR_SCOPE as _INJECTOR_SCOPE, ErrorHandler, RendererFactory2, ɵTESTABILITY_GETTER as _TESTABILITY_GETTER, NgZone, TestabilityRegistry, Testability, ɵTESTABILITY as _TESTABILITY, platformCore, ɵsetDocument as _setDocument, NgModule, ApplicationRef, Injector, ɵConsole as _Console, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, makeEnvironmentProviders, ɵwithDomHydration as _withDomHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ɵwithIncrementalHydration as _withIncrementalHydration, ENVIRONMENT_INITIALIZER, ɵZONELESS_ENABLED as _ZONELESS_ENABLED, ɵformatRuntimeError as _formatRuntimeError, Version } from '@angular/core';
+import { ɵwithHttpTransferCache as _withHttpTransferCache } from '@angular/common/http';
 
 /**
  * Provides DOM operations in any browser environment.
@@ -16,7 +16,7 @@ import { ɵwithHttpTransferCache } from '@angular/common/http';
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-class GenericBrowserDomAdapter extends ɵDomAdapter {
+class GenericBrowserDomAdapter extends _DomAdapter {
     supportsDOMEvents = true;
 }
 
@@ -28,7 +28,7 @@ class GenericBrowserDomAdapter extends ɵDomAdapter {
  */
 class BrowserDomAdapter extends GenericBrowserDomAdapter {
     static makeCurrent() {
-        ɵsetRootDomAdapter(new BrowserDomAdapter());
+        _setRootDomAdapter(new BrowserDomAdapter());
     }
     onAndCancel(el, evt, listener, options) {
         el.addEventListener(evt, listener, options);
@@ -82,7 +82,7 @@ class BrowserDomAdapter extends GenericBrowserDomAdapter {
         return window.navigator.userAgent;
     }
     getCookie(name) {
-        return ɵparseCookieValue(document.cookie, name);
+        return _parseCookieValue(document.cookie, name);
     }
 }
 let baseElement = null;
@@ -98,18 +98,18 @@ function relativePath(url) {
 
 class BrowserGetTestability {
     addToWindow(registry) {
-        ɵglobal['getAngularTestability'] = (elem, findInAncestors = true) => {
+        _global['getAngularTestability'] = (elem, findInAncestors = true) => {
             const testability = registry.findTestabilityInTree(elem, findInAncestors);
             if (testability == null) {
-                throw new ɵRuntimeError(5103 /* RuntimeErrorCode.TESTABILITY_NOT_FOUND */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+                throw new _RuntimeError(5103 /* RuntimeErrorCode.TESTABILITY_NOT_FOUND */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
                     'Could not find testability for element.');
             }
             return testability;
         };
-        ɵglobal['getAllAngularTestabilities'] = () => registry.getAllTestabilities();
-        ɵglobal['getAllAngularRootElements'] = () => registry.getAllRootElements();
+        _global['getAllAngularTestabilities'] = () => registry.getAllTestabilities();
+        _global['getAllAngularRootElements'] = () => registry.getAllRootElements();
         const whenAllStable = (callback) => {
-            const testabilities = ɵglobal['getAllAngularTestabilities']();
+            const testabilities = _global['getAllAngularTestabilities']();
             let count = testabilities.length;
             const decrement = function () {
                 count--;
@@ -121,10 +121,10 @@ class BrowserGetTestability {
                 testability.whenStable(decrement);
             });
         };
-        if (!ɵglobal['frameworkStabilizers']) {
-            ɵglobal['frameworkStabilizers'] = [];
+        if (!_global['frameworkStabilizers']) {
+            _global['frameworkStabilizers'] = [];
         }
-        ɵglobal['frameworkStabilizers'].push(whenAllStable);
+        _global['frameworkStabilizers'].push(whenAllStable);
     }
     findTestabilityInTree(registry, elem, findInAncestors) {
         if (elem == null) {
@@ -137,7 +137,7 @@ class BrowserGetTestability {
         else if (!findInAncestors) {
             return null;
         }
-        if (ɵgetDOM().isShadowRoot(elem)) {
+        if (_getDOM().isShadowRoot(elem)) {
             return this.findTestabilityInTree(registry, elem.host, true);
         }
         return this.findTestabilityInTree(registry, elem.parentElement, true);
@@ -151,10 +151,10 @@ class BrowserXhr {
     build() {
         return new XMLHttpRequest();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: BrowserXhr });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: BrowserXhr });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: BrowserXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: BrowserXhr, decorators: [{
             type: Injectable
         }] });
 
@@ -213,16 +213,16 @@ class EventManager {
         const plugins = this._plugins;
         plugin = plugins.find((plugin) => plugin.supports(eventName));
         if (!plugin) {
-            throw new ɵRuntimeError(5101 /* RuntimeErrorCode.NO_PLUGIN_FOR_EVENT */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+            throw new _RuntimeError(5101 /* RuntimeErrorCode.NO_PLUGIN_FOR_EVENT */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
                 `No event manager plugin found for event ${eventName}`);
         }
         this._eventNameToPlugin.set(eventName, plugin);
         return plugin;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: EventManager });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: EventManager });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: EventManager, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: EventManager, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -427,10 +427,10 @@ class SharedStylesHost {
         // Insert the element into the DOM with the host node as parent
         return host.appendChild(element);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: SharedStylesHost });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: SharedStylesHost });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: SharedStylesHost, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: SharedStylesHost, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document, decorators: [{
                     type: Inject,
@@ -604,10 +604,10 @@ class DomRendererFactory2 {
     componentReplaced(componentId) {
         this.rendererByCompId.delete(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }, { token: ɵTracingService, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomRendererFactory2 });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }, { token: _TracingService, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomRendererFactory2 });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomRendererFactory2, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: EventManager }, { type: SharedStylesHost }, { type: undefined, decorators: [{
                     type: Inject,
@@ -626,7 +626,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b55
                     args: [CSP_NONCE]
                 }] }, { type: i0.ɵTracingService, decorators: [{
                     type: Inject,
-                    args: [ɵTracingService]
+                    args: [_TracingService]
                 }, {
                     type: Optional
                 }] }] });
@@ -688,7 +688,7 @@ class DefaultDomRenderer2 {
     selectRootElement(selectorOrNode, preserveContent) {
         let el = typeof selectorOrNode === 'string' ? this.doc.querySelector(selectorOrNode) : selectorOrNode;
         if (!el) {
-            throw new ɵRuntimeError(-5104 /* RuntimeErrorCode.ROOT_NODE_NOT_FOUND */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+            throw new _RuntimeError(-5104 /* RuntimeErrorCode.ROOT_NODE_NOT_FOUND */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
                 `The selector "${selectorOrNode}" did not match any elements`);
         }
         if (!preserveContent) {
@@ -771,9 +771,9 @@ class DefaultDomRenderer2 {
             this.throwOnSyntheticProps &&
             checkNoSyntheticProp(event, 'listener');
         if (typeof target === 'string') {
-            target = ɵgetDOM().getGlobalEventTarget(this.doc, target);
+            target = _getDOM().getGlobalEventTarget(this.doc, target);
             if (!target) {
-                throw new ɵRuntimeError(5102 /* RuntimeErrorCode.UNSUPPORTED_EVENT_TARGET */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+                throw new _RuntimeError(5102 /* RuntimeErrorCode.UNSUPPORTED_EVENT_TARGET */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
                     `Unsupported event target ${target} for event ${event}`);
             }
         }
@@ -812,7 +812,7 @@ class DefaultDomRenderer2 {
 const AT_CHARCODE = (() => '@'.charCodeAt(0))();
 function checkNoSyntheticProp(name, nameKind) {
     if (name.charCodeAt(0) === AT_CHARCODE) {
-        throw new ɵRuntimeError(5105 /* RuntimeErrorCode.UNEXPECTED_SYNTHETIC_PROPERTY */, `Unexpected synthetic ${nameKind} ${name} found. Please make sure that:
+        throw new _RuntimeError(5105 /* RuntimeErrorCode.UNEXPECTED_SYNTHETIC_PROPERTY */, `Unexpected synthetic ${nameKind} ${name} found. Please make sure that:
   - Make sure \`provideAnimationsAsync()\`, \`provideAnimations()\` or \`provideNoopAnimations()\` call was added to a list of providers used to bootstrap an application.
   - There is a corresponding animation configuration named \`${name}\` defined in the \`animations\` field of the \`@Component\` decorator (see https://angular.dev/api/core/Component#animations).`);
     }
@@ -833,7 +833,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         let styles = component.styles;
         if (ngDevMode) {
             // We only do this in development, as for production users should not add CSS sourcemaps to components.
-            const baseHref = ɵgetDOM().getBaseHref(doc) ?? '';
+            const baseHref = _getDOM().getBaseHref(doc) ?? '';
             styles = addBaseHrefToCssSourceMap(baseHref, styles);
         }
         styles = shimStylesContent(component.id, styles);
@@ -893,7 +893,7 @@ class NoneEncapsulationDomRenderer extends DefaultDomRenderer2 {
         let styles = component.styles;
         if (ngDevMode) {
             // We only do this in development, as for production users should not add CSS sourcemaps to components.
-            const baseHref = ɵgetDOM().getBaseHref(doc) ?? '';
+            const baseHref = _getDOM().getBaseHref(doc) ?? '';
             styles = addBaseHrefToCssSourceMap(baseHref, styles);
         }
         this.styles = compId ? shimStylesContent(compId, styles) : styles;
@@ -945,10 +945,10 @@ class DomEventsPlugin extends EventManagerPlugin {
     removeEventListener(target, eventName, callback, options) {
         return target.removeEventListener(eventName, callback, options);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomEventsPlugin });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomEventsPlugin });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomEventsPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -1016,7 +1016,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
         const parsedEvent = KeyEventsPlugin.parseEventName(eventName);
         const outsideHandler = KeyEventsPlugin.eventCallback(parsedEvent['fullKey'], handler, this.manager.getZone());
         return this.manager.getZone().runOutsideAngular(() => {
-            return ɵgetDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler, options);
+            return _getDOM().onAndCancel(element, parsedEvent['domEventName'], outsideHandler, options);
         });
     }
     /**
@@ -1117,10 +1117,10 @@ class KeyEventsPlugin extends EventManagerPlugin {
     static _normalizeKey(keyName) {
         return keyName === 'esc' ? 'escape' : keyName;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: KeyEventsPlugin });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: KeyEventsPlugin });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: KeyEventsPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: KeyEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -1187,7 +1187,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b55
  * @publicApi
  */
 function bootstrapApplication(rootComponent, options) {
-    return ɵinternalCreateApplication({ rootComponent, ...createProvidersConfig(options) });
+    return _internalCreateApplication({ rootComponent, ...createProvidersConfig(options) });
 }
 /**
  * Create an instance of an Angular application without bootstrapping any components. This is useful
@@ -1202,7 +1202,7 @@ function bootstrapApplication(rootComponent, options) {
  * @publicApi
  */
 function createApplication(options) {
-    return ɵinternalCreateApplication(createProvidersConfig(options));
+    return _internalCreateApplication(createProvidersConfig(options));
 }
 function createProvidersConfig(options) {
     return {
@@ -1235,11 +1235,11 @@ function errorHandler() {
 }
 function _document() {
     // Tell ivy about the global document
-    ɵsetDocument(document);
+    _setDocument(document);
     return document;
 }
 const INTERNAL_BROWSER_PLATFORM_PROVIDERS = [
-    { provide: PLATFORM_ID, useValue: ɵPLATFORM_BROWSER_ID },
+    { provide: PLATFORM_ID, useValue: _PLATFORM_BROWSER_ID },
     { provide: PLATFORM_INITIALIZER, useValue: initDomAdapter, multi: true },
     { provide: DOCUMENT, useFactory: _document, deps: [] },
 ];
@@ -1259,23 +1259,23 @@ const platformBrowser = createPlatformFactory(platformCore, 'browser', INTERNAL_
 const BROWSER_MODULE_PROVIDERS_MARKER = new InjectionToken(typeof ngDevMode === 'undefined' || ngDevMode ? 'BrowserModule Providers Marker' : '');
 const TESTABILITY_PROVIDERS = [
     {
-        provide: ɵTESTABILITY_GETTER,
+        provide: _TESTABILITY_GETTER,
         useClass: BrowserGetTestability,
         deps: [],
     },
     {
-        provide: ɵTESTABILITY,
+        provide: _TESTABILITY,
         useClass: Testability,
-        deps: [NgZone, TestabilityRegistry, ɵTESTABILITY_GETTER],
+        deps: [NgZone, TestabilityRegistry, _TESTABILITY_GETTER],
     },
     {
         provide: Testability, // Also provide as `Testability` for backwards-compatibility.
         useClass: Testability,
-        deps: [NgZone, TestabilityRegistry, ɵTESTABILITY_GETTER],
+        deps: [NgZone, TestabilityRegistry, _TESTABILITY_GETTER],
     },
 ];
 const BROWSER_MODULE_PROVIDERS = [
-    { provide: ɵINJECTOR_SCOPE, useValue: 'root' },
+    { provide: _INJECTOR_SCOPE, useValue: 'root' },
     { provide: ErrorHandler, useFactory: errorHandler, deps: [] },
     {
         provide: EVENT_MANAGER_PLUGINS,
@@ -1310,16 +1310,16 @@ class BrowserModule {
                 skipSelf: true,
             });
             if (providersAlreadyPresent) {
-                throw new ɵRuntimeError(5100 /* RuntimeErrorCode.BROWSER_MODULE_ALREADY_LOADED */, `Providers from the \`BrowserModule\` have already been loaded. If you need access ` +
+                throw new _RuntimeError(5100 /* RuntimeErrorCode.BROWSER_MODULE_ALREADY_LOADED */, `Providers from the \`BrowserModule\` have already been loaded. If you need access ` +
                     `to common directives such as NgIf and NgFor, import the \`CommonModule\` instead.`);
             }
         }
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: BrowserModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: BrowserModule, providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS], imports: [CommonModule, ApplicationModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: BrowserModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: BrowserModule, providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS], imports: [CommonModule, ApplicationModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: BrowserModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: BrowserModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS],
@@ -1354,7 +1354,7 @@ class Meta {
     _dom;
     constructor(_doc) {
         this._doc = _doc;
-        this._dom = ɵgetDOM();
+        this._dom = _getDOM();
     }
     /**
      * Retrieves or creates a specific `<meta>` tag element in the current HTML document.
@@ -1478,10 +1478,10 @@ class Meta {
     _getMetaKeyMap(prop) {
         return META_KEYS_MAP[prop] || prop;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: Meta, providedIn: 'root' });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: Meta, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: Meta, providedIn: 'root' });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: Meta, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: Meta, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
@@ -1523,10 +1523,10 @@ class Title {
     setTitle(newTitle) {
         this._doc.title = newTitle || '';
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: Title, providedIn: 'root' });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: Title, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: Title, providedIn: 'root' });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: Title, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: Title, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
@@ -1547,7 +1547,7 @@ function exportNgVar(name, value) {
         // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
         // - we can't declare a closure extern as the namespace `ng` is already used within Google
         //   for typings for angularJS (via `goog.provide('ng....')`).
-        const ng = (ɵglobal['ng'] = ɵglobal['ng'] || {});
+        const ng = (_global['ng'] = _global['ng'] || {});
         ng[name] = value;
     }
 }
@@ -1682,7 +1682,7 @@ class By {
     }
 }
 function elementMatches(n, selector) {
-    if (ɵgetDOM().isElementNode(n)) {
+    if (_getDOM().isElementNode(n)) {
         return ((n.matches && n.matches(selector)) ||
             (n.msMatchesSelector && n.msMatchesSelector(selector)) ||
             (n.webkitMatchesSelector && n.webkitMatchesSelector(selector)));
@@ -1799,10 +1799,10 @@ class HammerGestureConfig {
         }
         return mc;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerGestureConfig, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerGestureConfig });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerGestureConfig, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerGestureConfig });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerGestureConfig, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerGestureConfig, decorators: [{
             type: Injectable
         }] });
 /**
@@ -1829,7 +1829,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
             if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 // Get a `Console` through an injector to tree-shake the
                 // class when it is unused in production.
-                const _console = this._injector.get(ɵConsole);
+                const _console = this._injector.get(_Console);
                 _console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
                     `loaded and no custom loader has been specified.`);
             }
@@ -1855,7 +1855,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
                 // If Hammer isn't actually loaded when the custom loader resolves, give up.
                 if (!window.Hammer) {
                     if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                        const _console = this._injector.get(ɵConsole);
+                        const _console = this._injector.get(_Console);
                         _console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
                     }
                     deregister = () => { };
@@ -1869,7 +1869,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
                 }
             }).catch(() => {
                 if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                    const _console = this._injector.get(ɵConsole);
+                    const _console = this._injector.get(_Console);
                     _console.warn(`The "${eventName}" event cannot be bound because the custom ` +
                         `Hammer.JS loader failed.`);
                 }
@@ -1903,10 +1903,10 @@ class HammerGesturesPlugin extends EventManagerPlugin {
     isCustomEvent(eventName) {
         return this._config.events.indexOf(eventName) > -1;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerGesturesPlugin, deps: [{ token: DOCUMENT }, { token: HAMMER_GESTURE_CONFIG }, { token: i0.Injector }, { token: HAMMER_LOADER, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerGesturesPlugin });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerGesturesPlugin, deps: [{ token: DOCUMENT }, { token: HAMMER_GESTURE_CONFIG }, { token: i0.Injector }, { token: HAMMER_LOADER, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerGesturesPlugin });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerGesturesPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerGesturesPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -1932,9 +1932,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b55
  * @publicApi
  */
 class HammerModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerModule });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerModule, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerModule });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerModule, providers: [
             {
                 provide: EVENT_MANAGER_PLUGINS,
                 useClass: HammerGesturesPlugin,
@@ -1944,7 +1944,7 @@ class HammerModule {
             { provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig, deps: [] },
         ] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: HammerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: HammerModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [
@@ -1991,10 +1991,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b55
  * @publicApi
  */
 class DomSanitizer {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomSanitizer, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomSanitizer, providedIn: 'root', useExisting: i0.forwardRef(() => DomSanitizerImpl) });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomSanitizer, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomSanitizer, providedIn: 'root', useExisting: i0.forwardRef(() => DomSanitizerImpl) });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomSanitizer, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomSanitizer, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root', useExisting: forwardRef(() => DomSanitizerImpl) }]
         }] });
@@ -2011,56 +2011,56 @@ class DomSanitizerImpl extends DomSanitizer {
             case SecurityContext.NONE:
                 return value;
             case SecurityContext.HTML:
-                if (ɵallowSanitizationBypassAndThrow(value, "HTML" /* BypassType.Html */)) {
-                    return ɵunwrapSafeValue(value);
+                if (_allowSanitizationBypassAndThrow(value, "HTML" /* BypassType.Html */)) {
+                    return _unwrapSafeValue(value);
                 }
-                return ɵ_sanitizeHtml(this._doc, String(value)).toString();
+                return __sanitizeHtml(this._doc, String(value)).toString();
             case SecurityContext.STYLE:
-                if (ɵallowSanitizationBypassAndThrow(value, "Style" /* BypassType.Style */)) {
-                    return ɵunwrapSafeValue(value);
+                if (_allowSanitizationBypassAndThrow(value, "Style" /* BypassType.Style */)) {
+                    return _unwrapSafeValue(value);
                 }
                 return value;
             case SecurityContext.SCRIPT:
-                if (ɵallowSanitizationBypassAndThrow(value, "Script" /* BypassType.Script */)) {
-                    return ɵunwrapSafeValue(value);
+                if (_allowSanitizationBypassAndThrow(value, "Script" /* BypassType.Script */)) {
+                    return _unwrapSafeValue(value);
                 }
-                throw new ɵRuntimeError(5200 /* RuntimeErrorCode.SANITIZATION_UNSAFE_SCRIPT */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+                throw new _RuntimeError(5200 /* RuntimeErrorCode.SANITIZATION_UNSAFE_SCRIPT */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
                     'unsafe value used in a script context');
             case SecurityContext.URL:
-                if (ɵallowSanitizationBypassAndThrow(value, "URL" /* BypassType.Url */)) {
-                    return ɵunwrapSafeValue(value);
+                if (_allowSanitizationBypassAndThrow(value, "URL" /* BypassType.Url */)) {
+                    return _unwrapSafeValue(value);
                 }
-                return ɵ_sanitizeUrl(String(value));
+                return __sanitizeUrl(String(value));
             case SecurityContext.RESOURCE_URL:
-                if (ɵallowSanitizationBypassAndThrow(value, "ResourceURL" /* BypassType.ResourceUrl */)) {
-                    return ɵunwrapSafeValue(value);
+                if (_allowSanitizationBypassAndThrow(value, "ResourceURL" /* BypassType.ResourceUrl */)) {
+                    return _unwrapSafeValue(value);
                 }
-                throw new ɵRuntimeError(5201 /* RuntimeErrorCode.SANITIZATION_UNSAFE_RESOURCE_URL */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
-                    `unsafe value used in a resource URL context (see ${ɵXSS_SECURITY_URL})`);
+                throw new _RuntimeError(5201 /* RuntimeErrorCode.SANITIZATION_UNSAFE_RESOURCE_URL */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+                    `unsafe value used in a resource URL context (see ${_XSS_SECURITY_URL})`);
             default:
-                throw new ɵRuntimeError(5202 /* RuntimeErrorCode.SANITIZATION_UNEXPECTED_CTX */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
-                    `Unexpected SecurityContext ${ctx} (see ${ɵXSS_SECURITY_URL})`);
+                throw new _RuntimeError(5202 /* RuntimeErrorCode.SANITIZATION_UNEXPECTED_CTX */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+                    `Unexpected SecurityContext ${ctx} (see ${_XSS_SECURITY_URL})`);
         }
     }
     bypassSecurityTrustHtml(value) {
-        return ɵbypassSanitizationTrustHtml(value);
+        return _bypassSanitizationTrustHtml(value);
     }
     bypassSecurityTrustStyle(value) {
-        return ɵbypassSanitizationTrustStyle(value);
+        return _bypassSanitizationTrustStyle(value);
     }
     bypassSecurityTrustScript(value) {
-        return ɵbypassSanitizationTrustScript(value);
+        return _bypassSanitizationTrustScript(value);
     }
     bypassSecurityTrustUrl(value) {
-        return ɵbypassSanitizationTrustUrl(value);
+        return _bypassSanitizationTrustUrl(value);
     }
     bypassSecurityTrustResourceUrl(value) {
-        return ɵbypassSanitizationTrustResourceUrl(value);
+        return _bypassSanitizationTrustResourceUrl(value);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomSanitizerImpl, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomSanitizerImpl, providedIn: 'root' });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomSanitizerImpl, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomSanitizerImpl, providedIn: 'root' });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-56b551d", ngImport: i0, type: DomSanitizerImpl, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-044dac9", ngImport: i0, type: DomSanitizerImpl, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
@@ -2109,7 +2109,7 @@ function withNoHttpTransferCache() {
  */
 function withHttpTransferCacheOptions(options) {
     // This feature has no providers and acts as a flag to pass options to the HTTP transfer cache.
-    return hydrationFeature(HydrationFeatureKind.HttpTransferCacheOptions, ɵwithHttpTransferCache(options));
+    return hydrationFeature(HydrationFeatureKind.HttpTransferCacheOptions, _withHttpTransferCache(options));
 }
 /**
  * Enables support for hydrating i18n blocks.
@@ -2118,7 +2118,7 @@ function withHttpTransferCacheOptions(options) {
  * @publicApi
  */
 function withI18nSupport() {
-    return hydrationFeature(HydrationFeatureKind.I18nSupport, ɵwithI18nSupport());
+    return hydrationFeature(HydrationFeatureKind.I18nSupport, _withI18nSupport());
 }
 /**
  * Enables support for replaying user events (e.g. `click`s) that happened on a page
@@ -2138,7 +2138,7 @@ function withI18nSupport() {
  * @see {@link provideClientHydration}
  */
 function withEventReplay() {
-    return hydrationFeature(HydrationFeatureKind.EventReplay, ɵwithEventReplay());
+    return hydrationFeature(HydrationFeatureKind.EventReplay, _withEventReplay());
 }
 /**
  * Enables support for incremental hydration using the `hydrate` trigger syntax.
@@ -2157,7 +2157,7 @@ function withEventReplay() {
  * @see {@link provideClientHydration}
  */
 function withIncrementalHydration() {
-    return hydrationFeature(HydrationFeatureKind.IncrementalHydration, ɵwithIncrementalHydration());
+    return hydrationFeature(HydrationFeatureKind.IncrementalHydration, _withIncrementalHydration());
 }
 /**
  * Returns an `ENVIRONMENT_INITIALIZER` token setup with a function
@@ -2170,12 +2170,12 @@ function provideZoneJsCompatibilityDetector() {
             provide: ENVIRONMENT_INITIALIZER,
             useValue: () => {
                 const ngZone = inject(NgZone);
-                const isZoneless = inject(ɵZONELESS_ENABLED);
+                const isZoneless = inject(_ZONELESS_ENABLED);
                 // Checking `ngZone instanceof NgZone` would be insufficient here,
                 // because custom implementations might use NgZone as a base class.
                 if (!isZoneless && ngZone.constructor !== NgZone) {
-                    const console = inject(ɵConsole);
-                    const message = ɵformatRuntimeError(-5000 /* RuntimeErrorCode.UNSUPPORTED_ZONEJS_INSTANCE */, 'Angular detected that hydration was enabled for an application ' +
+                    const console = inject(_Console);
+                    const message = _formatRuntimeError(-5e3 /* RuntimeErrorCode.UNSUPPORTED_ZONEJS_INSTANCE */, 'Angular detected that hydration was enabled for an application ' +
                         'that uses a custom or a noop Zone.js implementation. ' +
                         'This is not yet a fully supported configuration.');
                     console.warn(message);
@@ -2253,10 +2253,10 @@ function provideClientHydration(...features) {
     }
     return makeEnvironmentProviders([
         typeof ngDevMode !== 'undefined' && ngDevMode ? provideZoneJsCompatibilityDetector() : [],
-        ɵwithDomHydration(),
+        _withDomHydration(),
         featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions
             ? []
-            : ɵwithHttpTransferCache({}),
+            : _withHttpTransferCache({}),
         providers,
     ]);
 }
@@ -2269,7 +2269,7 @@ function provideClientHydration(...features) {
 /**
  * @publicApi
  */
-const VERSION = new Version('19.2.1+sha-56b551d');
+const VERSION = new Version('19.2.1+sha-044dac9');
 
 export { BrowserModule, By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, HydrationFeatureKind, Meta, REMOVE_STYLES_ON_COMPONENT_DESTROY, Title, VERSION, bootstrapApplication, createApplication, disableDebugTools, enableDebugTools, platformBrowser, provideClientHydration, provideProtractorTestingSupport, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, HammerGesturesPlugin as ɵHammerGesturesPlugin, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, KeyEventsPlugin as ɵKeyEventsPlugin, SharedStylesHost as ɵSharedStylesHost, initDomAdapter as ɵinitDomAdapter };
 //# sourceMappingURL=platform-browser.mjs.map
