@@ -1,31 +1,28 @@
 /**
- * @license Angular v20.0.0-next.1+sha-8be6e38
+ * @license Angular v20.0.0-next.1+sha-4fa5d18
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
-
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/platform-browser';
-import { PlatformRef } from '@angular/core';
 import { StaticProvider } from '@angular/core';
-
-/**
- * NgModule for testing.
- *
- * @publicApi
- */
-export declare class BrowserTestingModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserTestingModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserTestingModule, never, never, [typeof i1.BrowserModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserTestingModule>;
-}
+import * as i1 from '@angular/platform-browser';
 
 /**
  * Platform for testing
  *
  * @publicApi
  */
-export declare const platformBrowserTesting: (extraProviders?: StaticProvider[]) => PlatformRef;
+declare const platformBrowserTesting: (extraProviders?: StaticProvider[]) => i0.PlatformRef;
+/**
+ * NgModule for testing.
+ *
+ * @publicApi
+ */
+declare class BrowserTestingModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<BrowserTestingModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserTestingModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<BrowserTestingModule>;
+}
 
-export { }
+export { BrowserTestingModule, platformBrowserTesting };

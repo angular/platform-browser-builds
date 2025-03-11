@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.1+sha-8be6e38
+ * @license Angular v20.0.0-next.1+sha-4fa5d18
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,11 +7,11 @@
 import { PlatformLocation } from '@angular/common';
 import { MockPlatformLocation } from '@angular/common/testing';
 import * as i0 from '@angular/core';
-import { createPlatformFactory, platformCore, APP_ID, ɵinternalProvideZoneChangeDetection, ɵChangeDetectionScheduler, ɵChangeDetectionSchedulerImpl, NgModule, PLATFORM_INITIALIZER } from '@angular/core';
-import { BrowserModule, ɵBrowserDomAdapter } from '@angular/platform-browser';
+import { createPlatformFactory, platformCore, PLATFORM_INITIALIZER, APP_ID, ɵinternalProvideZoneChangeDetection as _internalProvideZoneChangeDetection, ɵChangeDetectionSchedulerImpl as _ChangeDetectionSchedulerImpl, ɵChangeDetectionScheduler as _ChangeDetectionScheduler, NgModule } from '@angular/core';
+import { BrowserModule, ɵBrowserDomAdapter as _BrowserDomAdapter } from '@angular/platform-browser';
 
 function initBrowserTests() {
-    ɵBrowserDomAdapter.makeCurrent();
+    _BrowserDomAdapter.makeCurrent();
 }
 const _TEST_BROWSER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_INITIALIZER, useValue: initBrowserTests, multi: true },
@@ -28,23 +28,23 @@ const platformBrowserTesting = createPlatformFactory(platformCore, 'browserTesti
  * @publicApi
  */
 class BrowserTestingModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-8be6e38", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.1+sha-8be6e38", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-8be6e38", ngImport: i0, type: BrowserTestingModule, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-4fa5d18", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.1+sha-4fa5d18", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-4fa5d18", ngImport: i0, type: BrowserTestingModule, providers: [
             { provide: APP_ID, useValue: 'a' },
-            ɵinternalProvideZoneChangeDetection({}),
-            { provide: ɵChangeDetectionScheduler, useExisting: ɵChangeDetectionSchedulerImpl },
+            _internalProvideZoneChangeDetection({}),
+            { provide: _ChangeDetectionScheduler, useExisting: _ChangeDetectionSchedulerImpl },
             { provide: PlatformLocation, useClass: MockPlatformLocation },
         ], imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-8be6e38", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1+sha-4fa5d18", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
                     providers: [
                         { provide: APP_ID, useValue: 'a' },
-                        ɵinternalProvideZoneChangeDetection({}),
-                        { provide: ɵChangeDetectionScheduler, useExisting: ɵChangeDetectionSchedulerImpl },
+                        _internalProvideZoneChangeDetection({}),
+                        { provide: _ChangeDetectionScheduler, useExisting: _ChangeDetectionSchedulerImpl },
                         { provide: PlatformLocation, useClass: MockPlatformLocation },
                     ],
                 }]
