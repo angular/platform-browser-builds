@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.1+sha-c73520b
+ * @license Angular v20.0.0-next.1+sha-90165b1
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -359,6 +359,8 @@ declare abstract class GenericBrowserDomAdapter extends ɵDomAdapter {
  *
  * @ngModule HammerModule
  * @publicApi
+ *
+ * @deprecated The HammerJS integration is deprecated. Replace it by your own implementation.
  */
 export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
 
@@ -368,6 +370,8 @@ export declare const HAMMER_GESTURE_CONFIG: InjectionToken<HammerGestureConfig>;
  * @see {@link HammerLoader}
  *
  * @publicApi
+ *
+ * @deprecated The HammerJS integration is deprecated. Replace it by your own implementation.
  */
 export declare const HAMMER_LOADER: InjectionToken<HammerLoader>;
 
@@ -375,6 +379,8 @@ export declare const HAMMER_LOADER: InjectionToken<HammerLoader>;
  * An injectable [HammerJS Manager](https://hammerjs.github.io/api/#hammermanager)
  * for gesture recognition. Configures specific event recognition.
  * @publicApi
+ *
+ * @deprecated The HammerJS integration is deprecated. Replace it by your own implementation.
  */
 export declare class HammerGestureConfig {
     /**
@@ -440,6 +446,8 @@ declare interface HammerInstance {
  * Function that loads HammerJS, returning a promise that is resolved once HammerJs is loaded.
  *
  * @publicApi
+ *
+ * @deprecated The hammerjs integration is deprecated. Replace it by your own implementation.
  */
 export declare type HammerLoader = () => Promise<void>;
 
@@ -453,6 +461,8 @@ export declare type HammerLoader = () => Promise<void>;
  * simply sets up the coordination layer between HammerJS and Angular's `EventManager`.
  *
  * @publicApi
+ *
+ * @deprecated The hammer integration is deprecated. Replace it by your own implementation.
  */
 export declare class HammerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<HammerModule, never>;
