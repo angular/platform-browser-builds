@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.2+sha-9291d52
+ * @license Angular v19.2.2+sha-7d47678
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -858,7 +858,7 @@ declare function withIncrementalHydration(): HydrationFeature<HydrationFeatureKi
  * @see {@link withI18nSupport}
  * @see {@link withEventReplay}
  *
- * @param features Optional features to configure additional router behaviors.
+ * @param features Optional features to configure additional hydration behaviors.
  * @returns A set of providers to enable hydration.
  *
  * @publicApi
