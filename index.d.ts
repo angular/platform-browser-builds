@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.3+sha-c13c53f
+ * @license Angular v19.2.3+sha-8e8ccc7
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -106,8 +106,6 @@ declare function createApplication(options?: ApplicationConfig): Promise<Applica
  * @publicApi
  */
 declare function provideProtractorTestingSupport(): Provider[];
-declare function initDomAdapter(): void;
-declare const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[];
 /**
  * A factory function that returns a `PlatformRef` instance associated with browser service
  * providers.
@@ -1002,4 +1000,4 @@ declare const enum RuntimeErrorCode {
  */
 declare const VERSION: Version;
 
-export { type ApplicationConfig, BrowserModule, By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, type HammerLoader, HammerModule, type HydrationFeature, HydrationFeatureKind, Meta, type MetaDefinition, REMOVE_STYLES_ON_COMPONENT_DESTROY, type SafeHtml, type SafeResourceUrl, type SafeScript, type SafeStyle, type SafeUrl, type SafeValue, Title, VERSION, bootstrapApplication, createApplication, disableDebugTools, enableDebugTools, platformBrowser, provideClientHydration, provideProtractorTestingSupport, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, HammerGesturesPlugin as ɵHammerGesturesPlugin, INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS, KeyEventsPlugin as ɵKeyEventsPlugin, RuntimeErrorCode as ɵRuntimeErrorCode, SharedStylesHost as ɵSharedStylesHost, initDomAdapter as ɵinitDomAdapter };
+export { type ApplicationConfig, BrowserModule, By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, type HammerLoader, HammerModule, type HydrationFeature, HydrationFeatureKind, Meta, type MetaDefinition, REMOVE_STYLES_ON_COMPONENT_DESTROY, type SafeHtml, type SafeResourceUrl, type SafeScript, type SafeStyle, type SafeUrl, type SafeValue, Title, VERSION, bootstrapApplication, createApplication, disableDebugTools, enableDebugTools, platformBrowser, provideClientHydration, provideProtractorTestingSupport, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, HammerGesturesPlugin as ɵHammerGesturesPlugin, KeyEventsPlugin as ɵKeyEventsPlugin, RuntimeErrorCode as ɵRuntimeErrorCode, SharedStylesHost as ɵSharedStylesHost };
