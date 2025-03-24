@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.3+sha-d6a1a3a
+ * @license Angular v19.2.3+sha-9ac4057
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -42,10 +42,10 @@ class DOMTestComponentRenderer extends TestComponentRenderer {
             _getDOM().remove(oldRoots[i]);
         }
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.3+sha-d6a1a3a", ngImport: i0, type: DOMTestComponentRenderer, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.3+sha-d6a1a3a", ngImport: i0, type: DOMTestComponentRenderer });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.3+sha-9ac4057", ngImport: i0, type: DOMTestComponentRenderer, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.3+sha-9ac4057", ngImport: i0, type: DOMTestComponentRenderer });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.3+sha-d6a1a3a", ngImport: i0, type: DOMTestComponentRenderer, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.3+sha-9ac4057", ngImport: i0, type: DOMTestComponentRenderer, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -64,9 +64,9 @@ const platformBrowserTesting = createPlatformFactory(platformBrowser, 'browserTe
  * @publicApi
  */
 class BrowserTestingModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.3+sha-d6a1a3a", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.3+sha-d6a1a3a", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.3+sha-d6a1a3a", ngImport: i0, type: BrowserTestingModule, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.3+sha-9ac4057", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.3+sha-9ac4057", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.3+sha-9ac4057", ngImport: i0, type: BrowserTestingModule, providers: [
             { provide: APP_ID, useValue: 'a' },
             _internalProvideZoneChangeDetection({}),
             { provide: _ChangeDetectionScheduler, useExisting: _ChangeDetectionSchedulerImpl },
@@ -74,7 +74,7 @@ class BrowserTestingModule {
             { provide: TestComponentRenderer, useClass: DOMTestComponentRenderer },
         ], imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.3+sha-d6a1a3a", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.3+sha-9ac4057", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
