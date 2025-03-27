@@ -1,12 +1,13 @@
 /**
- * @license Angular v19.2.4+sha-3bc8fe4
+ * @license Angular v19.2.4+sha-b53220a
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
 import { StaticProvider } from '@angular/core';
-import * as i1 from '@angular/platform-browser';
+import { B as BrowserModule } from '../browser.d-CZWh96VW.js';
+import '@angular/common';
 
 /**
  * Platform for testing
@@ -21,7 +22,7 @@ declare const platformBrowserTesting: (extraProviders?: StaticProvider[]) => i0.
  */
 declare class BrowserTestingModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<BrowserTestingModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserTestingModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserTestingModule, never, never, [typeof BrowserModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<BrowserTestingModule>;
 }
 

@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.4+sha-3bc8fe4
+ * @license Angular v19.2.4+sha-b53220a
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,8 +7,9 @@
 import * as i0 from '@angular/core';
 import { ModuleWithProviders, Provider, OnDestroy } from '@angular/core';
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
-import * as i1 from '@angular/platform-browser';
+import { B as BrowserModule } from '../browser.d-CZWh96VW.js';
 import { ɵAnimationEngine as _AnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer as _AnimationStyleNormalizer } from '@angular/animations/browser';
+import '@angular/common';
 
 /**
  * Object used to configure the behavior of {@link BrowserAnimationsModule}
@@ -45,7 +46,7 @@ declare class BrowserAnimationsModule {
      */
     static withConfig(config: BrowserAnimationsModuleConfig): ModuleWithProviders<BrowserAnimationsModule>;
     static ɵfac: i0.ɵɵFactoryDeclaration<BrowserAnimationsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<BrowserAnimationsModule, never, never, [typeof BrowserModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<BrowserAnimationsModule>;
 }
 /**
@@ -77,7 +78,7 @@ declare function provideAnimations(): Provider[];
  */
 declare class NoopAnimationsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<NoopAnimationsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<NoopAnimationsModule, never, never, [typeof i1.BrowserModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<NoopAnimationsModule, never, never, [typeof BrowserModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<NoopAnimationsModule>;
 }
 /**
