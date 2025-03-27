@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.4+sha-5948cd0
+ * @license Angular v20.0.0-next.4+sha-0b34c58
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -126,4 +126,5 @@ declare class BrowserModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<BrowserModule>;
 }
 
-export { type ApplicationConfig as A, BrowserModule as B, provideProtractorTestingSupport as a, bootstrapApplication as b, createApplication as c, platformBrowser as p };
+export { BrowserModule as B, provideProtractorTestingSupport as a, bootstrapApplication as b, createApplication as c, platformBrowser as p };
+export type { ApplicationConfig as A };

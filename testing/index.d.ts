@@ -1,12 +1,12 @@
 /**
- * @license Angular v20.0.0-next.4+sha-5948cd0
+ * @license Angular v20.0.0-next.4+sha-0b34c58
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
 import { StaticProvider } from '@angular/core';
-import { B as BrowserModule } from '../browser.d-CZWh96VW.js';
+import { B as BrowserModule } from '../browser.d-DbBsQuw9.js';
 import '@angular/common';
 
 /**
