@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.4+sha-fdde642
+ * @license Angular v19.2.4+sha-84f3ba0
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import * as i0 from '@angular/core';
 import { ModuleWithProviders, Provider, OnDestroy } from '@angular/core';
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
-import { B as BrowserModule } from '../browser.d-CZWh96VW.js';
+import { B as BrowserModule } from '../browser.d-DbBsQuw9.js';
 import { ɵAnimationEngine as _AnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer as _AnimationStyleNormalizer } from '@angular/animations/browser';
 import '@angular/common';
 
@@ -111,4 +111,5 @@ declare class InjectableAnimationEngine extends _AnimationEngine implements OnDe
     static ɵprov: i0.ɵɵInjectableDeclaration<InjectableAnimationEngine>;
 }
 
-export { BrowserAnimationsModule, type BrowserAnimationsModuleConfig, NoopAnimationsModule, provideAnimations, provideNoopAnimations, InjectableAnimationEngine as ɵInjectableAnimationEngine };
+export { BrowserAnimationsModule, NoopAnimationsModule, provideAnimations, provideNoopAnimations, InjectableAnimationEngine as ɵInjectableAnimationEngine };
+export type { BrowserAnimationsModuleConfig };
