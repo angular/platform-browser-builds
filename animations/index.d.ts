@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.5+sha-1899358
+ * @license Angular v20.0.0-next.5+sha-3ea0163
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import * as i0 from '@angular/core';
 import { ModuleWithProviders, Provider, OnDestroy } from '@angular/core';
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
-import { B as BrowserModule } from '../browser.d-DbBsQuw9.js';
+import { BrowserModule } from '../browser.d-C4gIBeOX.js';
 import { ɵAnimationEngine as _AnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer as _AnimationStyleNormalizer } from '@angular/animations/browser';
 import '@angular/common';
 

@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.5+sha-1899358
+ * @license Angular v20.0.0-next.5+sha-3ea0163
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, Injector, ɵRuntimeError as _RuntimeError, ɵChangeDetectionScheduler as _ChangeDetectionScheduler, Injectable, ɵperformanceMarkFeature as _performanceMarkFeature, makeEnvironmentProviders, NgZone, RendererFactory2, ANIMATION_MODULE_TYPE } from '@angular/core';
-import { D as DomRendererFactory2 } from '../dom_renderer-B-2OOwSx.mjs';
+import { DomRendererFactory2 } from '../dom_renderer-DGKzginR.mjs';
 
 const ANIMATION_PREFIX = '@';
 class AsyncAnimationRendererFactory {
@@ -131,10 +131,10 @@ class AsyncAnimationRendererFactory {
         this._engine?.flush();
         this.delegate.componentReplaced?.(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.5+sha-1899358", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.5+sha-1899358", ngImport: i0, type: AsyncAnimationRendererFactory });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.5+sha-3ea0163", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.5+sha-3ea0163", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5+sha-1899358", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5+sha-3ea0163", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
