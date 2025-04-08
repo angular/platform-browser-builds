@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.5+sha-8b9df44
+ * @license Angular v19.2.5+sha-56db79a
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10,22 +10,13 @@ import { ɵglobal as _global, ɵRuntimeError as _RuntimeError, Injectable, Injec
 import { EventManagerPlugin, EVENT_MANAGER_PLUGINS, DomRendererFactory2, SharedStylesHost, EventManager } from './dom_renderer-DGKzginR.mjs';
 
 /**
- * Provides DOM operations in any browser environment.
- *
- * @security Tread carefully! Interacting with the DOM directly is dangerous and
- * can introduce XSS risks.
- */
-class GenericBrowserDomAdapter extends _DomAdapter {
-    supportsDOMEvents = true;
-}
-
-/**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-class BrowserDomAdapter extends GenericBrowserDomAdapter {
+class BrowserDomAdapter extends _DomAdapter {
+    supportsDOMEvents = true;
     static makeCurrent() {
         _setRootDomAdapter(new BrowserDomAdapter());
     }
@@ -150,10 +141,10 @@ class BrowserXhr {
     build() {
         return new XMLHttpRequest();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: BrowserXhr });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: BrowserXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: BrowserXhr });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: BrowserXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: BrowserXhr, decorators: [{
             type: Injectable
         }] });
 
@@ -173,10 +164,10 @@ class DomEventsPlugin extends EventManagerPlugin {
     removeEventListener(target, eventName, callback, options) {
         return target.removeEventListener(eventName, callback, options);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: DomEventsPlugin });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: DomEventsPlugin });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: DomEventsPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: DomEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -345,10 +336,10 @@ class KeyEventsPlugin extends EventManagerPlugin {
     static _normalizeKey(keyName) {
         return keyName === 'esc' ? 'escape' : keyName;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: KeyEventsPlugin });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: KeyEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: KeyEventsPlugin });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: KeyEventsPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: KeyEventsPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -542,11 +533,11 @@ class BrowserModule {
             }
         }
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: BrowserModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: BrowserModule, providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS], imports: [CommonModule, ApplicationModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: BrowserModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: BrowserModule, exports: [CommonModule, ApplicationModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: BrowserModule, providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS], imports: [CommonModule, ApplicationModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df44", ngImport: i0, type: BrowserModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.5+sha-56db79a", ngImport: i0, type: BrowserModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS],
@@ -555,4 +546,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.5+sha-8b9df
         }], ctorParameters: () => [] });
 
 export { BrowserDomAdapter, BrowserGetTestability, BrowserModule, DomEventsPlugin, KeyEventsPlugin, bootstrapApplication, createApplication, platformBrowser, provideProtractorTestingSupport };
-//# sourceMappingURL=browser-Diu6V5w7.mjs.map
+//# sourceMappingURL=browser-X3l5Bmdq.mjs.map

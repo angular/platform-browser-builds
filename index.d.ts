@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.5+sha-8b9df44
+ * @license Angular v19.2.5+sha-56db79a
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -746,22 +746,13 @@ declare function withIncrementalHydration(): HydrationFeature<HydrationFeatureKi
 declare function provideClientHydration(...features: HydrationFeature<HydrationFeatureKind>[]): EnvironmentProviders;
 
 /**
- * Provides DOM operations in any browser environment.
- *
- * @security Tread carefully! Interacting with the DOM directly is dangerous and
- * can introduce XSS risks.
- */
-declare abstract class GenericBrowserDomAdapter extends _DomAdapter {
-    readonly supportsDOMEvents: boolean;
-}
-
-/**
  * A `DomAdapter` powered by full browser DOM APIs.
  *
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-declare class BrowserDomAdapter extends GenericBrowserDomAdapter {
+declare class BrowserDomAdapter extends _DomAdapter {
+    readonly supportsDOMEvents: boolean;
     static makeCurrent(): void;
     onAndCancel(el: Node, evt: any, listener: any, options: any): Function;
     dispatchEvent(el: Node, evt: any): void;
