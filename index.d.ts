@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.6+sha-cbbea70
+ * @license Angular v20.0.0-next.6+sha-bf8492b
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -665,7 +665,6 @@ declare function withHttpTransferCacheOptions(options: HttpTransferCacheOptions)
 /**
  * Enables support for hydrating i18n blocks.
  *
- * @developerPreview
  * @publicApi
  */
 declare function withI18nSupport(): HydrationFeature<HydrationFeatureKind.I18nSupport>;
