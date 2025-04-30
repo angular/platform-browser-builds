@@ -1,16 +1,28 @@
 /**
- * @license Angular v18.1.0-next.0+sha-87c5f3c
- * (c) 2010-2024 Google LLC. https://angular.io/
+ * @license Angular v20.0.0-next.9+sha-f4d60ff
+ * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { inject, ɵChangeDetectionScheduler, ɵRuntimeError, Injectable, ɵperformanceMarkFeature, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
-import { ɵDomRendererFactory2 } from '@angular/platform-browser';
+import { InjectionToken, inject, Injector, ɵRuntimeError as _RuntimeError, ɵChangeDetectionScheduler as _ChangeDetectionScheduler, Injectable, ɵperformanceMarkFeature as _performanceMarkFeature, makeEnvironmentProviders, NgZone, RendererFactory2, ANIMATION_MODULE_TYPE } from '@angular/core';
+import { DomRendererFactory2 } from '../dom_renderer-DGKzginR.mjs';
 
 const ANIMATION_PREFIX = '@';
 class AsyncAnimationRendererFactory {
+    doc;
+    delegate;
+    zone;
+    animationType;
+    moduleImpl;
+    _rendererFactoryPromise = null;
+    scheduler = null;
+    injector = inject(Injector);
+    loadingSchedulerFn = inject(ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN, {
+        optional: true,
+    });
+    _engine;
     /**
      *
      * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
@@ -21,8 +33,6 @@ class AsyncAnimationRendererFactory {
         this.zone = zone;
         this.animationType = animationType;
         this.moduleImpl = moduleImpl;
-        this._rendererFactoryPromise = null;
-        this.scheduler = inject(ɵChangeDetectionScheduler, { optional: true });
     }
     /** @nodoc */
     ngOnDestroy() {
@@ -41,10 +51,17 @@ class AsyncAnimationRendererFactory {
         // Note on the `.then(m => m)` part below: Closure compiler optimizations in g3 require
         // `.then` to be present for a dynamic import (or an import should be `await`ed) to detect
         // the set of imported symbols.
-        const moduleImpl = this.moduleImpl ?? import('@angular/animations/browser').then((m) => m);
-        return moduleImpl
+        const loadFn = () => this.moduleImpl ?? import('@angular/animations/browser').then((m) => m);
+        let moduleImplPromise;
+        if (this.loadingSchedulerFn) {
+            moduleImplPromise = this.loadingSchedulerFn(loadFn);
+        }
+        else {
+            moduleImplPromise = loadFn();
+        }
+        return moduleImplPromise
             .catch((e) => {
-            throw new ɵRuntimeError(5300 /* RuntimeErrorCode.ANIMATION_RENDERER_ASYNC_LOADING_FAILURE */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+            throw new _RuntimeError(5300 /* RuntimeErrorCode.ANIMATION_RENDERER_ASYNC_LOADING_FAILURE */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
                 'Async loading for animations package was ' +
                     'enabled, but loading failed. Angular falls back to using regular rendering. ' +
                     "No animations will be displayed and their styles won't be applied.");
@@ -87,7 +104,8 @@ class AsyncAnimationRendererFactory {
             ?.then((animationRendererFactory) => {
             const animationRenderer = animationRendererFactory.createRenderer(hostElement, rendererType);
             dynamicRenderer.use(animationRenderer);
-            this.scheduler?.notify(9 /* NotificationSource.AsyncAnimationsLoaded */);
+            this.scheduler ??= this.injector.get(_ChangeDetectionScheduler, null, { optional: true });
+            this.scheduler?.notify(10 /* NotificationSource.AsyncAnimationsLoaded */);
         })
             .catch((e) => {
             // Permanently use regular renderer when loading fails.
@@ -104,10 +122,19 @@ class AsyncAnimationRendererFactory {
     whenRenderingDone() {
         return this.delegate.whenRenderingDone?.() ?? Promise.resolve();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-87c5f3c", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-87c5f3c", ngImport: i0, type: AsyncAnimationRendererFactory }); }
+    /**
+     * Used during HMR to clear any cached data about a component.
+     * @param componentId ID of the component that is being replaced.
+     */
+    componentReplaced(componentId) {
+        // Flush the engine since the renderer destruction waits for animations to be done.
+        this._engine?.flush();
+        this.delegate.componentReplaced?.(componentId);
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-87c5f3c", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
@@ -115,11 +142,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sh
  * by changing the delegate renderer.
  */
 class DynamicDelegationRenderer {
+    delegate;
+    // List of callbacks that need to be replayed on the animation renderer once its loaded
+    replay = [];
+    ɵtype = 1 /* AnimationRendererType.Delegated */;
     constructor(delegate) {
         this.delegate = delegate;
-        // List of callbacks that need to be replayed on the animation renderer once its loaded
-        this.replay = [];
-        this.ɵtype = 1 /* AnimationRendererType.Delegated */;
     }
     use(impl) {
         this.delegate = impl;
@@ -200,19 +228,25 @@ class DynamicDelegationRenderer {
     setValue(node, value) {
         this.delegate.setValue(node, value);
     }
-    listen(target, eventName, callback) {
+    listen(target, eventName, callback, options) {
         // We need to keep track of animation events registred by the default renderer
         // So we can also register them against the animation renderer
         if (this.shouldReplay(eventName)) {
-            this.replay.push((renderer) => renderer.listen(target, eventName, callback));
+            this.replay.push((renderer) => renderer.listen(target, eventName, callback, options));
         }
-        return this.delegate.listen(target, eventName, callback);
+        return this.delegate.listen(target, eventName, callback, options);
     }
     shouldReplay(propOrEventName) {
         //`null` indicates that we no longer need to collect events and properties
         return this.replay !== null && propOrEventName.startsWith(ANIMATION_PREFIX);
     }
 }
+/**
+ * Provides a custom scheduler function for the async loading of the animation package.
+ *
+ * Private token for investigation purposes
+ */
+const ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN = new InjectionToken(ngDevMode ? 'async_animation_loading_scheduler_fn' : '');
 
 /**
  * Returns the set of dependency-injection providers
@@ -229,7 +263,7 @@ class DynamicDelegationRenderer {
  * is no need to import the `BrowserAnimationsModule` NgModule at all, just add
  * providers returned by this function to the `providers` list as show below.
  *
- * ```typescript
+ * ```ts
  * bootstrapApplication(RootComponent, {
  *   providers: [
  *     provideAnimationsAsync()
@@ -242,14 +276,18 @@ class DynamicDelegationRenderer {
  * @publicApi
  */
 function provideAnimationsAsync(type = 'animations') {
-    ɵperformanceMarkFeature('NgAsyncAnimations');
+    _performanceMarkFeature('NgAsyncAnimations');
+    // Animations don't work on the server so we switch them over to no-op automatically.
+    if (typeof ngServerMode !== 'undefined' && ngServerMode) {
+        type = 'noop';
+    }
     return makeEnvironmentProviders([
         {
             provide: RendererFactory2,
             useFactory: (doc, renderer, zone) => {
                 return new AsyncAnimationRendererFactory(doc, renderer, zone, type);
             },
-            deps: [DOCUMENT, ɵDomRendererFactory2, NgZone],
+            deps: [DOCUMENT, DomRendererFactory2, NgZone],
         },
         {
             provide: ANIMATION_MODULE_TYPE,
@@ -258,23 +296,5 @@ function provideAnimationsAsync(type = 'animations') {
     ]);
 }
 
-/**
- * @module
- * @description
- * Entry point for all animation APIs of the animation browser package.
- */
-
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
-// This file is not used to build this module. It is only used during editing
-
-/**
- * Generated bundle index. Do not edit.
- */
-
-export { provideAnimationsAsync, AsyncAnimationRendererFactory as ɵAsyncAnimationRendererFactory };
+export { provideAnimationsAsync, ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN, AsyncAnimationRendererFactory as ɵAsyncAnimationRendererFactory };
 //# sourceMappingURL=async.mjs.map

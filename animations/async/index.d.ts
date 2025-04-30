@@ -1,19 +1,12 @@
 /**
- * @license Angular v18.1.0-next.0+sha-87c5f3c
- * (c) 2010-2024 Google LLC. https://angular.io/
+ * @license Angular v20.0.0-next.9+sha-f4d60ff
+ * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
-
-import { EnvironmentProviders } from '@angular/core';
 import * as i0 from '@angular/core';
-import { NgZone } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Renderer2 } from '@angular/core';
-import { RendererFactory2 } from '@angular/core';
-import { RendererType2 } from '@angular/core';
-import { ɵAnimationEngine } from '@angular/animations/browser';
-import { ɵAnimationRendererFactory } from '@angular/animations/browser';
+import { EnvironmentProviders, OnDestroy, RendererFactory2, NgZone, RendererType2, Renderer2, InjectionToken } from '@angular/core';
+import { ɵAnimationEngine as _AnimationEngine, ɵAnimationRendererFactory as _AnimationRendererFactory } from '@angular/animations/browser';
 
 /**
  * Returns the set of dependency-injection providers
@@ -30,7 +23,7 @@ import { ɵAnimationRendererFactory } from '@angular/animations/browser';
  * is no need to import the `BrowserAnimationsModule` NgModule at all, just add
  * providers returned by this function to the `providers` list as show below.
  *
- * ```typescript
+ * ```ts
  * bootstrapApplication(RootComponent, {
  *   providers: [
  *     provideAnimationsAsync()
@@ -42,24 +35,26 @@ import { ɵAnimationRendererFactory } from '@angular/animations/browser';
  *
  * @publicApi
  */
-export declare function provideAnimationsAsync(type?: 'animations' | 'noop'): EnvironmentProviders;
+declare function provideAnimationsAsync(type?: 'animations' | 'noop'): EnvironmentProviders;
 
-export declare class ɵAsyncAnimationRendererFactory implements OnDestroy, RendererFactory2 {
+declare class AsyncAnimationRendererFactory implements OnDestroy, RendererFactory2 {
     private doc;
     private delegate;
     private zone;
     private animationType;
     private moduleImpl?;
     private _rendererFactoryPromise;
-    private readonly scheduler;
+    private scheduler;
+    private readonly injector;
+    private readonly loadingSchedulerFn;
     private _engine?;
     /**
      *
      * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
      */
     constructor(doc: Document, delegate: RendererFactory2, zone: NgZone, animationType: 'animations' | 'noop', moduleImpl?: Promise<{
-        ɵcreateEngine: (type: 'animations' | 'noop', doc: Document) => ɵAnimationEngine;
-        ɵAnimationRendererFactory: typeof ɵAnimationRendererFactory;
+        ɵcreateEngine: (type: "animations" | "noop", doc: Document) => _AnimationEngine;
+        ɵAnimationRendererFactory: typeof _AnimationRendererFactory;
     }> | undefined);
     /** @nodoc */
     ngOnDestroy(): void;
@@ -75,8 +70,19 @@ export declare class ɵAsyncAnimationRendererFactory implements OnDestroy, Rende
     begin(): void;
     end(): void;
     whenRenderingDone?(): Promise<any>;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ɵAsyncAnimationRendererFactory, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<ɵAsyncAnimationRendererFactory>;
+    /**
+     * Used during HMR to clear any cached data about a component.
+     * @param componentId ID of the component that is being replaced.
+     */
+    protected componentReplaced(componentId: string): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AsyncAnimationRendererFactory, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AsyncAnimationRendererFactory>;
 }
+/**
+ * Provides a custom scheduler function for the async loading of the animation package.
+ *
+ * Private token for investigation purposes
+ */
+declare const ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN: InjectionToken<(<T>(loadFn: () => T) => T)>;
 
-export { }
+export { provideAnimationsAsync, ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN, AsyncAnimationRendererFactory as ɵAsyncAnimationRendererFactory };
