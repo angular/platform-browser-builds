@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.1.0-next.0+sha-8828a84
+ * @license Angular v20.1.0-next.0+sha-5fe726d
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -665,7 +665,7 @@ declare function withHttpTransferCacheOptions(options: HttpTransferCacheOptions)
 /**
  * Enables support for hydrating i18n blocks.
  *
- * @publicApi
+ * @publicApi 20.0
  */
 declare function withI18nSupport(): HydrationFeature<HydrationFeatureKind.I18nSupport>;
 /**
@@ -698,7 +698,7 @@ declare function withEventReplay(): HydrationFeature<HydrationFeatureKind.EventR
  *   providers: [provideClientHydration(withIncrementalHydration())]
  * });
  * ```
- * @publicApi
+ * @publicApi 20.0
  * @see {@link provideClientHydration}
  */
 declare function withIncrementalHydration(): HydrationFeature<HydrationFeatureKind.IncrementalHydration>;
@@ -749,7 +749,7 @@ declare function withIncrementalHydration(): HydrationFeature<HydrationFeatureKi
  * @param features Optional features to configure additional hydration behaviors.
  * @returns A set of providers to enable hydration.
  *
- * @publicApi
+ * @publicApi 17.0
  */
 declare function provideClientHydration(...features: HydrationFeature<HydrationFeatureKind>[]): EnvironmentProviders;
 
