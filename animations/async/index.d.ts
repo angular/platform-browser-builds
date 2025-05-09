@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.1.0-next.0+sha-12a5b7b
+ * @license Angular v20.1.0-next.0+sha-3c9b8d9
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -56,7 +56,7 @@ declare class AsyncAnimationRendererFactory implements OnDestroy, RendererFactor
         ɵcreateEngine: (type: "animations" | "noop", doc: Document) => _AnimationEngine;
         ɵAnimationRendererFactory: typeof _AnimationRendererFactory;
     }> | undefined);
-    /** @nodoc */
+    /** @docs-private */
     ngOnDestroy(): void;
     /**
      * This method is delegating the renderer creation to the factories.
