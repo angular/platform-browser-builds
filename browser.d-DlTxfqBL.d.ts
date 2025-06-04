@@ -1,11 +1,11 @@
 /**
- * @license Angular v20.1.0-next.0+sha-4178e82
+ * @license Angular v20.1.0-next.0+sha-b839d08
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { ApplicationConfig as ApplicationConfig$1, Type, ApplicationRef, StaticProvider, PlatformRef, Provider } from '@angular/core';
+import { ApplicationConfig as ApplicationConfig$1, Type, ApplicationRef, Provider, StaticProvider, PlatformRef } from '@angular/core';
 import * as i1 from '@angular/common';
 
 /**
