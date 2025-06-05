@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.1.0-next.0+sha-e90bfc5
+ * @license Angular v20.1.0-next.0+sha-4f89f6e
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -291,10 +291,6 @@ declare class SharedStylesHost implements OnDestroy {
      * Set of host DOM nodes that will have styles attached.
      */
     private readonly hosts;
-    /**
-     * Whether the application code is currently executing on a server.
-     */
-    private readonly isServer;
     constructor(doc: Document, appId: string, nonce?: string | null | undefined, platformId?: object);
     /**
      * Adds embedded styles to the DOM via HTML `style` elements.
