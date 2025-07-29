@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.2.0-next.2+sha-d55a706
+ * @license Angular v20.2.0-next.2+sha-dc49c2c
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -34,6 +34,8 @@ import { ɵAnimationEngine as _AnimationEngine, ɵAnimationRendererFactory as _A
  * @param type pass `'noop'` as argument to disable animations.
  *
  * @publicApi
+ *
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
  */
 declare function provideAnimationsAsync(type?: 'animations' | 'noop'): EnvironmentProviders;
 

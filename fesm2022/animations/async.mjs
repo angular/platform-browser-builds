@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.2.0-next.2+sha-d55a706
+ * @license Angular v20.2.0-next.2+sha-dc49c2c
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -131,10 +131,10 @@ class AsyncAnimationRendererFactory {
         this._engine?.flush();
         this.delegate.componentReplaced?.(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2+sha-d55a706", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.2.0-next.2+sha-d55a706", ngImport: i0, type: AsyncAnimationRendererFactory });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2+sha-dc49c2c", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.2.0-next.2+sha-dc49c2c", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2+sha-d55a706", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2+sha-dc49c2c", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
@@ -274,6 +274,8 @@ const ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN = new InjectionToken(ngDevMode ? 'a
  * @param type pass `'noop'` as argument to disable animations.
  *
  * @publicApi
+ *
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
  */
 function provideAnimationsAsync(type = 'animations') {
     _performanceMarkFeature('NgAsyncAnimations');

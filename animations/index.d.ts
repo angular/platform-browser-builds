@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.2.0-next.2+sha-d55a706
+ * @license Angular v20.2.0-next.2+sha-dc49c2c
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -14,6 +14,8 @@ import '@angular/common';
 /**
  * Object used to configure the behavior of {@link BrowserAnimationsModule}
  * @publicApi
+ *
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
  */
 interface BrowserAnimationsModuleConfig {
     /**
@@ -26,6 +28,8 @@ interface BrowserAnimationsModuleConfig {
  * Exports `BrowserModule` with additional dependency-injection providers
  * for use with animations. See [Animations](guide/animations).
  * @publicApi
+ *
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
  */
 declare class BrowserAnimationsModule {
     /**
@@ -70,11 +74,16 @@ declare class BrowserAnimationsModule {
  * ```
  *
  * @publicApi
+ *
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
+ *
  */
 declare function provideAnimations(): Provider[];
 /**
  * A null player that must be imported to allow disabling of animations.
  * @publicApi
+ *
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
  */
 declare class NoopAnimationsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<NoopAnimationsModule, never>;
@@ -101,6 +110,8 @@ declare class NoopAnimationsModule {
  * ```
  *
  * @publicApi
+ *
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
  */
 declare function provideNoopAnimations(): Provider[];
 
