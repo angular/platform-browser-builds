@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.2.0-rc.0+sha-767a280
+ * @license Angular v20.2.0-rc.0+sha-d9f0e6b
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -69,10 +69,10 @@ class EventManager {
         this._eventNameToPlugin.set(eventName, plugin);
         return plugin;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-767a280", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-767a280", ngImport: i0, type: EventManager });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-d9f0e6b", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-d9f0e6b", ngImport: i0, type: EventManager });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-767a280", ngImport: i0, type: EventManager, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-d9f0e6b", ngImport: i0, type: EventManager, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -275,10 +275,10 @@ class SharedStylesHost {
         // Insert the element into the DOM with the host node as parent
         return host.appendChild(element);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-767a280", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-767a280", ngImport: i0, type: SharedStylesHost });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-d9f0e6b", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-d9f0e6b", ngImport: i0, type: SharedStylesHost });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-767a280", ngImport: i0, type: SharedStylesHost, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-d9f0e6b", ngImport: i0, type: SharedStylesHost, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document, decorators: [{
                     type: Inject,
@@ -409,8 +409,7 @@ class DomRendererFactory2 {
         }
         if (typeof ngServerMode !== 'undefined' &&
             ngServerMode &&
-            (type.encapsulation === ViewEncapsulation.ShadowDom ||
-                type.encapsulation === ViewEncapsulation.IsolatedShadowDom)) {
+            type.encapsulation === ViewEncapsulation.ShadowDom) {
             // Domino does not support shadow DOM.
             type = { ...type, encapsulation: ViewEncapsulation.Emulated };
         }
@@ -441,9 +440,7 @@ class DomRendererFactory2 {
                     renderer = new EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, type, this.appId, removeStylesOnCompDestroy, doc, ngZone, platformIsServer, tracingService, this.registry, this.animationDisabled, this.maxAnimationTimeout);
                     break;
                 case ViewEncapsulation.ShadowDom:
-                    return new ShadowDomRenderer(eventManager, element, type, doc, ngZone, this.nonce, platformIsServer, tracingService, this.registry, this.maxAnimationTimeout, sharedStylesHost);
-                case ViewEncapsulation.IsolatedShadowDom:
-                    return new ShadowDomRenderer(eventManager, element, type, doc, ngZone, this.nonce, platformIsServer, tracingService, this.registry, this.maxAnimationTimeout);
+                    return new ShadowDomRenderer(eventManager, sharedStylesHost, element, type, doc, ngZone, this.nonce, platformIsServer, tracingService, this.registry, this.maxAnimationTimeout);
                 default:
                     renderer = new NoneEncapsulationDomRenderer(eventManager, sharedStylesHost, type, removeStylesOnCompDestroy, doc, ngZone, platformIsServer, tracingService, this.registry, this.animationDisabled, this.maxAnimationTimeout);
                     break;
@@ -462,10 +459,10 @@ class DomRendererFactory2 {
     componentReplaced(componentId) {
         this.rendererByCompId.delete(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-767a280", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }, { token: _ANIMATIONS_DISABLED }, { token: MAX_ANIMATION_TIMEOUT }, { token: _TracingService, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-767a280", ngImport: i0, type: DomRendererFactory2 });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-d9f0e6b", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }, { token: _ANIMATIONS_DISABLED }, { token: MAX_ANIMATION_TIMEOUT }, { token: _TracingService, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-d9f0e6b", ngImport: i0, type: DomRendererFactory2 });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-767a280", ngImport: i0, type: DomRendererFactory2, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-rc.0+sha-d9f0e6b", ngImport: i0, type: DomRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: EventManager }, { type: SharedStylesHost }, { type: undefined, decorators: [{
                     type: Inject,
@@ -695,19 +692,15 @@ function isTemplateNode(node) {
     return node.tagName === 'TEMPLATE' && node.content !== undefined;
 }
 class ShadowDomRenderer extends DefaultDomRenderer2 {
-    hostEl;
     sharedStylesHost;
+    hostEl;
     shadowRoot;
-    constructor(eventManager, hostEl, component, doc, ngZone, nonce, platformIsServer, tracingService, registry, maxAnimationTimeout, sharedStylesHost) {
+    constructor(eventManager, sharedStylesHost, hostEl, component, doc, ngZone, nonce, platformIsServer, tracingService, registry, maxAnimationTimeout) {
         super(eventManager, doc, ngZone, platformIsServer, tracingService, registry, maxAnimationTimeout);
-        this.hostEl = hostEl;
         this.sharedStylesHost = sharedStylesHost;
+        this.hostEl = hostEl;
         this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
-        // SharedStylesHost is used to add styles to the shadow root by ShadowDom.
-        // This is optional as it is not used by IsolatedShadowDom.
-        if (this.sharedStylesHost) {
-            this.sharedStylesHost.addHost(this.shadowRoot);
-        }
+        this.sharedStylesHost.addHost(this.shadowRoot);
         let styles = component.styles;
         if (ngDevMode) {
             // We only do this in development, as for production users should not add CSS sourcemaps to components.
@@ -756,9 +749,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         return this.nodeOrShadowRoot(super.parentNode(this.nodeOrShadowRoot(node)));
     }
     destroy() {
-        if (this.sharedStylesHost) {
-            this.sharedStylesHost.removeHost(this.shadowRoot);
-        }
+        this.sharedStylesHost.removeHost(this.shadowRoot);
     }
 }
 class NoneEncapsulationDomRenderer extends DefaultDomRenderer2 {
