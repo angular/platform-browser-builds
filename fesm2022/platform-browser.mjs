@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.0-next.0+sha-a842272
+ * @license Angular v21.0.0-next.0+sha-983cc2f
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -989,7 +989,7 @@ function provideClientHydration(...features) {
 /**
  * @publicApi
  */
-const VERSION = new Version('21.0.0-next.0+sha-a842272');
+const VERSION = new Version('21.0.0-next.0+sha-983cc2f');
 
 export { By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManagerPlugin, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, HydrationFeatureKind, Meta, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, DomSanitizerImpl as ɵDomSanitizerImpl, HammerGesturesPlugin as ɵHammerGesturesPlugin };
 //# sourceMappingURL=platform-browser.mjs.map
