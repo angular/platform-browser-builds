@@ -1,10 +1,10 @@
 /**
- * @license Angular v21.0.0-next.2+sha-8401f89
+ * @license Angular v20.3.0-next.0+sha-11a54d1
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
-export { BrowserModule, bootstrapApplication, createApplication, platformBrowser, provideProtractorTestingSupport } from './browser.d.js';
+export { ApplicationConfig, BrowserModule, bootstrapApplication, createApplication, platformBrowser, provideProtractorTestingSupport } from './browser.d.js';
 import * as i0 from '@angular/core';
 import { ComponentRef, Predicate, DebugNode, DebugElement, Type, InjectionToken, NgZone, ListenerOptions, OnDestroy, RendererFactory2, ɵTracingService as _TracingService, ɵTracingSnapshot as _TracingSnapshot, RendererType2, Renderer2, Injector, Sanitizer, SecurityContext, Provider, EnvironmentProviders, GetTestability, TestabilityRegistry, Testability, Version } from '@angular/core';
 import { HttpTransferCacheOptions } from '@angular/common/http';

@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.0-next.2+sha-8401f89
+ * @license Angular v20.3.0-next.0+sha-11a54d1
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -409,8 +409,7 @@ class DomRendererFactory2 {
         }
         if (typeof ngServerMode !== 'undefined' &&
             ngServerMode &&
-            (type.encapsulation === ViewEncapsulation.ShadowDom ||
-                type.encapsulation === ViewEncapsulation.IsolatedShadowDom)) {
+            type.encapsulation === ViewEncapsulation.ShadowDom) {
             // Domino does not support shadow DOM.
             type = { ...type, encapsulation: ViewEncapsulation.Emulated };
         }
@@ -441,9 +440,7 @@ class DomRendererFactory2 {
                     renderer = new EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, type, this.appId, removeStylesOnCompDestroy, doc, ngZone, platformIsServer, tracingService, this.registry, this.animationDisabled, this.maxAnimationTimeout);
                     break;
                 case ViewEncapsulation.ShadowDom:
-                    return new ShadowDomRenderer(eventManager, element, type, doc, ngZone, this.nonce, platformIsServer, tracingService, this.registry, this.maxAnimationTimeout, sharedStylesHost);
-                case ViewEncapsulation.IsolatedShadowDom:
-                    return new ShadowDomRenderer(eventManager, element, type, doc, ngZone, this.nonce, platformIsServer, tracingService, this.registry, this.maxAnimationTimeout);
+                    return new ShadowDomRenderer(eventManager, sharedStylesHost, element, type, doc, ngZone, this.nonce, platformIsServer, tracingService, this.registry, this.maxAnimationTimeout);
                 default:
                     renderer = new NoneEncapsulationDomRenderer(eventManager, sharedStylesHost, type, removeStylesOnCompDestroy, doc, ngZone, platformIsServer, tracingService, this.registry, this.animationDisabled, this.maxAnimationTimeout);
                     break;
@@ -695,19 +692,15 @@ function isTemplateNode(node) {
     return node.tagName === 'TEMPLATE' && node.content !== undefined;
 }
 class ShadowDomRenderer extends DefaultDomRenderer2 {
-    hostEl;
     sharedStylesHost;
+    hostEl;
     shadowRoot;
-    constructor(eventManager, hostEl, component, doc, ngZone, nonce, platformIsServer, tracingService, registry, maxAnimationTimeout, sharedStylesHost) {
+    constructor(eventManager, sharedStylesHost, hostEl, component, doc, ngZone, nonce, platformIsServer, tracingService, registry, maxAnimationTimeout) {
         super(eventManager, doc, ngZone, platformIsServer, tracingService, registry, maxAnimationTimeout);
-        this.hostEl = hostEl;
         this.sharedStylesHost = sharedStylesHost;
+        this.hostEl = hostEl;
         this.shadowRoot = hostEl.attachShadow({ mode: 'open' });
-        // SharedStylesHost is used to add styles to the shadow root by ShadowDom.
-        // This is optional as it is not used by IsolatedShadowDom.
-        if (this.sharedStylesHost) {
-            this.sharedStylesHost.addHost(this.shadowRoot);
-        }
+        this.sharedStylesHost.addHost(this.shadowRoot);
         let styles = component.styles;
         if (ngDevMode) {
             // We only do this in development, as for production users should not add CSS sourcemaps to components.
@@ -756,9 +749,7 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
         return this.nodeOrShadowRoot(super.parentNode(this.nodeOrShadowRoot(node)));
     }
     destroy() {
-        if (this.sharedStylesHost) {
-            this.sharedStylesHost.removeHost(this.shadowRoot);
-        }
+        this.sharedStylesHost.removeHost(this.shadowRoot);
     }
 }
 class NoneEncapsulationDomRenderer extends DefaultDomRenderer2 {

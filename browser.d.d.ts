@@ -1,12 +1,22 @@
 /**
- * @license Angular v21.0.0-next.2+sha-8401f89
+ * @license Angular v20.3.0-next.0+sha-11a54d1
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { Type, ApplicationConfig, ApplicationRef, Provider, StaticProvider, PlatformRef } from '@angular/core';
+import { ApplicationConfig as ApplicationConfig$1, Type, ApplicationRef, Provider, StaticProvider, PlatformRef } from '@angular/core';
 import * as i1 from '@angular/common';
+
+/**
+ * Set of config options available during the application bootstrap operation.
+ *
+ * @publicApi
+ *
+ * @deprecated
+ * `ApplicationConfig` has moved, please import `ApplicationConfig` from `@angular/core` instead.
+ */
+type ApplicationConfig = ApplicationConfig$1;
 
 /**
  * Bootstraps an instance of an Angular application and renders a standalone component as the
@@ -117,3 +127,4 @@ declare class BrowserModule {
 }
 
 export { BrowserModule, bootstrapApplication, createApplication, platformBrowser, provideProtractorTestingSupport };
+export type { ApplicationConfig };

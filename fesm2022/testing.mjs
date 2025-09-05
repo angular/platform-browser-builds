@@ -1,14 +1,14 @@
 /**
- * @license Angular v21.0.0-next.2+sha-8401f89
+ * @license Angular v20.3.0-next.0+sha-11a54d1
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵprovideFakePlatformNavigation as _provideFakePlatformNavigation } from '@angular/common/testing';
+import { ɵgetDOM as _getDOM, DOCUMENT, PlatformLocation } from '@angular/common';
+import { MockPlatformLocation } from '@angular/common/testing';
 import * as i0 from '@angular/core';
 import { Injectable, Inject, createPlatformFactory, APP_ID, ɵinternalProvideZoneChangeDetection as _internalProvideZoneChangeDetection, ɵChangeDetectionScheduler as _ChangeDetectionScheduler, ɵChangeDetectionSchedulerImpl as _ChangeDetectionSchedulerImpl, NgModule } from '@angular/core';
 import { TestComponentRenderer } from '@angular/core/testing';
-import { ɵgetDOM as _getDOM, DOCUMENT } from '@angular/common';
 import { platformBrowser, BrowserModule } from './browser.mjs';
 import './dom_renderer.mjs';
 
@@ -71,7 +71,7 @@ class BrowserTestingModule {
             { provide: APP_ID, useValue: 'a' },
             _internalProvideZoneChangeDetection({}),
             { provide: _ChangeDetectionScheduler, useExisting: _ChangeDetectionSchedulerImpl },
-            _provideFakePlatformNavigation(),
+            { provide: PlatformLocation, useClass: MockPlatformLocation },
             { provide: TestComponentRenderer, useClass: DOMTestComponentRenderer },
         ], imports: [BrowserModule] });
 }
@@ -83,7 +83,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         { provide: APP_ID, useValue: 'a' },
                         _internalProvideZoneChangeDetection({}),
                         { provide: _ChangeDetectionScheduler, useExisting: _ChangeDetectionSchedulerImpl },
-                        _provideFakePlatformNavigation(),
+                        { provide: PlatformLocation, useClass: MockPlatformLocation },
                         { provide: TestComponentRenderer, useClass: DOMTestComponentRenderer },
                     ],
                 }]
