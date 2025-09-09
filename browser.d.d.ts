@@ -1,11 +1,11 @@
 /**
- * @license Angular v20.3.0-next.0+sha-90e798b
+ * @license Angular v20.3.0-next.0+sha-6117cce
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { ApplicationConfig as ApplicationConfig$1, Type, ApplicationRef, Provider, StaticProvider, PlatformRef } from '@angular/core';
+import { ApplicationConfig as ApplicationConfig$1, PlatformRef, Type, ApplicationRef, Provider, StaticProvider } from '@angular/core';
 import * as i1 from '@angular/common';
 
 /**
@@ -18,6 +18,18 @@ import * as i1 from '@angular/common';
  */
 type ApplicationConfig = ApplicationConfig$1;
 
+/**
+ * A context object that can be passed to `bootstrapApplication` to provide a pre-existing platform
+ * injector.
+ *
+ * @publicApi
+ */
+interface BootstrapContext {
+    /**
+     * A reference to a platform.
+     */
+    platformRef: PlatformRef;
+}
 /**
  * Bootstraps an instance of an Angular application and renders a standalone component as the
  * application's root component. More information about standalone components can be found in [this
@@ -73,11 +85,14 @@ type ApplicationConfig = ApplicationConfig$1;
  * @param rootComponent A reference to a standalone component that should be rendered.
  * @param options Extra configuration for the bootstrap operation, see `ApplicationConfig` for
  *     additional info.
+ * @param context Optional context object that can be used to provide a pre-existing
+ *     platform injector. This is useful for advanced use-cases, for example, server-side
+ *     rendering, where the platform is created for each request.
  * @returns A promise that returns an `ApplicationRef` instance once resolved.
  *
  * @publicApi
  */
-declare function bootstrapApplication(rootComponent: Type<unknown>, options?: ApplicationConfig): Promise<ApplicationRef>;
+declare function bootstrapApplication(rootComponent: Type<unknown>, options?: ApplicationConfig, context?: BootstrapContext): Promise<ApplicationRef>;
 /**
  * Create an instance of an Angular application without bootstrapping any components. This is useful
  * for the situation where one wants to decouple application environment creation (a platform and
@@ -127,4 +142,4 @@ declare class BrowserModule {
 }
 
 export { BrowserModule, bootstrapApplication, createApplication, platformBrowser, provideProtractorTestingSupport };
-export type { ApplicationConfig };
+export type { ApplicationConfig, BootstrapContext };
