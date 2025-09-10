@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.3.0+sha-8dc3496
+ * @license Angular v20.3.0+sha-5f5828f
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -335,14 +335,11 @@ declare class DomRendererFactory2 implements RendererFactory2, OnDestroy {
     readonly platformId: Object;
     readonly ngZone: NgZone;
     private readonly nonce;
-    private readonly animationDisabled;
-    private readonly maxAnimationTimeout;
     private readonly tracingService;
     private readonly rendererByCompId;
     private readonly defaultRenderer;
     private readonly platformIsServer;
-    private registry;
-    constructor(eventManager: EventManager, sharedStylesHost: SharedStylesHost, appId: string, removeStylesOnCompDestroy: boolean, doc: Document, platformId: Object, ngZone: NgZone, nonce: string | null | undefined, animationDisabled: boolean, maxAnimationTimeout: number, tracingService?: _TracingService<_TracingSnapshot> | null);
+    constructor(eventManager: EventManager, sharedStylesHost: SharedStylesHost, appId: string, removeStylesOnCompDestroy: boolean, doc: Document, platformId: Object, ngZone: NgZone, nonce?: string | null, tracingService?: _TracingService<_TracingSnapshot> | null);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
     ngOnDestroy(): void;
@@ -351,7 +348,7 @@ declare class DomRendererFactory2 implements RendererFactory2, OnDestroy {
      * @param componentId ID of the component that is being replaced.
      */
     protected componentReplaced(componentId: string): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<DomRendererFactory2, [null, null, null, null, null, null, null, null, null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<DomRendererFactory2, [null, null, null, null, null, null, null, null, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<DomRendererFactory2>;
 }
 
