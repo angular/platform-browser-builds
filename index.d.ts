@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.2.13+sha-32512de
+ * @license Angular v18.2.13+sha-08f01ac
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -101,11 +101,27 @@ export declare type ApplicationConfig = ApplicationConfig_2;
  * @param rootComponent A reference to a standalone component that should be rendered.
  * @param options Extra configuration for the bootstrap operation, see `ApplicationConfig` for
  *     additional info.
+ * @param context Optional context object that can be used to provide a pre-existing
+ *     platform injector. This is useful for advanced use-cases, for example, server-side
+ *     rendering, where the platform is created for each request.
  * @returns A promise that returns an `ApplicationRef` instance once resolved.
  *
  * @publicApi
  */
-export declare function bootstrapApplication(rootComponent: Type<unknown>, options?: ApplicationConfig): Promise<ApplicationRef>;
+export declare function bootstrapApplication(rootComponent: Type<unknown>, options?: ApplicationConfig, context?: BootstrapContext): Promise<ApplicationRef>;
+
+/**
+ * A context object that can be passed to `bootstrapApplication` to provide a pre-existing platform
+ * injector.
+ *
+ * @publicApi
+ */
+export declare interface BootstrapContext {
+    /**
+     * A reference to a platform.
+     */
+    platformRef: PlatformRef;
+}
 
 /**
  * Exports required infrastructure for all Angular apps.
