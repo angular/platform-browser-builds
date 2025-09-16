@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.0-next.3+sha-d53ac26
+ * @license Angular v21.0.0-next.3+sha-6d5c45d
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -131,10 +131,10 @@ class AsyncAnimationRendererFactory {
         this._engine?.flush();
         this.delegate.componentReplaced?.(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-d53ac26", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-d53ac26", ngImport: i0, type: AsyncAnimationRendererFactory });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-6d5c45d", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-6d5c45d", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-d53ac26", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-6d5c45d", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
@@ -286,10 +286,9 @@ function provideAnimationsAsync(type = 'animations') {
     return makeEnvironmentProviders([
         {
             provide: RendererFactory2,
-            useFactory: (doc, renderer, zone) => {
-                return new AsyncAnimationRendererFactory(doc, renderer, zone, type);
+            useFactory: () => {
+                return new AsyncAnimationRendererFactory(inject(DOCUMENT), inject(DomRendererFactory2), inject(NgZone), type);
             },
-            deps: [DOCUMENT, DomRendererFactory2, NgZone],
         },
         {
             provide: ANIMATION_MODULE_TYPE,
