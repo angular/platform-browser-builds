@@ -1,12 +1,12 @@
 /**
- * @license Angular v21.0.0-next.3+sha-95207b6
+ * @license Angular v21.0.0-next.4+sha-8ad26ed
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵprovideFakePlatformNavigation as _provideFakePlatformNavigation } from '@angular/common/testing';
 import * as i0 from '@angular/core';
-import { Injectable, Inject, createPlatformFactory, APP_ID, ɵprovideZonelessChangeDetectionInternal as _provideZonelessChangeDetectionInternal, NgModule } from '@angular/core';
+import { Injectable, Inject, createPlatformFactory, APP_ID, NgModule } from '@angular/core';
 import { TestComponentRenderer } from '@angular/core/testing';
 import { ɵgetDOM as _getDOM, DOCUMENT } from '@angular/common';
 import { platformBrowser, BrowserModule } from './browser.mjs';
@@ -43,10 +43,10 @@ class DOMTestComponentRenderer extends TestComponentRenderer {
             _getDOM().remove(oldRoots[i]);
         }
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-95207b6", ngImport: i0, type: DOMTestComponentRenderer, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-95207b6", ngImport: i0, type: DOMTestComponentRenderer });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0-next.4+sha-8ad26ed", ngImport: i0, type: DOMTestComponentRenderer, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "21.0.0-next.4+sha-8ad26ed", ngImport: i0, type: DOMTestComponentRenderer });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-95207b6", ngImport: i0, type: DOMTestComponentRenderer, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0-next.4+sha-8ad26ed", ngImport: i0, type: DOMTestComponentRenderer, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -65,24 +65,20 @@ const platformBrowserTesting = createPlatformFactory(platformBrowser, 'browserTe
  * @publicApi
  */
 class BrowserTestingModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-95207b6", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "21.0.0-next.3+sha-95207b6", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-95207b6", ngImport: i0, type: BrowserTestingModule, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0-next.4+sha-8ad26ed", ngImport: i0, type: BrowserTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "21.0.0-next.4+sha-8ad26ed", ngImport: i0, type: BrowserTestingModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "21.0.0-next.4+sha-8ad26ed", ngImport: i0, type: BrowserTestingModule, providers: [
             { provide: APP_ID, useValue: 'a' },
-            _provideZonelessChangeDetectionInternal(),
-            [] ,
             _provideFakePlatformNavigation(),
             { provide: TestComponentRenderer, useClass: DOMTestComponentRenderer },
         ], imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0-next.3+sha-95207b6", ngImport: i0, type: BrowserTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0-next.4+sha-8ad26ed", ngImport: i0, type: BrowserTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
                     providers: [
                         { provide: APP_ID, useValue: 'a' },
-                        _provideZonelessChangeDetectionInternal(),
-                        [] ,
                         _provideFakePlatformNavigation(),
                         { provide: TestComponentRenderer, useClass: DOMTestComponentRenderer },
                     ],
