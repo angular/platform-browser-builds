@@ -1,12 +1,12 @@
 /**
- * @license Angular v21.0.0-next.5+sha-768a09d
+ * @license Angular v21.0.0-next.5+sha-78cee8e
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
 import { StaticProvider, PlatformRef } from '@angular/core';
-import { BrowserModule } from '../browser.d.js';
+import { BrowserModule } from '../browser.js';
 import '@angular/common';
 
 /**
