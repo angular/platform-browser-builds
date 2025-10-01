@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.0-next.5+sha-51a0b59
+ * @license Angular v21.0.0-next.5+sha-2f6caef
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import * as i0 from '@angular/core';
 import { ModuleWithProviders, Provider, OnDestroy } from '@angular/core';
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
-import { BrowserModule } from './browser.d-72ZddHnY.js';
+import { BrowserModule } from './_browser-chunk.js';
 import { ɵAnimationEngine as _AnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer as _AnimationStyleNormalizer } from '@angular/animations/browser';
 import '@angular/common';
 

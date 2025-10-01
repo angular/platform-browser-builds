@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.0-next.5+sha-51a0b59
+ * @license Angular v21.0.0-next.5+sha-2f6caef
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { inject, Injector, ɵRuntimeError as _RuntimeError, ɵChangeDetectionScheduler as _ChangeDetectionScheduler, Injectable, InjectionToken, ɵperformanceMarkFeature as _performanceMarkFeature, makeEnvironmentProviders, RendererFactory2, NgZone, ANIMATION_MODULE_TYPE } from '@angular/core';
-import { DomRendererFactory2 } from '../dom_renderer-DxA-kchg.mjs';
+import { DomRendererFactory2 } from './_dom_renderer-chunk.mjs';
 
 const ANIMATION_PREFIX = '@';
 class AsyncAnimationRendererFactory {
@@ -131,10 +131,10 @@ class AsyncAnimationRendererFactory {
         this._engine?.flush();
         this.delegate.componentReplaced?.(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0-next.5+sha-51a0b59", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "21.0.0-next.5+sha-51a0b59", ngImport: i0, type: AsyncAnimationRendererFactory });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.0.0-next.5+sha-2f6caef", ngImport: i0, type: AsyncAnimationRendererFactory, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "21.0.0-next.5+sha-2f6caef", ngImport: i0, type: AsyncAnimationRendererFactory });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0-next.5+sha-51a0b59", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.0.0-next.5+sha-2f6caef", ngImport: i0, type: AsyncAnimationRendererFactory, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document }, { type: i0.RendererFactory2 }, { type: i0.NgZone }, { type: undefined }, { type: Promise }] });
 /**
@@ -298,4 +298,4 @@ function provideAnimationsAsync(type = 'animations') {
 }
 
 export { provideAnimationsAsync, ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN, AsyncAnimationRendererFactory as ɵAsyncAnimationRendererFactory };
-//# sourceMappingURL=async.mjs.map
+//# sourceMappingURL=animations-async.mjs.map
