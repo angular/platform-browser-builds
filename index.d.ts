@@ -1,12 +1,12 @@
 /**
- * @license Angular v20.3.5+sha-e6c0223
+ * @license Angular v20.3.5+sha-2ece428
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 export { ApplicationConfig, BootstrapContext, BrowserModule, bootstrapApplication, createApplication, platformBrowser, provideProtractorTestingSupport } from './browser.d.js';
 import * as i0 from '@angular/core';
-import { ComponentRef, Predicate, DebugNode, DebugElement, Type, InjectionToken, NgZone, ListenerOptions, OnDestroy, RendererFactory2, ɵTracingService as _TracingService, ɵTracingSnapshot as _TracingSnapshot, RendererType2, Renderer2, Injector, Sanitizer, SecurityContext, Provider, EnvironmentProviders, GetTestability, TestabilityRegistry, Testability, Version } from '@angular/core';
+import { ComponentRef, Predicate, DebugNode, DebugElement, Type, ListenerOptions, InjectionToken, NgZone, OnDestroy, RendererFactory2, ɵTracingService as _TracingService, ɵTracingSnapshot as _TracingSnapshot, RendererType2, Renderer2, Injector, Sanitizer, SecurityContext, Provider, EnvironmentProviders, GetTestability, TestabilityRegistry, Testability, Version } from '@angular/core';
 import { HttpTransferCacheOptions } from '@angular/common/http';
 import { ɵDomAdapter as _DomAdapter } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
@@ -206,6 +206,28 @@ declare class By {
 }
 
 /**
+ * The plugin definition for the `EventManager` class
+ *
+ * It can be used as a base class to create custom manager plugins, i.e. you can create your own
+ * class that extends the `EventManagerPlugin` one.
+ *
+ * @publicApi
+ */
+declare abstract class EventManagerPlugin {
+    private _doc;
+    constructor(_doc: any);
+    manager: EventManager;
+    /**
+     * Should return `true` for every event name that should be supported by this plugin
+     */
+    abstract supports(eventName: string): boolean;
+    /**
+     * Implement the behaviour for the supported events
+     */
+    abstract addEventListener(element: HTMLElement, eventName: string, handler: Function, options?: ListenerOptions): Function;
+}
+
+/**
  * The injection token for plugins of the `EventManager` service.
  *
  * @publicApi
@@ -242,27 +264,6 @@ declare class EventManager {
     getZone(): NgZone;
     static ɵfac: i0.ɵɵFactoryDeclaration<EventManager, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<EventManager>;
-}
-/**
- * The plugin definition for the `EventManager` class
- *
- * It can be used as a base class to create custom manager plugins, i.e. you can create your own
- * class that extends the `EventManagerPlugin` one.
- *
- * @publicApi
- */
-declare abstract class EventManagerPlugin {
-    private _doc;
-    constructor(_doc: any);
-    manager: EventManager;
-    /**
-     * Should return `true` for every event name that should be supported by this plugin
-     */
-    abstract supports(eventName: string): boolean;
-    /**
-     * Implement the behaviour for the supported events
-     */
-    abstract addEventListener(element: HTMLElement, eventName: string, handler: Function, options?: ListenerOptions): Function;
 }
 
 /**

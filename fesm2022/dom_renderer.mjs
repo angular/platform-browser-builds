@@ -1,12 +1,56 @@
 /**
- * @license Angular v20.3.5+sha-e6c0223
+ * @license Angular v20.3.5+sha-2ece428
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import { DOCUMENT, ɵgetDOM as _getDOM } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, ɵRuntimeError as _RuntimeError, Injectable, Inject, APP_ID, CSP_NONCE, PLATFORM_ID, Optional, ViewEncapsulation, ɵTracingService as _TracingService, RendererStyleFlags2, ɵallLeavingAnimations as _allLeavingAnimations } from '@angular/core';
+import { Injectable, Inject, InjectionToken, ɵRuntimeError as _RuntimeError, APP_ID, CSP_NONCE, PLATFORM_ID, Optional, ViewEncapsulation, ɵTracingService as _TracingService, RendererStyleFlags2, ɵallLeavingAnimations as _allLeavingAnimations } from '@angular/core';
+
+/**
+ * The plugin definition for the `EventManager` class
+ *
+ * It can be used as a base class to create custom manager plugins, i.e. you can create your own
+ * class that extends the `EventManagerPlugin` one.
+ *
+ * @publicApi
+ */
+class EventManagerPlugin {
+    _doc;
+    // TODO: remove (has some usage in G3)
+    constructor(_doc) {
+        this._doc = _doc;
+    }
+    // Using non-null assertion because it's set by EventManager's constructor
+    manager;
+}
+
+class DomEventsPlugin extends EventManagerPlugin {
+    constructor(doc) {
+        super(doc);
+    }
+    // This plugin should come last in the list of plugins, because it accepts all
+    // events.
+    supports(eventName) {
+        return true;
+    }
+    addEventListener(element, eventName, handler, options) {
+        element.addEventListener(eventName, handler, options);
+        return () => this.removeEventListener(element, eventName, handler, options);
+    }
+    removeEventListener(target, eventName, callback, options) {
+        return target.removeEventListener(eventName, callback, options);
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: DomEventsPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: DomEventsPlugin });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: DomEventsPlugin, decorators: [{
+            type: Injectable
+        }], ctorParameters: () => [{ type: undefined, decorators: [{
+                    type: Inject,
+                    args: [DOCUMENT]
+                }] }] });
 
 /**
  * The injection token for plugins of the `EventManager` service.
@@ -32,7 +76,13 @@ class EventManager {
         plugins.forEach((plugin) => {
             plugin.manager = this;
         });
-        this._plugins = plugins.slice().reverse();
+        const otherPlugins = plugins.filter((p) => !(p instanceof DomEventsPlugin));
+        this._plugins = otherPlugins.slice().reverse();
+        // DomEventsPlugin.supports() always returns true, it should always be the last plugin.
+        const domEventPlugin = plugins.find((p) => p instanceof DomEventsPlugin);
+        if (domEventPlugin) {
+            this._plugins.push(domEventPlugin);
+        }
     }
     /**
      * Registers a handler for a specific element and event.
@@ -69,32 +119,15 @@ class EventManager {
         this._eventNameToPlugin.set(eventName, plugin);
         return plugin;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.5+sha-e6c0223", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.5+sha-e6c0223", ngImport: i0, type: EventManager });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: EventManager, deps: [{ token: EVENT_MANAGER_PLUGINS }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: EventManager });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.5+sha-e6c0223", ngImport: i0, type: EventManager, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: EventManager, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [EVENT_MANAGER_PLUGINS]
                 }] }, { type: i0.NgZone }] });
-/**
- * The plugin definition for the `EventManager` class
- *
- * It can be used as a base class to create custom manager plugins, i.e. you can create your own
- * class that extends the `EventManagerPlugin` one.
- *
- * @publicApi
- */
-class EventManagerPlugin {
-    _doc;
-    // TODO: remove (has some usage in G3)
-    constructor(_doc) {
-        this._doc = _doc;
-    }
-    // Using non-null assertion because it's set by EventManager's constructor
-    manager;
-}
 
 /** The style elements attribute name used to set value of `APP_ID` token. */
 const APP_ID_ATTRIBUTE_NAME = 'ng-app-id';
@@ -275,10 +308,10 @@ class SharedStylesHost {
         // Insert the element into the DOM with the host node as parent
         return host.appendChild(element);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.5+sha-e6c0223", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.5+sha-e6c0223", ngImport: i0, type: SharedStylesHost });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: SharedStylesHost, deps: [{ token: DOCUMENT }, { token: APP_ID }, { token: CSP_NONCE, optional: true }, { token: PLATFORM_ID }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: SharedStylesHost });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.5+sha-e6c0223", ngImport: i0, type: SharedStylesHost, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: SharedStylesHost, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: Document, decorators: [{
                     type: Inject,
@@ -454,10 +487,10 @@ class DomRendererFactory2 {
     componentReplaced(componentId) {
         this.rendererByCompId.delete(componentId);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.5+sha-e6c0223", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }, { token: _TracingService, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.5+sha-e6c0223", ngImport: i0, type: DomRendererFactory2 });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: DomRendererFactory2, deps: [{ token: EventManager }, { token: SharedStylesHost }, { token: APP_ID }, { token: REMOVE_STYLES_ON_COMPONENT_DESTROY }, { token: DOCUMENT }, { token: PLATFORM_ID }, { token: i0.NgZone }, { token: CSP_NONCE }, { token: _TracingService, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: DomRendererFactory2 });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.5+sha-e6c0223", ngImport: i0, type: DomRendererFactory2, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.5+sha-2ece428", ngImport: i0, type: DomRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: EventManager }, { type: SharedStylesHost }, { type: undefined, decorators: [{
                     type: Inject,
@@ -782,5 +815,5 @@ class EmulatedEncapsulationDomRenderer2 extends NoneEncapsulationDomRenderer {
     }
 }
 
-export { DomRendererFactory2, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, REMOVE_STYLES_ON_COMPONENT_DESTROY, SharedStylesHost };
+export { DomEventsPlugin, DomRendererFactory2, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, REMOVE_STYLES_ON_COMPONENT_DESTROY, SharedStylesHost };
 //# sourceMappingURL=dom_renderer.mjs.map
