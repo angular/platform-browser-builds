@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.0-next.8+sha-6af231e
+ * @license Angular v21.0.0-next.8+sha-df780fa
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -211,6 +211,8 @@ declare class By {
  * It can be used as a base class to create custom manager plugins, i.e. you can create your own
  * class that extends the `EventManagerPlugin` one.
  *
+ * @see [Extend event handling](guide/templates/event-listeners#extend-event-handling)
+ *
  * @publicApi
  */
 declare abstract class EventManagerPlugin {
@@ -229,6 +231,8 @@ declare abstract class EventManagerPlugin {
 
 /**
  * The injection token for plugins of the `EventManager` service.
+ *
+ * @see [Extend event handling](guide/templates/event-listeners#extend-event-handling)
  *
  * @publicApi
  */
