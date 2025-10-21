@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.3.6+sha-cfd8ed3
+ * @license Angular v20.3.6+sha-e568ddb
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -651,6 +651,8 @@ interface HydrationFeature<FeatureKind extends HydrationFeatureKind> {
  * Disables HTTP transfer cache. Effectively causes HTTP requests to be performed twice: once on the
  * server and other one on the browser.
  *
+ * @see [Disabling Caching](guide/ssr#disabling-caching)
+ *
  * @publicApi
  */
 declare function withNoHttpTransferCache(): HydrationFeature<HydrationFeatureKind.NoHttpTransferCache>;
@@ -659,6 +661,8 @@ declare function withNoHttpTransferCache(): HydrationFeature<HydrationFeatureKin
  * such as which headers should be included (no headers are included by default),
  * whether POST requests should be cached or a callback function to determine if a
  * particular request should be cached.
+ *
+ * @see [Configuring HTTP transfer cache options](guide/ssr#caching-data-when-using-httpclient)
  *
  * @publicApi
  */
