@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.0-rc.1+sha-e90f9e4
+ * @license Angular v21.0.0-rc.1+sha-acaa1e6
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -32,7 +32,7 @@ class DomEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.1+sha-e90f9e4",
+    version: "21.0.0-rc.1+sha-acaa1e6",
     ngImport: i0,
     type: DomEventsPlugin,
     deps: [{
@@ -42,14 +42,14 @@ class DomEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.1+sha-e90f9e4",
+    version: "21.0.0-rc.1+sha-acaa1e6",
     ngImport: i0,
     type: DomEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0-rc.1+sha-e90f9e4",
+  version: "21.0.0-rc.1+sha-acaa1e6",
   ngImport: i0,
   type: DomEventsPlugin,
   decorators: [{
@@ -103,7 +103,7 @@ class EventManager {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.1+sha-e90f9e4",
+    version: "21.0.0-rc.1+sha-acaa1e6",
     ngImport: i0,
     type: EventManager,
     deps: [{
@@ -115,14 +115,14 @@ class EventManager {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.1+sha-e90f9e4",
+    version: "21.0.0-rc.1+sha-acaa1e6",
     ngImport: i0,
     type: EventManager
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0-rc.1+sha-e90f9e4",
+  version: "21.0.0-rc.1+sha-acaa1e6",
   ngImport: i0,
   type: EventManager,
   decorators: [{
@@ -260,7 +260,7 @@ class SharedStylesHost {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.1+sha-e90f9e4",
+    version: "21.0.0-rc.1+sha-acaa1e6",
     ngImport: i0,
     type: SharedStylesHost,
     deps: [{
@@ -277,14 +277,14 @@ class SharedStylesHost {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.1+sha-e90f9e4",
+    version: "21.0.0-rc.1+sha-acaa1e6",
     ngImport: i0,
     type: SharedStylesHost
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0-rc.1+sha-e90f9e4",
+  version: "21.0.0-rc.1+sha-acaa1e6",
   ngImport: i0,
   type: SharedStylesHost,
   decorators: [{
@@ -372,20 +372,18 @@ class DomRendererFactory2 {
   appId;
   removeStylesOnCompDestroy;
   doc;
-  platformId;
   ngZone;
   nonce;
   tracingService;
   rendererByCompId = new Map();
   defaultRenderer;
   platformIsServer;
-  constructor(eventManager, sharedStylesHost, appId, removeStylesOnCompDestroy, doc, platformId, ngZone, nonce = null, tracingService = null) {
+  constructor(eventManager, sharedStylesHost, appId, removeStylesOnCompDestroy, doc, ngZone, nonce = null, tracingService = null) {
     this.eventManager = eventManager;
     this.sharedStylesHost = sharedStylesHost;
     this.appId = appId;
     this.removeStylesOnCompDestroy = removeStylesOnCompDestroy;
     this.doc = doc;
-    this.platformId = platformId;
     this.ngZone = ngZone;
     this.nonce = nonce;
     this.tracingService = tracingService;
@@ -445,7 +443,7 @@ class DomRendererFactory2 {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.1+sha-e90f9e4",
+    version: "21.0.0-rc.1+sha-acaa1e6",
     ngImport: i0,
     type: DomRendererFactory2,
     deps: [{
@@ -459,8 +457,6 @@ class DomRendererFactory2 {
     }, {
       token: DOCUMENT
     }, {
-      token: PLATFORM_ID
-    }, {
       token: i0.NgZone
     }, {
       token: CSP_NONCE
@@ -472,14 +468,14 @@ class DomRendererFactory2 {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.1+sha-e90f9e4",
+    version: "21.0.0-rc.1+sha-acaa1e6",
     ngImport: i0,
     type: DomRendererFactory2
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0-rc.1+sha-e90f9e4",
+  version: "21.0.0-rc.1+sha-acaa1e6",
   ngImport: i0,
   type: DomRendererFactory2,
   decorators: [{
@@ -506,12 +502,6 @@ i0.ɵɵngDeclareClassMetadata({
     decorators: [{
       type: Inject,
       args: [DOCUMENT]
-    }]
-  }, {
-    type: Object,
-    decorators: [{
-      type: Inject,
-      args: [PLATFORM_ID]
     }]
   }, {
     type: i0.NgZone
