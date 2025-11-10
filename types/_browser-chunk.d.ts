@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.1.0-next.0+sha-feb86e3
+ * @license Angular v21.1.0-next.0+sha-ec9dc94
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -91,11 +91,14 @@ declare function bootstrapApplication(rootComponent: Type<unknown>, options?: Ap
  *
  * @param options Extra configuration for the application environment, see `ApplicationConfig` for
  *     additional info.
+ * @param context Optional context object that can be used to provide a pre-existing
+ *     platform injector. This is useful for advanced use-cases, for example, server-side
+ *     rendering, where the platform is created for each request.
  * @returns A promise that returns an `ApplicationRef` instance once resolved.
  *
  * @publicApi
  */
-declare function createApplication(options?: ApplicationConfig): Promise<ApplicationRef>;
+declare function createApplication(options?: ApplicationConfig, context?: BootstrapContext): Promise<ApplicationRef>;
 /**
  * Returns a set of providers required to setup [Testability](api/core/Testability) for an
  * application bootstrapped using the `bootstrapApplication` function. The set of providers is

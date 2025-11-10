@@ -1,12 +1,12 @@
 /**
- * @license Angular v21.1.0-next.0+sha-feb86e3
+ * @license Angular v21.1.0-next.0+sha-ec9dc94
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import { ɵDomAdapter as _DomAdapter, ɵsetRootDomAdapter as _setRootDomAdapter, ɵparseCookieValue as _parseCookieValue, ɵgetDOM as _getDOM, DOCUMENT, ɵPLATFORM_BROWSER_ID as _PLATFORM_BROWSER_ID, XhrFactory, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { ɵglobal as _global, ɵRuntimeError as _RuntimeError, Injectable, Inject, ɵresolveComponentResources as _resolveComponentResources, ɵinternalCreateApplication as _internalCreateApplication, PLATFORM_ID, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, InjectionToken, ɵTESTABILITY_GETTER as _TESTABILITY_GETTER, ɵTESTABILITY as _TESTABILITY, Testability, ɵINJECTOR_SCOPE as _INJECTOR_SCOPE, ErrorHandler, RendererFactory2, inject, ApplicationModule, NgModule, ɵsetDocument as _setDocument } from '@angular/core';
+import { ɵglobal as _global, ɵRuntimeError as _RuntimeError, Injectable, Inject, ɵinternalCreateApplication as _internalCreateApplication, ɵresolveComponentResources as _resolveComponentResources, PLATFORM_ID, PLATFORM_INITIALIZER, createPlatformFactory, platformCore, InjectionToken, ɵTESTABILITY_GETTER as _TESTABILITY_GETTER, ɵTESTABILITY as _TESTABILITY, Testability, ɵINJECTOR_SCOPE as _INJECTOR_SCOPE, ErrorHandler, RendererFactory2, inject, ApplicationModule, NgModule, ɵsetDocument as _setDocument } from '@angular/core';
 import { EventManagerPlugin, EVENT_MANAGER_PLUGINS, DomEventsPlugin, DomRendererFactory2, SharedStylesHost, EventManager } from './_dom_renderer-chunk.mjs';
 
 class BrowserDomAdapter extends _DomAdapter {
@@ -129,7 +129,7 @@ class BrowserXhr {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-feb86e3",
+    version: "21.1.0-next.0+sha-ec9dc94",
     ngImport: i0,
     type: BrowserXhr,
     deps: [],
@@ -137,14 +137,14 @@ class BrowserXhr {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-feb86e3",
+    version: "21.1.0-next.0+sha-ec9dc94",
     ngImport: i0,
     type: BrowserXhr
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.1.0-next.0+sha-feb86e3",
+  version: "21.1.0-next.0+sha-ec9dc94",
   ngImport: i0,
   type: BrowserXhr,
   decorators: [{
@@ -254,7 +254,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-feb86e3",
+    version: "21.1.0-next.0+sha-ec9dc94",
     ngImport: i0,
     type: KeyEventsPlugin,
     deps: [{
@@ -264,14 +264,14 @@ class KeyEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-feb86e3",
+    version: "21.1.0-next.0+sha-ec9dc94",
     ngImport: i0,
     type: KeyEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.1.0-next.0+sha-feb86e3",
+  version: "21.1.0-next.0+sha-ec9dc94",
   ngImport: i0,
   type: KeyEventsPlugin,
   decorators: [{
@@ -286,28 +286,35 @@ i0.ɵɵngDeclareClassMetadata({
   }]
 });
 
-function bootstrapApplication(rootComponent, options, context) {
+async function bootstrapApplication(rootComponent, options, context) {
   const config = {
     rootComponent,
-    platformRef: context?.platformRef,
-    ...createProvidersConfig(options)
+    ...createProvidersConfig(options, context)
   };
   if ((typeof ngJitMode === 'undefined' || ngJitMode) && typeof fetch === 'function') {
-    return _resolveComponentResources(fetch).catch(error => {
-      console.error(error);
-      return Promise.resolve();
-    }).then(() => _internalCreateApplication(config));
+    await resolveJitResources();
   }
   return _internalCreateApplication(config);
 }
-function createApplication(options) {
-  return _internalCreateApplication(createProvidersConfig(options));
+async function createApplication(options, context) {
+  if ((typeof ngJitMode === 'undefined' || ngJitMode) && typeof fetch === 'function') {
+    await resolveJitResources();
+  }
+  return _internalCreateApplication(createProvidersConfig(options, context));
 }
-function createProvidersConfig(options) {
+function createProvidersConfig(options, context) {
   return {
+    platformRef: context?.platformRef,
     appProviders: [...BROWSER_MODULE_PROVIDERS, ...(options?.providers ?? [])],
     platformProviders: INTERNAL_BROWSER_PLATFORM_PROVIDERS
   };
+}
+async function resolveJitResources() {
+  try {
+    return await _resolveComponentResources(fetch);
+  } catch (error) {
+    console.error(error);
+  }
 }
 function provideProtractorTestingSupport() {
   return [...TESTABILITY_PROVIDERS];
@@ -383,7 +390,7 @@ class BrowserModule {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-feb86e3",
+    version: "21.1.0-next.0+sha-ec9dc94",
     ngImport: i0,
     type: BrowserModule,
     deps: [],
@@ -391,14 +398,14 @@ class BrowserModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.1.0-next.0+sha-feb86e3",
+    version: "21.1.0-next.0+sha-ec9dc94",
     ngImport: i0,
     type: BrowserModule,
     exports: [CommonModule, ApplicationModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-feb86e3",
+    version: "21.1.0-next.0+sha-ec9dc94",
     ngImport: i0,
     type: BrowserModule,
     providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS],
@@ -407,7 +414,7 @@ class BrowserModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.1.0-next.0+sha-feb86e3",
+  version: "21.1.0-next.0+sha-ec9dc94",
   ngImport: i0,
   type: BrowserModule,
   decorators: [{
