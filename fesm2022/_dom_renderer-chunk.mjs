@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.1.0-next.0+sha-8e81d0a
+ * @license Angular v21.1.0-next.0+sha-05ef2a5
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -32,7 +32,7 @@ class DomEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-8e81d0a",
+    version: "21.1.0-next.0+sha-05ef2a5",
     ngImport: i0,
     type: DomEventsPlugin,
     deps: [{
@@ -42,14 +42,14 @@ class DomEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-8e81d0a",
+    version: "21.1.0-next.0+sha-05ef2a5",
     ngImport: i0,
     type: DomEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.1.0-next.0+sha-8e81d0a",
+  version: "21.1.0-next.0+sha-05ef2a5",
   ngImport: i0,
   type: DomEventsPlugin,
   decorators: [{
@@ -103,7 +103,7 @@ class EventManager {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-8e81d0a",
+    version: "21.1.0-next.0+sha-05ef2a5",
     ngImport: i0,
     type: EventManager,
     deps: [{
@@ -115,14 +115,14 @@ class EventManager {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-8e81d0a",
+    version: "21.1.0-next.0+sha-05ef2a5",
     ngImport: i0,
     type: EventManager
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.1.0-next.0+sha-8e81d0a",
+  version: "21.1.0-next.0+sha-05ef2a5",
   ngImport: i0,
   type: EventManager,
   decorators: [{
@@ -260,7 +260,7 @@ class SharedStylesHost {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-8e81d0a",
+    version: "21.1.0-next.0+sha-05ef2a5",
     ngImport: i0,
     type: SharedStylesHost,
     deps: [{
@@ -277,14 +277,14 @@ class SharedStylesHost {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-8e81d0a",
+    version: "21.1.0-next.0+sha-05ef2a5",
     ngImport: i0,
     type: SharedStylesHost
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.1.0-next.0+sha-8e81d0a",
+  version: "21.1.0-next.0+sha-05ef2a5",
   ngImport: i0,
   type: SharedStylesHost,
   decorators: [{
@@ -443,7 +443,7 @@ class DomRendererFactory2 {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-8e81d0a",
+    version: "21.1.0-next.0+sha-05ef2a5",
     ngImport: i0,
     type: DomRendererFactory2,
     deps: [{
@@ -468,14 +468,14 @@ class DomRendererFactory2 {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.1.0-next.0+sha-8e81d0a",
+    version: "21.1.0-next.0+sha-05ef2a5",
     ngImport: i0,
     type: DomRendererFactory2
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.1.0-next.0+sha-8e81d0a",
+  version: "21.1.0-next.0+sha-05ef2a5",
   ngImport: i0,
   type: DomRendererFactory2,
   decorators: [{
