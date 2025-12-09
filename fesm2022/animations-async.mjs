@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.3+sha-7f96799
+ * @license Angular v21.0.3+sha-96bb4c6
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -92,7 +92,7 @@ class AsyncAnimationRendererFactory {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3+sha-7f96799",
+    version: "21.0.3+sha-96bb4c6",
     ngImport: i0,
     type: AsyncAnimationRendererFactory,
     deps: "invalid",
@@ -100,14 +100,14 @@ class AsyncAnimationRendererFactory {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.3+sha-7f96799",
+    version: "21.0.3+sha-96bb4c6",
     ngImport: i0,
     type: AsyncAnimationRendererFactory
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3+sha-7f96799",
+  version: "21.0.3+sha-96bb4c6",
   ngImport: i0,
   type: AsyncAnimationRendererFactory,
   decorators: [{
@@ -215,7 +215,7 @@ class DynamicDelegationRenderer {
     return this.replay !== null && propOrEventName.startsWith(ANIMATION_PREFIX);
   }
 }
-const ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN = new InjectionToken(typeof ngDevMode !== undefined && ngDevMode ? 'async_animation_loading_scheduler_fn' : '');
+const ɵASYNC_ANIMATION_LOADING_SCHEDULER_FN = new InjectionToken(typeof ngDevMode !== 'undefined' && ngDevMode ? 'async_animation_loading_scheduler_fn' : '');
 
 function provideAnimationsAsync(type = 'animations') {
   _performanceMarkFeature('NgAsyncAnimations');
