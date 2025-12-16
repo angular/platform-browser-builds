@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.5+sha-0a5fd6b
+ * @license Angular v21.0.5+sha-729b964
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -32,7 +32,7 @@ class DomEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.5+sha-0a5fd6b",
+    version: "21.0.5+sha-729b964",
     ngImport: i0,
     type: DomEventsPlugin,
     deps: [{
@@ -42,14 +42,14 @@ class DomEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.5+sha-0a5fd6b",
+    version: "21.0.5+sha-729b964",
     ngImport: i0,
     type: DomEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.5+sha-0a5fd6b",
+  version: "21.0.5+sha-729b964",
   ngImport: i0,
   type: DomEventsPlugin,
   decorators: [{
@@ -103,7 +103,7 @@ class EventManager {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.5+sha-0a5fd6b",
+    version: "21.0.5+sha-729b964",
     ngImport: i0,
     type: EventManager,
     deps: [{
@@ -115,14 +115,14 @@ class EventManager {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.5+sha-0a5fd6b",
+    version: "21.0.5+sha-729b964",
     ngImport: i0,
     type: EventManager
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.5+sha-0a5fd6b",
+  version: "21.0.5+sha-729b964",
   ngImport: i0,
   type: EventManager,
   decorators: [{
@@ -260,7 +260,7 @@ class SharedStylesHost {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.5+sha-0a5fd6b",
+    version: "21.0.5+sha-729b964",
     ngImport: i0,
     type: SharedStylesHost,
     deps: [{
@@ -277,14 +277,14 @@ class SharedStylesHost {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.5+sha-0a5fd6b",
+    version: "21.0.5+sha-729b964",
     ngImport: i0,
     type: SharedStylesHost
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.5+sha-0a5fd6b",
+  version: "21.0.5+sha-729b964",
   ngImport: i0,
   type: SharedStylesHost,
   decorators: [{
@@ -377,7 +377,6 @@ class DomRendererFactory2 {
   tracingService;
   rendererByCompId = new Map();
   defaultRenderer;
-  platformIsServer;
   constructor(eventManager, sharedStylesHost, appId, removeStylesOnCompDestroy, doc, ngZone, nonce = null, tracingService = null) {
     this.eventManager = eventManager;
     this.sharedStylesHost = sharedStylesHost;
@@ -387,8 +386,7 @@ class DomRendererFactory2 {
     this.ngZone = ngZone;
     this.nonce = nonce;
     this.tracingService = tracingService;
-    this.platformIsServer = typeof ngServerMode !== 'undefined' && ngServerMode;
-    this.defaultRenderer = new DefaultDomRenderer2(eventManager, doc, ngZone, this.platformIsServer, this.tracingService);
+    this.defaultRenderer = new DefaultDomRenderer2(eventManager, doc, ngZone, this.tracingService);
   }
   createRenderer(element, type) {
     if (!element || !type) {
@@ -417,18 +415,17 @@ class DomRendererFactory2 {
       const eventManager = this.eventManager;
       const sharedStylesHost = this.sharedStylesHost;
       const removeStylesOnCompDestroy = this.removeStylesOnCompDestroy;
-      const platformIsServer = this.platformIsServer;
       const tracingService = this.tracingService;
       switch (type.encapsulation) {
         case ViewEncapsulation.Emulated:
-          renderer = new EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, type, this.appId, removeStylesOnCompDestroy, doc, ngZone, platformIsServer, tracingService);
+          renderer = new EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, type, this.appId, removeStylesOnCompDestroy, doc, ngZone, tracingService);
           break;
         case ViewEncapsulation.ShadowDom:
-          return new ShadowDomRenderer(eventManager, element, type, doc, ngZone, this.nonce, platformIsServer, tracingService, sharedStylesHost);
+          return new ShadowDomRenderer(eventManager, element, type, doc, ngZone, this.nonce, tracingService, sharedStylesHost);
         case ViewEncapsulation.ExperimentalIsolatedShadowDom:
-          return new ShadowDomRenderer(eventManager, element, type, doc, ngZone, this.nonce, platformIsServer, tracingService);
+          return new ShadowDomRenderer(eventManager, element, type, doc, ngZone, this.nonce, tracingService);
         default:
-          renderer = new NoneEncapsulationDomRenderer(eventManager, sharedStylesHost, type, removeStylesOnCompDestroy, doc, ngZone, platformIsServer, tracingService);
+          renderer = new NoneEncapsulationDomRenderer(eventManager, sharedStylesHost, type, removeStylesOnCompDestroy, doc, ngZone, tracingService);
           break;
       }
       rendererByCompId.set(type.id, renderer);
@@ -443,7 +440,7 @@ class DomRendererFactory2 {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.5+sha-0a5fd6b",
+    version: "21.0.5+sha-729b964",
     ngImport: i0,
     type: DomRendererFactory2,
     deps: [{
@@ -468,14 +465,14 @@ class DomRendererFactory2 {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.5+sha-0a5fd6b",
+    version: "21.0.5+sha-729b964",
     ngImport: i0,
     type: DomRendererFactory2
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.5+sha-0a5fd6b",
+  version: "21.0.5+sha-729b964",
   ngImport: i0,
   type: DomRendererFactory2,
   decorators: [{
@@ -525,15 +522,13 @@ class DefaultDomRenderer2 {
   eventManager;
   doc;
   ngZone;
-  platformIsServer;
   tracingService;
   data = Object.create(null);
   throwOnSyntheticProps = true;
-  constructor(eventManager, doc, ngZone, platformIsServer, tracingService) {
+  constructor(eventManager, doc, ngZone, tracingService) {
     this.eventManager = eventManager;
     this.doc = doc;
     this.ngZone = ngZone;
-    this.platformIsServer = platformIsServer;
     this.tracingService = tracingService;
   }
   destroy() {}
@@ -676,8 +671,8 @@ class ShadowDomRenderer extends DefaultDomRenderer2 {
   hostEl;
   sharedStylesHost;
   shadowRoot;
-  constructor(eventManager, hostEl, component, doc, ngZone, nonce, platformIsServer, tracingService, sharedStylesHost) {
-    super(eventManager, doc, ngZone, platformIsServer, tracingService);
+  constructor(eventManager, hostEl, component, doc, ngZone, nonce, tracingService, sharedStylesHost) {
+    super(eventManager, doc, ngZone, tracingService);
     this.hostEl = hostEl;
     this.sharedStylesHost = sharedStylesHost;
     this.shadowRoot = hostEl.attachShadow({
@@ -737,8 +732,8 @@ class NoneEncapsulationDomRenderer extends DefaultDomRenderer2 {
   removeStylesOnCompDestroy;
   styles;
   styleUrls;
-  constructor(eventManager, sharedStylesHost, component, removeStylesOnCompDestroy, doc, ngZone, platformIsServer, tracingService, compId) {
-    super(eventManager, doc, ngZone, platformIsServer, tracingService);
+  constructor(eventManager, sharedStylesHost, component, removeStylesOnCompDestroy, doc, ngZone, tracingService, compId) {
+    super(eventManager, doc, ngZone, tracingService);
     this.sharedStylesHost = sharedStylesHost;
     this.removeStylesOnCompDestroy = removeStylesOnCompDestroy;
     let styles = component.styles;
@@ -764,9 +759,9 @@ class NoneEncapsulationDomRenderer extends DefaultDomRenderer2 {
 class EmulatedEncapsulationDomRenderer2 extends NoneEncapsulationDomRenderer {
   contentAttr;
   hostAttr;
-  constructor(eventManager, sharedStylesHost, component, appId, removeStylesOnCompDestroy, doc, ngZone, platformIsServer, tracingService) {
+  constructor(eventManager, sharedStylesHost, component, appId, removeStylesOnCompDestroy, doc, ngZone, tracingService) {
     const compId = appId + '-' + component.id;
-    super(eventManager, sharedStylesHost, component, removeStylesOnCompDestroy, doc, ngZone, platformIsServer, tracingService, compId);
+    super(eventManager, sharedStylesHost, component, removeStylesOnCompDestroy, doc, ngZone, tracingService, compId);
     this.contentAttr = shimContentAttribute(compId);
     this.hostAttr = shimHostAttribute(compId);
   }
