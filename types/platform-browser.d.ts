@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.1.0-next.3+sha-bf2e508
+ * @license Angular v21.1.0-next.3+sha-ae0c590
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -342,7 +342,6 @@ declare class DomRendererFactory2 implements RendererFactory2, OnDestroy {
     private readonly tracingService;
     private readonly rendererByCompId;
     private readonly defaultRenderer;
-    private readonly platformIsServer;
     constructor(eventManager: EventManager, sharedStylesHost: SharedStylesHost, appId: string, removeStylesOnCompDestroy: boolean, doc: Document, ngZone: NgZone, nonce?: string | null, tracingService?: _TracingService<_TracingSnapshot> | null);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
