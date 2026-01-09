@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.2.0-next.0+sha-94b7079
+ * @license Angular v21.2.0-next.0+sha-4fb24ca
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -22,7 +22,7 @@ class InjectableAnimationEngine extends _AnimationEngine {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.0-next.0+sha-94b7079",
+    version: "21.2.0-next.0+sha-4fb24ca",
     ngImport: i0,
     type: InjectableAnimationEngine,
     deps: [{
@@ -36,14 +36,14 @@ class InjectableAnimationEngine extends _AnimationEngine {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.0-next.0+sha-94b7079",
+    version: "21.2.0-next.0+sha-4fb24ca",
     ngImport: i0,
     type: InjectableAnimationEngine
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.0-next.0+sha-94b7079",
+  version: "21.2.0-next.0+sha-4fb24ca",
   ngImport: i0,
   type: InjectableAnimationEngine,
   decorators: [{
@@ -101,7 +101,7 @@ class BrowserAnimationsModule {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.0-next.0+sha-94b7079",
+    version: "21.2.0-next.0+sha-4fb24ca",
     ngImport: i0,
     type: BrowserAnimationsModule,
     deps: [],
@@ -109,14 +109,14 @@ class BrowserAnimationsModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.2.0-next.0+sha-94b7079",
+    version: "21.2.0-next.0+sha-4fb24ca",
     ngImport: i0,
     type: BrowserAnimationsModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.2.0-next.0+sha-94b7079",
+    version: "21.2.0-next.0+sha-4fb24ca",
     ngImport: i0,
     type: BrowserAnimationsModule,
     providers: BROWSER_ANIMATIONS_PROVIDERS,
@@ -125,7 +125,7 @@ class BrowserAnimationsModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.0-next.0+sha-94b7079",
+  version: "21.2.0-next.0+sha-4fb24ca",
   ngImport: i0,
   type: BrowserAnimationsModule,
   decorators: [{
@@ -143,7 +143,7 @@ function provideAnimations() {
 class NoopAnimationsModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.0-next.0+sha-94b7079",
+    version: "21.2.0-next.0+sha-4fb24ca",
     ngImport: i0,
     type: NoopAnimationsModule,
     deps: [],
@@ -151,14 +151,14 @@ class NoopAnimationsModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.2.0-next.0+sha-94b7079",
+    version: "21.2.0-next.0+sha-4fb24ca",
     ngImport: i0,
     type: NoopAnimationsModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.2.0-next.0+sha-94b7079",
+    version: "21.2.0-next.0+sha-4fb24ca",
     ngImport: i0,
     type: NoopAnimationsModule,
     providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
@@ -167,7 +167,7 @@ class NoopAnimationsModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.0-next.0+sha-94b7079",
+  version: "21.2.0-next.0+sha-4fb24ca",
   ngImport: i0,
   type: NoopAnimationsModule,
   decorators: [{
