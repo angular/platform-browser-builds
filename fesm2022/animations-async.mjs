@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.0+sha-b9b5c27
+ * @license Angular v22.0.0-next.0+sha-fe25c57
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -92,7 +92,7 @@ class AsyncAnimationRendererFactory {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.0+sha-b9b5c27",
+    version: "22.0.0-next.0+sha-fe25c57",
     ngImport: i0,
     type: AsyncAnimationRendererFactory,
     deps: "invalid",
@@ -100,14 +100,14 @@ class AsyncAnimationRendererFactory {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.0+sha-b9b5c27",
+    version: "22.0.0-next.0+sha-fe25c57",
     ngImport: i0,
     type: AsyncAnimationRendererFactory
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.0+sha-b9b5c27",
+  version: "22.0.0-next.0+sha-fe25c57",
   ngImport: i0,
   type: AsyncAnimationRendererFactory,
   decorators: [{
