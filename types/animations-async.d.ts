@@ -1,11 +1,11 @@
 /**
- * @license Angular v21.2.4+sha-334ae10
+ * @license Angular v21.2.4+sha-21cab20
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { EnvironmentProviders, OnDestroy, RendererFactory2, NgZone, RendererType2, Renderer2, InjectionToken } from '@angular/core';
+import { EnvironmentProviders, InjectionToken, OnDestroy, RendererFactory2, NgZone, RendererType2, Renderer2 } from '@angular/core';
 import { ɵAnimationEngine as _AnimationEngine, ɵAnimationRendererFactory as _AnimationRendererFactory } from '@angular/animations/browser';
 
 /**

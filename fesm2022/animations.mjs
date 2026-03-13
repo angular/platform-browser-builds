@@ -1,14 +1,14 @@
 /**
- * @license Angular v21.2.4+sha-334ae10
+ * @license Angular v21.2.4+sha-21cab20
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { Injectable, Inject, ANIMATION_MODULE_TYPE, RendererFactory2, inject, NgZone, NgModule, ɵperformanceMarkFeature as _performanceMarkFeature } from '@angular/core';
+import { ANIMATION_MODULE_TYPE, RendererFactory2, inject, NgZone, Inject, Injectable, ɵperformanceMarkFeature as _performanceMarkFeature, NgModule } from '@angular/core';
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
 import * as i1 from '@angular/animations/browser';
-import { ɵAnimationEngine as _AnimationEngine, AnimationDriver, NoopAnimationDriver, ɵWebAnimationsDriver as _WebAnimationsDriver, ɵAnimationStyleNormalizer as _AnimationStyleNormalizer, ɵWebAnimationsStyleNormalizer as _WebAnimationsStyleNormalizer, ɵAnimationRendererFactory as _AnimationRendererFactory } from '@angular/animations/browser';
+import { NoopAnimationDriver, AnimationDriver, ɵAnimationStyleNormalizer as _AnimationStyleNormalizer, ɵAnimationEngine as _AnimationEngine, ɵWebAnimationsDriver as _WebAnimationsDriver, ɵWebAnimationsStyleNormalizer as _WebAnimationsStyleNormalizer, ɵAnimationRendererFactory as _AnimationRendererFactory } from '@angular/animations/browser';
 import { DOCUMENT } from '@angular/common';
 import { DomRendererFactory2 } from './_dom_renderer-chunk.mjs';
 import { BrowserModule } from './_browser-chunk.mjs';
@@ -22,7 +22,7 @@ class InjectableAnimationEngine extends _AnimationEngine {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.4+sha-334ae10",
+    version: "21.2.4+sha-21cab20",
     ngImport: i0,
     type: InjectableAnimationEngine,
     deps: [{
@@ -36,14 +36,14 @@ class InjectableAnimationEngine extends _AnimationEngine {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.4+sha-334ae10",
+    version: "21.2.4+sha-21cab20",
     ngImport: i0,
     type: InjectableAnimationEngine
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.4+sha-334ae10",
+  version: "21.2.4+sha-21cab20",
   ngImport: i0,
   type: InjectableAnimationEngine,
   decorators: [{
@@ -101,7 +101,7 @@ class BrowserAnimationsModule {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.4+sha-334ae10",
+    version: "21.2.4+sha-21cab20",
     ngImport: i0,
     type: BrowserAnimationsModule,
     deps: [],
@@ -109,14 +109,14 @@ class BrowserAnimationsModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.2.4+sha-334ae10",
+    version: "21.2.4+sha-21cab20",
     ngImport: i0,
     type: BrowserAnimationsModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.2.4+sha-334ae10",
+    version: "21.2.4+sha-21cab20",
     ngImport: i0,
     type: BrowserAnimationsModule,
     providers: BROWSER_ANIMATIONS_PROVIDERS,
@@ -125,7 +125,7 @@ class BrowserAnimationsModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.4+sha-334ae10",
+  version: "21.2.4+sha-21cab20",
   ngImport: i0,
   type: BrowserAnimationsModule,
   decorators: [{
@@ -143,7 +143,7 @@ function provideAnimations() {
 class NoopAnimationsModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.4+sha-334ae10",
+    version: "21.2.4+sha-21cab20",
     ngImport: i0,
     type: NoopAnimationsModule,
     deps: [],
@@ -151,14 +151,14 @@ class NoopAnimationsModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.2.4+sha-334ae10",
+    version: "21.2.4+sha-21cab20",
     ngImport: i0,
     type: NoopAnimationsModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.2.4+sha-334ae10",
+    version: "21.2.4+sha-21cab20",
     ngImport: i0,
     type: NoopAnimationsModule,
     providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS,
@@ -167,7 +167,7 @@ class NoopAnimationsModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.4+sha-334ae10",
+  version: "21.2.4+sha-21cab20",
   ngImport: i0,
   type: NoopAnimationsModule,
   decorators: [{
