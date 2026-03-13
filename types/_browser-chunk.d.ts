@@ -1,11 +1,11 @@
 /**
- * @license Angular v22.0.0-next.3+sha-412788f
+ * @license Angular v22.0.0-next.3+sha-e127927
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { PlatformRef, Type, ApplicationConfig, ApplicationRef, Provider, StaticProvider } from '@angular/core';
+import { PlatformRef, Type, ApplicationConfig, ApplicationRef, StaticProvider, Provider } from '@angular/core';
 import * as i1 from '@angular/common';
 
 /**

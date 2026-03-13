@@ -1,11 +1,11 @@
 /**
- * @license Angular v22.0.0-next.3+sha-412788f
+ * @license Angular v22.0.0-next.3+sha-e127927
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { EnvironmentProviders, OnDestroy, RendererFactory2, NgZone, RendererType2, Renderer2, InjectionToken } from '@angular/core';
+import { EnvironmentProviders, InjectionToken, OnDestroy, RendererFactory2, NgZone, RendererType2, Renderer2 } from '@angular/core';
 import { ɵAnimationEngine as _AnimationEngine, ɵAnimationRendererFactory as _AnimationRendererFactory } from '@angular/animations/browser';
 
 /**
