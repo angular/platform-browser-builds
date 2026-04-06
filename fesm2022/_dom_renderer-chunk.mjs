@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.6+sha-33b001d
+ * @license Angular v22.0.0-next.6+sha-f3c471e
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -32,7 +32,7 @@ class DomEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.6+sha-33b001d",
+    version: "22.0.0-next.6+sha-f3c471e",
     ngImport: i0,
     type: DomEventsPlugin,
     deps: [{
@@ -42,14 +42,14 @@ class DomEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.6+sha-33b001d",
+    version: "22.0.0-next.6+sha-f3c471e",
     ngImport: i0,
     type: DomEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.6+sha-33b001d",
+  version: "22.0.0-next.6+sha-f3c471e",
   ngImport: i0,
   type: DomEventsPlugin,
   decorators: [{
@@ -103,7 +103,7 @@ class EventManager {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.6+sha-33b001d",
+    version: "22.0.0-next.6+sha-f3c471e",
     ngImport: i0,
     type: EventManager,
     deps: [{
@@ -115,14 +115,14 @@ class EventManager {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.6+sha-33b001d",
+    version: "22.0.0-next.6+sha-f3c471e",
     ngImport: i0,
     type: EventManager
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.6+sha-33b001d",
+  version: "22.0.0-next.6+sha-f3c471e",
   ngImport: i0,
   type: EventManager,
   decorators: [{
@@ -248,6 +248,17 @@ class SharedStylesHost {
   }
   removeHost(hostNode) {
     this.hosts.delete(hostNode);
+    for (const record of [...this.inline.values(), ...this.external.values()]) {
+      const remaining = [];
+      for (const element of record.elements) {
+        if (element.parentNode === hostNode) {
+          element.remove();
+        } else {
+          remaining.push(element);
+        }
+      }
+      record.elements = remaining;
+    }
   }
   addElement(host, element) {
     if (this.nonce) {
@@ -260,7 +271,7 @@ class SharedStylesHost {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.6+sha-33b001d",
+    version: "22.0.0-next.6+sha-f3c471e",
     ngImport: i0,
     type: SharedStylesHost,
     deps: [{
@@ -277,14 +288,14 @@ class SharedStylesHost {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.6+sha-33b001d",
+    version: "22.0.0-next.6+sha-f3c471e",
     ngImport: i0,
     type: SharedStylesHost
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.6+sha-33b001d",
+  version: "22.0.0-next.6+sha-f3c471e",
   ngImport: i0,
   type: SharedStylesHost,
   decorators: [{
@@ -440,7 +451,7 @@ class DomRendererFactory2 {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.6+sha-33b001d",
+    version: "22.0.0-next.6+sha-f3c471e",
     ngImport: i0,
     type: DomRendererFactory2,
     deps: [{
@@ -465,14 +476,14 @@ class DomRendererFactory2 {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.6+sha-33b001d",
+    version: "22.0.0-next.6+sha-f3c471e",
     ngImport: i0,
     type: DomRendererFactory2
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.6+sha-33b001d",
+  version: "22.0.0-next.6+sha-f3c471e",
   ngImport: i0,
   type: DomRendererFactory2,
   decorators: [{
