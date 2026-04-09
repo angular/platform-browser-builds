@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.7+sha-47fcbc4
+ * @license Angular v22.0.0-next.7+sha-68628dd
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -8,7 +8,7 @@ export { BrowserModule, bootstrapApplication, createApplication, platformBrowser
 import { ɵgetDOM as _getDOM, DOCUMENT } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Inject, Injectable, ɵglobal as _global, ApplicationRef, ɵRuntimeError as _RuntimeError, makeEnvironmentProviders, provideStabilityDebugging, ɵwithDomHydration as _withDomHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ɵwithIncrementalHydration as _withIncrementalHydration, ENVIRONMENT_INITIALIZER, inject, ɵIS_ENABLED_BLOCKING_INITIAL_NAVIGATION as _IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, ɵConsole as _Console, ɵformatRuntimeError as _formatRuntimeError, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, Version } from '@angular/core';
+import { Inject, Injectable, ɵglobal as _global, ApplicationRef, ɵRuntimeError as _RuntimeError, makeEnvironmentProviders, provideStabilityDebugging, ɵwithDomHydration as _withDomHydration, ɵwithIncrementalHydration as _withIncrementalHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ENVIRONMENT_INITIALIZER, inject, ɵIS_ENABLED_BLOCKING_INITIAL_NAVIGATION as _IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, ɵConsole as _Console, ɵformatRuntimeError as _formatRuntimeError, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, Version } from '@angular/core';
 export { EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, REMOVE_STYLES_ON_COMPONENT_DESTROY, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, SharedStylesHost as ɵSharedStylesHost } from './_dom_renderer-chunk.mjs';
 import { ɵwithHttpTransferCache as _withHttpTransferCache } from '@angular/common/http';
 
@@ -86,7 +86,7 @@ class Meta {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-47fcbc4",
+    version: "22.0.0-next.7+sha-68628dd",
     ngImport: i0,
     type: Meta,
     deps: [{
@@ -96,7 +96,7 @@ class Meta {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-47fcbc4",
+    version: "22.0.0-next.7+sha-68628dd",
     ngImport: i0,
     type: Meta,
     providedIn: 'root'
@@ -104,7 +104,7 @@ class Meta {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-47fcbc4",
+  version: "22.0.0-next.7+sha-68628dd",
   ngImport: i0,
   type: Meta,
   decorators: [{
@@ -138,7 +138,7 @@ class Title {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-47fcbc4",
+    version: "22.0.0-next.7+sha-68628dd",
     ngImport: i0,
     type: Title,
     deps: [{
@@ -148,7 +148,7 @@ class Title {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-47fcbc4",
+    version: "22.0.0-next.7+sha-68628dd",
     ngImport: i0,
     type: Title,
     providedIn: 'root'
@@ -156,7 +156,7 @@ class Title {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-47fcbc4",
+  version: "22.0.0-next.7+sha-68628dd",
   ngImport: i0,
   type: Title,
   decorators: [{
@@ -253,6 +253,7 @@ var HydrationFeatureKind;
   HydrationFeatureKind[HydrationFeatureKind["I18nSupport"] = 2] = "I18nSupport";
   HydrationFeatureKind[HydrationFeatureKind["EventReplay"] = 3] = "EventReplay";
   HydrationFeatureKind[HydrationFeatureKind["IncrementalHydration"] = 4] = "IncrementalHydration";
+  HydrationFeatureKind[HydrationFeatureKind["NoIncrementalHydration"] = 5] = "NoIncrementalHydration";
 })(HydrationFeatureKind || (HydrationFeatureKind = {}));
 function hydrationFeature(ɵkind, ɵproviders = [], ɵoptions = {}) {
   return {
@@ -274,6 +275,9 @@ function withEventReplay() {
 }
 function withIncrementalHydration() {
   return hydrationFeature(HydrationFeatureKind.IncrementalHydration, _withIncrementalHydration());
+}
+function withNoIncrementalHydration() {
+  return hydrationFeature(HydrationFeatureKind.NoIncrementalHydration);
 }
 function provideEnabledBlockingInitialNavigationDetector() {
   return [{
@@ -304,16 +308,21 @@ function provideClientHydration(...features) {
     }
   }
   const hasHttpTransferCacheOptions = featuresKind.has(HydrationFeatureKind.HttpTransferCacheOptions);
-  if (typeof ngDevMode !== 'undefined' && ngDevMode && featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) && hasHttpTransferCacheOptions) {
-    throw new _RuntimeError(5001, 'Configuration error: found both withHttpTransferCacheOptions() and withNoHttpTransferCache() in the same call to provideClientHydration(), which is a contradiction.');
+  if (typeof ngDevMode !== 'undefined' && ngDevMode) {
+    if (featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) && hasHttpTransferCacheOptions) {
+      throw new _RuntimeError(5001, 'Configuration error: found both withHttpTransferCacheOptions() and withNoHttpTransferCache() in the same call to provideClientHydration(), which is a contradiction.');
+    }
+    if (featuresKind.has(HydrationFeatureKind.IncrementalHydration) && featuresKind.has(HydrationFeatureKind.NoIncrementalHydration)) {
+      throw new _RuntimeError(5001, 'Configuration error: found both withIncrementalHydration() and withNoIncrementalHydration() in the same call to provideClientHydration(), which is a contradiction.');
+    }
   }
-  return makeEnvironmentProviders([typeof ngDevMode !== 'undefined' && ngDevMode ? provideEnabledBlockingInitialNavigationDetector() : [], typeof ngDevMode !== 'undefined' && ngDevMode ? provideStabilityDebugging() : [], _withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : _withHttpTransferCache({}), providers]);
+  return makeEnvironmentProviders([typeof ngDevMode !== 'undefined' && ngDevMode ? provideEnabledBlockingInitialNavigationDetector() : [], typeof ngDevMode !== 'undefined' && ngDevMode ? provideStabilityDebugging() : [], _withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : _withHttpTransferCache({}), featuresKind.has(HydrationFeatureKind.NoIncrementalHydration) ? [] : _withIncrementalHydration(), providers]);
 }
 
 class DomSanitizer {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-47fcbc4",
+    version: "22.0.0-next.7+sha-68628dd",
     ngImport: i0,
     type: DomSanitizer,
     deps: [],
@@ -321,7 +330,7 @@ class DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-47fcbc4",
+    version: "22.0.0-next.7+sha-68628dd",
     ngImport: i0,
     type: DomSanitizer,
     providedIn: 'root',
@@ -330,7 +339,7 @@ class DomSanitizer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-47fcbc4",
+  version: "22.0.0-next.7+sha-68628dd",
   ngImport: i0,
   type: DomSanitizer,
   decorators: [{
@@ -398,7 +407,7 @@ class DomSanitizerImpl extends DomSanitizer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-47fcbc4",
+    version: "22.0.0-next.7+sha-68628dd",
     ngImport: i0,
     type: DomSanitizerImpl,
     deps: [{
@@ -408,7 +417,7 @@ class DomSanitizerImpl extends DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-47fcbc4",
+    version: "22.0.0-next.7+sha-68628dd",
     ngImport: i0,
     type: DomSanitizerImpl,
     providedIn: 'root'
@@ -416,7 +425,7 @@ class DomSanitizerImpl extends DomSanitizer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-47fcbc4",
+  version: "22.0.0-next.7+sha-68628dd",
   ngImport: i0,
   type: DomSanitizerImpl,
   decorators: [{
@@ -434,7 +443,7 @@ i0.ɵɵngDeclareClassMetadata({
   }]
 });
 
-const VERSION = /* @__PURE__ */new Version('22.0.0-next.7+sha-47fcbc4');
+const VERSION = /* @__PURE__ */new Version('22.0.0-next.7+sha-68628dd');
 
-export { By, DomSanitizer, HydrationFeatureKind, Meta, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, DomSanitizerImpl as ɵDomSanitizerImpl };
+export { By, DomSanitizer, HydrationFeatureKind, Meta, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.mjs.map

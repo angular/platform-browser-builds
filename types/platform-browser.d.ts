@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.7+sha-47fcbc4
+ * @license Angular v22.0.0-next.7+sha-68628dd
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -366,7 +366,8 @@ declare enum HydrationFeatureKind {
     HttpTransferCacheOptions = 1,
     I18nSupport = 2,
     EventReplay = 3,
-    IncrementalHydration = 4
+    IncrementalHydration = 4,
+    NoIncrementalHydration = 5
 }
 /**
  * Helper type to represent a Hydration feature.
@@ -437,6 +438,13 @@ declare function withEventReplay(): HydrationFeature<HydrationFeatureKind.EventR
  * @see {@link provideClientHydration}
  */
 declare function withIncrementalHydration(): HydrationFeature<HydrationFeatureKind.IncrementalHydration>;
+/**
+ * Disables support for incremental hydration (which is enabled by default).
+ *
+ * @publicApi 22.0
+ * @see {@link provideClientHydration}
+ */
+declare function withNoIncrementalHydration(): HydrationFeature<HydrationFeatureKind.NoIncrementalHydration>;
 /**
  * Sets up providers necessary to enable hydration functionality for the application.
  *
@@ -756,5 +764,5 @@ declare const enum RuntimeErrorCode {
  */
 declare const VERSION: Version;
 
-export { By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, HydrationFeatureKind, Meta, REMOVE_STYLES_ON_COMPONENT_DESTROY, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, KeyEventsPlugin as ɵKeyEventsPlugin, RuntimeErrorCode as ɵRuntimeErrorCode, SharedStylesHost as ɵSharedStylesHost };
+export { By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, HydrationFeatureKind, Meta, REMOVE_STYLES_ON_COMPONENT_DESTROY, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, KeyEventsPlugin as ɵKeyEventsPlugin, RuntimeErrorCode as ɵRuntimeErrorCode, SharedStylesHost as ɵSharedStylesHost };
 export type { HydrationFeature, MetaDefinition, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl, SafeValue };
