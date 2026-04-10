@@ -1,12 +1,12 @@
 /**
- * @license Angular v22.0.0-next.7+sha-1415d86
+ * @license Angular v22.0.0-next.7+sha-e453848
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 export { BootstrapContext, BrowserModule, bootstrapApplication, createApplication, platformBrowser, provideProtractorTestingSupport } from './_browser-chunk.js';
 import * as i0 from '@angular/core';
-import { ComponentRef, Predicate, DebugNode, DebugElement, Type, ListenerOptions, InjectionToken, NgZone, OnDestroy, RendererFactory2, ɵTracingService as _TracingService, ɵTracingSnapshot as _TracingSnapshot, RendererType2, Renderer2, Provider, EnvironmentProviders, Sanitizer, SecurityContext, GetTestability, TestabilityRegistry, Testability, Version } from '@angular/core';
+import { ComponentRef, Predicate, DebugNode, DebugElement, Type, ListenerOptions, InjectionToken, NgZone, ɵSharedStylesHost as _SharedStylesHost, OnDestroy, RendererFactory2, ɵTracingService as _TracingService, ɵTracingSnapshot as _TracingSnapshot, RendererType2, Renderer2, Provider, EnvironmentProviders, Sanitizer, SecurityContext, GetTestability, TestabilityRegistry, Testability, Version } from '@angular/core';
 import { HttpTransferCacheOptions } from '@angular/common/http';
 import { ɵDomAdapter as _DomAdapter } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
@@ -278,7 +278,7 @@ interface UsageRecord<T> {
     elements: T[];
     usage: number;
 }
-declare class SharedStylesHost implements OnDestroy {
+declare class SharedStylesHost implements _SharedStylesHost, OnDestroy {
     private readonly doc;
     private readonly appId;
     private readonly nonce?;
@@ -297,10 +297,6 @@ declare class SharedStylesHost implements OnDestroy {
      */
     private readonly hosts;
     constructor(doc: Document, appId: string, nonce?: string | null | undefined, platformId?: object);
-    /**
-     * Adds embedded styles to the DOM via HTML `style` elements.
-     * @param styles An array of style content strings.
-     */
     addStyles(styles: string[], urls?: string[]): void;
     /**
      * Removes embedded styles from the DOM that were added as HTML `style` elements.
@@ -310,12 +306,6 @@ declare class SharedStylesHost implements OnDestroy {
     protected addUsage<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>, creator: (value: string, doc: Document) => T): void;
     protected removeUsage<T extends HTMLElement>(value: string, usages: Map<string, UsageRecord<T>>): void;
     ngOnDestroy(): void;
-    /**
-     * Adds a host node to the set of style hosts and adds all existing style usage to
-     * the newly added host node.
-     *
-     * This is currently only used for Shadow DOM encapsulation mode.
-     */
     addHost(hostNode: Node): void;
     removeHost(hostNode: Node): void;
     private addElement;

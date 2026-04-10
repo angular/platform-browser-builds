@@ -1,12 +1,12 @@
 /**
- * @license Angular v22.0.0-next.7+sha-1415d86
+ * @license Angular v22.0.0-next.7+sha-e453848
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import { DOCUMENT, ɵgetDOM as _getDOM } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Inject, Injectable, InjectionToken, ɵRuntimeError as _RuntimeError, APP_ID, CSP_NONCE, PLATFORM_ID, Optional, ViewEncapsulation, ɵTracingService as _TracingService, RendererStyleFlags2, ɵallLeavingAnimations as _allLeavingAnimations } from '@angular/core';
+import { Inject, Injectable, InjectionToken, ɵRuntimeError as _RuntimeError, APP_ID, CSP_NONCE, PLATFORM_ID, Optional, ViewEncapsulation, ɵSHARED_STYLES_HOST as _SHARED_STYLES_HOST, ɵTracingService as _TracingService, RendererStyleFlags2, ɵallLeavingAnimations as _allLeavingAnimations } from '@angular/core';
 
 class EventManagerPlugin {
   _doc;
@@ -32,7 +32,7 @@ class DomEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: DomEventsPlugin,
     deps: [{
@@ -42,14 +42,14 @@ class DomEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: DomEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-1415d86",
+  version: "22.0.0-next.7+sha-e453848",
   ngImport: i0,
   type: DomEventsPlugin,
   decorators: [{
@@ -103,7 +103,7 @@ class EventManager {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: EventManager,
     deps: [{
@@ -115,14 +115,14 @@ class EventManager {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: EventManager
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-1415d86",
+  version: "22.0.0-next.7+sha-e453848",
   ngImport: i0,
   type: EventManager,
   decorators: [{
@@ -152,22 +152,22 @@ function createStyleElement(style, doc) {
 }
 function addServerStyles(doc, appId, inline, external) {
   const elements = doc.head?.querySelectorAll(`style[${APP_ID_ATTRIBUTE_NAME}="${appId}"],link[${APP_ID_ATTRIBUTE_NAME}="${appId}"]`);
-  if (elements) {
-    for (const styleElement of elements) {
-      styleElement.removeAttribute(APP_ID_ATTRIBUTE_NAME);
-      if (styleElement instanceof HTMLLinkElement) {
-        external.set(styleElement.href.slice(styleElement.href.lastIndexOf('/') + 1), {
-          usage: 0,
-          elements: [styleElement]
-        });
-      } else if (styleElement.textContent) {
-        inline.set(styleElement.textContent, {
-          usage: 0,
-          elements: [styleElement]
-        });
-      }
+  if (!elements || elements.length === 0) return false;
+  for (const styleElement of elements) {
+    styleElement.removeAttribute(APP_ID_ATTRIBUTE_NAME);
+    if (styleElement instanceof HTMLLinkElement) {
+      external.set(styleElement.href.slice(styleElement.href.lastIndexOf('/') + 1), {
+        usage: 0,
+        elements: [styleElement]
+      });
+    } else if (styleElement.textContent) {
+      inline.set(styleElement.textContent, {
+        usage: 0,
+        elements: [styleElement]
+      });
     }
   }
+  return true;
 }
 function createLinkElement(url, doc) {
   const linkElement = doc.createElement('link');
@@ -186,8 +186,8 @@ class SharedStylesHost {
     this.doc = doc;
     this.appId = appId;
     this.nonce = nonce;
-    addServerStyles(doc, appId, this.inline, this.external);
-    this.hosts.add(doc.head);
+    const added = addServerStyles(doc, appId, this.inline, this.external);
+    if (added) this.hosts.add(doc.head);
   }
   addStyles(styles, urls) {
     for (const value of styles) {
@@ -234,6 +234,7 @@ class SharedStylesHost {
     this.hosts.clear();
   }
   addHost(hostNode) {
+    if (this.hosts.has(hostNode)) return;
     this.hosts.add(hostNode);
     for (const [style, {
       elements
@@ -271,7 +272,7 @@ class SharedStylesHost {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: SharedStylesHost,
     deps: [{
@@ -288,14 +289,14 @@ class SharedStylesHost {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: SharedStylesHost
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-1415d86",
+  version: "22.0.0-next.7+sha-e453848",
   ngImport: i0,
   type: SharedStylesHost,
   decorators: [{
@@ -451,13 +452,13 @@ class DomRendererFactory2 {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: DomRendererFactory2,
     deps: [{
       token: EventManager
     }, {
-      token: SharedStylesHost
+      token: _SHARED_STYLES_HOST
     }, {
       token: APP_ID
     }, {
@@ -476,14 +477,14 @@ class DomRendererFactory2 {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: DomRendererFactory2
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-1415d86",
+  version: "22.0.0-next.7+sha-e453848",
   ngImport: i0,
   type: DomRendererFactory2,
   decorators: [{
@@ -492,7 +493,11 @@ i0.ɵɵngDeclareClassMetadata({
   ctorParameters: () => [{
     type: EventManager
   }, {
-    type: SharedStylesHost
+    type: SharedStylesHost,
+    decorators: [{
+      type: Inject,
+      args: [_SHARED_STYLES_HOST]
+    }]
   }, {
     type: undefined,
     decorators: [{

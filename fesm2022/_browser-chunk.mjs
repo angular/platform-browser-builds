@@ -1,12 +1,12 @@
 /**
- * @license Angular v22.0.0-next.7+sha-1415d86
+ * @license Angular v22.0.0-next.7+sha-e453848
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import { ɵDomAdapter as _DomAdapter, ɵsetRootDomAdapter as _setRootDomAdapter, ɵparseCookieValue as _parseCookieValue, ɵgetDOM as _getDOM, DOCUMENT, CommonModule, XhrFactory, ɵPLATFORM_BROWSER_ID as _PLATFORM_BROWSER_ID } from '@angular/common';
 import * as i0 from '@angular/core';
-import { ɵglobal as _global, ɵRuntimeError as _RuntimeError, Injectable, Inject, inject, InjectionToken, ApplicationModule, ɵINJECTOR_SCOPE as _INJECTOR_SCOPE, ErrorHandler, RendererFactory2, ɵTESTABILITY_GETTER as _TESTABILITY_GETTER, Testability, ɵTESTABILITY as _TESTABILITY, ɵinternalCreateApplication as _internalCreateApplication, createPlatformFactory, platformCore, PLATFORM_ID, PLATFORM_INITIALIZER, ɵresolveComponentResources as _resolveComponentResources, ɵsetDocument as _setDocument, NgModule } from '@angular/core';
+import { ɵglobal as _global, ɵRuntimeError as _RuntimeError, Injectable, Inject, inject, InjectionToken, ApplicationModule, ɵINJECTOR_SCOPE as _INJECTOR_SCOPE, ErrorHandler, ɵSHARED_STYLES_HOST as _SHARED_STYLES_HOST, RendererFactory2, ɵTESTABILITY_GETTER as _TESTABILITY_GETTER, Testability, ɵTESTABILITY as _TESTABILITY, ɵinternalCreateApplication as _internalCreateApplication, createPlatformFactory, platformCore, PLATFORM_ID, PLATFORM_INITIALIZER, ɵresolveComponentResources as _resolveComponentResources, ɵsetDocument as _setDocument, NgModule } from '@angular/core';
 import { EventManagerPlugin, DomEventsPlugin, EVENT_MANAGER_PLUGINS, DomRendererFactory2, SharedStylesHost, EventManager } from './_dom_renderer-chunk.mjs';
 
 class BrowserDomAdapter extends _DomAdapter {
@@ -129,7 +129,7 @@ class BrowserXhr {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: BrowserXhr,
     deps: [],
@@ -137,14 +137,14 @@ class BrowserXhr {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: BrowserXhr
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-1415d86",
+  version: "22.0.0-next.7+sha-e453848",
   ngImport: i0,
   type: BrowserXhr,
   decorators: [{
@@ -254,7 +254,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: KeyEventsPlugin,
     deps: [{
@@ -264,14 +264,14 @@ class KeyEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: KeyEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-1415d86",
+  version: "22.0.0-next.7+sha-e453848",
   ngImport: i0,
   type: KeyEventsPlugin,
   decorators: [{
@@ -366,7 +366,13 @@ const BROWSER_MODULE_PROVIDERS = [{
   provide: EVENT_MANAGER_PLUGINS,
   useClass: KeyEventsPlugin,
   multi: true
-}, DomRendererFactory2, SharedStylesHost, EventManager, {
+}, DomRendererFactory2, {
+  provide: _SHARED_STYLES_HOST,
+  useClass: SharedStylesHost
+}, {
+  provide: SharedStylesHost,
+  useExisting: _SHARED_STYLES_HOST
+}, EventManager, {
   provide: RendererFactory2,
   useExisting: DomRendererFactory2
 }, {
@@ -390,7 +396,7 @@ class BrowserModule {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: BrowserModule,
     deps: [],
@@ -398,14 +404,14 @@ class BrowserModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: BrowserModule,
     exports: [CommonModule, ApplicationModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.7+sha-1415d86",
+    version: "22.0.0-next.7+sha-e453848",
     ngImport: i0,
     type: BrowserModule,
     providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS],
@@ -414,7 +420,7 @@ class BrowserModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.7+sha-1415d86",
+  version: "22.0.0-next.7+sha-e453848",
   ngImport: i0,
   type: BrowserModule,
   decorators: [{
