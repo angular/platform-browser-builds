@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.7+sha-39e382a
+ * @license Angular v22.0.0-next.7+sha-0454d4c
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -404,7 +404,7 @@ declare function withI18nSupport(): HydrationFeature<HydrationFeatureKind.I18nSu
  * Basic example of how you can enable event replay in your application when
  * `bootstrapApplication` function is used:
  * ```ts
- * bootstrapApplication(AppComponent, {
+ * bootstrapApplication(App, {
  *   providers: [provideClientHydration(withEventReplay())]
  * });
  * ```
@@ -420,12 +420,15 @@ declare function withEventReplay(): HydrationFeature<HydrationFeatureKind.EventR
  * Basic example of how you can enable incremental hydration in your application when
  * the `bootstrapApplication` function is used:
  * ```ts
- * bootstrapApplication(AppComponent, {
+ * bootstrapApplication(App, {
  *   providers: [provideClientHydration(withIncrementalHydration())]
  * });
  * ```
  * @publicApi 20.0
  * @see {@link provideClientHydration}
+ *
+ * @deprecated Since v22.0.0, incremental hydration is enabled by default with `provideClientHydration`.
+ * Intent to remove in v24.
  */
 declare function withIncrementalHydration(): HydrationFeature<HydrationFeatureKind.IncrementalHydration>;
 /**
@@ -445,6 +448,7 @@ declare function withNoIncrementalHydration(): HydrationFeature<HydrationFeature
  * * [`HttpClient`](api/common/http/HttpClient) response caching while running on the server and
  * transferring this cache to the client to avoid extra HTTP requests. Learn more about data caching
  * [here](guide/ssr#caching-data-when-using-httpclient).
+ * Incremental hydration. [Learn more](guide/incremental-hydration).
  *
  * These functions allow you to disable some of the default features or enable new ones:
  *
@@ -452,13 +456,14 @@ declare function withNoIncrementalHydration(): HydrationFeature<HydrationFeature
  * * {@link withHttpTransferCacheOptions} to configure some HTTP transfer cache options
  * * {@link withI18nSupport} to enable hydration support for i18n blocks
  * * {@link withEventReplay} to enable support for replaying user events
+ * * {@link withNoIncrementalHydration} to disable incremental hydration
  *
  * @usageNotes
  *
  * Basic example of how you can enable hydration in your application when
  * `bootstrapApplication` function is used:
  * ```ts
- * bootstrapApplication(AppComponent, {
+ * bootstrapApplication(App, {
  *   providers: [provideClientHydration()]
  * });
  * ```
@@ -478,6 +483,7 @@ declare function withNoIncrementalHydration(): HydrationFeature<HydrationFeature
  * @see {@link withHttpTransferCacheOptions}
  * @see {@link withI18nSupport}
  * @see {@link withEventReplay}
+ * @see {@link withNoIncrementalHydration}
  *
  * @param features Optional features to configure additional hydration behaviors.
  * @returns A set of providers to enable hydration.
