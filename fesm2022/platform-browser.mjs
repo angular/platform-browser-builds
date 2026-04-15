@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.8+sha-c326548
+ * @license Angular v21.3.0-next.0+sha-4835277
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -8,8 +8,9 @@ export { BrowserModule, bootstrapApplication, createApplication, platformBrowser
 import { ɵgetDOM as _getDOM, DOCUMENT } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Inject, Injectable, ɵglobal as _global, ApplicationRef, ɵRuntimeError as _RuntimeError, makeEnvironmentProviders, provideStabilityDebugging, ɵwithDomHydration as _withDomHydration, ɵwithIncrementalHydration as _withIncrementalHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ENVIRONMENT_INITIALIZER, inject, ɵIS_ENABLED_BLOCKING_INITIAL_NAVIGATION as _IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, ɵConsole as _Console, ɵformatRuntimeError as _formatRuntimeError, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, Version } from '@angular/core';
-export { EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, REMOVE_STYLES_ON_COMPONENT_DESTROY, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, SharedStylesHost as ɵSharedStylesHost } from './_dom_renderer-chunk.mjs';
+import { Inject, Injectable, ɵglobal as _global, ApplicationRef, InjectionToken, Injector, Optional, ɵConsole as _Console, NgModule, ɵRuntimeError as _RuntimeError, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, makeEnvironmentProviders, provideStabilityDebugging, ɵwithDomHydration as _withDomHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ɵwithIncrementalHydration as _withIncrementalHydration, ENVIRONMENT_INITIALIZER, inject, ɵIS_ENABLED_BLOCKING_INITIAL_NAVIGATION as _IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, ɵformatRuntimeError as _formatRuntimeError, Version } from '@angular/core';
+import { EVENT_MANAGER_PLUGINS, EventManagerPlugin } from './_dom_renderer-chunk.mjs';
+export { EventManager, REMOVE_STYLES_ON_COMPONENT_DESTROY, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, SharedStylesHost as ɵSharedStylesHost } from './_dom_renderer-chunk.mjs';
 import { ɵwithHttpTransferCache as _withHttpTransferCache } from '@angular/common/http';
 
 class Meta {
@@ -86,7 +87,7 @@ class Meta {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8+sha-c326548",
+    version: "21.3.0-next.0+sha-4835277",
     ngImport: i0,
     type: Meta,
     deps: [{
@@ -96,7 +97,7 @@ class Meta {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8+sha-c326548",
+    version: "21.3.0-next.0+sha-4835277",
     ngImport: i0,
     type: Meta,
     providedIn: 'root'
@@ -104,7 +105,7 @@ class Meta {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8+sha-c326548",
+  version: "21.3.0-next.0+sha-4835277",
   ngImport: i0,
   type: Meta,
   decorators: [{
@@ -138,7 +139,7 @@ class Title {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8+sha-c326548",
+    version: "21.3.0-next.0+sha-4835277",
     ngImport: i0,
     type: Title,
     deps: [{
@@ -148,7 +149,7 @@ class Title {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8+sha-c326548",
+    version: "21.3.0-next.0+sha-4835277",
     ngImport: i0,
     type: Title,
     providedIn: 'root'
@@ -156,7 +157,7 @@ class Title {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8+sha-c326548",
+  version: "21.3.0-next.0+sha-4835277",
   ngImport: i0,
   type: Title,
   decorators: [{
@@ -246,83 +247,268 @@ function elementMatches(n, selector) {
   return false;
 }
 
-var HydrationFeatureKind;
-(function (HydrationFeatureKind) {
-  HydrationFeatureKind[HydrationFeatureKind["NoHttpTransferCache"] = 0] = "NoHttpTransferCache";
-  HydrationFeatureKind[HydrationFeatureKind["HttpTransferCacheOptions"] = 1] = "HttpTransferCacheOptions";
-  HydrationFeatureKind[HydrationFeatureKind["I18nSupport"] = 2] = "I18nSupport";
-  HydrationFeatureKind[HydrationFeatureKind["EventReplay"] = 3] = "EventReplay";
-  HydrationFeatureKind[HydrationFeatureKind["IncrementalHydration"] = 4] = "IncrementalHydration";
-  HydrationFeatureKind[HydrationFeatureKind["NoIncrementalHydration"] = 5] = "NoIncrementalHydration";
-})(HydrationFeatureKind || (HydrationFeatureKind = {}));
-function hydrationFeature(ɵkind, ɵproviders = [], ɵoptions = {}) {
-  return {
-    ɵkind,
-    ɵproviders
-  };
+const EVENT_NAMES = {
+  'pan': true,
+  'panstart': true,
+  'panmove': true,
+  'panend': true,
+  'pancancel': true,
+  'panleft': true,
+  'panright': true,
+  'panup': true,
+  'pandown': true,
+  'pinch': true,
+  'pinchstart': true,
+  'pinchmove': true,
+  'pinchend': true,
+  'pinchcancel': true,
+  'pinchin': true,
+  'pinchout': true,
+  'press': true,
+  'pressup': true,
+  'rotate': true,
+  'rotatestart': true,
+  'rotatemove': true,
+  'rotateend': true,
+  'rotatecancel': true,
+  'swipe': true,
+  'swipeleft': true,
+  'swiperight': true,
+  'swipeup': true,
+  'swipedown': true,
+  'tap': true,
+  'doubletap': true
+};
+const HAMMER_GESTURE_CONFIG = new InjectionToken(typeof ngDevMode === 'undefined' || ngDevMode ? 'HammerGestureConfig' : '');
+const HAMMER_LOADER = new InjectionToken(typeof ngDevMode === 'undefined' || ngDevMode ? 'HammerLoader' : '');
+class HammerGestureConfig {
+  events = [];
+  overrides = {};
+  options;
+  buildHammer(element) {
+    const mc = new Hammer(element, this.options);
+    mc.get('pinch').set({
+      enable: true
+    });
+    mc.get('rotate').set({
+      enable: true
+    });
+    for (const eventName in this.overrides) {
+      mc.get(eventName).set(this.overrides[eventName]);
+    }
+    return mc;
+  }
+  static ɵfac = i0.ɵɵngDeclareFactory({
+    minVersion: "12.0.0",
+    version: "21.3.0-next.0+sha-4835277",
+    ngImport: i0,
+    type: HammerGestureConfig,
+    deps: [],
+    target: i0.ɵɵFactoryTarget.Injectable
+  });
+  static ɵprov = i0.ɵɵngDeclareInjectable({
+    minVersion: "12.0.0",
+    version: "21.3.0-next.0+sha-4835277",
+    ngImport: i0,
+    type: HammerGestureConfig
+  });
 }
-function withNoHttpTransferCache() {
-  return hydrationFeature(HydrationFeatureKind.NoHttpTransferCache);
-}
-function withHttpTransferCacheOptions(options) {
-  return hydrationFeature(HydrationFeatureKind.HttpTransferCacheOptions, _withHttpTransferCache(options));
-}
-function withI18nSupport() {
-  return hydrationFeature(HydrationFeatureKind.I18nSupport, _withI18nSupport());
-}
-function withEventReplay() {
-  return hydrationFeature(HydrationFeatureKind.EventReplay, _withEventReplay());
-}
-function withIncrementalHydration() {
-  return hydrationFeature(HydrationFeatureKind.IncrementalHydration, _withIncrementalHydration());
-}
-function withNoIncrementalHydration() {
-  return hydrationFeature(HydrationFeatureKind.NoIncrementalHydration);
-}
-function provideEnabledBlockingInitialNavigationDetector() {
-  return [{
-    provide: ENVIRONMENT_INITIALIZER,
-    useValue: () => {
-      const isEnabledBlockingInitialNavigation = inject(_IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, {
-        optional: true
-      });
-      if (isEnabledBlockingInitialNavigation) {
-        const console = inject(_Console);
-        const message = _formatRuntimeError(5001, 'Configuration error: found both hydration and enabledBlocking initial navigation ' + 'in the same application, which is a contradiction.');
-        console.warn(message);
+i0.ɵɵngDeclareClassMetadata({
+  minVersion: "12.0.0",
+  version: "21.3.0-next.0+sha-4835277",
+  ngImport: i0,
+  type: HammerGestureConfig,
+  decorators: [{
+    type: Injectable
+  }]
+});
+class HammerGesturesPlugin extends EventManagerPlugin {
+  _config;
+  _injector;
+  loader;
+  _loaderPromise = null;
+  constructor(doc, _config, _injector, loader) {
+    super(doc);
+    this._config = _config;
+    this._injector = _injector;
+    this.loader = loader;
+  }
+  supports(eventName) {
+    if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
+      return false;
+    }
+    if (!window.Hammer && !this.loader) {
+      if (typeof ngDevMode === 'undefined' || ngDevMode) {
+        const _console = this._injector.get(_Console);
+        _console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` + `loaded and no custom loader has been specified.`);
       }
-    },
-    multi: true
-  }];
-}
-function provideClientHydration(...features) {
-  const providers = [];
-  const featuresKind = new Set();
-  for (const {
-    ɵproviders,
-    ɵkind
-  } of features) {
-    featuresKind.add(ɵkind);
-    if (ɵproviders.length) {
-      providers.push(ɵproviders);
+      return false;
     }
+    return true;
   }
-  const hasHttpTransferCacheOptions = featuresKind.has(HydrationFeatureKind.HttpTransferCacheOptions);
-  if (typeof ngDevMode !== 'undefined' && ngDevMode) {
-    if (featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) && hasHttpTransferCacheOptions) {
-      throw new _RuntimeError(5001, 'Configuration error: found both withHttpTransferCacheOptions() and withNoHttpTransferCache() in the same call to provideClientHydration(), which is a contradiction.');
+  addEventListener(element, eventName, handler) {
+    const zone = this.manager.getZone();
+    eventName = eventName.toLowerCase();
+    if (!window.Hammer && this.loader) {
+      this._loaderPromise = this._loaderPromise || zone.runOutsideAngular(() => this.loader());
+      let cancelRegistration = false;
+      let deregister = () => {
+        cancelRegistration = true;
+      };
+      zone.runOutsideAngular(() => this._loaderPromise.then(() => {
+        if (!window.Hammer) {
+          if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            const _console = this._injector.get(_Console);
+            _console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+          }
+          deregister = () => {};
+          return;
+        }
+        if (!cancelRegistration) {
+          deregister = this.addEventListener(element, eventName, handler);
+        }
+      }).catch(() => {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+          const _console = this._injector.get(_Console);
+          _console.warn(`The "${eventName}" event cannot be bound because the custom ` + `Hammer.JS loader failed.`);
+        }
+        deregister = () => {};
+      }));
+      return () => {
+        deregister();
+      };
     }
-    if (featuresKind.has(HydrationFeatureKind.IncrementalHydration) && featuresKind.has(HydrationFeatureKind.NoIncrementalHydration)) {
-      throw new _RuntimeError(5001, 'Configuration error: found both withIncrementalHydration() and withNoIncrementalHydration() in the same call to provideClientHydration(), which is a contradiction.');
-    }
+    return zone.runOutsideAngular(() => {
+      const mc = this._config.buildHammer(element);
+      const callback = function (eventObj) {
+        zone.runGuarded(function () {
+          handler(eventObj);
+        });
+      };
+      mc.on(eventName, callback);
+      return () => {
+        mc.off(eventName, callback);
+        if (typeof mc.destroy === 'function') {
+          mc.destroy();
+        }
+      };
+    });
   }
-  return makeEnvironmentProviders([typeof ngDevMode !== 'undefined' && ngDevMode ? provideEnabledBlockingInitialNavigationDetector() : [], typeof ngDevMode !== 'undefined' && ngDevMode ? provideStabilityDebugging() : [], _withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : _withHttpTransferCache({}), featuresKind.has(HydrationFeatureKind.NoIncrementalHydration) ? [] : _withIncrementalHydration(), providers]);
+  isCustomEvent(eventName) {
+    return this._config.events.indexOf(eventName) > -1;
+  }
+  static ɵfac = i0.ɵɵngDeclareFactory({
+    minVersion: "12.0.0",
+    version: "21.3.0-next.0+sha-4835277",
+    ngImport: i0,
+    type: HammerGesturesPlugin,
+    deps: [{
+      token: DOCUMENT
+    }, {
+      token: HAMMER_GESTURE_CONFIG
+    }, {
+      token: i0.Injector
+    }, {
+      token: HAMMER_LOADER,
+      optional: true
+    }],
+    target: i0.ɵɵFactoryTarget.Injectable
+  });
+  static ɵprov = i0.ɵɵngDeclareInjectable({
+    minVersion: "12.0.0",
+    version: "21.3.0-next.0+sha-4835277",
+    ngImport: i0,
+    type: HammerGesturesPlugin
+  });
 }
+i0.ɵɵngDeclareClassMetadata({
+  minVersion: "12.0.0",
+  version: "21.3.0-next.0+sha-4835277",
+  ngImport: i0,
+  type: HammerGesturesPlugin,
+  decorators: [{
+    type: Injectable
+  }],
+  ctorParameters: () => [{
+    type: undefined,
+    decorators: [{
+      type: Inject,
+      args: [DOCUMENT]
+    }]
+  }, {
+    type: HammerGestureConfig,
+    decorators: [{
+      type: Inject,
+      args: [HAMMER_GESTURE_CONFIG]
+    }]
+  }, {
+    type: i0.Injector
+  }, {
+    type: undefined,
+    decorators: [{
+      type: Optional
+    }, {
+      type: Inject,
+      args: [HAMMER_LOADER]
+    }]
+  }]
+});
+class HammerModule {
+  static ɵfac = i0.ɵɵngDeclareFactory({
+    minVersion: "12.0.0",
+    version: "21.3.0-next.0+sha-4835277",
+    ngImport: i0,
+    type: HammerModule,
+    deps: [],
+    target: i0.ɵɵFactoryTarget.NgModule
+  });
+  static ɵmod = i0.ɵɵngDeclareNgModule({
+    minVersion: "14.0.0",
+    version: "21.3.0-next.0+sha-4835277",
+    ngImport: i0,
+    type: HammerModule
+  });
+  static ɵinj = i0.ɵɵngDeclareInjector({
+    minVersion: "12.0.0",
+    version: "21.3.0-next.0+sha-4835277",
+    ngImport: i0,
+    type: HammerModule,
+    providers: [{
+      provide: EVENT_MANAGER_PLUGINS,
+      useClass: HammerGesturesPlugin,
+      multi: true,
+      deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, Injector, [new Optional(), HAMMER_LOADER]]
+    }, {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerGestureConfig
+    }]
+  });
+}
+i0.ɵɵngDeclareClassMetadata({
+  minVersion: "12.0.0",
+  version: "21.3.0-next.0+sha-4835277",
+  ngImport: i0,
+  type: HammerModule,
+  decorators: [{
+    type: NgModule,
+    args: [{
+      providers: [{
+        provide: EVENT_MANAGER_PLUGINS,
+        useClass: HammerGesturesPlugin,
+        multi: true,
+        deps: [DOCUMENT, HAMMER_GESTURE_CONFIG, Injector, [new Optional(), HAMMER_LOADER]]
+      }, {
+        provide: HAMMER_GESTURE_CONFIG,
+        useClass: HammerGestureConfig
+      }]
+    }]
+  }]
+});
 
 class DomSanitizer {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8+sha-c326548",
+    version: "21.3.0-next.0+sha-4835277",
     ngImport: i0,
     type: DomSanitizer,
     deps: [],
@@ -330,7 +516,7 @@ class DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8+sha-c326548",
+    version: "21.3.0-next.0+sha-4835277",
     ngImport: i0,
     type: DomSanitizer,
     providedIn: 'root',
@@ -339,7 +525,7 @@ class DomSanitizer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8+sha-c326548",
+  version: "21.3.0-next.0+sha-4835277",
   ngImport: i0,
   type: DomSanitizer,
   decorators: [{
@@ -407,7 +593,7 @@ class DomSanitizerImpl extends DomSanitizer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8+sha-c326548",
+    version: "21.3.0-next.0+sha-4835277",
     ngImport: i0,
     type: DomSanitizerImpl,
     deps: [{
@@ -417,7 +603,7 @@ class DomSanitizerImpl extends DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8+sha-c326548",
+    version: "21.3.0-next.0+sha-4835277",
     ngImport: i0,
     type: DomSanitizerImpl,
     providedIn: 'root'
@@ -425,7 +611,7 @@ class DomSanitizerImpl extends DomSanitizer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8+sha-c326548",
+  version: "21.3.0-next.0+sha-4835277",
   ngImport: i0,
   type: DomSanitizerImpl,
   decorators: [{
@@ -443,7 +629,71 @@ i0.ɵɵngDeclareClassMetadata({
   }]
 });
 
-const VERSION = /* @__PURE__ */new Version('22.0.0-next.8+sha-c326548');
+var HydrationFeatureKind;
+(function (HydrationFeatureKind) {
+  HydrationFeatureKind[HydrationFeatureKind["NoHttpTransferCache"] = 0] = "NoHttpTransferCache";
+  HydrationFeatureKind[HydrationFeatureKind["HttpTransferCacheOptions"] = 1] = "HttpTransferCacheOptions";
+  HydrationFeatureKind[HydrationFeatureKind["I18nSupport"] = 2] = "I18nSupport";
+  HydrationFeatureKind[HydrationFeatureKind["EventReplay"] = 3] = "EventReplay";
+  HydrationFeatureKind[HydrationFeatureKind["IncrementalHydration"] = 4] = "IncrementalHydration";
+})(HydrationFeatureKind || (HydrationFeatureKind = {}));
+function hydrationFeature(ɵkind, ɵproviders = [], ɵoptions = {}) {
+  return {
+    ɵkind,
+    ɵproviders
+  };
+}
+function withNoHttpTransferCache() {
+  return hydrationFeature(HydrationFeatureKind.NoHttpTransferCache);
+}
+function withHttpTransferCacheOptions(options) {
+  return hydrationFeature(HydrationFeatureKind.HttpTransferCacheOptions, _withHttpTransferCache(options));
+}
+function withI18nSupport() {
+  return hydrationFeature(HydrationFeatureKind.I18nSupport, _withI18nSupport());
+}
+function withEventReplay() {
+  return hydrationFeature(HydrationFeatureKind.EventReplay, _withEventReplay());
+}
+function withIncrementalHydration() {
+  return hydrationFeature(HydrationFeatureKind.IncrementalHydration, _withIncrementalHydration());
+}
+function provideEnabledBlockingInitialNavigationDetector() {
+  return [{
+    provide: ENVIRONMENT_INITIALIZER,
+    useValue: () => {
+      const isEnabledBlockingInitialNavigation = inject(_IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, {
+        optional: true
+      });
+      if (isEnabledBlockingInitialNavigation) {
+        const console = inject(_Console);
+        const message = _formatRuntimeError(5001, 'Configuration error: found both hydration and enabledBlocking initial navigation ' + 'in the same application, which is a contradiction.');
+        console.warn(message);
+      }
+    },
+    multi: true
+  }];
+}
+function provideClientHydration(...features) {
+  const providers = [];
+  const featuresKind = new Set();
+  for (const {
+    ɵproviders,
+    ɵkind
+  } of features) {
+    featuresKind.add(ɵkind);
+    if (ɵproviders.length) {
+      providers.push(ɵproviders);
+    }
+  }
+  const hasHttpTransferCacheOptions = featuresKind.has(HydrationFeatureKind.HttpTransferCacheOptions);
+  if (typeof ngDevMode !== 'undefined' && ngDevMode && featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) && hasHttpTransferCacheOptions) {
+    throw new _RuntimeError(5001, 'Configuration error: found both withHttpTransferCacheOptions() and withNoHttpTransferCache() in the same call to provideClientHydration(), which is a contradiction.');
+  }
+  return makeEnvironmentProviders([typeof ngDevMode !== 'undefined' && ngDevMode ? provideEnabledBlockingInitialNavigationDetector() : [], typeof ngDevMode !== 'undefined' && ngDevMode ? provideStabilityDebugging() : [], _withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : _withHttpTransferCache({}), providers]);
+}
 
-export { By, DomSanitizer, HydrationFeatureKind, Meta, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, DomSanitizerImpl as ɵDomSanitizerImpl };
+const VERSION = /* @__PURE__ */new Version('21.3.0-next.0+sha-4835277');
+
+export { By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManagerPlugin, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, HydrationFeatureKind, Meta, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, DomSanitizerImpl as ɵDomSanitizerImpl, HammerGesturesPlugin as ɵHammerGesturesPlugin };
 //# sourceMappingURL=platform-browser.mjs.map
