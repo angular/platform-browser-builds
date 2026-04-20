@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.8+sha-3ae40e6
+ * @license Angular v22.0.0-next.8+sha-c04c0b9
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -108,7 +108,9 @@ declare function createApplication(options?: ApplicationConfig, context?: Bootst
  *
  * @publicApi
  */
-declare function provideProtractorTestingSupport(): Provider[];
+declare function provideProtractorTestingSupport(options?: {
+    usePendingTasksForStability?: boolean;
+}): Provider[];
 /**
  * A factory function that returns a `PlatformRef` instance associated with browser service
  * providers.
