@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.11+sha-609f930
+ * @license Angular v22.0.0-next.11+sha-8ebae1d
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -620,7 +620,6 @@ declare abstract class DomSanitizer implements Sanitizer {
 }
 declare class DomSanitizerImpl extends DomSanitizer {
     private _doc;
-    constructor(_doc: any);
     sanitize(ctx: SecurityContext, value: SafeValue | string | null): string | null;
     bypassSecurityTrustHtml(value: string): SafeHtml;
     bypassSecurityTrustStyle(value: string): SafeStyle;
