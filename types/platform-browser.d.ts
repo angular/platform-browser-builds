@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.2.14+sha-525e160
+ * @license Angular v21.2.14+sha-37e8aad
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -117,6 +117,7 @@ declare class Meta {
     private _getOrCreateElement;
     private _setMetaElementAttributes;
     private _parseSelector;
+    private _escapeSelectorValue;
     private _containsAttributes;
     private _getMetaKeyMap;
     static ɵfac: i0.ɵɵFactoryDeclaration<Meta, never>;
