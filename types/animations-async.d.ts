@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.0-next.0+sha-140c4d0
+ * @license Angular v22.1.0-next.0+sha-6f56202
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -52,7 +52,7 @@ declare class AsyncAnimationRendererFactory implements OnDestroy, RendererFactor
     private _engine?;
     /**
      *
-     * @param moduleImpl allows to provide a mock implmentation (or will load the animation module)
+     * @param moduleImpl allows to provide a mock implementation (or will load the animation module)
      */
     constructor(doc: Document, delegate: RendererFactory2, zone: NgZone, animationType: 'animations' | 'noop', moduleImpl?: Promise<{
         ɵcreateEngine: (type: "animations" | "noop", doc: Document) => _AnimationEngine;
