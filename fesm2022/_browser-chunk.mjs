@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.0-next.1+sha-c23ddd6
+ * @license Angular v22.1.0-next.1+sha-ffcc8ee
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -225,7 +225,7 @@ class KeyEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.1+sha-c23ddd6",
+    version: "22.1.0-next.1+sha-ffcc8ee",
     ngImport: i0,
     type: KeyEventsPlugin,
     deps: [{
@@ -235,14 +235,14 @@ class KeyEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.1+sha-c23ddd6",
+    version: "22.1.0-next.1+sha-ffcc8ee",
     ngImport: i0,
     type: KeyEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.1+sha-c23ddd6",
+  version: "22.1.0-next.1+sha-ffcc8ee",
   ngImport: i0,
   type: KeyEventsPlugin,
   decorators: [{
@@ -369,7 +369,7 @@ class BrowserModule {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.1+sha-c23ddd6",
+    version: "22.1.0-next.1+sha-ffcc8ee",
     ngImport: i0,
     type: BrowserModule,
     deps: [],
@@ -377,14 +377,14 @@ class BrowserModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.1.0-next.1+sha-c23ddd6",
+    version: "22.1.0-next.1+sha-ffcc8ee",
     ngImport: i0,
     type: BrowserModule,
     exports: [CommonModule, ApplicationModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.1.0-next.1+sha-c23ddd6",
+    version: "22.1.0-next.1+sha-ffcc8ee",
     ngImport: i0,
     type: BrowserModule,
     providers: [...BROWSER_MODULE_PROVIDERS, ...TESTABILITY_PROVIDERS],
@@ -393,7 +393,7 @@ class BrowserModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.1+sha-c23ddd6",
+  version: "22.1.0-next.1+sha-ffcc8ee",
   ngImport: i0,
   type: BrowserModule,
   decorators: [{
