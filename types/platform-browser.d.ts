@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.0-next.1+sha-e5d7b3a
+ * @license Angular v22.1.0-next.1+sha-dead64f
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -738,7 +738,7 @@ declare const enum RuntimeErrorCode {
     UNSUPPORTED_ZONEJS_INSTANCE = -5000,
     HYDRATION_CONFLICTING_FEATURES = 5001,
     BROWSER_MODULE_ALREADY_LOADED = 5100,
-    NO_PLUGIN_FOR_EVENT = 5101,
+    NO_PLUGIN_FOR_EVENT = -5101,
     UNSUPPORTED_EVENT_TARGET = 5102,
     TESTABILITY_NOT_FOUND = 5103,
     ROOT_NODE_NOT_FOUND = -5104,
