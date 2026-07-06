@@ -1,12 +1,12 @@
 /**
- * @license Angular v22.1.0-next.4+sha-b126dc9
+ * @license Angular v22.1.0-next.4+sha-731d665
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 export { BootstrapContext, BrowserModule, bootstrapApplication, createApplication, platformBrowser, provideProtractorTestingSupport } from './_browser-chunk.js';
 import * as i0 from '@angular/core';
-import { ComponentRef, Predicate, DebugNode, DebugElement, Type, ListenerOptions, InjectionToken, NgZone, ɵSharedStylesHost as _SharedStylesHost, OnDestroy, RendererFactory2, ɵTracingService as _TracingService, ɵTracingSnapshot as _TracingSnapshot, RendererType2, Renderer2, Provider, EnvironmentProviders, Sanitizer, SecurityContext, GetTestability, TestabilityRegistry, Testability, Version } from '@angular/core';
+import { ComponentRef, Predicate, DebugNode, DebugElement, Type, ListenerOptions, InjectionToken, NgZone, ɵSharedStylesHost as _SharedStylesHost, OnDestroy, EnvironmentProviders, RendererFactory2, ɵTracingService as _TracingService, ɵTracingSnapshot as _TracingSnapshot, RendererType2, Renderer2, Provider, Sanitizer, SecurityContext, GetTestability, TestabilityRegistry, Testability, Version } from '@angular/core';
 import { HttpTransferCacheOptions } from '@angular/common/http';
 import { ɵDomAdapter as _DomAdapter } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
@@ -322,6 +322,14 @@ declare class SharedStylesHost implements _SharedStylesHost, OnDestroy {
  * @publicApi
  */
 declare const REMOVE_STYLES_ON_COMPONENT_DESTROY: InjectionToken<boolean>;
+/**
+ * Configures the application to use the given namespace for all CSS variables.
+ *
+ * @param namespace The prefix string to use as a namespace. If not provided, it defaults
+ *     to the `APP_ID`. An underscore is appended unconditionally.
+ * @publicApi
+ */
+declare function provideCssVarNamespacing(namespace?: string): EnvironmentProviders;
 declare class DomRendererFactory2 implements RendererFactory2, OnDestroy {
     private readonly eventManager;
     private readonly sharedStylesHost;
@@ -333,7 +341,8 @@ declare class DomRendererFactory2 implements RendererFactory2, OnDestroy {
     private readonly tracingService;
     private readonly rendererByCompId;
     private readonly defaultRenderer;
-    constructor(eventManager: EventManager, sharedStylesHost: SharedStylesHost, appId: string, removeStylesOnCompDestroy: boolean, doc: Document, ngZone: NgZone, nonce?: string | null, tracingService?: _TracingService<_TracingSnapshot> | null);
+    private readonly cssVarNamespace;
+    constructor(eventManager: EventManager, sharedStylesHost: SharedStylesHost, appId: string, removeStylesOnCompDestroy: boolean, doc: Document, ngZone: NgZone, nonce?: string | null, tracingService?: _TracingService<_TracingSnapshot> | null, cssVarNamespace?: string | null);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     private getOrCreateRenderer;
     ngOnDestroy(): void;
@@ -342,8 +351,29 @@ declare class DomRendererFactory2 implements RendererFactory2, OnDestroy {
      * @param componentId ID of the component that is being replaced.
      */
     protected componentReplaced(componentId: string): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<DomRendererFactory2, [null, null, null, null, null, null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<DomRendererFactory2, [null, null, null, null, null, null, null, { optional: true; }, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<DomRendererFactory2>;
+}
+
+/**
+ * A service that can be used to manually namespace CSS variable names at runtime.
+ * This is useful when reading or setting CSS variables dynamically in JavaScript that
+ * were transformed by the compiler during the build.
+ *
+ * @publicApi 22.1
+ */
+declare class CssVarNamespacer {
+    private readonly namespacePrefix;
+    /**
+     * Prepends the namespace prefix to a CSS variable name.
+     *
+     * @param name The CSS variable name to namespace, including the leading `--`.
+     * @returns The namespaced CSS variable name, including the leading `--`. Returns the input
+     *     unchanged if no namespace is configured.
+     */
+    namespace(name: string): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<CssVarNamespacer, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<CssVarNamespacer>;
 }
 
 /**
@@ -760,5 +790,5 @@ declare const enum RuntimeErrorCode {
  */
 declare const VERSION: Version;
 
-export { By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, HydrationFeatureKind, Meta, REMOVE_STYLES_ON_COMPONENT_DESTROY, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, KeyEventsPlugin as ɵKeyEventsPlugin, RuntimeErrorCode as ɵRuntimeErrorCode, SharedStylesHost as ɵSharedStylesHost };
+export { By, CssVarNamespacer, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, HydrationFeatureKind, Meta, REMOVE_STYLES_ON_COMPONENT_DESTROY, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, provideCssVarNamespacing, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, KeyEventsPlugin as ɵKeyEventsPlugin, RuntimeErrorCode as ɵRuntimeErrorCode, SharedStylesHost as ɵSharedStylesHost };
 export type { HydrationFeature, MetaDefinition, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl, SafeValue };
