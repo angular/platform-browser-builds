@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.0-next.4+sha-6edabc6
+ * @license Angular v22.1.0-next.4+sha-56847dc
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -91,7 +91,7 @@ class Meta {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: Meta,
     deps: [{
@@ -101,7 +101,7 @@ class Meta {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: Meta,
     providedIn: 'root'
@@ -109,7 +109,7 @@ class Meta {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.4+sha-6edabc6",
+  version: "22.1.0-next.4+sha-56847dc",
   ngImport: i0,
   type: Meta,
   decorators: [{
@@ -143,7 +143,7 @@ class Title {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: Title,
     deps: [{
@@ -153,7 +153,7 @@ class Title {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: Title,
     providedIn: 'root'
@@ -161,7 +161,7 @@ class Title {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.4+sha-6edabc6",
+  version: "22.1.0-next.4+sha-56847dc",
   ngImport: i0,
   type: Title,
   decorators: [{
@@ -266,7 +266,7 @@ class CssVarNamespacer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: CssVarNamespacer,
     deps: [],
@@ -274,14 +274,14 @@ class CssVarNamespacer {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: CssVarNamespacer
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.4+sha-6edabc6",
+  version: "22.1.0-next.4+sha-56847dc",
   ngImport: i0,
   type: CssVarNamespacer,
   decorators: [{
@@ -382,7 +382,7 @@ function provideClientHydration(...features) {
 class DomSanitizer {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: DomSanitizer,
     deps: [],
@@ -390,7 +390,7 @@ class DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: DomSanitizer,
     providedIn: 'root',
@@ -399,7 +399,7 @@ class DomSanitizer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.4+sha-6edabc6",
+  version: "22.1.0-next.4+sha-56847dc",
   ngImport: i0,
   type: DomSanitizer,
   decorators: [{
@@ -463,7 +463,7 @@ class DomSanitizerImpl extends DomSanitizer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: DomSanitizerImpl,
     deps: [],
@@ -471,14 +471,14 @@ class DomSanitizerImpl extends DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.1.0-next.4+sha-6edabc6",
+    version: "22.1.0-next.4+sha-56847dc",
     ngImport: i0,
     type: DomSanitizerImpl
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.4+sha-6edabc6",
+  version: "22.1.0-next.4+sha-56847dc",
   ngImport: i0,
   type: DomSanitizerImpl,
   decorators: [{
@@ -486,7 +486,7 @@ i0.ɵɵngDeclareClassMetadata({
   }]
 });
 
-const VERSION = /* @__PURE__ */new Version('22.1.0-next.4+sha-6edabc6');
+const VERSION = /* @__PURE__ */new Version('22.1.0-next.4+sha-56847dc');
 
 export { By, CssVarNamespacer, DomSanitizer, HydrationFeatureKind, Meta, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.mjs.map
