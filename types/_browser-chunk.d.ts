@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.5+sha-bec1413
+ * @license Angular v22.0.5+sha-748faa4
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -23,7 +23,7 @@ interface BootstrapContext {
 /**
  * Bootstraps an instance of an Angular application and renders a standalone component as the
  * application's root component. More information about standalone components can be found in [this
- * guide](guide/components/importing).
+ * guide](guide/components).
  *
  * @usageNotes
  * The root component passed into this function **must** be a standalone one
