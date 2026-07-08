@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.0-next.4+sha-39ea1c5
+ * @license Angular v22.1.0-next.4+sha-c0eaaed
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -56,9 +56,9 @@ type MetaDefinition = {
  * @publicApi
  */
 declare class Meta {
-    private _doc;
-    private _dom;
-    constructor(_doc: any);
+    private readonly _doc;
+    private readonly _dom;
+    private _cachedHead;
     /**
      * Retrieves or creates a specific `<meta>` tag element in the current HTML document.
      * In searching for an existing tag, Angular attempts to match the `name` or `property` attribute
@@ -115,11 +115,6 @@ declare class Meta {
      */
     removeTagElement(meta: HTMLMetaElement): void;
     private _getOrCreateElement;
-    private _setMetaElementAttributes;
-    private _parseSelector;
-    private _escapeSelectorValue;
-    private _containsAttributes;
-    private _getMetaKeyMap;
     static ɵfac: i0.ɵɵFactoryDeclaration<Meta, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<Meta>;
 }
