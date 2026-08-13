@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.1+sha-e9660b1
+ * @license Angular v22.1.1+sha-910f391
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import * as i0 from '@angular/core';
 import { ModuleWithProviders, Provider, OnDestroy } from '@angular/core';
 export { ANIMATION_MODULE_TYPE } from '@angular/core';
-import { BrowserModule } from './_browser-chunk.js';
+import { BrowserModule } from './platform-browser.js';
 import { ɵAnimationEngine as _AnimationEngine, AnimationDriver, ɵAnimationStyleNormalizer as _AnimationStyleNormalizer } from '@angular/animations/browser';
 import '@angular/common';
 
