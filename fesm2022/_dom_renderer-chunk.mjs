@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.2.0-next.2+sha-d3d3bc6
+ * @license Angular v22.2.0-next.2+sha-c6e4a36
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -32,7 +32,7 @@ class DomEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-d3d3bc6",
+    version: "22.2.0-next.2+sha-c6e4a36",
     ngImport: i0,
     type: DomEventsPlugin,
     deps: [{
@@ -42,14 +42,14 @@ class DomEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-d3d3bc6",
+    version: "22.2.0-next.2+sha-c6e4a36",
     ngImport: i0,
     type: DomEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.2+sha-d3d3bc6",
+  version: "22.2.0-next.2+sha-c6e4a36",
   ngImport: i0,
   type: DomEventsPlugin,
   decorators: [{
@@ -103,7 +103,7 @@ class EventManager {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-d3d3bc6",
+    version: "22.2.0-next.2+sha-c6e4a36",
     ngImport: i0,
     type: EventManager,
     deps: [{
@@ -115,14 +115,14 @@ class EventManager {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-d3d3bc6",
+    version: "22.2.0-next.2+sha-c6e4a36",
     ngImport: i0,
     type: EventManager
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.2+sha-d3d3bc6",
+  version: "22.2.0-next.2+sha-c6e4a36",
   ngImport: i0,
   type: EventManager,
   decorators: [{
@@ -272,7 +272,7 @@ class SharedStylesHost {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-d3d3bc6",
+    version: "22.2.0-next.2+sha-c6e4a36",
     ngImport: i0,
     type: SharedStylesHost,
     deps: [{
@@ -289,14 +289,14 @@ class SharedStylesHost {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-d3d3bc6",
+    version: "22.2.0-next.2+sha-c6e4a36",
     ngImport: i0,
     type: SharedStylesHost
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.2+sha-d3d3bc6",
+  version: "22.2.0-next.2+sha-c6e4a36",
   ngImport: i0,
   type: SharedStylesHost,
   decorators: [{
@@ -462,7 +462,7 @@ class DomRendererFactory2 {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-d3d3bc6",
+    version: "22.2.0-next.2+sha-c6e4a36",
     ngImport: i0,
     type: DomRendererFactory2,
     deps: [{
@@ -490,14 +490,14 @@ class DomRendererFactory2 {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-d3d3bc6",
+    version: "22.2.0-next.2+sha-c6e4a36",
     ngImport: i0,
     type: DomRendererFactory2
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.2+sha-d3d3bc6",
+  version: "22.2.0-next.2+sha-c6e4a36",
   ngImport: i0,
   type: DomRendererFactory2,
   decorators: [{
@@ -591,6 +591,9 @@ class DefaultDomRenderer2 {
   insertBefore(parent, newChild, refChild) {
     if (parent) {
       const targetParent = isTemplateNode(parent) ? parent.content : parent;
+      if (refChild != null && refChild.parentNode !== targetParent) {
+        throw new _RuntimeError(-5106, ngDevMode ? `Angular could not insert a node before ${describeDomNode(refChild)} because it is no longer a child of ${describeDomNode(targetParent)}. ` + `This can happen when code outside of Angular's control (for example, a browser extension or a script that directly manipulates the DOM) ` + `has moved or removed a node that Angular is still managing.` : describeDomNode(refChild));
+      }
       targetParent.insertBefore(newChild, refChild);
     }
   }
@@ -713,6 +716,10 @@ function checkNoSyntheticProp(name, nameKind) {
 }
 function isTemplateNode(node) {
   return node.tagName === 'TEMPLATE' && node.content !== undefined;
+}
+function describeDomNode(node) {
+  const textContent = node.textContent?.slice(0, 50);
+  return textContent ? `${node.nodeName} ("${textContent}")` : node.nodeName;
 }
 class ShadowDomRenderer extends DefaultDomRenderer2 {
   hostEl;
