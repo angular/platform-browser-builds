@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.2+sha-0cd243d
+ * @license Angular v22.1.2+sha-c04931c
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -768,6 +768,7 @@ declare const enum RuntimeErrorCode {
     TESTABILITY_NOT_FOUND = 5103,
     ROOT_NODE_NOT_FOUND = -5104,
     UNEXPECTED_SYNTHETIC_PROPERTY = 5105,
+    INSERT_BEFORE_NODE_NOT_FOUND = -5106,
     SANITIZATION_UNSAFE_SCRIPT = 5200,
     SANITIZATION_UNSAFE_RESOURCE_URL = -5201,
     SANITIZATION_UNEXPECTED_CTX = 5202,
