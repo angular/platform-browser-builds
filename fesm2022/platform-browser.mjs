@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.2.20+sha-dca0a77
+ * @license Angular v21.2.20+sha-c19a36c
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -8,7 +8,7 @@ export { BrowserModule, bootstrapApplication, createApplication, platformBrowser
 import { ɵgetDOM as _getDOM, DOCUMENT } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Inject, Injectable, ɵglobal as _global, ApplicationRef, InjectionToken, Injector, Optional, ɵConsole as _Console, NgModule, ɵRuntimeError as _RuntimeError, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, makeEnvironmentProviders, provideStabilityDebugging, ɵwithDomHydration as _withDomHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ɵwithIncrementalHydration as _withIncrementalHydration, ENVIRONMENT_INITIALIZER, inject, ɵIS_ENABLED_BLOCKING_INITIAL_NAVIGATION as _IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, ɵformatRuntimeError as _formatRuntimeError, Version } from '@angular/core';
+import { ɵRuntimeError as _RuntimeError, Inject, Injectable, ɵglobal as _global, ApplicationRef, InjectionToken, Injector, Optional, ɵConsole as _Console, NgModule, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, makeEnvironmentProviders, provideStabilityDebugging, ɵwithDomHydration as _withDomHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ɵwithIncrementalHydration as _withIncrementalHydration, ENVIRONMENT_INITIALIZER, inject, ɵIS_ENABLED_BLOCKING_INITIAL_NAVIGATION as _IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, ɵformatRuntimeError as _formatRuntimeError, Version } from '@angular/core';
 import { EVENT_MANAGER_PLUGINS, EventManagerPlugin } from './_dom_renderer-chunk.mjs';
 export { EventManager, REMOVE_STYLES_ON_COMPONENT_DESTROY, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, SharedStylesHost as ɵSharedStylesHost } from './_dom_renderer-chunk.mjs';
 import { ɵwithHttpTransferCache as _withHttpTransferCache } from '@angular/common/http';
@@ -45,6 +45,7 @@ class Meta {
   }
   updateTag(tag, selector) {
     if (!tag) return null;
+    this._validateMetaDefinition(tag);
     selector = selector || this._parseSelector(tag);
     const meta = this.getTag(selector);
     if (meta) {
@@ -61,6 +62,7 @@ class Meta {
     }
   }
   _getOrCreateElement(meta, forceCreation = false) {
+    this._validateMetaDefinition(meta);
     if (!forceCreation) {
       const selector = this._parseSelector(meta);
       const elem = this.getTags(selector).filter(elem => this._containsAttributes(meta, elem))[0];
@@ -83,15 +85,23 @@ class Meta {
   _escapeSelectorValue(value) {
     return `"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
   }
+  _validateMetaDefinition(tag) {
+    for (const prop of Object.keys(tag)) {
+      const attributeName = this._getMetaKeyMap(prop);
+      if (attributeName.toLowerCase().startsWith('on')) {
+        throw new _RuntimeError(5203, (typeof ngDevMode === 'undefined' || ngDevMode) && `The Meta service does not allow setting event handler attribute '${attributeName}' for security reasons.`);
+      }
+    }
+  }
   _containsAttributes(tag, elem) {
     return Object.keys(tag).every(key => elem.getAttribute(this._getMetaKeyMap(key)) === tag[key]);
   }
   _getMetaKeyMap(prop) {
-    return META_KEYS_MAP[prop] || prop;
+    return Object.hasOwn(META_KEYS_MAP, prop) ? META_KEYS_MAP[prop] : prop;
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: Meta,
     deps: [{
@@ -101,7 +111,7 @@ class Meta {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: Meta,
     providedIn: 'root'
@@ -109,7 +119,7 @@ class Meta {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.20+sha-dca0a77",
+  version: "21.2.20+sha-c19a36c",
   ngImport: i0,
   type: Meta,
   decorators: [{
@@ -143,7 +153,7 @@ class Title {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: Title,
     deps: [{
@@ -153,7 +163,7 @@ class Title {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: Title,
     providedIn: 'root'
@@ -161,7 +171,7 @@ class Title {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.20+sha-dca0a77",
+  version: "21.2.20+sha-c19a36c",
   ngImport: i0,
   type: Title,
   decorators: [{
@@ -304,7 +314,7 @@ class HammerGestureConfig {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: HammerGestureConfig,
     deps: [],
@@ -312,14 +322,14 @@ class HammerGestureConfig {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: HammerGestureConfig
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.20+sha-dca0a77",
+  version: "21.2.20+sha-c19a36c",
   ngImport: i0,
   type: HammerGestureConfig,
   decorators: [{
@@ -403,7 +413,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: HammerGesturesPlugin,
     deps: [{
@@ -420,14 +430,14 @@ class HammerGesturesPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: HammerGesturesPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.20+sha-dca0a77",
+  version: "21.2.20+sha-c19a36c",
   ngImport: i0,
   type: HammerGesturesPlugin,
   decorators: [{
@@ -460,7 +470,7 @@ i0.ɵɵngDeclareClassMetadata({
 class HammerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: HammerModule,
     deps: [],
@@ -468,13 +478,13 @@ class HammerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: HammerModule
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: HammerModule,
     providers: [{
@@ -490,7 +500,7 @@ class HammerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.20+sha-dca0a77",
+  version: "21.2.20+sha-c19a36c",
   ngImport: i0,
   type: HammerModule,
   decorators: [{
@@ -512,7 +522,7 @@ i0.ɵɵngDeclareClassMetadata({
 class DomSanitizer {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: DomSanitizer,
     deps: [],
@@ -520,7 +530,7 @@ class DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: DomSanitizer,
     providedIn: 'root',
@@ -529,7 +539,7 @@ class DomSanitizer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.20+sha-dca0a77",
+  version: "21.2.20+sha-c19a36c",
   ngImport: i0,
   type: DomSanitizer,
   decorators: [{
@@ -597,7 +607,7 @@ class DomSanitizerImpl extends DomSanitizer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: DomSanitizerImpl,
     deps: [{
@@ -607,7 +617,7 @@ class DomSanitizerImpl extends DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.20+sha-dca0a77",
+    version: "21.2.20+sha-c19a36c",
     ngImport: i0,
     type: DomSanitizerImpl,
     providedIn: 'root'
@@ -615,7 +625,7 @@ class DomSanitizerImpl extends DomSanitizer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.20+sha-dca0a77",
+  version: "21.2.20+sha-c19a36c",
   ngImport: i0,
   type: DomSanitizerImpl,
   decorators: [{
@@ -697,7 +707,7 @@ function provideClientHydration(...features) {
   return makeEnvironmentProviders([typeof ngDevMode !== 'undefined' && ngDevMode ? provideEnabledBlockingInitialNavigationDetector() : [], typeof ngDevMode !== 'undefined' && ngDevMode ? provideStabilityDebugging() : [], _withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : _withHttpTransferCache({}), providers]);
 }
 
-const VERSION = /* @__PURE__ */new Version('21.2.20+sha-dca0a77');
+const VERSION = /* @__PURE__ */new Version('21.2.20+sha-c19a36c');
 
 export { By, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManagerPlugin, HAMMER_GESTURE_CONFIG, HAMMER_LOADER, HammerGestureConfig, HammerModule, HydrationFeatureKind, Meta, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, DomSanitizerImpl as ɵDomSanitizerImpl, HammerGesturesPlugin as ɵHammerGesturesPlugin };
 //# sourceMappingURL=platform-browser.mjs.map
