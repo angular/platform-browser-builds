@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.2.0-next.2+sha-38d0932
+ * @license Angular v22.2.0-next.2+sha-46d2cb7
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -8,7 +8,7 @@ export { BrowserModule, bootstrapApplication, createApplication, platformBrowser
 import { DOCUMENT, ɵgetDOM as _getDOM } from '@angular/common';
 export { ɵgetDOM } from '@angular/common';
 import * as i0 from '@angular/core';
-import { inject, Service, Inject, Injectable, ɵglobal as _global, ApplicationRef, ɵRuntimeError as _RuntimeError, makeEnvironmentProviders, ɵCACHE_ACTIVE as _CACHE_ACTIVE, APP_BOOTSTRAP_LISTENER, provideStabilityDebugging, ɵwithDomHydration as _withDomHydration, ɵwithIncrementalHydration as _withIncrementalHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ENVIRONMENT_INITIALIZER, ɵIS_ENABLED_BLOCKING_INITIAL_NAVIGATION as _IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, ɵConsole as _Console, ɵformatRuntimeError as _formatRuntimeError, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, Version } from '@angular/core';
+import { inject, ɵRuntimeError as _RuntimeError, Service, Inject, Injectable, ɵglobal as _global, ApplicationRef, makeEnvironmentProviders, ɵCACHE_ACTIVE as _CACHE_ACTIVE, APP_BOOTSTRAP_LISTENER, provideStabilityDebugging, ɵwithDomHydration as _withDomHydration, ɵwithIncrementalHydration as _withIncrementalHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ENVIRONMENT_INITIALIZER, ɵIS_ENABLED_BLOCKING_INITIAL_NAVIGATION as _IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, ɵConsole as _Console, ɵformatRuntimeError as _formatRuntimeError, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, Version } from '@angular/core';
 import { CSS_VAR_NAMESPACE } from './_dom_renderer-chunk.mjs';
 export { EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, REMOVE_STYLES_ON_COMPONENT_DESTROY, provideCssVarNamespacing, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, SharedStylesHost as ɵSharedStylesHost } from './_dom_renderer-chunk.mjs';
 import { ɵwithHttpTransferCache as _withHttpTransferCache } from '@angular/common/http';
@@ -35,6 +35,7 @@ class Meta {
     return list ? Array.from(list).filter(elem => isMetaTag(elem)) : [];
   }
   updateTag(tag, selector) {
+    validateMetaDefinition(tag);
     selector ??= parseSelector(tag);
     const meta = this.getTag(selector);
     if (meta) {
@@ -52,6 +53,7 @@ class Meta {
     }
   }
   _getOrCreateElement(meta, forceCreation = false) {
+    validateMetaDefinition(meta);
     if (!forceCreation) {
       const selector = parseSelector(meta);
       const elem = this.getTags(selector).filter(elem => containsAttributes(meta, elem))[0];
@@ -65,7 +67,7 @@ class Meta {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: Meta,
     deps: [],
@@ -73,14 +75,14 @@ class Meta {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: Meta
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.2+sha-38d0932",
+  version: "22.2.0-next.2+sha-46d2cb7",
   ngImport: i0,
   type: Meta,
   decorators: [{
@@ -93,6 +95,14 @@ function buildMetaSelector(attrSelector) {
 function setMetaElementAttributes(tag, el) {
   Object.keys(tag).forEach(prop => el.setAttribute(getMetaKeyMap(prop), tag[prop]));
 }
+function validateMetaDefinition(tag) {
+  for (const prop of Object.keys(tag)) {
+    const attributeName = getMetaKeyMap(prop);
+    if (attributeName.toLowerCase().startsWith('on')) {
+      throw new _RuntimeError(5203, (typeof ngDevMode === 'undefined' || ngDevMode) && `The Meta service does not allow setting event handler attribute '${attributeName}' for security reasons.`);
+    }
+  }
+}
 function parseSelector(tag) {
   const attr = tag.name ? 'name' : 'property';
   return `${attr}=${escapeSelectorValue(String(tag[attr]))}`;
@@ -104,7 +114,7 @@ function containsAttributes(tag, elem) {
   return Object.keys(tag).every(key => elem.getAttribute(getMetaKeyMap(key)) === tag[key]);
 }
 function getMetaKeyMap(prop) {
-  return META_KEYS_MAP[prop] || prop;
+  return Object.hasOwn(META_KEYS_MAP, prop) ? META_KEYS_MAP[prop] : prop;
 }
 function isMetaTag(tag) {
   return tag?.nodeName.toLowerCase() === 'meta';
@@ -126,7 +136,7 @@ class Title {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: Title,
     deps: [{
@@ -136,7 +146,7 @@ class Title {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: Title,
     providedIn: 'root'
@@ -144,7 +154,7 @@ class Title {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.2+sha-38d0932",
+  version: "22.2.0-next.2+sha-46d2cb7",
   ngImport: i0,
   type: Title,
   decorators: [{
@@ -249,7 +259,7 @@ class CssVarNamespacer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: CssVarNamespacer,
     deps: [],
@@ -257,14 +267,14 @@ class CssVarNamespacer {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: CssVarNamespacer
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.2+sha-38d0932",
+  version: "22.2.0-next.2+sha-46d2cb7",
   ngImport: i0,
   type: CssVarNamespacer,
   decorators: [{
@@ -365,7 +375,7 @@ function provideClientHydration(...features) {
 class DomSanitizer {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: DomSanitizer,
     deps: [],
@@ -373,7 +383,7 @@ class DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: DomSanitizer,
     providedIn: 'root',
@@ -382,7 +392,7 @@ class DomSanitizer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.2+sha-38d0932",
+  version: "22.2.0-next.2+sha-46d2cb7",
   ngImport: i0,
   type: DomSanitizer,
   decorators: [{
@@ -446,7 +456,7 @@ class DomSanitizerImpl extends DomSanitizer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: DomSanitizerImpl,
     deps: [],
@@ -454,14 +464,14 @@ class DomSanitizerImpl extends DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.2.0-next.2+sha-38d0932",
+    version: "22.2.0-next.2+sha-46d2cb7",
     ngImport: i0,
     type: DomSanitizerImpl
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.2+sha-38d0932",
+  version: "22.2.0-next.2+sha-46d2cb7",
   ngImport: i0,
   type: DomSanitizerImpl,
   decorators: [{
@@ -469,7 +479,7 @@ i0.ɵɵngDeclareClassMetadata({
   }]
 });
 
-const VERSION = /* @__PURE__ */new Version('22.2.0-next.2+sha-38d0932');
+const VERSION = /* @__PURE__ */new Version('22.2.0-next.2+sha-46d2cb7');
 
 export { By, CssVarNamespacer, DomSanitizer, HydrationFeatureKind, Meta, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.mjs.map

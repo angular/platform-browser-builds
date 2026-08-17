@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.2.0-next.2+sha-38d0932
+ * @license Angular v22.2.0-next.2+sha-46d2cb7
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -13,7 +13,8 @@ export { ɵgetDOM } from '@angular/common';
 
 /**
  * Represents the attributes of an HTML `<meta>` element. The element itself is
- * represented by the internal `HTMLMetaElement`.
+ * represented by the internal `HTMLMetaElement`. Event handler attributes, which start with
+ * `on`, are not allowed.
  *
  * @see [HTML meta tag](https://developer.mozilla.org/docs/Web/HTML/Element/meta)
  * @see {@link Meta}
@@ -772,6 +773,7 @@ declare const enum RuntimeErrorCode {
     SANITIZATION_UNSAFE_SCRIPT = 5200,
     SANITIZATION_UNSAFE_RESOURCE_URL = -5201,
     SANITIZATION_UNEXPECTED_CTX = 5202,
+    INVALID_EVENT_ATTRIBUTE = 5203,
     ANIMATION_RENDERER_ASYNC_LOADING_FAILURE = 5300
 }
 
