@@ -1,12 +1,12 @@
 /**
- * @license Angular v22.1.3+sha-bf69e85
+ * @license Angular v22.1.3+sha-b199bdf
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import { DOCUMENT, ɵgetDOM as _getDOM } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Inject, Injectable, InjectionToken, ɵRuntimeError as _RuntimeError, APP_ID, CSP_NONCE, PLATFORM_ID, Optional, makeEnvironmentProviders, ViewEncapsulation, ɵSHARED_STYLES_HOST as _SHARED_STYLES_HOST, ɵTracingService as _TracingService, RendererStyleFlags2, ɵallLeavingAnimations as _allLeavingAnimations } from '@angular/core';
+import { Inject, Injectable, InjectionToken, ɵRuntimeError as _RuntimeError, APP_ID, CSP_NONCE, PLATFORM_ID, Optional, makeEnvironmentProviders, ViewEncapsulation, ɵSHARED_STYLES_HOST as _SHARED_STYLES_HOST, ɵTracingService as _TracingService, ɵdescribeDomNode as _describeDomNode, RendererStyleFlags2, ɵallLeavingAnimations as _allLeavingAnimations } from '@angular/core';
 
 class EventManagerPlugin {
   _doc;
@@ -32,7 +32,7 @@ class DomEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.3+sha-bf69e85",
+    version: "22.1.3+sha-b199bdf",
     ngImport: i0,
     type: DomEventsPlugin,
     deps: [{
@@ -42,14 +42,14 @@ class DomEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.3+sha-bf69e85",
+    version: "22.1.3+sha-b199bdf",
     ngImport: i0,
     type: DomEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.3+sha-bf69e85",
+  version: "22.1.3+sha-b199bdf",
   ngImport: i0,
   type: DomEventsPlugin,
   decorators: [{
@@ -103,7 +103,7 @@ class EventManager {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.3+sha-bf69e85",
+    version: "22.1.3+sha-b199bdf",
     ngImport: i0,
     type: EventManager,
     deps: [{
@@ -115,14 +115,14 @@ class EventManager {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.3+sha-bf69e85",
+    version: "22.1.3+sha-b199bdf",
     ngImport: i0,
     type: EventManager
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.3+sha-bf69e85",
+  version: "22.1.3+sha-b199bdf",
   ngImport: i0,
   type: EventManager,
   decorators: [{
@@ -272,7 +272,7 @@ class SharedStylesHost {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.3+sha-bf69e85",
+    version: "22.1.3+sha-b199bdf",
     ngImport: i0,
     type: SharedStylesHost,
     deps: [{
@@ -289,14 +289,14 @@ class SharedStylesHost {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.3+sha-bf69e85",
+    version: "22.1.3+sha-b199bdf",
     ngImport: i0,
     type: SharedStylesHost
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.3+sha-bf69e85",
+  version: "22.1.3+sha-b199bdf",
   ngImport: i0,
   type: SharedStylesHost,
   decorators: [{
@@ -462,7 +462,7 @@ class DomRendererFactory2 {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.3+sha-bf69e85",
+    version: "22.1.3+sha-b199bdf",
     ngImport: i0,
     type: DomRendererFactory2,
     deps: [{
@@ -490,14 +490,14 @@ class DomRendererFactory2 {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.3+sha-bf69e85",
+    version: "22.1.3+sha-b199bdf",
     ngImport: i0,
     type: DomRendererFactory2
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.3+sha-bf69e85",
+  version: "22.1.3+sha-b199bdf",
   ngImport: i0,
   type: DomRendererFactory2,
   decorators: [{
@@ -592,7 +592,7 @@ class DefaultDomRenderer2 {
     if (parent) {
       const targetParent = isTemplateNode(parent) ? parent.content : parent;
       if (refChild != null && refChild.parentNode !== targetParent) {
-        throw new _RuntimeError(-5106, ngDevMode ? `Angular could not insert a node before ${describeDomNode(refChild)} because it is no longer a child of ${describeDomNode(targetParent)}. ` + `This can happen when code outside of Angular's control (for example, a browser extension or a script that directly manipulates the DOM) ` + `has moved or removed a node that Angular is still managing.` : describeDomNode(refChild));
+        throw new _RuntimeError(-5106, ngDevMode && `Angular could not insert a node before ${_describeDomNode(refChild)} because it is no longer a child of ${_describeDomNode(targetParent)}. ` + `This can happen when code outside of Angular's control (for example, a browser extension or a script that directly manipulates the DOM) ` + `has moved or removed a node that Angular is still managing.`);
       }
       targetParent.insertBefore(newChild, refChild);
     }
@@ -716,10 +716,6 @@ function checkNoSyntheticProp(name, nameKind) {
 }
 function isTemplateNode(node) {
   return node.tagName === 'TEMPLATE' && node.content !== undefined;
-}
-function describeDomNode(node) {
-  const textContent = node.textContent?.slice(0, 50);
-  return textContent ? `${node.nodeName} ("${textContent}")` : node.nodeName;
 }
 class ShadowDomRenderer extends DefaultDomRenderer2 {
   hostEl;
