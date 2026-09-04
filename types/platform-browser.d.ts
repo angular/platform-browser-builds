@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.2.0-next.5+sha-81c3f3a
+ * @license Angular v22.2.0-next.5+sha-74c1716
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -117,7 +117,7 @@ declare class Meta {
     removeTagElement(meta: HTMLMetaElement): void;
     private _getOrCreateElement;
     static ɵfac: i0.ɵɵFactoryDeclaration<Meta, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<Meta>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
@@ -143,7 +143,7 @@ declare class Title {
      */
     setTitle(newTitle: string): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<Title, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<Title>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
@@ -264,7 +264,7 @@ declare class EventManager {
      */
     getZone(): NgZone;
     static ɵfac: i0.ɵɵFactoryDeclaration<EventManager, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<EventManager>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
@@ -307,7 +307,7 @@ declare class SharedStylesHost implements _SharedStylesHost, OnDestroy {
     removeHost(hostNode: Node): void;
     private addElement;
     static ɵfac: i0.ɵɵFactoryDeclaration<SharedStylesHost, [null, null, { optional: true; }, null]>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<SharedStylesHost>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
@@ -348,7 +348,7 @@ declare class DomRendererFactory2 implements RendererFactory2, OnDestroy {
      */
     protected componentReplaced(componentId: string): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<DomRendererFactory2, [null, null, null, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<DomRendererFactory2>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
@@ -369,7 +369,7 @@ declare class CssVarNamespacer {
      */
     namespace(name: string): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<CssVarNamespacer, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<CssVarNamespacer>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
@@ -643,7 +643,7 @@ declare abstract class DomSanitizer implements Sanitizer {
      */
     abstract bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
     static ɵfac: i0.ɵɵFactoryDeclaration<DomSanitizer, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<DomSanitizer>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 declare class DomSanitizerImpl extends DomSanitizer {
     private _doc;
@@ -654,7 +654,7 @@ declare class DomSanitizerImpl extends DomSanitizer {
     bypassSecurityTrustUrl(value: string): SafeUrl;
     bypassSecurityTrustResourceUrl(value: string): SafeResourceUrl;
     static ɵfac: i0.ɵɵFactoryDeclaration<DomSanitizerImpl, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<DomSanitizerImpl>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
@@ -693,7 +693,7 @@ declare class DomEventsPlugin extends EventManagerPlugin {
     addEventListener(element: HTMLElement, eventName: string, handler: Function, options?: ListenerOptions): Function;
     removeEventListener(target: any, eventName: string, callback: Function, options?: ListenerOptions): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<DomEventsPlugin, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<DomEventsPlugin>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
@@ -753,7 +753,7 @@ declare class KeyEventsPlugin extends EventManagerPlugin {
      */
     static eventCallback(fullKey: string, handler: Function, zone: NgZone): Function;
     static ɵfac: i0.ɵɵFactoryDeclaration<KeyEventsPlugin, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<KeyEventsPlugin>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
