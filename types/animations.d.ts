@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.5+sha-468b65b
+ * @license Angular v22.1.5+sha-dfe7be4
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -119,7 +119,7 @@ declare class InjectableAnimationEngine extends _AnimationEngine implements OnDe
     constructor(doc: Document, driver: AnimationDriver, normalizer: _AnimationStyleNormalizer);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<InjectableAnimationEngine, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<InjectableAnimationEngine>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 export { BrowserAnimationsModule, NoopAnimationsModule, provideAnimations, provideNoopAnimations, InjectableAnimationEngine as ɵInjectableAnimationEngine };

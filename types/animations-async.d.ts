@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.5+sha-468b65b
+ * @license Angular v22.1.5+sha-dfe7be4
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -78,7 +78,7 @@ declare class AsyncAnimationRendererFactory implements OnDestroy, RendererFactor
      */
     protected componentReplaced(componentId: string): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AsyncAnimationRendererFactory, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<AsyncAnimationRendererFactory>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 /**
  * Provides a custom scheduler function for the async loading of the animation package.
