@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-browser",
-  "version": "22.1.7+sha-7263031",
+  "version": "22.1.7+sha-c0ed0ad",
   "description": "Angular - library for using Angular in a web browser",
   "author": "angular",
   "license": "MIT",
@@ -11,9 +11,9 @@
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/animations": "22.1.7+sha-7263031",
-    "@angular/core": "22.1.7+sha-7263031",
-    "@angular/common": "22.1.7+sha-7263031"
+    "@angular/animations": "22.1.7+sha-c0ed0ad",
+    "@angular/core": "22.1.7+sha-c0ed0ad",
+    "@angular/common": "22.1.7+sha-c0ed0ad"
   },
   "peerDependenciesMeta": {
     "@angular/animations": {
