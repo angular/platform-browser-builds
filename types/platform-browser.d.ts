@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.2.1+sha-fef7dcc
+ * @license Angular v22.2.1+sha-7a5fc0c
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -323,6 +323,7 @@ declare const REMOVE_STYLES_ON_COMPONENT_DESTROY: InjectionToken<boolean>;
  *
  * @param namespace The prefix string to use as a namespace. If not provided, it defaults
  *     to the `APP_ID`. An underscore is appended unconditionally.
+ * @see [Namespacing CSS custom properties](guide/components/styling#namespacing-css-custom-properties)
  * @publicApi
  */
 declare function provideCssVarNamespacing(namespace?: string): EnvironmentProviders;
@@ -357,6 +358,7 @@ declare function disableThrowOnSyntheticProps(renderer: Renderer2): void;
  * This is useful when reading or setting CSS variables dynamically in JavaScript that
  * were transformed by the compiler during the build.
  *
+ * @see [Using namespaced properties in TypeScript](guide/components/styling#using-namespaced-properties-in-typescript)
  * @publicApi 22.1
  */
 declare class CssVarNamespacer {
