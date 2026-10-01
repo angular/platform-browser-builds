@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.3.0-next.0+sha-6b2e02e
+ * @license Angular v22.3.0-next.0+sha-0898844
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -350,6 +350,7 @@ declare class DomRendererFactory2 implements RendererFactory2, OnDestroy {
     static ɵfac: i0.ɵɵFactoryDeclaration<DomRendererFactory2, [null, null, null, null, null, null, null, { optional: true; }, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
+declare function disableThrowOnSyntheticProps(renderer: Renderer2): void;
 
 /**
  * A service that can be used to manually namespace CSS variable names at runtime.
@@ -788,5 +789,5 @@ declare const enum RuntimeErrorCode {
  */
 declare const VERSION: Version;
 
-export { By, CssVarNamespacer, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, HydrationFeatureKind, Meta, REMOVE_STYLES_ON_COMPONENT_DESTROY, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, provideCssVarNamespacing, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, KeyEventsPlugin as ɵKeyEventsPlugin, RuntimeErrorCode as ɵRuntimeErrorCode, SharedStylesHost as ɵSharedStylesHost };
+export { By, CssVarNamespacer, DomSanitizer, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, HydrationFeatureKind, Meta, REMOVE_STYLES_ON_COMPONENT_DESTROY, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, provideCssVarNamespacing, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, BrowserDomAdapter as ɵBrowserDomAdapter, BrowserGetTestability as ɵBrowserGetTestability, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, DomSanitizerImpl as ɵDomSanitizerImpl, KeyEventsPlugin as ɵKeyEventsPlugin, RuntimeErrorCode as ɵRuntimeErrorCode, SharedStylesHost as ɵSharedStylesHost, disableThrowOnSyntheticProps as ɵdisableThrowOnSyntheticProps };
 export type { HydrationFeature, MetaDefinition, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl, SafeValue };

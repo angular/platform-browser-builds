@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.3.0-next.0+sha-6b2e02e
+ * @license Angular v22.3.0-next.0+sha-0898844
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -10,7 +10,7 @@ export { ɵgetDOM } from '@angular/common';
 import * as i0 from '@angular/core';
 import { inject, ɵRuntimeError as _RuntimeError, Service, Inject, Injectable, ɵglobal as _global, ApplicationRef, makeEnvironmentProviders, ɵCACHE_ACTIVE as _CACHE_ACTIVE, APP_BOOTSTRAP_LISTENER, provideStabilityDebugging, ɵwithDomHydration as _withDomHydration, ɵwithIncrementalHydration as _withIncrementalHydration, ɵwithEventReplay as _withEventReplay, ɵwithI18nSupport as _withI18nSupport, ENVIRONMENT_INITIALIZER, ɵIS_ENABLED_BLOCKING_INITIAL_NAVIGATION as _IS_ENABLED_BLOCKING_INITIAL_NAVIGATION, ɵConsole as _Console, ɵformatRuntimeError as _formatRuntimeError, ɵXSS_SECURITY_URL as _XSS_SECURITY_URL, SecurityContext, ɵallowSanitizationBypassAndThrow as _allowSanitizationBypassAndThrow, ɵunwrapSafeValue as _unwrapSafeValue, ɵ_sanitizeUrl as __sanitizeUrl, ɵ_sanitizeHtml as __sanitizeHtml, ɵbypassSanitizationTrustHtml as _bypassSanitizationTrustHtml, ɵbypassSanitizationTrustStyle as _bypassSanitizationTrustStyle, ɵbypassSanitizationTrustScript as _bypassSanitizationTrustScript, ɵbypassSanitizationTrustUrl as _bypassSanitizationTrustUrl, ɵbypassSanitizationTrustResourceUrl as _bypassSanitizationTrustResourceUrl, forwardRef, Version } from '@angular/core';
 import { CSS_VAR_NAMESPACE } from './_dom_renderer-chunk.mjs';
-export { EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, REMOVE_STYLES_ON_COMPONENT_DESTROY, provideCssVarNamespacing, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, SharedStylesHost as ɵSharedStylesHost } from './_dom_renderer-chunk.mjs';
+export { EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, REMOVE_STYLES_ON_COMPONENT_DESTROY, provideCssVarNamespacing, DomEventsPlugin as ɵDomEventsPlugin, DomRendererFactory2 as ɵDomRendererFactory2, SharedStylesHost as ɵSharedStylesHost, disableThrowOnSyntheticProps as ɵdisableThrowOnSyntheticProps } from './_dom_renderer-chunk.mjs';
 import { ɵwithHttpTransferCache as _withHttpTransferCache } from '@angular/common/http';
 
 class Meta {
@@ -67,7 +67,7 @@ class Meta {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: Meta,
     deps: [],
@@ -75,14 +75,14 @@ class Meta {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: Meta
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: Meta,
   decorators: [{
@@ -136,7 +136,7 @@ class Title {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: Title,
     deps: [{
@@ -146,7 +146,7 @@ class Title {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: Title,
     providedIn: 'root'
@@ -154,7 +154,7 @@ class Title {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: Title,
   decorators: [{
@@ -259,7 +259,7 @@ class CssVarNamespacer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: CssVarNamespacer,
     deps: [],
@@ -267,14 +267,14 @@ class CssVarNamespacer {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: CssVarNamespacer
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: CssVarNamespacer,
   decorators: [{
@@ -375,7 +375,7 @@ function provideClientHydration(...features) {
 class DomSanitizer {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: DomSanitizer,
     deps: [],
@@ -383,7 +383,7 @@ class DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: DomSanitizer,
     providedIn: 'root',
@@ -392,7 +392,7 @@ class DomSanitizer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: DomSanitizer,
   decorators: [{
@@ -456,7 +456,7 @@ class DomSanitizerImpl extends DomSanitizer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: DomSanitizerImpl,
     deps: [],
@@ -464,14 +464,14 @@ class DomSanitizerImpl extends DomSanitizer {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: DomSanitizerImpl
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: DomSanitizerImpl,
   decorators: [{
@@ -479,7 +479,7 @@ i0.ɵɵngDeclareClassMetadata({
   }]
 });
 
-const VERSION = /* @__PURE__ */new Version('22.3.0-next.0+sha-6b2e02e');
+const VERSION = /* @__PURE__ */new Version('22.3.0-next.0+sha-0898844');
 
 export { By, CssVarNamespacer, DomSanitizer, HydrationFeatureKind, Meta, Title, VERSION, disableDebugTools, enableDebugTools, provideClientHydration, withEventReplay, withHttpTransferCacheOptions, withI18nSupport, withIncrementalHydration, withNoHttpTransferCache, withNoIncrementalHydration, DomSanitizerImpl as ɵDomSanitizerImpl };
 //# sourceMappingURL=platform-browser.mjs.map

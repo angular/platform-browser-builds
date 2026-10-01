@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.3.0-next.0+sha-6b2e02e
+ * @license Angular v22.3.0-next.0+sha-0898844
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, Injector, ɵRuntimeError as _RuntimeError, ɵChangeDetectionScheduler as _ChangeDetectionScheduler, Injectable, ɵperformanceMarkFeature as _performanceMarkFeature, makeEnvironmentProviders, RendererFactory2, ANIMATION_MODULE_TYPE, NgZone } from '@angular/core';
-import { DomRendererFactory2 } from './_dom_renderer-chunk.mjs';
+import { disableThrowOnSyntheticProps, DomRendererFactory2 } from './_dom_renderer-chunk.mjs';
 
 const ANIMATION_PREFIX = '@';
 class AsyncAnimationRendererFactory {
@@ -58,9 +58,7 @@ class AsyncAnimationRendererFactory {
     if (renderer.ɵtype === 0) {
       return renderer;
     }
-    if (typeof renderer.throwOnSyntheticProps === 'boolean') {
-      renderer.throwOnSyntheticProps = false;
-    }
+    disableThrowOnSyntheticProps(renderer);
     const dynamicRenderer = new DynamicDelegationRenderer(renderer);
     if (rendererType?.data?.['animation'] && !this._rendererFactoryPromise) {
       this._rendererFactoryPromise = this.loadImpl();
@@ -92,7 +90,7 @@ class AsyncAnimationRendererFactory {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: AsyncAnimationRendererFactory,
     deps: "invalid",
@@ -100,14 +98,14 @@ class AsyncAnimationRendererFactory {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: AsyncAnimationRendererFactory
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: AsyncAnimationRendererFactory,
   decorators: [{

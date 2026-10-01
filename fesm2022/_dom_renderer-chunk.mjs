@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.3.0-next.0+sha-6b2e02e
+ * @license Angular v22.3.0-next.0+sha-0898844
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -32,7 +32,7 @@ class DomEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: DomEventsPlugin,
     deps: [{
@@ -42,14 +42,14 @@ class DomEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: DomEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: DomEventsPlugin,
   decorators: [{
@@ -103,7 +103,7 @@ class EventManager {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: EventManager,
     deps: [{
@@ -115,14 +115,14 @@ class EventManager {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: EventManager
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: EventManager,
   decorators: [{
@@ -272,7 +272,7 @@ class SharedStylesHost {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: SharedStylesHost,
     deps: [{
@@ -289,14 +289,14 @@ class SharedStylesHost {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: SharedStylesHost
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: SharedStylesHost,
   decorators: [{
@@ -462,7 +462,7 @@ class DomRendererFactory2 {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: DomRendererFactory2,
     deps: [{
@@ -490,14 +490,14 @@ class DomRendererFactory2 {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0-next.0+sha-6b2e02e",
+    version: "22.3.0-next.0+sha-0898844",
     ngImport: i0,
     type: DomRendererFactory2
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-next.0+sha-6b2e02e",
+  version: "22.3.0-next.0+sha-0898844",
   ngImport: i0,
   type: DomRendererFactory2,
   decorators: [{
@@ -706,6 +706,11 @@ class DefaultDomRenderer2 {
     };
   }
 }
+function disableThrowOnSyntheticProps(renderer) {
+  if (renderer instanceof DefaultDomRenderer2) {
+    renderer.throwOnSyntheticProps = false;
+  }
+}
 const AT_CHARCODE = (() => '@'.charCodeAt(0))();
 function checkNoSyntheticProp(name, nameKind) {
   if (name.charCodeAt(0) === AT_CHARCODE) {
@@ -827,5 +832,5 @@ class EmulatedEncapsulationDomRenderer2 extends NoneEncapsulationDomRenderer {
   }
 }
 
-export { CSS_VAR_NAMESPACE, DomEventsPlugin, DomRendererFactory2, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, REMOVE_STYLES_ON_COMPONENT_DESTROY, SharedStylesHost, provideCssVarNamespacing };
+export { CSS_VAR_NAMESPACE, DomEventsPlugin, DomRendererFactory2, EVENT_MANAGER_PLUGINS, EventManager, EventManagerPlugin, REMOVE_STYLES_ON_COMPONENT_DESTROY, SharedStylesHost, disableThrowOnSyntheticProps, provideCssVarNamespacing };
 //# sourceMappingURL=_dom_renderer-chunk.mjs.map
