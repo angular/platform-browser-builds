@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.3.0-next.3+sha-37563fc-with-local-changes
+ * @license Angular v22.3.0-next.3+sha-2af465b-with-local-changes
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -59,7 +59,6 @@ type MetaDefinition = {
 declare class Meta {
     private readonly _doc;
     private readonly _dom;
-    private _cachedHead;
     /**
      * Retrieves or creates a specific `<meta>` tag element in the current HTML document.
      * In searching for an existing tag, Angular attempts to match the `name` or `property` attribute
