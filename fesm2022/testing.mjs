@@ -1,12 +1,12 @@
 /**
- * @license Angular v22.3.0-rc.0+sha-65ab63f
+ * @license Angular v22.3.0-rc.0+sha-d87264c
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import { ɵprovideFakePlatformNavigation as _provideFakePlatformNavigation } from '@angular/common/testing';
 import * as i0 from '@angular/core';
-import { Inject, Injectable, APP_ID, createPlatformFactory, NgModule } from '@angular/core';
+import { Inject, Injectable, APP_ID, ɵIS_TESTING as _IS_TESTING, createPlatformFactory, NgModule } from '@angular/core';
 import { TestComponentRenderer } from '@angular/core/testing';
 import { ɵgetDOM as _getDOM, DOCUMENT } from '@angular/common';
 import { BrowserModule, platformBrowser } from './_browser-chunk.mjs';
@@ -37,7 +37,7 @@ class DOMTestComponentRenderer extends TestComponentRenderer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-rc.0+sha-65ab63f",
+    version: "22.3.0-rc.0+sha-d87264c",
     ngImport: i0,
     type: DOMTestComponentRenderer,
     deps: [{
@@ -47,14 +47,14 @@ class DOMTestComponentRenderer extends TestComponentRenderer {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0-rc.0+sha-65ab63f",
+    version: "22.3.0-rc.0+sha-d87264c",
     ngImport: i0,
     type: DOMTestComponentRenderer
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-rc.0+sha-65ab63f",
+  version: "22.3.0-rc.0+sha-d87264c",
   ngImport: i0,
   type: DOMTestComponentRenderer,
   decorators: [{
@@ -73,7 +73,7 @@ const platformBrowserTesting = createPlatformFactory(platformBrowser, 'browserTe
 class BrowserTestingModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0-rc.0+sha-65ab63f",
+    version: "22.3.0-rc.0+sha-d87264c",
     ngImport: i0,
     type: BrowserTestingModule,
     deps: [],
@@ -81,19 +81,22 @@ class BrowserTestingModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.3.0-rc.0+sha-65ab63f",
+    version: "22.3.0-rc.0+sha-d87264c",
     ngImport: i0,
     type: BrowserTestingModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.3.0-rc.0+sha-65ab63f",
+    version: "22.3.0-rc.0+sha-d87264c",
     ngImport: i0,
     type: BrowserTestingModule,
     providers: [{
       provide: APP_ID,
       useValue: 'a'
+    }, {
+      provide: _IS_TESTING,
+      useValue: true
     }, _provideFakePlatformNavigation(), {
       provide: TestComponentRenderer,
       useClass: DOMTestComponentRenderer
@@ -103,7 +106,7 @@ class BrowserTestingModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0-rc.0+sha-65ab63f",
+  version: "22.3.0-rc.0+sha-d87264c",
   ngImport: i0,
   type: BrowserTestingModule,
   decorators: [{
@@ -113,6 +116,9 @@ i0.ɵɵngDeclareClassMetadata({
       providers: [{
         provide: APP_ID,
         useValue: 'a'
+      }, {
+        provide: _IS_TESTING,
+        useValue: true
       }, _provideFakePlatformNavigation(), {
         provide: TestComponentRenderer,
         useClass: DOMTestComponentRenderer
