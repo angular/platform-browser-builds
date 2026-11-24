@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.3.0+sha-b148ffd
+ * @license Angular v22.3.0+sha-b78757b
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -35,7 +35,7 @@ import { ɵAnimationEngine as _AnimationEngine, ɵAnimationRendererFactory as _A
  *
  * @publicApi
  *
- * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in a future version
  */
 declare function provideAnimationsAsync(type?: 'animations' | 'noop'): EnvironmentProviders;
 
