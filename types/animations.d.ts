@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.4.0-next.0+sha-b9bb8c0
+ * @license Angular v22.4.0-next.0+sha-4201783
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -15,7 +15,7 @@ import '@angular/common';
  * Object used to configure the behavior of {@link BrowserAnimationsModule}
  * @publicApi
  *
- * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in a future version
  */
 interface BrowserAnimationsModuleConfig {
     /**
@@ -29,7 +29,7 @@ interface BrowserAnimationsModuleConfig {
  * for use with animations. See [Animations](guide/animations).
  * @publicApi
  *
- * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in a future version
  */
 declare class BrowserAnimationsModule {
     /**
@@ -75,7 +75,7 @@ declare class BrowserAnimationsModule {
  *
  * @publicApi
  *
- * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in a future version
  *
  */
 declare function provideAnimations(): Provider[];
@@ -83,7 +83,7 @@ declare function provideAnimations(): Provider[];
  * A null player that must be imported to allow disabling of animations.
  * @publicApi
  *
- * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in a future version
  */
 declare class NoopAnimationsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<NoopAnimationsModule, never>;
@@ -111,7 +111,7 @@ declare class NoopAnimationsModule {
  *
  * @publicApi
  *
- * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in v23
+ * @deprecated 20.2 Use `animate.enter` or `animate.leave` instead. Intent to remove in a future version
  */
 declare function provideNoopAnimations(): Provider[];
 
