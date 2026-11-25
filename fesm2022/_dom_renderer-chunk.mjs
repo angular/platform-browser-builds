@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.3.0+sha-983d87d
+ * @license Angular v22.3.0+sha-4888ea3
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -32,7 +32,7 @@ class DomEventsPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0+sha-983d87d",
+    version: "22.3.0+sha-4888ea3",
     ngImport: i0,
     type: DomEventsPlugin,
     deps: [{
@@ -42,14 +42,14 @@ class DomEventsPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0+sha-983d87d",
+    version: "22.3.0+sha-4888ea3",
     ngImport: i0,
     type: DomEventsPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0+sha-983d87d",
+  version: "22.3.0+sha-4888ea3",
   ngImport: i0,
   type: DomEventsPlugin,
   decorators: [{
@@ -103,7 +103,7 @@ class EventManager {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0+sha-983d87d",
+    version: "22.3.0+sha-4888ea3",
     ngImport: i0,
     type: EventManager,
     deps: [{
@@ -115,14 +115,14 @@ class EventManager {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0+sha-983d87d",
+    version: "22.3.0+sha-4888ea3",
     ngImport: i0,
     type: EventManager
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0+sha-983d87d",
+  version: "22.3.0+sha-4888ea3",
   ngImport: i0,
   type: EventManager,
   decorators: [{
@@ -272,7 +272,7 @@ class SharedStylesHost {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0+sha-983d87d",
+    version: "22.3.0+sha-4888ea3",
     ngImport: i0,
     type: SharedStylesHost,
     deps: [{
@@ -289,14 +289,14 @@ class SharedStylesHost {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0+sha-983d87d",
+    version: "22.3.0+sha-4888ea3",
     ngImport: i0,
     type: SharedStylesHost
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0+sha-983d87d",
+  version: "22.3.0+sha-4888ea3",
   ngImport: i0,
   type: SharedStylesHost,
   decorators: [{
@@ -462,7 +462,7 @@ class DomRendererFactory2 {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.3.0+sha-983d87d",
+    version: "22.3.0+sha-4888ea3",
     ngImport: i0,
     type: DomRendererFactory2,
     deps: [{
@@ -490,14 +490,14 @@ class DomRendererFactory2 {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.3.0+sha-983d87d",
+    version: "22.3.0+sha-4888ea3",
     ngImport: i0,
     type: DomRendererFactory2
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.3.0+sha-983d87d",
+  version: "22.3.0+sha-4888ea3",
   ngImport: i0,
   type: DomRendererFactory2,
   decorators: [{
@@ -591,10 +591,14 @@ class DefaultDomRenderer2 {
   insertBefore(parent, newChild, refChild) {
     if (parent) {
       const targetParent = isTemplateNode(parent) ? parent.content : parent;
-      if (refChild != null && refChild.parentNode !== targetParent) {
-        throw new _RuntimeError(-5106, ngDevMode && `Angular could not insert a node before ${_describeDomNode(refChild)} because it is no longer a child of ${_describeDomNode(targetParent)}. ` + `This can happen when code outside of Angular's control (for example, a browser extension or a script that directly manipulates the DOM) ` + `has moved or removed a node that Angular is still managing.`);
+      try {
+        targetParent.insertBefore(newChild, refChild);
+      } catch (error) {
+        if (refChild != null && refChild.parentNode !== targetParent) {
+          throw new _RuntimeError(-5106, ngDevMode && `Angular could not insert a node before ${_describeDomNode(refChild)} because it is no longer a child of ${_describeDomNode(targetParent)}. ` + `This can happen when code outside of Angular's control (for example, a browser extension or a script that directly manipulates the DOM) ` + `has moved or removed a node that Angular is still managing.`);
+        }
+        throw error;
       }
-      targetParent.insertBefore(newChild, refChild);
     }
   }
   removeChild(_parent, oldChild) {
